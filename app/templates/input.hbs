@@ -1,0 +1,17 @@
+<ul id="main-container__input-gallery">
+
+    {{#view App.ImageLoaderView}}
+        Import Image
+    {{/view}}
+
+    {{#each image in controller}}
+        {{#view App.DeferedThumbnailView controller=image}}
+            {{#if dataurl}}
+                <img {{bind-attr src=dataurl class="isHorizontal:is_horizontal:is_vertical"}}>
+            {{else}}
+                <div class="image-loading">Loading</div>
+            {{/if}}
+        {{/view}}
+    {{/each}}
+
+</ul>

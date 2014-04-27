@@ -38,59 +38,21 @@ function showGrayscale(img) {
     document.body.appendChild(canvas);
 }
 
-function getBundler(){
+
+function getGLCanvas(){
 
 }
 
-function getMVS(){}
-
-function renderSIFT(){}
-
-function renderSparse(canvas, points, cameras) {
-
-    var shape1, shape2, model, scene, context;
-
-    model = seen.Models.default();
-
-    shape1 = seen.Shapes.tetrahedron();
-    shape2 = seen.Shape('my shape', [new seen.Shapes.Surface([
-        seen.P(0,0,0),
-        seen.P(0,1,0),
-        seen.P(1,0,0)
-    ])]);
-    model.add(shape2);
-
-    scene = new seen.Scene({
-        model: model,
-        camera: new seen.Camera({
-            viewport: seen.Viewports.center(),
-            projection: seen.Projections.perspective()
-        })
-    });
-
-    context = seen.Context(canvas);
-    context.sceneLayer(scene);
-    context.render();
-
-    context = seen.Context(canvas, scene);
-    context.render();
-
+/**
+ *
+ * @param {string} imageName
+ * @param {function} callback
+ */
+function getSiftSample(imageName, callback) {
+    $.getJSON('/dataset/sift.json/'+imageName+'.json').done(callback);
 }
 
-function renderDense(points, cameras){}
+function getBundlerSample(){
 
-
-function webglTest(){
-
-    var canvas = document.createElement('canvas');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    var gl = canvas.getContext('experimental-webgl');
-
-    var VERTEX = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, VERTEX);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(points), gl.STATIC_DRAW);
-
-    gl.flush();
 
 }

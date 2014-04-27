@@ -1,8 +1,14 @@
 {
     "name": "websfm",
     "version": "0.0.0",
+    "proxy":"http://localhost:8087",
+    "https-proxy":"http://localhost:8087",
     "dependencies": {
-        "jquery": "latest"
+        "jquery": "latest",
+        "underscore": "latest",
+        "ember": "latest",
+        "numericjs": "latest",
+        "threejs": "latest"
     },
     "devDependencies": {}
 }

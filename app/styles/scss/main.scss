@@ -1,0 +1,119 @@
+@import "compass";
+
+%frame {
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  @extend %frame;
+}
+
+#main-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(228, 228, 228);
+}
+
+#controll-panel {
+  position: absolute;
+  width: 20em;
+  height: 90%;
+  @extend %frame;
+  top: 5%;
+  right: 3em;
+  background-color: silver;
+  @include box-shadow(0 0 10px 3px rgba(0, 0, 0, 0.49));
+}
+
+#main-container__input-gallery {
+  @extend %frame;
+  list-style: none;
+}
+
+.main-container__input-gallery__item {
+  display: inline-block;
+  vertical-align: top;
+  width: 200px;
+  height: 200px;
+}
+
+.main-container__input-gallery__input {
+  background-color: #FFFFFF;
+}
+
+
+.main-container__input-gallery__image {
+  overflow: hidden;
+
+  img.is_horizontal {
+    height: 200px;
+  }
+
+  img.is_vertical {
+    width: 200px;
+  }
+}
+
+//===========================================
+
+
+%controll-panel__level1 {
+  background-color: grey;
+  border-top: 1px solid rgb(82, 82, 82);
+}
+
+#controll-panel__header {
+  background-color: #333333;
+  height: 2em;
+}
+
+#controll-panel__input {
+  @extend %controll-panel__level1;
+
+    border-top: 0 !important;
+
+  > div {
+    min-height: 5em;
+    border-left: 10px solid yellowgreen;
+  }
+}
+
+#controll-panel__phases {
+
+  @extend %controll-panel__level1;
+
+  > div {
+    border-left: 10px solid darkgreen;
+  }
+}
+
+.controll-panel__phase {
+  background-color: darkgrey;
+  border-top: 1px solid rgb(206, 206, 206);
+
+  > div {
+    min-height: 5em;
+  }
+}
+
+#controll-panel__sift {
+    border-top: 0 !important;
+}
+
+#controll-panel__sift > div {
+    border-left: 10px solid lightblue;
+}
+
+
+#controll-panel__bundler > div {
+    border-left: 10px solid dodgerblue;
+}
+
+#controll-panel__mvs > div {
+    border-left: 10px solid darkblue;
+}

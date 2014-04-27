@@ -1,14 +1,11 @@
 'use strict';
 
+jQuery.event.props.push( "dataTransfer" );
+
 window.App = Ember.Application.create({
     LOG_TRANSITIONS: true
 });
 
-App.Router.map(function() {
-    this.route('index');
-});
-
-App.ApplicationRoute = Ember.Route.extend({
-
-
-});
+App.Data = {
+    images: Ember.A()
+};

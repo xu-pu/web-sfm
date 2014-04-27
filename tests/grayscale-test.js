@@ -1,7 +1,7 @@
 "use strict";
 
 
-loadImage('T48F9A3.jpg', function(img) {
+loadImage('images/T48F9A3.jpg', function(img) {
     var ctx = getCanvas(img);
     var imgData = ctx.getImageData(0, 0, img.width, img.height);
     var gray = new Grayscale('canvas', { canvas: imgData });
