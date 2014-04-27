@@ -35,48 +35,61 @@ IDBAdapter.createStores = function(db){
 /**
  *
  * @param {File} file
- * @param {function} callback
+ * @return {Ember.RSVP.Promise}
  */
-IDBAdapter.processImageFile = function(file, callback){
-    var reader = new FileReader();
-    reader.onload = function(){
-        var img = document.createElement('img');
-        img.onload = function(){
-            var trans = IDBAdapter.db.transaction(['images', 'fullimages', 'thumbnails'], 'readwrite');
-            trans.objectStore('images').add({
-                filename: file.name,
-                width: img.width,
-                height: img.height
-            }).onsuccess = function(e){
-                var _id = e.target.result;
-                trans.objectStore('fullimages').add(reader.result, _id).onsuccess = function(){
-                    var canvas = document.createElement('canvas');
-                    var ctx = canvas.getContext('2d');
-                    var aspectRatio = img.width/img.height;
-                    canvas.width = 200;
-                    canvas.height = 200;
-                    if (aspectRatio > 1) {
-                        ctx.drawImage(img, 0, 0, 200*aspectRatio, 200);
+IDBAdapter.processImageFile = function(file){
+    return new Ember.RSVP.Promise(function(resolve, reject){
+        var reader = new FileReader();
+        reader.onload = function(){
+            var img = document.createElement('img');
+            img.onload = function(){
+                var trans = IDBAdapter.db.transaction(['images', 'fullimages', 'thumbnails'], 'readwrite');
+                trans.objectStore('images').add({
+                    filename: file.name,
+                    width: img.width,
+                    height: img.height
+                }).onsuccess = function(e){
+                    var _id = e.target.result;
+                    trans.objectStore('fullimages').add(reader.result, _id).onsuccess = function(){
+                        var canvas = document.createElement('canvas');
+                        var ctx = canvas.getContext('2d');
+                        var aspectRatio = img.width/img.height;
+                        canvas.width = 200;
+                        canvas.height = 200;
+                        if (aspectRatio > 1) {
+                            ctx.drawImage(img, 0, 0, 200*aspectRatio, 200);
+                        }
+                        else {
+                            ctx.drawImage(img, 0, 0, 200, 200*aspectRatio);
+                        }
+                        trans.objectStore('thumbnails').add(canvas.toDataURL(), _id).onsuccess = function(){
+                            resolve(_id);
+                        }
                     }
-                    else {
-                        ctx.drawImage(img, 0, 0, 200, 200*aspectRatio);
-                    }
-                    trans.objectStore('thumbnails').add(canvas.toDataURL(), _id).onsuccess = function(){
-                        callback(_id);
-                    }
-                }
+                };
             };
+            img.src = reader.result;
         };
-        img.src = reader.result;
-    };
-    reader.readAsDataURL(file);
+        reader.readAsDataURL(file);
+    });
+
 };
 
-IDBAdapter.getData = function(store, key, callback){
-    IDBAdapter.db
-        .transaction([store])
-        .objectStore(store)
-        .get(key).onsuccess = function(e){
-        callback(e.target.result);
-    };
+
+/**
+ *
+ * @param store
+ * @param key
+ * @return {Ember.RSVP.Promise}
+ */
+IDBAdapter.getData = function(store, key){
+    return new Ember.RSVP.Promise(function(resolve, reject){
+        IDBAdapter.db
+            .transaction(store)
+            .objectStore(store)
+            .get(key)
+            .onsuccess = function(e){
+            resolve(e.target.result);
+        };
+    });
 };

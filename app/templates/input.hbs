@@ -4,14 +4,14 @@
         Import Image
     {{/view}}
 
-    {{#each image in controller}}
-        {{#view App.DeferedThumbnailView controller=image}}
-            {{#if dataurl}}
-                <img {{bind-attr src=dataurl class="isHorizontal:is_horizontal:is_vertical"}}>
+    {{#each controller}}
+        <div class="main-container__input-gallery__item main-container__input-gallery__image">
+            {{#if isReady}}
+                <img {{bind-attr src=thumbnail}}>
             {{else}}
                 <div class="image-loading">Loading</div>
             {{/if}}
-        {{/view}}
+        </div>
     {{/each}}
 
 </ul>

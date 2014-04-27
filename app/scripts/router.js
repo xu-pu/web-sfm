@@ -3,7 +3,7 @@
 App.Router.map(function() {
     this.resource('input', function(){
         this.route('index');
-        this.route('image', { path: '' })
+//        this.resource('images', { path: '/images/:id' });
     });
 });
 
@@ -26,11 +26,10 @@ App.InputIndexRoute = Ember.Route.extend({
 });
 
 
+App.InputImagesRoute = Ember.Route.extend({
 
-App.InputImageRoute = Ember.Route.extend({
+    model: function(params){
 
-    model: function(){
-        return App.Data.images;
     }
 
 });

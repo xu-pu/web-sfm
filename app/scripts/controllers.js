@@ -15,7 +15,4 @@ App.InputController = Ember.ArrayController.extend({
     itemController: 'image'
 });
 
-App.ImageController = Ember.ObjectController.extend({
-
-
-});
+App.ImageController = Ember.ObjectController.extend();

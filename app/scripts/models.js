@@ -8,6 +8,8 @@ App.Image = Ember.Object.extend({
 
     filename: null,
 
+    thumbnail: null,
+
     isReady: false,
 
     width: null,
@@ -17,13 +19,6 @@ App.Image = Ember.Object.extend({
     isHorizontal: function(){
         return this.get('width') > this.get('height');
     }.property('width', 'height'),
-
-    thumbnail: function(){
-        return new Ember.RSVP.Promise(function(resolve, reject){
-            IDBAdapter.getData('thumbmails', this.get('_id'), resolve);
-            Ember.Logger.debug('made a thumnail promise');
-        });
-    }.property('_id'),
 
     fullimage: function(){
         return new Ember.RSVP.Promise(function(resolve, reject){
@@ -35,7 +30,7 @@ App.Image = Ember.Object.extend({
     init: function(){
         Ember.Logger.debug('image model initialized');
         if (this.get('file')) {
-            IDBAdapter.processImageFile(this.get('file'), _.bind(this.afterReady, this));
+            IDBAdapter.processImageFile(this.get('file')).then(_.bind(this.afterReady, this));
             Ember.Logger.debug('process begins');
         }
         else if (this.get('_id')){
@@ -49,12 +44,15 @@ App.Image = Ember.Object.extend({
     afterReady: function(_id){
         Ember.Logger.debug('image stored');
         this.set('_id', _id);
-        IDBAdapter.getData('images', _id, _.bind(function(img){
+        IDBAdapter.getData('images', _id).then(_.bind(function(img){
             this.set('width', img.width);
             this.set('height', img.height);
             this.set('filename', img.filename);
-            this.set('isReady', true);
-            Ember.Logger.debug('image ready');
+            IDBAdapter.getData('thumbnails', _id).then(_.bind(function(thumbnail){
+                this.set('thumbnail', thumbnail);
+                this.set('isReady', true);
+                Ember.Logger.debug('image ready');
+            }, this));
         }, this));
     }
 });

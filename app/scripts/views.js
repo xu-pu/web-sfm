@@ -35,46 +35,6 @@ App.ImageLoaderView = Ember.View.extend({
 
 });
 
-App.DeferedThumbnailView = Ember.View.extend({
-
-    tagName: 'div',
-
-    classNames: [
-        'main-container__input-gallery__item',
-        'main-container__input-gallery__image'
-    ],
-
-    dataurl: null,
-
-    didInsertElement: function(){
-        console.log(this.controller.get('model').get('isReady'));
-        if (this.controller.get('model').get('isReady')){
-            this.afterImageReady();
-        }
-        else {
-            this.addObserver('isReady', this.controller.get('model'), function(sender, key, value, rev){
-                Ember.Logger.debug('image ready detected');
-                this.afterImageReady();
-            }, this);
-        }
-    },
-
-    init: function(){
-        Ember.Logger.debug('thumnail view initialize');
-    },
-
-    afterImageReady: function(){
-        this.get('thumbnail').then(
-            _.bind(function(data){
-                Ember.Logger.debug('thumnail promise fullfilled');
-                this.set('dataurl', data);
-            }, this),
-            function(){
-                throw 'failed to fetch thumbnail';
-            }
-        );
-    }
-});
 
 App.MvsView = Ember.View.extend({
 
