@@ -1,0 +1,877 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="eaf60c22-be99-4b50-a303-6483ef7d3c8b" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/3d-scene-test.html" afterPath="$PROJECT_DIR$/tests/3d-scene-test.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/3d-scene-test.js" afterPath="$PROJECT_DIR$/tests/3d-scene-test.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gruntfile.js" afterPath="$PROJECT_DIR$/Gruntfile.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/application.hbs" afterPath="$PROJECT_DIR$/app/templates/application.hbs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/application.js" afterPath="$PROJECT_DIR$/app/scripts/application.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bower.json" afterPath="$PROJECT_DIR$/bower.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/panels/bundler.hbs" afterPath="$PROJECT_DIR$/app/templates/panels/bundler.hbs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/SFM/bundler.js" afterPath="$PROJECT_DIR$/app/scripts/SFM/bundler.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/controllers.js" afterPath="$PROJECT_DIR$/app/scripts/controllers.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/controllpanel.hbs" afterPath="$PROJECT_DIR$/app/templates/controllpanel.hbs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/dbadapter.js" afterPath="$PROJECT_DIR$/app/scripts/dbadapter.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/grayscale-test.html" afterPath="$PROJECT_DIR$/tests/grayscale-test.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/grayscale-test.js" afterPath="$PROJECT_DIR$/tests/grayscale-test.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/image-loader-test.html" afterPath="$PROJECT_DIR$/tests/image-loader-test.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/image-loader-test.js" afterPath="$PROJECT_DIR$/tests/image-loader-test.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/index.build.html" afterPath="$PROJECT_DIR$/app/index.build.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/index.html" afterPath="$PROJECT_DIR$/app/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/input.hbs" afterPath="$PROJECT_DIR$/app/templates/input.hbs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/panels/input.hbs" afterPath="$PROJECT_DIR$/app/templates/panels/input.hbs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/styles/scss/main.scss" afterPath="$PROJECT_DIR$/app/styles/scss/main.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/models.js" afterPath="$PROJECT_DIR$/app/scripts/models.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/panels/mvs.hbs" afterPath="$PROJECT_DIR$/app/templates/panels/mvs.hbs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/mvs_convertor.py" afterPath="$PROJECT_DIR$/utils/mvs_convertor.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/numeric-test.html" afterPath="$PROJECT_DIR$/tests/numeric-test.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/numeric-test.js" afterPath="$PROJECT_DIR$/tests/numeric-test.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/octave-space-test.html" afterPath="$PROJECT_DIR$/tests/octave-space-test.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/octave-space-test.js" afterPath="$PROJECT_DIR$/tests/octave-space-test.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/router.js" afterPath="$PROJECT_DIR$/app/scripts/router.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/shortcuts.js" afterPath="$PROJECT_DIR$/app/scripts/shortcuts.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/panels/sift.hbs" afterPath="$PROJECT_DIR$/app/templates/panels/sift.hbs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/sift_convertor.py" afterPath="$PROJECT_DIR$/utils/sift_convertor.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/views.js" afterPath="$PROJECT_DIR$/app/scripts/views.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/web-sfm.iml" afterPath="$PROJECT_DIR$/.idea/web-sfm.iml" />
+    </list>
+    <ignored path="web-sfm.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="web-sfm" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf />
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/webSIFT/tests/tests.js" />
+        <option value="$PROJECT_DIR$/webSIFT/tests/octave-space-test.html" />
+        <option value="$PROJECT_DIR$/webSIFT/tests/octave-space-test.js" />
+        <option value="$PROJECT_DIR$/webSIFT/websift.js" />
+        <option value="$PROJECT_DIR$/visualize.js" />
+        <option value="$PROJECT_DIR$/.bowerrc" />
+        <option value="$PROJECT_DIR$/app/imageloader.js" />
+        <option value="$PROJECT_DIR$/tests/grayscale-test.js" />
+        <option value="$PROJECT_DIR$/tests/octave-space-test.js" />
+        <option value="$PROJECT_DIR$/app/visualize.js" />
+        <option value="$PROJECT_DIR$/app/websift.js" />
+        <option value="$PROJECT_DIR$/app/utils.js" />
+        <option value="$PROJECT_DIR$/app/shortcuts.js" />
+        <option value="$PROJECT_DIR$/utils/sample_generator.py" />
+        <option value="$PROJECT_DIR$/app/index.html" />
+        <option value="$PROJECT_DIR$/app/application.js" />
+        <option value="$PROJECT_DIR$/app/styles/main.css" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/app/templates/controllPanel.hbs" />
+        <option value="$PROJECT_DIR$/app/templates/index.hbs" />
+        <option value="$PROJECT_DIR$/app/index.build.html" />
+        <option value="$PROJECT_DIR$/app/scripts/websift.js" />
+        <option value="$PROJECT_DIR$/app/templates/application.hbs" />
+        <option value="$PROJECT_DIR$/app/templates/panels/input.hbs" />
+        <option value="$PROJECT_DIR$/app/templates/panels/bundler.hbs" />
+        <option value="$PROJECT_DIR$/app/templates/panels/mvs.hbs" />
+        <option value="$PROJECT_DIR$/app/templates/panels/sift.hbs" />
+        <option value="$PROJECT_DIR$/app/templates/controllpanel.hbs" />
+        <option value="$PROJECT_DIR$/app/styles/scss/main.scss" />
+        <option value="$PROJECT_DIR$/app/scripts/router.js" />
+        <option value="$PROJECT_DIR$/utils/sift_convertor.py" />
+        <option value="$PROJECT_DIR$/tests/numeric-test.html" />
+        <option value="$PROJECT_DIR$/tests/numeric-test.js" />
+        <option value="$PROJECT_DIR$/venders/numericjs/src/svd.js" />
+        <option value="$PROJECT_DIR$/app/scripts/utils.js" />
+        <option value="$PROJECT_DIR$/app/scripts/application.js" />
+        <option value="$PROJECT_DIR$/tests/image-loader-test.js" />
+        <option value="$PROJECT_DIR$/tests/image-loader-test.html" />
+        <option value="$PROJECT_DIR$/app/scripts/SFM/bundler.js" />
+        <option value="$PROJECT_DIR$/Gruntfile.js" />
+        <option value="$PROJECT_DIR$/bower.json" />
+        <option value="$PROJECT_DIR$/app/scripts/shortcuts.js" />
+        <option value="$PROJECT_DIR$/tests/3d-scene-test.html" />
+        <option value="$PROJECT_DIR$/utils/mvs_convertor.py" />
+        <option value="$PROJECT_DIR$/app/templates/mvs.hbs" />
+        <option value="$PROJECT_DIR$/tests/3d-scene-test.js" />
+        <option value="$PROJECT_DIR$/app/scripts/dbadapter.js" />
+        <option value="$PROJECT_DIR$/app/scripts/models.js" />
+        <option value="$PROJECT_DIR$/app/templates/input.hbs" />
+        <option value="$PROJECT_DIR$/app/scripts/views.js" />
+        <option value="$PROJECT_DIR$/app/scripts/controllers.js" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="y" value="27" />
+    <option name="width" value="1920" />
+    <option name="height" value="1053" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Python</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>PyPep8Inspection</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="2" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="venders" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="venders" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="imageinfo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="utils" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SFM" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/venders/typedef/ember.d.ts" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="options.lastSelected" value="JavaScript.Libraries" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="options.splitter.details.proportions" value="0.38232931" />
+    <property name="options.searchVisible" value="true" />
+    <property name="JavaScriptLanguageLevel" value="ES5" />
+    <property name="JavaScriptPreferStrict" value="true" />
+    <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
+    <property name="FullScreen" value="false" />
+    <property name="SearchEverywhereHistory" value="" />
+    <property name="recentsLimit" value="5" />
+    <property name="restartRequiresConfirmation" value="true" />
+    <property name="DefaultHtmlFileTemplate" value="Html5" />
+    <property name="LayoutCode.rearrangeEntriesJavaScript 1.5" value="false" />
+  </component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings />
+    </option>
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/scripts/SFM" />
+      <recent name="$PROJECT_DIR$/app/styles/scss" />
+      <recent name="$PROJECT_DIR$/app/scripts" />
+      <recent name="$PROJECT_DIR$/tests/images" />
+      <recent name="$PROJECT_DIR$/app" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JavaScript Debug.octave-space-test.html">
+    <configuration default="false" name="index.html" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true" temporary="true" uri="http://localhost:63342/web-sfm/webSIFT/tests/index.html">
+      <RunnerSettings RunnerId="JavascriptDebugRunner" />
+      <ConfigurationWrapper RunnerId="JavascriptDebugRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="octave-space-test.html" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true" temporary="true" uri="http://localhost:63342/web-sfm/webSIFT/tests/octave-space-test.html">
+      <RunnerSettings RunnerId="JavascriptDebugRunner" />
+      <ConfigurationWrapper RunnerId="JavascriptDebugRunner" />
+      <method />
+    </configuration>
+    <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="web-sfm" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="TARGET" value="" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="py.test">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="web-sfm" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="testToRun" value="" />
+      <option name="keywords" value="" />
+      <option name="params" value="" />
+      <option name="USE_PARAM" value="false" />
+      <option name="USE_KEYWORD" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Nosetests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="web-sfm" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="web-sfm" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="web-sfm" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="web-sfm" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Attests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="web-sfm" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.index.html" />
+      <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.octave-space-test.html" />
+    </list>
+    <recent_temporary>
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.octave-space-test.html" />
+        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.index.html" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="all">
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="mySSHConnectionTimeout" value="30000" />
+    <option name="mySSHReadTimeout" value="30000" />
+    <option name="LAST_MERGED_REVISION" />
+    <option name="MERGE_DRY_RUN" value="false" />
+    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
+    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
+    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
+    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
+    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
+    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
+    <option name="FORCE_UPDATE" value="false" />
+    <option name="IGNORE_EXTERNALS" value="false" />
+    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="eaf60c22-be99-4b50-a303-6483ef7d3c8b" name="Default" comment="" />
+      <created>1396191037931</created>
+      <updated>1396191037931</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="27" width="1920" height="1053" extended-state="1" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32959402" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25641027" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20213903" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39934713" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861805" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297062" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861805" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="myTodoPanelSettings">
+      <TodoPanelSettings />
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="31" />
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript5.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="70" column="7" selection-start="1125" selection-end="1125" vertical-scroll-proportion="0.34157303" vertical-offset="956" max-vertical-offset="3438" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="885" />
+      </provider>
+      <provider selected="true" editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/grayscale-test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="0" selection-start="194" selection-end="194" vertical-scroll-proportion="0.20857474" vertical-offset="0" max-vertical-offset="863" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/octave-space-test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="34" selection-start="190" selection-end="190" vertical-scroll-proportion="0.12529002" vertical-offset="0" max-vertical-offset="862" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.bowerrc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="1" selection-start="30" selection-end="30" vertical-scroll-proportion="0.040494937" vertical-offset="0" max-vertical-offset="889" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venders/ember/ember.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-759.6228" vertical-offset="646439" max-vertical-offset="778338" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="25" selection-start="175" selection-end="175" vertical-scroll-proportion="0.13249211" vertical-offset="0" max-vertical-offset="951" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/SFM/websift.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="0" selection-start="146" selection-end="146" vertical-scroll-proportion="0.20247468" vertical-offset="0" max-vertical-offset="7506" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/panels/mvs.hbs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="8" selection-start="8" selection-end="8" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="862" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/panels/bundler.hbs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="24" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="108" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/panels/sift.hbs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="9" selection-start="9" selection-end="9" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="862" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/application.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="171" column="9" selection-start="3596" selection-end="3596" vertical-scroll-proportion="3.5208333" vertical-offset="36" max-vertical-offset="12366" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/grayscale-test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="6" selection-start="22" selection-end="22" vertical-scroll-proportion="0.060742408" vertical-offset="0" max-vertical-offset="889" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/application.hbs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="46" selection-start="88" selection-end="88" vertical-scroll-proportion="0.020881671" vertical-offset="0" max-vertical-offset="862" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/octave-space-test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="21" selection-start="69" selection-end="69" vertical-scroll-proportion="0.020247469" vertical-offset="0" max-vertical-offset="889" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/controllpanel.hbs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="79" selection-start="377" selection-end="377" vertical-scroll-proportion="0.12903225" vertical-offset="0" max-vertical-offset="837" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/styles/scss/main.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="12" selection-start="861" selection-end="861" vertical-scroll-proportion="0.77030164" vertical-offset="362" max-vertical-offset="2232" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venders/numericjs/src/numeric.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-54.859394" vertical-offset="48770" max-vertical-offset="58842" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venders/numericjs/myworker.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="954" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venders/numericjs/src/sparse2.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.3284589" vertical-offset="1181" max-vertical-offset="2556" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venders/numericjs/src/svd.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="4" selection-start="591" selection-end="591" vertical-scroll-proportion="0.3847019" vertical-offset="0" max-vertical-offset="5364" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/numeric-test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="48" selection-start="287" selection-end="287" vertical-scroll-proportion="0.14617169" vertical-offset="0" max-vertical-offset="862" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venders/typedef/IndexedDB.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="66" column="26" selection-start="1417" selection-end="1423" vertical-scroll-proportion="0.3329453" vertical-offset="902" max-vertical-offset="11052">
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venders/imageinfo/readme.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="889" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venders/imageinfo/binaryajax.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="102" column="42" selection-start="2649" selection-end="2649" vertical-scroll-proportion="0.0" vertical-offset="1404" max-vertical-offset="4338" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venders/imageinfo/exif.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="407" column="25" selection-start="12400" selection-end="12400" vertical-scroll-proportion="1.8908887" vertical-offset="5573" max-vertical-offset="11106" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venders/imageinfo/imageinfo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="18" selection-start="356" selection-end="356" vertical-scroll-proportion="0.121484816" vertical-offset="108" max-vertical-offset="3312">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="0" selection-start="122" selection-end="122" vertical-scroll-proportion="-4.6666665" vertical-offset="0" max-vertical-offset="270" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/index.build.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="30" selection-start="231" selection-end="231" vertical-scroll-proportion="0.16705337" vertical-offset="0" max-vertical-offset="862" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/numeric-test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="13" selection-start="13" selection-end="13" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="828">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/image-loader-test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="0" selection-start="599" selection-end="599" vertical-scroll-proportion="0.35416666" vertical-offset="0" max-vertical-offset="864" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/image-loader-test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="39" selection-start="440" selection-end="440" vertical-scroll-proportion="0.29234338" vertical-offset="0" max-vertical-offset="862" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/application.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="0" selection-start="168" selection-end="168" vertical-scroll-proportion="0.22272216" vertical-offset="0" max-vertical-offset="889" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/SFM/bundler.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="3" selection-start="50" selection-end="50" vertical-scroll-proportion="0.080989875" vertical-offset="0" max-vertical-offset="3798" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Gruntfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="12" selection-start="589" selection-end="589" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2214">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/3d-scene-test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="54" selection-start="165" selection-end="165" vertical-scroll-proportion="0.10440835" vertical-offset="0" max-vertical-offset="862">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/panels/input.hbs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="33" selection-start="33" selection-end="33" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="862">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/shortcuts.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="5" selection-start="1019" selection-end="1019" vertical-scroll-proportion="0.70866144" vertical-offset="0" max-vertical-offset="1134">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/sift_convertor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="0" selection-start="85" selection-end="85" vertical-scroll-proportion="-0.012373453" vertical-offset="137" max-vertical-offset="1026">
+          <folding>
+            <element signature="e#19#28#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/mvs_convertor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="0" selection-start="272" selection-end="272" vertical-scroll-proportion="0.24296963" vertical-offset="0" max-vertical-offset="889">
+          <folding>
+            <element signature="e#19#30#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/router.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="0" selection-start="492" selection-end="492" vertical-scroll-proportion="0.688414" vertical-offset="0" max-vertical-offset="889">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/3d-scene-test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="56" column="0" selection-start="1601" selection-end="1601" vertical-scroll-proportion="0.47356582" vertical-offset="587" max-vertical-offset="1566">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bower.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="0" selection-start="331" selection-end="331" vertical-scroll-proportion="0.29234338" vertical-offset="0" max-vertical-offset="862">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/models.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="0" selection-start="1445" selection-end="1445" vertical-scroll-proportion="0.75703037" vertical-offset="299" max-vertical-offset="1188">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/dbadapter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="79" column="0" selection-start="2695" selection-end="2695" vertical-scroll-proportion="0.83802027" vertical-offset="677" max-vertical-offset="1566">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/views.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="70" selection-start="1208" selection-end="1208" vertical-scroll-proportion="0.49381328" vertical-offset="533" max-vertical-offset="2484">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/controllers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="0" selection-start="323" selection-end="323" vertical-scroll-proportion="0.36445445" vertical-offset="0" max-vertical-offset="889">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/input.hbs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="57" selection-start="290" selection-end="290" vertical-scroll-proportion="0.18793504" vertical-offset="0" max-vertical-offset="862">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
+
