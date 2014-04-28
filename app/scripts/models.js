@@ -28,7 +28,6 @@ App.Image = Ember.Object.extend({
 
 
     init: function(){
-        Ember.Logger.debug('image model initialized');
         if (this.get('file')) {
             IDBAdapter.processImageFile(this.get('file')).then(_.bind(this.afterSaved, this));
             Ember.Logger.debug('process begins');

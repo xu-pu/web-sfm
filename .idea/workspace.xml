@@ -2,15 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eaf60c22-be99-4b50-a303-6483ef7d3c8b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gruntfile.js" afterPath="$PROJECT_DIR$/Gruntfile.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/templates/images.hbs" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/application.js" afterPath="$PROJECT_DIR$/app/scripts/application.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/controllers.js" afterPath="$PROJECT_DIR$/app/scripts/controllers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/dbadapter.js" afterPath="$PROJECT_DIR$/app/scripts/dbadapter.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/input.hbs" afterPath="$PROJECT_DIR$/app/templates/input.hbs" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/models.js" afterPath="$PROJECT_DIR$/app/scripts/models.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/panels/mvs.hbs" afterPath="$PROJECT_DIR$/app/templates/panels/mvs.hbs" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/router.js" afterPath="$PROJECT_DIR$/app/scripts/router.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/views.js" afterPath="$PROJECT_DIR$/app/scripts/views.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="web-sfm.iws" />
@@ -33,71 +30,7 @@
     <favorites_list name="web-sfm" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="application.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/scripts/application.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="25" selection-start="124" selection-end="124" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="models.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/scripts/models.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="49" selection-start="759" selection-end="759" vertical-scroll-proportion="0.0" vertical-offset="335" max-vertical-offset="1224">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="input.hbs" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/templates/input.hbs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="29" selection-start="260" selection-end="260" vertical-scroll-proportion="-5.3333335" vertical-offset="0" max-vertical-offset="396">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="controllers.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/scripts/controllers.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="42" selection-start="159" selection-end="159" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="504">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/scripts/views.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="41" selection-start="565" selection-end="565" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3060">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dbadapter.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/scripts/dbadapter.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="53" column="36" selection-start="1672" selection-end="1672" vertical-scroll-proportion="-0.39707536" vertical-offset="1307" max-vertical-offset="2196">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="router.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/scripts/router.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="27" selection-start="292" selection-end="292" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="882">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -115,8 +48,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/webSIFT/tests/tests.js" />
-        <option value="$PROJECT_DIR$/webSIFT/tests/octave-space-test.html" />
         <option value="$PROJECT_DIR$/webSIFT/tests/octave-space-test.js" />
         <option value="$PROJECT_DIR$/webSIFT/websift.js" />
         <option value="$PROJECT_DIR$/visualize.js" />
@@ -157,15 +88,17 @@
         <option value="$PROJECT_DIR$/utils/mvs_convertor.py" />
         <option value="$PROJECT_DIR$/app/templates/mvs.hbs" />
         <option value="$PROJECT_DIR$/tests/3d-scene-test.js" />
-        <option value="$PROJECT_DIR$/app/scripts/controllers.js" />
         <option value="$PROJECT_DIR$/app/templates/panels/mvs.hbs" />
         <option value="$PROJECT_DIR$/Gruntfile.js" />
         <option value="$PROJECT_DIR$/app/scripts/views.js" />
-        <option value="$PROJECT_DIR$/app/scripts/application.js" />
+        <option value="$PROJECT_DIR$/app/scripts/dbadapter.js" />
         <option value="$PROJECT_DIR$/app/scripts/models.js" />
         <option value="$PROJECT_DIR$/app/templates/input.hbs" />
+        <option value="$PROJECT_DIR$/app/templates/input/images.hbs" />
+        <option value="$PROJECT_DIR$/app/templates/images.hbs" />
+        <option value="$PROJECT_DIR$/app/scripts/controllers.js" />
+        <option value="$PROJECT_DIR$/app/scripts/application.js" />
         <option value="$PROJECT_DIR$/app/scripts/router.js" />
-        <option value="$PROJECT_DIR$/app/scripts/dbadapter.js" />
       </list>
     </option>
   </component>
@@ -609,7 +542,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1053" extended-state="1" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -617,7 +550,7 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861805" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32959402" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25641027" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20427808" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20427808" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39934713" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861805" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
@@ -778,20 +711,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/application.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="25" selection-start="124" selection-end="124" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/views.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="41" selection-start="565" selection-end="565" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3060">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/panels/input.hbs">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="30" selection-start="30" selection-end="30" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="862">
@@ -799,37 +718,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/models.js">
+    <entry file="file://$PROJECT_DIR$/app/templates/images.hbs">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="49" selection-start="759" selection-end="759" vertical-scroll-proportion="0.0" vertical-offset="335" max-vertical-offset="1224">
+        <state line="2" column="19" selection-start="100" selection-end="100" vertical-scroll-proportion="-1.3333334" vertical-offset="0" max-vertical-offset="162">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/router.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="27" selection-start="292" selection-end="292" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="882">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/input.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="29" selection-start="260" selection-end="260" vertical-scroll-proportion="-5.3333335" vertical-offset="0" max-vertical-offset="396">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/controllers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="42" selection-start="159" selection-end="159" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="504">
+        <state line="29" column="0" selection-start="507" selection-end="507" vertical-scroll-proportion="0.5871766" vertical-offset="0" max-vertical-offset="889">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/dbadapter.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="36" selection-start="1672" selection-end="1672" vertical-scroll-proportion="-0.39707536" vertical-offset="1307" max-vertical-offset="2196">
+        <state line="108" column="0" selection-start="3706" selection-end="3706" vertical-scroll-proportion="0.71653545" vertical-offset="1307" max-vertical-offset="2196">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/views.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="41" selection-start="565" selection-end="565" vertical-scroll-proportion="-1.295838" vertical-offset="1674" max-vertical-offset="3060">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/controllers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="53" selection-start="515" selection-end="515" vertical-scroll-proportion="0.54668164" vertical-offset="0" max-vertical-offset="889">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/input.hbs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="14" selection-start="473" selection-end="473" vertical-scroll-proportion="0.33410674" vertical-offset="0" max-vertical-offset="862">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/models.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="0" selection-start="789" selection-end="789" vertical-scroll-proportion="0.7289089" vertical-offset="0" max-vertical-offset="1206">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/application.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="30" selection-start="193" selection-end="193" vertical-scroll-proportion="0.24296963" vertical-offset="0" max-vertical-offset="889">
           <folding />
         </state>
       </provider>
