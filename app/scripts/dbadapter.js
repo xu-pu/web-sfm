@@ -4,17 +4,26 @@ window.IDBAdapter = {};
 
 var TEST_PROJECT = 'test';
 
-IDBAdapter.request = indexedDB.open(TEST_PROJECT, 3);
-
-IDBAdapter.request.onupgradeneeded = function(e){
-    console.log('upgrade');
-    var db = IDBAdapter.db = e.target.result;
-    IDBAdapter.createStores(db);
+IDBAdapter.getDB = function(project){
+    return new Ember.RSVP.Promise(function(resolve, reject){
+        if (IDBAdapter.db) {
+            resolve(IDBAdapter.db);
+        }
+        else {
+            var request = indexedDB.open(project, 3);
+            request.onupgradeneeded = function(e){
+                console.log('upgrade');
+                var db = IDBAdapter.db = e.target.result;
+                IDBAdapter.createStores(db);
+            };
+            request.onsuccess = function(e){
+                IDBAdapter.db = e.target.result;
+                resolve(IDBAdapter.db);
+            };
+        }
+    });
 };
 
-IDBAdapter.request.onsuccess = function(e){
-    IDBAdapter.db = e.target.result;
-};
 
 
 /**
@@ -84,12 +93,25 @@ IDBAdapter.processImageFile = function(file){
  */
 IDBAdapter.getData = function(store, key){
     return new Ember.RSVP.Promise(function(resolve, reject){
-        IDBAdapter.db
-            .transaction(store)
-            .objectStore(store)
-            .get(key)
-            .onsuccess = function(e){
-            resolve(e.target.result);
-        };
+        IDBAdapter.getDB(TEST_PROJECT).then(function(db){
+            db.transaction(store).objectStore(store).get(key).onsuccess = function(e){
+                resolve(e.target.result);
+            };
+        });
+    });
+};
+
+IDBAdapter.queryEach = function(name, callback, terminate){
+    IDBAdapter.getDB(TEST_PROJECT).then(function(db){
+        db.transaction(name).objectStore(name).openCursor().onsuccess = function(e){
+            var cursor = e.target.result;
+            if (cursor) {
+                callback(cursor.key, cursor.value);
+                cursor.continue();
+            }
+            else {
+                terminate();
+            }
+        }
     });
 };

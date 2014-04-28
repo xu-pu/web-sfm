@@ -12,7 +12,12 @@ App.ApplicationController = Ember.Controller.extend({
 
 
 App.InputController = Ember.ArrayController.extend({
-    itemController: 'image'
+    itemController: 'thumbnail'
 });
 
-App.ImageController = Ember.ObjectController.extend();
+App.InputImagesController = Ember.ArrayController.extend({
+    itemController: 'thumbnail'
+});
+
+
+App.ThumbnailController = Ember.ObjectController.extend();

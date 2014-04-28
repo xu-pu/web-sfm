@@ -7,5 +7,5 @@ window.App = Ember.Application.create({
 });
 
 App.Data = {
-    images: Ember.A()
+    images: null
 };

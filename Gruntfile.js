@@ -38,9 +38,10 @@ module.exports = function (grunt) {
                 files: {
                     'build/scripts/libs.js': [
                         '<%= pathConfig.venders %>/jquery/dist/jquery.js',
+                        '<%= pathConfig.venders %>/underscore/underscore.js',
                         '<%= pathConfig.venders %>/handlebars/handlebars.js',
                         '<%= pathConfig.venders %>/ember/ember.js',
-                        '<%= pathConfig.venders %>/underscore/underscore.js'
+                        '<%= pathConfig.venders %>/threejs/build/three.js'
                     ]
                 }
             }
