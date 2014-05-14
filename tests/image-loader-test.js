@@ -12,13 +12,15 @@ $(function(){
             e.preventDefault();
             var files = e.dataTransfer.files;
             for (var i=0; i<files.length; i++) {
-                IDBAdapter.processImageFile(files[i], function(_id){
-                    IDBAdapter.getData('thumbnails', _id, function(url){
-                        var image = document.createElement('img');
-                        image.src = url;
-                        document.body.appendChild(image);
-                    });
-                });
+                var reader = new FileReader();
+                reader.onload = function(e){
+                    var exifReader = new ExifReader();
+                    exifReader.load(e.target.result);
+                    var tags = exifReader.getAllTags();
+                    console.log(tags);
+
+                };
+                reader.readAsArrayBuffer(files[i]);
             }
         })
         .on('dragover', function(e){

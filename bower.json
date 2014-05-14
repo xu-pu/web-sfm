@@ -8,6 +8,8 @@
         "underscore": "latest",
         "ember": "latest",
         "numericjs": "latest",
+        "jsfeat": "latest",
+        "exifreader": "latest",
         "threejs": "latest"
     },
     "devDependencies": {}
