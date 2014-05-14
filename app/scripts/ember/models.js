@@ -22,7 +22,7 @@ App.Image = Ember.Object.extend({
 
     fullimage: function(){
         return new Ember.RSVP.Promise(function(resolve, reject){
-            IDBAdapter.getData('fullimages', this.get('_id'), resolve);
+            IDBAdapter.promiseData('fullimages', this.get('_id'), resolve);
         });
     }.property('_id'),
 
@@ -42,7 +42,7 @@ App.Image = Ember.Object.extend({
     },
 
     afterReady: function(){
-        IDBAdapter.getData('thumbnails', this.get('_id')).then(_.bind(function(thumbnail){
+        IDBAdapter.promiseData('thumbnails', this.get('_id')).then(_.bind(function(thumbnail){
             this.set('thumbnail', thumbnail);
             Ember.Logger.debug('thumbnail loaded');
         }, this));
@@ -51,7 +51,7 @@ App.Image = Ember.Object.extend({
     afterSaved: function(_id){
         Ember.Logger.debug('image stored');
         this.set('_id', _id);
-        IDBAdapter.getData('images', _id).then(_.bind(function(img){
+        IDBAdapter.promiseData('images', _id).then(_.bind(function(img){
             this.set('width', img.width);
             this.set('height', img.height);
             this.set('filename', img.filename);

@@ -12,17 +12,31 @@ App.ApplicationController = Ember.Controller.extend({
 
 
 App.InputController = Ember.ArrayController.extend({
-    itemController: 'thumbnail'
+    itemController: 'input.thumbnail'
 });
 
-App.ThumbnailController = Ember.ObjectController.extend({
+App.InputThumbnailController = Ember.ObjectController.extend({
 
     actions: {
         expand: function(){
-            this.transitionToRoute('images', this.get('model'));
+            this.transitionToRoute('input.image', this.get('model'));
         }
     }
 
 });
 
-App.ImagesController = Ember.ObjectController.extend();
+App.InputImageController = Ember.ObjectController.extend();
+
+App.ExtractorController = Ember.ArrayController.extend({
+    itemController: 'extractor.thumbnail'
+});
+
+App.ExtractorThumbnailController = Ember.ObjectController.extend({
+
+    actions: {
+        expand: function(){
+            this.transitionToRoute('extractor.image', this.get('model'));
+        }
+    }
+
+});

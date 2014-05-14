@@ -4,7 +4,7 @@ window.IDBAdapter = {};
 
 var TEST_PROJECT = 'test';
 
-IDBAdapter.getDB = function(project){
+IDBAdapter.promiseDB = function(project){
     return new Ember.RSVP.Promise(function(resolve, reject){
         if (IDBAdapter.db) {
             resolve(IDBAdapter.db);
@@ -91,9 +91,9 @@ IDBAdapter.processImageFile = function(file){
  * @param key
  * @return {Ember.RSVP.Promise}
  */
-IDBAdapter.getData = function(store, key){
+IDBAdapter.promiseData = function(store, key){
     return new Ember.RSVP.Promise(function(resolve, reject){
-        IDBAdapter.getDB(TEST_PROJECT).then(function(db){
+        IDBAdapter.promiseDB(TEST_PROJECT).then(function(db){
             db.transaction(store).objectStore(store).get(key).onsuccess = function(e){
                 resolve(e.target.result);
             };
@@ -102,7 +102,7 @@ IDBAdapter.getData = function(store, key){
 };
 
 IDBAdapter.queryEach = function(name, callback, terminate){
-    IDBAdapter.getDB(TEST_PROJECT).then(function(db){
+    IDBAdapter.promiseDB(TEST_PROJECT).then(function(db){
         db.transaction(name).objectStore(name).openCursor().onsuccess = function(e){
             var cursor = e.target.result;
             if (cursor) {

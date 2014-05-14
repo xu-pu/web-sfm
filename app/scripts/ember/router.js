@@ -4,12 +4,12 @@ App.Router.map(function() {
 
     this.resource('input', function(){
         this.route('index', { path: '/'});
-        this.resource('images', { path: '/images/:id' });
+        this.route('image', { path: '/:id' });
     });
 
     this.resource('extractor', function(){
         this.route('index', { path: '/' });
-        this.route('image', { path: '/:image' });
+        this.route('image', { path: '/:id' });
     });
 
     this.resource('register', function(){
@@ -38,7 +38,7 @@ App.InputRoute = Ember.Route.extend({
 
 App.InputIndexRoute = Ember.Route.extend();
 
-App.ImagesRoute = Ember.Route.extend({
+App.InputImageRoute = Ember.Route.extend({
 
     model: function(params){
         return this.modelFor('input').findBy('_id', parseInt(params.id));
@@ -50,9 +50,25 @@ App.ImagesRoute = Ember.Route.extend({
 
 });
 
-App.ExtractorRoute = Ember.Route.extend();
+App.ExtractorRoute = Ember.Route.extend({
+
+    model: function() {
+        return App.Data.promiseImages();
+    }
+
+});
 App.ExtractorIndexRoute = Ember.Route.extend();
-App.ExtractorImageRoute = Ember.Route.extend();
+App.ExtractorImageRoute = Ember.Route.extend({
+
+    model: function(params){
+        return this.modelFor('extractor').findBy('_id', parseInt(params.id));
+    },
+
+    serialize: function(model){
+        return { id: model.get('_id') };
+    }
+
+});
 
 App.RegisterRoute = Ember.Route.extend();
 App.RegisterIndexRoute = Ember.Route.extend();
