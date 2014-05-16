@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eaf60c22-be99-4b50-a303-6483ef7d3c8b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/scripts/ember/views/fullsizeimageview.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/extractor/image.hbs" afterPath="$PROJECT_DIR$/app/templates/extractor/image.hbs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/input/image.hbs" afterPath="$PROJECT_DIR$/app/templates/input/image.hbs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/styles/scss/main.scss" afterPath="$PROJECT_DIR$/app/styles/scss/main.scss" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/tests/image-loader-test.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/tests/image-loader-test.js" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/ember/views/bundlerview.js" afterPath="$PROJECT_DIR$/app/scripts/ember/views/bundlerview.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/ember/views/siftview.js" afterPath="$PROJECT_DIR$/app/scripts/ember/views/siftview.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/two-view-stereo-test.js" afterPath="$PROJECT_DIR$/tests/two-view-stereo-test.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="web-sfm.iws" />
@@ -33,46 +33,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="image.hbs" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/templates/input/image.hbs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="46" selection-start="283" selection-end="283" vertical-scroll-proportion="-4.0" vertical-offset="0" max-vertical-offset="288">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="siftview.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="siftview.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/scripts/ember/views/siftview.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="68" column="23" selection-start="2079" selection-end="2079" vertical-scroll-proportion="1.376828" vertical-offset="0" max-vertical-offset="1638">
+            <state line="76" column="37" selection-start="2323" selection-end="2323" vertical-scroll-proportion="0.0" vertical-offset="749" max-vertical-offset="1638">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="shortcuts.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/scripts/SFM/shortcuts.js">
+      <file leaf-file-name="bundlerview.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/scripts/ember/views/bundlerview.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="107" column="0" selection-start="3102" selection-end="3102" vertical-scroll-proportion="0.0" vertical-offset="335" max-vertical-offset="2466">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="two-view-matching-test.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tests/two-view-matching-test.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="33" selection-start="149" selection-end="149" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="738">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="samples.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/scripts/SFM/samples.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="55" column="0" selection-start="1479" selection-end="1479" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1332">
+            <state line="110" column="29" selection-start="3331" selection-end="3331" vertical-scroll-proportion="0.59505063" vertical-offset="1451" max-vertical-offset="3636">
               <folding />
             </state>
           </provider>
@@ -96,7 +69,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/scripts/utils/linearalgebra.js" />
         <option value="$PROJECT_DIR$/app/scripts/SFM/bundler.js" />
         <option value="$PROJECT_DIR$/app/scripts/SFM/bundleadjustment.js" />
         <option value="$PROJECT_DIR$/tests/grayscale-test.html" />
@@ -132,7 +104,6 @@
         <option value="$PROJECT_DIR$/tests/multi-thread-test.js" />
         <option value="$PROJECT_DIR$/tests/two-view-stereo-test.html" />
         <option value="$PROJECT_DIR$/tests/grayscale-test.js" />
-        <option value="$PROJECT_DIR$/tests/two-view-stereo-test.js" />
         <option value="$PROJECT_DIR$/app/scripts/threads/stereo.js" />
         <option value="$PROJECT_DIR$/app/scripts/ember/views/stereoview.js" />
         <option value="$PROJECT_DIR$/app/scripts/ember/views.js" />
@@ -140,13 +111,15 @@
         <option value="$PROJECT_DIR$/app/scripts/ember/router.js" />
         <option value="$PROJECT_DIR$/Gruntfile.js" />
         <option value="$PROJECT_DIR$/app/scripts/SFM/shortcuts.js" />
-        <option value="$PROJECT_DIR$/app/scripts/ember/views/bundlerview.js" />
         <option value="$PROJECT_DIR$/app/templates/controllpanel.hbs" />
         <option value="$PROJECT_DIR$/app/templates/extractor/image.hbs" />
         <option value="$PROJECT_DIR$/app/templates/input/image.hbs" />
         <option value="$PROJECT_DIR$/app/scripts/ember/views/fullsizeimageview.js" />
         <option value="$PROJECT_DIR$/app/styles/scss/main.scss" />
+        <option value="$PROJECT_DIR$/tests/image-loader-test.html" />
+        <option value="$PROJECT_DIR$/tests/two-view-stereo-test.js" />
         <option value="$PROJECT_DIR$/app/scripts/ember/views/siftview.js" />
+        <option value="$PROJECT_DIR$/app/scripts/ember/views/bundlerview.js" />
       </list>
     </option>
   </component>
@@ -379,6 +352,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="scripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="threads" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -687,7 +682,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="27" width="1920" height="1053" extended-state="1" />
+    <frame x="0" y="27" width="1920" height="1053" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -729,13 +724,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/scripts/threads/sfm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="0" selection-start="252" selection-end="252" vertical-scroll-proportion="0.18222722" vertical-offset="0" max-vertical-offset="889">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utils/mvs_convertor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="889">
@@ -913,37 +901,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/image-loader-test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="0" selection-start="437" selection-end="437" vertical-scroll-proportion="0.30371204" vertical-offset="0" max-vertical-offset="889">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/grayscale-test.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="3" column="13" selection-start="29" selection-end="29" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2754">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/two-view-stereo-test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="91" column="11" selection-start="2583" selection-end="2583" vertical-scroll-proportion="0.0" vertical-offset="983" max-vertical-offset="1872">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/threads/stereo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="7" selection-start="52" selection-end="52" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="504">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/two-view-stereo-test.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="37" selection-start="192" selection-end="192" vertical-scroll-proportion="-4.0" vertical-offset="0" max-vertical-offset="306">
           <folding />
         </state>
       </provider>
@@ -958,13 +918,6 @@
     <entry file="file://$PROJECT_DIR$/app/templates/panels/register.hbs">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="43" selection-start="43" selection-end="43" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="862">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/SFM/stereo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="14" selection-start="325" selection-end="325" vertical-scroll-proportion="0.344207" vertical-offset="0" max-vertical-offset="2916">
           <folding />
         </state>
       </provider>
@@ -1018,13 +971,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/ember/views/bundlerview.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="107" column="0" selection-start="3212" selection-end="3212" vertical-scroll-proportion="1.0528684" vertical-offset="990" max-vertical-offset="3240">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/ember/views.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="35" column="3" selection-start="708" selection-end="708" vertical-scroll-proportion="0.70866144" vertical-offset="0" max-vertical-offset="889">
@@ -1053,20 +999,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/two-view-matching-test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="33" selection-start="149" selection-end="149" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="738">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/SFM/samples.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="0" selection-start="1479" selection-end="1479" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1332">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/SFM/shortcuts.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="107" column="0" selection-start="3102" selection-end="3102" vertical-scroll-proportion="0.0" vertical-offset="1577" max-vertical-offset="2466">
@@ -1081,9 +1013,58 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/SFM/samples.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="55" column="0" selection-start="1479" selection-end="1479" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1332">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/two-view-matching-test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="33" selection-start="149" selection-end="149" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="738">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/two-view-stereo-test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="37" selection-start="192" selection-end="192" vertical-scroll-proportion="0.12903225" vertical-offset="0" max-vertical-offset="837">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/two-view-stereo-test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="0" selection-start="981" selection-end="981" vertical-scroll-proportion="0.5061867" vertical-offset="0" max-vertical-offset="1728">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/SFM/stereo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="17" selection-start="251" selection-end="251" vertical-scroll-proportion="0.28346458" vertical-offset="0" max-vertical-offset="2916">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/threads/stereo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="37" selection-start="501" selection-end="501" vertical-scroll-proportion="0.3239595" vertical-offset="0" max-vertical-offset="889">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/ember/views/siftview.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="23" selection-start="2079" selection-end="2079" vertical-scroll-proportion="1.376828" vertical-offset="0" max-vertical-offset="1638">
+        <state line="76" column="37" selection-start="2323" selection-end="2323" vertical-scroll-proportion="0.0" vertical-offset="749" max-vertical-offset="1638">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/ember/views/bundlerview.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="110" column="29" selection-start="3331" selection-end="3331" vertical-scroll-proportion="0.59505063" vertical-offset="1451" max-vertical-offset="3636">
           <folding />
         </state>
       </provider>

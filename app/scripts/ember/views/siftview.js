@@ -74,7 +74,7 @@ App.SiftView = Ember.View.extend({
         ctx.lineWidth = options.markSize/2;
         _.each(features, function(feature){
             var x = scale*feature.col,
-                y = scale*(height-1-feature.row);
+                y = scale*feature.row;
             ctx.moveTo(x-options.markSize, y);
             ctx.lineTo(x+options.markSize, y);
             ctx.moveTo(x, y-options.markSize);

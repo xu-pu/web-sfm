@@ -7,27 +7,20 @@ function stereoTest(name1, name2){
             var cam1 = data.cameras[Number(name1)];
             var cam2 = data.cameras[Number(name2)];
 
-            var stereoWorker = new Worker(SFM.STEREO_WORKER);
-            console.log('worker created');
-            stereoWorker.onmessage = function(e){
-                console.log('worker returned');
-                var data = e.data;
-                drawPointCloud(data);
-            };
+            cam1.R = SFM.M(cam1.R);
+            cam2.R = SFM.M(cam2.R);
+            cam1.t = SFM.M([cam1.t]).transpose();
+            cam2.t = SFM.M([cam2.t]).transpose();
+            cam1.width = cam2.width = 3000;
+            cam1.height = cam2.height = 2000;
+            cam1.P = SFM.getProjectionMatrix(cam1.R, cam1.t, cam1.focal, cam1.width, cam1.height);
+            cam2.P = SFM.getProjectionMatrix(cam2.R, cam2.t, cam2.focal, cam2.width, cam2.height);
 
-            stereoWorker.postMessage({
-                cam1: cam1,
-                cam2: cam2,
-                features1: features1,
-                features2: features2
-            });
-
-            /*
             SFM.twoViewStereo(cam1, cam2, features1, features2, function(matches, triangulated){
                 console.log(matches.length);
                 drawPointCloud(triangulated);
             })
-            */
+
         })
     })
 }
@@ -46,7 +39,6 @@ function drawPointCloud(points){
     var pointsGeo = new THREE.Geometry();
     points.forEach(function(point){
         var p = point.homogeneous();
-//        console.log(p.data);
         pointsGeo.vertices.push(new THREE.Vector3(p.get(0,0), p.get(1,0), p.get(2,0)));
     });
     var particlesMaterial = new THREE.ParticleSystemMaterial({

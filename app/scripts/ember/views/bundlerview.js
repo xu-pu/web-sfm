@@ -71,6 +71,7 @@ App.RegisterView = Ember.View.extend({
     },
 
     didInsertElement: function(){
+        var _self = this;
         var width = window.innerWidth,
             height = window.innerHeight;
         var renderer = new THREE.WebGLRenderer();
@@ -105,9 +106,9 @@ App.RegisterView = Ember.View.extend({
         scene.add(camera);
         scene.add(axisSystem);
 
-        camera.position.x = 100;
-        camera.position.y = 100;
-        camera.position.z = 200;
+        camera.position.x = 30;
+        camera.position.y = 30;
+        camera.position.z = 30;
 
         camera.lookAt(axisSystem.position);
 
@@ -122,7 +123,7 @@ App.RegisterView = Ember.View.extend({
     },
 
     afterLoaded: function(data){
-        console.log(data);
+        this.set('data', data);
 
         var camerasGeo = new THREE.Geometry();
         data.cameras.forEach(function(cam){
@@ -148,7 +149,7 @@ App.RegisterView = Ember.View.extend({
         });
         var pointsSystem = new THREE.ParticleSystem(pointsGeo, pointsMaterial);
 
-/*
+
         var viewList = bundlerViewList(data);
         var viewGeo = new THREE.Geometry();
         [20].forEach(function(camera){
@@ -163,13 +164,34 @@ App.RegisterView = Ember.View.extend({
             color: 0xFFFFFF
         });
         var viewSystem = new THREE.Line(viewGeo, viewMaterial, THREE.Lines);
-*/
-
+        this.set('view', viewGeo);
+        this.set('viewList', viewList);
+        this.set('currentView', 20);
         //this.set('geometry', pointsGeo);
         //this.set('structure', pointsSystem);
 
         this.get('scene').add(pointsSystem);
         this.get('scene').add(camerasSystem);
-//        this.get('scene').add(viewSystem);
+        this.get('scene').add(viewSystem);
+    },
+
+    nextView: function(){
+        var viewGeo = this.get('view');
+        var viewList = this.get('viewList');
+        var camera = this.get('currentView');
+        camera++;
+        this.set('currentView', camera);
+        var data = this.get('data');
+        var cam = data.cameras[camera];
+
+        (viewList[camera]||[]).forEach(function(point){
+            var p = data.points[point];
+            viewGeo.vertices = [];
+            viewGeo.vertices.push(new THREE.Vector3(p.point[0], p.point[1], p.point[2]));
+            viewGeo.vertices.push(new THREE.Vector3(cam.t[0], cam.t[1], cam.t[2]));
+        });
+
     }
+
+
 });
