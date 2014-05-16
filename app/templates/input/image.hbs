@@ -1,5 +1,11 @@
 <div class="floating-window__input-image">
     <div class="floating-window__header"></div>
-    <img {{bind-attr src=thumbnail}}>
-    <p>{{filename}}</p>
+    {{#view App.FullsizeImageView controller=controller}}
+        {{#if view.loading}}
+            <p>loading fullsize image</p>
+        {{else}}
+            <img {{bind-attr src=view.dataurl}}>
+        {{/if}}
+        <p>{{filename}}</p>
+    {{/view}}
 </div>

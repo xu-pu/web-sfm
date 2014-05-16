@@ -131,6 +131,9 @@ $floating-window-offset: $controll-panel-width + 4em;
   @extend %floating-window;
   width: 500px;
   right: $floating-window-offset;
+  img {
+    width: 100%;
+  }
 }
 
 .floating-window__extractor-image {
