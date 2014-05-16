@@ -1,6 +1,9 @@
 'use strict';
 
-window.SFM = window.SFM || {};
+
+if (typeof SFM === 'undefined') {
+    var SFM = {};
+}
 
 /**
  * @typedef {{img: SFM.Grayscale, sigma: number, octave: number}} DoG
@@ -20,10 +23,12 @@ window.SFM = window.SFM || {};
  */
 SFM.sift = function(img, options) {
 
+    options = options || {};
+
     _.defaults(options, {
         octaves: 4,
         scales: 5,
-        kernelSize: 9,
+        kernelSize: 3,
         contractThreshold: 0,
         orientationWindow: 17
     });
@@ -44,13 +49,14 @@ SFM.sift = function(img, options) {
      * @returns {ScaleSpace}
      */
     function getScaleSpace(img, octave) {
+        console.log('calculating scalespace');
         var scaleSpace = [];
         var sigma = 1;
         scaleSpace[0] = img;
-        _.each(_.range(1,options.scales), function(scale){
+        _.range(1,options.scales).forEach(function(scale){
             scaleSpace[scale] = new SFM.Grayscale({ image: img });
             scaleSpace[scale].convolution(SFM.getGuassianKernel(options.kernelSize, sigma).getNativeRows());
-            sigma *= 2;
+            sigma *= Math.sqrt(2);
         });
         return {
             imgs: scaleSpace,
@@ -78,7 +84,7 @@ SFM.sift = function(img, options) {
                 base = new SFM.Grayscale({ width: width, height: height });
                 for (row=0; row<height; row++) {
                     for (col=0; col<width; col++) {
-                        base.setPixel(row, col, (lastBase[row*2][col*2]+lastBase[row*2+1][col*2]+lastBase[row*2][col*2+1]+lastBase[row*2+1][col*2+1])/4);
+                        base.setRC(row, col, (lastBase.get(row*2, col*2)+lastBase.get(row*2+1,col*2)+lastBase.get(row*2, col*2+1)+lastBase.get(row*2+1, col*2+1))/4);
                     }
                 }
             }
@@ -93,6 +99,8 @@ SFM.sift = function(img, options) {
      * @return {Feature[]}
      */
     function siftDetector(dogs) {
+        console.log('detecting feature points');
+
         var width = dogs[0].img.width,
             height = dogs[0].img.height,
             octave = dogs[0].octave;
@@ -117,10 +125,10 @@ SFM.sift = function(img, options) {
                                     if (cursor > center && (max === null || cursor > max)) {
                                         max = cursor;
                                     }
-                                    else if (cursor < center && (max === null || cursor < min)) {
+                                    else if (cursor < center && (min === null || cursor < min)) {
                                         min = cursor;
                                     }
-                                    else if (cursor === center && (max === null || min === null)) {
+                                    else if (cursor === center) {
                                         return false;
                                     }
                                     return (max === null || min === null);
@@ -132,16 +140,12 @@ SFM.sift = function(img, options) {
                         });
                     });
 
-                    //var limit = max || min;
-
                     if (isLimit) {
-                        if (center >= options.contractThreshold) {
-                            siftOrientation(dogs[layer], row, col).forEach(function(direction){
-                                features.push(siftDescriptor(row, col, direction, dogs[layer]));
-                            });
-                        }
+                        console.log('found one');
+                        siftOrientation(dogs[layer], row, col).forEach(function(direction){
+                            features.push(siftDescriptor(row, col, direction, dogs[layer]));
+                        });
                     }
-
                 });
             });
 
@@ -156,13 +160,16 @@ SFM.sift = function(img, options) {
      * @returns {DoG[]}
      */
     function getDOGs(scaleSpace) {
-        return _.map(scaleSpace.slice(1), function(layer, index){
-            return {
-                img: layer.difference(scaleSpace[index]),
+        console.log('calculating dogs');
+        var result = [];
+        _.range(1, scaleSpace.imgs.length).forEach(function(index){
+            result.push({
+                img: scaleSpace.imgs[index-1].difference(scaleSpace.imgs[index]),
                 octave: scaleSpace.octave,
                 sigma: Math.pow(2, index)
-            };
+            });
         });
+        return result;
     }
 
 
@@ -175,9 +182,28 @@ SFM.sift = function(img, options) {
      * @return {Feature}
      */
     function siftDescriptor(row, col, direction, img) {
-        var centerOrientation;
-        var neighboroOrientation = [];
-
+        console.log('describing feature points');
+        var point = SFM.RCtoImg(row, col, this.width, this.height);
+        var transform = SFM.M([
+            [Math.cos(direction), -Math.sin(direction), point.get(0,0)],
+            [Math.sin(direction), Math.cos(direction), point.get(1,0)],
+            [0,0,1]]);
+        var descriptor = new Float32Array(128); // 4*4*8
+        _.range(-8, 8).forEach(function(x){
+            _.range(-8, 8).forEach(function(y){
+                var block = Math.floor((x+8)/4)+4*Math.floor((y+8)/4);
+                var imgPoint = transform.dot(SFM.M([[x,y,1]]).transpose());
+                var gra = img.img.getGradient(imgPoint.get(0,0), imgPoint.get(1,0));
+                var bin = Math.floor((gra.dir+Math.PI)/(2*Math.PI/8));
+                descriptor[block*8+bin] = gra.mag;
+            })
+        });
+        console.log(descriptor);
+        return {
+            row: row,
+            col: col,
+            vector: descriptor
+        };
     }
 
     /**
@@ -188,6 +214,7 @@ SFM.sift = function(img, options) {
      * @return {number[]}
      */
     function siftOrientation(dog, row, col) {
+        console.log('orienting feature points');
         var img = dog.img;
         var sigma = dog.sigma;
         var windowSize = 17;

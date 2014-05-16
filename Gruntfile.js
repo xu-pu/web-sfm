@@ -30,7 +30,36 @@ module.exports = function (grunt) {
 
             scripts: {
                 files: {
-                    'build/scripts/application.js': 'app/scripts/**/*.js'
+                    'build/scripts/application.js': [
+                        'app/scripts/SFM/**/*.js',
+                        'app/scripts/ember/**/*.js'
+                    ],
+
+                    'build/scripts/sfm.js': 'app/scripts/SFM/**/*.js',
+
+                    'build/scripts/stereoworker.js': [
+                        'venders/numericjs/src/numeric.js',
+                        'venders/numericjs/src/svd.js',
+                        'venders/underscore/underscore.js',
+                        'app/scripts/threads/stereo.js',
+                        'app/scripts/SFM/**/*.js'
+                    ],
+
+                    'build/scripts/matchingworker.js': [
+                        'venders/numericjs/src/numeric.js',
+                        'venders/numericjs/src/svd.js',
+                        'venders/underscore/underscore.js',
+                        'app/scripts/threads/match.js',
+                        'app/scripts/SFM/**/*.js'
+                    ],
+
+                    'build/scripts/siftworker.js': [
+                        'venders/numericjs/src/numeric.js',
+                        'venders/numericjs/src/svd.js',
+                        'venders/underscore/underscore.js',
+                        'app/scripts/threads/sift.js',
+                        'app/scripts/SFM/**/*.js'
+                    ]
                 }
             },
 
@@ -38,11 +67,28 @@ module.exports = function (grunt) {
                 files: {
                     'build/scripts/libs.js': [
                         '<%= pathConfig.venders %>/jquery/dist/jquery.js',
-                        '<%= pathConfig.venders %>/underscore/underscore.js',
                         '<%= pathConfig.venders %>/handlebars/handlebars.js',
                         '<%= pathConfig.venders %>/ember/ember.js',
+                        '<%= pathConfig.venders %>/threejs/build/three.js',
+                        '<%= pathConfig.venders %>/underscore/underscore.js',
+                        '<%= pathConfig.venders %>/numericjs/src/numeric.js',
+                        '<%= pathConfig.venders %>/numericjs/src/svd.js'
+                    ],
+
+                    'build/scripts/baselibs.js': [
+                        '<%= pathConfig.venders %>/numericjs/src/numeric.js',
+                        '<%= pathConfig.venders %>/numericjs/src/svd.js',
+                        '<%= pathConfig.venders %>/jquery/dist/jquery.js',
+                        '<%= pathConfig.venders %>/underscore/underscore.js',
                         '<%= pathConfig.venders %>/threejs/build/three.js'
+                    ],
+
+                    'build/scripts/threadlibs.js': [
+                        '<%= pathConfig.venders %>/numericjs/src/numeric.js',
+                        '<%= pathConfig.venders %>/numericjs/src/svd.js',
+                        '<%= pathConfig.venders %>/underscore/underscore.js',
                     ]
+
                 }
             }
         },

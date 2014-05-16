@@ -25,7 +25,7 @@ html, body {
   position: absolute;
   height: 90%;
   top: 5%;
-  background-color: silver;
+  background-color: #CECECE;
 }
 
 $controll-panel-width: 20em;
@@ -68,15 +68,14 @@ $floating-window-offset: $controll-panel-width + 4em;
 
 //===========================================
 
+.floating-window__header {
+  background-color: #333333;
+  height: 2em;
+}
 
 %controll-panel__level1 {
   background-color: grey;
   border-top: 1px solid rgb(82, 82, 82);
-}
-
-#controll-panel__header {
-  background-color: #333333;
-  height: 2em;
 }
 
 #controll-panel__input {

@@ -1,6 +1,10 @@
 'use strict';
 
-window.SFM = window.SFM || {};
+
+if (typeof SFM === 'undefined') {
+    var SFM = {};
+}
+
 
 SFM.GUASS_KERNEL_TEST = [
     [0.0030, 0.0133, 0.0219, 0.0133, 0.0030],

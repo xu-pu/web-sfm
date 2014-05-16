@@ -101,6 +101,18 @@ IDBAdapter.promiseData = function(store, key){
     });
 };
 
+
+IDBAdapter.promiseSetData = function(store, key, data){
+    return new Ember.RSVP.Promise(function(resolve, reject){
+        IDBAdapter.promiseDB(TEST_PROJECT).then(function(db){
+            db.transaction(store, 'readwrite').objectStore(store).add(data, key).onsuccess = function(e){
+                resolve(e.target.result);
+            }
+        });
+    });
+};
+
+
 IDBAdapter.queryEach = function(name, callback, terminate){
     IDBAdapter.promiseDB(TEST_PROJECT).then(function(db){
         db.transaction(name).objectStore(name).openCursor().onsuccess = function(e){

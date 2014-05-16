@@ -1,6 +1,10 @@
 'use strict';
 
-window.SFM = window.SFM || {};
+
+if (typeof SFM === 'undefined') {
+    var SFM = {};
+}
+
 
 /*
 self.onmessage = function(e) {
@@ -8,6 +12,11 @@ self.onmessage = function(e) {
     self.postMessage('done');
 };
 */
+
+SFM.STEREO_WORKER = '/build/scripts/stereoworker.js';
+SFM.SIFT_WORKER = '/build/scripts/siftworker.js';
+SFM.MATCHING_WORKER = '/build/scripts/matchingworker.js';
+
 
 SFM.RGB2GRAY_R = 0.2989;
 SFM.RGB2GRAY_G = 0.5870;

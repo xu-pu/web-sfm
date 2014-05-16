@@ -1,6 +1,9 @@
 'use strict';
 
-window.SFM = SFM || {};
+if (typeof SFM === 'undefined') {
+    var SFM = {};
+}
+
 
 /**
  *
@@ -20,25 +23,20 @@ window.SFM = SFM || {};
  * @param {int} [options.height]
  */
 SFM.Grayscale = function(options) {
-
-    var row, col;
     if (options.canvas) {
+        var row, col;
         this.allocate(options.canvas.width, options.canvas.height);
         var offset, data = options.canvas.data;
         for (row=0; row<options.canvas.height; row++) {
             for (col=0; col<options.canvas.width; col++) {
                 offset = 4 * (options.canvas.width * row + col);
-                this.data[row][col] = Math.floor(SFM.RGB2GRAY_R * data[offset] + SFM.RGB2GRAY_G * data[offset+1] + SFM.RGB2GRAY_B * data[offset+2]);
+                this.setRC(row, col, Math.floor(SFM.RGB2GRAY_R * data[offset] + SFM.RGB2GRAY_G * data[offset+1] + SFM.RGB2GRAY_B * data[offset+2]));
             }
         }
     }
     else if (options.image){
         this.allocate(options.image.width, options.image.height);
-        for (row=0; row<this.height; row++) {
-            for (col=0; col<this.width; col++) {
-                this.data[row][col] = options.image.data[row][col];
-            }
-        }
+        this.data.set(options.image.data);
     }
     else if (options.width && options.height) {
         this.allocate(options.width, options.height);
@@ -61,7 +59,11 @@ SFM.Grayscale.prototype = {
             return this.data[col+this.width*row];
         }
         else {
-            throw 'pixel does not exists';
+            row = row < this.height ? row : this.height-1;
+            row = row < 0 ? 0 : row;
+            col = col < this.width ? col : this.width-1;
+            col = col < 0 ? 0 : col;
+            return this.data[col+this.width*row];
         }
     },
 

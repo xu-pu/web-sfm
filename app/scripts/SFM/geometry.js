@@ -1,24 +1,26 @@
 'use strict';
 
-window.SFM = SFM || {};
+if (typeof SFM === 'undefined') {
+    var SFM = {};
+}
 
 /**
  *
  * @param {CalibratedCamera} cam1
  * @param {CalibratedCamera} cam2
- * @param {SFM.Matrix} cam1Point
- * @param {SFM.Matrix} cam2Point
+ * @param {SFM.Matrix} img1Point
+ * @param {SFM.Matrix} img2Point
  */
-SFM.trianguation = function(cam1, cam2, cam1Point, cam2Point){
+SFM.trianguation = function(cam1, cam2, img1Point, img2Point){
     var A = [];
-    A[0] = cam1.P.getRow(2).dot(cam1Point.get(0,0)).sub(cam1.P.getRow(0));
-    A[1] = cam1.P.getRow(2).dot(cam1Point.get(1,0)).sub(cam1.P.getRow(1));
-    A[2] = cam2.P.getRow(2).dot(cam2Point.get(0,0)).sub(cam2.P.getRow(0));
-    A[3] = cam2.P.getRow(2).dot(cam2Point.get(1,0)).sub(cam2.P.getRow(1));
+    A[0] = cam1.P.getRow(2).dot(img1Point.get(0,0)).sub(cam1.P.getRow(0));
+    A[1] = cam1.P.getRow(2).dot(img1Point.get(1,0)).sub(cam1.P.getRow(1));
+    A[2] = cam2.P.getRow(2).dot(img2Point.get(0,0)).sub(cam2.P.getRow(0));
+    A[3] = cam2.P.getRow(2).dot(img2Point.get(1,0)).sub(cam2.P.getRow(1));
     A = SFM.M(_.map(A, function(row){
         return row.getNativeRows()[0];
     }));
-    return A.svdSolve();
+    return A.transpose().dot(A).svdSolve();
 };
 
 SFM.fivePoint = function(cam1, cam2, cam1Points, cam2Points){
@@ -110,6 +112,18 @@ SFM.eightPoint = function(matches, metadata){
 
 /**
  *
+ * @param {SFM.Matrix} point
+ * @param {CalibratedCamera} cam
+ */
+SFM.projection = function(point, cam){
+    var rt = SFM.getRT(cam.R, cam.t);
+    var camPoint = rt.dot(point);
+
+};
+
+
+/**
+ *
  * @param {SFM.Matrix} F
  * @param {int[]} match
  * @param metadata
@@ -125,4 +139,17 @@ SFM.fundamentalMatrixError = function(F, match, metadata){
     var p1 = SFM.featureToImg(f1, metadata.cam1),
         p2 = SFM.featureToImg(f2, metadata.cam2);
     return Math.abs(p1.transpose().dot(F).dot(p2));
+};
+
+
+/**
+ *
+ * @param {SFM.Matrix} pImg1
+ * @param {SFM.Matrix} pImg2
+ * @param {SFM.Matrix} p
+ * @param {SFM.Matrix} P1
+ * @param {SFM.Matrix} P2
+ */
+SFM.triangulationError = function(pImg1, pImg2, p, P1, P2){
+    return P1.dot(p).homogeneous().sub(pImg1).l2Norm() + P2.dot(p).homogeneous().sub(pImg2).l2Norm();
 };

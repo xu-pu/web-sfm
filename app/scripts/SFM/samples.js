@@ -60,3 +60,10 @@ function bundlerViewList(data){
     return result;
 }
 
+function processCameraSample(cam){
+    cam.R = SFM.M(cam1.R);
+    cam.t = SFM.M([cam.t]).transpose();
+    cam.width = 3000;
+    cam.height = 2000;
+    cam.P = SFM.getProjectionMatrix(cam.R, cam.t, cam.focal, cam.width, cam.height);
+}

@@ -1,14 +1,13 @@
 'use strict';
 
 
-function getImageCanvas(img){
-    var fixedWidth = 1000;
+function getImageData(img){
     var canvas = document.createElement('canvas');
-    canvas.height = img.height*fixedWidth/img.width;
-    canvas.width = fixedWidth;
+    canvas.height = img.height;
+    canvas.width = img.width;
     var ctx = canvas.getContext('2d');
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    return canvas;
+    return ctx.getImageData(0,0,canvas.width, canvas.height);
 }
 
 
@@ -103,85 +102,12 @@ function drawTwoViewMatches(img1, img2, features1, features2, matches){
 }
 
 function drawBundler(data){
-    var width = window.innerWidth,
-        height = window.innerHeight;
-    var renderer = new THREE.WebGLRenderer();
-    renderer.setSize(width, height);
-    document.body.appendChild(renderer.domElement);
-    var camera = new THREE.PerspectiveCamera(45, width/height, 0.1, 10000);
-    var scene = new THREE.Scene();
 
 
-    var camerasGeo = new THREE.Geometry();
-    data.cameras.forEach(function(cam){
-        camerasGeo.vertices.push(new THREE.Vector3(cam.t[0], cam.t[1], cam.t[2]));
-    });
-    var particlesMaterial = new THREE.ParticleSystemMaterial({
-        color: 0xFF0000,
-        size: 2,
-        blending: THREE.AdditiveBlending,
-        transparent: true
-    });
-    var camerasSystem = new THREE.ParticleSystem(camerasGeo, particlesMaterial);
 
 
-    var pointsGeo = new THREE.Geometry();
-    data.points.forEach(function(p){
-        pointsGeo.vertices.push(new THREE.Vector3(p.point[0], p.point[1], p.point[2]));
-    });
-    var pointsMaterial = new THREE.ParticleSystemMaterial({
-        color: 0xFFFFFF,
-        size: 1,
-        blending: THREE.AdditiveBlending,
-        transparent: true
-    });
-    var pointsSystem = new THREE.ParticleSystem(pointsGeo, pointsMaterial);
 
 
-    var viewList = bundlerViewList(data);
-    var viewGeo = new THREE.Geometry();
-    [20].forEach(function(camera){
-        var cam = data.cameras[camera];
-        (viewList[camera]||[]).forEach(function(point){
-            var p = data.points[point];
-            viewGeo.vertices.push(new THREE.Vector3(p.point[0], p.point[1], p.point[2]));
-            viewGeo.vertices.push(new THREE.Vector3(cam.t[0], cam.t[1], cam.t[2]));
-        });
-    });
-    var viewMaterial = new THREE.LineBasicMaterial({
-        color: 0xFFFFFF
-    });
-    var viewSystem = new THREE.Line(viewGeo, viewMaterial, THREE.Lines);
-
-
-    var axisGeo = new THREE.Geometry();
-    axisGeo.vertices.push(new THREE.Vector3(0,0,0));
-    axisGeo.vertices.push(new THREE.Vector3(1000,0,0));
-    axisGeo.vertices.push(new THREE.Vector3(0,0,0));
-    axisGeo.vertices.push(new THREE.Vector3(0,1000,0));
-    axisGeo.vertices.push(new THREE.Vector3(0,0,0));
-    axisGeo.vertices.push(new THREE.Vector3(0,0,1000));
-    var axisMaterial = new THREE.LineBasicMaterial({
-        color: 0xFFFFFF
-    });
-    var axisSystem = new THREE.Line(axisGeo, axisMaterial, THREE.Lines);
-
-
-    var pointLight = new THREE.PointLight(0xffffff);
-    pointLight.position.set(1000, 1000, 1000);
-    scene.add(pointLight);
-
-    camera.position.x = -10;
-    camera.position.y = -10;
-    camera.position.z = -20;
-
-
-    camera.lookAt(camerasSystem.position);
-    scene.add(axisSystem);
-    scene.add(camerasSystem);
-    scene.add(pointsSystem);
-    scene.add(viewSystem);
-    scene.add(camera);
 
     var clock = new THREE.Clock();
 
@@ -194,5 +120,13 @@ function drawBundler(data){
     }
 
     render();
+
+}
+
+/**
+ *
+ */
+function drawGrayscale(gray){
+
 
 }

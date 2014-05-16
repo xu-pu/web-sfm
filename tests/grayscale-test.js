@@ -1,5 +1,30 @@
 "use strict";
 
+
+function websiftTest(imgName){
+
+    getImageSample(imgName, function(img){
+        var data = getImageData(img);
+        console.log(data.width);
+        console.log(data.height);
+        /*
+        var siftworker = new Worker(SFM.SIFT_WORKER);
+        siftworker.onmessage = function(e){
+            console.log(e.data);
+        };
+        siftworker.postMessage(data);
+    */
+        var gray = new SFM.Grayscale({ canvas: data });
+        var result = SFM.sift(gray);
+        console.log(result);
+
+    });
+
+}
+
+
+
+
 function twoViewMatchTest(imgName1, imgName2){
     if (imgName1 === imgName2) {
         throw 'images must be different';
@@ -105,7 +130,7 @@ function eightPointRansacTest(name1, name2){
             subset: 8,
             relGenerator: SFM.eightPoint,
             errorGenerator: SFM.fundamentalMatrixError,
-            outlierThreshold: 0.01,
+            outlierThreshold: 0.5,
             errorThreshold: 0.5,
             trials: 1000
         });

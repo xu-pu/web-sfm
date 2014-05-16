@@ -1,9 +1,9 @@
 'use strict';
 
-// sparse bundle adjustment
 
-window.SFM = SFM || {};
-
+if (typeof SFM === 'undefined') {
+    var SFM = {};
+}
 
 /**
  *

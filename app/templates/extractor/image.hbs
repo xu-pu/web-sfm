@@ -1,4 +1,7 @@
 <div class="floating-window__extractor-image">
-    <img {{bind-attr src=thumbnail}}>
+    <div class="floating-window__header"></div>
+    {{#view App.SiftView controller=controller}}
+        <div>Loading Fullsize Image</div>
+    {{/view}}
     <p>{{filename}}</p>
 </div>

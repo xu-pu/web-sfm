@@ -1,6 +1,9 @@
 'use strict';
 
-window.SFM = window.SFM || {};
+
+if (typeof SFM === 'undefined') {
+    var SFM = {};
+}
 
 
 SFM.TRACK_THRESHOLD = 2;

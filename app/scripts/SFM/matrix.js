@@ -1,6 +1,8 @@
 'use strict';
 
-window.SFM = window.SFM || {};
+if (typeof SFM === 'undefined') {
+    var SFM = {};
+}
 
 /**
  * @param {SFM.Matrix} [options.matrix]
@@ -162,6 +164,14 @@ SFM.Matrix.prototype = {
         return new SFM.Matrix({ array: numeric.inverse(this.getNativeRows()) });
     },
 
+    homogeneous: function(){
+        if (this.getType() === this.TYPE_VECTOR) {
+            return this.dot(1/this.data[this.data.length-1]);
+        }
+        else {
+            throw 'not a vector';
+        }
+    },
 
     /**
      *
@@ -178,9 +188,9 @@ SFM.Matrix.prototype = {
      * @returns {SFM.Matrix|number}
      */
     dot: function(M){
-        if (typeof M === 'number') {
+        if ((typeof M) === 'number') {
             var scalarDot = new SFM.Matrix({ matrix: this });
-            _.each(scalarDot.data.length, function(index){
+            _.range(scalarDot.data.length).forEach(function(index){
                 scalarDot.data[index] *= M;
             });
             return scalarDot;
@@ -252,8 +262,12 @@ SFM.Matrix.prototype = {
 
     },
 
+    /**
+     *
+     * @returns {SFM.Matrix}
+     */
     normalize: function(){
-        this.dot(1/this.l2Norm());
+        return this.dot(1/this.l2Norm());
     },
 
     l2Norm: function(){

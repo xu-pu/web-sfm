@@ -58,5 +58,16 @@ App.Image = Ember.Object.extend({
             this.set('isReady', true);
             this.afterReady();
         }, this));
+    },
+
+    loadSiftSample: function(){
+        var _self = this;
+        var name = this.get('filename').split('.')[0];
+        getSiftSample(name, function(data){
+            IDBAdapter.promiseSetData('features', _self.get('_id'), data).then(function(key){
+                console.log(key);
+            });
+        })
     }
+
 });

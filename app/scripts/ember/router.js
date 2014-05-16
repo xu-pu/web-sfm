@@ -14,11 +14,13 @@ App.Router.map(function() {
 
     this.resource('register', function(){
         this.route('index');
+/*
         this.route('tracking');
         this.resource('registration', function(){
             this.route('index', { path: '/' });
             this.route('cameras', { path: '/:camera' });
         });
+*/
     });
 
     this.resource('stereo', function(){
@@ -73,9 +75,9 @@ App.ExtractorImageRoute = Ember.Route.extend({
 App.RegisterRoute = Ember.Route.extend();
 App.RegisterIndexRoute = Ember.Route.extend();
 
-App.RegistrationRoute = Ember.Route.extend();
-App.RegistrationIndexRoute = Ember.Route.extend();
-App.RegistrationCamerasRoute = Ember.Route.extend();
+//App.RegistrationRoute = Ember.Route.extend();
+//App.RegistrationIndexRoute = Ember.Route.extend();
+//App.RegistrationCamerasRoute = Ember.Route.extend();
 
 App.StereoRoute = Ember.Route.extend();
 App.StereoIndexRoute = Ember.Route.extend();
