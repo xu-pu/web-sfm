@@ -1,21 +1,38 @@
 <div id="controll-panel__header" class="floating-window__header">WebSFM</div>
 
 <div id="controll-panel__input">
-    <div {{action "enter" "input"}}>Input Panel</div>
+    <div class="controll-panel__l1-tab">Input</div>
+    <div class="controll-panel__l1-body">
+        <div class="controll-panel__l2-tab" {{action "enter" "input"}}>Import Images</div>
+        <div class="controll-panel__l2-tab" {{action "enter" "input"}}>Parameters</div>
+    </div>
 </div>
 
-<div id="controll-panel__phases">
-    <div class="controll-panel__phase__tab">Structure from Motion</div>
-    <div class="controll-panel__phase__body">
-        <div id="controll-panel__sift"    class="controll-panel__phase">
-            <div {{action "enter" "extractor"}}>Feature Extraction Phase</div>
+<div id="controll-panel__progress">
+    <div class="controll-panel__l1-tab">Progress</div>
+    <div class="controll-panel__l1-body">
+
+        <div id="controll-panel__extractor"    class="controll-panel__progress__phase">
+            <div class="controll-panel__l2-tab" {{action "enter" "extractor"}}>Feature Extraction</div>
         </div>
-        <div id="controll-panel__bundler" class="controll-panel__phase">
-            <div {{action "enter" "register"}}>Register Phase</div>
+
+        <div id="controll-panel__register" class="controll-panel__progress__phase">
+            <div class="controll-panel__l2-tab">Camera Registration</div>
+            <div class="controll-panel__l2-body">
+                <div class="controll-panel__l3-tab" {{action "enter" "register"}}>Feature Matching</div>
+                <div class="controll-panel__l3-tab" {{action "enter" "register"}}>Key Point Tracking</div>
+                <div class="controll-panel__l3-tab" {{action "enter" "register"}}>Camera Parameter Recovery</div>
+            </div>
         </div>
-        <div id="controll-panel__mvs"     class="controll-panel__phase">
-            <div {{action "enter" "stereo"}}>MVS Phase </div>
+
+        <div id="controll-panel__stereo"     class="controll-panel__progress__phase">
+            <div class="controll-panel__l2-tab">Stereopsis</div>
+            <div class="controll-panel__l2-body">
+                <div class="controll-panel__l3-tab" {{action "enter" "stereo"}}>Two-View Stereo</div>
+                <div class="controll-panel__l3-tab" {{action "enter" "stereo"}}>Multi-View Stereo</div>
+            </div>
         </div>
+
     </div>
 </div>
 

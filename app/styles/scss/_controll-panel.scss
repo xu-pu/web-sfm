@@ -1,55 +1,52 @@
 //===========================================
 
-
-%controll-panel__level1 {
-  background-color: grey;
-  border-top: 1px solid rgb(82, 82, 82);
+.controll-panel__l1-tab {
+  height: 2em;
+  background-color: rgb(77, 77, 77);
+  border-left: 20px solid;
+  padding-left: 0.5em;
 }
 
-#controll-panel__input {
-  @extend %controll-panel__level1;
+.controll-panel__l1-body {}
 
-  border-top: 0 !important;
-
-  > div {
-    min-height: 5em;
-    border-left: 10px solid yellowgreen;
-  }
+.controll-panel__l2-tab {
+  height: 2em;
+  border-left: 5px solid;
+  background-color: rgb(58, 58, 58);
+  color: lightgray;
+  padding-left: 0.5em;
 }
 
-#controll-panel__phases {
+.controll-panel__l2-body {}
 
-  @extend %controll-panel__level1;
-
-  > div {
-    border-left: 10px solid darkgreen;
-  }
+.controll-panel__l3-tab {
+  height: 2em;
+  background-color: rgb(34, 34, 34);
+  color: grey;
+  padding-left: 0.5em;
 }
 
-.controll-panel__phase {
-  background-color: darkgrey;
-  border-top: 1px solid rgb(206, 206, 206);
+//===========================================
 
-  > div {
-    min-height: 5em;
-  }
+#controll-panel__input .controll-panel__l1-tab{
+  border-left-color: yellowgreen;
 }
 
-#controll-panel__sift {
-  border-top: 0 !important;
+#controll-panel__progress .controll-panel__l1-tab {
+  border-left-color: darkgreen;
 }
 
-#controll-panel__sift > div {
-  border-left: 10px solid lightblue;
+#controll-panel__extractor .controll-panel__l2-tab {
+  border-left-color: lightblue;
 }
 
 
-#controll-panel__bundler > div {
-  border-left: 10px solid dodgerblue;
+#controll-panel__register .controll-panel__l2-tab {
+  border-left-color: dodgerblue;
 }
 
-#controll-panel__mvs > div {
-  border-left: 10px solid darkblue;
+#controll-panel__stereo .controll-panel__l2-tab {
+  border-left-color: darkblue;
 }
 
 
