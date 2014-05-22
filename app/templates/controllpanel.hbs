@@ -1,11 +1,22 @@
 <div id="controll-panel__header" class="floating-window__header">WebSFM</div>
-<div id="controll-panel__input">{{render "panels/input"}}</div>
+
+<div id="controll-panel__input">
+    <div {{action "enter" "input"}}>Input Panel</div>
+</div>
+
 <div id="controll-panel__phases">
-    <div>
-        <div>Structure from Motion</div>
-        <div id="controll-panel__sift"    class="controll-panel__phase">{{render "panels/sift"}}</div>
-        <div id="controll-panel__bundler" class="controll-panel__phase">{{render "panels/register"}}</div>
-        <div id="controll-panel__mvs"     class="controll-panel__phase">{{render "panels/mvs"}}</div>
+    <div class="controll-panel__phase__tab">Structure from Motion</div>
+    <div class="controll-panel__phase__body">
+        <div id="controll-panel__sift"    class="controll-panel__phase">
+            <div {{action "enter" "extractor"}}>Feature Extraction Phase</div>
+        </div>
+        <div id="controll-panel__bundler" class="controll-panel__phase">
+            <div {{action "enter" "register"}}>Register Phase</div>
+        </div>
+        <div id="controll-panel__mvs"     class="controll-panel__phase">
+            <div {{action "enter" "stereo"}}>MVS Phase </div>
+        </div>
     </div>
 </div>
+
 <div id="controll-panel__footer"></div>

@@ -130,13 +130,19 @@ var IDBAdapter = (function(){
         });
     }
 
+    function switchProject(name){
+        project = name;
+        connection = null;
+    }
+
     return {
         promiseDB: promiseDB,
         promiseData: promiseData,
         promiseSetData: promiseSetData,
         queryEach: queryEach,
         createStores: createStores,
-        processImageFile: processImageFile
+        processImageFile: processImageFile,
+        switchProject: switchProject
     };
 
 }());

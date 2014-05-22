@@ -12,6 +12,7 @@
     <orderEntry type="library" name="IndexedDB" level="application" />
     <orderEntry type="library" name="ember-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="gruntjs-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="web-sfm node_modules" level="project" />
   </component>
 </module>
 

@@ -5,7 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eaf60c22-be99-4b50-a303-6483ef7d3c8b" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/scripts/ember/controllers/controllpanel.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/scripts/ember/models/sfm.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/scripts/ember/sfmlogic.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/scripts/ember/views.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/templates/panels/input.hbs" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/templates/panels/mvs.hbs" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/templates/panels/register.hbs" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/templates/panels/sift.hbs" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/ember/controllers.js" afterPath="$PROJECT_DIR$/app/scripts/ember/controllers/controllers.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/ember/models.js" afterPath="$PROJECT_DIR$/app/scripts/ember/models/models.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/ember/application.js" afterPath="$PROJECT_DIR$/app/scripts/ember/application.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/SFM/base.js" afterPath="$PROJECT_DIR$/app/scripts/SFM/base.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/controllpanel.hbs" afterPath="$PROJECT_DIR$/app/templates/controllpanel.hbs" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/ember/dbadapter.js" afterPath="$PROJECT_DIR$/app/scripts/ember/dbadapter.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/threads/sfm.js" afterPath="$PROJECT_DIR$/app/scripts/threads/sfm.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/web-sfm.iml" afterPath="$PROJECT_DIR$/.idea/web-sfm.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="web-sfm.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,62 +44,7 @@
     <favorites_list name="web-sfm" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="sfm.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/scripts/threads/sfm.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="85" column="0" selection-start="1367" selection-end="1367" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2214">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="router.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/scripts/ember/router.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="57" column="30" selection-start="1192" selection-end="1192" vertical-scroll-proportion="0.0" vertical-offset="712" max-vertical-offset="1602">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="application.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/scripts/ember/application.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="40" selection-start="534" selection-end="534" vertical-scroll-proportion="0.4247191" vertical-offset="0" max-vertical-offset="890">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="workerdb.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/scripts/SFM/workerdb.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="11" selection-start="57" selection-end="57" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="252">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="typedefs.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/scripts/typedefs.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="3" selection-start="235" selection-end="235" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="252">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="base.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/scripts/SFM/base.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="19" selection-start="560" selection-end="560" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="990">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -100,15 +62,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/utils/bundler_convertor.py" />
-        <option value="$PROJECT_DIR$/app/index.build.html" />
-        <option value="$PROJECT_DIR$/app/templates/extractor.hbs" />
-        <option value="$PROJECT_DIR$/app/templates/panels/sift.hbs" />
-        <option value="$PROJECT_DIR$/app/scripts/ember/controllers.js" />
-        <option value="$PROJECT_DIR$/app/scripts/dbadapter.js" />
-        <option value="$PROJECT_DIR$/app/scripts/ember/models.js" />
-        <option value="$PROJECT_DIR$/app/scripts/samples.js" />
-        <option value="$PROJECT_DIR$/app/scripts/SFM/geometry.js" />
         <option value="$PROJECT_DIR$/app/scripts/utils/coordinates.js" />
         <option value="$PROJECT_DIR$/app/scripts/utils/matrix.js" />
         <option value="$PROJECT_DIR$/app/scripts/utils/guass.js" />
@@ -135,7 +88,6 @@
         <option value="$PROJECT_DIR$/app/scripts/ember/router.js" />
         <option value="$PROJECT_DIR$/Gruntfile.js" />
         <option value="$PROJECT_DIR$/app/scripts/SFM/shortcuts.js" />
-        <option value="$PROJECT_DIR$/app/templates/controllpanel.hbs" />
         <option value="$PROJECT_DIR$/app/templates/extractor/image.hbs" />
         <option value="$PROJECT_DIR$/app/templates/input/image.hbs" />
         <option value="$PROJECT_DIR$/app/scripts/ember/views/fullsizeimageview.js" />
@@ -147,18 +99,81 @@
         <option value="$PROJECT_DIR$/app/scripts/ember/views/imageloaderview.js" />
         <option value="$PROJECT_DIR$/app/scripts/ember/views.js" />
         <option value="$PROJECT_DIR$/app/scripts/typedefs.js" />
-        <option value="$PROJECT_DIR$/app/scripts/SFM/base.js" />
-        <option value="$PROJECT_DIR$/app/scripts/threads/sfm.js" />
         <option value="$PROJECT_DIR$/app/scripts/SFM/workerdb.js" />
+        <option value="$PROJECT_DIR$/app/scripts/ember/controllers/controllpanel.js" />
+        <option value="$PROJECT_DIR$/app/scripts/SFM/base.js" />
+        <option value="$PROJECT_DIR$/app/scripts/ember/models/sfm.js" />
+        <option value="$PROJECT_DIR$/app/scripts/ember/application.js" />
+        <option value="$PROJECT_DIR$/app/scripts/ember/SfmLogic.js" />
         <option value="$PROJECT_DIR$/app/scripts/ember/dbadapter.js" />
+        <option value="$PROJECT_DIR$/app/scripts/ember/sfmlogic.js" />
+        <option value="$PROJECT_DIR$/app/templates/panels/input.hbs" />
+        <option value="$PROJECT_DIR$/app/templates/panels/mvs.hbs" />
+        <option value="$PROJECT_DIR$/app/templates/panels/register.hbs" />
+        <option value="$PROJECT_DIR$/app/templates/panels/sift.hbs" />
+        <option value="$PROJECT_DIR$/app/templates/controllpanel.hbs" />
+        <option value="$PROJECT_DIR$/app/scripts/threads/sfm.js" />
       </list>
     </option>
   </component>
+  <component name="JsGruntFileManager">
+    <gruntfiles>
+      <GruntfileState>
+        <alias-tasks>
+          <alias-task value="build" />
+          <alias-task value="dist" />
+        </alias-tasks>
+        <multi-tasks>
+          <GruntMultiTaskState>
+            <name>compass</name>
+            <targets>
+              <target value="build" />
+            </targets>
+          </GruntMultiTaskState>
+          <GruntMultiTaskState>
+            <name>concat_sourcemap</name>
+            <targets>
+              <target value="scripts" />
+              <target value="libs" />
+            </targets>
+          </GruntMultiTaskState>
+          <GruntMultiTaskState>
+            <name>copy</name>
+            <targets>
+              <target value="build" />
+            </targets>
+          </GruntMultiTaskState>
+          <GruntMultiTaskState>
+            <name>emberTemplates</name>
+            <targets>
+              <target value="build" />
+            </targets>
+          </GruntMultiTaskState>
+          <GruntMultiTaskState>
+            <name>ember_templates</name>
+          </GruntMultiTaskState>
+          <GruntMultiTaskState>
+            <name>uglify</name>
+            <targets>
+              <target value="dist" />
+            </targets>
+          </GruntMultiTaskState>
+          <GruntMultiTaskState>
+            <name>watch</name>
+            <targets>
+              <target value="all" />
+            </targets>
+          </GruntMultiTaskState>
+        </multi-tasks>
+        <gruntfile-path>$PROJECT_DIR$/Gruntfile.js</gruntfile-path>
+      </GruntfileState>
+    </gruntfiles>
+    <initial>false</initial>
+  </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1" />
     <option name="y" value="27" />
-    <option name="width" value="1922" />
-    <option name="height" value="1054" />
+    <option name="width" value="1920" />
+    <option name="height" value="1053" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -211,7 +226,7 @@
     <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -223,6 +238,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -238,48 +254,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="web-sfm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web-sfm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web-sfm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="venders" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web-sfm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web-sfm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tests" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web-sfm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web-sfm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dataset" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -439,6 +413,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="SFM" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="ember" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -487,13 +483,42 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="SFM" />
+              <option name="myItemId" value="ember" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="models" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ember" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -520,11 +545,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/scripts/ember/models" />
+      <recent name="$PROJECT_DIR$/app/scripts/ember/controllers" />
       <recent name="$PROJECT_DIR$/app/scripts/ember" />
       <recent name="$PROJECT_DIR$/app/scripts/SFM" />
       <recent name="$PROJECT_DIR$/app/templates/input" />
-      <recent name="$PROJECT_DIR$/app/scripts/utils" />
-      <recent name="$PROJECT_DIR$/app/styles/scss" />
     </key>
   </component>
   <component name="RunManager" selected="JavaScript Debug.octave-space-test.html">
@@ -538,154 +563,45 @@
       <ConfigurationWrapper RunnerId="JavascriptDebugRunner" />
       <method />
     </configuration>
-    <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="web-sfm" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="TARGET" value="" />
-      <option name="SETTINGS_FILE" value="" />
-      <option name="CUSTOM_SETTINGS" value="false" />
-      <option name="USE_OPTIONS" value="false" />
-      <option name="OPTIONS" value="" />
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="scope" value="ALL" />
+      <option name="testName" />
       <method />
     </configuration>
-    <configuration default="true" type="tests" factoryName="py.test">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="name" value="Dart" />
+      <option name="saveOutputToFile" value="false" />
+      <option name="showConsoleOnStdErr" value="false" />
+      <option name="showConsoleOnStdOut" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="CucumberJavaScriptRunConfigurationType" factoryName="Cucumber.js">
+      <option name="cucumberJsArguments" />
+      <option name="executablePath" />
+      <option name="filePath" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="">
       <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="web-sfm" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="testToRun" value="" />
-      <option name="keywords" value="" />
-      <option name="params" value="" />
-      <option name="USE_PARAM" value="false" />
-      <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="tests" factoryName="Nosetests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="web-sfm" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
+    <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
+      <setting name="configLocationType" value="CONFIG_FILE" />
+      <setting name="settingsFile" value="" />
+      <setting name="serverType" value="INTERNAL" />
+      <setting name="preferredDebugBrowser" value="Chrome" />
       <method />
     </configuration>
-    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="web-sfm" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
       <method />
     </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
-      <method />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="Unittests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="web-sfm" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <method />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="Doctests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="web-sfm" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <method />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="Attests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="web-sfm" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" working-dir="">
       <method />
     </configuration>
     <list size="2">
@@ -700,22 +616,8 @@
     </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
-  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="all">
-    <option name="USER" value="" />
-    <option name="PASSWORD" value="" />
-    <option name="mySSHConnectionTimeout" value="30000" />
-    <option name="mySSHReadTimeout" value="30000" />
-    <option name="LAST_MERGED_REVISION" />
-    <option name="MERGE_DRY_RUN" value="false" />
-    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
-    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
-    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
-    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
-    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
-    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
-    <option name="FORCE_UPDATE" value="false" />
-    <option name="IGNORE_EXTERNALS" value="false" />
-    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+  <component name="SvnConfiguration" myUseAcceleration="nothing">
+    <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -726,15 +628,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="27" width="1922" height="1054" extended-state="7" />
-    <editor active="true" />
+    <frame x="0" y="27" width="1920" height="1053" extended-state="1" />
+    <editor active="false" />
     <layout>
+      <window_info id="Grunt" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27465534" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32979852" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32959402" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25641027" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22115384" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22106361" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39934713" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861805" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
@@ -742,15 +644,19 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297062" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861805" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32959402" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861805" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
       <collection />
     </option>
   </component>
@@ -768,289 +674,344 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/utils/sift_convertor.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="39" selection-start="899" selection-end="899" vertical-scroll-proportion="0.43307087" vertical-offset="65" max-vertical-offset="954" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/panels/mvs.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="29" selection-start="29" selection-end="29" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="862" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/panels/sift.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="50" selection-start="50" selection-end="50" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="108" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/extractor.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="374" selection-end="374" vertical-scroll-proportion="-6.6666665" vertical-offset="0" max-vertical-offset="360" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/grayscale-test.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="54" selection-start="556" selection-end="556" vertical-scroll-proportion="0.22969837" vertical-offset="0" max-vertical-offset="862" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/ember/models.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="30" selection-start="1869" selection-end="1869" vertical-scroll-proportion="0.7772778" vertical-offset="515" max-vertical-offset="1404" />
+        <state vertical-scroll-proportion="0.22969837" vertical-offset="0" max-vertical-offset="862">
+          <caret line="11" column="54" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/bundler_convertor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="0" selection-start="1223" selection-end="1223" vertical-scroll-proportion="0.9718785" vertical-offset="0" max-vertical-offset="1062" />
+        <state vertical-scroll-proportion="0.9718785" vertical-offset="0" max-vertical-offset="1062">
+          <caret line="48" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/SFM/guass.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="0" selection-start="70" selection-end="70" vertical-scroll-proportion="0.121484816" vertical-offset="0" max-vertical-offset="889" />
+        <state vertical-scroll-proportion="0.121484816" vertical-offset="0" max-vertical-offset="889">
+          <caret line="6" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/SFM/geometry.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="13" selection-start="13" selection-end="13" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2880" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2880">
+          <caret line="0" column="13" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/SFM/sba.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="0" selection-start="70" selection-end="70" vertical-scroll-proportion="0.121484816" vertical-offset="0" max-vertical-offset="1332" />
+        <state vertical-scroll-proportion="0.121484816" vertical-offset="0" max-vertical-offset="1332">
+          <caret line="6" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/SFM/matrix.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="39" selection-start="113" selection-end="113" vertical-scroll-proportion="-6.4915633" vertical-offset="5897" max-vertical-offset="6786" />
+        <state vertical-scroll-proportion="-6.4915633" vertical-offset="5897" max-vertical-offset="6786">
+          <caret line="7" column="39" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/SFM/grayscale.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="0" selection-start="1567" selection-end="1567" vertical-scroll-proportion="1.1338583" vertical-offset="90" max-vertical-offset="4356" />
+        <state vertical-scroll-proportion="1.1338583" vertical-offset="90" max-vertical-offset="4356">
+          <caret line="61" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/SFM/coordinates.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="16" selection-start="419" selection-end="419" vertical-scroll-proportion="0.344207" vertical-offset="108" max-vertical-offset="1728" />
+        <state vertical-scroll-proportion="0.344207" vertical-offset="108" max-vertical-offset="1728">
+          <caret line="23" column="16" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/SFM/register.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="0" selection-start="70" selection-end="70" vertical-scroll-proportion="-0.66816646" vertical-offset="702" max-vertical-offset="3744" />
+        <state vertical-scroll-proportion="-0.66816646" vertical-offset="702" max-vertical-offset="3744">
+          <caret line="6" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/multi-thread-test.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="37" selection-start="272" selection-end="272" vertical-scroll-proportion="0.18222722" vertical-offset="0" max-vertical-offset="889" />
+        <state vertical-scroll-proportion="0.18222722" vertical-offset="0" max-vertical-offset="889">
+          <caret line="9" column="37" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/threads/match.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="0" selection-start="773" selection-end="773" vertical-scroll-proportion="0.62767154" vertical-offset="0" max-vertical-offset="889" />
+        <state vertical-scroll-proportion="0.62767154" vertical-offset="0" max-vertical-offset="889">
+          <caret line="31" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/multi-thread-test.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="6" selection-start="218" selection-end="218" vertical-scroll-proportion="0.16705337" vertical-offset="0" max-vertical-offset="862" />
+        <state vertical-scroll-proportion="0.16705337" vertical-offset="0" max-vertical-offset="862">
+          <caret line="8" column="6" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/two-view-matching-test.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="45" selection-start="113" selection-end="113" vertical-scroll-proportion="0.083526686" vertical-offset="0" max-vertical-offset="862" />
+        <state vertical-scroll-proportion="0.083526686" vertical-offset="0" max-vertical-offset="862">
+          <caret line="4" column="45" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/grayscale-test.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="13" selection-start="29" selection-end="29" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2754" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/panels/input.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="47" selection-start="47" selection-end="47" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="108" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/panels/register.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="43" selection-start="43" selection-end="43" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="862" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2754">
+          <caret line="3" column="13" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/index.build.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="17" selection-start="74" selection-end="74" vertical-scroll-proportion="0.10440835" vertical-offset="0" max-vertical-offset="862" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/ember/controllers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="56" selection-start="595" selection-end="595" vertical-scroll-proportion="0.5871766" vertical-offset="0" max-vertical-offset="889" />
+        <state vertical-scroll-proportion="0.10440835" vertical-offset="0" max-vertical-offset="862">
+          <caret line="5" column="17" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Gruntfile.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="0" selection-start="1992" selection-end="1992" vertical-scroll-proportion="0.93138355" vertical-offset="324" max-vertical-offset="3060" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/controllpanel.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="64" selection-start="64" selection-end="64" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="862" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/input.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="13" selection-start="457" selection-end="457" vertical-scroll-proportion="0.29234338" vertical-offset="0" max-vertical-offset="862" />
+        <state vertical-scroll-proportion="0.93138355" vertical-offset="324" max-vertical-offset="3060">
+          <caret line="64" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/ember/views/stereoview.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="110" column="37" selection-start="3093" selection-end="3093" vertical-scroll-proportion="0.0" vertical-offset="1512" max-vertical-offset="2412">
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1512" max-vertical-offset="2412">
+          <caret line="110" column="37" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/extractor/image.hbs">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="25" selection-start="169" selection-end="169" vertical-scroll-proportion="0.06264501" vertical-offset="0" max-vertical-offset="862" />
+        <state vertical-scroll-proportion="0.06264501" vertical-offset="0" max-vertical-offset="862">
+          <caret line="3" column="25" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/styles/scss/main.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="137" column="0" selection-start="2133" selection-end="2133" vertical-scroll-proportion="0.83294666" vertical-offset="1748" max-vertical-offset="2664" />
+        <state vertical-scroll-proportion="0.83294666" vertical-offset="1748" max-vertical-offset="2664">
+          <caret line="137" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/ember/views/fullsizeimageview.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="0" selection-start="265" selection-end="265" vertical-scroll-proportion="0.28346458" vertical-offset="0" max-vertical-offset="889">
-          <folding />
+        <state vertical-scroll-proportion="0.28346458" vertical-offset="0" max-vertical-offset="889">
+          <caret line="14" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/SFM/shortcuts.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="107" column="0" selection-start="3102" selection-end="3102" vertical-scroll-proportion="0.0" vertical-offset="1577" max-vertical-offset="2466" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1577" max-vertical-offset="2466">
+          <caret line="107" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/input/image.hbs">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="46" selection-start="283" selection-end="283" vertical-scroll-proportion="-4.0" vertical-offset="0" max-vertical-offset="288" />
+        <state vertical-scroll-proportion="-4.0" vertical-offset="0" max-vertical-offset="288">
+          <caret line="6" column="46" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/SFM/samples.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="0" selection-start="1479" selection-end="1479" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1332" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1332">
+          <caret line="55" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/two-view-matching-test.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="33" selection-start="149" selection-end="149" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="738" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="738">
+          <caret line="6" column="33" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/two-view-stereo-test.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="37" selection-start="192" selection-end="192" vertical-scroll-proportion="0.12903225" vertical-offset="0" max-vertical-offset="837" />
+        <state vertical-scroll-proportion="0.12903225" vertical-offset="0" max-vertical-offset="837">
+          <caret line="6" column="37" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/two-view-stereo-test.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="0" selection-start="981" selection-end="981" vertical-scroll-proportion="0.5061867" vertical-offset="0" max-vertical-offset="1728" />
+        <state vertical-scroll-proportion="0.5061867" vertical-offset="0" max-vertical-offset="1728">
+          <caret line="25" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/SFM/stereo.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="17" selection-start="251" selection-end="251" vertical-scroll-proportion="0.28346458" vertical-offset="0" max-vertical-offset="2916" />
+        <state vertical-scroll-proportion="0.28346458" vertical-offset="0" max-vertical-offset="2916">
+          <caret line="14" column="17" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/threads/stereo.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="37" selection-start="501" selection-end="501" vertical-scroll-proportion="0.3239595" vertical-offset="0" max-vertical-offset="889">
+        <state vertical-scroll-proportion="0.3239595" vertical-offset="0" max-vertical-offset="889">
+          <caret line="16" column="37" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/ember/views/imageloaderview.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="3" selection-start="708" selection-end="708" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="738">
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="738">
+          <caret line="35" column="3" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/SFM/websift.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="194" column="75" selection-start="6295" selection-end="6295" vertical-scroll-proportion="0.88988763" vertical-offset="2700" max-vertical-offset="4428">
-          <folding />
+        <state vertical-scroll-proportion="0.88988763" vertical-offset="2700" max-vertical-offset="4428">
+          <caret line="194" column="75" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/ember/views/siftview.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="37" selection-start="2323" selection-end="2323" vertical-scroll-proportion="1.5370786" vertical-offset="0" max-vertical-offset="1638">
-          <folding />
+        <state vertical-scroll-proportion="1.5370786" vertical-offset="0" max-vertical-offset="1638">
+          <caret line="76" column="37" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/ember/views/bundlerview.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="110" column="29" selection-start="3331" selection-end="3331" vertical-scroll-proportion="2.224719" vertical-offset="0" max-vertical-offset="3636">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/ember/views.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="14" selection-end="14" vertical-scroll-proportion="0.020224718" vertical-offset="0" max-vertical-offset="890">
-          <folding />
+        <state vertical-scroll-proportion="2.224719" vertical-offset="0" max-vertical-offset="3636">
+          <caret line="110" column="29" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/threads/sift.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="22" selection-start="120" selection-end="120" vertical-scroll-proportion="0.08089887" vertical-offset="0" max-vertical-offset="890">
-          <folding />
+        <state vertical-scroll-proportion="0.08089887" vertical-offset="0" max-vertical-offset="890">
+          <caret line="4" column="22" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/typedefs.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="3" selection-start="235" selection-end="235" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="252">
+        <state vertical-scroll-proportion="0.0" vertical-offset="144" max-vertical-offset="252">
+          <caret line="8" column="3" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="3" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/SFM/base.js">
+    <entry file="file://$PROJECT_DIR$/app/scripts/ember/controllers/controllers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="19" selection-start="560" selection-end="560" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="990">
+        <state vertical-scroll-proportion="0.5717415" vertical-offset="0" max-vertical-offset="913">
+          <caret line="29" column="56" selection-start-line="29" selection-start-column="56" selection-end-line="29" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/SFM/workerdb.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="252">
+          <caret line="4" column="11" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/threads/sfm.js">
+    <entry file="file://$PROJECT_DIR$/app/scripts/ember/models/models.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="85" column="0" selection-start="1367" selection-end="1367" vertical-scroll-proportion="0.0" vertical-offset="972" max-vertical-offset="2214">
-          <folding />
+        <state vertical-scroll-proportion="1.8440367" vertical-offset="0" max-vertical-offset="1404">
+          <caret line="67" column="30" selection-start-line="67" selection-start-column="30" selection-end-line="67" selection-end-column="30" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/ember/router.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="30" selection-start="1192" selection-end="1192" vertical-scroll-proportion="0.0" vertical-offset="712" max-vertical-offset="1602">
+        <state vertical-scroll-proportion="0.0" vertical-offset="712" max-vertical-offset="1602">
+          <caret line="57" column="30" selection-start-line="57" selection-start-column="30" selection-end-line="57" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/ember/controllers/controllpanel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="180">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/ember/dbadapter.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="48" selection-start="612" selection-end="612" vertical-scroll-proportion="-1.5685394" vertical-offset="1756" max-vertical-offset="2646">
+        <state vertical-scroll-proportion="2.8587077" vertical-offset="0" max-vertical-offset="2754">
+          <caret line="145" column="0" selection-start-line="145" selection-start-column="0" selection-end-line="145" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/SFM/workerdb.js">
+    <entry file="file://$PROJECT_DIR$/app/templates/input.hbs">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="11" selection-start="57" selection-end="57" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="252">
+        <state vertical-scroll-proportion="0.28442436" vertical-offset="0" max-vertical-offset="886">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/threads/sfm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.43373495" vertical-offset="0" max-vertical-offset="913">
+          <caret line="22" column="3" selection-start-line="22" selection-start-column="3" selection-end-line="22" selection-end-column="3" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/ember/application.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="40" selection-start="534" selection-end="534" vertical-scroll-proportion="0.4247191" vertical-offset="0" max-vertical-offset="890">
+        <state vertical-scroll-proportion="0.6308872" vertical-offset="0" max-vertical-offset="913">
+          <caret line="32" column="2" selection-start-line="32" selection-start-column="2" selection-end-line="32" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/controllpanel.hbs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.040632054" vertical-offset="0" max-vertical-offset="886">
+          <caret line="2" column="32" selection-start-line="2" selection-start-column="32" selection-end-line="2" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/ember/sfmlogic.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8422782" vertical-offset="221" max-vertical-offset="1134">
+          <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/ember/models/sfm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.19715224" vertical-offset="0" max-vertical-offset="913">
+          <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/SFM/base.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.56626505" vertical-offset="149" max-vertical-offset="1062">
+          <caret line="37" column="18" selection-start-line="37" selection-start-column="18" selection-end-line="37" selection-end-column="18" />
           <folding />
         </state>
       </provider>
