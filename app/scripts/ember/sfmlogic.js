@@ -18,6 +18,15 @@ App.SfmLogic = (function(){
         */
     }
 
+    function sfmHooks(){
+        sfmModel.addObserver('state', onStateChange);
+    }
+
+    function onStateChange(){
+
+
+    }
+
     function promiseImages(){
         return new Ember.RSVP.Promise(function(resolve){
             if (imageModels){
@@ -45,6 +54,7 @@ App.SfmLogic = (function(){
             }
             else {
                 sfmModel = App.Sfm.create({});
+                sfmHooks();
                 resolve(sfmModel);
             }
         });
