@@ -39,12 +39,12 @@ App.SfmLogic = (function(){
     }
 
     function promiseSfm() {
-        return Ember.RSVP.Promise(function(resolve, reject){
+        return new Ember.RSVP.Promise(function(resolve, reject){
             if (sfmModel) {
                 resolve(sfmModel);
             }
             else {
-                sfmModel = new Ember.Sfm();
+                sfmModel = App.Sfm.create({});
                 resolve(sfmModel);
             }
         });

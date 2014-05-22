@@ -29,6 +29,14 @@ App.Router.map(function() {
 
 });
 
+App.ApplicationRoute = Ember.Route.extend({
+
+    model: function(){
+        return App.SfmLogic.promiseSfm();
+    }
+
+});
+
 
 App.InputRoute = Ember.Route.extend({
 

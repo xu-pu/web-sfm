@@ -1,10 +1,18 @@
 'use strict';
 
-App.ApplicationController = Ember.Controller.extend({
+App.ApplicationController = Ember.ObjectController.extend({
 
     actions: {
         enter: function(route){
             this.transitionToRoute(route);
+        },
+
+        stop: function(){
+            this.set('state', SFM.STATE_STOPPED);
+        },
+
+        run: function(){
+            this.set('state', SFM.STATE_RUNNING);
         }
     }
 

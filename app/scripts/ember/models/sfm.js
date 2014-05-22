@@ -8,7 +8,11 @@ App.Sfm = Ember.Object.extend({
 
     stage: SFM.STAGE_BEFORE,
 
-    state: SFM.STATE_STOPPED
+    state: SFM.STATE_STOPPED,
+
+    isRunning: function(){
+        return this.get('state') === SFM.STATE_RUNNING;
+    }.property('state')
 
 });
 

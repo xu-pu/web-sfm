@@ -19,4 +19,13 @@
     </div>
 </div>
 
-<div id="controll-panel__footer"></div>
+<div id="controll-panel__footer">
+    <div>{{threadPoolSize}} cores can be used</div>
+
+    {{#if isRunning}}
+        <div {{action "stop"}}>Running</div>
+    {{else}}
+        <div {{action "run"}}>Stopped</div>
+    {{/if}}
+
+</div>
