@@ -21,16 +21,21 @@
 
 <div id="controll-panel__footer">
 
-    <div>
+    <div class="controll-panel__state-body">
         <div>{{threadPoolSize}} cores can be used</div>
     </div>
 
-    <div>
-        {{#if isRunning}}
-            <div {{action "stop"}}>Running</div>
-        {{else}}
-            <div {{action "run"}}>Stopped</div>
-        {{/if}}
+    <div class="controll-panel__state-bar">
+        <div class="controll-panel__state-bar__toggle">
+            {{#if isRunning}}
+                <div class="is_running" {{action "stop"}}>Running</div>
+            {{else}}
+                <div class="is_stopped" {{action "run"}}>Stopped</div>
+            {{/if}}
+        </div>
+        <div class="controll-panel__state-bar__body">
+            some info
+        </div>
     </div>
 
 </div>

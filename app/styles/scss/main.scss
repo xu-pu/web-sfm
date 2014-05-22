@@ -1,4 +1,5 @@
 @import "compass";
+@import "controll-panel";
 
 %frame {
   margin: 0;
@@ -66,65 +67,13 @@ $floating-window-offset: $controll-panel-width + 4em;
   }
 }
 
-//===========================================
+
+//=======================================
 
 .floating-window__header {
   background-color: #333333;
   height: 2em;
 }
-
-%controll-panel__level1 {
-  background-color: grey;
-  border-top: 1px solid rgb(82, 82, 82);
-}
-
-#controll-panel__input {
-  @extend %controll-panel__level1;
-
-    border-top: 0 !important;
-
-  > div {
-    min-height: 5em;
-    border-left: 10px solid yellowgreen;
-  }
-}
-
-#controll-panel__phases {
-
-  @extend %controll-panel__level1;
-
-  > div {
-    border-left: 10px solid darkgreen;
-  }
-}
-
-.controll-panel__phase {
-  background-color: darkgrey;
-  border-top: 1px solid rgb(206, 206, 206);
-
-  > div {
-    min-height: 5em;
-  }
-}
-
-#controll-panel__sift {
-    border-top: 0 !important;
-}
-
-#controll-panel__sift > div {
-    border-left: 10px solid lightblue;
-}
-
-
-#controll-panel__bundler > div {
-    border-left: 10px solid dodgerblue;
-}
-
-#controll-panel__mvs > div {
-    border-left: 10px solid darkblue;
-}
-
-//=======================================
 
 
 .floating-window__input-image {

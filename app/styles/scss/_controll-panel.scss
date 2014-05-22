@@ -1,0 +1,105 @@
+//===========================================
+
+
+%controll-panel__level1 {
+  background-color: grey;
+  border-top: 1px solid rgb(82, 82, 82);
+}
+
+#controll-panel__input {
+  @extend %controll-panel__level1;
+
+  border-top: 0 !important;
+
+  > div {
+    min-height: 5em;
+    border-left: 10px solid yellowgreen;
+  }
+}
+
+#controll-panel__phases {
+
+  @extend %controll-panel__level1;
+
+  > div {
+    border-left: 10px solid darkgreen;
+  }
+}
+
+.controll-panel__phase {
+  background-color: darkgrey;
+  border-top: 1px solid rgb(206, 206, 206);
+
+  > div {
+    min-height: 5em;
+  }
+}
+
+#controll-panel__sift {
+  border-top: 0 !important;
+}
+
+#controll-panel__sift > div {
+  border-left: 10px solid lightblue;
+}
+
+
+#controll-panel__bundler > div {
+  border-left: 10px solid dodgerblue;
+}
+
+#controll-panel__mvs > div {
+  border-left: 10px solid darkblue;
+}
+
+
+//==================================================
+
+$state-bar-height: 5em;
+
+#controll-panel__footer {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+.controll-panel__state-body {
+
+}
+
+.controll-panel__state-bar {
+  width: 100%;
+  height: $state-bar-height;
+  position: relative;
+}
+
+.controll-panel__state-bar__toggle {
+  width: $state-bar-height;
+  height: $state-bar-height;
+  background-color: yellow;
+  cursor: pointer;
+
+  div {
+    height: 100%;
+    width: 100%;
+  }
+
+  .is_running {
+    background-color: red;
+  }
+
+  .is_stopped {
+    background-color: blue;
+  }
+
+}
+
+.controll-panel__state-bar__body {
+  background-color: black;
+  position: absolute;
+
+  left: $state-bar-height;
+  bottom: 0;
+  top: 0;
+  right: 0;
+}
