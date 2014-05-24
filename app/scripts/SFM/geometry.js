@@ -4,6 +4,7 @@ if (typeof SFM === 'undefined') {
     var SFM = {};
 }
 
+
 /**
  *
  * @param {CalibratedCamera} cam1
@@ -12,24 +13,22 @@ if (typeof SFM === 'undefined') {
  * @param {SFM.Matrix} img2Point
  */
 SFM.trianguation = function(cam1, cam2, img1Point, img2Point){
-    var A = [];
-    A[0] = cam1.P.getRow(2).dot(img1Point.get(0,0)).sub(cam1.P.getRow(0));
-    A[1] = cam1.P.getRow(2).dot(img1Point.get(1,0)).sub(cam1.P.getRow(1));
-    A[2] = cam2.P.getRow(2).dot(img2Point.get(0,0)).sub(cam2.P.getRow(0));
-    A[3] = cam2.P.getRow(2).dot(img2Point.get(1,0)).sub(cam2.P.getRow(1));
-    A = SFM.M(_.map(A, function(row){
-        return row.getNativeRows()[0];
-    }));
-    return A.transpose().dot(A).svdSolve();
+    var A = new SFM.Matrix({ rows: 4, cols: 4 });
+    A.setRow(0, cam1.P.getRow(2).dot(img1Point.get(0,0)).sub(cam1.P.getRow(0)));
+    A.setRow(1, cam1.P.getRow(2).dot(img1Point.get(1,0)).sub(cam1.P.getRow(1)));
+    A.setRow(2, cam2.P.getRow(2).dot(img2Point.get(0,0)).sub(cam2.P.getRow(0)));
+    A.setRow(3, cam2.P.getRow(2).dot(img2Point.get(1,0)).sub(cam2.P.getRow(1)));
+    return A.svdSolve().homogeneous();
 };
+
 
 SFM.fivePoint = function(cam1, cam2, cam1Points, cam2Points){
 
 
 };
 
+
 /**
- *
  * @param {int[][]} dataset
  * @param metadata.cam
  * @param {Feature[]} metadata.features
@@ -40,22 +39,20 @@ SFM.sixPoint = function(dataset, metadata){
     if (dataset.length !== 6) {
         throw 'need exact 6 matches';
     }
-    var A = [];
-    _.each(dataset, function(match){
+    var A = new SFM.Matrix({ rows: 12, cols: 12 });
+    dataset.forEach(function(match, i){
         var imgPoint = SFM.featureToImg(metadata.features[match[0]], metadata.cam);
         var scenePoint = metadata.sparse[match[1]];
-        A.push(_.flatten(SFM.M([1,0,-imgPoint.get(0,0)]).transpose().dot(scenePoint.transpose()).getNativeRows()));
-        A.push(_.flatten(SFM.M([0,1,-imgPoint.get(1,0)]).transpose().dot(scenePoint.transpose()).getNativeRows()));
+        A.setRow(2*i  , SFM.C(1, 0, -imgPoint.get(0,0)).dot(scenePoint.transpose()).flatten());
+        A.setRow(2*i+1, SFM.C(0, 1, -imgPoint.get(1,0)).dot(scenePoint.transpose()).flatten());
     });
-    var solve = SFM.M(A).svdSolve();
     var result = new SFM.Matrix({ rows: 3, cols: 4 });
-    result.data.set(solve.data);
+    result.data.set(A.svdSolve().data);
     return result;
 };
 
 
 /**
- *
  * @param {int[][]} matches
  * @param {object} metadata
  * @param metadata.cam1
@@ -110,8 +107,8 @@ SFM.eightPoint = function(matches, metadata){
     return T1.transpose().dot(F).dot(T2);
 };
 
+
 /**
- *
  * @param {SFM.Matrix} point
  * @param {CalibratedCamera} cam
  */
@@ -123,7 +120,6 @@ SFM.projection = function(point, cam){
 
 
 /**
- *
  * @param {SFM.Matrix} F
  * @param {int[]} match
  * @param metadata
@@ -143,7 +139,6 @@ SFM.fundamentalMatrixError = function(F, match, metadata){
 
 
 /**
- *
  * @param {SFM.Matrix} pImg1
  * @param {SFM.Matrix} pImg2
  * @param {SFM.Matrix} p

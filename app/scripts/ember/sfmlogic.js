@@ -60,6 +60,14 @@ App.SfmLogic = (function(){
         });
     }
 
+    function run(){
+
+    }
+
+    function stop(){
+        
+    }
+
     return {
         promiseSfm: promiseSfm,
         promiseImages: promiseImages

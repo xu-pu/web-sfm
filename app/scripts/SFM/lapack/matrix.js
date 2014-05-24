@@ -74,8 +74,8 @@ SFM.Matrix.prototype = {
         this.data[col+this.cols*row] = value;
     },
 
+
     /**
-     *
      * @param {int} row
      * @return {SFM.Matrix}
      */
@@ -85,15 +85,15 @@ SFM.Matrix.prototype = {
         }
         else {
             var result = new SFM.Matrix({ cols: this.cols, rows: 1 });
-            _.each(_.range(this.cols), function(col){
+            _.range(this.cols).forEach(function(col){
                 result.set(0, col, this.get(row, col));
             }, this);
             return result;
         }
     },
 
+
     /**
-     *
      * @param {int} col
      * @return {SFM.Matrix}
      */
@@ -108,6 +108,17 @@ SFM.Matrix.prototype = {
             }, this);
             return result;
         }
+    },
+
+
+    /**
+     * @param {number} i
+     * @param {SFM.Matrix} r
+     */
+    setRow: function(i, r){
+        _.range(this.cols).forEach(function(col){
+            this.set(i, col, r.get(0, col));
+        }.bind(this));
     },
 
 
@@ -129,10 +140,19 @@ SFM.Matrix.prototype = {
     },
 
 
+    /**
+     * @return {SFM.Matrix}
+     */
+    flatten: function(){
+        return SFM.M([_.flatten(this.getNativeRows())]);
+    },
+
+
     TYPE_SCALAR: 0,
     TYPE_VECTOR: 1,
     TYPE_SQUARE: 2,
     TYPE_RECT: 3,
+
 
     getType: function(){
         if (this.rows === this.cols) {
@@ -153,7 +173,13 @@ SFM.Matrix.prototype = {
 
 
     transpose: function(){
-        return new SFM.Matrix({ array: this.getNativeCols() });
+        var result = new SFM.Matrix({ cols: this.rows, rows: this.cols });
+        _.range(this.cols).forEach(function(col){
+            _.range(this.rows).forEach(function(row){
+                result.set(col, row, this.get(row, col));
+            }.bind(this));
+        }.bind(this));
+        return result;
     },
 
 
@@ -330,43 +356,4 @@ SFM.Matrix.prototype = {
         return this.svd().V.getRow(this.cols-1).transpose();
     }
 
-};
-
-/**
- *
- * @param {number[][]} array
- * @return {SFM.Matrix}
- */
-SFM.M = function(array){
-    return new SFM.Matrix({ array: array });
-};
-
-
-
-/**
- * @return {SFM.Matrix}
- */
-SFM.getIdentity = function(n){
-    var m = new SFM.Matrix({ cols: n, rows: n });
-    _.each(_.range(n), function(i){
-        m.set(i,i,1);
-    });
-    return m;
-};
-
-
-/**
- *
- * @param {SFM.Matrix} m1
- * @param {SFM.Matrix} m2
- * @return {number}
- */
-SFM.diffL2 = function(m1, m2){
-   var row, col, diff=0;
-    for (row=0; row<m1.rows; row++) {
-        for (col=0; col<m1.cols; col++) {
-            diff += Math.pow(m1.get(row, col)-m2.get(row, col), 2);
-        }
-    }
-    return diff;
 };
