@@ -14,6 +14,10 @@ App.CpuSettingView = Ember.View.extend({
 
     selected: 4,
 
+    onChangeSetting: function(){
+        this.controller.set('threadPoolSize', this.get('selected'));
+    }.observes('selected'),
+
     NodeView: Ember.View.extend({
 
         templateName: 'widgets/cpu-node',
