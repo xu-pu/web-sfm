@@ -38,7 +38,7 @@ App.SfmLogic = (function(){
         projectModel.addObserver('threadPoolSize', onThreadPoolSizeChange);
     }
 
-    function onStateChange(sender, key, value, rev){
+    function onStateChange(){
         console.log('change detected');
         var lastState = state;
         state = projectModel.get('state');
@@ -50,16 +50,18 @@ App.SfmLogic = (function(){
         }
     }
 
-    function onThreadPoolSizeChange(sender, key, value, rev){
-        if (value > rev) {
+    function onThreadPoolSizeChange(){
+        var before = threadPool.length,
+            current = projectModel.get('threadPoolSize');
+        if (current > before) {
             // increased
-            _.range(value-rev).forEach(function(){
+            _.range(current-before).forEach(function(){
                 threadPool.addObject(App.Thread.create({}));
             });
         }
-        else if (value < rev) {
+        else if (current < before) {
             // decreased
-            _.range(rev-value).forEach(function(){
+            _.range(before-current).forEach(function(){
                 var thread = threadPool.get('lastObject').stop();
                 threadPool.removeObject(thread);
             });
