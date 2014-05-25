@@ -2,7 +2,7 @@
 
 App.SfmLogic = (function(){
 
-    var sfmModel = null;
+    var projectModel = null;
 
     var imageModels = null;
 
@@ -18,8 +18,8 @@ App.SfmLogic = (function(){
         */
     }
 
-    function sfmHooks(){
-        sfmModel.addObserver('state', onStateChange);
+    function projectHooks(){
+        projectModel.addObserver('state', onStateChange);
     }
 
     function onStateChange(){
@@ -30,7 +30,7 @@ App.SfmLogic = (function(){
     function promiseImages(){
         return new Ember.RSVP.Promise(function(resolve){
             if (imageModels){
-                resolve(App.Data.images);
+                resolve(imageModels);
             }
             else {
                 imageModels = Ember.A();
@@ -47,15 +47,18 @@ App.SfmLogic = (function(){
         });
     }
 
-    function promiseSfm() {
+    function promiseProject() {
         return new Ember.RSVP.Promise(function(resolve, reject){
-            if (sfmModel) {
-                resolve(sfmModel);
+            if (projectModel) {
+                resolve(projectModel);
             }
             else {
-                sfmModel = App.Sfm.create({});
-                sfmHooks();
-                resolve(sfmModel);
+                projectModel = App.Project.create({
+                    type: SFM.PROJECT_TYPE_TEST,
+                    name: 'test'
+                });
+                projectHooks();
+                resolve(projectModel);
             }
         });
     }
@@ -69,7 +72,7 @@ App.SfmLogic = (function(){
     }
 
     return {
-        promiseSfm: promiseSfm,
+        promiseProject: promiseProject,
         promiseImages: promiseImages
     };
 

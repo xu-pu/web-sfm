@@ -32,7 +32,7 @@ App.Router.map(function() {
 App.ApplicationRoute = Ember.Route.extend({
 
     model: function(){
-        return App.SfmLogic.promiseSfm();
+        return App.SfmLogic.promiseProject();
     }
 
 });

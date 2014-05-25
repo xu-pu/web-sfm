@@ -37,29 +37,14 @@ module.exports = function (grunt) {
 
                     'build/scripts/sfm.js': 'app/scripts/SFM/**/*.js',
 
-                    'build/scripts/stereoworker.js': [
+                    'build/scripts/worker.js': [
                         'venders/numericjs/src/numeric.js',
                         'venders/numericjs/src/svd.js',
                         'venders/underscore/underscore.js',
-                        'app/scripts/threads/stereo.js',
-                        'app/scripts/SFM/**/*.js'
-                    ],
-
-                    'build/scripts/matchingworker.js': [
-                        'venders/numericjs/src/numeric.js',
-                        'venders/numericjs/src/svd.js',
-                        'venders/underscore/underscore.js',
-                        'app/scripts/threads/match.js',
-                        'app/scripts/SFM/**/*.js'
-                    ],
-
-                    'build/scripts/siftworker.js': [
-                        'venders/numericjs/src/numeric.js',
-                        'venders/numericjs/src/svd.js',
-                        'venders/underscore/underscore.js',
-                        'app/scripts/threads/sift.js',
+                        'app/scripts/threads/worker.js',
                         'app/scripts/SFM/**/*.js'
                     ]
+
                 }
             },
 
