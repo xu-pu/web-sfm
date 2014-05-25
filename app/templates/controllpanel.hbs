@@ -4,7 +4,10 @@
     <div class="controll-panel__l1-tab">Input</div>
     <div class="controll-panel__l1-body">
         <div id="controll-panel__images" class="controll-panel__l3-tab" {{action "enter" "input"}}>Import Images</div>
-        <div id="controll-panel__parameters" class="controll-panel__l3-tab" {{action "enter" "input"}}>Parameters</div>
+        <div id="controll-panel__parameters" class="controll-panel__l3-tab" {{action "enter" "input"}}>
+            <div>Parameters</div>
+            {{view App.CpuSettingView}}
+        </div>
     </div>
 </div>
 
