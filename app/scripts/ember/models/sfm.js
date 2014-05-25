@@ -25,21 +25,11 @@ App.Thread = Ember.Object.extend({
     worker: null,
 
     isActive: function(){
-        if (this.get('worker')) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return this.get('worker') ? true : false;
     }.property('worker'),
 
     isBusy: function(){
-        if (this.get('task')) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return this.get('task') ? true : false;
     }.property('task'),
 
     task: null,
@@ -47,10 +37,6 @@ App.Thread = Ember.Object.extend({
     data: null,
 
     callback: null,
-
-    description: function(){
-
-    }.property('task','data'),
 
     calculate: function(task, data, callback){
         if (this.get('isBusy')) {
@@ -71,9 +57,11 @@ App.Thread = Ember.Object.extend({
     },
 
     response: function(e){
+        var callback = this.get('callback');
+        this.set('callback', null);
         this.set('task', null);
         this.set('data', null);
-        this.get('callback').call(this, e.data);
+        callback.call(this, e.data);
     },
 
     start: function(){

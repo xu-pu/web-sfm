@@ -6,6 +6,12 @@ App.SfmLogic = (function(){
 
     var imageModels = null;
 
+    var threadPool = null;
+
+    var state = SFM.STATE_STOPPED;
+
+    initialize();
+
     function initialize(){
         /*
         var appState;
@@ -16,15 +22,51 @@ App.SfmLogic = (function(){
 
         }
         */
+        projectModel = App.Project.create({
+            type: SFM.PROJECT_TYPE_TEST,
+            name: 'test'
+        });
+        projectHooks();
+        threadPool = projectModel.get('threads');
+        _.range(projectModel.get('threadPoolSize')).forEach(function(){
+            threadPool.addObject(App.Thread.create({}));
+        });
     }
 
     function projectHooks(){
         projectModel.addObserver('state', onStateChange);
+        projectModel.addObserver('threadPoolSize', onThreadPoolSizeChange);
     }
 
-    function onStateChange(){
+    function onStateChange(sender, key, value, rev){
+        console.log('change detected');
+        var lastState = state;
+        state = projectModel.get('state');
+        if (lastState === SFM.STATE_STOPPED && state === SFM.STATE_RUNNING) {
+            run();
+        }
+        else if (state === SFM.STATE_STOPPED && lastState === SFM.STATE_RUNNING) {
+            stop();
+        }
+    }
 
-
+    function onThreadPoolSizeChange(sender, key, value, rev){
+        if (value > rev) {
+            // increased
+            _.range(value-rev).forEach(function(){
+                threadPool.addObject(App.Thread.create({}));
+            });
+        }
+        else if (value < rev) {
+            // decreased
+            _.range(rev-value).forEach(function(){
+                var thread = threadPool.get('lastObject').stop();
+                threadPool.removeObject(thread);
+            });
+        }
+        else {
+            console.log('thread pool size is not changed');
+        }
     }
 
     function promiseImages(){
@@ -49,26 +91,16 @@ App.SfmLogic = (function(){
 
     function promiseProject() {
         return new Ember.RSVP.Promise(function(resolve, reject){
-            if (projectModel) {
-                resolve(projectModel);
-            }
-            else {
-                projectModel = App.Project.create({
-                    type: SFM.PROJECT_TYPE_TEST,
-                    name: 'test'
-                });
-                projectHooks();
-                resolve(projectModel);
-            }
+            resolve(projectModel);
         });
     }
 
     function run(){
-
+        console.log('started');
     }
 
     function stop(){
-        
+        console.log('stopped');
     }
 
     return {
