@@ -1,65 +1,47 @@
 //===========================================
 
+#controll-panel__body {
+  padding: 5px;
+}
+
+.controll-panel__l1 {
+  background-color: #6D6D6D;
+  margin-bottom: 5px;
+}
+
 .controll-panel__l1-tab {
-  height: 2em;
-  background-color: rgb(77, 77, 77);
-//  border-left: 20px solid;
+  min-height: 2em;
   padding-left: 0.5em;
 }
 
-.controll-panel__l1-body {}
+.controll-panel__l1-body {
+  padding: 5px;
+}
+
+.controll-panel__l2 {
+  background-color: #464646;
+}
 
 .controll-panel__l2-tab {
-  height: 2em;
-  //  border-left: 5px solid;
-  background-color: rgb(58, 58, 58);
+  min-height: 2em;
   color: lightgray;
   padding-left: 0.5em;
+  margin-top: 5px;
 }
 
-.controll-panel__l2-body {}
+.controll-panel__l2-body {
+  padding: 5px;
+}
 
 .controll-panel__l3-tab {
   min-height: 2em;
   background-color: rgb(34, 34, 34);
   color: grey;
   padding-left: 0.5em;
-  border-left: 10px solid;
+  margin-top: 5px;
 }
 
 //===========================================
-
-#controll-panel__images {
-  border-left-color: yellowgreen;
-}
-
-#controll-panel__parameters {
-  border-left-color: darkgreen;
-}
-
-#controll-panel__matching {
-  border-left-color: lightblue;
-}
-
-
-#controll-panel__tracking {
-  border-left-color: dodgerblue;
-}
-
-#controll-panel__recovery {
-  border-left-color: darkblue;
-}
-
-#controll-panel__two-view-stereo {
-  border-left-color: dodgerblue;
-}
-
-#controll-panel__mvs {
-  border-left-color: darkblue;
-}
-
-
-//==================================================
 
 $state-bar-height: 5em;
 
@@ -136,10 +118,16 @@ $cpu-node-size: 2em;
   height: $cpu-node-size;
   width: $cpu-node-size;
 
+  &:hover div {
+    border: 3px solid white;
+  }
+
   div {
     height: 100%;
     width: 100%;
-    background-color: rgb(46, 46, 46);
+    box-sizing: border-box;
+    @include transition(background-color 0.5s);
+    background-color: #3D3D3D;
   }
 
   .is-enabled {

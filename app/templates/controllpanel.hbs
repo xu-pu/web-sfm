@@ -1,44 +1,48 @@
 <div id="controll-panel__header" class="floating-window__header">WebSFM</div>
+<div id="controll-panel__body">
+    <div id="controll-panel__input" class="controll-panel__l1">
+        <div class="controll-panel__l1-tab">Input</div>
+        <div class="controll-panel__l1-body">
+            <div id="controll-panel__images" class="controll-panel__l2">
+                <div class="controll-panel__l2-tab" {{action "enter" "input"}}>Import Images</div>
+            </div>
+            <div id="controll-panel__parameters" class="controll-panel__l2">
+                <div class="controll-panel__l2-tab">
+                    <div>Parameters</div>
+                    {{view App.CpuSettingView controller=controller}}
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div id="controll-panel__input">
-    <div class="controll-panel__l1-tab">Input</div>
-    <div class="controll-panel__l1-body">
-        <div id="controll-panel__images" class="controll-panel__l3-tab" {{action "enter" "input"}}>Import Images</div>
-        <div id="controll-panel__parameters" class="controll-panel__l3-tab" {{action "enter" "input"}}>
-            <div>Parameters</div>
-            {{view App.CpuSettingView controller=controller}}
+    <div id="controll-panel__progress" class="controll-panel__l1">
+        <div class="controll-panel__l1-tab">Progress</div>
+        <div class="controll-panel__l1-body">
+
+            <div id="controll-panel__extractor" class="controll-panel__l2">
+                <div class="controll-panel__l2-tab" {{action "enter" "extractor"}}>Feature Extraction</div>
+            </div>
+
+            <div id="controll-panel__register" class="controll-panel__l2">
+                <div class="controll-panel__l2-tab">Camera Registration</div>
+                <div class="controll-panel__l2-body">
+                    <div id="controll-panel__matching" class="controll-panel__l3-tab" {{action "enter" "register"}}>Feature Matching</div>
+                    <div id="controll-panel__tracking" class="controll-panel__l3-tab" {{action "enter" "register"}}>Key Point Tracking</div>
+                    <div id="controll-panel__recovery" class="controll-panel__l3-tab" {{action "enter" "register"}}>Camera Parameter Recovery</div>
+                </div>
+            </div>
+
+            <div id="controll-panel__stereo" class="controll-panel__l2">
+                <div class="controll-panel__l2-tab">Stereopsis</div>
+                <div class="controll-panel__l2-body">
+                    <div id="controll-panel__two-view-stereo" class="controll-panel__l3-tab" {{action "enter" "stereo"}}>Two-View Stereo</div>
+                    <div id="controll-panel__mvs" class="controll-panel__l3-tab" {{action "enter" "stereo"}}>Multi-View Stereo</div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
-
-<div id="controll-panel__progress">
-    <div class="controll-panel__l1-tab">Progress</div>
-    <div class="controll-panel__l1-body">
-
-        <div id="controll-panel__extractor"    class="controll-panel__progress__phase">
-            <div class="controll-panel__l2-tab" {{action "enter" "extractor"}}>Feature Extraction</div>
-        </div>
-
-        <div id="controll-panel__register" class="controll-panel__progress__phase">
-            <div class="controll-panel__l2-tab">Camera Registration</div>
-            <div class="controll-panel__l2-body">
-                <div id="controll-panel__matching" class="controll-panel__l3-tab" {{action "enter" "register"}}>Feature Matching</div>
-                <div id="controll-panel__tracking" class="controll-panel__l3-tab" {{action "enter" "register"}}>Key Point Tracking</div>
-                <div id="controll-panel__recovery" class="controll-panel__l3-tab" {{action "enter" "register"}}>Camera Parameter Recovery</div>
-            </div>
-        </div>
-
-        <div id="controll-panel__stereo"     class="controll-panel__progress__phase">
-            <div class="controll-panel__l2-tab">Stereopsis</div>
-            <div class="controll-panel__l2-body">
-                <div id="controll-panel__two-view-stereo" class="controll-panel__l3-tab" {{action "enter" "stereo"}}>Two-View Stereo</div>
-                <div id="controll-panel__mvs" class="controll-panel__l3-tab" {{action "enter" "stereo"}}>Multi-View Stereo</div>
-            </div>
-        </div>
-
-    </div>
-</div>
-
 <div id="controll-panel__footer">
 
     <div class="controll-panel__state-body">
