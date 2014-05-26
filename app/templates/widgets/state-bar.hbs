@@ -1,0 +1,32 @@
+{{#if view.expand}}
+
+<div class="controll-panel__state-body__container">
+    <div class="controll-panel__state-body">
+        <div>{{threadPoolSize}} cores can be used</div>
+        {{#each thread in threads}}
+            <div class="controll-panel__state-body__thread">
+                thread
+                {{#if thread.isActive}}
+                    is active
+                {{else}}
+                    is not active
+                {{/if}}
+            </div>
+        {{/each}}
+    </div>
+</div>
+
+{{/if}}
+
+<div class="controll-panel__state-bar">
+    <div class="controll-panel__state-bar__toggle">
+        {{#if isRunning}}
+            <div class="is_running" {{action "stop"}}>Running</div>
+        {{else}}
+            <div class="is_stopped" {{action "run"}}>Stopped</div>
+        {{/if}}
+    </div>
+    {{#view view.InfoView}}
+        some info
+    {{/view}}
+</div>

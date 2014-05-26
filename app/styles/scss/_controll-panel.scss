@@ -1,12 +1,14 @@
 //===========================================
 
+$controll-panel-delta: 8px;
+
 #controll-panel__body {
-  padding: 5px;
+  padding: $controll-panel-delta;
 }
 
 .controll-panel__l1 {
   background-color: #6D6D6D;
-  margin-bottom: 5px;
+  margin-bottom: $controll-panel-delta;
 }
 
 .controll-panel__l1-tab {
@@ -15,7 +17,7 @@
 }
 
 .controll-panel__l1-body {
-  padding: 5px;
+  padding: $controll-panel-delta;
 }
 
 .controll-panel__l2 {
@@ -26,11 +28,11 @@
   min-height: 2em;
   color: lightgray;
   padding-left: 0.5em;
-  margin-top: 5px;
+  margin-top: $controll-panel-delta;
 }
 
 .controll-panel__l2-body {
-  padding: 5px;
+  padding: $controll-panel-delta;
 }
 
 .controll-panel__l3-tab {
@@ -38,7 +40,7 @@
   background-color: rgb(34, 34, 34);
   color: grey;
   padding-left: 0.5em;
-  margin-top: 5px;
+  margin-top: $controll-panel-delta;
 }
 
 //===========================================
@@ -102,11 +104,11 @@ $state-bar-height: 5em;
 .controll-panel__state-bar__body {
   background-color: white;
   position: absolute;
-
   left: $state-bar-height;
   bottom: 0;
   top: 0;
   right: 0;
+  cursor: pointer;
 }
 
 //==================================================
@@ -128,7 +130,7 @@ $state-bar-height: 5em;
 
 }
 
-$cpu-node-size: 2em;
+$cpu-node-size: 1.9em;
 
 .controll-panel__cpu-setting__node {
   display: inline-block;
