@@ -45,8 +45,13 @@
 </div>
 <div id="controll-panel__footer">
 
-    <div class="controll-panel__state-body">
-        <div>{{threadPoolSize}} cores can be used</div>
+    <div class="controll-panel__state-body__container">
+        <div class="controll-panel__state-body">
+            <div>{{threadPoolSize}} cores can be used</div>
+            {{#each threads}}
+                <div class="controll-panel__state-body__thread">thread</div>
+            {{/each}}
+        </div>
     </div>
 
     <div class="controll-panel__state-bar">

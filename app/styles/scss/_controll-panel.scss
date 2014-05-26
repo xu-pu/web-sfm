@@ -49,10 +49,24 @@ $state-bar-height: 5em;
   width: 100%;
   position: absolute;
   bottom: 0;
+  height: $state-bar-height;
+}
+
+.controll-panel__state-body__container {
+  position: absolute;
+  bottom: $state-bar-height;
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 5px;
 }
 
 .controll-panel__state-body {
+  background-color: red;
+}
 
+.controll-panel__state-body__thread {
+  background-color: blue;
 }
 
 .controll-panel__state-bar {
@@ -131,7 +145,8 @@ $cpu-node-size: 2em;
   }
 
   .is-enabled {
-    background-color: rgb(170, 170, 170);
+    background-color: rgb(34, 34, 34);
+    //background-color: rgb(170, 170, 170);
   }
 
 }
