@@ -62,7 +62,8 @@ App.SfmLogic = (function(){
         else if (current < before) {
             // decreased
             _.range(before-current).forEach(function(){
-                var thread = threadPool.get('lastObject').stop();
+                var thread = threadPool.get('lastObject');
+                thread.stop();
                 threadPool.removeObject(thread);
             });
         }
@@ -99,10 +100,16 @@ App.SfmLogic = (function(){
 
     function run(){
         console.log('started');
+        threadPool.forEach(function(thread){
+            thread.start();
+        });
     }
 
     function stop(){
         console.log('stopped');
+        threadPool.forEach(function(thread){
+            thread.stop();
+        });
     }
 
     return {
