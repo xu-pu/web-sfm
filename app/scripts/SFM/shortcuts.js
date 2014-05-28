@@ -1,5 +1,19 @@
 'use strict';
 
+function getLocalStorage(key){
+    var result = localStorage.getItem(key);
+    if (result === null) {
+        return null;
+    }
+    else {
+        return JSON.parse(result);
+    }
+}
+
+function setLocalStorage(key, value){
+    localStorage.setItem(key, JSON.stringify(value));
+}
+
 
 function getImageData(img){
     var canvas = document.createElement('canvas');
@@ -101,27 +115,6 @@ function drawTwoViewMatches(img1, img2, features1, features2, matches){
     ctx.stroke();
 }
 
-function drawBundler(data){
-
-
-
-
-
-
-
-    var clock = new THREE.Clock();
-
-    function render(){
-//        camera.rotation.x -= clock.getDelta();
-//        camera.rotation.y -= clock.getDelta();
-//        camera.rotation.z -= clock.getDelta();
-        renderer.render(scene, camera);
-        requestAnimationFrame(render);
-    }
-
-    render();
-
-}
 
 /**
  *

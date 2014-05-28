@@ -5,6 +5,7 @@ self.onmessage = function(e){
     var data = e.data.data;
     switch (task) {
         case SFM.TASK_MATCHING:
+            console.log('matching job inprogress');
             matchingWorker(data, callback);
             break;
         default:

@@ -68,57 +68,104 @@ SFM.twoViewMatch = function(features1, features2, ANN_THRESHOLD){
     return matches;
 };
 
-SFM.findTracks = function(matches) {
+/**
+ * @param {TwoViewMatches[]} matchList
+ * @returns {Track[]}
+ */
+SFM.findTracks = function(matchList) {
+    var tracks = [];
+    matchList.forEach(function(match){
+        tracks = SFM.incrementalTracks(tracks, match.cam1, match.cam2, match.matches);
+    });
+    tracks = SFM.filterTracks(tracks);
+    return tracks;
+};
 
-    var record, cam, feature, features, cams = SFM.DATA.cameras.length;
-    for (cam=0; cam<cams; cam++){
-        features = SFM.DATA.features[cam].length;
-        for (feature=0; feature<features; feature++){
-            record = traverseTrack([], cam, feature);
-            if (record){
-                registerTrack(record);
-            }
-        }
-    }
+/**
+ * @typedef {{cam: number, point: number}} View
+ */
 
-    function traverseTrack(record, cam, feature){
-        if (SFM.DATA.features[cam][feature].track === undefined){
-            SFM.DATA.features[cam][feature].track = null;
-            record.push([cam, feature]);
-            _.each(SFM.DATA.features[cam][feature].matches, function(item){
-                traverseTrack(record, item[0], item[1]);
+/**
+ * @typedef {{cam1: number, cam2: number, matches: number[][]}} TwoViewMatches
+ */
+
+/**
+ * @typedef {Object} Track
+ */
+
+/**
+ *
+ * @param {View[][]} tracks
+ * @param {number} cam1
+ * @param {number} cam2
+ * @param {number[][]} matches
+ * @return {View[][]}
+ */
+SFM.incrementalTracks = function(tracks, cam1, cam2, matches){
+    matches.forEach(function(match){
+        var matchedTracks = [];
+        tracks.forEach(function(track, trackIndex){
+            var matched1 = false,
+                matched2 = false;
+            track.forEach(function(view){
+                if (view.cam === cam1 && view.point === match[0]) {
+                    matched1 = true;
+                }
+                else if (view.cam === cam2 && view.point === match[1]) {
+                    matched2 = true;
+                }
             });
-            return record;
-        }
-        else {
-            return false;
-        }
-    }
-
-    function registerTrack(record){
-        var matches = {}, errors = {}, index = SFM.DATA.tracks.length;
-        _.each(record, function(feature){
-            // filter out inconsistent matches
-            if (feature[0] in errors) {}
-            else if (feature[0] in matches){
-                delete matches[feature[0]];
-                errors[feature[0]] = null;
-            }
-            else {
-                matches[feature[0]] = feature[1];
+            if (matched1 || matched2) {
+                if (!matched2) {
+                    track.push({ cam: cam2, point: match[1] });
+                }
+                if (!matched1) {
+                    track.push({ cam: cam1, point: match[0] });
+                }
+                matchedTracks.push(trackIndex);
             }
         });
-        if (_.keys(matches).length >= SFM.TRACK_THRESHOLD) {
-            _.each(matches, function(feature){
-                SFM.DATA.features[feature[0]][feature[1]].track = index;
-            });
-            SFM.DATA.tracks.push({
-                views: matches
-            });
+        if (matchedTracks.length ===0) {
+            tracks.push([
+                { cam: cam1, point: match[0] },
+                { cam: cam2, point: match[1] }
+            ]);
         }
-    }
-
+        else if (matchedTracks.length > 1) {
+            var combinedTrack = _.flatten(_.map(matchedTracks, function(i){ return tracks[i]; }));
+            tracks = _.without(tracks, matchedTracks);
+            tracks.push(combinedTrack);
+        }
+    });
 };
+
+
+/**
+ * @param {View[][]} tracks
+ * @return {Track[]} tracks
+ */
+SFM.filterTracks = function(tracks){
+    var result = [];
+    tracks.forEach(function(track){
+        var views = {};
+        var consistent = track.every(function(view){
+            if (view.cam in views) {
+                if (views[view.cam] !== view.point) {
+                    return false;
+                }
+            }
+            else {
+                views[view.cam] = view.point;
+            }
+            return true;
+        });
+        if (consistent) {
+            result.push(views);
+        }
+    });
+    return result;
+};
+
 
 SFM.initRegisterCamera = function(cameras, tracks){
 

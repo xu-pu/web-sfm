@@ -16,7 +16,7 @@ self.onmessage = function(e) {
 SFM.STEREO_WORKER = '/build/scripts/stereoworker.js';
 SFM.SIFT_WORKER = '/build/scripts/siftworker.js';
 SFM.MATCHING_WORKER = '/build/scripts/matchingworker.js';
-
+SFM.WORKER = '/build/scripts/worker.js';
 
 SFM.MSG_QUERY = 0;
 SFM.MSG_CONTROLL = 1;
