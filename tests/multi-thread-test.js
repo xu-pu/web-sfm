@@ -3,12 +3,11 @@
 $(function(){
 
     var dataset = [
-//        ['00000034', '00000035'],
-//        ['00000034', '00000036'],
-//        ['00000034', '00000037'],
-//        ['00000034', '00000038'],
-        ['00000034', '00000039'],
-//        ['00000034', '00000040']
+        ['00000034', '00000035'],
+        ['00000034', '00000036'],
+        ['00000034', '00000037'],
+        ['00000034', '00000038'],
+        ['00000034', '00000040']
     ];
 
 
@@ -30,7 +29,7 @@ $(function(){
         return dataset[index];
     });
 
-    schedule(SFM.TASK_MATCHING, new TwoViewIterator(dataset), function(calculated){
+    schedule(SFM.TASK_MATCHING, new TwoViewIterator(uncached), function(calculated){
         var results = _.map(uncached, function(pair, index){
             var key = parseInt(pair[0]) + '&' + parseInt(pair[1]);
             setLocalStorage(key, calculated[index]);
@@ -40,8 +39,9 @@ $(function(){
                 matches: calculated[index]
             };
         });
-        results.concat(cached);
-        console.log(results.length);
+        results = results.concat(cached);
+        var tracks = SFM.tracking(results);
+        console.log(tracks);
     });
 
 });
@@ -136,7 +136,7 @@ function schedule(task, dataIter, callback){
     }
 
     function oneDone(dataIndex, thread, result){
-        var finished = threadPool.every(function(thread){ return !thread.busy });
+        var finished = threadPool.every(function(t){ return !t.busy });
         results[dataIndex] = result;
         if (!dataIter.ended) {
             dataIter.next(function(i, data){
@@ -147,6 +147,7 @@ function schedule(task, dataIter, callback){
             thread.stop();
             if (finished){
                 callback(results);
+                console.log(results);
             }
         }
     }

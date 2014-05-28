@@ -70,15 +70,27 @@ SFM.twoViewMatch = function(features1, features2, ANN_THRESHOLD){
 
 /**
  * @param {TwoViewMatches[]} matchList
- * @returns {Track[]}
+ * @returns {{tracks:Track[], views: Object}}
  */
-SFM.findTracks = function(matchList) {
+SFM.tracking = function(matchList) {
     var tracks = [];
+    var views = {};
     matchList.forEach(function(match){
         tracks = SFM.incrementalTracks(tracks, match.cam1, match.cam2, match.matches);
     });
     tracks = SFM.filterTracks(tracks);
-    return tracks;
+
+    tracks.forEach(function(track, index){
+        _.keys(track).forEach(function(view){
+            if (view in views) {
+                views[view].push(index);
+            }
+            else {
+                views[view] = [index];
+            }
+        });
+    });
+    return { tracks: tracks, views: views };
 };
 
 /**
@@ -137,6 +149,7 @@ SFM.incrementalTracks = function(tracks, cam1, cam2, matches){
             tracks.push(combinedTrack);
         }
     });
+    return tracks;
 };
 
 
@@ -239,7 +252,7 @@ SFM.registerCameras = function(cameras, callback, options){
             matches.push(twoViewMatches);
         }
     }
-    var tracks = SFM.findTracks(matches, cameras);
+    var tracks = SFM.tracking(matches, cameras);
     var construct = SFM.initRegisterCamera(cameras, tracks);
     var nextCamera = SFM.findNextCamera(construct, cameras);
     while(nextCamera) {
