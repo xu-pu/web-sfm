@@ -7,33 +7,22 @@ App.SiftView = Ember.View.extend({
     canvas: null,
 
     didInsertElement: function(){
-        var _self = this;
-        IDBAdapter.promiseData('fullimages', this.controller.get('_id')).then(function(data){
-            var img = document.createElement('img');
-            img.onload = function(e){
-                _self.onImageLoaded(img);
-            };
-            img.src = data;
-        });
         this.controller.addObserver('model', this, this.onNewImage);
+        this.onNewImage();
     },
 
     onNewImage: function(){
-        var _self = this;
         this.set('loading', true);
         IDBAdapter.promiseData('fullimages', this.controller.get('_id')).then(function(data){
             var img = document.createElement('img');
-            img.onload = function(e){
-                _self.onImageLoaded(img);
-            };
+            img.onload = function(){
+                this.onImageLoaded(img);
+            }.bind(this);
             img.src = data;
-        });
+        }.bind(this));
     },
 
     onImageLoaded: function(img){
-        var _self = this;
-
-        this.set('loading', false);
         var fixedWidth = this.$().width();
         var ratio = fixedWidth/img.width,
             height = img.height*ratio;
@@ -53,13 +42,18 @@ App.SiftView = Ember.View.extend({
         var ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0, fixedWidth, height);
 
+        IDBAdapter.promiseData(SFM.STORE_FEATURES, this.controller.get('_id')).then(function(features){
+            Ember.Logger.debug('sift loaded');
+            this.drawFeatures(ctx, features, img.height, ratio);
+            this.set('loading', false);
+        }.bind(this));
+
+        /*
         getSiftSample(this.controller.get('filename').split('.')[0], function(features){
             console.log('sift loaded');
             _self.drawFeatures(ctx, features.features, img.height, ratio);
         });
-//        IDBAdapter.promiseData('features', this.controller.get('_id')).then(_.bind(this, function(features){
-//            this.drawFeatures(ctx, features, height, ratio);
-//        }));
+        */
     },
 
     drawFeatures: function(ctx, features, height, scale, options){

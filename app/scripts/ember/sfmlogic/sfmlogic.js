@@ -69,6 +69,8 @@ App.SfmLogic = (function(){
         }
     }
 
+    function matchingLogic(){}
+
     function onStageChange(){
         console.log('state change detected');
         switch (projectModel.get('stage')) {
