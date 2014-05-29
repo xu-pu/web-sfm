@@ -14,6 +14,12 @@ App.Project = Ember.Object.extend({
 
     state: SFM.STATE_STOPPED,
 
+    SIFT_SOURCE: SFM.DATA_SOURCE_TEST,
+
+    BUNDLER_SOURCE: SFM.DATA_SOURCE_TEST,
+
+    MVS_SOURCE: SFM.DATA_SOURCE_TEST,
+
     isRunning: function(){
         return this.get('state') === SFM.STATE_RUNNING;
     }.property('state')

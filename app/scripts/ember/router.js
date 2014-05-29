@@ -41,7 +41,7 @@ App.ApplicationRoute = Ember.Route.extend({
 App.InputRoute = Ember.Route.extend({
 
     model: function() {
-        return App.Data.promiseImages();
+        return App.SfmLogic.promiseImages();
     }
 
 });
@@ -63,7 +63,7 @@ App.InputImageRoute = Ember.Route.extend({
 App.ExtractorRoute = Ember.Route.extend({
 
     model: function() {
-        return App.Data.promiseImages();
+        return App.SfmLogic.promiseImages();
     }
 
 });

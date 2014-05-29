@@ -22,7 +22,7 @@ App.Image = Ember.Object.extend({
 
     fullimage: function(){
         return new Ember.RSVP.Promise(function(resolve, reject){
-            IDBAdapter.promiseData('fullimages', this.get('_id'), resolve);
+            IDBAdapter.promiseData('fullimages', this.get('_id')).then(resolve);
         });
     }.property('_id'),
 

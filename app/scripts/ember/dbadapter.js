@@ -32,12 +32,12 @@ var IDBAdapter = (function(){
      */
     function createStores(db){
         console.log('create');
-        db.createObjectStore('images', { autoIncrement: true }) // image information
+        db.createObjectStore(SFM.STORE_IMAGES, { autoIncrement: true }) // image information
             .createIndex('filename', 'filename', { unique: true });
-        db.createObjectStore('fullimages'); // dataURL string of the full-size image
-        db.createObjectStore('thumbnails'); // dataURL string of thumnail
+        db.createObjectStore(SFM.STORE_FULLIMAGES); // dataURL string of the full-size image
+        db.createObjectStore(SFM.STORE_THUMBNAILS); // dataURL string of thumnail
         db.createObjectStore('cameras');    // camera parameters
-        db.createObjectStore('features');   // feature of each image
+        db.createObjectStore(SFM.STORE_FEATURES);   // feature of each image
         db.createObjectStore('sparse'); // sparse point cloud
         db.createObjectStore('dense');  // dense point cloud
     }
@@ -97,7 +97,13 @@ var IDBAdapter = (function(){
         return new Ember.RSVP.Promise(function(resolve, reject){
             promiseDB().then(function(db){
                 db.transaction(store).objectStore(store).get(key).onsuccess = function(e){
-                    resolve(e.target.result);
+                    var result = e.target.result;
+                    if (_.isUndefined(result)) {
+                        reject(result)
+                    }
+                    else {
+                        resolve(result);
+                    }
                 };
             });
         });
