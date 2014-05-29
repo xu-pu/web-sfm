@@ -7,8 +7,12 @@ App.SiftView = Ember.View.extend({
     canvas: null,
 
     didInsertElement: function(){
-        this.controller.addObserver('model', this, this.onNewImage);
+        this.controller.addObserver('model', this, 'onNewImage');
         this.onNewImage();
+    },
+
+    willDestroyElement: function(){
+        this.controller.removeObserver('model', this, 'onNewImage');
     },
 
     onNewImage: function(){
@@ -47,13 +51,6 @@ App.SiftView = Ember.View.extend({
             this.drawFeatures(ctx, features, img.height, ratio);
             this.set('loading', false);
         }.bind(this));
-
-        /*
-        getSiftSample(this.controller.get('filename').split('.')[0], function(features){
-            console.log('sift loaded');
-            _self.drawFeatures(ctx, features.features, img.height, ratio);
-        });
-        */
     },
 
     drawFeatures: function(ctx, features, height, scale, options){

@@ -19,7 +19,20 @@ App.StateBarView = Ember.View.extend({
             else {
                 this.get('parentView').set('expand', true);
             }
-        }
+        },
+
+        description: function(){
+            switch (this.controller.get('stage')) {
+                case SFM.STAGE_BEFORE:
+                    return 'begin';
+                case SFM.STAGE_EXTRACTOR:
+                    return 'extracting SIFT features';
+                case SFM.STAGE_MATCHING:
+                    return 'matching features between two-views';
+                default:
+                    throw 'invalid application stage';
+            }
+        }.property('controller.stage')
 
     })
 
