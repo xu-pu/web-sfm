@@ -18,8 +18,8 @@
         </th>
 
         {{#each imgX in controller.images}}
-            {{#view view.NodeView viewX=imgX viewY=imgY}}
-                <div class="main-container__match-table__pair"></div>
+            {{#view view.NodeView viewX=imgX viewY=imgY controller=controller}}
+                <div class="main-container__match-table__pair" {{bind-attr class="view.isHorizontal view.isVertical"}}></div>
             {{/view}}
         {{/each}}
     </tr>
