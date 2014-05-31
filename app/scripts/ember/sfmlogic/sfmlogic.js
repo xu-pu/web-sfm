@@ -69,7 +69,10 @@ App.SfmLogic = (function(){
         }
     }
 
-    function matchingLogic(){}
+    function matchingLogic(){
+
+
+    }
 
     function onStageChange(){
         console.log('state change detected');

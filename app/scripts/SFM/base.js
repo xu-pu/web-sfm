@@ -54,6 +54,7 @@ SFM.STORE_FEATURES = 'features';
 SFM.STORE_FULLIMAGES = 'fullimages';
 SFM.STORE_THUMBNAILS = 'thumbnails';
 SFM.STORE_IMAGES = 'images';
+SFM.STORE_MATCHES = 'matches';
 
 SFM.RGB2GRAY_R = 0.2989;
 SFM.RGB2GRAY_G = 0.5870;

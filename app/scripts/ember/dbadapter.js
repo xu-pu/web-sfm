@@ -12,7 +12,7 @@ var IDBAdapter = (function(){
                 resolve(connection);
             }
             else {
-                var request = indexedDB.open(project, 3);
+                var request = indexedDB.open(project, 4);
                 request.onupgradeneeded = function(e){
                     console.log('upgrade');
                     connection = e.target.result;
@@ -32,14 +32,23 @@ var IDBAdapter = (function(){
      */
     function createStores(db){
         console.log('create');
-        db.createObjectStore(SFM.STORE_IMAGES, { autoIncrement: true }) // image information
-            .createIndex('filename', 'filename', { unique: true });
-        db.createObjectStore(SFM.STORE_FULLIMAGES); // dataURL string of the full-size image
-        db.createObjectStore(SFM.STORE_THUMBNAILS); // dataURL string of thumnail
-        db.createObjectStore('cameras');    // camera parameters
-        db.createObjectStore(SFM.STORE_FEATURES);   // feature of each image
-        db.createObjectStore('sparse'); // sparse point cloud
-        db.createObjectStore('dense');  // dense point cloud
+        if (!db.objectStoreNames.contains(SFM.STORE_IMAGES)) {
+            db.createObjectStore(SFM.STORE_IMAGES, { autoIncrement: true }) // image information
+                .createIndex('filename', 'filename', { unique: true });
+
+        }
+        [   SFM.STORE_FEATURES,
+            SFM.STORE_FULLIMAGES,
+            SFM.STORE_THUMBNAILS,
+            SFM.STORE_MATCHES
+        ].forEach(function(name){
+            if (!db.objectStoreNames.contains(name)) {
+                db.createObjectStore(name);
+            }
+        });
+//        db.createObjectStore('cameras');    // camera parameters
+//        db.createObjectStore('sparse'); // sparse point cloud
+//        db.createObjectStore('dense');  // dense point cloud
     }
 
 
