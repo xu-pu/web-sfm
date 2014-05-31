@@ -53,6 +53,12 @@ $floating-window-offset: $controll-panel-width + 4em;
 
 .main-container__input-gallery__input {
   background-color: #FFFFFF;
+  @include transition(background-color 0.25s);
+
+  &:hover {
+    background-color: grey;
+  }
+
 }
 
 

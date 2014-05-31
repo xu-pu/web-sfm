@@ -28,9 +28,9 @@ App.ImageLoaderView = Ember.View.extend({
     drop: function(e){
         e.preventDefault();
         var files = e.dataTransfer.files;
-        for (var i=0; i<files.length; i++) {
-            App.Data.images.addObject(App.Image.create({ file: files[i] }));
-        }
+        _.range(files.length).forEach(function(i){
+            this.get('controller.model').addObject(App.Image.create({ file: files[i] }));
+        }.bind(this));
     }
 
 });

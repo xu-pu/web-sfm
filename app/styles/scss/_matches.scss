@@ -1,8 +1,10 @@
+@import "compass";
+
 $node-size: 40px;
 $matching-trace-color: #6D6D6D;
 
 .main-container__match-table {
-  border-collapse: collapse;
+//  border-collapse: collapse;
 
   th {
     padding: 0
@@ -24,9 +26,9 @@ $matching-trace-color: #6D6D6D;
 
 %main-container__match-table__node {
   position: relative;
-  border: 3px solid white;
   height: $node-size;
   width: $node-size;
+  box-sizing: border-box;
 
 }
 
@@ -34,7 +36,14 @@ $matching-trace-color: #6D6D6D;
 .main-container__match-table__pair {
 
   @extend %main-container__match-table__node;
+
   background-color: black;
+
+  @include transition(background-color 0.25s);
+
+  &:hover {
+    border: 5px solid yellow;
+  }
 
 }
 
