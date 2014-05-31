@@ -14,13 +14,11 @@ App.Router.map(function() {
 
     this.resource('register', function(){
         this.route('index');
-/*
-        this.route('tracking');
-        this.resource('registration', function(){
-            this.route('index', { path: '/' });
-            this.route('cameras', { path: '/:camera' });
-        });
-*/
+    });
+
+    this.resource('matches', function(){
+        this.route('index', { path: '/' });
+        this.route('pair',  { path: '/:pair' });
     });
 
     this.resource('stereo', function(){
@@ -67,6 +65,7 @@ App.ExtractorRoute = Ember.Route.extend({
     }
 
 });
+
 App.ExtractorIndexRoute = Ember.Route.extend();
 App.ExtractorImageRoute = Ember.Route.extend({
 
@@ -79,6 +78,17 @@ App.ExtractorImageRoute = Ember.Route.extend({
     }
 
 });
+
+App.MatchesRoute = Ember.Route.extend({
+
+    model: function(){
+        return App.SfmLogic.promiseMatches();
+    }
+
+});
+App.MatchesIndexRoute = Ember.Route.extend();
+App.MatchesPairRoute = Ember.Route.extend({});
+
 
 App.RegisterRoute = Ember.Route.extend();
 App.RegisterIndexRoute = Ember.Route.extend();

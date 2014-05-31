@@ -48,3 +48,5 @@ App.ExtractorThumbnailController = Ember.ObjectController.extend({
     }
 
 });
+
+App.MatchesController = Ember.ObjectController.extend();

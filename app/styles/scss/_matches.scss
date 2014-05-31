@@ -1,0 +1,37 @@
+$node-size: 40px;
+
+.main-container__match-table {
+  border-collapse: collapse;
+
+  th {
+    padding: 0
+  }
+
+}
+
+%main-container__match-table__node {
+
+  border: 3px solid white;
+  height: $node-size;
+  width: $node-size;
+
+}
+
+
+.main-container__match-table__pair {
+
+  @extend %main-container__match-table__node;
+  background-color: black;
+
+}
+
+.main-container__match-table__thumbnail {
+
+  @extend %main-container__match-table__node;
+
+  img {
+    height: 100%;
+    width: 100%;
+  }
+
+}

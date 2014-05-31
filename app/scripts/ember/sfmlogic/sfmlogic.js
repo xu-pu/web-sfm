@@ -3,8 +3,8 @@
 App.SfmLogic = (function(){
 
     var projectModel = null;
-
     var imageModels = null;
+    var matchesModel = null;
 
     var threadPool = null;
 
@@ -128,6 +128,29 @@ App.SfmLogic = (function(){
         });
     }
 
+    function promiseMatches(){
+        return new Ember.RSVP.Promise(function(resolve, reject){
+            if (matchesModel) {
+                resolve(matchesModel);
+            }
+            else if (imageModels) {
+                matchesModel = App.Matches.create({
+                    images: imageModels
+                });
+                resolve(matchesModel);
+            }
+            else {
+                promiseImages().then(function(imgs){
+                    matchesModel = App.Matches.create({
+                        images: imgs
+                    });
+                    Ember.Logger.debug(matchesModel.get('someMsg'));
+                    resolve(matchesModel);
+                });
+            }
+        });
+    }
+
     function run(){
         Ember.Logger.debug('sfm main logic started');
         onStageChange();
@@ -140,7 +163,8 @@ App.SfmLogic = (function(){
 
     return {
         promiseProject: promiseProject,
-        promiseImages: promiseImages
+        promiseImages: promiseImages,
+        promiseMatches: promiseMatches
     };
 
 }());

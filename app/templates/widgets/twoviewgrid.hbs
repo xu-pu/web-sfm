@@ -1,0 +1,27 @@
+<tbody>
+<tr>
+    <th></th>
+    {{#each imgX in controller.images}}
+        <th>
+            <div class="main-container__match-table__thumbnail">
+                <img {{bind-attr src=imgX.thumbnail}}>
+            </div>
+        </th>
+    {{/each}}
+</tr>
+{{#each imgY in controller.images}}
+    <tr>
+        <th>
+            <div class="main-container__match-table__thumbnail">
+                <img {{bind-attr src=imgY.thumbnail}}>
+            </div>
+        </th>
+
+        {{#each imgX in controller.images}}
+            {{#view view.NodeView viewX=imgX viewY=imgY}}
+                <div class="main-container__match-table__pair"></div>
+            {{/view}}
+        {{/each}}
+    </tr>
+{{/each}}
+</tbody>
