@@ -46,7 +46,7 @@ App.Thread = Ember.Object.extend({
         this.set('task', null);
         this.set('data', null);
         this.set('metadata', null);
-        callback(e.data, metadata);
+        callback(e.data, metadata, this);
     },
 
     start: function(){

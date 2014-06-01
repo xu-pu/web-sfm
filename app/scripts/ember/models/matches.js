@@ -66,9 +66,17 @@ App.Matches = Ember.Object.extend({
             var key = getKey(offset1, offset2);
             Promise.all([
                 IDBAdapter.promiseData(SFM.STORE_FEATURES, images[offset1].get('_id')),
-                IDBAdapter.promiseData(SFM.STORE_FEATURES, images[offset2].get('_id'))
+                IDBAdapter.promiseData(SFM.STORE_FEATURES, images[offset2].get('_id')),
+                IDBAdapter.promiseData(SFM.STORE_IMAGES, images[offset1].get('_id')),
+                IDBAdapter.promiseData(SFM.STORE_IMAGES, images[offset2].get('_id'))
             ]).then(function(values){
-                callback({ key: key, features1: values[0], features2: values[1] }, key);
+                callback({
+                    key: key,
+                    features1: values[0],
+                    features2: values[1],
+                    cam1: { width: values[2].width, height: values[2].height },
+                    cam2: { width: values[3].width, height: values[3].height }
+                }, key);
             });
             findNext();
         }

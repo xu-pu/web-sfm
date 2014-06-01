@@ -1,7 +1,7 @@
 @import "compass";
 
 $node-size: 40px;
-$matching-trace-color: #6D6D6D;
+$matching-trace-color: orange;
 
 .main-container__match-table {
 
@@ -12,11 +12,11 @@ $matching-trace-color: #6D6D6D;
   &:hover .main-container__match-table__pair {
 
     &.is-horizontal {
-      background-color: $matching-trace-color;
+      border: 5px solid $matching-trace-color;
     }
 
     &.is-vertical {
-      background-color: $matching-trace-color;
+      border: 5px solid $matching-trace-color;
     }
 
   }
@@ -39,7 +39,7 @@ $matching-trace-color: #6D6D6D;
   background-color: black;
 
   &.is-diag {
-    background-color: white !important;
+    background-color: white;
   }
 
   &.is-finished {

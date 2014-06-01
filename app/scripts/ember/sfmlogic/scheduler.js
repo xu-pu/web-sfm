@@ -18,16 +18,21 @@ App.schedule = function(project, task, dataIter, finished, callback){
 
 //    var dataPool = [];
 
+    var busyThreads = Ember.A();
+
     var inProgress = Ember.A();
 
+    /*
     while(!dataIter.isEnded()){
         dataIter.next(function(data, key){
-            console.log(key);
+     console.log(key);
             finished.addObject(key);
         });
     }
 
     callback();
+*/
+    initialize();
 
     function initialize(){
 //        project.addObserver('threadPoolSize', onPoolSizeChange);
@@ -35,20 +40,39 @@ App.schedule = function(project, task, dataIter, finished, callback){
 
         var newThread;
         while(!dataIter.isEnded() && threadPool.length < project.get('threadPoolSize')){
-            dataIter.next(function(data, key){
-                newThread = new App.Thread();
-                newThread.start();
-                inProgress.addObject(key);
-                newThread.calculate(task, data, oneDone);
-            });
+            newThread = new App.Thread();
+            newThread.start();
+            threadPool.addObject(newThread);
+            busyThreads.addObject(newThread);
+            assign(newThread);
         }
     }
 
-    function assign(thread, data){
-
+    function oneDone(result, key, thread){
+        IDBAdapter.promiseSetData(SFM.STORE_MATCHES, key, result).then(function(){
+            inProgress.removeObject(key);
+            finished.addObject(key);
+            if (dataIter.isEnded()) {
+                thread.stop();
+                threadPool.removeObject(thread);
+                busyThreads.removeObject(thread);
+                if (busyThreads.length === 0) {
+                    callback();
+                }
+            }
+            else {
+                assign(thread);
+            }
+        });
     }
 
-    function oneDone(){}
+    function assign(thread){
+        dataIter.next(function(data, key){
+            console.log(key);
+            inProgress.addObject(key);
+            thread.calculate(task, data, key, oneDone);
+        });
+    }
 
     function resume(){}
 
