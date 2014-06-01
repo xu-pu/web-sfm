@@ -68,7 +68,7 @@ App.Matches = Ember.Object.extend({
                 IDBAdapter.promiseData(SFM.STORE_FEATURES, images[offset1].get('_id')),
                 IDBAdapter.promiseData(SFM.STORE_FEATURES, images[offset2].get('_id'))
             ]).then(function(values){
-                callback({ key: key, features1: values[0], features2: values[1] });
+                callback({ key: key, features1: values[0], features2: values[1] }, key);
             });
             findNext();
         }

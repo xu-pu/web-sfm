@@ -19,9 +19,6 @@ App.SfmLogic = (function(){
         });
         projectHooks();
         threadPool = projectModel.get('threads');
-        _.range(projectModel.get('threadPoolSize')).forEach(function(){
-            threadPool.addObject(App.Thread.create({}));
-        });
     }
 
     function projectHooks(){
