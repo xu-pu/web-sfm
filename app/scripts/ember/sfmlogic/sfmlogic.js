@@ -69,9 +69,13 @@ App.SfmLogic = (function(){
         }
     }
 
-    function matchingLogic(){
-
-
+    function matchingLogic(callback){
+        promiseMatches().then(function(matchesModel){
+            matchesModel.scheduleMatching(function(key){
+                // progress
+                console.log(key);
+            }, callback);
+        });
     }
 
     function onStageChange(){
@@ -86,6 +90,9 @@ App.SfmLogic = (function(){
                 });
                 break;
             case SFM.STAGE_MATCHING:
+                matchingLogic(function(){
+                    projectModel.set('stage', SFM.STAGE_TRACKING);
+                });
                 break;
             case SFM.STAGE_TRACKING:
                 break;
@@ -133,19 +140,18 @@ App.SfmLogic = (function(){
             if (matchesModel) {
                 resolve(matchesModel);
             }
-            else if (imageModels) {
-                matchesModel = App.Matches.create({
-                    images: imageModels
-                });
-                resolve(matchesModel);
-            }
             else {
                 promiseImages().then(function(imgs){
-                    matchesModel = App.Matches.create({
-                        images: imgs
+                    var storedMatches = [];
+                    IDBAdapter.queryEach(SFM.STORE_MATCHES, function(key, value){
+                        storedMatches.push(key);
+                    }, function(){
+                        matchesModel = App.Matches.create({
+                            images: imgs,
+                            finished: storedMatches
+                        });
+                        resolve(matchesModel);
                     });
-                    Ember.Logger.debug(matchesModel.get('someMsg'));
-                    resolve(matchesModel);
                 });
             }
         });

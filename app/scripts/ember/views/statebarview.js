@@ -29,6 +29,8 @@ App.StateBarView = Ember.View.extend({
                     return 'extracting SIFT features';
                 case SFM.STAGE_MATCHING:
                     return 'matching features between two-views';
+                case SFM.STAGE_TRACKING:
+                    return 'tracking consistent tracks from matches';
                 default:
                     throw 'invalid application stage';
             }

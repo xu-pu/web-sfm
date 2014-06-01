@@ -16,9 +16,24 @@ App.schedule = function(project, task, dataIter, progress, callback){
 
     var threadPool = project.get('threads');
 
+    var dataPool = [];
+
+    var finished = Ember.A();
+
+    var inProgress = Ember.A();
+
+    while(!dataIter.isEnded()){
+        dataIter.next(function(data){
+            progress(data.key);
+        });
+    }
+
+    callback();
+
     function initialize(){
-        project.addObserver('threadPoolSize', onPoolSizeChange);
-        project.addObserver('state', abort);
+//        project.addObserver('threadPoolSize', onPoolSizeChange);
+//        project.addObserver('state', abort);
+
     }
 
     function oneDone(){}
@@ -26,5 +41,10 @@ App.schedule = function(project, task, dataIter, progress, callback){
     function abort(){}
 
     function onPoolSizeChange(){}
+
+    return {
+        finished: finished,
+        inProgress: inProgress
+    };
 
 };
