@@ -19,7 +19,7 @@
 
         {{#each imgX in controller.images}}
             {{#view view.NodeView viewX=imgX viewY=imgY controller=controller}}
-                <div {{bind-attr class=":main-container__match-table__pair view.isFinished view.isDiag view.isHorizontal view.isVertical"}}></div>
+                <div {{bind-attr class=":main-container__match-table__pair view.isFinished view.isDiag view.isInprogress view.isHorizontal view.isVertical"}}></div>
             {{/view}}
         {{/each}}
     </tr>

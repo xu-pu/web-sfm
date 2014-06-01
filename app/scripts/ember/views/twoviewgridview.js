@@ -34,11 +34,11 @@ App.TwoViewGridView = Ember.View.extend({
 
         indexX: function(){
             return this.get('controller.images').indexOf(this.get('viewX'));
-        }.property('viewX'),
+        }.property(),
 
         indexY: function(){
             return this.get('controller.images').indexOf(this.get('viewY'));
-        }.property('viewY'),
+        }.property(),
 
         key: function(){
             var id1 = this.get('viewX').get('_id'),
@@ -52,7 +52,7 @@ App.TwoViewGridView = Ember.View.extend({
             else {
                 return null;
             }
-        }.property('viewX', 'viewY'),
+        }.property(),
 
         isFinished: function(){
             return !this.get('isDiag') && this.get('controller.finished').indexOf(this.get('key')) !== -1;
@@ -62,7 +62,14 @@ App.TwoViewGridView = Ember.View.extend({
             return this.get('viewX') === this.get('viewY');
         }.property(),
 
-        isInrogress: false
+        isInprogress: function(){
+            if (this.get('controller.scheduler')) {
+                return this.get('controller.scheduler.inProgress').indexOf(this.get('key')) !== -1;
+            }
+            else {
+                return false;
+            }
+        }.property('controller.scheduler.inProgress.length')
 
     })
 
