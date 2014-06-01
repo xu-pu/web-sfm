@@ -9,22 +9,21 @@
  * @param project
  * @param {number} task
  * @param {Iterator} dataIter
- * @param {Function} progress
+ * @param {Ember.MutableArray} finished
  * @param {Function} callback
  */
-App.schedule = function(project, task, dataIter, progress, callback){
+App.schedule = function(project, task, dataIter, finished, callback){
 
     var threadPool = project.get('threads');
 
     var dataPool = [];
 
-    var finished = Ember.A();
-
     var inProgress = Ember.A();
 
     while(!dataIter.isEnded()){
         dataIter.next(function(data){
-            progress(data.key);
+            console.log(data.key);
+            finished.addObject(data.key);
         });
     }
 

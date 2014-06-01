@@ -4,9 +4,13 @@ App.Matches = Ember.Object.extend({
 
     images: null,
 
-    finished: null,
+    finished: [],
 
     scheduler: null,
+
+    test: function(){
+        console.log('changed');
+    }.observes('finished'),
 
     getQueueIterator: function(){
         var finished = this.get('finished'),
@@ -59,17 +63,13 @@ App.Matches = Ember.Object.extend({
         }
 
         function next(callback){
-//            console.log(offset1+'&'+offset2);
             var key = getKey(offset1, offset2);
-            /*
-                        Promise.all([
-                            IDBAdapter.promiseData(SFM.STORE_FEATURES, images[offset1].get('_id')),
-                            IDBAdapter.promiseData(SFM.STORE_FEATURES, images[offset2].get('_id'))
-                        ]).then(function(values){
-         callback({ key: key, features1: values[0], features2: values[1] });
-                        });
-        */
-            callback({ key: key });
+            Promise.all([
+                IDBAdapter.promiseData(SFM.STORE_FEATURES, images[offset1].get('_id')),
+                IDBAdapter.promiseData(SFM.STORE_FEATURES, images[offset2].get('_id'))
+            ]).then(function(values){
+                callback({ key: key, features1: values[0], features2: values[1] });
+            });
             findNext();
         }
 
@@ -79,10 +79,10 @@ App.Matches = Ember.Object.extend({
         }
     },
 
-    scheduleMatching: function(progress, callback){
+    scheduleMatching: function(callback){
         App.SfmLogic.promiseProject().then(function(projectModel){
             var iterator = this.getQueueIterator();
-            var scheduler = App.schedule(projectModel, SFM.TASK_MATCHING, iterator, progress, callback);
+            var scheduler = App.schedule(projectModel, SFM.TASK_MATCHING, iterator, this.get('finished'), callback);
             this.set('scheduler', scheduler);
         }.bind(this));
     }

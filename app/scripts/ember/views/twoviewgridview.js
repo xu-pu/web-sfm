@@ -40,9 +40,30 @@ App.TwoViewGridView = Ember.View.extend({
             return this.get('controller.images').indexOf(this.get('viewY'));
         }.property('viewY'),
 
-        isFinished: false,
+        key: function(){
+            var id1 = this.get('viewX').get('_id'),
+                id2 = this.get('viewY').get('_id');
+            if (id1>id2) {
+                return id2 + '&' + id1;
+            }
+            else if (id1<id2) {
+                return id1 + '&' + id2;
+            }
+            else {
+                return null;
+            }
+        }.property('viewX', 'viewY'),
 
-        isInProgress: false
+        isFinished: function(){
+            return !this.get('isDiag') && this.get('controller.finished').indexOf(this.get('key')) !== -1;
+        }.property('controller.finished.length', 'key'),
+
+        isDiag: function(){
+            return this.get('viewX') === this.get('viewY');
+        }.property(),
+
+        isInrogress: false
+
     })
 
 });

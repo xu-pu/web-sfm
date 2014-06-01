@@ -73,10 +73,7 @@ App.SfmLogic = (function(){
 
     function matchingLogic(callback){
         promiseMatches().then(function(matchesModel){
-            matchesModel.scheduleMatching(function(key){
-                // progress
-                console.log(key);
-            }, callback);
+            matchesModel.scheduleMatching(callback);
         });
     }
 

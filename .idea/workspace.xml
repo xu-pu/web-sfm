@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eaf60c22-be99-4b50-a303-6483ef7d3c8b" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/styles/scss/_matches.scss" afterPath="$PROJECT_DIR$/app/styles/scss/_matches.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/ember/models/matches.js" afterPath="$PROJECT_DIR$/app/scripts/ember/models/matches.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/ember/sfmlogic/scheduler.js" afterPath="$PROJECT_DIR$/app/scripts/ember/sfmlogic/scheduler.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/ember/sfmlogic/sfmlogic.js" afterPath="$PROJECT_DIR$/app/scripts/ember/sfmlogic/sfmlogic.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/widgets/twoviewgrid.hbs" afterPath="$PROJECT_DIR$/app/templates/widgets/twoviewgrid.hbs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/ember/views/twoviewgridview.js" afterPath="$PROJECT_DIR$/app/scripts/ember/views/twoviewgridview.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="web-sfm.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,38 +34,48 @@
       <file leaf-file-name="scheduler.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/scripts/ember/sfmlogic/scheduler.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="990">
-              <caret line="24" column="31" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="23" max-vertical-offset="972">
+              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="state-bar.hbs" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/templates/widgets/state-bar.hbs">
+      <file leaf-file-name="twoviewgridview.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/scripts/ember/views/twoviewgridview.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-18.666666" vertical-offset="0" max-vertical-offset="666">
-              <caret line="28" column="47" selection-start-line="28" selection-start-column="47" selection-end-line="28" selection-end-column="47" />
+            <state vertical-scroll-proportion="0.80284774" vertical-offset="419" max-vertical-offset="1332">
+              <caret line="64" column="26" selection-start-line="64" selection-start-column="26" selection-end-line="64" selection-end-column="26" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="statebarview.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/scripts/ember/views/statebarview.js">
+      <file leaf-file-name="twoviewgrid.hbs" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/templates/widgets/twoviewgrid.hbs">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="828">
-              <caret line="32" column="68" selection-start-line="32" selection-start-column="68" selection-end-line="32" selection-end-column="68" />
+            <state vertical-scroll-proportion="-14.0" vertical-offset="0" max-vertical-offset="594">
+              <caret line="21" column="75" selection-start-line="21" selection-start-column="75" selection-end-line="21" selection-end-column="75" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sfmlogic.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="_matches.scss" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/styles/scss/_matches.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-19.481482" vertical-offset="230" max-vertical-offset="1332">
+              <caret line="42" column="39" selection-start-line="42" selection-start-column="39" selection-end-line="42" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sfmlogic.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/scripts/ember/sfmlogic/sfmlogic.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.72398686" vertical-offset="221" max-vertical-offset="3294">
-              <caret line="49" column="32" selection-start-line="49" selection-start-column="32" selection-end-line="49" selection-end-column="32" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2327" max-vertical-offset="3240">
+              <caret line="78" column="0" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -68,8 +84,8 @@
       <file leaf-file-name="matches.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/scripts/ember/models/matches.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="797" max-vertical-offset="1710">
-              <caret line="76" column="28" selection-start-line="76" selection-start-column="28" selection-end-line="76" selection-end-column="28" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1710">
+              <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -143,17 +159,17 @@
         <option value="$PROJECT_DIR$/app/templates/matches.hbs" />
         <option value="$PROJECT_DIR$/app/templates/controllpanel.hbs" />
         <option value="$PROJECT_DIR$/app/scripts/ember/controllers/controllers.js" />
-        <option value="$PROJECT_DIR$/app/templates/widgets/twoviewgrid.hbs" />
-        <option value="$PROJECT_DIR$/app/scripts/ember/views/twoviewgridview.js" />
-        <option value="$PROJECT_DIR$/app/styles/scss/_matches.scss" />
         <option value="$PROJECT_DIR$/app/styles/scss/main.scss" />
         <option value="$PROJECT_DIR$/app/templates/input.hbs" />
         <option value="$PROJECT_DIR$/app/scripts/ember/views/imageloaderview.js" />
         <option value="$PROJECT_DIR$/app/scripts/ember/utils.js" />
         <option value="$PROJECT_DIR$/app/scripts/ember/views/statebarview.js" />
-        <option value="$PROJECT_DIR$/app/scripts/ember/models/matches.js" />
-        <option value="$PROJECT_DIR$/app/scripts/ember/sfmlogic/scheduler.js" />
         <option value="$PROJECT_DIR$/app/scripts/ember/sfmlogic/sfmlogic.js" />
+        <option value="$PROJECT_DIR$/app/scripts/ember/sfmlogic/scheduler.js" />
+        <option value="$PROJECT_DIR$/app/styles/scss/_matches.scss" />
+        <option value="$PROJECT_DIR$/app/templates/widgets/twoviewgrid.hbs" />
+        <option value="$PROJECT_DIR$/app/scripts/ember/models/matches.js" />
+        <option value="$PROJECT_DIR$/app/scripts/ember/views/twoviewgridview.js" />
       </list>
     </option>
   </component>
@@ -1018,14 +1034,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/matches.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="886">
-          <caret line="0" column="50" selection-start-line="0" selection-start-column="50" selection-end-line="0" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/controllpanel.hbs">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.37020317" vertical-offset="176" max-vertical-offset="1062">
@@ -1042,34 +1050,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/widgets/twoviewgrid.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.42663658" vertical-offset="0" max-vertical-offset="886">
-          <caret line="21" column="115" selection-start-line="21" selection-start-column="115" selection-end-line="21" selection-end-column="115" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/ember/views/twoviewgridview.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30996713" vertical-offset="41" max-vertical-offset="954">
-          <caret line="18" column="18" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/styles/scss/_controll-panel.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3905192" vertical-offset="2030" max-vertical-offset="2916">
           <caret line="132" column="21" selection-start-line="132" selection-start-column="21" selection-end-line="132" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/styles/scss/_matches.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-24.0" vertical-offset="0" max-vertical-offset="1152">
-          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1130,42 +1114,74 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/ember/views/statebarview.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="828">
-          <caret line="32" column="68" selection-start-line="32" selection-start-column="68" selection-end-line="32" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/ember/models/matches.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="797" max-vertical-offset="1710">
-          <caret line="76" column="28" selection-start-line="76" selection-start-column="28" selection-end-line="76" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/widgets/state-bar.hbs">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-18.666666" vertical-offset="0" max-vertical-offset="666">
+        <state vertical-scroll-proportion="0.5688487" vertical-offset="0" max-vertical-offset="886">
           <caret line="28" column="47" selection-start-line="28" selection-start-column="47" selection-end-line="28" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/matches.hbs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="886">
+          <caret line="0" column="50" selection-start-line="0" selection-start-column="50" selection-end-line="0" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/ember/views/statebarview.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6308872" vertical-offset="0" max-vertical-offset="913">
+          <caret line="32" column="68" selection-start-line="32" selection-start-column="68" selection-end-line="32" selection-end-column="68" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/ember/sfmlogic/scheduler.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="990">
-          <caret line="24" column="31" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="23" max-vertical-offset="972">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/ember/sfmlogic/sfmlogic.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.72398686" vertical-offset="221" max-vertical-offset="3294">
-          <caret line="49" column="32" selection-start-line="49" selection-start-column="32" selection-end-line="49" selection-end-column="32" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="702" max-vertical-offset="3240">
+          <caret line="78" column="0" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/widgets/twoviewgrid.hbs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.0" vertical-offset="0" max-vertical-offset="594">
+          <caret line="21" column="75" selection-start-line="21" selection-start-column="75" selection-end-line="21" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/styles/scss/_matches.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-19.481482" vertical-offset="230" max-vertical-offset="1332">
+          <caret line="42" column="39" selection-start-line="42" selection-start-column="39" selection-end-line="42" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/ember/models/matches.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1710">
+          <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/ember/views/twoviewgridview.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.80284774" vertical-offset="419" max-vertical-offset="1332">
+          <caret line="64" column="26" selection-start-line="64" selection-start-column="26" selection-end-line="64" selection-end-column="26" />
           <folding />
         </state>
       </provider>

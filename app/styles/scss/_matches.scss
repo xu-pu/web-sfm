@@ -36,10 +36,20 @@ $matching-trace-color: #6D6D6D;
 .main-container__match-table__pair {
 
   @extend %main-container__match-table__node;
-
+  @include transition(background-color 0.25s);
   background-color: black;
 
-  @include transition(background-color 0.25s);
+  &.is-diag {
+    background-color: white !important;
+  }
+
+  &.is-finished {
+    background-color: green;
+  }
+
+  &.is-inprogress {
+    background-color: blue;
+  }
 
   &:hover {
     border: 5px solid yellow;
