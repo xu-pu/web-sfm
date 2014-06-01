@@ -44,14 +44,16 @@ App.SfmLogic = (function(){
     function extractorLogic(callback) {
         var finished = 0;
         if (projectModel.get('SIFT_SOURCE') === SFM.DATA_SOURCE_TEST) {
-            imageModels.forEach(function(img){
-                IDBAdapter.promiseData(SFM.STORE_FEATURES, img.get('_id')).then(oneDone, function(){
-                    // not exist
-                    var name = img.get('filename').split('.')[0];
-                    Ember.Logger.debug('ask ajax for sift');
-                    getSiftSample(name, function(data){
-                        Ember.Logger.debug('ajax sift returned');
-                        IDBAdapter.promiseSetData(SFM.STORE_FEATURES, img.get('_id'), data.features).then(oneDone);
+            promiseImages().then(function(imgs){
+                imgs.forEach(function(img){
+                    IDBAdapter.promiseData(SFM.STORE_FEATURES, img.get('_id')).then(oneDone, function(){
+                        // not exist
+                        var name = img.get('filename').split('.')[0];
+                        Ember.Logger.debug('ask ajax for sift');
+                        getSiftSample(name, function(data){
+                            Ember.Logger.debug('ajax sift returned');
+                            IDBAdapter.promiseSetData(SFM.STORE_FEATURES, img.get('_id'), data.features).then(oneDone);
+                        });
                     });
                 });
             });
