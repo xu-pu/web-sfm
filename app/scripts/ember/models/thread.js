@@ -64,6 +64,10 @@ App.Thread = Ember.Object.extend({
         if (this.get('isActive')) {
             this.get('worker').terminate();
             this.set('worker', null);
+            this.set('callback', null);
+            this.set('task', null);
+            this.set('data', null);
+            this.set('metadata', null);
         }
         else {
             console.log('thread is not started');

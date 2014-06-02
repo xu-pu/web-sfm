@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eaf60c22-be99-4b50-a303-6483ef7d3c8b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/styles/scss/_matches.scss" afterPath="$PROJECT_DIR$/app/styles/scss/_matches.scss" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/ember/models/matches.js" afterPath="$PROJECT_DIR$/app/scripts/ember/models/matches.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/ember/sfmlogic/scheduler.js" afterPath="$PROJECT_DIR$/app/scripts/ember/sfmlogic/scheduler.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/ember/models/thread.js" afterPath="$PROJECT_DIR$/app/scripts/ember/models/thread.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="web-sfm.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,8 +30,8 @@
       <file leaf-file-name="scheduler.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/scripts/ember/sfmlogic/scheduler.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2705367" vertical-offset="545" max-vertical-offset="1674">
-              <caret line="44" column="42" selection-start-line="44" selection-start-column="42" selection-end-line="44" selection-end-column="42" />
+            <state vertical-scroll-proportion="0.39430448" vertical-offset="180" max-vertical-offset="2412">
+              <caret line="30" column="35" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -49,21 +47,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="multi-thread-test.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tests/multi-thread-test.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="689" max-vertical-offset="2898">
-              <caret line="60" column="32" selection-start-line="60" selection-start-column="32" selection-end-line="60" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="thread.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/scripts/ember/models/thread.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="383" max-vertical-offset="1404">
-              <caret line="48" column="40" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="40" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="473" max-vertical-offset="1476">
+              <caret line="69" column="39" selection-start-line="69" selection-start-column="39" selection-end-line="69" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -72,18 +60,8 @@
       <file leaf-file-name="matches.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/scripts/ember/models/matches.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="702" max-vertical-offset="1854">
-              <caret line="77" column="69" selection-start-line="77" selection-start-column="69" selection-end-line="77" selection-end-column="69" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_matches.scss" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/styles/scss/_matches.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.8846154" vertical-offset="36" max-vertical-offset="1314">
-              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="977" max-vertical-offset="1890">
+              <caret line="96" column="9" selection-start-line="96" selection-start-column="9" selection-end-line="96" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -154,10 +132,10 @@
         <option value="$PROJECT_DIR$/app/scripts/ember/views/twoviewgridview.js" />
         <option value="$PROJECT_DIR$/app/scripts/ember/sfmlogic/sfmlogic.js" />
         <option value="$PROJECT_DIR$/app/scripts/ember/models/sfm.js" />
+        <option value="$PROJECT_DIR$/app/styles/scss/_matches.scss" />
+        <option value="$PROJECT_DIR$/app/scripts/ember/models/matches.js" />
         <option value="$PROJECT_DIR$/app/scripts/ember/models/thread.js" />
         <option value="$PROJECT_DIR$/app/scripts/ember/sfmlogic/scheduler.js" />
-        <option value="$PROJECT_DIR$/app/scripts/ember/models/matches.js" />
-        <option value="$PROJECT_DIR$/app/styles/scss/_matches.scss" />
       </list>
     </option>
   </component>
@@ -946,6 +924,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="221" max-vertical-offset="1206">
           <caret line="56" column="23" selection-start-line="56" selection-start-column="23" selection-end-line="56" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1099,26 +1078,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/ember/models/matches.js">
+    <entry file="file://$PROJECT_DIR$/tests/multi-thread-test.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="702" max-vertical-offset="1854">
-          <caret line="77" column="69" selection-start-line="77" selection-start-column="69" selection-end-line="77" selection-end-column="69" />
+        <state vertical-scroll-proportion="1.1829134" vertical-offset="0" max-vertical-offset="2898">
+          <caret line="60" column="32" selection-start-line="60" selection-start-column="32" selection-end-line="60" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/styles/scss/_matches.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.8846154" vertical-offset="36" max-vertical-offset="1314">
+        <state vertical-scroll-proportion="0.3554007" vertical-offset="36" max-vertical-offset="1314">
           <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/multi-thread-test.js">
+    <entry file="file://$PROJECT_DIR$/app/scripts/ember/models/thread.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="689" max-vertical-offset="2898">
-          <caret line="60" column="32" selection-start-line="60" selection-start-column="32" selection-end-line="60" selection-end-column="32" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="473" max-vertical-offset="1476">
+          <caret line="69" column="39" selection-start-line="69" selection-start-column="39" selection-end-line="69" selection-end-column="39" />
           <folding />
         </state>
       </provider>
@@ -1131,18 +1110,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/ember/models/thread.js">
+    <entry file="file://$PROJECT_DIR$/app/scripts/ember/models/matches.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="491" max-vertical-offset="1404">
-          <caret line="48" column="40" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="40" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="977" max-vertical-offset="1890">
+          <caret line="96" column="9" selection-start-line="96" selection-start-column="9" selection-end-line="96" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/ember/sfmlogic/scheduler.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2705367" vertical-offset="545" max-vertical-offset="1674">
-          <caret line="44" column="42" selection-start-line="44" selection-start-column="42" selection-end-line="44" selection-end-column="42" />
+        <state vertical-scroll-proportion="0.39430448" vertical-offset="180" max-vertical-offset="2412">
+          <caret line="30" column="35" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
           <folding />
         </state>
       </provider>

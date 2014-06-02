@@ -16,36 +16,31 @@ App.schedule = function(project, task, dataIter, finished, callback){
 
     var threadPool = project.get('threads');
 
-//    var dataPool = [];
+    var dataPool = Ember.A();
 
     var busyThreads = Ember.A();
 
     var inProgress = Ember.A();
 
-    /*
-    while(!dataIter.isEnded()){
-        dataIter.next(function(data, key){
-     console.log(key);
-            finished.addObject(key);
-        });
-    }
+    var allAssigned = false;
 
-    callback();
-*/
     initialize();
 
     function initialize(){
-//        project.addObserver('threadPoolSize', onPoolSizeChange);
-//        project.addObserver('state', abort);
-
-        var newThread;
-        while(!dataIter.isEnded() && threadPool.length < project.get('threadPoolSize')){
-            newThread = new App.Thread();
-            newThread.start();
-            threadPool.addObject(newThread);
-            busyThreads.addObject(newThread);
-            assign(newThread);
-        }
+        project.addObserver('threadPoolSize', function(){
+            if (project.get('state') === SFM.STATE_RUNNING) {
+                onPoolSizeChange();
+            }
+        });
+        project.addObserver('state', function(){
+            if (busyThreads.length === 0 && project.get('state') === SFM.STATE_RUNNING) {
+                resume();
+            }
+            else if (project.get('state') === SFM.STATE_STOPPED) {
+                pause();
+            }
+        });
+        assignAll();
     }
 
     function oneDone(result, key, thread){
@@ -66,22 +61,68 @@ App.schedule = function(project, task, dataIter, finished, callback){
         });
     }
 
-    function assign(thread){
-        dataIter.next(function(data, key){
-            console.log(key);
-            inProgress.addObject(key);
-            thread.calculate(task, data, key, oneDone);
-        });
+    function assignAll(){
+        allAssigned = dataIter.isEnded() && dataPool.length === 0;
+        var newThread;
+        while(threadPool.length < project.get('threadPoolSize') && !allAssigned){
+            newThread = new App.Thread();
+            newThread.start();
+            threadPool.addObject(newThread);
+            busyThreads.addObject(newThread);
+            assign(newThread);
+        }
     }
 
-    function resume(){}
+    function assign(thread){
+        if (dataPool.length > 0) {
+            Ember.Logger.debug(dataPool[0].key + ' assigned');
+            inProgress.addObject(dataPool[0].key);
+            thread.calculate(task, dataPool[0].data, dataPool[0].key, oneDone);
+            dataPool.removeAt(0);
+        }
+        else if (!dataIter.isEnded()) {
+            dataIter.next(function(data, key){
+                Ember.Logger.debug(key + ' assigned');
+                inProgress.addObject(key);
+                thread.calculate(task, data, key, oneDone);
+            });
+        }
+    }
 
-    function abort(){}
+    function pauseOne(thread){
+        inProgress.removeObject(thread.get('metadata'));
+        dataPool.push({
+            key: thread.get('metadata'),
+            data: thread.get('data')
+        });
+        thread.stop();
+        threadPool.removeObject(thread);
+        busyThreads.removeObject(thread);
 
-    function onPoolSizeChange(){}
+    }
+
+    function resume(){
+        assignAll();
+    }
+
+    function pause(){
+        while (busyThreads.length > 0) {
+            pauseOne(busyThreads[0]);
+        }
+    }
+
+    function onPoolSizeChange(){
+        var newSize = project.get('threadPoolSize');
+        var currentSize = threadPool.length;
+        if (newSize>currentSize) {
+            assignAll();
+        }
+        else if (newSize<currentSize) {
+            busyThreads.slice(0,currentSize-newSize).forEach(pauseOne);
+        }
+    }
 
     return {
-        finished: finished,
         inProgress: inProgress
     };
 
