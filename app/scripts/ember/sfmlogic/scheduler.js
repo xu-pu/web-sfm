@@ -27,20 +27,25 @@ App.schedule = function(project, task, dataIter, finished, callback){
     initialize();
 
     function initialize(){
-        project.addObserver('threadPoolSize', function(){
-            if (project.get('state') === SFM.STATE_RUNNING) {
-                onPoolSizeChange();
-            }
-        });
-        project.addObserver('state', function(){
-            if (busyThreads.length === 0 && project.get('state') === SFM.STATE_RUNNING) {
-                resume();
-            }
-            else if (project.get('state') === SFM.STATE_STOPPED) {
-                pause();
-            }
-        });
-        assignAll();
+        if (dataIter.isEnded()) {
+            callback();
+        }
+        else {
+            project.addObserver('threadPoolSize', function(){
+                if (project.get('state') === SFM.STATE_RUNNING) {
+                    onPoolSizeChange();
+                }
+            });
+            project.addObserver('state', function(){
+                if (busyThreads.length === 0 && project.get('state') === SFM.STATE_RUNNING) {
+                    resume();
+                }
+                else if (project.get('state') === SFM.STATE_STOPPED) {
+                    pause();
+                }
+            });
+            assignAll();
+        }
     }
 
     function oneDone(result, key, thread){

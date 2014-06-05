@@ -8,6 +8,10 @@ self.onmessage = function(e){
             console.log('matching job inprogress');
             matchingWorker(data, callback);
             break;
+        case SFM.TASK_TRACKING:
+            console.log('tracking task inprogress');
+            trackingWorker(data, callback);
+            break;
         default:
             console.log('invalid task');
             break;
@@ -18,6 +22,10 @@ self.onmessage = function(e){
     }
 
 };
+
+function trackingWorker(data, callback){
+    callback(SFM.tracking(data));
+}
 
 function siftWorker(){
 

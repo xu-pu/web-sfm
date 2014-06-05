@@ -12,7 +12,7 @@ var IDBAdapter = (function(){
                 resolve(connection);
             }
             else {
-                var request = indexedDB.open(project, 4);
+                var request = indexedDB.open(project, 5);
                 request.onupgradeneeded = function(e){
                     console.log('upgrade');
                     connection = e.target.result;
@@ -40,7 +40,8 @@ var IDBAdapter = (function(){
         [   SFM.STORE_FEATURES,
             SFM.STORE_FULLIMAGES,
             SFM.STORE_THUMBNAILS,
-            SFM.STORE_MATCHES
+            SFM.STORE_MATCHES,
+            SFM.STORE_SINGLETONS
         ].forEach(function(name){
             if (!db.objectStoreNames.contains(name)) {
                 db.createObjectStore(name);
@@ -55,10 +56,10 @@ var IDBAdapter = (function(){
     /**
      *
      * @param {File} file
-     * @return {Ember.RSVP.Promise}
+     * @return {Promise}
      */
     function processImageFile(file){
-        return new Ember.RSVP.Promise(function(resolve, reject){
+        return new Promise(function(resolve, reject){
             var reader = new FileReader();
             reader.onload = function(){
                 var img = document.createElement('img');
@@ -100,10 +101,10 @@ var IDBAdapter = (function(){
      *
      * @param store
      * @param key
-     * @return {Ember.RSVP.Promise}
+     * @return {Promise}
      */
     function promiseData(store, key){
-        return new Ember.RSVP.Promise(function(resolve, reject){
+        return new Promise(function(resolve, reject){
             promiseDB().then(function(db){
                 db.transaction(store).objectStore(store).get(key).onsuccess = function(e){
                     var result = e.target.result;
@@ -120,7 +121,7 @@ var IDBAdapter = (function(){
 
 
     function promiseSetData(store, key, data){
-        return new Ember.RSVP.Promise(function(resolve, reject){
+        return new Ember.RSVP.Promise(function(resolve){
             promiseDB().then(function(db){
                 db.transaction(store, 'readwrite').objectStore(store).add(data, key).onsuccess = function(e){
                     resolve(e.target.result);

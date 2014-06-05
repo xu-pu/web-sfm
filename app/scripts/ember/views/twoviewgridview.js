@@ -10,6 +10,15 @@ App.TwoViewGridView = Ember.View.extend({
 
     hover: null,
 
+    isTraced: function(){
+        if (this.get('hover') === null) {
+            return false;
+        }
+        else {
+            return !this.get('hover.isDiag');
+        }
+    }.property('hover'),
+
     templateName: 'widgets/twoviewgrid',
 
     NodeView: Ember.View.extend({
@@ -21,11 +30,11 @@ App.TwoViewGridView = Ember.View.extend({
         },
 
         isHorizontal: function(){
-            return this.get('parentView.hover.indexY') === this.get('indexY') && this.get('parentView.hover.indexX') > this.get('indexX');
+            return this.get('parentView.isTraced') && this.get('parentView.hover.indexY') === this.get('indexY') && this.get('parentView.hover.indexX') > this.get('indexX');
         }.property('parentView.hover'),
 
         isVertical: function(){
-            return this.get('parentView.hover.indexX') === this.get('indexX') && this.get('parentView.hover.indexY') > this.get('indexY');
+            return this.get('parentView.isTraced') && this.get('parentView.hover.indexX') === this.get('indexX') && this.get('parentView.hover.indexY') > this.get('indexY');
         }.property('parentView.hover'),
 
         viewX: null,

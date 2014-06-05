@@ -74,6 +74,35 @@ App.SfmLogic = (function(){
         });
     }
 
+    function trackingLogic(callback){
+        var matches = [];
+        var thread;
+        IDBAdapter.queryEach(SFM.STORE_MATCHES, function(key, value){
+            var cam1 = parseInt(key.split('&')[0]);
+            var cam2 = parseInt(key.split('&')[1]);
+            matches.push({
+                matches: value,
+                cam1: cam1,
+                cam2: cam2
+            });
+        }, function(){
+            thread = App.Thread.create({});
+            threadPool.addObject(thread);
+            thread.start();
+            thread.calculate(SFM.TASK_TRACKING, matches, null, function(data){
+                Ember.Logger.debug(data);
+                Promise.all([
+                    IDBAdapter.promiseSetData(SFM.STORE_SINGLETONS, SFM.STORE_TRACKS, data.tracks),
+                    IDBAdapter.promiseSetData(SFM.STORE_SINGLETONS, SFM.STORE_VIEWS, data.views)
+                ]).then(function(){
+                    thread.stop();
+                    threadPool.removeObject(thread);
+                    callback();
+                });
+            })
+        })
+    }
+
     function onStageChange(){
         console.log('state change detected');
         switch (projectModel.get('stage')) {
@@ -91,6 +120,9 @@ App.SfmLogic = (function(){
                 });
                 break;
             case SFM.STAGE_TRACKING:
+                trackingLogic(function(){
+                    projectModel.set('stage', SFM.STAGE_REGISTER);
+                });
                 break;
             case SFM.STAGE_REGISTER:
                 break;

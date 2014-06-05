@@ -77,9 +77,13 @@ SFM.tracking = function(matchList) {
     var views = {};
     matchList.forEach(function(match){
         tracks = SFM.incrementalTracks(tracks, match.cam1, match.cam2, match.matches);
+        console.log('one incremental tracking finished, ' + tracks.length + 'tracks');
     });
+
+    console.log('begin to filter tracks');
     tracks = SFM.filterTracks(tracks);
 
+    console.log('begin to build view list');
     tracks.forEach(function(track, index){
         _.keys(track).forEach(function(view){
             if (view in views) {
@@ -144,8 +148,11 @@ SFM.incrementalTracks = function(tracks, cam1, cam2, matches){
             ]);
         }
         else if (matchedTracks.length > 1) {
-            var combinedTrack = _.flatten(_.map(matchedTracks, function(i){ return tracks[i]; }));
-            tracks = _.without(tracks, matchedTracks);
+            var matched = [];
+            matchedTracks.forEach(function(index){
+                matched.push(tracks.splice(index, 1));
+            });
+            var combinedTrack = _.flatten(matched);
             tracks.push(combinedTrack);
         }
     });
