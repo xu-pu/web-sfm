@@ -91,7 +91,23 @@ App.MatchesRoute = Ember.Route.extend({
 
 });
 App.MatchesIndexRoute = Ember.Route.extend();
-App.MatchesPairRoute = Ember.Route.extend({});
+App.MatchesPairRoute = Ember.Route.extend({
+
+    model: function(params){
+        var id1 = parseInt(params.pair.split('&')[0]);
+        var id2 = parseInt(params.pair.split('&')[1]);
+        Ember.Logger.debug(this.get('controller.images'));
+        return {
+            view1: this.get('controller.images')[id1],
+            view2: this.get('controller.images')[id2]
+        }
+    },
+
+    serialize: function(model){
+        return { pair: model.view1.get('_id') + '&' + model.view2.get('_id') };
+    }
+
+});
 
 
 App.TracksRoute = Ember.Route.extend({

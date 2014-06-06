@@ -368,7 +368,7 @@ SFM.Matrix.prototype = {
     },
 
     qrDecomposition: function(){
-        
+
     }
 
 };

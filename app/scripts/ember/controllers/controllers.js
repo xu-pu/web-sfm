@@ -50,5 +50,6 @@ App.ExtractorThumbnailController = Ember.ObjectController.extend({
 });
 
 App.MatchesController = Ember.ObjectController.extend();
+App.MatchesPairController = Ember.ObjectController.extend();
 
 App.TracksController = Ember.ObjectController.extend();

@@ -17,13 +17,7 @@ App.SiftView = Ember.View.extend({
 
     onNewImage: function(){
         this.set('loading', true);
-        IDBAdapter.promiseData('fullimages', this.controller.get('_id')).then(function(data){
-            var img = document.createElement('img');
-            img.onload = function(){
-                this.onImageLoaded(img);
-            }.bind(this);
-            img.src = data;
-        }.bind(this));
+        App.Utils.promiseImage(this.get('controller._id')).then(this.onImageLoaded.bind(this));
     },
 
     onImageLoaded: function(img){
@@ -46,7 +40,7 @@ App.SiftView = Ember.View.extend({
         var ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0, fixedWidth, height);
 
-        IDBAdapter.promiseData(SFM.STORE_FEATURES, this.controller.get('_id')).then(function(features){
+        IDBAdapter.promiseData(SFM.STORE_FEATURES, this.get('controller._id')).then(function(features){
             Ember.Logger.debug('sift loaded');
             this.drawFeatures(ctx, features, img.height, ratio);
             this.set('loading', false);
@@ -59,7 +53,6 @@ App.SiftView = Ember.View.extend({
             color: 'red',
             markSize: 3
         });
-
         ctx.beginPath();
         ctx.strokeStyle = options.color;
         ctx.lineWidth = options.markSize/2;

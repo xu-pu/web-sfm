@@ -29,6 +29,11 @@ App.TwoViewGridView = Ember.View.extend({
             this.get('parentView').set('hover', this);
         },
 
+        click: function(){
+            //Ember.Logger.debug(this.get('view1'));
+            this.controller.transitionToRoute('matches.pair', { view1: this.get('viewX'), view2: this.get('viewY') });
+        },
+
         isHorizontal: function(){
             return this.get('parentView.isTraced') && this.get('parentView.hover.indexY') === this.get('indexY') && this.get('parentView.hover.indexX') > this.get('indexX');
         }.property('parentView.hover'),
