@@ -10,7 +10,8 @@
         "numericjs": "latest",
         "jsfeat": "latest",
         "exifreader": "latest",
-        "threejs": "latest"
+        "threejs": "latest",
+        "vis": "latest"
     },
     "devDependencies": {}
 }

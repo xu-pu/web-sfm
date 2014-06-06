@@ -1,18 +1,20 @@
 {
-  "name": "websfm",
-  "version": "0.0.0",
-  "dependencies": {},
-  "devDependencies": {
-    "grunt": "latest",
-    "grunt-contrib-uglify": "latest",
-    "grunt-contrib-concat": "latest",
-    "grunt-contrib-watch": "latest",
-    "grunt-concat-sourcemap": "latest",
-    "grunt-contrib-copy": "latest",
-    "grunt-contrib-compass": "latest",
-    "grunt-ember-templates": "latest"
-  },
-  "engines": {
-    "node": ">=0.8.0"
-  }
+    "name": "websfm",
+    "version": "0.0.0",
+    "dependencies": {},
+    "devDependencies": {
+        "grunt": "latest",
+        "grunt-contrib-uglify": "latest",
+        "grunt-contrib-concat": "latest",
+        "grunt-contrib-watch": "latest",
+        "grunt-concat-sourcemap": "latest",
+        "grunt-contrib-copy": "latest",
+        "grunt-contrib-compass": "latest",
+        "grunt-ember-templates": "latest",
+        "mocha": "latest",
+        "should": "latest"
+    },
+    "engines": {
+        "node": ">=0.8.0"
+    }
 }

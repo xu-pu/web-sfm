@@ -24,6 +24,8 @@
     <orderEntry type="library" name="gruntjs-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="web-sfm node_modules" level="project" />
     <orderEntry type="library" name="compass-library" level="project" />
+    <orderEntry type="library" name="should-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="mocha-DefinitelyTyped" level="application" />
   </component>
 </module>
 

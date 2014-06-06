@@ -57,7 +57,8 @@ module.exports = function (grunt) {
                         '<%= pathConfig.venders %>/threejs/build/three.js',
                         '<%= pathConfig.venders %>/underscore/underscore.js',
                         '<%= pathConfig.venders %>/numericjs/src/numeric.js',
-                        '<%= pathConfig.venders %>/numericjs/src/svd.js'
+                        '<%= pathConfig.venders %>/numericjs/src/svd.js',
+                        '<%= pathConfig.venders %>/vis/dist/vis.js'
                     ],
 
                     'build/scripts/baselibs.js': [

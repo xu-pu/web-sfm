@@ -16,6 +16,10 @@ App.Router.map(function() {
         this.route('index');
     });
 
+    this.resource('tracks', function(){
+        this.route('index');
+    });
+
     this.resource('matches', function(){
         this.route('index', { path: '/' });
         this.route('pair',  { path: '/:pair' });
@@ -89,6 +93,14 @@ App.MatchesRoute = Ember.Route.extend({
 App.MatchesIndexRoute = Ember.Route.extend();
 App.MatchesPairRoute = Ember.Route.extend({});
 
+
+App.TracksRoute = Ember.Route.extend({
+
+    model: function(){
+        return App.SfmLogic.promiseTracks();
+    }
+
+});
 
 App.RegisterRoute = Ember.Route.extend();
 App.RegisterIndexRoute = Ember.Route.extend();

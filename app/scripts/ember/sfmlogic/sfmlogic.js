@@ -137,8 +137,11 @@ App.SfmLogic = (function(){
         }
     }
 
+    /**
+     * @returns {Promise}
+     */
     function promiseImages(){
-        return new Ember.RSVP.Promise(function(resolve){
+        return new Promise(function(resolve){
             if (imageModels){
                 resolve(imageModels);
             }
@@ -157,14 +160,21 @@ App.SfmLogic = (function(){
         });
     }
 
+    /**
+     * @returns {Promise}
+     */
     function promiseProject() {
-        return new Ember.RSVP.Promise(function(resolve, reject){
+        return new Promise(function(resolve, reject){
             resolve(projectModel);
         });
     }
 
+    /**
+     *
+     * @returns {Promise}
+     */
     function promiseMatches(){
-        return new Ember.RSVP.Promise(function(resolve, reject){
+        return new Promise(function(resolve, reject){
             if (matchesModel) {
                 resolve(matchesModel);
             }
@@ -185,6 +195,22 @@ App.SfmLogic = (function(){
         });
     }
 
+    function promiseTracks(){
+        return new Promise(function(resolve, reject){
+            Promise.all([
+                promiseImages(),
+                IDBAdapter.promiseData(SFM.STORE_SINGLETONS, SFM.STORE_TRACKS),
+                IDBAdapter.promiseData(SFM.STORE_SINGLETONS, SFM.STORE_VIEWS)
+            ]).then(function(values){
+                resolve({
+                    images: values[0],
+                    tracks: values[1],
+                    views: values[2]
+                });
+            }, reject);
+        });
+    }
+
     function run(){
         Ember.Logger.debug('sfm main logic started');
         onStageChange();
@@ -198,7 +224,8 @@ App.SfmLogic = (function(){
     return {
         promiseProject: promiseProject,
         promiseImages: promiseImages,
-        promiseMatches: promiseMatches
+        promiseMatches: promiseMatches,
+        promiseTracks: promiseTracks
     };
 
 }());
