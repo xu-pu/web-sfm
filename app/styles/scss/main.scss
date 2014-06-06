@@ -103,3 +103,12 @@ $floating-window-offset: $controll-panel-width + 4em;
   width: 500px;
   right: $floating-window-offset;
 }
+
+//=======================================
+
+.main-container__stereo-container {
+}
+
+body {
+  overflow: hidden;
+}

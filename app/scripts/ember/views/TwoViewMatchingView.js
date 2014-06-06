@@ -17,16 +17,10 @@ App.TwoViewMatchingView = Ember.View.extend({
 //    isReady: function(){}.property(),
 
     didInsertElement: function(){
-//        Ember.Logger.debug(this.get('controller'));
-//        Ember.Logger.debug(this.get('controller.model'));
-//        Ember.Logger.debug(this.get('controller.view1'));
-//        Ember.Logger.debug(this.get('controller.model.view1'));
-
         Promise.all([
             App.Utils.promiseImage(this.get('controller.view1._id')),
             App.Utils.promiseImage(this.get('controller.view2._id'))
         ]).then(this.renderImagePair.bind(this));
-
     },
 
     renderImagePair: function(values){

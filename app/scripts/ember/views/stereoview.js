@@ -2,6 +2,12 @@
 
 App.StereoView = Ember.View.extend({
 
+    tagName: 'div',
+
+    className: [
+        'main-container__stereo-container'
+    ],
+
     geometry: null,
 
     camera: null,
@@ -71,8 +77,8 @@ App.StereoView = Ember.View.extend({
     },
 
     didInsertElement: function(){
-        var width = window.innerWidth,
-            height = window.innerHeight;
+        var width = $(document.body).width(),
+            height = $(document.body).height();
         var renderer = new THREE.WebGLRenderer();
         renderer.setSize(width, height);
         this.$().append(renderer.domElement);
