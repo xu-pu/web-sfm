@@ -122,6 +122,17 @@ SFM.Matrix.prototype = {
     },
 
 
+    /**
+     * @param {number} i
+     * @param {SFM.Matrix} c
+     */
+    setCol: function(i, c){
+        _.range(this.rows).forEach(function(row){
+            this.set(row, i, c.get(row, 0));
+        }.bind(this));
+    },
+
+
     getNativeRows: function(){
         return _.map(_.range(this.rows), function(row){
             return _.map(_.range(this.cols), function(col){
@@ -354,6 +365,10 @@ SFM.Matrix.prototype = {
      */
     svdSolve: function(){
         return this.svd().V.getRow(this.cols-1).transpose();
+    },
+
+    qrDecomposition: function(){
+        
     }
 
 };

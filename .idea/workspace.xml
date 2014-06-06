@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eaf60c22-be99-4b50-a303-6483ef7d3c8b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unittest/example.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/scripts/ember/views/tracksview.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gruntfile.js" afterPath="$PROJECT_DIR$/Gruntfile.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bower.json" afterPath="$PROJECT_DIR$/bower.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/ember/controllers/controllers.js" afterPath="$PROJECT_DIR$/app/scripts/ember/controllers/controllers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/controllpanel.hbs" afterPath="$PROJECT_DIR$/app/templates/controllpanel.hbs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/ember/router.js" afterPath="$PROJECT_DIR$/app/scripts/ember/router.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/ember/sfmlogic/sfmlogic.js" afterPath="$PROJECT_DIR$/app/scripts/ember/sfmlogic/sfmlogic.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/web-sfm.iml" afterPath="$PROJECT_DIR$/.idea/web-sfm.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/SFM/lapack/matrix.js" afterPath="$PROJECT_DIR$/app/scripts/SFM/lapack/matrix.js" />
     </list>
     <ignored path="web-sfm.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,31 +25,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="tracksview.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/scripts/ember/views/tracksview.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="666">
-              <caret line="9" column="23" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="example.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/unittest/example.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.030716723" vertical-offset="0" max-vertical-offset="648">
-              <caret line="1" column="55" selection-start-line="1" selection-start-column="55" selection-end-line="1" selection-end-column="55" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="matrix.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="matrix.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/scripts/SFM/lapack/matrix.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6552">
-              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.89876264" vertical-offset="5861" max-vertical-offset="6822">
+              <caret line="370" column="8" selection-start-line="370" selection-start-column="8" selection-end-line="370" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -90,7 +59,6 @@
         <option value="$PROJECT_DIR$/app/templates/panels/sift.hbs" />
         <option value="$PROJECT_DIR$/app/scripts/SFM/matrix.js" />
         <option value="$PROJECT_DIR$/app/scripts/SFM/geometry.js" />
-        <option value="$PROJECT_DIR$/app/scripts/SFM/lapack/matrix.js" />
         <option value="$PROJECT_DIR$/app/scripts/SFM/lapack/guass.js" />
         <option value="$PROJECT_DIR$/app/scripts/SFM/lapack/utils.js" />
         <option value="$PROJECT_DIR$/app/scripts/threads/stereo.js" />
@@ -135,6 +103,7 @@
         <option value="$PROJECT_DIR$/unittest/example.js" />
         <option value="$PROJECT_DIR$/app/scripts/lapack/matrix.js" />
         <option value="$PROJECT_DIR$/app/scripts/lapack/lapack.js" />
+        <option value="$PROJECT_DIR$/app/scripts/SFM/lapack/matrix.js" />
       </list>
     </option>
   </component>
@@ -572,7 +541,7 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39934713" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861805" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3297062" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297062" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297062" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -976,9 +945,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/unittest/example.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.020247469" vertical-offset="0" max-vertical-offset="889">
+          <caret line="1" column="55" selection-start-line="1" selection-start-column="55" selection-end-line="1" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/ember/views/tracksview.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="666">
+        <state vertical-scroll-proportion="0.18222722" vertical-offset="0" max-vertical-offset="889">
           <caret line="9" column="23" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
           <folding />
         </state>
@@ -986,16 +963,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/SFM/lapack/matrix.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6552">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/unittest/example.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.030716723" vertical-offset="0" max-vertical-offset="648">
-          <caret line="1" column="55" selection-start-line="1" selection-start-column="55" selection-end-line="1" selection-end-column="55" />
+        <state vertical-scroll-proportion="0.89876264" vertical-offset="5861" max-vertical-offset="6822">
+          <caret line="370" column="8" selection-start-line="370" selection-start-column="8" selection-end-line="370" selection-end-column="8" />
           <folding />
         </state>
       </provider>
