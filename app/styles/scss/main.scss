@@ -97,3 +97,9 @@ $floating-window-offset: $controll-panel-width + 4em;
   width: 500px;
   right: $floating-window-offset;
 }
+
+.floating-window__matching-pair {
+  @extend %floating-window;
+  width: 500px;
+  right: $floating-window-offset;
+}

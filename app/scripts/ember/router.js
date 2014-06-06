@@ -94,13 +94,13 @@ App.MatchesIndexRoute = Ember.Route.extend();
 App.MatchesPairRoute = Ember.Route.extend({
 
     model: function(params){
-        var id1 = parseInt(params.pair.split('&')[0]);
-        var id2 = parseInt(params.pair.split('&')[1]);
-        Ember.Logger.debug(this.get('controller.images'));
-        return {
-            view1: this.get('controller.images')[id1],
-            view2: this.get('controller.images')[id2]
-        }
+        return new Promise(function(resolve, reject){
+            var id1 = parseInt(params.pair.split('&')[0]);
+            var id2 = parseInt(params.pair.split('&')[1]);
+            App.SfmLogic.promiseImages().then(function(images){
+                resolve({ view1: images.findBy('_id', id1), view2: images.findBy('_id', id2) });
+            }, reject);
+        });
     },
 
     serialize: function(model){
