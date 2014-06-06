@@ -54,6 +54,9 @@ $matching-trace-color: orange;
     border: 5px solid yellow;
   }
 
+  &:active {
+    background-color: black;
+  }
 }
 
 .main-container__match-table__thumbnail {

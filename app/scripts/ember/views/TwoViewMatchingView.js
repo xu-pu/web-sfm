@@ -12,18 +12,32 @@ App.TwoViewMatchingView = Ember.View.extend({
 
     img2: null,
 
+    canvas: null,
+
     config: null,
 
 //    isReady: function(){}.property(),
 
-    didInsertElement: function(){
+    view1: Ember.computed.alias('controller.view1'),
+
+    view2: Ember.computed.alias('controller.view2'),
+
+    modelUpdated: function(){
         Promise.all([
-            App.Utils.promiseImage(this.get('controller.view1._id')),
-            App.Utils.promiseImage(this.get('controller.view2._id'))
+            App.Utils.promiseImage(this.get('view1._id')),
+            App.Utils.promiseImage(this.get('view2._id'))
         ]).then(this.renderImagePair.bind(this));
+    }.observes('view1', 'view2'),
+
+    didInsertElement: function(){
+        var canvas = document.createElement('canvas');
+        this.get('element').appendChild(canvas);
+        this.set('canvas', canvas);
+        this.modelUpdated();
     },
 
     renderImagePair: function(values){
+        var PADDING = 10;
         var img1 = values[0],
             img2 = values[1];
         var ratioX = img1.height/img1.width + img2.height/img2.width;
@@ -36,20 +50,20 @@ App.TwoViewMatchingView = Ember.View.extend({
             alignX: alignX,
             ratio1: ratio1,
             ratio2: ratio2,
+            padding: PADDING,
             cam1: { width: img1.width, height: img1.height },
             cam2: { width: img2.width, height: img2.height }
         });
-        var canvas = document.createElement('canvas');
-        this.get('element').appendChild(canvas);
+        var canvas = this.get('canvas');
         canvas.width = fixedWidth;
         canvas.height = alignX ? ratioX*fixedWidth : fixedWidth/ratioY;
         var ctx = canvas.getContext('2d');
         ctx.drawImage(img1, 0, 0, img1.width*ratio1, img1.height*ratio1);
         if (alignX) {
-            ctx.drawImage(img1, 0, img1.height*ratio1, img2.width*ratio1, img2.height*ratio1);
+            ctx.drawImage(img2, 0, img1.height*ratio1+PADDING, img2.width*ratio1, img2.height*ratio1);
         }
         else {
-            ctx.drawImage(img1, img1.width*ratio1, 0, img2.width*ratio1, img2.height*ratio1);
+            ctx.drawImage(img2, img1.width*ratio1+PADDING, 0, img2.width*ratio1, img2.height*ratio1);
         }
     },
 
