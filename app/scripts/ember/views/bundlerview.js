@@ -1,6 +1,6 @@
 'use strict';
 
-App.RegisterView = Ember.View.extend({
+App.RegisterView = Ember.View.extend(App.Utils.Navigatable, {
 
     geometry: null,
 
@@ -18,8 +18,7 @@ App.RegisterView = Ember.View.extend({
 
     anchor: null,
 
-    mouseDown: function(e){
-        e.preventDefault();
+    beginNavigation: function(e){
         var camera = this.get('camera');
         if (camera){
             switch (e.which){
@@ -45,17 +44,11 @@ App.RegisterView = Ember.View.extend({
                     break;
             }
         }
-        window.addEventListener('mousemove', this.getMouseMoveHandler(), false);
-        window.addEventListener('mouseup', this.getMouseUpHandler(), false);
     },
-
-    contextMenu: function(){ return false; },
 
     releaseNavigation: function(){
         this.set('isRotating', false);
         this.set('isMoving', false);
-        window.removeEventListener('mousemove', this.getMouseMoveHandler(), false);
-        window.removeEventListener('mouseup', this.getMouseUpHandler(), false);
     },
 
     navigate: function(e){
@@ -72,24 +65,6 @@ App.RegisterView = Ember.View.extend({
             camera.rotation.x = anchor.camX + Math.PI*(e.pageX - anchor.x)/2000;
             camera.rotation.y = anchor.camY + Math.PI*(e.pageY - anchor.y)/2000;
         }
-    },
-
-    getMouseMoveHandler: function(){
-        var handler = this.get('windowMouseMove');
-        if (!_.isFunction(handler)) {
-            handler = this.navigate.bind(this);
-            this.set('windowMouseMove', handler);
-        }
-        return handler;
-    },
-
-    getMouseUpHandler: function(){
-        var handler = this.get('windowMouseUp');
-        if (!_.isFunction(handler)) {
-            handler = this.releaseNavigation.bind(this);
-            this.set('windowMouseUp', handler);
-        }
-        return handler;
     },
 
     didInsertElement: function(){

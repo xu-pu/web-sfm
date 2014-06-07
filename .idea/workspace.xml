@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="eaf60c22-be99-4b50-a303-6483ef7d3c8b" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/ember/views/bundlerview.js" afterPath="$PROJECT_DIR$/app/scripts/ember/views/bundlerview.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/ember/views/stereoview.js" afterPath="$PROJECT_DIR$/app/scripts/ember/views/stereoview.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/ember/utils.js" afterPath="$PROJECT_DIR$/app/scripts/ember/utils.js" />
     </list>
     <ignored path="web-sfm.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,8 +33,18 @@
       <file leaf-file-name="stereoview.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/scripts/ember/views/stereoview.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="479" max-vertical-offset="2934">
-              <caret line="54" column="65" selection-start-line="53" selection-start-column="0" selection-end-line="54" selection-end-column="76" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="162" max-vertical-offset="2484">
+              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="utils.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/scripts/ember/utils.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="605" max-vertical-offset="1494">
+              <caret line="71" column="28" selection-start-line="71" selection-start-column="28" selection-end-line="71" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -41,8 +53,8 @@
       <file leaf-file-name="bundlerview.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/scripts/ember/views/bundlerview.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.4701912" vertical-offset="3060" max-vertical-offset="4032">
-              <caret line="48" column="76" selection-start-line="48" selection-start-column="76" selection-end-line="48" selection-end-column="76" />
+            <state vertical-scroll-proportion="2.4701912" vertical-offset="0" max-vertical-offset="3582">
+              <caret line="122" column="0" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -112,9 +124,9 @@
         <option value="$PROJECT_DIR$/app/styles/scss/_matches.scss" />
         <option value="$PROJECT_DIR$/app/scripts/ember/router.js" />
         <option value="$PROJECT_DIR$/app/scripts/ember/views/twoviewgridview.js" />
-        <option value="$PROJECT_DIR$/app/scripts/ember/utils.js" />
         <option value="$PROJECT_DIR$/app/scripts/ember/views/siftview.js" />
         <option value="$PROJECT_DIR$/app/scripts/ember/views/TwoViewMatchingView.js" />
+        <option value="$PROJECT_DIR$/app/scripts/ember/utils.js" />
         <option value="$PROJECT_DIR$/app/scripts/ember/views/stereoview.js" />
         <option value="$PROJECT_DIR$/app/scripts/ember/views/bundlerview.js" />
       </list>
@@ -1082,14 +1094,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/ember/utils.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.62767154" vertical-offset="0" max-vertical-offset="889">
-          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/SFM/shortcuts.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.56692916" vertical-offset="1242" max-vertical-offset="2340">
@@ -1124,16 +1128,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/ember/views/stereoview.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="479" max-vertical-offset="2934">
-          <caret line="54" column="65" selection-start-line="53" selection-start-column="0" selection-end-line="54" selection-end-column="76" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="162" max-vertical-offset="2484">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/ember/utils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="533" max-vertical-offset="1494">
+          <caret line="71" column="28" selection-start-line="71" selection-start-column="28" selection-end-line="71" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/ember/views/bundlerview.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.4701912" vertical-offset="3060" max-vertical-offset="4032">
-          <caret line="48" column="76" selection-start-line="48" selection-start-column="76" selection-end-line="48" selection-end-column="76" />
+        <state vertical-scroll-proportion="2.4701912" vertical-offset="0" max-vertical-offset="3582">
+          <caret line="122" column="0" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
           <folding />
         </state>
       </provider>
