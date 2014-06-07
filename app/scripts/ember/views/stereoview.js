@@ -58,19 +58,24 @@ App.StereoView = Ember.View.extend(App.Utils.Navigatable, {
     },
 
     navigate: function(e){
-        var anchor, camera;
-        if(this.get('isMoving')){
-            anchor = this.get('anchor');
+        var anchor = this.get('anchor'),
             camera = this.get('camera');
+        if(this.get('isMoving')){
             camera.position.x = anchor.camX + e.pageX - anchor.x;
             camera.position.y = anchor.camY + e.pageY - anchor.y;
         }
         else if (this.get('isRotating')){
-            anchor = this.get('anchor');
-            camera = this.get('camera');
             camera.rotation.x = anchor.camX + Math.PI*(e.pageX - anchor.x)/2000;
             camera.rotation.y = anchor.camY + Math.PI*(e.pageY - anchor.y)/2000;
         }
+    },
+
+    wheel: function(e){
+        var camera = this.get('camera');
+        var ratio = e.wheelDelta > 0 ? 0.9 : 1.1;
+        camera.position.x = ratio*camera.position.x;
+        camera.position.y = ratio*camera.position.y;
+        camera.position.z = ratio*camera.position.z;
     },
 
     didInsertElement: function(){
@@ -128,6 +133,7 @@ App.StereoView = Ember.View.extend(App.Utils.Navigatable, {
         particlesSystem.rotation.z = 5.0;
 
         this.get('scene').add(particlesSystem);
+        this.get('element').addEventListener('wheel', this.wheel.bind(this), false);
     }
 
 });

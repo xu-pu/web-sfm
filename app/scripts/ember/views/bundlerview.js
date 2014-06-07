@@ -18,6 +18,14 @@ App.RegisterView = Ember.View.extend(App.Utils.Navigatable, {
 
     anchor: null,
 
+    wheel: function(e){
+        var camera = this.get('camera');
+        var ratio = e.wheelDelta > 0 ? 0.9 : 1.1;
+        camera.position.x = ratio*camera.position.x;
+        camera.position.y = ratio*camera.position.y;
+        camera.position.z = ratio*camera.position.z;
+    },
+
     beginNavigation: function(e){
         var camera = this.get('camera');
         if (camera){
@@ -117,6 +125,7 @@ App.RegisterView = Ember.View.extend(App.Utils.Navigatable, {
 
         $.getJSON('/dataset/bundler/bundler.json')
             .then(_.bind(this.afterLoaded, this));
+
     },
 
     afterLoaded: function(data){
@@ -170,6 +179,7 @@ App.RegisterView = Ember.View.extend(App.Utils.Navigatable, {
         this.get('scene').add(pointsSystem);
         this.get('scene').add(camerasSystem);
         this.get('scene').add(viewSystem);
+        this.get('element').addEventListener('wheel', this.wheel.bind(this), false);
     },
 
     nextView: function(){
