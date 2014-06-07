@@ -38,7 +38,6 @@ App.TwoViewMatchingView = Ember.View.extend({
     }.observes('view1', 'view2'),
 
     didInsertElement: function(){
-        Ember.Logger.debug(this.get('finished'));
         var canvas = document.createElement('canvas');
         this.get('element').appendChild(canvas);
         this.set('canvas', canvas);
@@ -63,6 +62,7 @@ App.TwoViewMatchingView = Ember.View.extend({
             cam1: { width: img1.width, height: img1.height },
             cam2: { width: img2.width, height: img2.height }
         });
+
         var canvas = this.get('canvas');
         canvas.width = fixedWidth;
         canvas.height = alignX ? ratioX*fixedWidth : fixedWidth/ratioY;
@@ -75,7 +75,7 @@ App.TwoViewMatchingView = Ember.View.extend({
         else {
             ctx.drawImage(img2, img1.width*ratio1+PADDING, 0, img2.width*ratio1, img2.height*ratio1);
         }
-        Ember.Logger.debug(this.get('matchesReady'));
+
         if (this.get('matchesReady')) {
             this.renderMatches();
         }
