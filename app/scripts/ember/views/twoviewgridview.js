@@ -30,8 +30,16 @@ App.TwoViewGridView = Ember.View.extend({
         },
 
         click: function(){
-            //Ember.Logger.debug(this.get('view1'));
-            this.controller.transitionToRoute('matches.pair', { view1: this.get('viewX'), view2: this.get('viewY') });
+            var bigger, smaller;
+            if (this.get('viewX._id') < this.get('viewY._id')) {
+                smaller = this.get('viewX');
+                bigger = this.get('viewY');
+            }
+            else {
+                smaller = this.get('viewY');
+                bigger = this.get('viewX');
+            }
+            this.controller.transitionToRoute('matches.pair', { view1: smaller, view2: bigger });
         },
 
         isHorizontal: function(){

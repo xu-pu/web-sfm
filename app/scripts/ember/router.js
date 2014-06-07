@@ -95,10 +95,15 @@ App.MatchesPairRoute = Ember.Route.extend({
 
     model: function(params){
         return new Promise(function(resolve, reject){
-            var id1 = parseInt(params.pair.split('&')[0]);
-            var id2 = parseInt(params.pair.split('&')[1]);
+            var id1 = parseInt(params.pair.split('&')[0]),
+                id2 = parseInt(params.pair.split('&')[1]);
+            var bigger = id1<id2 ? id2 : id1,
+                smaller = id1<id2 ? id1 : id2;
             App.SfmLogic.promiseImages().then(function(images){
-                resolve({ view1: images.findBy('_id', id1), view2: images.findBy('_id', id2) });
+                resolve({
+                    view1: images.findBy('_id', smaller),
+                    view2: images.findBy('_id', bigger)
+                });
             }, reject);
         });
     },

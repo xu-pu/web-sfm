@@ -42,29 +42,9 @@ App.SiftView = Ember.View.extend({
 
         IDBAdapter.promiseData(SFM.STORE_FEATURES, this.get('controller._id')).then(function(features){
             Ember.Logger.debug('sift loaded');
-            this.drawFeatures(ctx, features, img.height, ratio);
+            App.Utils.drawFeatures(ctx, features, 0, 0, ratio);
             this.set('loading', false);
         }.bind(this));
-    },
-
-    drawFeatures: function(ctx, features, height, scale, options){
-        options = options || {};
-        _.defaults(options, {
-            color: 'red',
-            markSize: 3
-        });
-        ctx.beginPath();
-        ctx.strokeStyle = options.color;
-        ctx.lineWidth = options.markSize/2;
-        _.each(features, function(feature){
-            var x = scale*feature.col,
-                y = scale*feature.row;
-            ctx.moveTo(x-options.markSize, y);
-            ctx.lineTo(x+options.markSize, y);
-            ctx.moveTo(x, y-options.markSize);
-            ctx.lineTo(x, y+options.markSize);
-        });
-        ctx.stroke();
     }
 
 });

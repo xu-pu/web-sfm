@@ -16,11 +16,19 @@ App.TwoViewMatchingView = Ember.View.extend({
 
     config: null,
 
-//    isReady: function(){}.property(),
-
     view1: Ember.computed.alias('controller.view1'),
 
     view2: Ember.computed.alias('controller.view2'),
+
+    key: function(){
+        return this.get('view1._id') + '&' + this.get('view2._id');
+    }.property('view1', 'view2'),
+
+    finished: Ember.computed.alias('controller.controllers.matches.finished'),
+
+    matchesReady: function(){
+        return this.get('finished').indexOf(this.get('key')) !== -1;
+    }.property('finished', 'key'),
 
     modelUpdated: function(){
         Promise.all([
@@ -30,6 +38,7 @@ App.TwoViewMatchingView = Ember.View.extend({
     }.observes('view1', 'view2'),
 
     didInsertElement: function(){
+        Ember.Logger.debug(this.get('finished'));
         var canvas = document.createElement('canvas');
         this.get('element').appendChild(canvas);
         this.set('canvas', canvas);
@@ -58,6 +67,7 @@ App.TwoViewMatchingView = Ember.View.extend({
         canvas.width = fixedWidth;
         canvas.height = alignX ? ratioX*fixedWidth : fixedWidth/ratioY;
         var ctx = canvas.getContext('2d');
+        ctx.clearRect(0,0,canvas.width,canvas.height);
         ctx.drawImage(img1, 0, 0, img1.width*ratio1, img1.height*ratio1);
         if (alignX) {
             ctx.drawImage(img2, 0, img1.height*ratio1+PADDING, img2.width*ratio1, img2.height*ratio1);
@@ -65,8 +75,53 @@ App.TwoViewMatchingView = Ember.View.extend({
         else {
             ctx.drawImage(img2, img1.width*ratio1+PADDING, 0, img2.width*ratio1, img2.height*ratio1);
         }
+        Ember.Logger.debug(this.get('matchesReady'));
+        if (this.get('matchesReady')) {
+            this.renderMatches();
+        }
     },
 
-    renderMatches: function(){}
+    renderMatches: function(){
+        var config = this.get('config');
+        var ctx = this.get('canvas').getContext('2d');
+        Promise.all([
+            IDBAdapter.promiseData(SFM.STORE_MATCHES, this.get('key')),
+            IDBAdapter.promiseData(SFM.STORE_FEATURES, this.get('view1._id')),
+            IDBAdapter.promiseData(SFM.STORE_FEATURES, this.get('view2._id'))
+        ]).then(function(values){
+            var matches = values[0],
+                features1 = values[1],
+                features2 = values[2];
+            var offsetX, offsetY;
+            if (config.alignX) {
+                offsetX = 0;
+                offsetY = config.cam1.height*config.ratio1 + config.padding;
+            }
+            else {
+                offsetX = config.cam1.width*config.ratio1 + config.padding;
+                offsetY = 0;
+            }
+            App.Utils.drawFeatures(ctx, features1, 0, 0, config.ratio1);
+            App.Utils.drawFeatures(ctx, features2, offsetX, offsetY, config.ratio1, { color: 'green' });
+            ctx.beginPath();
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 1;
+            matches.forEach(function(match){
+                var row1 = features1[match[0]].row,
+                    col1 = features1[match[0]].col,
+                    row2 = features2[match[1]].row,
+                    col2 = features2[match[1]].col;
+                var x1 = config.ratio1*col1,
+                    y1 = config.ratio1*row1,
+                    x2 = config.ratio2*col2 + offsetX,
+                    y2 = config.ratio2*row2 + offsetY;
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+            });
+            ctx.stroke();
+        });
+    }
+
+
 
 });
