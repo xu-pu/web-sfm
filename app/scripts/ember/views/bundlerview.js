@@ -129,15 +129,18 @@ App.RegisterView = Ember.View.extend(App.Utils.Navigatable, {
     },
 
     afterLoaded: function(data){
+        var SCALE = 20;
         this.set('data', data);
-
         var camerasGeo = new THREE.Geometry();
         data.cameras.forEach(function(cam){
+            cam.t[0] *= SCALE;
+            cam.t[1] *= SCALE;
+            cam.t[2] *= SCALE;
             camerasGeo.vertices.push(new THREE.Vector3(cam.t[0], cam.t[1], cam.t[2]));
         });
         var particlesMaterial = new THREE.ParticleSystemMaterial({
             color: 0xFF0000,
-            size: 2,
+            size: 5,
             blending: THREE.AdditiveBlending,
             transparent: true
         });
@@ -145,11 +148,14 @@ App.RegisterView = Ember.View.extend(App.Utils.Navigatable, {
 
         var pointsGeo = new THREE.Geometry();
         data.points.forEach(function(p){
+            p.point[0] *= SCALE;
+            p.point[1] *= SCALE;
+            p.point[2] *= SCALE;
             pointsGeo.vertices.push(new THREE.Vector3(p.point[0], p.point[1], p.point[2]));
         });
         var pointsMaterial = new THREE.ParticleSystemMaterial({
             color: 0xFFFFFF,
-            size: 1,
+            size: 3,
             blending: THREE.AdditiveBlending,
             transparent: true
         });
