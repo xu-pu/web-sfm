@@ -45,16 +45,20 @@ App.RegisterView = Ember.View.extend({
                     break;
             }
         }
+        window.addEventListener('mousemove', this.getMouseMoveHandler(), false);
+        window.addEventListener('mouseup', this.getMouseUpHandler(), false);
     },
 
     contextMenu: function(){ return false; },
 
-    mouseUp: function(){
+    releaseNavigation: function(){
         this.set('isRotating', false);
         this.set('isMoving', false);
+        window.removeEventListener('mousemove', this.getMouseMoveHandler(), false);
+        window.removeEventListener('mouseup', this.getMouseUpHandler(), false);
     },
 
-    mouseMove: function(e){
+    navigate: function(e){
         var anchor, camera;
         if(this.get('isMoving')){
             anchor = this.get('anchor');
@@ -68,6 +72,24 @@ App.RegisterView = Ember.View.extend({
             camera.rotation.x = anchor.camX + Math.PI*(e.pageX - anchor.x)/2000;
             camera.rotation.y = anchor.camY + Math.PI*(e.pageY - anchor.y)/2000;
         }
+    },
+
+    getMouseMoveHandler: function(){
+        var handler = this.get('windowMouseMove');
+        if (!_.isFunction(handler)) {
+            handler = this.navigate.bind(this);
+            this.set('windowMouseMove', handler);
+        }
+        return handler;
+    },
+
+    getMouseUpHandler: function(){
+        var handler = this.get('windowMouseUp');
+        if (!_.isFunction(handler)) {
+            handler = this.releaseNavigation.bind(this);
+            this.set('windowMouseUp', handler);
+        }
+        return handler;
     },
 
     didInsertElement: function(){
