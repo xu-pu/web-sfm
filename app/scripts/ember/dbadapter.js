@@ -7,7 +7,7 @@ var IDBAdapter = (function(){
     var connection = null;
 
     function promiseDB(){
-        return new Ember.RSVP.Promise(function(resolve, reject){
+        return new Promise(function(resolve, reject){
             if (connection) {
                 resolve(connection);
             }
@@ -120,12 +120,29 @@ var IDBAdapter = (function(){
     }
 
 
+    /**
+     * @param {String} store
+     * @param {String} key
+     * @param data
+     * @returns {Promise}
+     */
     function promiseSetData(store, key, data){
-        return new Ember.RSVP.Promise(function(resolve){
+        return new Promise(function(resolve){
             promiseDB().then(function(db){
-                db.transaction(store, 'readwrite').objectStore(store).add(data, key).onsuccess = function(e){
+                db.transaction(store, 'readwrite').objectStore(store).put(data, key).onsuccess = function(e){
                     resolve(e.target.result);
                 }
+            });
+        });
+    }
+
+    function promiseAll(store){
+        return new Promise(function(resolve, reject){
+            var results = [];
+            queryEach(store, function(key, value){
+                results.push({ key: key, value: value });
+            }, function(){
+                resolve(results);
             });
         });
     }
@@ -154,6 +171,7 @@ var IDBAdapter = (function(){
     return {
         promiseDB: promiseDB,
         promiseData: promiseData,
+        promiseAll: promiseAll,
         promiseSetData: promiseSetData,
         queryEach: queryEach,
         createStores: createStores,

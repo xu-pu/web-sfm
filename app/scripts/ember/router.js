@@ -34,7 +34,7 @@ App.Router.map(function() {
 App.ApplicationRoute = Ember.Route.extend({
 
     model: function(){
-        return App.SfmLogic.promiseProject();
+        return App.SfmStore.promiseProject();
     }
 
 });
@@ -43,7 +43,7 @@ App.ApplicationRoute = Ember.Route.extend({
 App.InputRoute = Ember.Route.extend({
 
     model: function() {
-        return App.SfmLogic.promiseImages();
+        return App.SfmStore.promiseImages();
     }
 
 });
@@ -65,7 +65,7 @@ App.InputImageRoute = Ember.Route.extend({
 App.ExtractorRoute = Ember.Route.extend({
 
     model: function() {
-        return App.SfmLogic.promiseImages();
+        return App.SfmStore.promiseImages();
     }
 
 });
@@ -86,7 +86,7 @@ App.ExtractorImageRoute = Ember.Route.extend({
 App.MatchesRoute = Ember.Route.extend({
 
     model: function(){
-        return App.SfmLogic.promiseMatches();
+        return App.SfmStore.promiseMatches();
     }
 
 });
@@ -99,7 +99,7 @@ App.MatchesPairRoute = Ember.Route.extend({
                 id2 = parseInt(params.pair.split('&')[1]);
             var bigger = id1<id2 ? id2 : id1,
                 smaller = id1<id2 ? id1 : id2;
-            App.SfmLogic.promiseImages().then(function(images){
+            App.SfmStore.promiseImages().then(function(images){
                 resolve({
                     view1: images.findBy('_id', smaller),
                     view2: images.findBy('_id', bigger)
@@ -118,17 +118,13 @@ App.MatchesPairRoute = Ember.Route.extend({
 App.TracksRoute = Ember.Route.extend({
 
     model: function(){
-        return App.SfmLogic.promiseTracks();
+        return App.SfmStore.promiseTracks();
     }
 
 });
 
 App.RegisterRoute = Ember.Route.extend();
 App.RegisterIndexRoute = Ember.Route.extend();
-
-//App.RegistrationRoute = Ember.Route.extend();
-//App.RegistrationIndexRoute = Ember.Route.extend();
-//App.RegistrationCamerasRoute = Ember.Route.extend();
 
 App.StereoRoute = Ember.Route.extend();
 App.StereoIndexRoute = Ember.Route.extend();

@@ -3,28 +3,16 @@
 App.SfmLogic = (function(){
 
     var projectModel = null;
-    var imageModels = null;
-    var matchesModel = null;
-
     var threadPool = null;
 
     var state = SFM.STATE_STOPPED;
 
-    initialize();
-
-    function initialize(){
-        projectModel = App.Project.create({
-            type: SFM.PROJECT_TYPE_TEST,
-            name: 'test'
-        });
-        projectHooks();
+    App.SfmStore.promiseProject().then(function(project){
+        projectModel = project;
         threadPool = projectModel.get('threads');
-    }
-
-    function projectHooks(){
         projectModel.addObserver('state', onStateChange);
         projectModel.addObserver('stage', onStageChange);
-    }
+    });
 
     function onStateChange(){
         console.log('state change detected');
@@ -40,8 +28,11 @@ App.SfmLogic = (function(){
 
     function extractorLogic(callback) {
         var finished = 0;
+        var imageModels;
+
         if (projectModel.get('SIFT_SOURCE') === SFM.DATA_SOURCE_TEST) {
-            promiseImages().then(function(imgs){
+            App.SfmStore.promiseImages().then(function(imgs){
+                imageModels = imgs;
                 imgs.forEach(function(img){
                     IDBAdapter.promiseData(SFM.STORE_FEATURES, img.get('_id')).then(oneDone, function(){
                         // not exist
@@ -69,7 +60,7 @@ App.SfmLogic = (function(){
     }
 
     function matchingLogic(callback){
-        promiseMatches().then(function(matchesModel){
+        App.SfmStore.promiseMatches().then(function(matchesModel){
             matchesModel.scheduleMatching(callback);
         });
     }
@@ -90,14 +81,18 @@ App.SfmLogic = (function(){
             threadPool.addObject(thread);
             thread.start();
             thread.calculate(SFM.TASK_TRACKING, matches, null, function(data){
+                thread.stop();
+                threadPool.removeObject(thread);
+                Ember.Logger.debug('thread deleted');
                 Ember.Logger.debug(data);
                 Promise.all([
                     IDBAdapter.promiseSetData(SFM.STORE_SINGLETONS, SFM.STORE_TRACKS, data.tracks),
                     IDBAdapter.promiseSetData(SFM.STORE_SINGLETONS, SFM.STORE_VIEWS, data.views)
                 ]).then(function(){
-                    thread.stop();
-                    threadPool.removeObject(thread);
+                    Ember.Logger.debug('stored');
                     callback();
+                }, function(){
+                    Ember.Logger.debug('rejected');
                 });
             })
         })
@@ -137,80 +132,6 @@ App.SfmLogic = (function(){
         }
     }
 
-    /**
-     * @returns {Promise}
-     */
-    function promiseImages(){
-        return new Promise(function(resolve){
-            if (imageModels){
-                resolve(imageModels);
-            }
-            else {
-                imageModels = Ember.A();
-                IDBAdapter.queryEach('images',
-                    function(key, value){
-                        value._id = key;
-                        imageModels.addObject(App.Image.create(value));
-                    },
-                    function(){
-                        resolve(imageModels);
-                    }
-                );
-            }
-        });
-    }
-
-    /**
-     * @returns {Promise}
-     */
-    function promiseProject() {
-        return new Promise(function(resolve, reject){
-            resolve(projectModel);
-        });
-    }
-
-    /**
-     *
-     * @returns {Promise}
-     */
-    function promiseMatches(){
-        return new Promise(function(resolve, reject){
-            if (matchesModel) {
-                resolve(matchesModel);
-            }
-            else {
-                promiseImages().then(function(imgs){
-                    var storedMatches = [];
-                    IDBAdapter.queryEach(SFM.STORE_MATCHES, function(key, value){
-                        storedMatches.push(key);
-                    }, function(){
-                        matchesModel = App.Matches.create({
-                            images: imgs,
-                            finished: storedMatches
-                        });
-                        resolve(matchesModel);
-                    });
-                });
-            }
-        });
-    }
-
-    function promiseTracks(){
-        return new Promise(function(resolve, reject){
-            Promise.all([
-                promiseImages(),
-                IDBAdapter.promiseData(SFM.STORE_SINGLETONS, SFM.STORE_TRACKS),
-                IDBAdapter.promiseData(SFM.STORE_SINGLETONS, SFM.STORE_VIEWS)
-            ]).then(function(values){
-                resolve({
-                    images: values[0],
-                    tracks: values[1],
-                    views: values[2]
-                });
-            }, reject);
-        });
-    }
-
     function run(){
         Ember.Logger.debug('sfm main logic started');
         onStageChange();
@@ -219,13 +140,5 @@ App.SfmLogic = (function(){
     function stop(){
         Ember.Logger.debug('sfm main logic stopped');
     }
-
-
-    return {
-        promiseProject: promiseProject,
-        promiseImages: promiseImages,
-        promiseMatches: promiseMatches,
-        promiseTracks: promiseTracks
-    };
 
 }());

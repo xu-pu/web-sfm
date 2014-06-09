@@ -89,7 +89,7 @@ App.Matches = Ember.Object.extend({
 
     scheduleMatching: function(callback){
         if (this.get('scheduler') === null) {
-            App.SfmLogic.promiseProject().then(function(projectModel){
+            App.SfmStore.promiseProject().then(function(projectModel){
                 var iterator = this.getQueueIterator();
                 var scheduler = App.schedule(projectModel, SFM.TASK_MATCHING, iterator, this.get('finished'), callback);
                 this.set('scheduler', scheduler);
