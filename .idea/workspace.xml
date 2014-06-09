@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eaf60c22-be99-4b50-a303-6483ef7d3c8b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unittest/units/linearAlgebraTests.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/unittest/units/SfmUnittest.js" afterPath="$PROJECT_DIR$/unittest/units/SfmUnittest.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/unittest/units/calculusTests.js" afterPath="$PROJECT_DIR$/unittest/units/calculusTests.js" />
     </list>
     <ignored path="web-sfm.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -63,8 +61,8 @@
       <file leaf-file-name="calculusTests.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/unittest/units/calculusTests.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2480315" vertical-offset="0" max-vertical-offset="882">
-              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.53937006" vertical-offset="662" max-vertical-offset="1188">
+              <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -156,9 +154,9 @@
         <option value="$PROJECT_DIR$/app/scripts/SFM/lapack/utils.js" />
         <option value="$PROJECT_DIR$/unittest/units/example.js" />
         <option value="$PROJECT_DIR$/app/scripts/SFM/lapack/sba.js" />
-        <option value="$PROJECT_DIR$/unittest/units/calculusTests.js" />
         <option value="$PROJECT_DIR$/unittest/units/linearAlgebraTests.js" />
         <option value="$PROJECT_DIR$/unittest/units/SfmUnittest.js" />
+        <option value="$PROJECT_DIR$/unittest/units/calculusTests.js" />
       </list>
     </option>
   </component>
@@ -979,8 +977,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/unittest/units/calculusTests.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2480315" vertical-offset="0" max-vertical-offset="882">
-          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.53937006" vertical-offset="662" max-vertical-offset="1188">
+          <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
           <folding />
         </state>
       </provider>

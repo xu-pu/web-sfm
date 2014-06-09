@@ -37,6 +37,23 @@ describe('Calculus utilities', function(){
 
     });
 
+    describe('SFM.getJacobian()', function(){
+
+        var funcs2 = [linearSample, nonlinearSample];
+        var funcs3 = [linearSample, nonlinearSample, linearSample];
+
+        it('executed without exception', function(){
+            assert.doesNotThrow(function(){
+                var jacob2 = SFM.getJacobian(funcs2, [2,3]);
+                assert.equal(2, jacob2.rows);
+                assert.equal(2, jacob2.cols);
+                var jacob3 = SFM.getJacobian(funcs3, [2,3]);
+                assert.equal(3, jacob3.rows);
+                assert.equal(2, jacob3.cols);
+            });
+        });
+    });
+
 //    describe('SFM.M()', function(){
 //    });
 
