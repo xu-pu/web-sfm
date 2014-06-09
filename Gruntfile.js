@@ -28,6 +28,18 @@ module.exports = function (grunt) {
 
         concat_sourcemap: {
 
+            unittest: {
+                files: {
+                    'build/scripts/sfmunittest.js': [
+                        '<%= pathConfig.venders %>/numericjs/src/numeric.js',
+                        '<%= pathConfig.venders %>/numericjs/src/svd.js',
+                        '<%= pathConfig.venders %>/underscore/underscore.js',
+                        'app/scripts/SFM/**/*.js',
+                        'unittest/headers/SfmUnittestHeader.js'
+                    ]
+                }
+            },
+
             scripts: {
                 files: {
                     'build/scripts/application.js': [
@@ -139,6 +151,7 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'concat_sourcemap:scripts',
         'concat_sourcemap:libs',
+        'concat_sourcemap:unittest',
         'emberTemplates:build',
         'compass:build',
         'copy:build'

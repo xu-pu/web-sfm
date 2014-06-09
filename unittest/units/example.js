@@ -1,6 +1,6 @@
 var assert = require("assert");
-var _ = require("../venders/underscore/underscore.js");
-require('../venders/numericjs/src/numeric.js');
+var _ = require("../../venders/underscore/underscore.js");
+require('../../venders/numericjs/src/numeric.js');
 
 describe('Array', function(){
     describe('#indexOf()', function(){
@@ -25,7 +25,6 @@ describe('underscore', function(){
     describe('import', function(){
         it('numeric should exist', function(){
             assert.equal(true, _.isFinite(1));
-            console.log(window);
         })
     })
 });
