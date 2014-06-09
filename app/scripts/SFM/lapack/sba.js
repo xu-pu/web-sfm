@@ -43,7 +43,7 @@ SFM.partialDerivative = function(func, initials, xi){
  * @param {number[]} initial
  * @return {number[]}
  */
-SFM.sparseLM = function(initial, cost){
+SFM.lma = function(initial, cost){
 
 
     return initial;
