@@ -33,7 +33,6 @@ module.exports = function (grunt) {
                     'build/scripts/sfmunittest.js': [
                         '<%= pathConfig.venders %>/numericjs/src/numeric.js',
                         '<%= pathConfig.venders %>/numericjs/src/svd.js',
-                        '<%= pathConfig.venders %>/underscore/underscore.js',
                         'app/scripts/SFM/**/*.js',
                         'unittest/headers/SfmUnittestHeader.js'
                     ]

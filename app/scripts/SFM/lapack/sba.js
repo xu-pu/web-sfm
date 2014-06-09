@@ -8,7 +8,10 @@ if (typeof SFM === 'undefined') {
 /**
  *
  */
-SFM.getJacobian = function(){
+SFM.getJacobian = function(func, initial){
+    var variables = initial.length;
+    var result = new SFM.Matrix({ rows: variables, cols: variables });
+
 
 };
 
