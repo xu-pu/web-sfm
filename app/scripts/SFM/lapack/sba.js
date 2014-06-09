@@ -6,15 +6,35 @@ if (typeof SFM === 'undefined') {
 }
 
 /**
- *
+ * @param {Function[]} funcs
+ * @param {number[]} initials
+ * @return {SFM.Matrix}
  */
-SFM.getJacobian = function(func, initial){
-    var variables = initial.length;
-    var result = new SFM.Matrix({ rows: variables, cols: variables });
-
-
+SFM.getJacobian = function(funcs, initials){
+    var variables = initials.length;
+    var values = funcs.length;
+    var result = new SFM.Matrix({ rows: values, cols: variables });
+    funcs.forEach(function(func, index){
+        _.range(variables).forEach(function(xi){
+            var der = SFM.partialDerivative(func, initials, xi);
+            result.set(index, xi, der);
+        });
+    });
+    return result;
 };
 
+/**
+ * @param {Function} func
+ * @param {number[]} initials
+ * @param {number} xi
+ * @return {number}
+ */
+SFM.partialDerivative = function(func, initials, xi){
+    var DELTA = 0.1;
+    var neighbor = new Float32Array(initials);
+    neighbor[xi] += DELTA;
+    return (func(neighbor)-func(initials))/DELTA;
+};
 
 /**
  * Levenberg-Marqurdt Algorithm

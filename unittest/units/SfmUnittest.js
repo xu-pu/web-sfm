@@ -1,3 +1,5 @@
+'use strict';
+
 var assert = require("assert");
 var SFM = require("../../build/scripts/sfmunittest.js");
 var _ = require("../../venders/underscore/underscore.js");
