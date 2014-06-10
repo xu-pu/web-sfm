@@ -104,4 +104,31 @@ describe('SFM.Matrix class', function(){
         });
     });
 
+    describe('#qrDecomposition()', function(){
+
+        [matrixSample1, matrixSample2, matrixSolvable1].forEach(function(sample){
+
+            var result;
+
+            it('execute without exception', function(){
+                assert.doesNotThrow(function(){
+                    result = sample.qrDecomposition();
+                });
+            });
+
+            it('can mutiply back together', function(){
+                var diff = result.Q.dot(result.R).sub(sample);
+                console.log(diff.l2Norm());
+            });
+
+/*
+            it('Q is orthoganal', function(){
+                var diff = result.Q.dot(result.Q.transpose());
+                console.log(diff.getNativeRows());
+            });
+*/
+        });
+
+    });
+
 });
