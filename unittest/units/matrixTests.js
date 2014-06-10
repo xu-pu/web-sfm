@@ -79,7 +79,7 @@ describe('SFM.Matrix class', function(){
     });
 
     describe('#svdSolve()', function(){
-        [matrixSolvable1].forEach(function(sample){
+        [matrixSolvable1, matrixSample2].forEach(function(sample){
 
             var solve;
 
