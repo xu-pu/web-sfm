@@ -352,11 +352,13 @@ SFM.Matrix.prototype = {
      * @returns {{U: SFM.Matrix, D: SFM.Matrix, V: SFM.Matrix}}
      */
     svd: function(){
-        var result, U, V, D;
+        var result, U, V, D, u, v;
         if (this.rows>this.cols) {
             result = numeric.svd(this.getNativeRows());
             U = toUV(result.U);
+            u = result.U;
             V = toUV(result.V);
+            v = result.V;
             D = new SFM.Matrix({ rows: this.rows, cols: this.cols });
             _.each(_.range(this.cols), function(i){
                 D.set(i,i,result.S[i]);
@@ -365,13 +367,15 @@ SFM.Matrix.prototype = {
         else {
             result = numeric.svd(this.getNativeCols());
             U = toUV(result.V);
+            u = result.V;
             V = toUV(result.U);
+            v = result.U;
             D = new SFM.Matrix({ rows: this.rows, cols: this.cols });
             _.each(_.range(this.rows), function(i){
                 D.set(i,i,result.S[i]);
             });
         }
-        return { U: U, D: D, V: V };
+        return { U: U, D: D, V: V, u: u, v: v };
 
         function toUV(m) {
             var size = Math.max(m.length, m[0].length);
