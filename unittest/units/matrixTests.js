@@ -32,24 +32,22 @@ describe('SFM.Matrix class', function(){
         });
 
         it('can multiply back together', function(){
-            [matrixSample2].forEach(function(sample){
+            [matrixSample2, matrixSample1].forEach(function(sample){
                 var result = sample.svd();
                 var U = result.U,
                     V = result.V,
                     D = result.D;
                 var back = U.dot(D).dot(V.transpose());
-                var diff = back.sub(matrixSample2);
-                assert.equal(true, diff.l2Norm()<0.0001);
+                var diff = back.sub(sample);
+                assert.equal(true, diff.l2Norm()<0.00001);
             });
         });
 
-        it('U and V are orthoganal and square', function(){
-            [matrixSample2].forEach(function(sample){
+        it('U and V are square', function(){
+            [matrixSample2, matrixSample1].forEach(function(sample){
                 var result = sample.svd();
                 [result.U, result.V].forEach(function(m){
                     assert.equal(m.TYPE_SQUARE, m.getType());
-                    var diff = m.dot(m.transpose()).sub(SFM.I(m.rows));
-                    assert.equal(true, diff.l2Norm()<0.0001);
                 });
             });
         });

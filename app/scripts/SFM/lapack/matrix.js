@@ -132,6 +132,20 @@ SFM.Matrix.prototype = {
         }.bind(this));
     },
 
+    /**
+     *
+     * @param {number} offsetR
+     * @param {number} offsetC
+     * @param {SFM.Matrix} m
+     */
+    setRegion: function(offsetR, offsetC, m){
+        var _self = this;
+        _.range(m.rows).forEach(function(r){
+            _.range(m.cols).forEach(function(c){
+                _self.set(r+offsetR, c+offsetC, m.get(r,c));
+            });
+        });
+    },
 
     getNativeRows: function(){
         return _.map(_.range(this.rows), function(row){
@@ -341,8 +355,8 @@ SFM.Matrix.prototype = {
         var result, U, V, D;
         if (this.rows>this.cols) {
             result = numeric.svd(this.getNativeRows());
-            U = new SFM.Matrix({ array: result.U });
-            V = new SFM.Matrix({ array: result.V });
+            U = toUV(result.U);
+            V = toUV(result.V);
             D = new SFM.Matrix({ rows: this.rows, cols: this.cols });
             _.each(_.range(this.cols), function(i){
                 D.set(i,i,result.S[i]);
@@ -350,14 +364,21 @@ SFM.Matrix.prototype = {
         }
         else {
             result = numeric.svd(this.getNativeCols());
-            U = new SFM.Matrix({ array: result.V });
-            V = new SFM.Matrix({ array: result.U });
+            U = toUV(result.V);
+            V = toUV(result.U);
             D = new SFM.Matrix({ rows: this.rows, cols: this.cols });
             _.each(_.range(this.rows), function(i){
                 D.set(i,i,result.S[i]);
             });
         }
         return { U: U, D: D, V: V };
+
+        function toUV(m) {
+            var size = Math.max(m.length, m[0].length);
+            var result = new SFM.Matrix({ rows: size, cols: size });
+            result.setRegion(0, 0, SFM.M(m));
+            return result;
+        }
     },
 
     /**
