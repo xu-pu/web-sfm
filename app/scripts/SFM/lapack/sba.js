@@ -39,11 +39,13 @@ SFM.partialDerivative = function(func, initials, xi){
 /**
  * Levenberg-Marqurdt Algorithm
  *
- * @param {function} cost
- * @param {number[]} initial
+ * @param {function} generator
+ * @param {number[]} initial -- initial parameters
  * @return {number[]}
  */
-SFM.lma = function(initial, cost){
+SFM.lma = function(initial, generator, xv, yv){
+
+    var funcs = generator(initial);
 
 
     return initial;

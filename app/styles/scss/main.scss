@@ -98,10 +98,19 @@ $floating-window-offset: $controll-panel-width + 4em;
   right: $floating-window-offset;
 }
 
+$matching-table-width: 20em;
+
+.floating-window__matching-table {
+  @extend %floating-window;
+  width: $matching-table-width;
+  right: $floating-window-offset;
+}
+
+
 .floating-window__matching-pair {
   @extend %floating-window;
   width: 500px;
-  right: $floating-window-offset;
+  right: $floating-window-offset + $matching-table-width + 1em;
 }
 
 //=======================================
