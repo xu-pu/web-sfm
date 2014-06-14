@@ -12,15 +12,15 @@ if (typeof SFM === 'undefined') {
  * @constructor
  * @class
  *
- * @property {int} width
- * @property {int} height
+ * @property {number} width
+ * @property {number} height
  * @property {Uint8Array} data
  *
  * @param {object} options
  * @param {SFM.Grayscale} [options.image]
  * @param {object} [options.canvas]
- * @param {int} [options.width]
- * @param {int} [options.height]
+ * @param {number} [options.width]
+ * @param {number} [options.height]
  */
 SFM.Grayscale = function(options) {
     if (options.canvas) {
@@ -110,8 +110,8 @@ SFM.Grayscale.prototype = {
     /**
      * creat new empty image array
      *
-     * @param {int} width
-     * @param {int} height
+     * @param {number} width
+     * @param {number} height
      */
     allocate: function(width, height) {
         this.width = width;
@@ -125,9 +125,9 @@ SFM.Grayscale.prototype = {
      * when convoluting an image, image border needs to be extended, this function will do the border extension
      * if boder extension is not needed, just use image.data array
      *
-     * @param {int} x
-     * @param {int} y
-     * @returns {int}
+     * @param {number} x
+     * @param {number} y
+     * @returns {number}
      */
     get : function(x, y) {
         var cor = this.toPixel(x,y);
@@ -154,8 +154,8 @@ SFM.Grayscale.prototype = {
 
     /**
      * Calculate gradient of a point
-     * @param {int} x
-     * @param {int} y
+     * @param {number} x
+     * @param {number} y
      * @return {object}
      */
     getGradient: function(x, y) {
@@ -172,8 +172,8 @@ SFM.Grayscale.prototype = {
 
     /**
      * Convolution at a point
-     * @param {int} x
-     * @param {int} y
+     * @param {number} x
+     * @param {number} y
      * @param {(number[][]|SFM.Matrix)} kernel
      * @return {number}
      */

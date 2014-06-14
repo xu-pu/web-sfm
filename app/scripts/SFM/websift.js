@@ -10,16 +10,18 @@ if (typeof SFM === 'undefined') {
 */
 
 /**
- * @typedef {{imgs: SFM.Grayscale[], octave: number, width: number, height: number}} ScaleSpace
+ * @typedef {{ dogs: DoG[], octave: number, height: number, width: number }} DogSpace
  */
 
 /**
- * @typedef {{img: SFM.Grayscale, sigma: number}} Scale
+ * @typedef {{ img: SFM.Grayscale, sigma: number, octave: number }} Scale
  */
 
+
 /**
- * @typedef {{ dogs: SFM.Grayscale[], sigma: number, octave: number, height: number, width: number }} Octave
+ * @typedef {{scales: Scale[], octave: number, width: number, height: number}} ScaleSpace
  */
+
 
 /**
  * the main function of this file, calculate SIFT of the image
@@ -44,27 +46,29 @@ SFM.sift = function(img, options) {
     });
 
     var features = [];
-    SFM.iterOctaves(img, function(img, octave){
-        var ss = SFM.getScaleSpace(img, octave);
-        var dogs = SFM.getDOGs(ss);
-        SFM.siftDetector(dogs, options, function(img, row, col){
-            SFM.siftOrientation(img, row, col, options).forEach(function(dir){
+    SFM.iterOctaves(img, options, function(base, octaveIndex){
+        var scales = SFM.getScales(base, octaveIndex, options);
+        var octave = SFM.getDOGs(scales, options);
+        SFM.siftDetector(octave, options, function(img, row, col){
+            features.push({ row: row, col: col });
+/*            SFM.siftOrientation(img, row, col, options).forEach(function(dir){
                 var f = SFM.siftDescriptor(img, row, col, dir);
                 features.push(f);
             });
+            */
         });
     });
     return features;
-
 };
 
 
 /**
  * Construct octave space of the grayscale image
  * @param img
+ * @param options
  * @param {function} callback
  */
-SFM.iterOctaves = function(img, callback){
+SFM.iterOctaves = function(img, options, callback){
     var width = img.width,
         height = img.height;
     var row, col, lastBase, base=img;
@@ -80,7 +84,7 @@ SFM.iterOctaves = function(img, callback){
                 }
             }
         }
-        callback(getScaleSpace(base, octave));
+        callback(base);
         lastBase = base;
     });
 };
@@ -89,64 +93,77 @@ SFM.iterOctaves = function(img, callback){
 /**
  * Construct the scale space of the image
  * @param {SFM.Grayscale} img
- * @param {int} octave
+ * @param {number} octave
+ * @param options
  * @returns {ScaleSpace}
  */
-SFM.getScaleSpace = function(img, octave) {
+SFM.getScales = function(img, octave, options) {
     console.log('calculating scalespace');
-    var scaleSpace = [];
-    var sigma = 1;
-    scaleSpace[0] = img;
-    _.range(1,options.scales).forEach(function(scale){
-        scaleSpace[scale] = new SFM.Grayscale({ image: img });
-        scaleSpace[scale].convolution(SFM.getGuassianKernel(options.kernelSize, sigma).getNativeRows());
+    var sigma = Math.sqrt(2);
+    var scaleSpace = _.range(0, options.scales).map(function(scale){
         sigma *= Math.sqrt(2);
+        var i = img;
+        if (scale !== 0) {
+            i = new SFM.Grayscale({ image: img });
+            i.convolution(SFM.getGuassianKernel(options.kernelSize, sigma).getNativeRows());
+        }
+        return {
+            img: i,
+            sigma: sigma,
+            octave: octave
+        };
     });
+    //console.log(scaleSpace);
     return {
-        imgs: scaleSpace,
+        scales: scaleSpace,
         octave: octave,
         width: img.width,
         height: img.height
     };
 };
 
-
 /**
  *
  * @param {ScaleSpace} scaleSpace
- * @returns {DoG[]}
+ * @param options
+ * @returns {DogSpace}
  */
-SFM.getDOGs = function(scaleSpace) {
+SFM.getDOGs = function(scaleSpace, options) {
     console.log('calculating dogs');
-    var result = [];
-    _.range(1, scaleSpace.imgs.length).forEach(function(index){
-        result.push({
-            img: scaleSpace.imgs[index-1].difference(scaleSpace.imgs[index]),
+    var dogs = _.range(1, scaleSpace.scales.length).map(function(index){
+        var img = scaleSpace.scales[index-1].img.difference(scaleSpace.scales[index].img);
+        return {
+            img: img,
             octave: scaleSpace.octave,
-            sigma: Math.pow(2, index)
-        });
+            sigma: 1
+        };
     });
-    return result;
+    return {
+        dogs: dogs,
+        octave: scaleSpace.octave,
+        width: scaleSpace.width,
+        height: scaleSpace.height
+    };
 };
-
 
 /**
  * Find keypoints from the DOGs of one scale space
- * @param {DoG[]} dogs
+ * @param {DogSpace} dogSpace
  * @param {Object} options
  * @param {Function} callback
  */
-SFM.siftDetector = function(dogs, options, callback){
+SFM.siftDetector = function(dogSpace, options, callback){
     console.log('detecting feature points');
 
-    var width = dogs[0].img.width,
-        height = dogs[0].img.height,
-        octave = dogs[0].octave;
+    var width = dogSpace.width,
+        height = dogSpace.height,
+        dogs = dogSpace.dogs,
+        octave = dogs.octave;
 
+    var contrastWindow = _.range(-1,2);
     var features = [];
 
-    var layer;
-    for(layer=1; layer<dogs.length-1; layer++) {
+    _.range(1, dogs.length-1).forEach(function(layer){
 
         _.range(height).forEach(function(row){
             _.range(width).forEach(function(col){
@@ -155,9 +172,9 @@ SFM.siftDetector = function(dogs, options, callback){
                 var max = null;
                 var min = null;
 
-                var isLimit = _.range(-1, 2).every(function(x){
-                    return _.range(-1, 2).every(function(y){
-                        return _.range(-1, 2).every(function(z){
+                var isLimit = contrastWindow.every(function(x){
+                    return contrastWindow.every(function(y){
+                        return contrastWindow.every(function(z){
                             if(!(x===0 && y===0 && z===0)) {
                                 var cursor = dogs[layer+z].img.getRC(row+y, col+x);
                                 if (cursor > center && (max === null || cursor > max)) {
@@ -181,12 +198,16 @@ SFM.siftDetector = function(dogs, options, callback){
                 if (isLimit) {
                     console.log('found one');
                     callback(dogs[layer], row, col);
-//                    siftOrientation(dogs[layer], row, col).forEach(function(direction){
-//                        features.push(siftDescriptor(row, col, direction, dogs[layer]));
-//                    });
                 }
             });
         });
+
+
+
+    });
+    var layer;
+    for(layer=1; layer<dogs.length-1; layer++) {
+
 
     }
     return features;
@@ -249,7 +270,7 @@ SFM.siftOrientation = function(dog, row, col, options){
     }
     var maximum = _.max(orientations);
     var directions = [];
-    _.each(orientations, function(value, index){
+    orientations.forEach(function(value, index){
         if (value/maximum >= 0.8) {
             directions.push(Math.PI/36*index+Math.PI/72);
         }
@@ -257,24 +278,3 @@ SFM.siftOrientation = function(dog, row, col, options){
     return directions;
 };
 
-/**
- * @param {Scale} s1
- * @param {Scale} s2
- * @return {DOG}
- */
-SFM.getDOG = function(s1, s2){
-
-};
-
-/**
- *
- * @param {SFM.Grayscale} img
- * @param {number} sigma
- * @param {Object} options
- * @return {Scale}
- */
-SFM.getScale = function(img, sigma, options){
-    var result = new SFM.Grayscale({ image: img });
-    result.convolution(SFM.getGuassianKernel(options.kernelSize, sigma).getNativeRows());
-    return { img: result, sigma: sigma };
-};
