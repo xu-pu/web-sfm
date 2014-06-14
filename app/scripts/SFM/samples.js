@@ -39,6 +39,16 @@ function getImageSample(imageName, callback){
     img.src = '/dataset/images/'+imageName+'.jpg';
 }
 
+function getImageDataSample(name, callback){
+    getImageSample(name, function(img){
+        var canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        callback(ctx.getImageData(0, 0, img.width, img.height));
+    })
+}
 
 function getBundlerSample(callback){
     $.getJSON('/dataset/bundler/bundler.json').then(callback);

@@ -142,7 +142,16 @@ function eightPointRansacTest(name1, name2){
     });
 }
 
+var validList = ['00000034', '00000035','00000036', '00000037', '00000038', '00000040'];
 
 $(function(){
-    eightPointRansacTest('00000040', '00000041');
+    var name = validList[0];
+    getImageSample(name, function(img){
+        getSiftSample(name, function(data){
+            var features = data.features;
+            compareFeatures(img, features, features);
+        });
+    });
+
+    //eightPointRansacTest('00000040', '00000041');
 });

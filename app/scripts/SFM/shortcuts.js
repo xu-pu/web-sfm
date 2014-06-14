@@ -51,20 +51,18 @@ function drawSift(ctx, img, features){
 }
 
 
-
-function drawFeatures(ctx, features, offsetX, offsetY, height, scale, options){
+function drawFeatures(ctx, features, offsetX, offsetY, scale, options){
     options = options || {};
     _.defaults(options, {
         color: 'red',
-        markSize: 7
+        markSize: 3
     });
-
     ctx.beginPath();
     ctx.strokeStyle = options.color;
     ctx.lineWidth = options.markSize/2;
-    _.each(features, function(feature){
+    features.forEach(function(feature){
         var x = offsetX + scale*feature.col,
-            y = offsetY + scale*(height-1-feature.row);
+            y = offsetY + scale*feature.row;
         ctx.moveTo(x-options.markSize, y);
         ctx.lineTo(x+options.markSize, y);
         ctx.moveTo(x, y-options.markSize);
@@ -72,7 +70,6 @@ function drawFeatures(ctx, features, offsetX, offsetY, height, scale, options){
     });
     ctx.stroke();
 }
-
 
 
 function drawTwoViewMatches(img1, img2, features1, features2, matches){
@@ -100,7 +97,7 @@ function drawTwoViewMatches(img1, img2, features1, features2, matches){
     ctx.beginPath();
     ctx.strokeStyle = 'black';
     ctx.lineWidth = 1;
-    _.each(matches, function(match){
+    matches.forEach(function(match){
         var row1 = features1[match[0]].row,
             col1 = features1[match[0]].col,
             row2 = features2[match[1]].row,
@@ -113,6 +110,27 @@ function drawTwoViewMatches(img1, img2, features1, features2, matches){
         ctx.lineTo(x2, y2);
     });
     ctx.stroke();
+}
+
+function compareFeatures(img, features1, features2){
+    var PADDING = 10;
+    var fixedWidth = 600;
+    var ratio = fixedWidth/img.width;
+    var height = img.height*ratio;
+
+    var offset = fixedWidth+PADDING;
+
+    var canvas = document.createElement('canvas');
+    document.body.appendChild(canvas);
+    canvas.width = PADDING + 2 * fixedWidth;
+    canvas.height = height;
+    var ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, fixedWidth, height);
+    ctx.drawImage(img, offset, 0, fixedWidth, height);
+
+    drawFeatures(ctx, features1, 0, 0, ratio);
+    drawFeatures(ctx, features2, offset, 0, ratio);
+
 }
 
 
