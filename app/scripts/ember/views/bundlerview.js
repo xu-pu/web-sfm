@@ -111,9 +111,9 @@ App.RegisterView = Ember.View.extend(App.Utils.Navigatable, {
         scene.add(camera);
         scene.add(axisSystem);
 
-        camera.position.x = 30;
-        camera.position.y = 30;
-        camera.position.z = 30;
+        camera.position.x = 400;
+        camera.position.y = 400;
+        camera.position.z = 400;
 
         camera.lookAt(axisSystem.position);
 
@@ -129,13 +129,15 @@ App.RegisterView = Ember.View.extend(App.Utils.Navigatable, {
     },
 
     afterLoaded: function(data){
+
         var SCALE = 20;
-        this.set('data', data);
+        var scene = this.get('scene');
+
+        //=============================
+        // Cameras
+        //=============================
         var camerasGeo = new THREE.Geometry();
         data.cameras.forEach(function(cam){
-            cam.t[0] *= SCALE;
-            cam.t[1] *= SCALE;
-            cam.t[2] *= SCALE;
             camerasGeo.vertices.push(new THREE.Vector3(cam.t[0], cam.t[1], cam.t[2]));
         });
         var particlesMaterial = new THREE.ParticleSystemMaterial({
@@ -146,11 +148,11 @@ App.RegisterView = Ember.View.extend(App.Utils.Navigatable, {
         });
         var camerasSystem = new THREE.ParticleSystem(camerasGeo, particlesMaterial);
 
+        //=============================
+        // Point Cloud
+        //=============================
         var pointsGeo = new THREE.Geometry();
         data.points.forEach(function(p){
-            p.point[0] *= SCALE;
-            p.point[1] *= SCALE;
-            p.point[2] *= SCALE;
             pointsGeo.vertices.push(new THREE.Vector3(p.point[0], p.point[1], p.point[2]));
         });
         var pointsMaterial = new THREE.ParticleSystemMaterial({
@@ -161,7 +163,9 @@ App.RegisterView = Ember.View.extend(App.Utils.Navigatable, {
         });
         var pointsSystem = new THREE.ParticleSystem(pointsGeo, pointsMaterial);
 
-
+        //=============================
+        // Views
+        //=============================
         var viewList = bundlerViewList(data);
         var viewGeo = new THREE.Geometry();
         [20].forEach(function(camera){
@@ -176,15 +180,19 @@ App.RegisterView = Ember.View.extend(App.Utils.Navigatable, {
             color: 0xFFFFFF
         });
         var viewSystem = new THREE.Line(viewGeo, viewMaterial, THREE.Lines);
+
+        [camerasSystem, pointsSystem, viewSystem].forEach(function(system){
+            system.scale.x = SCALE;
+            system.scale.y = SCALE;
+            system.scale.z = SCALE;
+            scene.add(system);
+        });
+
         this.set('view', viewGeo);
         this.set('viewList', viewList);
         this.set('currentView', 20);
-        //this.set('geometry', pointsGeo);
-        //this.set('structure', pointsSystem);
+        this.set('data', data);
 
-        this.get('scene').add(pointsSystem);
-        this.get('scene').add(camerasSystem);
-        this.get('scene').add(viewSystem);
         this.get('element').addEventListener('wheel', this.wheel.bind(this), false);
     },
 

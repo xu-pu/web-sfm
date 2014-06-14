@@ -100,9 +100,9 @@ App.StereoView = Ember.View.extend(App.Utils.Navigatable, {
 
         light.position.set(0, 300, 200);
 
-        camera.position.x = 1000;
-        camera.position.y = 1000;
-        camera.position.z = 1000;
+        camera.position.x = 500;
+        camera.position.y = 500;
+        camera.position.z = 500;
 
         function render(){
             renderer.render(scene, camera);
@@ -115,10 +115,13 @@ App.StereoView = Ember.View.extend(App.Utils.Navigatable, {
     },
 
     afterLoaded: function(data){
+
+        var SCALE = 100;
+
         var particlesGeometry = new THREE.Geometry();
         data.forEach(function(point){
-            particlesGeometry.vertices.push(new THREE.Vector3(point[0]*100, point[1]*100, point[2]*100));
-        }, this);
+            particlesGeometry.vertices.push(new THREE.Vector3(point[0], point[1], point[2]));
+        });
         var particlesMaterial = new THREE.ParticleSystemMaterial({
             color: 0xFFFFFF,
             size: 5,
@@ -126,6 +129,10 @@ App.StereoView = Ember.View.extend(App.Utils.Navigatable, {
             transparent: true
         });
         var particlesSystem = new THREE.ParticleSystem(particlesGeometry, particlesMaterial);
+
+        particlesSystem.scale.x = SCALE;
+        particlesSystem.scale.y = SCALE;
+        particlesSystem.scale.z = SCALE;
 
         this.set('geometry', particlesGeometry);
         this.set('structure', particlesSystem);
