@@ -5,6 +5,8 @@ if (typeof SFM === 'undefined') {
     var SFM = {};
 }
 
+
+
 /**
  * @param {Function[]} funcs
  * @param {number[]} initials
@@ -23,6 +25,8 @@ SFM.getJacobian = function(funcs, initials){
     return result;
 };
 
+
+
 /**
  * @param {Function} func
  * @param {number[]} initials
@@ -36,20 +40,74 @@ SFM.partialDerivative = function(func, initials, xi){
     return (func(neighbor)-func(initials))/DELTA;
 };
 
+
+
 /**
  * Levenberg-Marqurdt Algorithm
  *
  * @param {function} generator
- * @param {number[]} initial -- initial parameters
+ * @param {number[]} params -- initial parameters
+ * @param constrains
  * @return {number[]}
  */
-SFM.lma = function(initial, generator, xv, yv){
+SFM.lma = function(params, generator, constrains){
 
-    var funcs = generator(initial);
+    var func = generator(params);
+    var error = constants.map(function(constrain){
+        return func
+    });
 
-
-    return initial;
+    return params;
 };
+
+
+
+/**
+ * @typedef {{ cam: number, point2d: SFM.Matrix, point3d: number }} ProjectionConstrain
+ */
+
+
+
+/**
+ *
+ * @param cams
+ * -- a list of parameters that can construct projection matrix
+ * -- include rotation, translation, focal
+ *
+ * @param {SFM.Matrix[]} points
+ * @param {ProjectionConstrain[]} constrains
+ * @param {number[]} vPoints
+ * @param {number[]} vCams
+ */
+SFM.bundleAdjustment = function(cams, points, constrains, vPoints, vCams){
+
+    var pms = cams.map(function(params){
+
+    });
+
+    var J = SFM.getJacobian()
+
+};
+
+
+
+/**
+ *
+ * @param cams
+ * @param points
+ * @param constrains
+ * @returns {number}
+ */
+SFM.baCost = function(cams, points, constrain){
+    var error = constrains.map(function(constrain){
+        var cam = cams[constrain.cam],
+            point2d = points[constrain.point2d],
+            point3d = points[constrain.point3d];
+        return cam.dot(point3d).homogeneous().sub(point2d).l2Norm();
+    });
+    return SFM.R(error).l2Norm();
+};
+
 
 
 /**
@@ -88,6 +146,10 @@ SFM.triangulationCost = function(cam1, cam2, point1, point2, point){
 
 };
 
+
+
 SFM.registerIncrementCost = function(){};
+
+
 
 SFM.registerFirstPairCost = function(){};
