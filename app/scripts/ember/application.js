@@ -2,6 +2,14 @@
 
 jQuery.event.props.push( "dataTransfer" );
 
-window.App = Ember.Application.create({
+var App = window.App = Ember.Application.create({
     LOG_TRANSITIONS: true
 });
+
+require('./controllers/*');
+require('./models/*');
+require('./sfmlogic/*');
+require('./views/*');
+require('./dbadapter');
+require('./router');
+require('./utils');

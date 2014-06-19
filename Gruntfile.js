@@ -26,6 +26,15 @@ module.exports = function (grunt) {
 
         },
 
+        neuter :{
+
+            application: {
+                'src': 'app/scripts/ember/application.js',
+                'dest': 'build/scripts/emberapp.js'
+            }
+
+        },
+
         concat_sourcemap: {
 
             unittest: {
@@ -43,7 +52,7 @@ module.exports = function (grunt) {
                 files: {
                     'build/scripts/application.js': [
                         'app/scripts/SFM/**/*.js',
-                        'app/scripts/ember/**/*.js'
+                        'build/scripts/emberapp.js'
                     ],
 
                     'build/scripts/sfm.js': 'app/scripts/SFM/**/*.js',
@@ -146,8 +155,10 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-ember-templates');
+    grunt.loadNpmTasks('grunt-neuter');
 
     grunt.registerTask('build', [
+        'neuter:application',
         'concat_sourcemap:scripts',
         'concat_sourcemap:libs',
         'concat_sourcemap:unittest',
