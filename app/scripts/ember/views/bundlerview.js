@@ -1,5 +1,3 @@
-'use strict';
-
 App.RegisterView = Ember.View.extend(App.Utils.Navigatable, {
 
     geometry: null,

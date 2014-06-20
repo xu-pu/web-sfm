@@ -1,9 +1,3 @@
-'use strict';
-
-if (typeof SFM === 'undefined') {
-    var SFM = {};
-}
-
 /**
  * @param {SFM.Matrix} [options.matrix]
  * @param {int} [options.cols]

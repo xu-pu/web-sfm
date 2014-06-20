@@ -1,5 +1,3 @@
-'use strict';
-
 App.TwoViewMatchingView = Ember.View.extend({
 
     tagName: 'div',

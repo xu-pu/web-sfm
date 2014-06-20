@@ -1,5 +1,3 @@
-'use strict';
-
 App.Utils = {};
 
 App.Utils.promiseImage = function(id){

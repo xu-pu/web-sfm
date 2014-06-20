@@ -1,5 +1,3 @@
-'use strict';
-
 function getLocalStorage(key){
     var result = localStorage.getItem(key);
     if (result === null) {

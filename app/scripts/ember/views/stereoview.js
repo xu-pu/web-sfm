@@ -1,5 +1,3 @@
-'use strict';
-
 App.StereoView = Ember.View.extend(App.Utils.Navigatable, {
 
     tagName: 'div',

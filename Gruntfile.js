@@ -28,10 +28,13 @@ module.exports = function (grunt) {
 
         neuter :{
 
-            application: {
-                'src': 'app/scripts/ember/application.js',
-                'dest': 'build/scripts/emberapp.js'
-            }
+            options: {
+                template: '{%= src %}'
+            },
+
+            'build/scripts/application.js':'app/scripts/application.js',
+
+            'build/scripts/worker.js':'app/scripts/worker.js'
 
         },
 
@@ -46,68 +49,8 @@ module.exports = function (grunt) {
                         'unittest/headers/SfmUnittestHeader.js'
                     ]
                 }
-            },
-
-            scripts: {
-                files: {
-                    'build/scripts/application.js': [
-                        'app/scripts/SFM/**/*.js',
-                        'build/scripts/emberapp.js'
-                    ],
-
-                    'build/scripts/sfm.js': 'app/scripts/SFM/**/*.js',
-
-                    'build/scripts/worker.js': [
-                        'venders/numericjs/src/numeric.js',
-                        'venders/numericjs/src/svd.js',
-                        'venders/underscore/underscore.js',
-                        'app/scripts/threads/worker.js',
-                        'app/scripts/SFM/**/*.js'
-                    ]
-
-                }
-            },
-
-            libs: {
-                files: {
-                    'build/scripts/libs.js': [
-                        '<%= pathConfig.venders %>/jquery/dist/jquery.js',
-                        '<%= pathConfig.venders %>/handlebars/handlebars.js',
-                        '<%= pathConfig.venders %>/ember/ember.js',
-                        '<%= pathConfig.venders %>/threejs/build/three.js',
-                        '<%= pathConfig.venders %>/underscore/underscore.js',
-                        '<%= pathConfig.venders %>/numericjs/src/numeric.js',
-                        '<%= pathConfig.venders %>/numericjs/src/svd.js',
-                        '<%= pathConfig.venders %>/vis/dist/vis.js'
-                    ],
-
-                    'build/scripts/baselibs.js': [
-                        '<%= pathConfig.venders %>/numericjs/src/numeric.js',
-                        '<%= pathConfig.venders %>/numericjs/src/svd.js',
-                        '<%= pathConfig.venders %>/jquery/dist/jquery.js',
-                        '<%= pathConfig.venders %>/underscore/underscore.js',
-                        '<%= pathConfig.venders %>/threejs/build/three.js'
-                    ],
-
-                    'build/scripts/threadlibs.js': [
-                        '<%= pathConfig.venders %>/numericjs/src/numeric.js',
-                        '<%= pathConfig.venders %>/numericjs/src/svd.js',
-                        '<%= pathConfig.venders %>/underscore/underscore.js',
-                    ]
-
-                }
             }
-        },
 
-        uglify: {
-            dist: {
-                files: {
-                    'dist/main.js': [
-                        '<%= pathConfig.build %>/application.js',
-                        '<%= pathConfig.build %>/libs.js'
-                    ]
-                }
-            }
         },
 
         emberTemplates: {
@@ -158,9 +101,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-neuter');
 
     grunt.registerTask('build', [
-        'neuter:application',
-        'concat_sourcemap:scripts',
-        'concat_sourcemap:libs',
+        'neuter',
         'concat_sourcemap:unittest',
         'emberTemplates:build',
         'compass:build',

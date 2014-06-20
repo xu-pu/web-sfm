@@ -1,5 +1,3 @@
-'use strict';
-
 App.StateBarView = Ember.View.extend({
 
     templateName: 'widgets/state-bar',

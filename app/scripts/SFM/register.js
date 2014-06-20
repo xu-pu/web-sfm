@@ -1,11 +1,3 @@
-'use strict';
-
-
-if (typeof SFM === 'undefined') {
-    var SFM = {};
-}
-
-
 SFM.TRACK_THRESHOLD = 2;
 SFM.ANN_THRESHOLD = 0.6;
 SFM.FMATRIX_ERROR_THRESHOLD = 1;

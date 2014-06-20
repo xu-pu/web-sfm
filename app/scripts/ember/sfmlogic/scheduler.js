@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @typedef {{next: Function, isEnded: Function}} Iterator
  */

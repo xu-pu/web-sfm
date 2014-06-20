@@ -1,5 +1,3 @@
-'use strict';
-
 App.FullsizeImageView = Ember.View.extend({
 
     loadng: true,

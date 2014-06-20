@@ -1,5 +1,3 @@
-'use strict';
-
 App.CpuSettingView = Ember.View.extend({
 
     templateName: 'widgets/cpu-setting',

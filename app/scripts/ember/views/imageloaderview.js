@@ -1,5 +1,3 @@
-'use strict';
-
 App.ImageLoaderView = Ember.View.extend({
 
     isActive: false,

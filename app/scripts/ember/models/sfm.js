@@ -1,5 +1,3 @@
-'use strict';
-
 App.Project = Ember.Object.extend({
 
     threadPoolSize: 4,

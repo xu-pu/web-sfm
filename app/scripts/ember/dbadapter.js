@@ -1,5 +1,3 @@
-'use strict';
-
 var IDBAdapter = (function(){
 
     var project = 'test';

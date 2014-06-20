@@ -1,10 +1,3 @@
-'use strict';
-
-
-if (typeof SFM === 'undefined') {
-    var SFM = {};
-}
-
 /**
  *
  * @param {CalibratedCamera} cam1 -- as reference

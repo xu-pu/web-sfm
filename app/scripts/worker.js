@@ -1,5 +1,8 @@
 'use strict';
 
+require('./libs');
+require('./SFM/*');
+
 self.onmessage = function(e){
     var task = e.data.task;
     var data = e.data.data;

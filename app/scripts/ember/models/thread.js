@@ -1,5 +1,3 @@
-'use strict';
-
 App.Thread = Ember.Object.extend({
 
     worker: null,

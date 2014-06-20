@@ -1,10 +1,3 @@
- 'use strict';
-
-if (typeof SFM === 'undefined') {
-    var SFM = {};
-}
-
-
 SFM.SOBEL_KERNEL_X = [
     [-1,0,1],
     [-2,0,2],

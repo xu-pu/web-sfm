@@ -1,5 +1,3 @@
-'use strict';
-
 App.TracksView = Ember.View.extend({
 
     tagName: 'div',

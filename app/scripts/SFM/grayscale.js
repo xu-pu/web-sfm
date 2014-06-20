@@ -1,10 +1,3 @@
-'use strict';
-
-if (typeof SFM === 'undefined') {
-    var SFM = {};
-}
-
-
 /**
  *
  * Grayscale Image

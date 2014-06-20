@@ -1,17 +1,4 @@
-'use strict';
-
-
-if (typeof SFM === 'undefined') {
-    var SFM = {};
-}
-
-
-/*
-self.onmessage = function(e) {
-    console.log(e.data);
-    self.postMessage('done');
-};
-*/
+var SFM = {};
 
 SFM.STEREO_WORKER = '/build/scripts/stereoworker.js';
 SFM.SIFT_WORKER = '/build/scripts/siftworker.js';
@@ -62,3 +49,5 @@ SFM.STORE_VIEWS = 'views';
 SFM.RGB2GRAY_R = 0.2989;
 SFM.RGB2GRAY_G = 0.5870;
 SFM.RGB2GRAY_B = 0.1140;
+
+require('./*');

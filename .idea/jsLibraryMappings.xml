@@ -2,6 +2,10 @@
 <project version="4">
   <component name="JavaScriptLibraryMappings">
     <file url="file://$PROJECT_DIR$" libraries="{web-sfm node_modules}" />
+<<<<<<< Updated upstream
+=======
+    <includedPredefinedLibrary name="Node.js Globals" />
+>>>>>>> Stashed changes
     <includedPredefinedLibrary name="WebGL" />
   </component>
 </project>

@@ -1,10 +1,3 @@
-'use strict';
-
-
-if (typeof SFM === 'undefined') {
-    var SFM = {};
-}
-
 // RC means row and col
 // Img means left-bottom origin
 // Center means center orgin

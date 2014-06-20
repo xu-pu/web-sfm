@@ -1,5 +1,3 @@
-'use strict';
-
 App.SfmStore = (function(){
 
     var projectModel = null;

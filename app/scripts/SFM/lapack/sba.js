@@ -1,12 +1,3 @@
-'use strict';
-
-
-if (typeof SFM === 'undefined') {
-    var SFM = {};
-}
-
-
-
 /**
  * @param {Function[]} funcs
  * @param {number[]} initials

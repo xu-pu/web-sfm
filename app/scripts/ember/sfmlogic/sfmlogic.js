@@ -1,5 +1,3 @@
-'use strict';
-
 App.SfmLogic = (function(){
 
     var projectModel = null;

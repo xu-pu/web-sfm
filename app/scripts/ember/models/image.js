@@ -1,5 +1,3 @@
-"use strict";
-
 App.Image = Ember.Object.extend({
 
     file: null,

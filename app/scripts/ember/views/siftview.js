@@ -1,5 +1,3 @@
-'use strict';
-
 App.SiftView = Ember.View.extend({
 
     loadng: true,

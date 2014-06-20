@@ -1,5 +1,3 @@
-'use strict';
-
 App.TwoViewGridView = Ember.View.extend({
 
     tagName: 'table',
