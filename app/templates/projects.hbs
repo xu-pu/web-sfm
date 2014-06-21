@@ -1,3 +1,9 @@
-{{#each controller}}
-    <div> {{name}} </div>
+<ul class="main-container__project-selection">
+
+{{#each project in controller}}
+    <li class="project-thumbnail">
+        {{project.name}}
+    </li>
 {{/each}}
+
+</ul>

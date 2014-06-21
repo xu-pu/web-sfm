@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="PYTHON_MODULE" version="4">
   <component name="CompassSettings">
-    <option name="compassExecutableFilePath" value="$USER_HOME$/.gem/ruby/2.1.0/gems/compass-0.12.6/bin/compass" />
+    <option name="compassExecutableFilePath" value="$USER_HOME$/.gem/ruby/2.0.0/bin/compass" />
     <option name="compassSupportEnabled" value="true" />
     <option name="importPaths">
       <list>
@@ -23,7 +23,6 @@
     <orderEntry type="library" name="ember-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="gruntjs-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="web-sfm node_modules" level="project" />
-    <orderEntry type="library" name="compass-library" level="project" />
     <orderEntry type="library" name="should-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="mocha-DefinitelyTyped" level="application" />
   </component>
