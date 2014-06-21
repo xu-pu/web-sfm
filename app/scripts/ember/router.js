@@ -1,5 +1,9 @@
 App.Router.map(function() {
 
+    "use strict";
+
+    this.route('projects');
+
     this.resource('input', function(){
         this.route('index', { path: '/'});
         this.route('image', { path: '/:id' });
@@ -33,6 +37,14 @@ App.ApplicationRoute = Ember.Route.extend({
 
     model: function(){
         return App.SfmStore.promiseProject();
+    }
+
+});
+
+App.ProjectsRoute = Ember.Route.extend({
+
+    model: function(){
+        return App.SfmStore.promiseProjects();
     }
 
 });

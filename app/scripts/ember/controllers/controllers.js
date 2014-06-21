@@ -17,9 +17,16 @@ App.ApplicationController = Ember.ObjectController.extend({
 });
 
 
+App.ProjectsController = Ember.ArrayController.extend({
+    itemController: 'project.thumbnail'
+});
+
+App.ProjectThumbnailController = Ember.ObjectController.extend();
+
 App.InputController = Ember.ArrayController.extend({
     itemController: 'input.thumbnail'
 });
+
 
 App.InputThumbnailController = Ember.ObjectController.extend({
 
