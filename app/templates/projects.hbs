@@ -1,9 +1,7 @@
 <ul class="main-container__project-selection">
 
 {{#each project in controller}}
-    <li class="project-thumbnail">
-        {{project.name}}
-    </li>
+    {{view App.ProjectThumbnailView controller=project}}
 {{/each}}
 
 </ul>
