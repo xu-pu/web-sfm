@@ -1,5 +1,7 @@
 App.SfmStore = (function(){
 
+    'use strict';
+
     var projectModel = null;
     var imageModels = null;
     var matchesModel = null;
@@ -33,6 +35,12 @@ App.SfmStore = (function(){
                     }
                 );
             }
+        });
+    }
+
+    function promiseProjects (){
+        return new Promise(function(resolve, reject){
+            resolve(SFM.DEMO_PROJECTS);
         });
     }
 
@@ -88,6 +96,7 @@ App.SfmStore = (function(){
     }
 
     return {
+        promiseProjects: promiseProjects,
         promiseProject: promiseProject,
         promiseImages: promiseImages,
         promiseMatches: promiseMatches,

@@ -50,4 +50,21 @@ SFM.RGB2GRAY_R = 0.2989;
 SFM.RGB2GRAY_G = 0.5870;
 SFM.RGB2GRAY_B = 0.1140;
 
+
+SFM.DEMO_PROJECTS = [
+    {
+        name: 'Hall-Demo',
+        type: SFM.PROJECT_TYPE_DEMO
+    },
+    {
+        name: 'Hall-Demo-Again',
+        type: SFM.PROJECT_TYPE_DEMO
+    },
+    {
+        name: 'Hall-Demo-Once-More',
+        type: SFM.PROJECT_TYPE_DEMO
+    }
+];
+
+
 require('./*');
