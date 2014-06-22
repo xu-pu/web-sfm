@@ -104,7 +104,18 @@ App.Utils.promiseDataUrl = function(file){
 
 
 App.Utils.promiseImageThumbnail = function(img){
-
-
-
+    return new Promise(function(resolve, reject){
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+        var aspectRatio = img.width/img.height;
+        canvas.width = 200;
+        canvas.height = 200;
+        if (aspectRatio > 1) {
+            ctx.drawImage(img, 0, 0, 200*aspectRatio, 200);
+        }
+        else {
+            ctx.drawImage(img, 0, 0, 200, 200*aspectRatio);
+        }
+        resolve(canvas.toDataURL());
+    });
 };
