@@ -5,8 +5,8 @@
     <option name="compassSupportEnabled" value="true" />
     <option name="importPaths">
       <list>
-        <option value="$USER_HOME$/.gem/ruby/2.1.0/gems/compass-0.12.2/frameworks/compass/stylesheets" />
-        <option value="$USER_HOME$/.gem/ruby/2.1.0/gems/compass-0.12.2/frameworks/blueprint/stylesheets" />
+        <option value="$USER_HOME$/.gem/ruby/2.1.0/gems/compass-0.12.6/frameworks/blueprint/stylesheets" />
+        <option value="$USER_HOME$/.gem/ruby/2.1.0/gems/compass-0.12.6/frameworks/compass/stylesheets" />
       </list>
     </option>
   </component>
