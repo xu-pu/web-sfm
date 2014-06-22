@@ -5,8 +5,8 @@
     <option name="compassSupportEnabled" value="true" />
     <option name="importPaths">
       <list>
-        <option value="$USER_HOME$/.gem/ruby/2.1.0/gems/compass-0.12.6/frameworks/blueprint/stylesheets" />
-        <option value="$USER_HOME$/.gem/ruby/2.1.0/gems/compass-0.12.6/frameworks/compass/stylesheets" />
+        <option value="$USER_HOME$/.gem/ruby/2.1.0/gems/compass-0.12.2/frameworks/compass/stylesheets" />
+        <option value="$USER_HOME$/.gem/ruby/2.1.0/gems/compass-0.12.2/frameworks/blueprint/stylesheets" />
       </list>
     </option>
   </component>
@@ -25,6 +25,7 @@
     <orderEntry type="library" name="web-sfm node_modules" level="project" />
     <orderEntry type="library" name="should-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="mocha-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="compass-library" level="project" />
   </component>
 </module>
 

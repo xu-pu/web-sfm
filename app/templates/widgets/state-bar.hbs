@@ -21,9 +21,13 @@
 <div class="controll-panel__state-bar">
     <div class="controll-panel__state-bar__toggle">
         {{#if isRunning}}
-            <div class="is_running" {{action "stop"}}>Running</div>
+            <div class="is_running" {{action "stop"}}>
+                <span class="icon-pause">Running</span>
+            </div>
         {{else}}
-            <div class="is_stopped" {{action "run"}}>Stopped</div>
+            <div class="is_stopped" {{action "run"}}>
+                <span class="icon-start">Stopped</span>
+            </div>
         {{/if}}
     </div>
     {{#view view.InfoView controller=controller}}
