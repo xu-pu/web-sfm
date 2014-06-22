@@ -8,6 +8,9 @@ App.SfmStore = (function(){
 
     initialize();
 
+    function loadDemoProject(){}
+
+
     function initialize(){
         projectModel = App.Project.create({
             type: SFM.PROJECT_TYPE_TEST,
