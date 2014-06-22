@@ -1,7 +1,12 @@
-.icon-start:before {
-  content: "\23F8"
-}
+$unicode-icons: (
+        pause "\23F8",
+        play "\23EF"
+);
 
-.icon-pause:before {
-  content: "\23F8";
+@each $pair in $unicode-icons {
+
+  .icon-#{nth($pair, 1)}:before {
+    content: nth($pair, 2);
+  }
+
 }
