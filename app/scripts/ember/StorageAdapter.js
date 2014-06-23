@@ -136,9 +136,10 @@ App.StorageAdapter.prototype = {
 
 
     promiseAll: function(store){
+        var _self = this;
         return new Promise(function(resolve, reject){
             var results = [];
-            this.queryEach(store, function(key, value){
+            _self.queryEach(store, function(key, value){
                 results.push({ key: key, value: value });
             }, function(){
                 resolve(results);

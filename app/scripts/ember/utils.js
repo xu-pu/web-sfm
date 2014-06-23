@@ -78,10 +78,9 @@ App.Utils.Navigatable = Ember.Mixin.create({
 /**
  *
  * @param url
- * @param {Function} [error]
  * @returns {Promise}
  */
-App.Utils.promiseLoadImage = function(url, error){
+App.Utils.promiseLoadImage = function(url){
     return new Promise(function(resolve, reject){
         var img = document.createElement('img');
         img.onload = function(){
@@ -91,7 +90,11 @@ App.Utils.promiseLoadImage = function(url, error){
     });
 };
 
-
+/**
+ *
+ * @param {File} file
+ * @returns {Promise}
+ */
 App.Utils.promiseDataUrl = function(file){
     return new Promise(function(resolve, reject){
         var reader = new FileReader();
@@ -102,7 +105,11 @@ App.Utils.promiseDataUrl = function(file){
     });
 };
 
-
+/**
+ *
+ * @param {Image} img
+ * @returns {Promise}
+ */
 App.Utils.promiseImageThumbnail = function(img){
     return new Promise(function(resolve, reject){
         var canvas = document.createElement('canvas');
@@ -119,3 +126,4 @@ App.Utils.promiseImageThumbnail = function(img){
         resolve(canvas.toDataURL());
     });
 };
+
