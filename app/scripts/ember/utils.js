@@ -126,4 +126,3 @@ App.Utils.promiseImageThumbnail = function(img){
         resolve(canvas.toDataURL());
     });
 };
-

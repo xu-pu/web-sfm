@@ -54,15 +54,18 @@ SFM.RGB2GRAY_B = 0.1140;
 SFM.DEMO_PROJECTS = [
     {
         name: 'Hall-Demo',
-        type: SFM.PROJECT_TYPE_DEMO
+        type: SFM.PROJECT_TYPE_DEMO,
+        images: []
     },
     {
         name: 'Hall-Demo-Again',
-        type: SFM.PROJECT_TYPE_DEMO
+        type: SFM.PROJECT_TYPE_DEMO,
+        images: []
     },
     {
         name: 'Hall-Demo-Once-More',
-        type: SFM.PROJECT_TYPE_DEMO
+        type: SFM.PROJECT_TYPE_DEMO,
+        images: []
     }
 ];
 
