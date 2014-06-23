@@ -57,24 +57,29 @@ App.StorageAdapter.prototype = {
      */
     processImageFile: function(file){
         var _self = this;
+        var dataUrl, thumbnailDataUrl, _id, img;
         return new Promise(function(resolve, reject) {
-            App.Utils.promiseDataUrl(file).then(function (dataUrl) {
-                App.Utils.promiseLoadImage(dataUrl).then(function (img) {
-                    _self.promiseAddData(SFM.STORE_IMAGES, {
-                        filename: file.name,
-                        width: img.width,
-                        height: img.height
-                    }).then(function (_id) {
-                        App.Utils.promiseImageThumbnail(img).then(function (thumbnailDataUrl) {
-                            Promise.all([
-                                _self.promiseSetData(SFM.STORE_THUMBNAILS, _id, thumbnailDataUrl),
-                                _self.promiseSetData(SFM.STORE_FULLIMAGES, _id, dataUrl)
-                            ]).then(function () {
-                                resolve(_id);
-                            });
-                        });
-                    });
+            App.Utils.promiseDataUrl(file).then(function (result) {
+                dataUrl = result;
+                return App.Utils.promiseLoadImage(dataUrl);
+            }).then(function (result) {
+                img = result;
+                return _self.promiseAddData(SFM.STORE_IMAGES, {
+                    filename: file.name,
+                    width: img.width,
+                    height: img.height
                 });
+            }).then(function(result){
+                _id = result;
+                return App.Utils.promiseImageThumbnail(img)
+            }).then(function(result) {
+                thumbnailDataUrl = result;
+                return Promise.all([
+                    _self.promiseSetData(SFM.STORE_THUMBNAILS, _id, thumbnailDataUrl),
+                    _self.promiseSetData(SFM.STORE_FULLIMAGES, _id, dataUrl)
+                ]);
+            }).then(function(){
+                resolve(_id);
             });
         });
     },
