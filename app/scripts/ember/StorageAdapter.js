@@ -1,3 +1,7 @@
+/**
+ * @param project
+ * @constructor
+ */
 App.StorageAdapter = function(project){
     this.project = project;
     this.connection = null;
@@ -56,31 +60,25 @@ App.StorageAdapter.prototype = {
      * @return {Promise}
      */
     processImageFile: function(file){
-        var _self = this;
-        var dataUrl, thumbnailDataUrl, _id, img;
-        return new Promise(function(resolve, reject) {
-            App.Utils.promiseDataUrl(file).then(function (result) {
-                dataUrl = result;
-                return App.Utils.promiseLoadImage(dataUrl);
-            }).then(function (result) {
-                img = result;
-                return _self.promiseAddData(SFM.STORE_IMAGES, {
-                    filename: file.name,
-                    width: img.width,
-                    height: img.height
-                });
-            }).then(function(result){
-                _id = result;
-                return App.Utils.promiseImageThumbnail(img)
-            }).then(function(result) {
-                thumbnailDataUrl = result;
-                return Promise.all([
-                    _self.promiseSetData(SFM.STORE_THUMBNAILS, _id, thumbnailDataUrl),
-                    _self.promiseSetData(SFM.STORE_FULLIMAGES, _id, dataUrl)
-                ]);
-            }).then(function(){
-                resolve(_id);
-            });
+        var dataUrl, _id, _self = this;
+        return App.Utils.promiseDataUrl(file).then(function(result){
+            dataUrl = result;
+            return App.Utils.promiseLoadImage(dataUrl);
+        }).then(function(img){
+            var image = { filename: file.name, width: img.width, height: img.height };
+            return Promise.all([
+                _self.promiseAddData(SFM.STORE_IMAGES, image),
+                App.Utils.promiseImageThumbnail(img)
+            ]);
+        }).then(function(results){
+            _id = results[0];
+            var thumbnailDataUrl = results[1];
+            return Promise.all([
+                _self.promiseSetData(SFM.STORE_THUMBNAILS, _id, thumbnailDataUrl),
+                _self.promiseSetData(SFM.STORE_FULLIMAGES, _id, dataUrl)
+            ]);
+        }).then(function(){
+            return _id;
         });
     },
 

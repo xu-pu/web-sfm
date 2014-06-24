@@ -20,11 +20,24 @@ App.DemoProject = Ember.Object.extend({
 
     finishedMVS: false,
 
+    leftImages: function(){
+        return _.difference(this.get('images'), this.get('finishedImages'));
+    }.property('finishedImages'),
+
+    leftSIFT: function(){
+        return _.difference(this.get('images'), this.get('finishedSIFT'));
+    }.property('finishedSIFT'),
+
     urlBase: function(){
         return '/Demos/' + this.get('name');
     }.property('name'),
 
-    resume: function(){
+    promiseLoadProject: function(){
+        return this.promiseResume()
+            .then(this.promiseDownload);
+    },
+
+    promiseResume: function(){
         var _self = this;
         var adapter = new App.StorageAdapter(this.get('name'));
         this.set('adapter', adapter);
@@ -44,17 +57,15 @@ App.DemoProject = Ember.Object.extend({
         var imagesResumed = adapter.promiseAll(SFM.STORE_IMAGES).then(function(images){
 
         });
-        Promise.all([
+        return Promise.all([
             imagesResumed,
             siftResumed,
             bundlerResumed,
             mvsResumed
-        ]).then(function(){
-
-        });
+        ]);
     },
 
-    download: function(){
+    promiseDownload: function(){
         // always after resume
         var _self = this;
         var adapter = this.get('adapter');
