@@ -86,6 +86,9 @@ App.Utils.promiseLoadImage = function(url){
         img.onload = function(){
             resolve(img);
         };
+        img.onerror = reject;
+        img.ontimeout = reject;
+        img.onabort = reject;
         img.src = url;
     });
 };
