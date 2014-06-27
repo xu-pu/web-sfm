@@ -176,3 +176,19 @@ App.Utils.requireImg = function(url){
     }
 
 };
+
+
+App.Utils.promiseImageFile = function(url){
+    return new Promise(function(resolve, reject){
+        var request = new XMLHttpRequest();
+        request.responseType = 'blob';
+        request.onload = function(){
+            resolve(request.response);
+        };
+        request.onerror = reject;
+        request.ontimeout = reject;
+        request.onabort = reject;
+        request.open('GET', url);
+        request.send();
+    });
+};

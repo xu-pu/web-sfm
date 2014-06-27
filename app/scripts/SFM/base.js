@@ -45,6 +45,8 @@ SFM.STORE_MATCHES = 'matches';
 SFM.STORE_SINGLETONS = 'singletons';
 SFM.STORE_TRACKS = 'tracks';
 SFM.STORE_VIEWS = 'views';
+SFM.STORE_MVS = 'mvs';
+SFM.STORE_BUNDLER = 'bundler';
 
 SFM.RGB2GRAY_R = 0.2989;
 SFM.RGB2GRAY_G = 0.5870;

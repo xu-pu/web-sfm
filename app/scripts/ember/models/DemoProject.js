@@ -66,37 +66,54 @@ App.DemoProject = Ember.Object.extend({
     },
 
     promiseDownload: function(){
-        // always after resume
-        return Promise.all([
-            this.promiseDownloadImages(),
-            this.promiseDownloadSIFT(),
-            this.promiseDownloadBundler(),
-            this.promiseDownloadMVS()
-        ]);
+        return this.promiseDownloadImages()
+            .then(this.promiseDownloadSIFT)
+            .then(this.promiseDownloadBundler)
+            .then(this.promiseDownloadMVS);
     },
 
 
     promiseDownloadImages: function(){
-        return Promise.all(this.get('leftImages').map(function(name){
-            return App.Utils.promiseLoadImage(name);
-        }));
+
+        var urlBase = this.get('urlBase') + '/images';
+
+        return Promise.all(this.get('leftImages').map(promiseOne));
+
+        function promiseOne(name){
+            return App.Utils.requireImg(urlBase + '/' + name + '.jpg')
+                .then(promiseStoreImage);
+
+        }
+
+        function promiseStoreImage(img){
+
+        }
+
     },
 
 
     promiseDownloadSIFT: function(){
-        return Promise.all(this.get('leftSIFT').map(function(name){
-            return App.Utils.promiseLoadImage(name);
-        }));
-    },
 
+        var baseUrl = this.get('urlBase') + '/sift.json/';
+
+        return Promise.all(this.get('leftSIFT').map(promiseOne));
+
+        function promiseOne(name){
+            return App.Utils.requireJSON(baseUrl + name + '.json');
+        }
+
+    },
 
     promiseDownloadBundler: function(){
-        return new Promise(function(resolve, reject){});
+        return App.Utils.requireJSON(this.get('urlBase')+'/bundler/bundler.json');
     },
 
-
     promiseDownloadMVS: function(){
-        return new Promise(function(resolve, reject){});
+        var adapter = this.get('adapter');
+        var url = this.get('urlBase')+'/mvs/option.txt.pset.json';
+        return App.Utils.requireJSON(url).then(function(data){
+            return adapter.promiseSetData(SFM.STORE_SINGLETONS, SFM.STORE_MVS, data);
+        });
     }
 
 });
