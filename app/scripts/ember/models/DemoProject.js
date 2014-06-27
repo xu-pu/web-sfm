@@ -67,30 +67,26 @@ App.DemoProject = Ember.Object.extend({
 
     promiseDownload: function(){
         // always after resume
-        var _self = this;
-        var adapter = this.get('adapter');
-        Promise.all([
+        return Promise.all([
             this.promiseDownloadImages(),
             this.promiseDownloadSIFT(),
             this.promiseDownloadBundler(),
             this.promiseDownloadMVS()
-        ]).then(function(){
-
-        });
+        ]);
     },
 
 
     promiseDownloadImages: function(){
-        return new Promise(function(resolve, reject){
-            _.without(this.get('images'), this.get('finishedImages')).forEach(function(imageName){
-                App.Utils.promiseLoadImage();
-            });
-        });
+        return Promise.all(this.get('leftImages').map(function(name){
+            return App.Utils.promiseLoadImage(name);
+        }));
     },
 
 
     promiseDownloadSIFT: function(){
-        return new Promise(function(resolve, reject){});
+        return Promise.all(this.get('leftSIFT').map(function(name){
+            return App.Utils.promiseLoadImage(name);
+        }));
     },
 
 

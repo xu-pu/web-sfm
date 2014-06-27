@@ -129,3 +129,50 @@ App.Utils.promiseImageThumbnail = function(img){
         resolve(canvas.toDataURL());
     });
 };
+
+/**
+ *
+ */
+App.Utils.promiseJSON = function(url){
+    return new Promise(function(resolve, reject){
+        $.getJSON(url).then(function(){
+
+        });
+    });
+};
+
+
+App.Utils.requireJSON = function(url){
+
+    return promiseRetry();
+
+    function promiseRetry(){
+        return App.Utils.promiseJSON(url).catch(promiseRetry);
+    }
+
+};
+
+
+App.Utils.promiseImg = function(url){
+    return new Promise(function(resolve, reject){
+        var img = document.createElement('img');
+        img.onload = function(){
+            resolve(img);
+        };
+        img.onerror = reject;
+        img.ontimeout = reject;
+        img.onabort = reject;
+        img.src = url;
+    });
+};
+
+
+App.Utils.requireImg = function(url){
+
+    return promiseRetry();
+
+    function promiseRetry(){
+        return App.Utils.promiseImg(url).catch(promiseRetry);
+    }
+
+};
