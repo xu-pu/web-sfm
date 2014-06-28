@@ -102,7 +102,7 @@ App.DemoProject = Ember.Object.extend({
                 blob.name = name;
                 return Promise.all([
                     adapter.processImageFile(blob),
-                    App.Utils.requireJSON(siftUrl)
+                    App.Utils.promiseJSON(siftUrl)
                 ]);
             })
             .then(function(results){

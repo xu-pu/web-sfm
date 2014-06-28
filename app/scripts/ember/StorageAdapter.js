@@ -3,7 +3,7 @@
  * @constructor
  */
 App.StorageAdapter = function(project){
-    this.project = 'test';
+    this.project = project;
     this.connection = null;
 };
 
@@ -13,7 +13,6 @@ App.StorageAdapter.prototype = {
         var _self = this;
         return new Promise(function(resolve, reject){
             if (_self.connection) {
-                Ember.Logger.debug(_self.connection);
                 resolve(_self.connection);
             }
             else {
@@ -101,8 +100,9 @@ App.StorageAdapter.prototype = {
      * @return {Promise}
      */
     promiseData: function(store, key){
+        var _self = this;
         return new Promise(function(resolve, reject){
-            this.promiseDB().then(function(db){
+            _self.promiseDB().then(function(db){
                 db.transaction(store).objectStore(store).get(key).onsuccess = function(e){
                     var result = e.target.result;
                     if (_.isUndefined(result)) {
@@ -124,8 +124,9 @@ App.StorageAdapter.prototype = {
      * @returns {Promise}
      */
     promiseSetData: function(store, key, data){
+        var _self = this;
         return new Promise(function(resolve){
-            this.promiseDB().then(function(db){
+            _self.promiseDB().then(function(db){
                 db.transaction(store, 'readwrite').objectStore(store).put(data, key).onsuccess = function(e){
                     resolve(e.target.result);
                 }
@@ -139,8 +140,9 @@ App.StorageAdapter.prototype = {
      * @returns {Promise}
      */
     promiseAddData: function(store, data){
+        var _self = this;
         return new Promise(function(resolve){
-            this.promiseDB().then(function(db){
+            _self.promiseDB().then(function(db){
                 db.transaction(store, 'readwrite').objectStore(store).add(data).onsuccess = function(e){
                     resolve(e.target.result);
                 }

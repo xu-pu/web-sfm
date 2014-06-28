@@ -135,9 +135,16 @@ App.Utils.promiseImageThumbnail = function(img){
  */
 App.Utils.promiseJSON = function(url){
     return new Promise(function(resolve, reject){
-        $.getJSON(url).then(function(){
-
-        });
+        var request = new XMLHttpRequest();
+        request.responseType = 'json';
+        request.onload = function(){
+            resolve(request.response);
+        };
+        request.onerror = reject;
+        request.ontimeout = reject;
+        request.onabort = reject;
+        request.open('GET', url);
+        request.send();
     });
 };
 
