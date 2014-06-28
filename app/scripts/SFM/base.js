@@ -57,7 +57,11 @@ SFM.DEMO_PROJECTS = [
     {
         name: 'Hall-Demo',
         type: SFM.PROJECT_TYPE_DEMO,
-        images: []
+        images: [
+//            '00000037.jpg',
+//            '00000038.jpg',
+            '00000036.jpg'
+        ]
     },
     {
         name: 'Hall-Demo-Again',

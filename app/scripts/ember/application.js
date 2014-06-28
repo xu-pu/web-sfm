@@ -9,6 +9,7 @@ var App = window.App = Ember.Application.create({
 });
 
 require('./dbadapter');
+require('./StorageAdapter');
 require('./router');
 require('./utils');
 

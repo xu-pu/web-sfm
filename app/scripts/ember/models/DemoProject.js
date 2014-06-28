@@ -20,6 +20,12 @@ App.DemoProject = Ember.Object.extend({
 
     finishedMVS: false,
 
+    init: function(){
+        Ember.Logger.debug('project storage adapter created');
+        var adapter = new App.StorageAdapter(this.get('name'));
+        this.set('adapter', adapter);
+    },
+
     leftImages: function(){
         return _.difference(this.get('images'), this.get('finishedImages'));
     }.property('finishedImages'),
@@ -29,12 +35,13 @@ App.DemoProject = Ember.Object.extend({
     }.property('finishedSIFT'),
 
     urlBase: function(){
-        return '/Demos/' + this.get('name');
+//        return '/Demos/' + this.get('name');
+        return '/dataset';
     }.property('name'),
 
-    promiseLoadProject: function(){
-        return this.promiseResume()
-            .then(this.promiseDownload);
+    promiseProjectReady: function(){
+//        return this.promiseResume().then(this.promiseDownload);
+        return this.promiseDownload();
     },
 
     promiseResume: function(){
@@ -65,43 +72,48 @@ App.DemoProject = Ember.Object.extend({
         ]);
     },
 
+
     promiseDownload: function(){
-        return this.promiseDownloadImages()
-            .then(this.promiseDownloadSIFT)
-            .then(this.promiseDownloadBundler)
-            .then(this.promiseDownloadMVS);
+        return this.promiseDownloadImages();
+//            .then(this.promiseDownloadSIFT)
+//            .then(this.promiseDownloadBundler)
+//            .then(this.promiseDownloadMVS);
     },
 
 
     promiseDownloadImages: function(){
-
-        var urlBase = this.get('urlBase') + '/images';
-
-        return Promise.all(this.get('leftImages').map(promiseOne));
-
-        function promiseOne(name){
-            return App.Utils.requireImg(urlBase + '/' + name + '.jpg')
-                .then(promiseStoreImage);
-
-        }
-
-        function promiseStoreImage(img){
-
-        }
-
+        return Promise.all(this.get('leftImages').map(this.promiseProcessOneImage.bind(this)));
     },
 
 
-    promiseDownloadSIFT: function(){
+    promiseProcessOneImage: function(name){
+        var rawName = name.split('.')[0],
+            urlBase = this.get('urlBase'),
+            adapter = this.get('adapter'),
+            finishedImages = this.get('finishedImages'),
+            finishedSIFT = this.get('finishedSIFT');
 
-        var baseUrl = this.get('urlBase') + '/sift.json/';
+        var imageUrl = urlBase + '/images/' + name,
+            siftUrl = urlBase + '/sift.json/' + rawName + '.json';
 
-        return Promise.all(this.get('leftSIFT').map(promiseOne));
-
-        function promiseOne(name){
-            return App.Utils.requireJSON(baseUrl + name + '.json');
-        }
-
+        return App.Utils
+            .requireImageFile(imageUrl)
+            .then(function(blob){
+                blob.name = name;
+                return Promise.all([
+                    adapter.processImageFile(blob),
+                    App.Utils.requireJSON(siftUrl)
+                ]);
+            })
+            .then(function(results){
+                finishedImages.addObject(name);
+                var _id = results[0],
+                    sift = results[1].features;
+                return adapter.promiseSetData(SFM.STORE_FEATURES, _id, sift);
+            })
+            .then(function(){
+                finishedSIFT.addObject(name);
+            });
     },
 
     promiseDownloadBundler: function(){

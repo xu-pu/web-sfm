@@ -3,7 +3,7 @@
  * @constructor
  */
 App.StorageAdapter = function(project){
-    this.project = project;
+    this.project = 'test';
     this.connection = null;
 };
 
@@ -13,6 +13,7 @@ App.StorageAdapter.prototype = {
         var _self = this;
         return new Promise(function(resolve, reject){
             if (_self.connection) {
+                Ember.Logger.debug(_self.connection);
                 resolve(_self.connection);
             }
             else {
@@ -20,11 +21,16 @@ App.StorageAdapter.prototype = {
                 request.onupgradeneeded = function(e){
                     console.log('upgrade');
                     _self.connection = e.target.result;
-                    this.createStores(_self.connection);
+                    _self.createStores(_self.connection);
                 };
                 request.onsuccess = function(e){
+                    Ember.Logger.debug('db success');
                     _self.connection = e.target.result;
                     resolve(_self.connection);
+                };
+                request.onerror = function(reason){
+                    Ember.Logger.debug(reason);
+                    reject();
                 };
             }
         });
@@ -60,17 +66,21 @@ App.StorageAdapter.prototype = {
      * @return {Promise}
      */
     processImageFile: function(file){
+        Ember.Logger.debug('file process begins');
         var dataUrl, _id, _self = this;
         return App.Utils.promiseDataUrl(file).then(function(result){
+            Ember.Logger.debug('image dataUrl required');
             dataUrl = result;
             return App.Utils.promiseLoadImage(dataUrl);
         }).then(function(img){
+            Ember.Logger.debug('img object required');
             var image = { filename: file.name, width: img.width, height: img.height };
             return Promise.all([
                 _self.promiseAddData(SFM.STORE_IMAGES, image),
                 App.Utils.promiseImageThumbnail(img)
             ]);
         }).then(function(results){
+            Ember.Logger.debug('_id and thumbnail required');
             _id = results[0];
             var thumbnailDataUrl = results[1];
             return Promise.all([
@@ -78,6 +88,7 @@ App.StorageAdapter.prototype = {
                 _self.promiseSetData(SFM.STORE_FULLIMAGES, _id, dataUrl)
             ]);
         }).then(function(){
+            Ember.Logger.debug('one image process finished');
             return _id;
         });
     },

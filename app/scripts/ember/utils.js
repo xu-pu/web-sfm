@@ -153,31 +153,6 @@ App.Utils.requireJSON = function(url){
 };
 
 
-App.Utils.promiseImg = function(url){
-    return new Promise(function(resolve, reject){
-        var img = document.createElement('img');
-        img.onload = function(){
-            resolve(img);
-        };
-        img.onerror = reject;
-        img.ontimeout = reject;
-        img.onabort = reject;
-        img.src = url;
-    });
-};
-
-
-App.Utils.requireImg = function(url){
-
-    return promiseRetry();
-
-    function promiseRetry(){
-        return App.Utils.promiseImg(url).catch(promiseRetry);
-    }
-
-};
-
-
 App.Utils.promiseImageFile = function(url){
     return new Promise(function(resolve, reject){
         var request = new XMLHttpRequest();
@@ -191,4 +166,14 @@ App.Utils.promiseImageFile = function(url){
         request.open('GET', url);
         request.send();
     });
+};
+
+App.Utils.requireImageFile = function(url){
+
+    return promiseRetry();
+
+    function promiseRetry(){
+        return App.Utils.promiseImageFile(url).catch(promiseRetry);
+    }
+
 };
