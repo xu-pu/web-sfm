@@ -48,5 +48,26 @@ def generate_all():
                 f.write(json.dumps(sift))
 
 
+def convert_all():
+    if not os.path.exists(KEY_DIR):
+        os.mkdir(KEY_DIR)
+    if not os.path.exists(JSON_DIR):
+        os.mkdir(JSON_DIR)
+    for root, dirs, files in os.walk(IMAGE_DIR):
+        for file in files:
+            name = file.split('.')[-2]
+            sift = sift_convertor(name)
+            with open(join(JSON_DIR, name+'.json'), 'a') as f:
+                f.write(json.dumps(sift))
+
+def test_all():
+    for root, dirs, files in os.walk(JSON_DIR):
+        for fi in files:
+            with open(join(JSON_DIR, fi), 'r') as f:
+                json.loads(f.read())
+    
+
 if __name__ == '__main__':
-    generate_all()
+    test_all()
+#    convert_all()
+#    generate_all()
