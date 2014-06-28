@@ -4,7 +4,7 @@
  * @param {function} callback
  */
 function getSiftSample(imageName, callback) {
-    $.getJSON('/dataset/sift.json/'+imageName+'.json').done(callback);
+    $.getJSON('/demo/Hall-Demo/sift.json/'+imageName+'.json').done(callback);
 }
 
 function getSiftPair(name1, name2, callback) {
@@ -34,7 +34,7 @@ function getImageSample(imageName, callback){
     img.onload = function(){
         callback(img);
     };
-    img.src = '/dataset/images/'+imageName+'.jpg';
+    img.src = '/demo/Hall-Demo/images/'+imageName+'.jpg';
 }
 
 function getImageDataSample(name, callback){
@@ -49,7 +49,7 @@ function getImageDataSample(name, callback){
 }
 
 function getBundlerSample(callback){
-    $.getJSON('/dataset/bundler/bundler.json').then(callback);
+    $.getJSON('/demo/Hall-Demo/bundler/bundler.json').then(callback);
 }
 
 function bundlerViewList(data){

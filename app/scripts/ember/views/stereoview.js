@@ -108,7 +108,7 @@ App.StereoView = Ember.View.extend(App.Utils.Navigatable, {
         }
         render();
 
-        $.getJSON('/dataset/mvs/option.txt.pset.json')
+        $.getJSON('/demo/Hall-Demo/mvs/option.txt.pset.json')
             .then(_.bind(this.afterLoaded, this));
     },
 
