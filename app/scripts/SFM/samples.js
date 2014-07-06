@@ -48,6 +48,29 @@ function getImageDataSample(name, callback){
     })
 }
 
+function promiseImgSample(imageName){
+    return new Promise(function(resolve, reject){
+        var img = document.createElement('img');
+        img.onload = function(){
+            resolve(img);
+        };
+        img.onerror = reject;
+        img.ontimeout = reject;
+        img.src = '/demo/Hall-Demo/images/'+imageName+'.jpg';
+    });
+}
+
+function promiseImageDataSample(imageName){
+    return promiseImgSample(imageName).then(function(img){
+        var canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        return ctx.getImageData(0, 0, img.width, img.height);
+    });
+}
+
 function getBundlerSample(callback){
     $.getJSON('/demo/Hall-Demo/bundler/bundler.json').then(callback);
 }
