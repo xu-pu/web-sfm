@@ -34,7 +34,9 @@ module.exports = function (grunt) {
 
             'build/scripts/application.js':'app/scripts/application.js',
 
-            'build/scripts/worker.js':'app/scripts/worker.js'
+            'build/scripts/worker.js':'app/scripts/worker.js',
+
+            'build/scripts/sfm.js':'app/scripts/sfm.js'
 
         },
 

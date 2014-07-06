@@ -76,5 +76,5 @@ SFM.DEMO_PROJECTS = [
     }
 ];
 
-
+require('./lapack/*');
 require('./*');

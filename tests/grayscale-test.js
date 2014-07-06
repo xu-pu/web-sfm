@@ -22,9 +22,6 @@ function websiftTest(imgName){
 
 }
 
-
-
-
 function twoViewMatchTest(imgName1, imgName2){
     if (imgName1 === imgName2) {
         throw 'images must be different';
@@ -142,21 +139,13 @@ function eightPointRansacTest(name1, name2){
     });
 }
 
-var validList = ['00000034', '00000035','00000036', '00000037', '00000038', '00000040'];
-
 $(function(){
-    /*
-    var name = validList[0];
-    getImageSample(name, function(img){
-        getSiftSample(name, function(data){
-            var features = data.features;
-            compareFeatures(img, features, features);
-        });
+
+    promiseImageDataSample('00000001').then(function(data){
+        console.log(data);
+        return data;
+    }).then(function(data){
+        
     });
-*/
-    getImageDataSample(validList[0], function(data){
-        var g = new SFM.Grayscale({ canvas: data });
-        var f = SFM.sift(g);
-    });
-    //eightPointRansacTest('00000040', '00000041');
+
 });
