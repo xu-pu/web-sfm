@@ -225,6 +225,29 @@ SFM.Grayscale.prototype = {
             }
         }
         return result;
+    },
+
+    toCanvas: function(){
+        if (_.isUndefined(document)){
+            throw "Grayscale.prototype.toCanvas requires the DOM";
+        }
+        var canvas = document.createElement('canvas');
+        canvas.width = this.width;
+        canvas.height = this.height;
+        var ctx = canvas.getContext('2d');
+        var data = ctx.createImageData(this.width, this.height);
+
+        var col, row, offset;
+        for (col=0;col<this.width;col++) {
+            for (row=0;row<this.height;row++) {
+                offset = 4*(row*this.width+col);
+                data.data[offset] = data.data[offset+1] = data.data[offset+2] = this.getRC(row, col);
+                data.data[offset+3] = 255;
+            }
+        }
+
+        ctx.putImageData(data, 0,0);
+        return canvas;
     }
 
 };

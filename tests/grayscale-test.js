@@ -141,11 +141,29 @@ function eightPointRansacTest(name1, name2){
 
 $(function(){
 
-    promiseImageDataSample('00000001').then(function(data){
-        console.log(data);
-        return data;
-    }).then(function(data){
-        
-    });
+    var imgSample;
 
+    promiseImgSample('00000001')
+        .then(function(img){
+            console.log('img loaded');
+            imgSample = img;
+            return SFM.Utils.promiseImageData(img);
+        })
+        .then(function(data){
+            console.log(data);
+            var canvas = document.createElement('canvas');
+            canvas.width = data.width;
+            canvas.height = data.height;
+            var ctx = canvas.getContext('2d');
+            ctx.putImageData(data, 0,0);
+            document.body.appendChild(canvas);
+            return data;
+        })
+        .then(function(data){
+            var gray = new SFM.Grayscale({ canvas: data });
+            document.body.appendChild(gray.toCanvas());
+        })
+        .then(function(){
+
+        });
 });
