@@ -150,6 +150,7 @@ $(function(){
             return SFM.Utils.promiseImageData(img);
         })
         .then(function(data){
+            // print the imagedata
             console.log(data);
             var canvas = document.createElement('canvas');
             canvas.width = data.width;
@@ -160,6 +161,7 @@ $(function(){
             return data;
         })
         .then(function(data){
+            // create and print grayscale from imagedata
             var gray = new SFM.Grayscale({ canvas: data });
             document.body.appendChild(gray.toCanvas());
         })
