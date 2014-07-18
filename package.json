@@ -1,7 +1,23 @@
 {
     "name": "websfm",
+
     "version": "0.0.0",
-    "dependencies": {},
+
+    "dependencies": {
+        "underscore": "latest",
+        "numeric": "latest",
+        "mathjs": "latest",
+        "sylvester": "latest",
+        "ndarray": "latest",
+        "ndarray-pack": "latest",
+        "ndarray-unpack": "latest",
+        "ndarray-linear-interpolate": "latest",
+        "ndarray-ops": "latest",
+        "ndarray-gaussian-filter": "latest",
+        "luminance": "latest",
+        "jquery": "latest"
+    },
+
     "devDependencies": {
         "grunt": "latest",
         "grunt-contrib-uglify": "latest",
@@ -15,7 +31,9 @@
         "mocha": "latest",
         "should": "latest"
     },
+
     "engines": {
         "node": ">=0.8.0"
     }
+
 }
