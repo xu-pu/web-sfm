@@ -1,47 +1,45 @@
 var _ = require('underscore');
+var blur = require('ndarray-gaussian-filter');
+var ops = require('ndarray-ops');
+var pool = require('ndarray-scratch');
 
-module.exports = getDOGs;
+module.exports = getDoGs;
 
 /**
- * @typedef {{img, sigma: number, octave: number, scale}} DoG
- */
-
-/**
- * @typedef {{ dogs: DoG[], octave: number, height: number, width: number }} DogSpace
+ * @typedef {{img, sigma: number}} DoG
  */
 
 /**
  *
- * @param {Octave}  octave
+ * @param img
+ * @param octave
  * @param options
- * @returns {DogSpace}
+ * @returns DoG[]
  */
-function getDOGs(octave, options) {
+function getDoGs(img, octave, options) {
 
     console.log('calculating dogs');
 
     options = options || {};
-
     _.defaults(options, {
         scales: 5
     });
 
-    var scales = [];
-
-    var dogs = _.range(1, scaleSpace.scales.length).map(function(index){
-        var img = scaleSpace.scales[index-1].img.difference(scaleSpace.scales[index].img);
-        return {
-            img: img,
-            octave: scaleSpace.octave,
-            sigma: 1
-        };
+    var sigmas = _.range(options.scales).map(function(s){
+        return Math.pow(2, octave+s/options.scales);
     });
 
-    return {
-        dogs: dogs,
-        octave: octave.octave,
-        width: octave.width,
-        height: octave.height
-    };
+    var scales = sigmas.map(function(sigma){
+        return blur(img, sigma);
+    });
+
+    return _.range(scales.length-1).map(function(index){
+        var buffer = pool.malloc(img.shape);
+        ops.sub(buffer, scales[index], scales[index+1]);
+        return {
+            img: buffer,
+            sigma: sigmas[index]
+        };
+    });
 
 }
