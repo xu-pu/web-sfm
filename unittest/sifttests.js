@@ -20,7 +20,7 @@ describe('WebSIFT and its internals', function(){
     });
 
     describe('SIFT detector', function(){
-        
+
     })
 
 });
