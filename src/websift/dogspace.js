@@ -33,12 +33,12 @@ function getDoGs(img, octave, options) {
 
     var scales = sigmas.map(function(sigma){
         var buffer = pool.clone(img);
-        return blur(buffer, sigma);
+        return blur(buffer, sigma).step(step, step);
     });
 
     var dogs = _.range(scales.length-1).map(function(index){
-        var buffer = pool.malloc(img.shape);
-        ops.sub(buffer, scales[index], scales[index+1]).step(step, step);
+        var buffer = pool.malloc(scales[0].shape);
+        ops.sub(buffer, scales[index], scales[index+1]);
         return {
             img: buffer,
             sigma: sigmas[index]

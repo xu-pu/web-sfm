@@ -15,7 +15,9 @@
         "ndarray-ops": "latest",
         "ndarray-gaussian-filter": "latest",
         "luminance": "latest",
-        "jquery": "latest"
+        "jquery": "latest",
+        "promise": "latest",
+        "get-pixels": "latest"
     },
 
     "devDependencies": {
