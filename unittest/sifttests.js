@@ -14,11 +14,20 @@ describe('WebSIFT and its internals', function(){
 
         it('runs', function(){
             assert.doesNotThrow(function(){
-                var result = getDoG(testImg, 0);
-//                result.forEach(function(dog){
-//                    imgshow(toRGB(dog.img));
-//                });
-//                console.log(result[0].dtype);
+
+                // test and show
+                [0,1,2,3].forEach(function(octave){
+                    var result = getDoG(testImg, octave);
+                    result.forEach(function(dog){
+                        imgshow(toRGB(dog.img));
+                    });
+                });
+
+                // only test, do not show
+                [].forEach(function(octave){
+                    getDoG(testImg, octave);
+                });
+
             });
         });
 
@@ -29,10 +38,10 @@ describe('WebSIFT and its internals', function(){
             assert.doesNotThrow(function(){
                 var dogs = getDoG(testImg, 0);
                 siftDetector(dogs, 0, function(){
-                    console.log('found one');
+                    //console.log('found one');
                 })
             });
         });
-    })
+    });
 
 });
