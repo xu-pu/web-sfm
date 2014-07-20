@@ -25,21 +25,29 @@ function getDoGs(img, octave, options) {
         scales: 5
     });
 
+    var step = Math.pow(2, octave);
+
     var sigmas = _.range(options.scales).map(function(s){
         return Math.pow(2, octave+s/options.scales);
     });
 
     var scales = sigmas.map(function(sigma){
-        return blur(img, sigma);
+        var buffer = pool.clone(img);
+        return blur(buffer, sigma);
     });
 
-    return _.range(scales.length-1).map(function(index){
+    var dogs = _.range(scales.length-1).map(function(index){
         var buffer = pool.malloc(img.shape);
-        ops.sub(buffer, scales[index], scales[index+1]);
+        ops.sub(buffer, scales[index], scales[index+1]).step(step, step);
         return {
             img: buffer,
             sigma: sigmas[index]
         };
     });
 
+    scales.forEach(function(scale){
+        pool.free(scale);
+    });
+
+    return dogs;
 }

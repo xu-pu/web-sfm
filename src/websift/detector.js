@@ -1,36 +1,38 @@
+var _ = require('underscore');
+
 module.exports = siftDetector;
 
 /**
  * Find keypoints from the DOGs of one scale space
- * @param {DogSpace} dogSpace
- * @param {Object} options
+ * @param dogs
+ * @param {Number} octave
  * @param {Function} callback
  */
-function siftDetector(dogSpace, options, callback){
+function siftDetector(dogs, octave, callback){
+
     console.log('detecting feature points');
 
-    var width = dogSpace.width,
-        height = dogSpace.height,
-        dogs = dogSpace.dogs,
-        octave = dogs.octave;
-
-    var contrastWindow = _.range(-1,2);
-    var features = [];
+    var width = Math.ceil(dogs[0].img.shape[1]/2),
+        height = Math.ceil(dogs[0].img.shape[0]/2),
+        contrastWindow = [-1,0,1];
 
     _.range(1, dogs.length-1).forEach(function(layer){
 
         _.range(height).forEach(function(row){
             _.range(width).forEach(function(col){
 
-                var center = dogs[layer].img.getRC(row,col);
+                var center = dogs[layer].img.get(row,col);
                 var max = null;
                 var min = null;
 
                 var isLimit = contrastWindow.every(function(x){
                     return contrastWindow.every(function(y){
                         return contrastWindow.every(function(z){
-                            if(!(x===0 && y===0 && z===0)) {
-                                var cursor = dogs[layer+z].img.getRC(row+y, col+x);
+                            if(x===0 && y===0 && z===0) {
+                                return true;
+                            }
+                            else {
+                                var cursor = dogs[layer+z].img.get(row+y, col+x);
                                 if (cursor > center && (max === null || cursor > max)) {
                                     max = cursor;
                                 }
@@ -42,27 +44,15 @@ function siftDetector(dogSpace, options, callback){
                                 }
                                 return (max === null || min === null);
                             }
-                            else {
-                                return true;
-                            }
                         });
                     });
                 });
 
                 if (isLimit) {
-                    console.log('found one');
-                    callback(dogs[layer], row, col);
+                       callback(dogs[layer], octave, row, col);
                 }
+
             });
         });
-
-
-
     });
-    var layer;
-    for(layer=1; layer<dogs.length-1; layer++) {
-
-
-    }
-    return features;
 }
