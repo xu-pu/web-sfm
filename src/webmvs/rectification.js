@@ -10,7 +10,7 @@ function rectification(r1, r2, t1, t2){
     r2 = Matrix.create(r2);
     t1 = Vector.create(t1);
     t2 = Vector.create(t2);
-    var R = r2.dot(r1.transpose());
+    var R = r2.multiply(r1.transpose());
     var t = t2.subtract(t1);
     var e1 = normalize(t);
     var e2 = normalize(Vector.create([-t.elements[1], t.elements[0], 0]));
