@@ -1,14 +1,10 @@
-var Promise = require('promise');
-var imgshow = require('ndarray-imshow');
-var grayscale = require('luminance');
-var getPixels = require('get-pixels');
-var toRGB = require('../src/websift/gray2rgb.js');
-var samples = require('../src/utils/samples.js');
-
-var la = require('sylvester'),
+var Promise = require('promise'),
+    grayscale = require('luminance'),
+    la = require('sylvester'),
     Matrix = la.Matrix,
     Vector = la.Vector;
 
+var samples = require('../src/utils/samples.js');
 var homography = require('../src/webmvs/homography.js');
 var rectification = require('../src/webmvs/rectification.js');
 
@@ -24,6 +20,8 @@ var r1 = cam1.R,
 
 var rotations = rectification(r1, r2, t1, t2);
 
+//var identityRotation = Matrix.I(3);
+
 Promise.all([
     samples.promiseImage(0),
     samples.promiseImage(1)
@@ -32,6 +30,8 @@ Promise.all([
         img2 = results[1];
     samples.showGrayscale(homography(img1, rotations[0], f1));
     samples.showGrayscale(homography(img2, rotations[1], f2));
+//    samples.showGrayscale(homography(img1, identityRotation, f1));
+//    samples.showGrayscale(homography(img2, identityRotation, f2));
 });
 
 console.log(rotations[0].elements);
