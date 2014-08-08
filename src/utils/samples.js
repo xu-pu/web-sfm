@@ -36,3 +36,7 @@ function promiseImage(index){
 function showGrayscale(gray){
     imgshow(toRGB(gray));
 }
+
+function storeFeatureMatches(){}
+
+function getFeatureMatches(){}
