@@ -11,6 +11,7 @@ module.exports.promiseImage = promiseImage;
 module.exports.getCamera = getCamera;
 module.exports.showGrayscale = showGrayscale;
 module.exports.getFeatures = getFeatures;
+module.exports.promiseCanvasImage = promiseCanvasImage;
 
 function getFeatures(index){
     var siftPath = DEMO_BASE + '/sift.json/' + getFullname(index) + '.json';
@@ -40,6 +41,19 @@ function promiseImage(index){
         getPixels(getImagePath(index), function(err, img){
             console.log('image loaded');
             resolve(grayscale(img));
+        });
+    });
+}
+
+function promiseCanvasImage(index){
+    return new Promise(function(resolve, reject){
+        fs.readFile(getImagePath(index), function(err, buffer){
+            if (err) {
+                reject(err);
+            }
+            var img = new Image;
+            img.src = buffer;
+            resolve(img);
         });
     });
 }
