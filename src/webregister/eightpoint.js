@@ -2,6 +2,7 @@ var _ = require('underscore'),
     la = require('sylvester'),
     Matrix = la.Matrix,
     Vector = la.Vector,
+    numeric = require('numeric'),
     cord = require('../utils/cord.js');
 
 module.exports = eightPoint;
@@ -49,19 +50,20 @@ function eightPoint(matches, metadata){
         return _.flatten(p2.x(p1.transpose()).elements);
     }));
 
-    var result = A.svd().V.col(3);
+    var result = Matrix.create(numeric.svd(A.transpose().elements).U).col(8);
+
     var F = Matrix.create([
         result.elements.slice(0, 3),
         result.elements.slice(3, 6),
         result.elements.slice(6, 9)
     ]);
 
-    if (F.det() !== 0) {
+    if (F.determinant() !== 0) {
         var fSVD = F.svd();
         fSVD.S.elements[2][2] = 0;
         F = fSVD.U.x(fSVD.S).x(fSVD.V.transpose());
     }
-    return T1.transpose().dot(F).dot(T2);
+    return T1.transpose().x(F).x(T2);
 }
 
 

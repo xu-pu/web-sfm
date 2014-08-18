@@ -1,3 +1,5 @@
+var eightpoint = require('./eightpoint.js');
+
 module.exports = ransac;
 /**
  * @param {Object[]} options.dataset
@@ -13,7 +15,7 @@ module.exports = ransac;
 function ransac(options){
     var relEsitmate, inliers, trials=options.trials;
     while(trials !== 0){
-        relEsitmate = SFM.eightPoint(_.sample(options.dataset, options.subset), options.metadata);
+        relEsitmate = eightpoint(_.sample(options.dataset, options.subset), options.metadata);
         inliers = _.filter(options.dataset, function(m){
             return options.errorGenerator(relEsitmate, m, options.metadata) < options.errorThreshold;
         });
