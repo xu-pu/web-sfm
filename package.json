@@ -17,7 +17,8 @@
         "luminance": "latest",
         "jquery": "latest",
         "promise": "latest",
-        "get-pixels": "latest"
+        "get-pixels": "latest",
+        "canvas": "latest"
     },
 
     "devDependencies": {

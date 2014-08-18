@@ -4,6 +4,9 @@ var Promise = require('promise');
 var getPixels = require('get-pixels');
 var grayscale = require('luminance');
 var imgshow = require('ndarray-imshow');
+var Image = require('canvas').Image;
+var fs = require('fs');
+
 var toRGB = require('../websift/gray2rgb.js');
 var bundler = require(DEMO_BASE + '/bundler/bundler.json');
 
@@ -49,6 +52,7 @@ function promiseCanvasImage(index){
     return new Promise(function(resolve, reject){
         fs.readFile(getImagePath(index), function(err, buffer){
             if (err) {
+                console.log('load failed');
                 reject(err);
             }
             var img = new Image;

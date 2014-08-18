@@ -1,6 +1,9 @@
+var _ = require('underscore');
+
 module.exports.drawFeatures = drawFeatures;
 module.exports.drawImagePair = drawImagePair;
 module.exports.drawMatches = drawMatches;
+//module.exports.drawImage = drawImage;
 
 
 function drawFeatures(ctx, features, offsetX, offsetY, scale, options){
@@ -44,11 +47,23 @@ function drawImagePair(img1, img2, canvas, fixedWidth){
         ctx.drawImage(img2, img1.width*ratio1+PADDING, 0, img2.width*ratio1, img2.height*ratio1);
     }
 
+    var offsetX, offsetY;
+    if (alignX) {
+        offsetX = 0;
+        offsetY = img1.height * ratio1 + PADDING;
+    }
+    else {
+        offsetX = img1.width * ratio1 + PADDING;
+        offsetY = 0;
+    }
+
     return {
         alignX: alignX,
         ratio1: ratio1,
         ratio2: ratio2,
         padding: PADDING,
+        offsetX: offsetX,
+        offsetY: offsetY,
         cam1: { width: img1.width, height: img1.height },
         cam2: { width: img2.width, height: img2.height }
     };
@@ -57,15 +72,8 @@ function drawImagePair(img1, img2, canvas, fixedWidth){
 
 
 function drawMatches(config, ctx, matches, features1, features2){
-    var offsetX, offsetY;
-    if (config.alignX) {
-        offsetX = 0;
-        offsetY = config.cam1.height*config.ratio1 + config.padding;
-    }
-    else {
-        offsetX = config.cam1.width*config.ratio1 + config.padding;
-        offsetY = 0;
-    }
+    var offsetX = config.offsetX,
+        offsetY = config.offsetY;
     drawFeatures(ctx, features1, 0, 0, config.ratio1);
     drawFeatures(ctx, features2, offsetX, offsetY, config.ratio1, { color: 'green' });
     ctx.beginPath();
