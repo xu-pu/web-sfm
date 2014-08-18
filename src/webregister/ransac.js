@@ -1,6 +1,7 @@
-var eightpoint = require('./eightpoint.js');
+var _ = require('underscore');
 
 module.exports = ransac;
+
 /**
  * @param {Object[]} options.dataset
  * @param {number} options.outlierThreshold
@@ -15,7 +16,7 @@ module.exports = ransac;
 function ransac(options){
     var relEsitmate, inliers, trials=options.trials;
     while(trials !== 0){
-        relEsitmate = eightpoint(_.sample(options.dataset, options.subset), options.metadata);
+        relEsitmate = options.relGenerator(_.sample(options.dataset, options.subset), options.metadata);
         inliers = _.filter(options.dataset, function(m){
             return options.errorGenerator(relEsitmate, m, options.metadata) < options.errorThreshold;
         });

@@ -10,6 +10,7 @@ var Promise = require('promise'),
 var samples = require('../src/utils/samples.js');
 var bruteforce = require('../src/webregister/bruteforce-matching.js');
 var eightpoint = require('../src/webregister/eightpoint.js');
+var ransac = require('../src/webregister/ransac.js');
 
 var utils = require('../src/utils/canvas.js');
 var visual = require('../src/utils/visualization.js');
@@ -65,17 +66,31 @@ Promise.all([
         features2: features2
     };
 
-    var fm = eightpoint(matches.slice(0,8), metadata);
-    console.log(fm.elements);
-/*
-    var canv = new Canvas();
-    var config = visual.drawImagePair(results[0], results[1], canv, 800);
-    var ctx = canv.getContext('2d');
-    visual.drawFeatures(ctx, features1, 0,0, config.ratio1);
-    visual.drawFeatures(ctx, features2, config.offsetX, config.offsetY, config.ratio2);
-    visual.drawMatches(config, ctx, matches, features1, features2);
-    return promiseWriteFile('/home/sheep/Code/test.png', canv.toBuffer());
-*/
+//    var fm = eightpoint(matches.slice(0,8), metadata);
+//    console.log(fm.elements);
+
+    var result = ransac({
+        dataset: matches,
+        metadata: metadata,
+        subset: 8,
+        relGenerator: eightpoint,
+        errorGenerator: eightpoint.fundamentalMatrixError,
+        outlierThreshold: 0.1,
+        errorThreshold: 0.01,
+        trials: 1000
+    });
+    console.log(matches.length);
+    console.log(result.dataset.length);
+
+
+        var canv = new Canvas();
+        var config = visual.drawImagePair(results[0], results[1], canv, 800);
+        var ctx = canv.getContext('2d');
+        visual.drawFeatures(ctx, features1, 0,0, config.ratio1);
+        visual.drawFeatures(ctx, features2, config.offsetX, config.offsetY, config.ratio2);
+        visual.drawMatches(config, ctx, result.dataset, features1, features2);
+        return promiseWriteFile('/home/sheep/Code/test.png', canv.toBuffer());
+
 }).then(function(){
     console.log('finished');
 });
