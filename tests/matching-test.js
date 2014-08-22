@@ -60,40 +60,44 @@ function promisePair(i1, i2){
     });
 }
 
-Promise.all([
-    samples.promiseCanvasImage(1),
-    samples.promiseCanvasImage(2)
-]).then(function(results){
-    var features1 = samples.getFeatures(1),
-        features2 = samples.getFeatures(2),
-        matches = require('/home/sheep/Code/test.json');
-
-    var metadata = {
-        cam1: results[0],
-        cam2: results[1],
-        features1: features1,
-        features2: features2
-    };
-
-    var result = ransac({
-        dataset: matches,
-        metadata: metadata,
-        subset: 8,
-        relGenerator: eightpoint,
-        errorGenerator: eightpoint.fundamentalMatrixError,
-        outlierThreshold: 0.1,
-        errorThreshold: 0.005,
-        trials: 1000
-    });
-    console.log(result.dataset.length+'/'+matches.length+' passed RANSAC');
+function promiseEpipolarGeometry(i1, i2){
     return Promise.all([
-        promiseMatchingVisual('raw', results[0], results[1], features1, features2, matches),
-        promiseMatchingVisual('filtered', results[0], results[1], features1, features2, result.dataset)
-    ]);
-}).then(function(){
-    console.log('finished');
-});
+        samples.promiseCanvasImage(i1),
+        samples.promiseCanvasImage(i2)
+    ]).then(function(results){
+        var features1 = samples.getFeatures(i1),
+            features2 = samples.getFeatures(i2),
+            matches = require('/home/sheep/Code/test.json');
 
+        var metadata = {
+            cam1: results[0],
+            cam2: results[1],
+            features1: features1,
+            features2: features2
+        };
+
+        var result = ransac({
+            dataset: matches,
+            metadata: metadata,
+            subset: 8,
+            relGenerator: eightpoint,
+            errorGenerator: eightpoint.fundamentalMatrixError,
+            outlierThreshold: 0.1,
+            errorThreshold: 0.005,
+            trials: 1000
+        });
+
+        console.log(result.dataset.length+'/'+matches.length+' passed RANSAC');
+
+
+//    return Promise.all([
+//        promiseMatchingVisual('raw', results[0], results[1], features1, features2, matches),
+//        promiseMatchingVisual('filtered', results[0], results[1], features1, features2, result.dataset)
+//    ]);
+    }).then(function(){
+        console.log('finished');
+    });
+}
 
 
 //promisePair(1,2);
