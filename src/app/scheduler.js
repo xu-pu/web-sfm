@@ -1,3 +1,5 @@
+module.exports = schedule;
+
 /**
  * @typedef {{next: Function, isEnded: Function}} Iterator
  */
@@ -10,7 +12,7 @@
  * @param {Ember.MutableArray} finished
  * @param {Function} callback
  */
-App.schedule = function(project, task, dataIter, finished, callback){
+function schedule(project, task, dataIter, finished, callback){
 
     var threadPool = project.get('threads');
 

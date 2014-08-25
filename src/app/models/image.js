@@ -1,4 +1,4 @@
-App.Image = Ember.Object.extend({
+module.exports = Ember.Object.extend({
 
     file: null,
 
@@ -59,3 +59,4 @@ App.Image = Ember.Object.extend({
     }
 
 });
+

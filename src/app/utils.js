@@ -1,6 +1,24 @@
-App.Utils = {};
+module.exports.getLocalStorage = getLocalStorage;
+module.exports.setLocalStorage = setLocalStorage;
+module.exports.requireImageFile = requireImageFile;
 
-App.Utils.promiseImage = function(id){
+function getLocalStorage(key){
+    var result = localStorage.getItem(key);
+    if (result === null) {
+        return null;
+    }
+    else {
+        return JSON.parse(result);
+    }
+}
+
+
+function setLocalStorage(key, value){
+    localStorage.setItem(key, JSON.stringify(value));
+}
+
+
+function promiseImage(id){
     return new Promise(function(resolve, reject){
         IDBAdapter.promiseData(SFM.STORE_FULLIMAGES, id).then(function(dataURL){
             var img = document.createElement('img');
@@ -10,9 +28,10 @@ App.Utils.promiseImage = function(id){
             img.src = dataURL
         }, reject);
     });
-};
+}
 
-App.Utils.drawFeatures = function(ctx, features, offsetX, offsetY, scale, options){
+
+function drawFeatures(ctx, features, offsetX, offsetY, scale, options){
     options = options || {};
     _.defaults(options, {
         color: 'red',
@@ -30,13 +49,13 @@ App.Utils.drawFeatures = function(ctx, features, offsetX, offsetY, scale, option
         ctx.lineTo(x, y+options.markSize);
     });
     ctx.stroke();
-};
+}
 
 
 /**
  * It needs navigate, beginNavigation, releaseNavigation
  */
-App.Utils.Navigatable = Ember.Mixin.create({
+var Navigatable = Ember.Mixin.create({
 
     windowMouseMove: null,
 
@@ -75,12 +94,13 @@ App.Utils.Navigatable = Ember.Mixin.create({
 
 });
 
+
 /**
  *
  * @param url
  * @returns {Promise}
  */
-App.Utils.promiseLoadImage = function(url){
+function promiseLoadImage(url){
     return new Promise(function(resolve, reject){
         var img = document.createElement('img');
         img.onload = function(){
@@ -91,14 +111,15 @@ App.Utils.promiseLoadImage = function(url){
         img.onabort = reject;
         img.src = url;
     });
-};
+}
+
 
 /**
  *
  * @param {File} file
  * @returns {Promise}
  */
-App.Utils.promiseDataUrl = function(file){
+function promiseDataUrl(file){
     return new Promise(function(resolve, reject){
         var reader = new FileReader();
         reader.onload = function(){
@@ -106,14 +127,15 @@ App.Utils.promiseDataUrl = function(file){
         };
         reader.readAsDataURL(file);
     });
-};
+}
+
 
 /**
  *
  * @param {Image} img
  * @returns {Promise}
  */
-App.Utils.promiseImageThumbnail = function(img){
+function promiseImageThumbnail(img){
     return new Promise(function(resolve, reject){
         var canvas = document.createElement('canvas');
         var ctx = canvas.getContext('2d');
@@ -128,12 +150,10 @@ App.Utils.promiseImageThumbnail = function(img){
         }
         resolve(canvas.toDataURL());
     });
-};
+}
 
-/**
- *
- */
-App.Utils.promiseJSON = function(url){
+
+function promiseJSON(url){
     return new Promise(function(resolve, reject){
         var request = new XMLHttpRequest();
         request.responseType = 'json';
@@ -146,21 +166,21 @@ App.Utils.promiseJSON = function(url){
         request.open('GET', url);
         request.send();
     });
-};
+}
 
 
-App.Utils.requireJSON = function(url){
+function requireJSON(url){
 
     return promiseRetry();
 
     function promiseRetry(){
-        return App.Utils.promiseJSON(url).catch(promiseRetry);
+        return promiseJSON(url).catch(promiseRetry);
     }
 
-};
+}
 
 
-App.Utils.promiseImageFile = function(url){
+function promiseImageFile(url){
     return new Promise(function(resolve, reject){
         var request = new XMLHttpRequest();
         request.responseType = 'blob';
@@ -173,14 +193,15 @@ App.Utils.promiseImageFile = function(url){
         request.open('GET', url);
         request.send();
     });
-};
+}
 
-App.Utils.requireImageFile = function(url){
+
+function requireImageFile(url){
 
     return promiseRetry();
 
     function promiseRetry(){
-        return App.Utils.promiseImageFile(url).catch(promiseRetry);
+        return promiseImageFile(url).catch(promiseRetry);
     }
 
-};
+}
