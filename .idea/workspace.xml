@@ -5,49 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eaf60c22-be99-4b50-a303-6483ef7d3c8b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/application.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/controllers.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/models/image.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/routes.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/scheduler.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/settings.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/sfmlogic.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/store/sfmstore.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/views.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/templates/workspace.hbs" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/scripts/application.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/scripts/ember/application.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/scripts/ember/controllers/controllers.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/scripts/ember/models/image.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/scripts/ember/router.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/scripts/ember/sfmlogic/SfmStore.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/scripts/ember/sfmlogic/scheduler.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/scripts/ember/sfmlogic/sfmlogic.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/scripts/libs.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/scripts/sfm.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/scripts/workerlibs.js" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/ember/StorageAdapter.js" afterPath="$PROJECT_DIR$/src/app/store/StorageAdapter.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/ember/dbadapter.js" afterPath="$PROJECT_DIR$/src/app/store/dbadapter.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/ember/models/DemoProject.js" afterPath="$PROJECT_DIR$/src/app/models/DemoProject.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/ember/models/matches.js" afterPath="$PROJECT_DIR$/src/app/models/matches.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/ember/models/sfm.js" afterPath="$PROJECT_DIR$/src/app/models/sfm.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/ember/models/thread.js" afterPath="$PROJECT_DIR$/src/app/models/thread.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/ember/utils.js" afterPath="$PROJECT_DIR$/src/app/utils.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/ember/views/ProjectThumbnailView.js" afterPath="$PROJECT_DIR$/src/app/views/ProjectThumbnailView.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/ember/views/TwoViewMatchingView.js" afterPath="$PROJECT_DIR$/src/app/views/TwoViewMatchingView.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/ember/views/bundlerview.js" afterPath="$PROJECT_DIR$/src/app/views/bundlerview.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/ember/views/cpuview.js" afterPath="$PROJECT_DIR$/src/app/views/cpuview.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/ember/views/fullsizeimageview.js" afterPath="$PROJECT_DIR$/src/app/views/fullsizeimageview.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/ember/views/imageloaderview.js" afterPath="$PROJECT_DIR$/src/app/views/imageloaderview.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/ember/views/siftview.js" afterPath="$PROJECT_DIR$/src/app/views/siftview.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/ember/views/statebarview.js" afterPath="$PROJECT_DIR$/src/app/views/statebarview.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/ember/views/stereoview.js" afterPath="$PROJECT_DIR$/src/app/views/stereoview.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/ember/views/tracksview.js" afterPath="$PROJECT_DIR$/src/app/views/tracksview.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/ember/views/twoviewgridview.js" afterPath="$PROJECT_DIR$/src/app/views/twoviewgridview.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/templates/projects.hbs" afterPath="$PROJECT_DIR$/app/templates/welcome.hbs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/application.hbs" afterPath="$PROJECT_DIR$/app/templates/application.hbs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/SFM/base.js" afterPath="$PROJECT_DIR$/app/scripts/SFM/base.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/SFM/shortcuts.js" afterPath="$PROJECT_DIR$/app/scripts/SFM/shortcuts.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/demo/demos.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="web-sfm.iws" />
@@ -121,11 +80,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DemoProject.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="DemoProject.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/models/DemoProject.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.6395939" vertical-offset="378" max-vertical-offset="2250">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="378" max-vertical-offset="2250">
+              <caret line="36" column="55" selection-start-line="36" selection-start-column="55" selection-end-line="36" selection-end-column="55" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="demos.json" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/demo/demos.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.9361702" vertical-offset="408" max-vertical-offset="1044">
+              <caret line="52" column="1" selection-start-line="52" selection-start-column="1" selection-end-line="52" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -149,8 +118,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/scripts/ember/views/TwoViewMatchingView.js" />
-        <option value="$PROJECT_DIR$/app/scripts/ember/utils.js" />
         <option value="$PROJECT_DIR$/app/scripts/ember/sfmlogic/SfmData.js" />
         <option value="$PROJECT_DIR$/app/scripts/ember/sfmlogic/SfmStore.js" />
         <option value="$PROJECT_DIR$/app/scripts/ember/router.js" />
@@ -200,6 +167,8 @@
         <option value="$PROJECT_DIR$/src/app/store/sfmstore.js" />
         <option value="$PROJECT_DIR$/src/app/utils.js" />
         <option value="$PROJECT_DIR$/src/app/models/DemoProject.js" />
+        <option value="$PROJECT_DIR$/demo/demos.json" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -421,6 +390,60 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Hall-Demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-sfm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Hall-Demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="images" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -626,13 +649,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/templates/input/image.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12529002" vertical-offset="0" max-vertical-offset="862">
-          <caret line="6" column="46" selection-start-line="6" selection-start-column="46" selection-end-line="6" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/extractor/image.hbs">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.18793504" vertical-offset="0" max-vertical-offset="862">
@@ -996,8 +1012,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/models/DemoProject.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.6395939" vertical-offset="378" max-vertical-offset="2250">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="378" max-vertical-offset="2250">
+          <caret line="36" column="55" selection-start-line="36" selection-start-column="55" selection-end-line="36" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3180212" vertical-offset="0" max-vertical-offset="566">
+          <caret line="10" column="5" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/demos.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.9361702" vertical-offset="408" max-vertical-offset="1044">
+          <caret line="52" column="1" selection-start-line="52" selection-start-column="1" selection-end-line="52" selection-end-column="1" />
           <folding />
         </state>
       </provider>
