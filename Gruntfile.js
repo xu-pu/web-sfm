@@ -17,11 +17,21 @@ module.exports = function (grunt) {
 
             all: {
                 files: [
-                    'app/scripts/**/*.js',
+                    'src/**/*.js',
                     'app/templates/**/*.hbs',
                     'app/styles/scss/**/*.scss'
                 ],
                 tasks: ['build']
+            }
+
+        },
+
+        browserify: {
+
+            build: {
+                files: {
+                    'build/scripts/application.js': 'src/app/application.js'
+                }
             }
 
         },
@@ -101,10 +111,10 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-ember-templates');
     grunt.loadNpmTasks('grunt-neuter');
+    grunt.loadNpmTasks('grunt-browserify');
 
     grunt.registerTask('build', [
-        'neuter',
-        'concat_sourcemap:unittest',
+        'browserify:build',
         'emberTemplates:build',
         'compass:build',
         'copy:build'

@@ -31,6 +31,7 @@
         "grunt-contrib-copy": "latest",
         "grunt-contrib-compass": "latest",
         "grunt-ember-templates": "latest",
+        "grunt-browserify": "latest",
         "mocha": "latest",
         "should": "latest"
     },
