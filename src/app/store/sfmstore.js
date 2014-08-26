@@ -51,7 +51,7 @@ function promiseResume(){
     return promiseLocalStore()
         .catch(initialize)
         .then(function(demos, projects, project){
-            if (projects === null) {
+            if (!_.isArray(project)) {
                 projects = [];
             }
             else {
@@ -68,6 +68,7 @@ function promiseResume(){
 
 function initialize(){
     return utils.requireJSON(DEMO_LIST_URL).then(function(demos){
+        utils.setLocalStorage('demos', demos);
         return Promise.resolve(demos, null, null);
     });
 }

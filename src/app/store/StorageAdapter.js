@@ -1,13 +1,15 @@
+module.exports = StorageAdapter;
+
 /**
- * @param project
+ * @param projectName
  * @constructor
  */
-App.StorageAdapter = function(project){
-    this.project = project;
+function StorageAdapter(projectName){
+    this.project = projectName;
     this.connection = null;
-};
+}
 
-App.StorageAdapter.prototype = {
+StorageAdapter.prototype = {
 
     promiseDB: function(){
         var _self = this;

@@ -1,4 +1,4 @@
-App.Matches = Ember.Object.extend({
+module.exports = Ember.Object.extend({
 
     images: null,
 

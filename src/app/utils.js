@@ -2,7 +2,6 @@ module.exports.getLocalStorage = getLocalStorage;
 module.exports.setLocalStorage = setLocalStorage;
 module.exports.requireImageFile = requireImageFile;
 module.exports.requireJSON = requireJSON;
-module.exports.Navigatable = Navigatable;
 
 function getLocalStorage(key){
     var result = localStorage.getItem(key);
@@ -57,7 +56,7 @@ function drawFeatures(ctx, features, offsetX, offsetY, scale, options){
 /**
  * It needs navigate, beginNavigation, releaseNavigation
  */
-var Navigatable = Ember.Mixin.create({
+module.exports.Navigatable = Ember.Mixin.create({
 
     windowMouseMove: null,
 

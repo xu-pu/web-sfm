@@ -2,7 +2,7 @@
 
 var IDBAdapter = require('../store/StorageAdapter.js'),
     Image = require('../models/image.js'),
-    Matches = require('../models/matches.js'),
+    Matches = require('../models/Matches.js'),
     utils = require('../utils.js'),
     settings = require('../settings.js'),
     STORES = settings.STORES;

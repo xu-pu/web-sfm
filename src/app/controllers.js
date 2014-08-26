@@ -1,3 +1,5 @@
+var STATES = require('./settings.js').STATES;
+
 module.exports = function(App){
 
     App.ApplicationController = Ember.ObjectController.extend({
@@ -7,14 +9,18 @@ module.exports = function(App){
             },
 
             stop: function(){
-                this.set('state', SFM.STATE_STOPPED);
+                this.set('state', STATES.STOPPED);
             },
 
             run: function(){
-                this.set('state', SFM.STATE_RUNNING);
+                this.set('state', STATES.RUNNING);
             }
         }
     });
+
+    App.WelcomeController = Ember.ObjectController.extend();
+
+    App.WorkspaceController = require('./controllers/WorkspaceController.js');
 
     App.ProjectsController = Ember.ArrayController.extend({
         itemController: 'project.thumbnail'
