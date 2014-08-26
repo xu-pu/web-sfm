@@ -1,5 +1,3 @@
-module.exports.promiseProject = promiseProject;
-
 var projectModel = null;
 var threadPool = null;
 
