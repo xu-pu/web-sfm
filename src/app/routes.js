@@ -8,6 +8,8 @@ module.exports = function(App){
 
         this.route('welcome');
 
+        this.route('index', { path: '/'});
+
         /*
         this.resource('workspace', function(){
 
@@ -44,7 +46,28 @@ module.exports = function(App){
 */
     });
 
+
     App.ApplicationRoute = Ember.Route.extend();
+
+
+    App.IndexRoute = Ember.Route.extend({
+
+        model: function(){
+            return sfmstore.promiseProject();
+        },
+
+        afterModel: function(){
+            this.transitionTo('workspace');
+        },
+
+        actions: {
+            error: function(){
+                this.transitionTo('welcome');
+            }
+        }
+
+    });
+
 
     App.WelcomeRoute = Ember.Route.extend({
 
