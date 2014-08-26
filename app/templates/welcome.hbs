@@ -1,7 +1,19 @@
-<ul class="main-container__project-selection">
+<div class="welcome-screen__header">
 
-{{#each project in controller}}
-    {{view App.ProjectThumbnailView controller=project}}
-{{/each}}
+</div>
 
-</ul>
+<div class="welcome-screen__projects">
+    <ul>
+        {{#each project in projects}}
+            {{view App.ProjectThumbnailView controller=project}}
+        {{/each}}
+    </ul>
+</div>
+
+<div class="welcome-screen__demos">
+    <ul>
+        {{#each project in demos}}
+            {{view App.ProjectThumbnailView controller=project}}
+        {{/each}}
+    </ul>
+</div>

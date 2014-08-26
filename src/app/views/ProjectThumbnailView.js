@@ -1,4 +1,4 @@
-App.ProjectThumbnailView = Ember.View.extend({
+module.exports = Ember.View.extend({
 
     tagName: 'li',
 

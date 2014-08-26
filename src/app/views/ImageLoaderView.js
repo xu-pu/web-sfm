@@ -1,4 +1,6 @@
-App.ImageLoaderView = Ember.View.extend({
+var _ = require('underscore');
+
+module.exports = Ember.View.extend({
 
     isActive: false,
 

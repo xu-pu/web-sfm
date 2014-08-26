@@ -1,4 +1,6 @@
-App.StateBarView = Ember.View.extend({
+var STAGES = require('../settings.js').STAGES;
+
+module.exports = Ember.View.extend({
 
     templateName: 'widgets/state-bar',
 
@@ -21,15 +23,15 @@ App.StateBarView = Ember.View.extend({
 
         description: function(){
             switch (this.controller.get('stage')) {
-                case SFM.STAGE_BEFORE:
+                case STAGES.BEFORE:
                     return 'begin';
-                case SFM.STAGE_EXTRACTOR:
+                case STAGES.EXTRACTOR:
                     return 'extracting SIFT features';
-                case SFM.STAGE_MATCHING:
+                case STAGES.MATCHING:
                     return 'matching features between two-views';
-                case SFM.STAGE_TRACKING:
+                case STAGES.TRACKING:
                     return 'tracking consistent tracks from matches';
-                case SFM.STAGE_REGISTER:
+                case STAGES.REGISTER:
                     return 'Calibrating Cameras';
                 default:
                     throw 'invalid application stage';

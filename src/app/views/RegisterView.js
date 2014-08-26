@@ -1,4 +1,6 @@
-App.RegisterView = Ember.View.extend(App.Utils.Navigatable, {
+var Navigatable = require('../utils.js').Navigatable;
+
+module.exports = Ember.View.extend(Navigatable, {
 
     geometry: null,
 
@@ -122,7 +124,7 @@ App.RegisterView = Ember.View.extend(App.Utils.Navigatable, {
         render();
 
         $.getJSON('/dataset/bundler/bundler.json')
-            .then(_.bind(this.afterLoaded, this));
+            .then(this.afterLoaded.bind(this));
 
     },
 

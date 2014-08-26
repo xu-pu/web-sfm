@@ -1,4 +1,4 @@
-App.SiftView = Ember.View.extend({
+module.exports = Ember.View.extend({
 
     loadng: true,
 

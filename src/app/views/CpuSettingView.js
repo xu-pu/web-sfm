@@ -1,4 +1,4 @@
-App.CpuSettingView = Ember.View.extend({
+module.exports = Ember.View.extend({
 
     templateName: 'widgets/cpu-setting',
 

@@ -1,4 +1,4 @@
-App.TracksView = Ember.View.extend({
+module.exports = Ember.View.extend({
 
     tagName: 'div',
 

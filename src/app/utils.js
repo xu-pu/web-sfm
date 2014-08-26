@@ -2,6 +2,7 @@ module.exports.getLocalStorage = getLocalStorage;
 module.exports.setLocalStorage = setLocalStorage;
 module.exports.requireImageFile = requireImageFile;
 module.exports.requireJSON = requireJSON;
+module.exports.Navigatable = Navigatable;
 
 function getLocalStorage(key){
     var result = localStorage.getItem(key);
