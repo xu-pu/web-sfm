@@ -6,6 +6,7 @@ module.exports.requireImageFile = requireImageFile;
 module.exports.requireJSON = requireJSON;
 module.exports.promiseLoadImage = promiseLoadImage;
 module.exports.getImageThumbnail = getImageThumbnail;
+module.exports.promiseFileDataUrl = promiseFileDataUrl;
 
 //==================================================
 
@@ -82,7 +83,7 @@ function promiseLoadImage(url){
  * @param {File} file
  * @returns {Promise}
  */
-function promiseDataUrl(file){
+function promiseFileDataUrl(file){
     return new Promise(function(resolve, reject){
         var reader = new FileReader();
         reader.onload = function(){

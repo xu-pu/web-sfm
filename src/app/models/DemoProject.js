@@ -11,11 +11,12 @@ var MVS_PATH = '/mvs/option.txt.pset.json',
 
 module.exports = Ember.Object.extend({
 
-    loaded: false,
+    downloaded: false,
 
     adapter: null,
 
     finishedImages: false,
+    finishedSIFT: false,
     finishedBundler: false,
     finishedMVS: false,
 
@@ -49,9 +50,16 @@ module.exports = Ember.Object.extend({
 
 
     promiseDownload: function(){
-        return this.promiseDownloadImages()
-            .then(this.promiseDownloadBundler)
-            .then(this.promiseDownloadMVS);
+        if (this.get('downloaded')) {
+            return Promise.resolve();
+        }
+        else {
+            return this.promiseResume()
+                .then(this.promiseDownloadImages.bind(this))
+                .then(this.promiseDownloadSIFT.bind(this))
+                .then(this.promiseDownloadBundler.bind(this))
+                .then(this.promiseDownloadMVS.bind(this));
+        }
     },
 
 
@@ -63,8 +71,28 @@ module.exports = Ember.Object.extend({
     },
 
 
+    promiseDownloadSIFT: function(){
+
+        var adapter = this.get('adapter'),
+            root = this.get('root'),
+            _self = this;
+
+        if (this.get('hasSIFT') && this.get('finishedSIFT')) {
+            return Promise.resolve();
+        }
+        else {
+            return adapter.promiseAll(STORES.IMAGES)
+                .then(function(images){
+                    return Promise.all(images.map(function(result){
+                        return _self.promiseDownloadOneSIFT(result.key, result.value);
+                    }));
+                });
+        }
+    },
+
+
     promiseDownloadBundler: function(){
-        if (this.get('finishedBundler')) {
+        if (this.get('hasBundler') && this.get('finishedBundler')) {
             return Promise.resolve();
         }
         return utils.requireJSON(this.get('root')+BUNDLER_PATH);
@@ -72,7 +100,7 @@ module.exports = Ember.Object.extend({
 
 
     promiseDownloadMVS: function(){
-        if (this.get('finishedMVS')) {
+        if (this.get('hasMVS') && this.get('finishedMVS')) {
             return Promise.resolve();
         }
         var adapter = this.get('adapter');
@@ -83,32 +111,32 @@ module.exports = Ember.Object.extend({
     },
 
 
-    promiseProcessOneImage: function(name){
-        var rawName = name.split('.')[0],
-            root = this.get('root'),
-            adapter = this.get('adapter'),
-            finishedImages = this.get('finishedImages'),
-            finishedSIFT = this.get('finishedSIFT');
+    /**
+     *
+     * @param {String} _id
+     * @param {IDBImage} image
+     * @returns {Promise}
+     */
+    promiseDownloadOneSIFT: function(_id, image){
+        var adapter = this.get('adapter'),
+            rawName = image.filename.split('.')[0],
+            siftUrl = this.get('root') + '/sift.json/' + rawName + '.json';
 
-        var imageUrl = root + '/images/' + name,
-            siftUrl = root + '/sift.json/' + rawName + '.json';
+        return utils.requireJSON(siftUrl)
+            .then(function(sift){
+                return adapter.promiseSetData(STORES.FEATURES, _id, sift.features);
+            });
+    },
+
+
+    promiseProcessOneImage: function(name){
+        var imageUrl = this.get('root') + '/images/' + name,
+            adapter = this.get('adapter');
 
         return utils.requireImageFile(imageUrl)
             .then(function(blob){
                 blob.name = name;
-                return Promise.all([
-                    adapter.processImageFile(blob),
-                    utils.requireJSON(siftUrl)
-                ]);
-            })
-            .then(function(results){
-                finishedImages.addObject(name);
-                var _id = results[0],
-                    sift = results[1].features;
-                return adapter.promiseSetData(STORES.FEATURES, _id, sift);
-            })
-            .then(function(){
-                finishedSIFT.addObject(name);
+                return adapter.processImageFile(blob);
             });
     }
 
