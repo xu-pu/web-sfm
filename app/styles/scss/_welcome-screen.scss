@@ -1,17 +1,35 @@
 .welcome-screen__header {
   width: 100%;
   height: 400px;
-  background-color: #0000ff;
+  background-color: #2257FF;
 }
 
-.welcome-screen__demos {
+
+.welcome-screen__demos-container {
   width: 100%;
   height: 300px;
   background-color: beige;
 }
 
-.welcome-screen__projects {
+.welcome-screen__projects-container {
   width: 100%;
   height: 300px;
   background-color: burlywood;
+}
+
+
+.welcome-screen__demos, .welcome-screen__projects {
+  height: 100%;
+  ul {
+    height: 100%;
+  }
+}
+
+
+.project-thumbnail {
+  display: inline-block;
+  vertical-align: top;
+  width: 15em;
+  height: 100%;
+  background: grey;
 }

@@ -93,12 +93,12 @@ module.exports = function(App){
             //console.log(this.controllerFor('demos'));
             //console.log(this.controller);
             this._super();
-            this.render('demos', {
+            this.render('welcome/demos', {
                 into: 'welcome',
                 outlet: 'demos',
                 controller: 'demos'
             });
-            this.render('projects', {
+            this.render('welcome/projects', {
                 into: 'welcome',
                 outlet: 'projects',
                 controller: 'projects'
