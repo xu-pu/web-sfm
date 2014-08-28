@@ -1,4 +1,12 @@
+var STORES = require('../settings.js').STORES,
+    utils = require('../utils.js');
+
 module.exports = StorageAdapter;
+
+/**
+ * @typedef {{filename, width, height}} IDBImage
+ */
+
 
 /**
  * @param projectName
@@ -13,11 +21,12 @@ StorageAdapter.prototype = {
 
     promiseDB: function(){
         var _self = this;
-        return new Promise(function(resolve, reject){
-            if (_self.connection) {
-                resolve(_self.connection);
-            }
-            else {
+
+        if (this.connection) {
+            return Promise.resolve(this.connection);
+        }
+        else {
+            return new Promise(function(resolve, reject){
                 var request = indexedDB.open(_self.project, 5);
                 request.onupgradeneeded = function(e){
                     console.log('upgrade');
@@ -33,8 +42,8 @@ StorageAdapter.prototype = {
                     Ember.Logger.debug(reason);
                     reject();
                 };
-            }
-        });
+            });
+        }
     },
 
 
@@ -43,16 +52,16 @@ StorageAdapter.prototype = {
      */
     createStores: function(db){
         console.log('create');
-        if (!db.objectStoreNames.contains(SFM.STORE_IMAGES)) {
-            db.createObjectStore(SFM.STORE_IMAGES, { autoIncrement: true }) // image information
+        if (!db.objectStoreNames.contains(STORES.IMAGES)) {
+            db.createObjectStore(STORES.IMAGES, { autoIncrement: true }) // image information
                 .createIndex('filename', 'filename', { unique: true });
 
         }
-        [   SFM.STORE_FEATURES,
-            SFM.STORE_FULLIMAGES,
-            SFM.STORE_THUMBNAILS,
-            SFM.STORE_MATCHES,
-            SFM.STORE_SINGLETONS
+        [   STORES.FEATURES,
+            STORES.FULLIMAGES,
+            STORES.THUMBNAILS,
+            STORES.MATCHES,
+            STORES.SINGLETONS
         ].forEach(function(name){
                 if (!db.objectStoreNames.contains(name)) {
                     db.createObjectStore(name);
@@ -68,30 +77,34 @@ StorageAdapter.prototype = {
      */
     processImageFile: function(file){
         Ember.Logger.debug('file process begins');
-        var dataUrl, _id, _self = this;
-        return App.Utils.promiseDataUrl(file).then(function(result){
-            Ember.Logger.debug('image dataUrl required');
-            dataUrl = result;
-            return App.Utils.promiseLoadImage(dataUrl);
-        }).then(function(img){
-            Ember.Logger.debug('img object required');
-            var image = { filename: file.name, width: img.width, height: img.height };
-            return Promise.all([
-                _self.promiseAddData(SFM.STORE_IMAGES, image),
-                App.Utils.promiseImageThumbnail(img)
-            ]);
-        }).then(function(results){
-            Ember.Logger.debug('_id and thumbnail required');
-            _id = results[0];
-            var thumbnailDataUrl = results[1];
-            return Promise.all([
-                _self.promiseSetData(SFM.STORE_THUMBNAILS, _id, thumbnailDataUrl),
-                _self.promiseSetData(SFM.STORE_FULLIMAGES, _id, dataUrl)
-            ]);
-        }).then(function(){
-            Ember.Logger.debug('one image process finished');
-            return _id;
-        });
+
+        var dataUrl, _id, domimg,
+            _self = this;
+
+        return utils.promiseFileDataUrl(file)
+            .then(function(result){
+                Ember.Logger.debug('image dataUrl required');
+                dataUrl = result;
+                return utils.promiseLoadImage(dataUrl);
+            })
+            .then(function(img){
+                Ember.Logger.debug('img object required');
+                domimg = img;
+                var image = { filename: file.name, width: img.width, height: img.height };
+                return _self.promiseAddData(STORES.IMAGES, image);
+            })
+            .then(function(_id){
+                Ember.Logger.debug('_id and thumbnail required');
+                var thumbnailDataUrl = utils.getImageThumbnail(domimg);
+                return Promise.all([
+                    _self.promiseSetData(STORES.THUMBNAILS, _id, thumbnailDataUrl),
+                    _self.promiseSetData(STORES.FULLIMAGES, _id, dataUrl)
+                ]);
+            })
+            .then(function(){
+                Ember.Logger.debug('one image process finished');
+                return _id;
+            });
     },
 
 
