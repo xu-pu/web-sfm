@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eaf60c22-be99-4b50-a303-6483ef7d3c8b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/templates/demos.hbs" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/templates/projects.hbs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/controllers.js" afterPath="$PROJECT_DIR$/src/app/controllers.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/demos.hbs" afterPath="$PROJECT_DIR$/app/templates/demos.hbs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/projects.hbs" afterPath="$PROJECT_DIR$/app/templates/projects.hbs" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/routes.js" afterPath="$PROJECT_DIR$/src/app/routes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/store/sfmstore.js" afterPath="$PROJECT_DIR$/src/app/store/sfmstore.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/welcome.hbs" afterPath="$PROJECT_DIR$/app/templates/welcome.hbs" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="web-sfm.iws" />
@@ -37,8 +34,8 @@
       <file leaf-file-name="DemoProject.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/models/DemoProject.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1101" max-vertical-offset="2664">
-              <caret line="23" column="28" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="414" max-vertical-offset="2664">
+              <caret line="40" column="28" selection-start-line="40" selection-start-column="28" selection-end-line="40" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -48,7 +45,7 @@
         <entry file="file://$PROJECT_DIR$/src/app/controllers.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="147" max-vertical-offset="1494">
-              <caret line="27" column="24" selection-start-line="27" selection-start-column="24" selection-end-line="27" selection-end-column="24" />
+              <caret line="34" column="52" selection-start-line="34" selection-start-column="52" selection-end-line="34" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -57,28 +54,8 @@
       <file leaf-file-name="routes.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/routes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1263" max-vertical-offset="4032">
-              <caret line="100" column="0" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sfmstore.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/app/store/sfmstore.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.9390863" vertical-offset="75" max-vertical-offset="1692">
-              <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="welcome.hbs" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/templates/welcome.hbs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.6666667" vertical-offset="0" max-vertical-offset="144">
-              <caret line="1" column="65" selection-start-line="1" selection-start-column="65" selection-end-line="1" selection-end-column="65" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1461" max-vertical-offset="4104">
+              <caret line="93" column="14" selection-start-line="93" selection-start-column="14" selection-end-line="93" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -87,18 +64,18 @@
       <file leaf-file-name="demos.hbs" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/templates/demos.hbs">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.0" vertical-offset="0" max-vertical-offset="216">
-              <caret line="3" column="32" selection-start-line="3" selection-start-column="32" selection-end-line="3" selection-end-column="32" />
+            <state vertical-scroll-proportion="-1.3333334" vertical-offset="0" max-vertical-offset="216">
+              <caret line="2" column="34" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="projects.hbs" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="projects.hbs" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/templates/projects.hbs">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.0" vertical-offset="0" max-vertical-offset="216">
-              <caret line="3" column="62" selection-start-line="3" selection-start-column="62" selection-end-line="3" selection-end-column="62" />
+            <state vertical-scroll-proportion="0.06382979" vertical-offset="0" max-vertical-offset="564">
+              <caret line="2" column="37" selection-start-line="2" selection-start-column="37" selection-end-line="2" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -122,8 +99,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/tests/grayscale-test.html" />
-        <option value="$PROJECT_DIR$/app/scripts/SFM/grayscale.js" />
         <option value="$PROJECT_DIR$/app/scripts/SFM/websift.js" />
         <option value="$PROJECT_DIR$/tests/grayscale-test.js" />
         <option value="$PROJECT_DIR$/app/scripts/SFM/lapack/sba.js" />
@@ -169,10 +144,12 @@
         <option value="$PROJECT_DIR$/src/app/models/DemoProject.js" />
         <option value="$PROJECT_DIR$/app/templates/welcome/projects.hbs" />
         <option value="$PROJECT_DIR$/app/templates/welcome/demos.hbs" />
-        <option value="$PROJECT_DIR$/src/app/controllers.js" />
         <option value="$PROJECT_DIR$/src/app/store/sfmstore.js" />
-        <option value="$PROJECT_DIR$/src/app/routes.js" />
         <option value="$PROJECT_DIR$/app/templates/welcome.hbs" />
+        <option value="$PROJECT_DIR$/src/app/controllers.js" />
+        <option value="$PROJECT_DIR$/src/app/routes.js" />
+        <option value="$PROJECT_DIR$/app/templates/demos.hbs" />
+        <option value="$PROJECT_DIR$/app/templates/projects.hbs" />
       </list>
     </option>
   </component>
@@ -1125,26 +1102,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/projects.hbs">
+    <entry file="file://$PROJECT_DIR$/src/app/store/sfmstore.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.0" vertical-offset="0" max-vertical-offset="216">
-          <caret line="3" column="62" selection-start-line="3" selection-start-column="62" selection-end-line="3" selection-end-column="62" />
+        <state vertical-scroll-proportion="-0.3401015" vertical-offset="831" max-vertical-offset="1692">
+          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/demos.hbs">
+    <entry file="file://$PROJECT_DIR$/app/templates/welcome.hbs">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.0" vertical-offset="0" max-vertical-offset="216">
-          <caret line="3" column="32" selection-start-line="3" selection-start-column="32" selection-end-line="3" selection-end-column="32" />
+        <state vertical-scroll-proportion="0.031914894" vertical-offset="0" max-vertical-offset="564">
+          <caret line="1" column="65" selection-start-line="1" selection-start-column="65" selection-end-line="1" selection-end-column="65" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/models/DemoProject.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="21" max-vertical-offset="2664">
-          <caret line="23" column="28" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="414" max-vertical-offset="2664">
+          <caret line="40" column="28" selection-start-line="40" selection-start-column="28" selection-end-line="40" selection-end-column="28" />
           <folding />
         </state>
       </provider>
@@ -1152,31 +1129,31 @@
     <entry file="file://$PROJECT_DIR$/src/app/controllers.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="147" max-vertical-offset="1494">
-          <caret line="27" column="24" selection-start-line="27" selection-start-column="24" selection-end-line="27" selection-end-column="24" />
+          <caret line="34" column="52" selection-start-line="34" selection-start-column="52" selection-end-line="34" selection-end-column="52" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/routes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1263" max-vertical-offset="4032">
-          <caret line="100" column="0" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1461" max-vertical-offset="4104">
+          <caret line="93" column="14" selection-start-line="93" selection-start-column="14" selection-end-line="93" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/welcome.hbs">
+    <entry file="file://$PROJECT_DIR$/app/templates/demos.hbs">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.6666667" vertical-offset="0" max-vertical-offset="144">
-          <caret line="1" column="65" selection-start-line="1" selection-start-column="65" selection-end-line="1" selection-end-column="65" />
+        <state vertical-scroll-proportion="-1.3333334" vertical-offset="0" max-vertical-offset="216">
+          <caret line="2" column="34" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/store/sfmstore.js">
+    <entry file="file://$PROJECT_DIR$/app/templates/projects.hbs">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9390863" vertical-offset="75" max-vertical-offset="1692">
-          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.06382979" vertical-offset="0" max-vertical-offset="564">
+          <caret line="2" column="37" selection-start-line="2" selection-start-column="37" selection-end-line="2" selection-end-column="37" />
           <folding />
         </state>
       </provider>

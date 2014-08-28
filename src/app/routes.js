@@ -90,14 +90,18 @@ module.exports = function(App){
         },
 
         renderTemplate: function(){
+            //console.log(this.controllerFor('demos'));
+            //console.log(this.controller);
             this._super();
             this.render('demos', {
+                into: 'welcome',
                 outlet: 'demos',
-                controller: this.controllerFor('demos')
+                controller: 'demos'
             });
             this.render('projects', {
+                into: 'welcome',
                 outlet: 'projects',
-                controller: this.controllerFor('projects')
+                controller: 'projects'
             });
         }
 
