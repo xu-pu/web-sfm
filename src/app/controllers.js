@@ -18,15 +18,28 @@ module.exports = function(App){
         }
     });
 
+    //=======================
+    // Welcome Screen
+    //=======================
+
     App.WelcomeController = Ember.ObjectController.extend();
 
-    App.WorkspaceController = require('./controllers/WorkspaceController.js');
+    App.DemosController = Ember.ArrayController.extend({
+        itemController: 'project.thumbnail'
+    });
 
     App.ProjectsController = Ember.ArrayController.extend({
         itemController: 'project.thumbnail'
     });
 
     App.ProjectThumbnailController = Ember.ObjectController.extend();
+
+    //=======================
+    // Workspace
+    //=======================
+
+    App.WorkspaceController = require('./controllers/WorkspaceController.js');
+
 
     App.InputController = Ember.ArrayController.extend({
         itemController: 'input.thumbnail'

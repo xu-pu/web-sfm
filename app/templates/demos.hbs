@@ -1,0 +1,7 @@
+<div class="welcome-screen__demos">
+    <ul>
+        {{#each demo in controllers}}
+            {{view App.ProjectThumbnailView controller=project}}
+        {{/each}}
+    </ul>
+</div>

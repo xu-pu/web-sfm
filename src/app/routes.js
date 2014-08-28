@@ -81,6 +81,24 @@ module.exports = function(App){
                     projects: results[1]
                 }
             });
+        },
+
+        setupController: function(controller, model){
+            this._super(controller, model);
+            this.controllerFor('demos').set('model', model.demos);
+            this.controllerFor('projects').set('model', model.projects);
+        },
+
+        renderTemplate: function(){
+            this._super();
+            this.render('demos', {
+                outlet: 'demos',
+                controller: this.controllerFor('demos')
+            });
+            this.render('projects', {
+                outlet: 'projects',
+                controller: this.controllerFor('projects')
+            });
         }
 
     });

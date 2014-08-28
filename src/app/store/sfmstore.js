@@ -18,14 +18,14 @@ var currentProject = null;
 //============================================
 
 module.exports.promiseDemos = function(){
-    return resumed.then(function(demos, projects, project){
-        return demos;
+    return resumed.then(function(results){
+        return results[0];
     });
 };
 
 module.exports.promiseProjects = function(){
-    return resumed.then(function(demos, projects, project){
-        return projects
+    return resumed.then(function(results){
+        return results[1];
     });
 };
 
@@ -51,7 +51,7 @@ function promiseResume(){
     return promiseLocalStore()
         .catch(initialize)
         .then(function(demos, projects, project){
-            if (!_.isArray(project)) {
+            if (!_.isArray(projects)) {
                 projects = [];
             }
             else {
@@ -59,17 +59,17 @@ function promiseResume(){
                     return Project.create(p);
                 });
             }
-            if (project !== null) {
+            if (_.isString(project)) {
                 currentProject = projects.findBy('name', project) || null;
             }
-            return Promise.resolve(demos, projects, currentProject);
+            return Promise.resolve([demos, projects, currentProject]);
         });
 }
 
 function initialize(){
     return utils.requireJSON(DEMO_LIST_URL).then(function(demos){
         utils.setLocalStorage('demos', demos);
-        return Promise.resolve(demos, null, null);
+        return Promise.resolve(demos);
     });
 }
 
