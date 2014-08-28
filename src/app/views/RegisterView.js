@@ -1,4 +1,4 @@
-var Navigatable = require('../utils.js').Navigatable;
+var Navigatable = require('../mixins/Navigatable.js');
 
 module.exports = Ember.View.extend(Navigatable, {
 

@@ -1,4 +1,4 @@
-var Navigatable = require('../utils.js').Navigatable;
+var Navigatable = require('../mixins/Navigatable.js');
 
 module.exports = Ember.View.extend(Navigatable, {
 
@@ -111,7 +111,7 @@ module.exports = Ember.View.extend(Navigatable, {
         render();
 
         $.getJSON('/demo/Hall-Demo/mvs/option.txt.pset.json')
-            .then(_.bind(this.afterLoaded, this));
+            .then(this.afterLoaded.bind(this));
     },
 
     afterLoaded: function(data){

@@ -1,7 +1,13 @@
+//==================================================
+
 module.exports.getLocalStorage = getLocalStorage;
 module.exports.setLocalStorage = setLocalStorage;
 module.exports.requireImageFile = requireImageFile;
 module.exports.requireJSON = requireJSON;
+module.exports.promiseLoadImage = promiseLoadImage;
+module.exports.getImageThumbnail = getImageThumbnail;
+
+//==================================================
 
 function getLocalStorage(key){
     var result = localStorage.getItem(key);
@@ -52,50 +58,6 @@ function drawFeatures(ctx, features, offsetX, offsetY, scale, options){
     ctx.stroke();
 }
 
-
-/**
- * It needs navigate, beginNavigation, releaseNavigation
- */
-module.exports.Navigatable = Ember.Mixin.create({
-
-    windowMouseMove: null,
-
-    windowMouseUp: null,
-
-    getMouseMoveHandler: function(){
-        var handler = this.get('windowMouseMove');
-        if (!_.isFunction(handler)) {
-            handler = this.navigate.bind(this);
-            this.set('windowMouseMove', handler);
-        }
-        return handler;
-    },
-
-    getMouseUpHandler: function(){
-        var handler = this.get('windowMouseUp');
-        if (!_.isFunction(handler)) {
-            handler = function(){
-                window.removeEventListener('mousemove', this.getMouseMoveHandler(), false);
-                window.removeEventListener('mouseup', this.getMouseUpHandler(), false);
-                this.releaseNavigation();
-            }.bind(this);
-            this.set('windowMouseUp', handler);
-        }
-        return handler;
-    },
-
-    mouseDown: function(e){
-        e.preventDefault();
-        this.beginNavigation(e);
-        window.addEventListener('mousemove', this.getMouseMoveHandler(), false);
-        window.addEventListener('mouseup', this.getMouseUpHandler(), false);
-    },
-
-    contextMenu: function(){ return false; }
-
-});
-
-
 /**
  *
  * @param url
@@ -134,23 +96,21 @@ function promiseDataUrl(file){
 /**
  *
  * @param {Image} img
- * @returns {Promise}
+ * @returns {String}
  */
-function promiseImageThumbnail(img){
-    return new Promise(function(resolve, reject){
-        var canvas = document.createElement('canvas');
-        var ctx = canvas.getContext('2d');
-        var aspectRatio = img.width/img.height;
-        canvas.width = 200;
-        canvas.height = 200;
-        if (aspectRatio > 1) {
-            ctx.drawImage(img, 0, 0, 200*aspectRatio, 200);
-        }
-        else {
-            ctx.drawImage(img, 0, 0, 200, 200*aspectRatio);
-        }
-        resolve(canvas.toDataURL());
-    });
+function getImageThumbnail(img){
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+    var aspectRatio = img.width/img.height;
+    canvas.width = 200;
+    canvas.height = 200;
+    if (aspectRatio > 1) {
+        ctx.drawImage(img, 0, 0, 200*aspectRatio, 200);
+    }
+    else {
+        ctx.drawImage(img, 0, 0, 200, 200*aspectRatio);
+    }
+    return canvas.toDataURL();
 }
 
 
