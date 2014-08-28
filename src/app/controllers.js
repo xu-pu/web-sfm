@@ -25,14 +25,17 @@ module.exports = function(App){
     App.WelcomeController = Ember.ObjectController.extend();
 
     App.DemosController = Ember.ArrayController.extend({
-        itemController: 'project.thumbnail'
+        itemController: 'demo'
     });
 
     App.ProjectsController = Ember.ArrayController.extend({
         itemController: 'project.thumbnail'
     });
 
+    App.DemoController = require('./controllers/DemoController.js');
+
     App.ProjectThumbnailController = Ember.ObjectController.extend();
+
 
     //=======================
     // Workspace

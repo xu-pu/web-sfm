@@ -9,7 +9,7 @@ var MVS_PATH = '/mvs/option.txt.pset.json',
     BUNDLER_PATH = '/bundler/bundler.json';
 
 
-module.exports = Ember.Object.extend({
+module.exports = Ember.ObjectController.extend({
 
     downloaded: false,
 

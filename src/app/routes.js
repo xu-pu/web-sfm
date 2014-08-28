@@ -90,8 +90,6 @@ module.exports = function(App){
         },
 
         renderTemplate: function(){
-            //console.log(this.controllerFor('demos'));
-            //console.log(this.controller);
             this._super();
             this.render('welcome/demos', {
                 into: 'welcome',
