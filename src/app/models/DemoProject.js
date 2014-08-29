@@ -1,5 +1,7 @@
 "use strict";
 
+var _ = require('underscore');
+
 var Project = require('./Project.js'),
     sfmstore = require('../store/sfmstore.js');
 
@@ -14,8 +16,6 @@ module.exports = Project.extend({
         'hasBundler',
         'hasMVS',
 
-        'imagesFinished',
-        'siftFinished',
         'bundlerFinished',
         'mvsFinished'
     ],
@@ -23,6 +23,11 @@ module.exports = Project.extend({
     name: null,
     root: null,
     images: null,
+
+    finishedImages: [],
+    imagesFinished: function(){
+        return this.get('finishedImages.length') === this.get('images.length');
+    }.property('finishedImages.length'),
 
     hasSIFT: false,
     hasBundler: false,
