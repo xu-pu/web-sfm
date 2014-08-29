@@ -16,17 +16,16 @@ module.exports = Ember.ObjectController.extend({
 
     adapter: null,
 
-    finishedImages: false,
-    finishedSIFT: false,
-    finishedBundler: false,
-    finishedMVS: false,
+    imagesFinished: false,
+    siftFinished: false,
+    bundlerFinished: false,
+    mvsFinished: false,
 
     actions: {
         download: function(){
             this.promiseLoad();
         }
     },
-
 
     promiseLoad: function(){
         Ember.Logger.debug('project storage adapter created');
@@ -45,13 +44,13 @@ module.exports = Ember.ObjectController.extend({
         var mvsResumed = adapter
             .promiseData(STORES.SINGLETONS, STORES.MVS)
             .then(function(){
-                _self.set('finishedMVS', true);
+                _self.set('mvsFinished', true);
             });
 
         var bundlerResumed = adapter
             .promiseData(STORES.SINGLETONS, STORES.BUNDLER)
             .then(function(){
-                _self.set('finishedBundler', true);
+                _self.set('bundlerFinished', true);
             });
 
         return Promise.all([
@@ -89,7 +88,7 @@ module.exports = Ember.ObjectController.extend({
 
 
     promiseDownloadImages: function(){
-        if (this.get('finishedImages')) {
+        if (this.get('imagesFinished')) {
             return Promise.resolve();
         }
         return Promise.all(this.get('images').map(this.promiseProcessOneImage.bind(this)));
@@ -102,7 +101,7 @@ module.exports = Ember.ObjectController.extend({
             root = this.get('root'),
             _self = this;
 
-        if (this.get('hasSIFT') && this.get('finishedSIFT')) {
+        if (this.get('hasSIFT') && this.get('siftFinished')) {
             return Promise.resolve();
         }
         else {
@@ -120,7 +119,7 @@ module.exports = Ember.ObjectController.extend({
         if (!this.get('hasBundler')) {
             return Promise.reject('Bundler result is not avaliable in this demo!');
         }
-        if (this.get('finishedBundler')) {
+        if (this.get('bundlerFinished')) {
             return Promise.resolve();
         }
         var adapter = this.get('adapter');
@@ -138,7 +137,7 @@ module.exports = Ember.ObjectController.extend({
         if (!this.get('hasMVS')) {
             return Promise.reject('MVS result is not avaliable in this demo!');
         }
-        if (this.get('finishedMVS')) {
+        if (this.get('mvsFinished')) {
             return Promise.resolve();
         }
         var adapter = this.get('adapter');
