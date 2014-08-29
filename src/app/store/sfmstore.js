@@ -3,7 +3,8 @@
 var _ = require('underscore');
 
 var utils = require('../utils.js'),
-    Project = require('../models/Project.js');
+    Project = require('../models/Project.js'),
+    DemoProject = require('../models/DemoProject.js');
 
 var DEMO_LIST_URL = '/demo/demos.json';
 
@@ -51,6 +52,9 @@ function promiseResume(){
     return promiseLocalStore()
         .catch(initialize)
         .then(function(demos, projects, project){
+            demos = demos.map(function(d){
+                return DemoProject.create(d);
+            });
             if (!_.isArray(projects)) {
                 projects = [];
             }

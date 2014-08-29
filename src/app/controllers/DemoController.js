@@ -11,15 +11,9 @@ var MVS_PATH = '/mvs/option.txt.pset.json',
 
 module.exports = Ember.ObjectController.extend({
 
-    isDownloaded: false,
     isInprogress: false,
 
     adapter: null,
-
-    imagesFinished: false,
-    siftFinished: false,
-    bundlerFinished: false,
-    mvsFinished: false,
 
     actions: {
         download: function(){

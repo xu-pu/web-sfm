@@ -43,6 +43,7 @@ module.exports = function(App){
 
     App.WorkspaceController = require('./controllers/WorkspaceController.js');
 
+    App.ProjectController = require('./controllers/ProjectController.js');
 
     App.InputController = Ember.ArrayController.extend({
         itemController: 'input.thumbnail'
