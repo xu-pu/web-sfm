@@ -12,6 +12,7 @@ var MVS_PATH = '/mvs/option.txt.pset.json',
 module.exports = Ember.ObjectController.extend({
 
     downloaded: false,
+    inProgress: false,
 
     adapter: null,
 
@@ -19,6 +20,12 @@ module.exports = Ember.ObjectController.extend({
     finishedSIFT: false,
     finishedBundler: false,
     finishedMVS: false,
+
+    actions: {
+        download: function(){
+            this.promiseLoad();
+        }
+    },
 
 
     promiseLoad: function(){
@@ -29,36 +36,54 @@ module.exports = Ember.ObjectController.extend({
     },
 
     promiseResume: function(){
-        var _self = this;
-        var adapter = new IDBAdapter(this.get('name'));
+        var _self = this,
+            adapter = new IDBAdapter(this.get('name'));
+
         this.set('adapter', adapter);
+        this.set('inProgress', true);
+
         var mvsResumed = adapter
             .promiseData(STORES.SINGLETONS, STORES.MVS)
             .then(function(){
                 _self.set('finishedMVS', true);
             });
+
         var bundlerResumed = adapter
             .promiseData(STORES.SINGLETONS, STORES.BUNDLER)
             .then(function(){
                 _self.set('finishedBundler', true);
             });
+
         return Promise.all([
             bundlerResumed,
             mvsResumed
-        ]);
+        ]).catch(function(){
+            _self.set('inProgress', false);
+        });
     },
 
 
     promiseDownload: function(){
+        var _self = this;
         if (this.get('downloaded')) {
             return Promise.resolve();
         }
         else {
             return this.promiseResume()
-                .then(this.promiseDownloadImages.bind(this))
-                .then(this.promiseDownloadSIFT.bind(this))
-                .then(this.promiseDownloadBundler.bind(this))
-                .then(this.promiseDownloadMVS.bind(this));
+                .then(function(){
+                    return Promise.all([
+                        _self.promiseDownloadImages(),
+                        _self.promiseDownloadSIFT(),
+                        _self.promiseDownloadBundler(),
+                        _self.promiseDownloadMVS()
+                    ]).catch(function(){
+                        _self.set('inProgress', false);
+                    });
+                })
+                .then(function(){
+                    _self.set('downloaded', true);
+                    _self.set('inProgress', false);
+                });
         }
     },
 

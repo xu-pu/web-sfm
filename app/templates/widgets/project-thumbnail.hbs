@@ -1,1 +1,12 @@
-{{name}}
+<div>{{name}}</div>
+<div>
+    {{#if downloaded}}
+        <div>The demo project is downloaded</div>
+    {{else}}
+        {{#if inProgress}}
+            <div>Downloading</div>
+        {{else}}
+            <div {{action "download"}}>Click to download</div>
+        {{/if}}
+    {{/if}}
+</div>
