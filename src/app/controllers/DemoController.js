@@ -46,20 +46,20 @@ module.exports = Ember.ObjectController.extend({
             .promiseData(STORES.SINGLETONS, STORES.MVS)
             .then(function(){
                 _self.set('finishedMVS', true);
-            })
-            .catch();
+            });
 
         var bundlerResumed = adapter
             .promiseData(STORES.SINGLETONS, STORES.BUNDLER)
             .then(function(){
                 _self.set('finishedBundler', true);
-            })
-            .catch();
+            });
 
         return Promise.all([
             bundlerResumed,
             mvsResumed
-        ]);
+        ]).catch(function(){
+            Ember.Logger.debug('Data is not avaliable in IDB, need download.');
+        });
     },
 
 
