@@ -1,5 +1,7 @@
 "use strict";
 
+var _ = require('underscore');
+
 var IDBAdapter = require('../store/StorageAdapter.js'),
     utils = require('../utils.js'),
     settings = require('../settings.js'),
@@ -47,7 +49,18 @@ module.exports = Ember.ObjectController.extend({
                 _self.set('bundlerFinished', true);
             });
 
+        var imagesResumed = adapter
+            .promiseAll(STORES.IMAGES)
+            .then(function(results){
+                var finished = results.map(function(res){
+                    return res.value.filename;
+                });
+                console.log(finished);
+                _self.set('finishedImages', finished);
+            });
+
         return Promise.all([
+            imagesResumed,
             bundlerResumed,
             mvsResumed
         ]).catch(function(){
@@ -61,22 +74,17 @@ module.exports = Ember.ObjectController.extend({
         if (this.get('downloaded')) {
             return Promise.resolve();
         }
-        return this.promiseResume()
-            .then(function(){
-                return Promise.all([
-//                        _self.promiseDownloadImages(),
-//                        _self.promiseDownloadSIFT(),
-                    _self.promiseDownloadBundler(),
-                    _self.promiseDownloadMVS()
-                ]);
-            })
-            .catch(function(msg){
+        return Promise.all([
+            _self.promiseDownloadImages(),
+//          _self.promiseDownloadSIFT(),
+            _self.promiseDownloadBundler(),
+            _self.promiseDownloadMVS()
+        ]).catch(function(msg){
                 Ember.Logger.debug(msg);
                 _self.set('isInprogress', false);
-            })
-            .then(function(){
-                _self.set('isInprogress', false);
-            });
+        }).then(function(){
+            _self.set('isInprogress', false);
+        });
     },
 
 
@@ -84,7 +92,9 @@ module.exports = Ember.ObjectController.extend({
         if (this.get('imagesFinished')) {
             return Promise.resolve();
         }
-        return Promise.all(this.get('images').map(this.promiseProcessOneImage.bind(this)));
+        var unfinished = _.difference(this.get('images'), this.get('finishedImages'));
+        console.log(unfinished);
+        return Promise.all(unfinished.map(this.promiseProcessOneImage.bind(this)));
     },
 
 

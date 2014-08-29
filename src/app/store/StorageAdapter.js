@@ -96,7 +96,7 @@ StorageAdapter.prototype = {
                 return _self.promiseAddData(STORES.IMAGES, image);
             })
             .then(function(_id){
-                Ember.Logger.debug('_id and thumbnail required');
+                Ember.Logger.debug('_id required');
                 var thumbnailDataUrl = utils.getImageThumbnail(domimg);
                 return Promise.all([
                     _self.promiseSetData(STORES.THUMBNAILS, _id, thumbnailDataUrl),
