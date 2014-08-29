@@ -16,6 +16,7 @@ module.exports = Project.extend({
         'hasBundler',
         'hasMVS',
 
+        'finishedImages',
         'bundlerFinished',
         'mvsFinished'
     ],

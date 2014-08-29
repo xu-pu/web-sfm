@@ -174,13 +174,17 @@ module.exports = Ember.ObjectController.extend({
 
 
     promiseProcessOneImage: function(name){
-        var imageUrl = this.get('root') + '/images/' + name,
+        var _self = this,
+            imageUrl = this.get('root') + '/images/' + name,
             adapter = this.get('adapter');
 
         return utils.requireImageFile(imageUrl)
             .then(function(blob){
                 blob.name = name;
                 return adapter.processImageFile(blob);
+            })
+            .then(function(_id){
+                _self.get('finishedImages').addObject(name);
             });
     }
 
