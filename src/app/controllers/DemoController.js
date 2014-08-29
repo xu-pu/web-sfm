@@ -11,8 +11,8 @@ var MVS_PATH = '/mvs/option.txt.pset.json',
 
 module.exports = Ember.ObjectController.extend({
 
-    downloaded: false,
-    inProgress: false,
+    isDownloaded: false,
+    isInprogress: false,
 
     adapter: null,
 
@@ -40,7 +40,7 @@ module.exports = Ember.ObjectController.extend({
             adapter = new IDBAdapter(this.get('name'));
 
         this.set('adapter', adapter);
-        this.set('inProgress', true);
+        this.set('isInprogress', true);
 
         var mvsResumed = adapter
             .promiseData(STORES.SINGLETONS, STORES.MVS)
@@ -58,7 +58,7 @@ module.exports = Ember.ObjectController.extend({
             bundlerResumed,
             mvsResumed
         ]).catch(function(){
-            _self.set('inProgress', false);
+            _self.set('isInprogress', false);
         });
     },
 
@@ -77,12 +77,12 @@ module.exports = Ember.ObjectController.extend({
                         _self.promiseDownloadBundler(),
                         _self.promiseDownloadMVS()
                     ]).catch(function(){
-                        _self.set('inProgress', false);
+                        _self.set('isInprogress', false);
                     });
                 })
                 .then(function(){
-                    _self.set('downloaded', true);
-                    _self.set('inProgress', false);
+                    _self.set('isDownloaded', true);
+                    _self.set('isInprogress', false);
                 });
         }
     },

@@ -1,9 +1,9 @@
 <div>{{name}}</div>
-<div>
-    {{#if downloaded}}
+<div {{bind-attr class=":demo-thumbnail__state-bar isDownloaded isInprogress"}}>
+    {{#if isDownloaded}}
         <div>The demo project is downloaded</div>
     {{else}}
-        {{#if inProgress}}
+        {{#if isInprogress}}
             <div>Downloading</div>
         {{else}}
             <div {{action "download"}}>Click to download</div>
