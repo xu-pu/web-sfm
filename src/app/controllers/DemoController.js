@@ -46,20 +46,20 @@ module.exports = Ember.ObjectController.extend({
             .promiseData(STORES.SINGLETONS, STORES.MVS)
             .then(function(){
                 _self.set('finishedMVS', true);
-            });
+            })
+            .catch();
 
         var bundlerResumed = adapter
             .promiseData(STORES.SINGLETONS, STORES.BUNDLER)
             .then(function(){
                 _self.set('finishedBundler', true);
-            });
+            })
+            .catch();
 
         return Promise.all([
             bundlerResumed,
             mvsResumed
-        ]).catch(function(){
-            _self.set('isInprogress', false);
-        });
+        ]);
     },
 
 
@@ -68,23 +68,23 @@ module.exports = Ember.ObjectController.extend({
         if (this.get('downloaded')) {
             return Promise.resolve();
         }
-        else {
-            return this.promiseResume()
-                .then(function(){
-                    return Promise.all([
+        return this.promiseResume()
+            .then(function(){
+                return Promise.all([
 //                        _self.promiseDownloadImages(),
 //                        _self.promiseDownloadSIFT(),
-                        _self.promiseDownloadBundler(),
-                        _self.promiseDownloadMVS()
-                    ]).catch(function(){
-                        _self.set('isInprogress', false);
-                    });
-                })
-                .then(function(){
-                    _self.set('isDownloaded', true);
-                    _self.set('isInprogress', false);
-                });
-        }
+                    _self.promiseDownloadBundler(),
+                    _self.promiseDownloadMVS()
+                ]);
+            })
+            .catch(function(msg){
+                Ember.Logger.debug(msg);
+                _self.set('isInprogress', false);
+            })
+            .then(function(){
+                _self.set('isDownloaded', true);
+                _self.set('isInprogress', false);
+            });
     },
 
 
@@ -117,22 +117,39 @@ module.exports = Ember.ObjectController.extend({
 
 
     promiseDownloadBundler: function(){
-        if (this.get('hasBundler') && this.get('finishedBundler')) {
+        if (!this.get('hasBundler')) {
+            return Promise.reject('Bundler result is not avaliable in this demo!');
+        }
+        if (this.get('finishedBundler')) {
             return Promise.resolve();
         }
-        return utils.requireJSON(this.get('root')+BUNDLER_PATH);
+        var adapter = this.get('adapter');
+        return utils.requireJSON(this.get('root')+BUNDLER_PATH)
+            .then(function(data){
+                return adapter.promiseSetData(STORES.SINGLETONS, STORES.BUNDLER, data);
+            })
+            .then(function(){
+                Ember.Logger.debug('Bundler downloaded and stored');
+            });
     },
 
 
     promiseDownloadMVS: function(){
-        if (this.get('hasMVS') && this.get('finishedMVS')) {
+        if (!this.get('hasMVS')) {
+            return Promise.reject('MVS result is not avaliable in this demo!');
+        }
+        if (this.get('finishedMVS')) {
             return Promise.resolve();
         }
         var adapter = this.get('adapter');
         var url = this.get('root')+MVS_PATH;
-        return utils.requireJSON(url).then(function(data){
-            return adapter.promiseSetData(STORES.SINGLETONS, STORES.MVS, data);
-        });
+        return utils.requireJSON(url)
+            .then(function(data){
+                return adapter.promiseSetData(STORES.SINGLETONS, STORES.MVS, data);
+            })
+            .then(function(){
+                Ember.Logger.debug('MVS downloaded and stored');
+            });
     },
 
 
