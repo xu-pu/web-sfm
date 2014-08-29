@@ -11,7 +11,9 @@ var DEMO_LIST_URL = '/demo/demos.json';
 //============================================
 
 var resumed = promiseResume();
-var currentProject = null;
+var sfmstoreProject = null,
+    sfmstoreProjects = null,
+    sfmstoreDemos = null;
 
 //============================================
 // Projects have state, Demos don't
@@ -19,31 +21,39 @@ var currentProject = null;
 //============================================
 
 module.exports.promiseDemos = function(){
-    return resumed.then(function(results){
-        return results[0];
+    return resumed.then(function(){
+        return sfmstoreDemos;
     });
 };
 
 module.exports.promiseProjects = function(){
-    return resumed.then(function(results){
-        return results[1];
+    return resumed.then(function(){
+        return sfmstoreProjects;
     });
 };
 
 module.exports.promiseProject = function(){
     return resumed.then(function(){
-        if (currentProject === null) {
+        if (sfmstoreProject === null) {
             return Promise.reject();
         }
         else {
-            return Promise.resolve(currentProject);
+            return Promise.resolve(sfmstoreProject);
         }
     });
 };
 
 module.exports.setCurrentProject = function(project){
-    currentProject = project;
+    sfmstoreProject = project;
     localStorage.setItem('project', project.get('name'));
+};
+
+module.exports.syncDemos = function(){
+    resumed.then(function(){
+        utils.setLocalStorage('demos', sfmstoreDemos.map(function(model){
+            return model.getProperties(model.get('storedProperties'));
+        }));
+    });
 };
 
 //============================================
@@ -52,21 +62,21 @@ function promiseResume(){
     return promiseLocalStore()
         .catch(initialize)
         .then(function(demos, projects, project){
-            demos = demos.map(function(d){
+            sfmstoreDemos = demos.map(function(d){
                 return DemoProject.create(d);
             });
             if (!_.isArray(projects)) {
-                projects = [];
+                sfmstoreProjects = [];
             }
             else {
-                projects = projects.map(function(p){
+                sfmstoreProjects = projects.map(function(p){
                     return Project.create(p);
                 });
             }
             if (_.isString(project)) {
-                currentProject = projects.findBy('name', project) || null;
+                sfmstoreProject = projects.findBy('name', project) || null;
             }
-            return Promise.resolve([demos, projects, currentProject]);
+            return Promise.resolve();
         });
 }
 

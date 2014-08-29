@@ -11,8 +11,6 @@ var IDBAdapter = require('../store/StorageAdapter.js'),
  */
 module.exports = Ember.Object.extend({
 
-    images: null,
-
     imagesFinished: false,
     siftFinished: false,
     bundlerFinished: false,
