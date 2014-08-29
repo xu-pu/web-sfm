@@ -72,8 +72,8 @@ module.exports = Ember.ObjectController.extend({
             return this.promiseResume()
                 .then(function(){
                     return Promise.all([
-                        _self.promiseDownloadImages(),
-                        _self.promiseDownloadSIFT(),
+//                        _self.promiseDownloadImages(),
+//                        _self.promiseDownloadSIFT(),
                         _self.promiseDownloadBundler(),
                         _self.promiseDownloadMVS()
                     ]).catch(function(){

@@ -1,3 +1,5 @@
+var _ = require('underscore');
+
 var STORES = require('../settings.js').STORES,
     utils = require('../utils.js');
 
@@ -34,7 +36,7 @@ StorageAdapter.prototype = {
                     _self.createStores(_self.connection);
                 };
                 request.onsuccess = function(e){
-                    Ember.Logger.debug('db success');
+                    //Ember.Logger.debug('db success');
                     _self.connection = e.target.result;
                     resolve(_self.connection);
                 };
