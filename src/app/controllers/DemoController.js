@@ -75,7 +75,6 @@ module.exports = Ember.ObjectController.extend({
                 _self.set('isInprogress', false);
             })
             .then(function(){
-                _self.set('isDownloaded', true);
                 _self.set('isInprogress', false);
             });
     },

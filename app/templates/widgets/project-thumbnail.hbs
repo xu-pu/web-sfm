@@ -10,3 +10,31 @@
         {{/if}}
     {{/if}}
 </div>
+
+<div class="demo-thumbnail__details">
+
+    <div {{bind-attr class=":demo-thumbnail__details__bundler"}}>
+        {{#if bundlerFinished}}
+            Bundler is finished
+        {{else}}
+            {{#if hasBundler}}
+                Bundler result is avaliable for download
+            {{else}}
+                Bundler result is not avaliable in this demo
+            {{/if}}
+        {{/if}}
+    </div>
+
+    <div {{bind-attr class=":demo-thumbnail__details__mvs"}}>
+        {{#if mvsFinished}}
+            MVS is finished
+        {{else}}
+            {{#if hasMVS}}
+                MVS result is avaliable for download
+            {{else}}
+                MVS result is not avaliable in this demo
+            {{/if}}
+        {{/if}}
+    </div>
+
+</div>
