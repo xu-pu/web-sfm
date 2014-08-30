@@ -77,9 +77,13 @@ module.exports = function(App){
         },
 
         actions: {
+
             error: function(error, transition){
+                console.log(error);
+                console.log('error, back to welcome');
                 this.transitionTo('welcome');
             }
+
         }
 
     });
@@ -90,6 +94,10 @@ module.exports = function(App){
 
         model: function() {
             return this.controllerFor('workspace').promiseImages();
+        },
+
+        afterModel: function(model){
+            //console.log(model);
         }
 
     });

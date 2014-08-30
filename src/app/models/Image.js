@@ -1,6 +1,7 @@
 "use strict";
 
-var STORES = require('../settings.js').STORES;
+var STORES = require('../settings.js').STORES,
+    sfmstore = require('../store/sfmstore.js');
 
 module.exports = Ember.Object.extend({
 
@@ -18,16 +19,17 @@ module.exports = Ember.Object.extend({
 
     height: null,
 
-    adapter: function(){
-        return this.modelFor('workspace').get('adapter');
-    }.property(),
-
     isHorizontal: function(){
         return this.get('width') > this.get('height');
     }.property('width', 'height'),
 
     fullimage: function(){
-        return this.get('adapter').promiseData(STORES.FULLIMAGES, this.get('_id'));
+        var _self = this;
+        return sfmstore
+            .promiseAdapter()
+            .then(function(adapter){
+                return adapter.promiseData(STORES.FULLIMAGES, _self.get('_id'));
+            });
     }.property('_id'),
 
 
@@ -50,19 +52,27 @@ module.exports = Ember.Object.extend({
 
     afterReady: function(){
         var _self = this;
-        this.get('adapter')
-            .promiseData(STORES.THUMBNAILS, this.get('_id'))
+        return sfmstore
+            .promiseAdapter()
+            .then(function(adapter){
+                return adapter.promiseData(STORES.THUMBNAILS, _self.get('_id'));
+            })
             .then(function(thumbnail){
                 _self.set('thumbnail', thumbnail);
             });
     },
 
     afterSaved: function(_id){
+
         Ember.Logger.debug('image stored, _id acquired');
         var _self = this;
         this.set('_id', _id);
-        return this.get('adapter')
-            .promiseData(STORES.IMAGES, _id)
+
+        return sfmstore
+            .promiseAdapter()
+            .then(function(adapter){
+                return adapter.promiseData(STORES.IMAGES, _id);
+            })
             .then(function(img){
                 _self.set('width', img.width);
                 _self.set('height', img.height);

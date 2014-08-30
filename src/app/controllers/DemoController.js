@@ -4,6 +4,7 @@ var _ = require('underscore');
 
 var IDBAdapter = require('../store/StorageAdapter.js'),
     utils = require('../utils.js'),
+    sfmstore = require('../store/sfmstore.js'),
     settings = require('../settings.js'),
     STORES = settings.STORES;
 
@@ -18,8 +19,14 @@ module.exports = Ember.ObjectController.extend({
     adapter: null,
 
     actions: {
+
         download: function(){
             this.promiseLoad();
+        },
+
+        enter: function(){
+            sfmstore.setCurrentProject(this.get('model'));
+            this.transitionToRoute('workspace');
         }
     },
 

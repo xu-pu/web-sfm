@@ -4,7 +4,8 @@ var _ = require('underscore');
 
 var utils = require('../utils.js'),
     Project = require('../models/Project.js'),
-    DemoProject = require('../models/DemoProject.js');
+    DemoProject = require('../models/DemoProject.js'),
+    IDBAdapter = require('./StorageAdapter.js');
 
 var DEMO_LIST_URL = '/demo/demos.json';
 
@@ -13,7 +14,8 @@ var DEMO_LIST_URL = '/demo/demos.json';
 var resumed = promiseResume();
 var sfmstoreProject = null,
     sfmstoreProjects = null,
-    sfmstoreDemos = null;
+    sfmstoreDemos = null,
+    currentAdapter;
 
 //============================================
 // Projects have state, Demos don't
@@ -45,6 +47,7 @@ module.exports.promiseProject = function(){
 
 module.exports.setCurrentProject = function(project){
     sfmstoreProject = project;
+    currentAdapter = new IDBAdapter(sfmstoreProject.get('name'));
     localStorage.setItem('project', project.get('name'));
 };
 
@@ -56,12 +59,24 @@ module.exports.syncDemos = function(){
     });
 };
 
+/**
+ * return the adapter for current project
+ */
+module.exports.promiseAdapter = function(){
+    return resumed.then(function(){
+        return currentAdapter;
+    });
+};
+
 //============================================
 
 function promiseResume(){
     return promiseLocalStore()
         .catch(initialize)
-        .then(function(demos, projects, project){
+        .then(function(results){
+            var demos = results[0],
+                projects = results[1],
+                project = results[2];
             sfmstoreDemos = demos.map(function(d){
                 return DemoProject.create(d);
             });
@@ -74,7 +89,10 @@ function promiseResume(){
                 });
             }
             if (_.isString(project)) {
-                sfmstoreProject = projects.findBy('name', project) || null;
+                sfmstoreProject = sfmstoreProjects.findBy('name', project) || sfmstoreDemos.findBy('name', project) || null;
+            }
+            if (sfmstoreProject) {
+                currentAdapter = new IDBAdapter(sfmstoreProject.get('name'));
             }
             return Promise.resolve();
         });
@@ -83,7 +101,7 @@ function promiseResume(){
 function initialize(){
     return utils.requireJSON(DEMO_LIST_URL).then(function(demos){
         utils.setLocalStorage('demos', demos);
-        return Promise.resolve(demos);
+        return Promise.resolve([demos, null, null]);
     });
 }
 
@@ -96,7 +114,7 @@ function promiseLocalStore(){
             reject();
         }
         else {
-            resolve(demos, projects, project);
+            resolve([demos, projects, project]);
         }
     });
 }

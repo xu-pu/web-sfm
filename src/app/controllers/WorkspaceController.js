@@ -1,6 +1,8 @@
 "use strict";
 
-var IDBAdapter = require('../store/StorageAdapter.js'),
+var _ = require('underscore');
+
+var sfmstore = require('../store/sfmstore.js'),
     Image = require('../models/Image.js'),
     Matches = require('../models/Matches.js'),
     utils = require('../utils.js'),
@@ -9,18 +11,11 @@ var IDBAdapter = require('../store/StorageAdapter.js'),
 
 module.exports = Ember.ObjectController.extend({
 
-    adapter: null,
-
     isRunning: false,
 
     imageModels: null,
 
     threadPoolSize: 4,
-
-    init: function(){
-        this._super();
-        this.set('adapter', new IDBAdapter(this.get('name')));
-    },
 
     actions: {
         enter: function(route){
@@ -36,13 +31,16 @@ module.exports = Ember.ObjectController.extend({
         if (this.get('imageModels')){
             return Promise.resolve(this.get('imageModels'));
         }
-        return this.get('adapter')
-            .promiseAll(STORES.IMAGES)
+        return sfmstore.promiseAdapter()
+            .then(function(adapter){
+                return adapter.promiseAll(STORES.IMAGES);
+            })
             .then(function(results){
                 _self.set('imageModels', results.map(function(res){
                     res.value._id = res.key;
-                    Image.create(res.value)
+                    return Image.create(res.value);
                 }));
+                console.log(_self.get('imageModels'));
                 return _self.get('imageModels');
             });
     },
