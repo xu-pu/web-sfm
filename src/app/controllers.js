@@ -2,21 +2,7 @@ var STATES = require('./settings.js').STATES;
 
 module.exports = function(App){
 
-    App.ApplicationController = Ember.ObjectController.extend({
-        actions: {
-            enter: function(route){
-                this.transitionToRoute(route);
-            },
-
-            stop: function(){
-                this.set('state', STATES.STOPPED);
-            },
-
-            run: function(){
-                this.set('state', STATES.RUNNING);
-            }
-        }
-    });
+    App.ApplicationController = Ember.ObjectController.extend();
 
     //=======================
     // Welcome Screen
@@ -43,21 +29,21 @@ module.exports = function(App){
 
     App.WorkspaceController = require('./controllers/WorkspaceController.js');
 
-    App.ProjectController = require('./controllers/ProjectController.js');
+    //App.ProjectController = require('./controllers/ProjectController.js');
 
-    App.InputController = Ember.ArrayController.extend({
-        itemController: 'input.thumbnail'
+    App.WorkspaceImagesController = Ember.ArrayController.extend({
+        itemController: 'workspace.image.thumbnail'
     });
 
-    App.InputThumbnailController = Ember.ObjectController.extend({
+    App.WorkspaceImageThumbnailController = Ember.ObjectController.extend({
         actions: {
             expand: function(){
-                this.transitionToRoute('input.image', this.get('model'));
+                this.transitionToRoute('workspace.images.detail', this.get('model'));
             }
         }
     });
 
-    App.InputImageController = Ember.ObjectController.extend();
+    App.WorkspaceImagesDetailController = Ember.ObjectController.extend();
 
     App.ExtractorController = Ember.ArrayController.extend({
         itemController: 'extractor.thumbnail'

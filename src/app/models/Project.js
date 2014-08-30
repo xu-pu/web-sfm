@@ -1,5 +1,7 @@
 "use strict";
 
+var STAGES = require('../settings.js').STAGES;
+
 /**
  * It is different from DemoProject, the Project object contains the state of SFM
  */
@@ -20,6 +22,8 @@ module.exports = Ember.Object.extend({
         return this.get('siftFinished') &&
             this.get('bundlerFinished') &&
             this.get('mvsFinished');
-    }.property('siftFinished','bundlerFinished','mvsFinished')
+    }.property('siftFinished','bundlerFinished','mvsFinished'),
+
+    stage: STAGES.BEFORE
 
 });

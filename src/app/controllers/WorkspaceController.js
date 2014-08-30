@@ -1,7 +1,7 @@
 "use strict";
 
 var IDBAdapter = require('../store/StorageAdapter.js'),
-    Image = require('../models/image.js'),
+    Image = require('../models/Image.js'),
     Matches = require('../models/Matches.js'),
     utils = require('../utils.js'),
     settings = require('../settings.js'),
@@ -11,11 +11,21 @@ module.exports = Ember.ObjectController.extend({
 
     adapter: null,
 
+    isRunning: false,
+
     imageModels: null,
+
+    threadPoolSize: 4,
 
     init: function(){
         this._super();
         this.set('adapter', new IDBAdapter(this.get('name')));
+    },
+
+    actions: {
+        enter: function(route){
+            this.transitionToRoute(route);
+        }
     },
 
     /**

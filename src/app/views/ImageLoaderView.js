@@ -1,5 +1,7 @@
 var _ = require('underscore');
 
+var Image = require('../models/Image.js');
+
 module.exports = Ember.View.extend({
 
     isActive: false,
@@ -29,7 +31,7 @@ module.exports = Ember.View.extend({
         e.preventDefault();
         var files = e.dataTransfer.files;
         _.range(files.length).forEach(function(i){
-            this.get('controller.model').addObject(App.Image.create({ file: files[i] }));
+            this.modelFor('workspace.images').addObject(Image.create({ file: files[i] }));
         }.bind(this));
     }
 
