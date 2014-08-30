@@ -5,7 +5,14 @@
  */
 module.exports = Ember.Object.extend({
 
-    siftFinished: false,
+    name: null,
+    images: null,
+
+    finishedSIFT: [],
+    siftFinished: function(){
+        return this.get('images.length') === this.get('finishedSIFT.length');
+    }.property('images.length', 'finishedSIFT.length'),
+
     bundlerFinished: false,
     mvsFinished: false,
 

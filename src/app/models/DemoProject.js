@@ -17,13 +17,12 @@ module.exports = Project.extend({
         'hasMVS',
 
         'finishedImages',
+        'finishedSIFT',
         'bundlerFinished',
         'mvsFinished'
     ],
 
-    name: null,
     root: null,
-    images: null,
 
     finishedImages: [],
     imagesFinished: function(){
@@ -43,6 +42,6 @@ module.exports = Project.extend({
 
     syncLocalStorage: function(){
         sfmstore.syncDemos();
-    }.observes('imagesFinished', 'siftFinished','bundlerFinished','mvsFinished')
+    }.observes('finishedImages.length','finishedSIFT.length','bundlerFinished','mvsFinished')
 
 });

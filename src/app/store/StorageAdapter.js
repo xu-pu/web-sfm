@@ -1,3 +1,5 @@
+"use strict";
+
 var _ = require('underscore');
 
 var STORES = require('../settings.js').STORES,
@@ -163,6 +165,23 @@ StorageAdapter.prototype = {
                 db.transaction(store, 'readwrite').objectStore(store).add(data).onsuccess = function(e){
                     resolve(e.target.result);
                 }
+            });
+        });
+    },
+
+    promiseFindBy: function(store, index, key){
+        var _self = this;
+        return new Promise(function(resolve, reject){
+            _self.promiseDB().then(function(db){
+                db.transaction(store).objectStore(store).index(index).get(key).onsuccess = function(e){
+                    var result = e.target.result;
+                    if (_.isUndefined(result)) {
+                        reject(result)
+                    }
+                    else {
+                        resolve(result);
+                    }
+                };
             });
         });
     },

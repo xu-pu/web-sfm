@@ -55,12 +55,21 @@ module.exports = Ember.ObjectController.extend({
                 var finished = results.map(function(res){
                     return res.value.filename;
                 });
-                console.log(finished);
                 _self.set('finishedImages', finished);
+            });
+
+        var siftResumed = adapter
+            .promiseAll(STORES.FEATURES)
+            .then(function(results){
+                var finished = results.map(function(res){
+                    return res.key;
+                });
+                _self.set('finishedSIFT', finished);
             });
 
         return Promise.all([
             imagesResumed,
+            siftResumed,
             bundlerResumed,
             mvsResumed
         ]).catch(function(){
@@ -76,7 +85,7 @@ module.exports = Ember.ObjectController.extend({
         }
         return Promise.all([
             _self.promiseDownloadImages(),
-//          _self.promiseDownloadSIFT(),
+            _self.promiseDownloadSIFT(),
             _self.promiseDownloadBundler(),
             _self.promiseDownloadMVS()
         ]).catch(function(msg){
@@ -107,14 +116,16 @@ module.exports = Ember.ObjectController.extend({
         if (this.get('hasSIFT') && this.get('siftFinished')) {
             return Promise.resolve();
         }
-        else {
-            return adapter.promiseAll(STORES.IMAGES)
-                .then(function(images){
-                    return Promise.all(images.map(function(result){
+        return adapter.promiseAll(STORES.IMAGES)
+            .then(function(images){
+                return Promise.all(images
+                    .filter(function(res){
+                        return _self.get('finishedSIFT').indexOf(res.key) === -1;
+                    })
+                    .map(function(result){
                         return _self.promiseDownloadOneSIFT(result.key, result.value);
                     }));
-                });
-        }
+            });
     },
 
 
@@ -162,13 +173,17 @@ module.exports = Ember.ObjectController.extend({
      * @returns {Promise}
      */
     promiseDownloadOneSIFT: function(_id, image){
-        var adapter = this.get('adapter'),
+        var _self = this,
+            adapter = this.get('adapter'),
             rawName = image.filename.split('.')[0],
             siftUrl = this.get('root') + '/sift.json/' + rawName + '.json';
 
         return utils.requireJSON(siftUrl)
             .then(function(sift){
                 return adapter.promiseSetData(STORES.FEATURES, _id, sift.features);
+            })
+            .then(function(){
+                _self.get('finishedSIFT').addObject(_id);
             });
     },
 
