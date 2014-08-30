@@ -10,15 +10,16 @@ module.exports = function(App){
 
         this.route('index', { path: '/'});
 
-        this.resource('workspace', function(){
+        this.route('workspace', function(){
 
             this.route('index', { path: '/'});
 
-            this.resource('input', function(){
+            this.route('images', function(){
                 this.route('index', { path: '/'});
-                this.route('image', { path: '/:id' });
+                this.route('detail', { path: '/:id' });
             });
 
+            /*
             this.resource('extractor', function(){
                 this.route('index', { path: '/' });
                 this.route('image', { path: '/:id' });
@@ -40,7 +41,7 @@ module.exports = function(App){
             this.resource('stereo', function(){
                 this.route('index');
             });
-
+ */
         });
 
     });
@@ -85,21 +86,20 @@ module.exports = function(App){
 
     App.WorkspaceIndexRoute = Ember.Route.extend();
 
-    App.InputRoute = Ember.Route.extend({
+    App.WorkspaceImagesRoute = Ember.Route.extend({
 
         model: function() {
-            return this.controllerFor('workspace').get('project').promiseImages();
-            //return App.SfmStore.promiseImages();
+            return this.controllerFor('workspace').promiseImages();
         }
 
     });
 
-    App.InputIndexRoute = Ember.Route.extend();
+    App.WorkspaceImagesIndexRoute = Ember.Route.extend();
 
-    App.InputImageRoute = Ember.Route.extend({
+    App.WorkspaceImagesDetailRoute = Ember.Route.extend({
 
         model: function(params){
-            return this.modelFor('input').findBy('_id', parseInt(params.id));
+            return this.modelFor('workspace.images').findBy('_id', parseInt(params.id));
         },
 
         serialize: function(model){
