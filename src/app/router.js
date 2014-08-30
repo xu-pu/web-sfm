@@ -10,7 +10,6 @@ module.exports = function(App){
 
         this.route('index', { path: '/'});
 
-        /*
         this.resource('workspace', function(){
 
             this.route('index', { path: '/'});
@@ -43,7 +42,7 @@ module.exports = function(App){
             });
 
         });
-*/
+
     });
 
 
@@ -68,42 +67,7 @@ module.exports = function(App){
 
     });
 
-
-    App.WelcomeRoute = Ember.Route.extend({
-
-        model: function(){
-            return Promise.all([
-                sfmstore.promiseDemos(),
-                sfmstore.promiseProjects(),
-            ]).then(function(results){
-                return {
-                    demos: results[0],
-                    projects: results[1]
-                }
-            });
-        },
-
-        setupController: function(controller, model){
-            this._super(controller, model);
-            this.controllerFor('demos').set('model', model.demos);
-            this.controllerFor('projects').set('model', model.projects);
-        },
-
-        renderTemplate: function(){
-            this._super();
-            this.render('welcome/demos', {
-                into: 'welcome',
-                outlet: 'demos',
-                controller: 'demos'
-            });
-            this.render('welcome/projects', {
-                into: 'welcome',
-                outlet: 'projects',
-                controller: 'projects'
-            });
-        }
-
-    });
+    App.WelcomeRoute = require('./routes/WelcomeRoute.js');
 
     App.WorkspaceRoute = Ember.Route.extend({
 

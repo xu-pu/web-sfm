@@ -1,5 +1,5 @@
 var setupControllers = require('./controllers.js'),
-    setupRoutes = require('./routes.js'),
+    setupRoutes = require('./router.js'),
     setupViews = require('./views.js');
 
 jQuery.event.props.push( "dataTransfer" );
