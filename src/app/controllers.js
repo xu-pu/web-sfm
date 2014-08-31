@@ -31,6 +31,11 @@ module.exports = function(App){
 
     //App.ProjectController = require('./controllers/ProjectController.js');
 
+
+    //=======================
+    // Workspace.Images
+    //=======================
+
     App.WorkspaceImagesController = Ember.ArrayController.extend({
         itemController: 'workspace.image.thumbnail'
     });
@@ -45,17 +50,29 @@ module.exports = function(App){
 
     App.WorkspaceImagesDetailController = require('./controllers/WorkspaceImagesDetailController.js');
 
-    App.ExtractorController = Ember.ArrayController.extend({
-        itemController: 'extractor.thumbnail'
+
+    //=======================
+    // Workspace.Extractor
+    //=======================
+
+    App.WorkspaceExtractorController = Ember.ArrayController.extend({
+        itemController: 'workspace.extractor.thumbnail'
     });
 
-    App.ExtractorThumbnailController = Ember.ObjectController.extend({
+    App.WorkspaceExtractorThumbnailController = Ember.ObjectController.extend({
         actions: {
             expand: function(){
-                this.transitionToRoute('extractor.image', this.get('model'));
+                this.transitionToRoute('workspace.extractor.image', this.get('model'));
             }
         }
     });
+
+    App.WorkspaceExtractorImageController = Ember.ObjectController.extend();
+
+
+    //=======================
+    // Workspace.Matches
+    //=======================
 
     App.MatchesController = Ember.ObjectController.extend();
 

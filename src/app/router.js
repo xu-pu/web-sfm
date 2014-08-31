@@ -19,12 +19,12 @@ module.exports = function(App){
                 this.route('detail', { path: '/:id' });
             });
 
-            /*
-            this.resource('extractor', function(){
+            this.route('extractor', function(){
                 this.route('index', { path: '/' });
                 this.route('image', { path: '/:id' });
             });
 
+            /*
             this.resource('register', function(){
                 this.route('index');
             });
@@ -90,6 +90,10 @@ module.exports = function(App){
 
     App.WorkspaceIndexRoute = Ember.Route.extend();
 
+    //=============================
+    // Workspace.Images
+    //=============================
+
     App.WorkspaceImagesRoute = Ember.Route.extend({
 
         model: function() {
@@ -116,21 +120,25 @@ module.exports = function(App){
 
     });
 
-    App.ExtractorRoute = Ember.Route.extend({
+
+    //=============================
+    // Workspace.Images
+    //=============================
+
+    App.WorkspaceExtractorRoute = Ember.Route.extend({
 
         model: function() {
-            return this.controllerFor('workspace').get('project').promiseImages();
-            //return App.SfmStore.promiseImages();
+            return this.controllerFor('workspace').promiseImages();
         }
 
     });
 
-    App.ExtractorIndexRoute = Ember.Route.extend();
+    App.WorkspaceExtractorIndexRoute = Ember.Route.extend();
 
-    App.ExtractorImageRoute = Ember.Route.extend({
+    App.WorkspaceExtractorImageRoute = Ember.Route.extend({
 
         model: function(params){
-            return this.modelFor('extractor').findBy('_id', parseInt(params.id));
+            return this.modelFor('workspace.extractor').findBy('_id', parseInt(params.id));
         },
 
         serialize: function(model){
@@ -138,6 +146,10 @@ module.exports = function(App){
         }
 
     });
+
+    //=============================
+    // Workspace.Mathces
+    //=============================
 
     App.MatchesRoute = Ember.Route.extend({
 
