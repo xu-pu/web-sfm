@@ -67,7 +67,7 @@ module.exports = function(App){
         }
     });
 
-    App.WorkspaceExtractorImageController = Ember.ObjectController.extend();
+    App.WorkspaceExtractorImageController = require('./controllers/WorkspaceExtractorImageController.js');
 
 
     //=======================

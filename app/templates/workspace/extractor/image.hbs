@@ -2,8 +2,8 @@
     <div class="floating-window__header"></div>
     {{#view App.SiftView controller=controller}}
         <canvas></canvas>
-        {{#if view.loading}}
-            <div>Loading Fullsize Image</div>
+        {{#if isLoading}}
+            <div>Loading...</div>
         {{/if}}
     {{/view}}
     <p>{{filename}}</p>

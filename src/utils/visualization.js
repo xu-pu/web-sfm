@@ -2,35 +2,10 @@ var _ = require('underscore'),
     la = require('sylvester'),
     Matrix = la.Matrix,
     Vector = la.Vector,
-//    numeric = require('numeric'),
-    cord = require('../utils/cord.js');
+    cord = require('./cord.js');
 
-module.exports.drawFeatures = drawFeatures;
 module.exports.drawImagePair = drawImagePair;
 module.exports.drawMatches = drawMatches;
-//module.exports.drawImage = drawImage;
-
-
-function drawFeatures(ctx, features, offsetX, offsetY, scale, options){
-    options = options || {};
-    _.defaults(options, {
-        color: 'red',
-        markSize: 3
-    });
-    ctx.beginPath();
-    ctx.strokeStyle = options.color;
-    ctx.lineWidth = options.markSize/2;
-    features.forEach(function(feature){
-        var x = offsetX + scale*feature.col,
-            y = offsetY + scale*feature.row;
-        ctx.moveTo(x-options.markSize, y);
-        ctx.lineTo(x+options.markSize, y);
-        ctx.moveTo(x, y-options.markSize);
-        ctx.lineTo(x, y+options.markSize);
-    });
-    ctx.stroke();
-}
-
 
 function drawImagePair(img1, img2, canvas, fixedWidth){
     var PADDING = 10;
