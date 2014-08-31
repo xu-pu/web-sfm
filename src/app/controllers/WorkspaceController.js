@@ -40,7 +40,6 @@ module.exports = Ember.ObjectController.extend({
                     res.value._id = res.key;
                     return Image.create(res.value);
                 }));
-                console.log(_self.get('imageModels'));
                 return _self.get('imageModels');
             });
     },
