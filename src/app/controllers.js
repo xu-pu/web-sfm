@@ -86,6 +86,12 @@ module.exports = function(App){
     // Workspace.Register
     //=======================
 
-    App.WorkspaceRegisterController = require('./controllers/WorkspaceRegisterController.js');
+    App.WorkspaceRegisterController = Ember.ObjectController.extend();
+
+    //=======================
+    // Workspace.Stereo
+    //=======================
+
+    App.WorkspaceMvsController = Ember.Controller.extend();
 
 };

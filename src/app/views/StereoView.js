@@ -1,3 +1,5 @@
+"use strict";
+
 var Navigatable = require('../mixins/Navigatable.js');
 
 module.exports = Ember.View.extend(Navigatable, {
@@ -79,8 +81,8 @@ module.exports = Ember.View.extend(Navigatable, {
     },
 
     didInsertElement: function(){
-        var width = $(document.body).width(),
-            height = $(document.body).height();
+        var width = window.innerWidth,
+            height = window.innerHeight;
         var renderer = new THREE.WebGLRenderer();
         renderer.setSize(width, height);
         this.$().append(renderer.domElement);
@@ -97,6 +99,7 @@ module.exports = Ember.View.extend(Navigatable, {
 
         scene.add(light);
         scene.add(camera);
+        scene.add(this.getPointCloud());
 
         light.position.set(0, 300, 200);
 
@@ -104,43 +107,34 @@ module.exports = Ember.View.extend(Navigatable, {
         camera.position.y = 500;
         camera.position.z = 500;
 
+        this.get('element').addEventListener('wheel', this.wheel.bind(this), false);
+
         function render(){
             renderer.render(scene, camera);
             requestAnimationFrame(render);
         }
         render();
 
-        $.getJSON('/demo/Hall-Demo/mvs/option.txt.pset.json')
-            .then(this.afterLoaded.bind(this));
     },
 
-    afterLoaded: function(data){
-
+    getPointCloud: function(){
         var SCALE = 100;
-
         var particlesGeometry = new THREE.Geometry();
-        data.forEach(function(point){
+        this.get('controller.pointcloud').forEach(function(point){
             particlesGeometry.vertices.push(new THREE.Vector3(point[0], point[1], point[2]));
         });
-        var particlesMaterial = new THREE.ParticleSystemMaterial({
+        var particlesMaterial = new THREE.PointCloudMaterial({
             color: 0xFFFFFF,
             size: 5,
             blending: THREE.AdditiveBlending,
             transparent: true
         });
-        var particlesSystem = new THREE.ParticleSystem(particlesGeometry, particlesMaterial);
-
+        var particlesSystem = new THREE.PointCloud(particlesGeometry, particlesMaterial);
         particlesSystem.scale.x = SCALE;
         particlesSystem.scale.y = SCALE;
         particlesSystem.scale.z = SCALE;
-
-        this.set('geometry', particlesGeometry);
-        this.set('structure', particlesSystem);
-
         particlesSystem.rotation.z = 5.0;
-
-        this.get('scene').add(particlesSystem);
-        this.get('element').addEventListener('wheel', this.wheel.bind(this), false);
+        return particlesSystem;
     }
 
 });

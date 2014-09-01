@@ -28,6 +28,10 @@ module.exports = function(App){
                 this.route('index', { path: '/' });
             });
 
+            this.route('mvs', function(){
+                this.route('index', { path: '/' });
+            });
+
             /*
             this.resource('tracks', function(){
                 this.route('index');
@@ -38,9 +42,6 @@ module.exports = function(App){
                 this.route('pair',  { path: '/:pair' });
             });
 
-            this.resource('stereo', function(){
-                this.route('index');
-            });
  */
         });
 
@@ -206,7 +207,7 @@ module.exports = function(App){
     // Workspace.MVS
     //=============================
 
-    App.WorkspaceMvsRoute = Ember.Route.extend();
+    App.WorkspaceMvsRoute = require('./routes/WorkspaceMvsRoute.js');
 
     App.WorkspaceMvsIndexRoute = Ember.Route.extend();
 
