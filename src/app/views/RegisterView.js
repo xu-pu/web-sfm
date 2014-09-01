@@ -1,3 +1,5 @@
+"use strict";
+
 var Navigatable = require('../mixins/Navigatable.js');
 
 module.exports = Ember.View.extend(Navigatable, {
@@ -76,9 +78,9 @@ module.exports = Ember.View.extend(Navigatable, {
     },
 
     didInsertElement: function(){
-        var _self = this;
         var width = window.innerWidth,
-            height = window.innerHeight;
+            height = window.innerHeight,
+            SCALE = 20;
         var renderer = new THREE.WebGLRenderer();
         renderer.setSize(width, height);
         this.$().append(renderer.domElement);
@@ -95,6 +97,33 @@ module.exports = Ember.View.extend(Navigatable, {
         this.set('light', light);
         this.set('clock', clock);
 
+        scene.add(light);
+        scene.add(camera);
+        scene.add(this.getCordFrame());
+
+        [this.getCameras(), this.getPointCloud()].forEach(function(system){
+            system.scale.x = SCALE;
+            system.scale.y = SCALE;
+            system.scale.z = SCALE;
+            scene.add(system);
+        });
+
+        camera.position.x = 400;
+        camera.position.y = 400;
+        camera.position.z = 400;
+
+        //camera.lookAt(axisSystem.position);
+
+        this.get('element').addEventListener('wheel', this.wheel.bind(this), false);
+
+        function render(){
+            renderer.render(scene, camera);
+            requestAnimationFrame(render);
+        }
+        render();
+    },
+
+    getCordFrame: function(){
         var axisGeo = new THREE.Geometry();
         axisGeo.vertices.push(new THREE.Vector3(0,0,0));
         axisGeo.vertices.push(new THREE.Vector3(1000,0,0));
@@ -105,63 +134,40 @@ module.exports = Ember.View.extend(Navigatable, {
         var axisMaterial = new THREE.LineBasicMaterial({
             color: 0xFFFFFF
         });
-        var axisSystem = new THREE.Line(axisGeo, axisMaterial, THREE.Lines);
-
-        scene.add(light);
-        scene.add(camera);
-        scene.add(axisSystem);
-
-        camera.position.x = 400;
-        camera.position.y = 400;
-        camera.position.z = 400;
-
-        camera.lookAt(axisSystem.position);
-
-        function render(){
-            renderer.render(scene, camera);
-            requestAnimationFrame(render);
-        }
-        render();
-
-        $.getJSON('/dataset/bundler/bundler.json')
-            .then(this.afterLoaded.bind(this));
-
+        return new THREE.Line(axisGeo, axisMaterial, THREE.Lines);
     },
 
-    afterLoaded: function(data){
-
-        var SCALE = 20;
-        var scene = this.get('scene');
-
-        //=============================
-        // Cameras
-        //=============================
-        var camerasGeo = new THREE.Geometry();
-        data.cameras.forEach(function(cam){
-            camerasGeo.vertices.push(new THREE.Vector3(cam.t[0], cam.t[1], cam.t[2]));
-        });
-        var particlesMaterial = new THREE.ParticleSystemMaterial({
-            color: 0xFF0000,
-            size: 5,
-            blending: THREE.AdditiveBlending,
-            transparent: true
-        });
-        var camerasSystem = new THREE.ParticleSystem(camerasGeo, particlesMaterial);
-
-        //=============================
-        // Point Cloud
-        //=============================
+    getPointCloud: function(){
         var pointsGeo = new THREE.Geometry();
-        data.points.forEach(function(p){
+        this.get('controller.points').forEach(function(p){
             pointsGeo.vertices.push(new THREE.Vector3(p.point[0], p.point[1], p.point[2]));
         });
-        var pointsMaterial = new THREE.ParticleSystemMaterial({
+        var pointsMaterial = new THREE.PointCloudMaterial({
             color: 0xFFFFFF,
             size: 3,
             blending: THREE.AdditiveBlending,
             transparent: true
         });
-        var pointsSystem = new THREE.ParticleSystem(pointsGeo, pointsMaterial);
+        return new THREE.PointCloud(pointsGeo, pointsMaterial);
+    },
+
+    getCameras: function(){
+        var camerasGeo = new THREE.Geometry();
+        this.get('controller.cameras').forEach(function(cam){
+            camerasGeo.vertices.push(new THREE.Vector3(cam.t[0], cam.t[1], cam.t[2]));
+        });
+        var particlesMaterial = new THREE.PointCloudMaterial({
+            color: 0xFF0000,
+            size: 5,
+            blending: THREE.AdditiveBlending,
+            transparent: true
+        });
+        return new THREE.PointCloud(camerasGeo, particlesMaterial);
+    },
+
+    afterLoaded: function(data){
+
+        var scene = this.get('scene');
 
         //=============================
         // Views
@@ -181,19 +187,9 @@ module.exports = Ember.View.extend(Navigatable, {
         });
         var viewSystem = new THREE.Line(viewGeo, viewMaterial, THREE.Lines);
 
-        [camerasSystem, pointsSystem, viewSystem].forEach(function(system){
-            system.scale.x = SCALE;
-            system.scale.y = SCALE;
-            system.scale.z = SCALE;
-            scene.add(system);
-        });
-
         this.set('view', viewGeo);
         this.set('viewList', viewList);
         this.set('currentView', 20);
-        this.set('data', data);
-
-        this.get('element').addEventListener('wheel', this.wheel.bind(this), false);
     },
 
     nextView: function(){
@@ -213,6 +209,5 @@ module.exports = Ember.View.extend(Navigatable, {
         });
 
     }
-
 
 });

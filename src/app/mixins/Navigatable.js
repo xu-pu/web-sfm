@@ -3,7 +3,7 @@ var _ = require('underscore');
 /**
  * It needs navigate, beginNavigation, releaseNavigation
  */
-module.exports.Navigatable = Ember.Mixin.create({
+module.exports = Ember.Mixin.create({
 
     windowMouseMove: null,
 

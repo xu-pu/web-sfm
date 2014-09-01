@@ -82,4 +82,10 @@ module.exports = function(App){
 
     App.TracksController = Ember.ObjectController.extend();
 
+    //=======================
+    // Workspace.Register
+    //=======================
+
+    App.WorkspaceRegisterController = require('./controllers/WorkspaceRegisterController.js');
+
 };

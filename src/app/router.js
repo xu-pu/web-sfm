@@ -24,11 +24,11 @@ module.exports = function(App){
                 this.route('image', { path: '/:id' });
             });
 
-            /*
-            this.resource('register', function(){
-                this.route('index');
+            this.route('register', function(){
+                this.route('index', { path: '/' });
             });
 
+            /*
             this.resource('tracks', function(){
                 this.route('index');
             });
@@ -194,12 +194,20 @@ module.exports = function(App){
 
     });
 
-    App.RegisterRoute = Ember.Route.extend();
+    //=============================
+    // Workspace.Register
+    //=============================
 
-    App.RegisterIndexRoute = Ember.Route.extend();
+    App.WorkspaceRegisterRoute = require('./routes/WorkspaceRegisterRoute.js');
 
-    App.StereoRoute = Ember.Route.extend();
+    App.WorkspaceRegisterIndexRoute = Ember.Route.extend();
 
-    App.StereoIndexRoute = Ember.Route.extend();
+    //=============================
+    // Workspace.MVS
+    //=============================
+
+    App.WorkspaceMvsRoute = Ember.Route.extend();
+
+    App.WorkspaceMvsIndexRoute = Ember.Route.extend();
 
 };
