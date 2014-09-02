@@ -101,18 +101,17 @@ module.exports = Ember.View.extend(Navigatable, {
         scene.add(camera);
         scene.add(this.getCordFrame());
 
-        [this.getCameras(), this.getPointCloud()].forEach(function(system){
-            system.scale.x = SCALE;
-            system.scale.y = SCALE;
-            system.scale.z = SCALE;
-            scene.add(system);
-        });
+        var recovered = new THREE.Object3D();
+        recovered.add(this.getCameras());
+        recovered.add(this.getPointCloud());
+        recovered.scale.x = SCALE;
+        recovered.scale.y = SCALE;
+        recovered.scale.z = SCALE;
+        scene.add(recovered);
 
         camera.position.x = 400;
         camera.position.y = 400;
         camera.position.z = 400;
-
-        //camera.lookAt(axisSystem.position);
 
         this.get('element').addEventListener('wheel', this.wheel.bind(this), false);
 
@@ -163,6 +162,21 @@ module.exports = Ember.View.extend(Navigatable, {
             transparent: true
         });
         return new THREE.PointCloud(camerasGeo, particlesMaterial);
+    },
+
+    getOneCamera: function(cam){
+        var geo = new THREE.Geometry();
+        geo.vertices = [
+            new THREE.Vector3(),
+            new THREE.Vector3(),
+            new THREE.Vector3(),
+            new THREE.Vector3(),
+            new THREE.Vector3()
+        ];
+        geo.faces = [];
+        var obj = new THREE.Mesh(geo, new THREE.MeshBasicMaterial( { color: 0xffff00 } ));
+        obj.scale = 20;
+        return obj;
     },
 
     afterLoaded: function(data){
