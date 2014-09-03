@@ -24,7 +24,7 @@ module.exports = Ember.View.extend({
         description: function(){
             switch (this.controller.get('stage')) {
                 case STAGES.BEFORE:
-                    return 'begin';
+                    return 'Sturcture from Motion';
                 case STAGES.EXTRACTOR:
                     return 'extracting SIFT features';
                 case STAGES.MATCHING:
