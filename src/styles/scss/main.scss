@@ -88,6 +88,15 @@ $exit-icon-radius: $floating-window-height - $floating-window-header-padding - $
   background-color: #333333;
   height: $floating-window-height;
   position: relative;
+
+  line-height: $floating-window-height;
+  padding-left: 1em;
+  color: white;
+  font-weight: bolder;
+}
+
+.floating-window__header__h1 {
+  color: grey;
 }
 
 .exit-icon {
