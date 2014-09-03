@@ -79,12 +79,30 @@ $floating-window-offset: $controll-panel-width + 4em;
   }
 }
 
-
 //=======================================
 
+$floating-window-height: 2em;
+$floating-window-header-padding: 0.5em;
+$exit-icon-radius: $floating-window-height - $floating-window-header-padding - $floating-window-header-padding;
 .floating-window__header {
   background-color: #333333;
-  height: 2em;
+  height: $floating-window-height;
+  position: relative;
+}
+
+.exit-icon {
+  cursor: default;
+  position: absolute;
+  height: $exit-icon-radius;
+  width: $exit-icon-radius;
+  @include border-radius($exit-icon-radius);
+  background-color: #D15743;
+  right: $floating-window-header-padding;
+  top: $floating-window-header-padding;
+
+  &:hover {
+    background-color: darkred;
+  }
 }
 
 

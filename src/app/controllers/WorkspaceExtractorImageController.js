@@ -12,6 +12,12 @@ module.exports = Ember.ObjectController.extend({
 
     isLoading: true,
 
+    actions: {
+        back: function(){
+            this.transitionToRoute('workspace.extractor');
+        }
+    },
+
     onNewImage: function(){
         var _self = this;
         this.set('isLoading', true);
