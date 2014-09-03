@@ -14,10 +14,12 @@ $controll-panel-delta: 8px;
 .controll-panel__l1-tab {
   min-height: 2em;
   padding-left: 0.5em;
+  line-height: 2em;
+  font-weight: bolder;
 }
 
 .controll-panel__l1-body {
-  padding: $controll-panel-delta;
+  padding: 0 $controll-panel-delta $controll-panel-delta;
 }
 
 .controll-panel__l2 {
@@ -29,10 +31,12 @@ $controll-panel-delta: 8px;
   color: lightgray;
   padding-left: 0.5em;
   margin-top: $controll-panel-delta;
+  line-height: 2em;
+  font-weight: bolder;
 }
 
 .controll-panel__l2-body {
-  padding: $controll-panel-delta;
+  padding: 0 $controll-panel-delta $controll-panel-delta;
 }
 
 .controll-panel__l3-tab {
@@ -41,6 +45,8 @@ $controll-panel-delta: 8px;
   color: grey;
   padding-left: 0.5em;
   margin-top: $controll-panel-delta;
+  line-height: 2em;
+  font-weight: bolder;
 }
 
 //===========================================
