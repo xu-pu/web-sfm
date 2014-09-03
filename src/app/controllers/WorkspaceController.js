@@ -18,9 +18,15 @@ module.exports = Ember.ObjectController.extend({
     threadPoolSize: 4,
 
     actions: {
+
         enter: function(route){
             this.transitionToRoute(route);
+        },
+
+        back: function(){
+            this.transitionToRoute('welcome');
         }
+
     },
 
     /**

@@ -41,6 +41,7 @@ $floating-window-offset: $controll-panel-width + 4em;
   @extend %floating-window;
   width: $controll-panel-width;
   right: 3em;
+  overflow-y: hidden;
 }
 
 #main-container__input-gallery {
