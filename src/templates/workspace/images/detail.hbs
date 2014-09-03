@@ -2,6 +2,7 @@
     <div class="floating-window__header">
         <span class="floating-window__header__h1">IMAGE&nbsp;</span>
         <span class="floating-window__header__h2">{{filename}}</span>
+        <div {{bind-attr class=":load-indicator isLoading"}}></div>
         <div class="exit-icon" {{action "back"}}></div>
     </div>
 
@@ -13,10 +14,6 @@
         {{/if}}
     </div>
 
-    <div class="floating-window__image-detail__info">
-        {{#if isLoading}}
-            <p>loading fullsize image</p>
-        {{/if}}
-    </div>
+    <div class="floating-window__image-detail__info"></div>
 
 </div>

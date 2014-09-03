@@ -99,6 +99,22 @@ $exit-icon-radius: $floating-window-height - $floating-window-header-padding - $
   color: grey;
 }
 
+.load-indicator {
+  cursor: default;
+  position: absolute;
+  height: $exit-icon-radius;
+  width: $exit-icon-radius;
+  @include border-radius($exit-icon-radius);
+  background-color: rgb(19, 199, 19);
+  right: $exit-icon-radius + 2*$floating-window-header-padding;
+  top: $floating-window-header-padding;
+
+  &.is-loading {
+    background-color: #E4DD45;
+  }
+
+}
+
 .exit-icon {
   cursor: default;
   position: absolute;
