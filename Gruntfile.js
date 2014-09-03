@@ -18,7 +18,7 @@ module.exports = function (grunt) {
             all: {
                 files: [
                     'src/**/*.js',
-                    'app/templates/**/*.hbs',
+                    'src/templates/**/*.hbs',
                     'app/styles/scss/**/*.scss'
                 ],
                 tasks: ['build']
@@ -50,31 +50,16 @@ module.exports = function (grunt) {
 
         },
 
-        concat_sourcemap: {
-
-            unittest: {
-                files: {
-                    'build/scripts/sfmunittest.js': [
-                        '<%= pathConfig.venders %>/numericjs/src/numeric.js',
-                        '<%= pathConfig.venders %>/numericjs/src/svd.js',
-                        'app/scripts/SFM/**/*.js',
-                        'unittest/headers/SfmUnittestHeader.js'
-                    ]
-                }
-            }
-
-        },
-
         emberTemplates: {
             options: {
                 templateName: function (tName) {
-                    return tName.replace('app/templates/', '');
+                    return tName.replace('src/templates/', '');
                 }
             },
 
             build: {
                 files: {
-                    'build/scripts/templates.js': 'app/templates/**/*.hbs'
+                    'build/scripts/templates.js': 'src/templates/**/*.hbs'
                 }
             }
 
