@@ -1,5 +1,7 @@
 "use strict";
 
+var _ = require('underscore');
+
 var Navigatable = require('../mixins/Navigatable.js');
 
 module.exports = Ember.View.extend(Navigatable, {
@@ -133,28 +135,40 @@ module.exports = Ember.View.extend(Navigatable, {
         var axisMaterial = new THREE.LineBasicMaterial({
             color: 0xFFFFFF
         });
-        return new THREE.Line(axisGeo, axisMaterial, THREE.Lines);
+        return new THREE.Line(axisGeo, axisMaterial, THREE.LinePieces);
     },
 
     getPointCloud: function(){
         var pointsGeo = new THREE.Geometry();
         this.get('controller.points').forEach(function(p){
             pointsGeo.vertices.push(new THREE.Vector3(p.point[0], p.point[1], p.point[2]));
+//            pointsGeo.colors.push(new THREE.Color(p.color.R/255, p.color.G/255, p.color.B/255));
         });
+
         var pointsMaterial = new THREE.PointCloudMaterial({
             color: 0xFFFFFF,
-            size: 3,
-            blending: THREE.AdditiveBlending,
-            transparent: true
+            size: 3
+//            blending: THREE.AdditiveBlending,
+//            transparent: true
         });
+
         return new THREE.PointCloud(pointsGeo, pointsMaterial);
     },
 
     getCameras: function(){
         var camerasGeo = new THREE.Geometry();
         this.get('controller.cameras').forEach(function(cam){
-            camerasGeo.vertices.push(new THREE.Vector3(cam.t[0], cam.t[1], cam.t[2]));
+            var R = new THREE.Matrix3();
+            R.elements = _.flatten(cam.R);
+            var delta = new THREE.Vector3(0,0,1);
+            delta.applyMatrix3(R);
+
+            var camPosition = new THREE.Vector3(cam.t[0], cam.t[1], cam.t[2]);
+            var pointer = camPosition.clone().add(delta);
+            camerasGeo.vertices.push(camPosition);
+            camerasGeo.vertices.push(pointer);
         });
+/*
         var particlesMaterial = new THREE.PointCloudMaterial({
             color: 0xFF0000,
             size: 5,
@@ -162,6 +176,11 @@ module.exports = Ember.View.extend(Navigatable, {
             transparent: true
         });
         return new THREE.PointCloud(camerasGeo, particlesMaterial);
+*/
+        var lineMaterial = new THREE.LineBasicMaterial({
+            color: 0xFF0000
+        });
+        return new THREE.Line(camerasGeo, lineMaterial, THREE.LinePieces);
     },
 
     getOneCamera: function(cam){
