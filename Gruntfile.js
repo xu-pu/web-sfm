@@ -19,7 +19,7 @@ module.exports = function (grunt) {
                 files: [
                     'src/**/*.js',
                     'src/templates/**/*.hbs',
-                    'app/styles/scss/**/*.scss'
+                    'src/styles/scss/**/*.scss'
                 ],
                 tasks: ['build']
             }
@@ -76,7 +76,7 @@ module.exports = function (grunt) {
         compass: {
 
             options: {
-                sassDir: 'app/styles/scss'
+                sassDir: 'src/styles/scss'
             },
 
             build: {
@@ -89,13 +89,10 @@ module.exports = function (grunt) {
 
     });
 
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-concat-sourcemap');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-ember-templates');
-    grunt.loadNpmTasks('grunt-neuter');
     grunt.loadNpmTasks('grunt-browserify');
 
     grunt.registerTask('build', [
@@ -105,7 +102,7 @@ module.exports = function (grunt) {
         'copy:build'
     ]);
 
-    grunt.registerTask('dist', ['build', 'uglify:dist']);
+//    grunt.registerTask('dist', ['build', 'uglify:dist']);
 
 };
 
