@@ -1,50 +1,51 @@
-<div>{{name}}</div>
-<div {{bind-attr class=":demo-thumbnail__state-bar isDownloaded isInprogress"}}>
-    {{#if isDownloaded}}
-        <div>The demo project is downloaded</div>
-    {{else}}
-        {{#if isInprogress}}
-            <div>Downloading</div>
+<div class="demo-thumbnail__header">{{name}}</div>
+
+<div class="demo-thumbnail__body">
+
+    <div {{bind-attr class=":demo-thumbnail__state-bar isDownloaded isInprogress"}}>
+        {{#if isDownloaded}}
+            <div {{action "enter"}}>Enter</div>
         {{else}}
-            <div {{action "download"}}>Click to download</div>
+            {{#if isInprogress}}
+                <div>Downloading</div>
+            {{else}}
+                <div {{action "download"}}>Click to download</div>
+            {{/if}}
         {{/if}}
-    {{/if}}
-</div>
+    </div>
 
-<div class="demo-thumbnail__enter" {{action "enter"}}>Enter</div>
+    <div id="demo-thumbnail__details__images" class="demo-thumbnail__detail">
+         IMAGES {{finishedImages.length}}/{{images.length}}
+    </div>
 
-<div class="demo-thumbnail__details">
+    <div id="demo-thumbnail__details__sift" class="demo-thumbnail__detail">
+        FEATURES {{finishedSIFT.length}}/{{images.length}}
+    </div>
 
-    <div {{bind-attr class=":demo-thumbnail__details__bundler"}}>
+    <div id="demo-thumbnail__details__bundler" class="demo-thumbnail__detail">
+        BUNDLER
         {{#if bundlerFinished}}
-            Bundler is finished
+            finished
         {{else}}
             {{#if hasBundler}}
-                Bundler result is avaliable for download
+                avaliable
             {{else}}
-                Bundler result is not avaliable in this demo
+                not avaliable
             {{/if}}
         {{/if}}
     </div>
 
-    <div {{bind-attr class=":demo-thumbnail__details__mvs"}}>
+    <div id="demo-thumbnail__details__mvs" class="demo-thumbnail__detail">
+        MVS
         {{#if mvsFinished}}
-            MVS is finished
+            finished
         {{else}}
             {{#if hasMVS}}
-                MVS result is avaliable for download
+                avaliable
             {{else}}
-                MVS result is not avaliable in this demo
+                not avaliable
             {{/if}}
         {{/if}}
-    </div>
-
-    <div>
-        {{images.length}} images in total, {{finishedImages.length}} finished.
-    </div>
-
-    <div>
-        {{images.length}} images in total, {{finishedSIFT.length}} SIFT finished.
     </div>
 
 </div>

@@ -116,7 +116,7 @@ $exit-icon-radius: $floating-window-height - $floating-window-header-padding - $
 }
 
 .exit-icon {
-  cursor: default;
+  cursor: pointer;
   position: absolute;
   height: $exit-icon-radius;
   width: $exit-icon-radius;
