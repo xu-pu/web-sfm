@@ -6,16 +6,9 @@
 @import "projects";
 @import "utils";
 
-%frame {
-  margin: 0;
-  border: 0;
-  padding: 0;
-}
-
 html, body {
   height: 100%;
   width: 100%;
-  @extend %frame;
 }
 
 #main-container {
@@ -27,7 +20,6 @@ html, body {
 
 %floating-window {
   @include box-shadow(0 0 10px 3px rgba(0, 0, 0, 0.49));
-  @extend  %frame;
   position: absolute;
   height: 90%;
   top: 5%;
@@ -45,7 +37,6 @@ $floating-window-offset: $controll-panel-width + 4em;
 }
 
 #main-container__input-gallery {
-  @extend %frame;
   list-style: none;
 }
 
