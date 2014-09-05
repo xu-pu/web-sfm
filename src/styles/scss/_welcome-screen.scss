@@ -55,7 +55,7 @@ $project-thumbnail-header-height: 2em;
 
 }
 
-.project-thumbnail {
+.welcome-screen__demos__thumbnail {
   @extend %welcome-screen__demos__header;
   background: #CECECE;
   @include box-shadow(0 0 4px 2px rgba(0, 0, 0, 0.49));
