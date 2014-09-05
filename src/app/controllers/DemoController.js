@@ -48,12 +48,18 @@ module.exports = Ember.ObjectController.extend({
             .promiseData(STORES.SINGLETONS, STORES.MVS)
             .then(function(){
                 _self.set('mvsFinished', true);
+            })
+            .catch(function(){
+                Ember.Logger.debug('Data is not avaliable in IDB, need download.');
             });
 
         var bundlerResumed = adapter
             .promiseData(STORES.SINGLETONS, STORES.BUNDLER)
             .then(function(){
                 _self.set('bundlerFinished', true);
+            })
+            .catch(function(){
+                Ember.Logger.debug('Data is not avaliable in IDB, need download.');
             });
 
         var imagesResumed = adapter
@@ -63,6 +69,9 @@ module.exports = Ember.ObjectController.extend({
                     return res.value.filename;
                 });
                 _self.set('finishedImages', finished);
+            })
+            .catch(function(){
+                Ember.Logger.debug('Data is not avaliable in IDB, need download.');
             });
 
         var siftResumed = adapter
@@ -72,6 +81,9 @@ module.exports = Ember.ObjectController.extend({
                     return res.key;
                 });
                 _self.set('finishedSIFT', finished);
+            })
+            .catch(function(){
+                Ember.Logger.debug('Data is not avaliable in IDB, need download.');
             });
 
         return Promise.all([
@@ -79,9 +91,7 @@ module.exports = Ember.ObjectController.extend({
             siftResumed,
             bundlerResumed,
             mvsResumed
-        ]).catch(function(){
-            Ember.Logger.debug('Data is not avaliable in IDB, need download.');
-        });
+        ]);
     },
 
 
@@ -90,17 +100,18 @@ module.exports = Ember.ObjectController.extend({
         if (this.get('downloaded')) {
             return Promise.resolve();
         }
-        return Promise.all([
-            _self.promiseDownloadImages(),
-            _self.promiseDownloadSIFT(),
-            _self.promiseDownloadBundler(),
-            _self.promiseDownloadMVS()
-        ]).catch(function(msg){
+        return _self.promiseDownloadImages()
+            .then(this.promiseDownloadSIFT.bind(this))
+            .then(this.promiseDownloadBundler.bind(this))
+            .then(this.promiseDownloadMVS.bind(this))
+            .catch(function(msg){
                 Ember.Logger.debug(msg);
+                Ember.Logger.debug('download error');
                 _self.set('isInprogress', false);
-        }).then(function(){
-            _self.set('isInprogress', false);
-        });
+            })
+            .then(function(){
+                _self.set('isInprogress', false);
+            });
     },
 
 
@@ -109,7 +120,6 @@ module.exports = Ember.ObjectController.extend({
             return Promise.resolve();
         }
         var unfinished = _.difference(this.get('images'), this.get('finishedImages'));
-        console.log(unfinished);
         return Promise.all(unfinished.map(this.promiseProcessOneImage.bind(this)));
     },
 
@@ -143,12 +153,14 @@ module.exports = Ember.ObjectController.extend({
         if (this.get('bundlerFinished')) {
             return Promise.resolve();
         }
-        var adapter = this.get('adapter');
+        var adapter = this.get('adapter'),
+            _self = this;
         return utils.requireJSON(this.get('root')+BUNDLER_PATH)
             .then(function(data){
                 return adapter.promiseSetData(STORES.SINGLETONS, STORES.BUNDLER, data);
             })
             .then(function(){
+                _self.set('bundlerFinished', true);
                 Ember.Logger.debug('Bundler downloaded and stored');
             });
     },
@@ -161,13 +173,15 @@ module.exports = Ember.ObjectController.extend({
         if (this.get('mvsFinished')) {
             return Promise.resolve();
         }
-        var adapter = this.get('adapter');
-        var url = this.get('root')+MVS_PATH;
+        var _self = this,
+            adapter = this.get('adapter'),
+            url = this.get('root')+MVS_PATH;
         return utils.requireJSON(url)
             .then(function(data){
                 return adapter.promiseSetData(STORES.SINGLETONS, STORES.MVS, data);
             })
             .then(function(){
+                _self.set('mvsFinished', true);
                 Ember.Logger.debug('MVS downloaded and stored');
             });
     },

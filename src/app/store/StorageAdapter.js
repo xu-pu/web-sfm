@@ -87,18 +87,18 @@ StorageAdapter.prototype = {
 
         return utils.promiseFileDataUrl(file)
             .then(function(result){
-                Ember.Logger.debug('image dataUrl required');
+                //Ember.Logger.debug('image dataUrl required');
                 dataUrl = result;
                 return utils.promiseLoadImage(dataUrl);
             })
             .then(function(img){
-                Ember.Logger.debug('img object required');
+                //Ember.Logger.debug('img object required');
                 domimg = img;
                 var image = { filename: file.name, width: img.width, height: img.height };
                 return _self.promiseAddData(STORES.IMAGES, image);
             })
             .then(function(_id){
-                Ember.Logger.debug('_id required');
+                //Ember.Logger.debug('_id required');
                 var thumbnailDataUrl = utils.getImageThumbnail(domimg);
                 return Promise.all([
                     _self.promiseSetData(STORES.THUMBNAILS, _id, thumbnailDataUrl),
@@ -106,7 +106,7 @@ StorageAdapter.prototype = {
                 ]);
             })
             .then(function(){
-                Ember.Logger.debug('one image process finished');
+                Ember.Logger.debug('One image imported');
                 return _id;
             });
     },
