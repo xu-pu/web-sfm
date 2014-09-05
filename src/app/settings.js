@@ -34,3 +34,11 @@ module.exports.TASKS = {
     STEREO: 2,
     TRACKING: 3
 };
+
+
+module.exports.TASK_STATES = {
+    UNASSIGNED: 0,
+    PENDING: 1,
+    RUNNING: 2,
+    FINISHED: 3
+};
