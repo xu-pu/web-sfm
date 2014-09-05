@@ -32,14 +32,33 @@
 
 $project-thumbnail-header-height: 2em;
 
-.project-thumbnail {
+%welcome-screen__demos__header {
   display: inline-block;
   vertical-align: top;
   width: 15em;
   height: 100%;
-  background: #CECECE;
   margin-right: 15px;
-  @include box-shadow(0 0 10px 3px rgba(0, 0, 0, 0.49));
+}
+
+.welcome-screen__demos__header {
+  @extend %welcome-screen__demos__header;
+  @include box-shadow(inset 0 0 10px 3px rgba(0, 0, 0, 0.49));
+  @include border-radius(1em);
+  line-height: 250px;
+  text-align: center;
+
+  span {
+    font-size: 3em;
+    font-weight: bolder;
+    color: gray;
+  }
+
+}
+
+.project-thumbnail {
+  @extend %welcome-screen__demos__header;
+  background: #CECECE;
+  @include box-shadow(0 0 4px 2px rgba(0, 0, 0, 0.49));
 }
 
 .demo-thumbnail__header {

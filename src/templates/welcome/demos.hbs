@@ -1,6 +1,8 @@
 <div class="welcome-screen__demos">
     <ul>
-        <li class="welcome-screen__demos__header">DEMOS</li>
+        <li class="welcome-screen__demos__header">
+            <span>DEMOS</span>
+        </li>
         {{#each demo in controller}}
             {{view App.ProjectThumbnailView controller=demo}}
         {{/each}}
