@@ -29,10 +29,10 @@
 }
 
 //=====================================
+// Thumbnail
+//=====================================
 
-$project-thumbnail-header-height: 2em;
-
-%welcome-screen__demos__header {
+%welcome-screen__thumbnail-tile {
   display: inline-block;
   vertical-align: top;
   width: 15em;
@@ -40,23 +40,46 @@ $project-thumbnail-header-height: 2em;
   margin-right: 15px;
 }
 
-.welcome-screen__demos__header {
-  @extend %welcome-screen__demos__header;
+%welcome-screen__thumbnail-hero {
+  @extend %welcome-screen__thumbnail-tile;
   @include box-shadow(inset 0 0 10px 3px rgba(0, 0, 0, 0.49));
   @include border-radius(1em);
   line-height: 250px;
   text-align: center;
+  background-color: rgba(0, 0, 0, 0.11);
 
   span {
     font-size: 3em;
     font-weight: bolder;
+  }
+}
+
+//=====================================
+// Projects
+//=====================================
+
+.welcome-screen__projects__header {
+  @extend %welcome-screen__thumbnail-hero;
+  span {
+    color: white;
+  }
+}
+
+//=====================================
+// Demos
+//=====================================
+
+$project-thumbnail-header-height: 2em;
+
+.welcome-screen__demos__header {
+  @extend %welcome-screen__thumbnail-hero;
+  span {
     color: gray;
   }
-
 }
 
 .welcome-screen__demos__thumbnail {
-  @extend %welcome-screen__demos__header;
+  @extend %welcome-screen__thumbnail-tile;
   background: #CECECE;
   @include box-shadow(0 0 4px 2px rgba(0, 0, 0, 0.49));
 }

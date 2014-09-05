@@ -1,5 +1,8 @@
 <div class="welcome-screen__projects">
     <ul>
+        <li class="welcome-screen__projects__header">
+            <span>Projects</span>
+        </li>
         {{#each project in controller}}
             {{view App.ProjectThumbnailView controller=project}}
         {{/each}}
