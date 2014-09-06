@@ -1,3 +1,9 @@
+'use strict';
+
+var sfmstore = require('../store/sfmstore.js'),
+    STORES = require('../settings.js').STORES;
+
+
 module.exports = Ember.Object.extend({
 
     images: null,
@@ -5,10 +11,6 @@ module.exports = Ember.Object.extend({
     finished: [],
 
     scheduler: null,
-
-    test: function(){
-        console.log('changed');
-    }.observes('finished'),
 
     getQueueIterator: function(){
         var finished = this.get('finished'),
@@ -62,20 +64,25 @@ module.exports = Ember.Object.extend({
 
         function next(callback){
             var key = getKey(offset1, offset2);
-            Promise.all([
-                IDBAdapter.promiseData(SFM.STORE_FEATURES, images[offset1].get('_id')),
-                IDBAdapter.promiseData(SFM.STORE_FEATURES, images[offset2].get('_id')),
-                IDBAdapter.promiseData(SFM.STORE_IMAGES, images[offset1].get('_id')),
-                IDBAdapter.promiseData(SFM.STORE_IMAGES, images[offset2].get('_id'))
-            ]).then(function(values){
-                callback({
-                    key: key,
-                    features1: values[0],
-                    features2: values[1],
-                    cam1: { width: values[2].width, height: values[2].height },
-                    cam2: { width: values[3].width, height: values[3].height }
-                }, key);
-            });
+            sfmstore
+                .promiseAdapter()
+                .then(function(adapter){
+                    return Promise.all([
+                        adapter.promiseData(STORES.FEATURES, images[offset1].get('_id')),
+                        adapter.promiseData(STORES.FEATURES, images[offset2].get('_id')),
+                        adapter.promiseData(STORES.IMAGES, images[offset1].get('_id')),
+                        adapter.promiseData(STORES.IMAGES, images[offset2].get('_id'))
+                    ])
+                })
+                .then(function(values){
+                    callback({
+                        key: key,
+                        features1: values[0],
+                        features2: values[1],
+                        cam1: { width: values[2].width, height: values[2].height },
+                        cam2: { width: values[3].width, height: values[3].height }
+                    }, key);
+                });
             findNext();
         }
 
@@ -87,11 +94,13 @@ module.exports = Ember.Object.extend({
 
     scheduleMatching: function(callback){
         if (this.get('scheduler') === null) {
-            App.SfmStore.promiseProject().then(function(projectModel){
-                var iterator = this.getQueueIterator();
-                var scheduler = App.schedule(projectModel, SFM.TASK_MATCHING, iterator, this.get('finished'), callback);
-                this.set('scheduler', scheduler);
-            }.bind(this));
+            sfmstore
+                .promiseProject()
+                .then(function(projectModel){
+                    var iterator = this.getQueueIterator();
+                    var scheduler = App.schedule(projectModel, SFM.TASK_MATCHING, iterator, this.get('finished'), callback);
+                    this.set('scheduler', scheduler);
+                }.bind(this));
         }
     }
 
