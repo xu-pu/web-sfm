@@ -1,0 +1,176 @@
+//===========================================
+
+$controll-panel-delta: 8px;
+
+#controll-panel__body {
+  padding: $controll-panel-delta;
+}
+
+.controll-panel__l1 {
+  background-color: #6D6D6D;
+  margin-bottom: $controll-panel-delta;
+}
+
+.controll-panel__l1-tab {
+  min-height: 2em;
+  padding-left: 0.5em;
+  line-height: 2em;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+.controll-panel__l1-body {
+  padding: 0 $controll-panel-delta $controll-panel-delta;
+}
+
+.controll-panel__l2 {
+  background-color: #464646;
+}
+
+.controll-panel__l2-tab {
+  min-height: 2em;
+  color: lightgray;
+  padding-left: 0.5em;
+  margin-top: $controll-panel-delta;
+  line-height: 2em;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+.controll-panel__l2-body {
+  padding: 0 $controll-panel-delta $controll-panel-delta;
+}
+
+.controll-panel__l3-tab {
+  min-height: 2em;
+  background-color: rgb(34, 34, 34);
+  color: grey;
+  padding-left: 0.5em;
+  margin-top: $controll-panel-delta;
+  line-height: 2em;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+//===========================================
+
+$state-bar-height: 5em;
+
+#controll-panel__footer {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  height: $state-bar-height;
+}
+
+.controll-panel__state-body__container {
+  position: absolute;
+  bottom: $state-bar-height;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.controll-panel__state-body {
+  background-color: white;
+  @include box-shadow(0 0 10px 3px rgba(0, 0, 0, 0.49));
+  padding: 5px;
+}
+
+.controll-panel__state-body__thread {
+  background-color: grey;
+  height: 3em;
+  margin-top: 5px;
+}
+
+.controll-panel__state-bar {
+  width: 100%;
+  height: $state-bar-height;
+  position: relative;
+}
+
+.controll-panel__state-bar__toggle {
+  width: $state-bar-height;
+  height: $state-bar-height;
+  background-color: yellow;
+  cursor: pointer;
+
+  line-height: $state-bar-height;
+  text-align: center;
+
+  span {
+    font-size: 2.5em;
+    color: rgb(34, 34, 34);
+  }
+
+  div {
+    height: 100%;
+    width: 100%;
+  }
+
+  .is_running {
+    background-color: rgb(80, 248, 168);
+  }
+
+  .is_stopped {
+    background-color: rgb(255, 161, 161);
+  }
+
+}
+
+.controll-panel__state-bar__body {
+  background-color: white;
+  position: absolute;
+  left: $state-bar-height;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  line-height: $state-bar-height;
+  text-align: center;
+}
+
+//==================================================
+
+
+.controll-panel__cpu-setting {
+
+  &:hover {
+
+    .will-enable {
+      background-color: green;
+    }
+
+    .will-disable {
+      background-color: red;
+    }
+
+  }
+
+}
+
+$cpu-node-size: 1.9em;
+
+.controll-panel__cpu-setting__node {
+  display: inline-block;
+  height: $cpu-node-size;
+  width: $cpu-node-size;
+
+  &:hover div {
+    border: 3px solid white;
+  }
+
+  div {
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    @include transition(background-color 0.5s);
+    background-color: #3D3D3D;
+  }
+
+  .is-enabled {
+    background-color: rgb(34, 34, 34);
+    //background-color: rgb(170, 170, 170);
+  }
+
+}

@@ -1,0 +1,75 @@
+@import "../../../../../../.gem/ruby/2.1.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass";
+
+$node-size: 40px;
+$matching-trace-color: orange;
+
+.main-container__match-table {
+
+  th {
+    padding: 0
+  }
+
+  &:hover .main-container__match-table__pair {
+
+    &.is-horizontal {
+      border: 5px solid $matching-trace-color;
+    }
+
+    &.is-vertical {
+      border: 5px solid $matching-trace-color;
+    }
+
+  }
+
+}
+
+%main-container__match-table__node {
+  position: relative;
+  height: $node-size;
+  width: $node-size;
+  box-sizing: border-box;
+
+}
+
+
+.main-container__match-table__pair {
+
+  @extend %main-container__match-table__node;
+  @include transition(background-color 0.25s);
+  background-color: black;
+
+  &.is-diag {
+    background-color: white;
+  }
+
+  &.is-finished {
+    background-color: rgb(114, 218, 114);
+  }
+
+  &.is-inprogress {
+    background-color: blue;
+  }
+
+  &:hover {
+    border: 5px solid yellow;
+  }
+
+  &:active {
+    background-color: green;
+  }
+}
+
+.main-container__match-table__thumbnail {
+
+  @extend %main-container__match-table__node;
+
+  img {
+    height: 100%;
+    width: 100%;
+  }
+
+}
+
+.floating-window__matching-pair__canvas-container {
+  padding: 10px;
+}

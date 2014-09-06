@@ -5,13 +5,9 @@
     "https-proxy":"http://localhost:8087",
     "dependencies": {
         "jquery": "latest",
-        "underscore": "latest",
         "ember": "latest",
-        "numericjs": "latest",
-        "jsfeat": "latest",
         "exifreader": "latest",
-        "threejs": "latest",
-        "vis": "latest"
+        "threejs": "latest"
     },
     "devDependencies": {}
 }

@@ -1,0 +1,11 @@
+<div class="floating-window__extractor-image">
+    <div class="floating-window__header">
+        <span class="floating-window__header__h1">FEATURES&nbsp;</span>
+        <span class="floating-window__header__h2">{{filename}}</span>
+        <div {{bind-attr class=":load-indicator isLoading"}}></div>
+        <div class="exit-icon" {{action "back"}}></div>
+    </div>
+    {{#view App.SiftView controller=controller}}
+        <canvas></canvas>
+    {{/view}}
+</div>

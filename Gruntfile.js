@@ -17,11 +17,21 @@ module.exports = function (grunt) {
 
             all: {
                 files: [
-                    'app/scripts/**/*.js',
-                    'app/templates/**/*.hbs',
-                    'app/styles/scss/**/*.scss'
+                    'src/**/*.js',
+                    'src/templates/**/*.hbs',
+                    'src/styles/scss/**/*.scss'
                 ],
                 tasks: ['build']
+            }
+
+        },
+
+        browserify: {
+
+            build: {
+                files: {
+                    'build/scripts/application.js': 'src/app/application.js'
+                }
             }
 
         },
@@ -40,31 +50,16 @@ module.exports = function (grunt) {
 
         },
 
-        concat_sourcemap: {
-
-            unittest: {
-                files: {
-                    'build/scripts/sfmunittest.js': [
-                        '<%= pathConfig.venders %>/numericjs/src/numeric.js',
-                        '<%= pathConfig.venders %>/numericjs/src/svd.js',
-                        'app/scripts/SFM/**/*.js',
-                        'unittest/headers/SfmUnittestHeader.js'
-                    ]
-                }
-            }
-
-        },
-
         emberTemplates: {
             options: {
                 templateName: function (tName) {
-                    return tName.replace('app/templates/', '');
+                    return tName.replace('src/templates/', '');
                 }
             },
 
             build: {
                 files: {
-                    'build/scripts/templates.js': 'app/templates/**/*.hbs'
+                    'build/scripts/templates.js': 'src/templates/**/*.hbs'
                 }
             }
 
@@ -81,7 +76,7 @@ module.exports = function (grunt) {
         compass: {
 
             options: {
-                sassDir: 'app/styles/scss'
+                sassDir: 'src/styles/scss'
             },
 
             build: {
@@ -94,23 +89,20 @@ module.exports = function (grunt) {
 
     });
 
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-concat-sourcemap');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-ember-templates');
-    grunt.loadNpmTasks('grunt-neuter');
+    grunt.loadNpmTasks('grunt-browserify');
 
     grunt.registerTask('build', [
-        'neuter',
-        'concat_sourcemap:unittest',
+        'browserify:build',
         'emberTemplates:build',
         'compass:build',
         'copy:build'
     ]);
 
-    grunt.registerTask('dist', ['build', 'uglify:dist']);
+//    grunt.registerTask('dist', ['build', 'uglify:dist']);
 
 };
 

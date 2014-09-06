@@ -1,0 +1,149 @@
+.welcome-screen__header {
+  width: 100%;
+  height: 400px;
+  background-color: #2257FF;
+}
+
+
+.welcome-screen__demos-container {
+  width: 100%;
+  height: 300px;
+  background-color: beige;
+}
+
+.welcome-screen__projects-container {
+  width: 100%;
+  height: 300px;
+  background-color: burlywood;
+}
+
+
+.welcome-screen__demos, .welcome-screen__projects {
+  height: 100%;
+
+  ul {
+    height: 100%;
+    box-sizing: border-box;
+    padding: 15px;
+  }
+}
+
+//=====================================
+// Thumbnail
+//=====================================
+
+%welcome-screen__thumbnail-tile {
+  display: inline-block;
+  vertical-align: top;
+  width: 15em;
+  height: 100%;
+  margin-right: 15px;
+}
+
+%welcome-screen__thumbnail-hero {
+  @extend %welcome-screen__thumbnail-tile;
+  @include box-shadow(inset 0 0 10px 3px rgba(0, 0, 0, 0.49));
+  @include border-radius(1em);
+  line-height: 250px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.11);
+
+  span {
+    font-size: 3em;
+    font-weight: bolder;
+  }
+}
+
+//=====================================
+// Projects
+//=====================================
+
+.welcome-screen__projects__header {
+  @extend %welcome-screen__thumbnail-hero;
+  span {
+    color: white;
+  }
+}
+
+//=====================================
+// Demos
+//=====================================
+
+$project-thumbnail-header-height: 2em;
+
+.welcome-screen__demos__header {
+  @extend %welcome-screen__thumbnail-hero;
+  span {
+    color: gray;
+  }
+}
+
+.welcome-screen__demos__thumbnail {
+  @extend %welcome-screen__thumbnail-tile;
+  background: #CECECE;
+  @include box-shadow(0 0 4px 2px rgba(0, 0, 0, 0.49));
+}
+
+.demo-thumbnail__header {
+  background-color: #333333;
+  color: white;
+  height: $project-thumbnail-header-height;
+  line-height: $project-thumbnail-header-height;
+  font-weight: bolder;
+  padding-left: 10px;
+}
+
+.demo-thumbnail__body {
+  padding: 10px;
+}
+
+.demo-thumbnail__state-bar {
+  width: 100%;
+  height: 40px;
+  cursor: pointer;
+  background-color: red;
+
+  > div {
+    height: 100%;
+    width: 100%;
+    line-height: 40px;
+    font-size: 20px;
+    font-weight: bolder;
+    text-align: center;
+    color: rgb(48, 23, 23);
+  }
+
+  &:hover {
+    background-color: rgb(207, 54, 54);
+  }
+
+  &.is-downloaded {
+    background-color: greenyellow;
+    &:hover {
+      background-color: rgb(146, 185, 86);
+    }
+  }
+
+  &.is-inprogress {
+    background-color: green;
+  }
+
+}
+
+.demo-thumbnail__enter {
+  width: 100%;
+  height: 50px;
+  background-color: yellow;
+  cursor: pointer;
+}
+
+
+.demo-thumbnail__detail {
+  height: 2em;
+  line-height: 2em;
+  background-color: #6D6D6D;
+  color: lightgray;
+  padding-left: 0.5em;
+  margin-top: 10px;
+  font-weight: bolder;
+}

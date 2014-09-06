@@ -1,16 +1,3 @@
-function getLocalStorage(key){
-    var result = localStorage.getItem(key);
-    if (result === null) {
-        return null;
-    }
-    else {
-        return JSON.parse(result);
-    }
-}
-
-function setLocalStorage(key, value){
-    localStorage.setItem(key, JSON.stringify(value));
-}
 
 
 function getImageData(img){
