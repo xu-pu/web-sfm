@@ -21,7 +21,7 @@ var Scheduler = Ember.Object.extend({
     },
 
     resume: function(){
-        
+
     },
 
     assign: function(){

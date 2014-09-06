@@ -11,11 +11,29 @@ var DEMO_LIST_URL = '/demo/demos.json';
 
 //============================================
 
-var resumed = promiseResume();
-var sfmstoreProject = null,
-    sfmstoreProjects = null,
-    sfmstoreDemos = null,
-    currentAdapter;
+var Store = Ember.Object.extend({
+
+    currentProject: null,
+
+    projects: null,
+
+    demos: null,
+
+    adapter: null,
+
+    onSwichProject: function(){
+        Ember.Logger.debug('project switch triggered!');
+        var project = this.get('currentProject');
+        if (project) {
+            this.set('adapter', new IDBAdapter(project.get('name')));
+            localStorage.setItem('project', project.get('name'));
+            console.log(this.get('adapter'));
+        }
+    }.observes('currentProject')
+
+});
+
+var ready = initLocalStorage().then(initStore);
 
 //============================================
 // Projects have state, Demos don't
@@ -23,37 +41,38 @@ var sfmstoreProject = null,
 //============================================
 
 module.exports.promiseDemos = function(){
-    return resumed.then(function(){
-        return sfmstoreDemos;
+    return ready.then(function(store){
+        return store.get('demos');
     });
 };
 
 module.exports.promiseProjects = function(){
-    return resumed.then(function(){
-        return sfmstoreProjects;
+    return ready.then(function(store){
+        return store.get('projects');
     });
 };
 
 module.exports.promiseProject = function(){
-    return resumed.then(function(){
-        if (sfmstoreProject === null) {
+    return ready.then(function(store){
+        var project = store.get('currentProject');
+        if (project === null) {
             return Promise.reject();
         }
         else {
-            return Promise.resolve(sfmstoreProject);
+            return Promise.resolve(project);
         }
     });
 };
 
 module.exports.setCurrentProject = function(project){
-    sfmstoreProject = project;
-    currentAdapter = new IDBAdapter(sfmstoreProject.get('name'));
-    localStorage.setItem('project', project.get('name'));
+    ready.then(function(store){
+        store.set('currentProject', project);
+    });
 };
 
 module.exports.syncDemos = function(){
-    resumed.then(function(){
-        utils.setLocalStorage('demos', sfmstoreDemos.map(function(model){
+    ready.then(function(store){
+        utils.setLocalStorage('demos', store.get('demos').map(function(model){
             return model.getProperties(model.get('storedProperties'));
         }));
     });
@@ -63,58 +82,65 @@ module.exports.syncDemos = function(){
  * return the adapter for current project
  */
 module.exports.promiseAdapter = function(){
-    return resumed.then(function(){
-        return currentAdapter;
+    return ready.then(function(store){
+        return store.get('adapter');
     });
 };
 
 //============================================
 
-function promiseResume(){
-    return promiseLocalStore()
-        .catch(initialize)
-        .then(function(results){
-            var demos = results[0],
-                projects = results[1],
-                project = results[2];
-            sfmstoreDemos = demos.map(function(d){
-                return DemoProject.create(d);
+function initLocalStorage(){
+    var demos = utils.getLocalStorage('demos'),
+        projects = utils.getLocalStorage('projects'),
+        project = localStorage.getItem('project');
+    if (demos === null) {
+        return utils
+            .requireJSON(DEMO_LIST_URL)
+            .then(function(resp){
+                utils.setLocalStorage('demos', resp);
+                return Promise.resolve([resp, null, null]);
             });
-            if (!_.isArray(projects)) {
-                sfmstoreProjects = [];
-            }
-            else {
-                sfmstoreProjects = projects.map(function(p){
-                    return Project.create(p);
-                });
-            }
-            if (_.isString(project)) {
-                sfmstoreProject = sfmstoreProjects.findBy('name', project) || sfmstoreDemos.findBy('name', project) || null;
-            }
-            if (sfmstoreProject) {
-                currentAdapter = new IDBAdapter(sfmstoreProject.get('name'));
-            }
-            return Promise.resolve();
+    }
+    else {
+        return Promise.resolve([demos, projects, project]);
+    }
+}
+
+function initStore(results){
+    var demos = results[0],
+        projects = results[1],
+        project = results[2];
+
+    var params = {
+        currentProject: null,
+        projects: null,
+        demos: null,
+        adapter: null
+    };
+
+    // init Demos
+    params.demos = demos.map(function(d){
+        return DemoProject.create(d);
+    });
+
+    // init Projects
+    if (!_.isArray(projects)) {
+        params.projects = [];
+    }
+    else {
+        params.projects = projects.map(function(p){
+            return Project.create(p);
         });
-}
+    }
 
-function initialize(){
-    return utils.requireJSON(DEMO_LIST_URL).then(function(demos){
-        utils.setLocalStorage('demos', demos);
-        return Promise.resolve([demos, null, null]);
-    });
-}
+    // init currentProject
+    if (_.isString(project)) {
+        params.currentProject = params.projects.findBy('name', project) || params.demos.findBy('name', project) || null;
+    }
+    if (params.currentProject) {
+        params.adapter = new IDBAdapter(params.currentProject.get('name'));
+    }
 
-function promiseLocalStore(){
-    return new Promise(function(resolve, reject){
-        var demos = utils.getLocalStorage('demos'),
-            projects = utils.getLocalStorage('projects'),
-            project = localStorage.getItem('project');
-        if (demos === null) {
-            reject();
-        }
-        else {
-            resolve([demos, projects, project]);
-        }
-    });
+    return Store.create(params);
+
 }

@@ -22,6 +22,10 @@ module.exports = Ember.ObjectController.extend({
     expandRegister: true,
     expandStereo: true,
 
+    onSwitchProject: function(){
+        this.set('imageModels', null);
+    }.observes('model'),
+
     actions: {
 
         enter: function(route){
