@@ -1,6 +1,7 @@
 'use strict';
 
-var Promise = require('promise');
+var Promise = require('promise'),
+    fs = require('fs');
 
 var bruteforce = require('../webregister/bruteforce-matching.js');
 

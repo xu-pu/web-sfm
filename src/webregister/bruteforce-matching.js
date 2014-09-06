@@ -11,9 +11,12 @@ function bruteForceMatch(features1, features2, ANN_THRESHOLD){
         var match = bestMatch(f1.vector, features2, ANN_THRESHOLD);
         if (match !== null) {
             if (bestMatch(features2[match].vector, features1, ANN_THRESHOLD) === index1) {
-                console.log('find one at ' + index1 + '/' + features1.length);
+                //console.log('find one at ' + index1 + '/' + features1.length);
                 matches.push([index1, match]);
             }
+        }
+        if (index1 % 100 === 0) {
+            console.log('scan to ' + index1 + '/' + features1.length);
         }
     });
     return matches;
