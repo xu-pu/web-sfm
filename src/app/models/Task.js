@@ -1,7 +1,10 @@
+'use strict';
+
+var STATES = require('../settings.js').TASK_STATES;
 
 module.exports = Ember.Object.extend({
 
-    state: null,
+    state: STATES.UNASSIGNED,
 
     data: null,
 

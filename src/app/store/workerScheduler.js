@@ -1,24 +1,46 @@
 'use strict';
 
-module.exports.promiseThreads = promiseThreads;
-module.exports.setPoolSize = setPoolSize;
+var Thread = require('../models/Thread.js'),
+    STATES = require('../settings.js').STATES,
+    TASK_STATE = require('../settings.js').TASK_STATES;
 
+var Scheduler = Ember.Object.extend({
 
-var ready = initialize(),
-    threads;
+    state: STATES.STOPPED,
 
-function promiseThreads(){
-   return ready.then(function(){
-       return threads;
-   });
-}
+    poolSize: 4,
 
-function setPoolSize(){}
+    threads: [],
 
-function initialize(){}
+    queue: [],
 
-function suspend(){}
+    inprogress: [],
 
-function resume(){}
+    suspend: function(){
 
-function promiseOneTask(){}
+    },
+
+    resume: function(){
+        
+    },
+
+    assign: function(){
+        this.get('queue').addObject(task);
+    },
+
+    onResize: function(){
+
+    }.observes('poolSize'),
+
+    onStateChange: function(){
+        if (this.get('state') === STATES.STOPPED) {
+            this.suspend();
+        }
+        else if (this.get('state') === STATES.RUNNING) {
+            this.resume();
+        }
+    }.observes('state')
+
+});
+
+module.exports = Scheduler.create();
