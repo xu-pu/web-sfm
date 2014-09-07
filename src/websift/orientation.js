@@ -8,7 +8,7 @@ var _ = require('underscore'),
 
 var cord = require('../utils/cord.js'),
     getGradient = require('./gradient.js'),
-    getGuassianKernel = require('../utils/guassian-kernel.js');
+    getGuassianKernel = require('../math/kernels.js').getGuassianKernel;
 
 
 module.exports = getPointOrientation;
