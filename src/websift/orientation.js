@@ -29,6 +29,8 @@ function getPointOrientation(dog, row, col, options){
         guassianWeight = getGuassianKernel(windowSize, sigma*1.5),
         orientations = new Float32Array(36);
 
+    console.log(guassianWeight);
+
     var x, y, gradient, bin;
     for (x=-radius; x<radius+1; x++) {
         for(y=-radius; y<radius+1; y++){

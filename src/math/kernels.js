@@ -37,9 +37,9 @@ module.exports.sobelY = Matrix.create(SOBEL_KERNEL_Y);
  */
 function getGuassianKernel(size, sigma) {
     var kernel = Matrix.Zero(size, size);
-    var x, y, centerX=size/2, centerY=size/2;
-    for (x=0; x<=size; x++) {
-        for (y=0; y<=size; y++) {
+    var x, y, centerX=(size-1)/2, centerY=(size-1)/2;
+    for (x=0; x<size; x++) {
+        for (y=0; y<size; y++) {
             kernel.elements[y][x] = gussianFunction2d(x-centerX, y-centerY, sigma);
         }
     }
