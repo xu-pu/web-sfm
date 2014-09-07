@@ -1,13 +1,17 @@
+'use strict';
+
 var _ = require('underscore');
-var siftDescriptor = require('./descriptor.js');
-var siftDetector = require('./detector.js');
-var getDoG = require('./dogspace.js');
+
+var siftDescriptor = require('./descriptor.js'),
+    siftDetector = require('./detector.js'),
+    getDoG = require('./dogspace.js');
+
 module.exports = sift;
 
 /**
  * the main function of this file, calculate SIFT of the image
  *
- * @param {SFM.Grayscale} img
+ * @param img
  * @param {object} [options]
  * @param {int} [options.octaves]
  * @param {int} [options.scales]
