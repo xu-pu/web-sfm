@@ -6,10 +6,8 @@ var samples = require('../src/utils/samples.js'),
     getOrientation = require('../src/websift/orientation.js'),
     getGuassianKernel = require('../src/math/kernels.js').getGuassianKernel;
 
-console.log(getGuassianKernel(5,1));
-
 samples.promiseImage(2)
     .then(function(img){
-        //console.log(getOrientation({img: img, sigma: 1}, 1000,1000));
+        console.log(getOrientation({img: img, sigma: 1}, 1000,1200));
         //sift(img);
     });
