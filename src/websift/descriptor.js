@@ -7,7 +7,7 @@ var _ = require('underscore'),
     numeric = require('numeric');
 
 var cord = require('../utils/cord.js'),
-    getGradient = require('./gradient.js');
+    getGradient = require('../math/gradient.js');
 
 
 module.exports = siftDescriptor;

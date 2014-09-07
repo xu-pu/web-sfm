@@ -6,7 +6,7 @@ var _ = require('underscore'),
     Vector = la.Vector,
     numeric = require('numeric');
 
-var getGradient = require('./gradient.js'),
+var getGradient = require('../math/gradient.js'),
     getGuassianKernel = require('../math/kernels.js').getGuassianKernel;
 
 

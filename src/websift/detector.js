@@ -1,4 +1,8 @@
+'use strict';
+
 var _ = require('underscore');
+
+var siftOrientation = require('./orientation.js');
 
 module.exports = siftDetector;
 
@@ -49,7 +53,9 @@ function siftDetector(dogs, octave, callback){
                 });
 
                 if (isLimit) {
-                       callback(dogs[layer], octave, row, col);
+                    console.log('detected one');
+                    console.log(siftOrientation(dogs[layer], row, col));
+                    //callback(dogs[layer], octave, row, col);
                 }
 
             });

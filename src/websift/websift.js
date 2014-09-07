@@ -2,8 +2,7 @@
 
 var _ = require('underscore');
 
-var siftDescriptor = require('./descriptor.js'),
-    siftDetector = require('./detector.js'),
+var siftDetector = require('./detector.js'),
     getDoG = require('./dogspace.js');
 
 module.exports = sift;
@@ -33,7 +32,7 @@ function sift(img, options) {
     var features = [];
     _.range(options.octaves).forEach(function(octave){
         var dog = getDoG(img, octave);
-        features += siftDetector(dog, {}, siftDescriptor);
+        features += siftDetector(dog, octave);
     });
 
     return features;

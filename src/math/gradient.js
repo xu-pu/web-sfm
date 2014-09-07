@@ -19,11 +19,9 @@ var SOBEL_X = require('./kernels.js').sobelX,
 module.exports = function(img, row, col){
     var gradientX = convolution(img, row, col, SOBEL_X),
         gradientY = convolution(img, row, col, SOBEL_Y);
-    var dir = Math.atan2(gradientY, gradientX);
-    var mag = gradientY/Math.sin(dir);
     return {
-        dir: dir,
-        mag: mag
+        dir: Math.atan2(gradientY, gradientX),
+        mag: Math.sqrt(Math.pow(gradientX,2)+Math.pow(gradientY,2))
     };
 };
 
