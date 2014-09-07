@@ -12,8 +12,10 @@ var bruteforce = require('../src/webregister/bruteforce-matching.js');
 var eightpoint = require('../src/webregister/eightpoint.js');
 var ransac = require('../src/webregister/ransac.js');
 
-var utils = require('../src/utils/canvas.js');
-var visual = require('../src/utils/visualization.js');
+var utils = require('../src/utils/canvas.js'),
+    drawFeatures = require('../src/utils/visualization/drawFeatures.js'),
+    drawMatches = require('../src/utils/visualization/drawMatches.js'),
+    drawImagePair = require('../src/utils/visualization/drawImagePair.js');
 
 
 function promiseWriteFile(path, buffer){
@@ -29,13 +31,14 @@ function promiseWriteFile(path, buffer){
     });
 }
 
+
 function promiseMatchingVisual(name, img1, img2, features1, features2, matches){
     var canv = new Canvas();
-    var config = visual.drawImagePair(img1, img2, canv, 800);
+    var config = drawImagePair(img1, img2, canv, 800);
     var ctx = canv.getContext('2d');
-    visual.drawFeatures(ctx, features1, 0,0, config.ratio1);
-    visual.drawFeatures(ctx, features2, config.offsetX, config.offsetY, config.ratio2);
-    visual.drawMatches(config, ctx, matches, features1, features2);
+    drawFeatures(ctx, features1, 0,0, config.ratio1);
+    drawFeatures(ctx, features2, config.offsetX, config.offsetY, config.ratio2);
+    drawMatches(config, ctx, matches, features1, features2);
     return promiseWriteFile('/home/sheep/Code/'+name+'.png', canv.toBuffer());
 }
 
@@ -49,11 +52,11 @@ function promisePair(i1, i2){
             features2 = samples.getFeatures(i2),
             matches = require('/home/sheep/Code/test.json');
         var canv = new Canvas();
-        var config = visual.drawImagePair(results[0], results[1], canv, 800);
+        var config = drawImagePair(results[0], results[1], canv, 800);
         var ctx = canv.getContext('2d');
-        visual.drawFeatures(ctx, features1, 0,0, config.ratio1);
-        visual.drawFeatures(ctx, features2, config.offsetX, config.offsetY, config.ratio2);
-        visual.drawMatches(config, ctx, matches, features1, features2);
+        drawFeatures(ctx, features1, 0,0, config.ratio1);
+        drawFeatures(ctx, features2, config.offsetX, config.offsetY, config.ratio2);
+        drawMatches(config, ctx, matches, features1, features2);
         return promiseWriteFile('/home/sheep/Code/test.png', canv.toBuffer());
     }).then(function(){
         console.log('finished');
