@@ -6,8 +6,7 @@ var _ = require('underscore'),
     Vector = la.Vector,
     numeric = require('numeric');
 
-var cord = require('../utils/cord.js'),
-    getGradient = require('./gradient.js'),
+var getGradient = require('./gradient.js'),
     getGuassianKernel = require('../math/kernels.js').getGuassianKernel;
 
 
@@ -26,15 +25,19 @@ function getPointOrientation(dog, row, col, options){
     var img = dog.img,
         sigma = dog.sigma,
         windowSize = 17,
-        radius = windowSize/2;
-    var guassianWeight = getGuassianKernel(windowSize, sigma*1.5);
-    var x, y, gradient,  orientations = new Float32Array(36);
+        radius = windowSize/ 2,
+        guassianWeight = getGuassianKernel(windowSize, sigma*1.5),
+        orientations = new Float32Array(36);
+
+    var x, y, gradient, bin;
     for (x=-radius; x<radius+1; x++) {
         for(y=-radius; y<radius+1; y++){
-            gradient = getGradient(img, col+x, img.height-1-row+y);
-            orientations[Math.floor(gradient/(2*Math.PI))] += gradient.mag*guassianWeight.get(radius+y, radius+x);
+            gradient = getGradient(img, row+y, col+x);
+            bin = Math.floor(gradient.dir/(2*Math.PI/36));
+            orientations[bin] += gradient.mag*guassianWeight.elements[radius+y][radius+x];
         }
     }
+
     var maximum = _.max(orientations);
     var directions = [];
     orientations.forEach(function(value, index){
