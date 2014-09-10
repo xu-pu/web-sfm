@@ -8,7 +8,7 @@ var _ = require('underscore'),
     cord = require('../utils/cord.js');
 
 module.exports = getHomography;
-module.exports.fundamentalMatrixError = homographyError;
+module.exports.homographyError = homographyError;
 
 function getHomography(matches, metadata){
 
