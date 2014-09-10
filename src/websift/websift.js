@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * @typedef {{row: number, col: number, vector: number[]}} Feature
+ */
+
 var _ = require('underscore');
 
 var siftDetector = require('./detector.js'),

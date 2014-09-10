@@ -21,3 +21,12 @@ function showNodeCanvas(canvas){
     var arr = canvas2ndarray(ctx, canvas.width, canvas.height);
     imgshow(grayscale(arr));
 }
+
+function img2ImageData(img){
+    var canvas = document.createElement('canvas');
+    canvas.width = img.width;
+    canvas.height = img.height;
+    var ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+    return ctx.getImageData(0, 0, img.width, img.height);
+}
