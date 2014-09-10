@@ -18,10 +18,10 @@ module.exports = getPointOrientation;
  * @param {number} row
  * @param {number} col
  * @param {Object} options
- * @return {number[]}
+ * @return {number}
  */
 function getPointOrientation(dog, row, col, options){
-    console.log('orienting feature points');
+    //console.log('orienting feature points');
     var img = dog.img,
         sigma = dog.sigma,
         radius = 8,
@@ -41,7 +41,8 @@ function getPointOrientation(dog, row, col, options){
             orientations[bin] += gradient.mag*guassianWeight.elements[radius+y][radius+x];
         }
     }
-    var maximum = _.max(orientations),
+    /*
+     var maximum = _.max(orientations),
         directions = [],
         iterBin;
     for (iterBin=0; iterBin<36; iterBin++) {
@@ -50,4 +51,13 @@ function getPointOrientation(dog, row, col, options){
         }
     }
     return directions;
+    */
+    var maximum=-Infinity, maxIndex, iterOrien;
+    for (iterOrien=0; iterOrien<36; iterOrien++) {
+        if (orientations[iterOrien]>maximum) {
+            maximum = orientations[iterOrien];
+            maxIndex = iterOrien;
+        }
+    }
+    return Math.PI/36*maxIndex+Math.PI/72;
 }

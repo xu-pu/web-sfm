@@ -53,9 +53,7 @@ function siftDetector(dogs, octave, callback){
                 });
 
                 if (isLimit) {
-                    console.log('detected one');
-                    console.log(siftOrientation(dogs[layer], row, col));
-                    //callback(dogs[layer], octave, row, col);
+                    callback(dogs[layer], row, col);
                 }
 
             });

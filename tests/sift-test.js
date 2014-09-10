@@ -8,6 +8,6 @@ var samples = require('../src/utils/samples.js'),
 
 samples.promiseImage(2)
     .then(function(img){
-        console.log(getOrientation({img: img, sigma: 1}, 1000,1200));
+        console.log(sift(img));
         //sift(img);
     });
