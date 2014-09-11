@@ -1,6 +1,9 @@
 "use strict";
 
-var _ = require('underscore');
+var _ = require('underscore'),
+    la = require('sylvester'),
+    Matrix = la.Matrix,
+    Vector = la.Vector;;
 
 var Navigatable = require('../mixins/Navigatable.js');
 
@@ -158,6 +161,7 @@ module.exports = Ember.View.extend(Navigatable, {
     getCameras: function(){
         var camerasGeo = new THREE.Geometry();
         this.get('controller.cameras').forEach(function(cam){
+/*
             var R = new THREE.Matrix3();
             R.elements = _.flatten(cam.R);
             var delta = new THREE.Vector3(0,0,1);
@@ -167,8 +171,13 @@ module.exports = Ember.View.extend(Navigatable, {
             var pointer = camPosition.clone().add(delta);
             camerasGeo.vertices.push(camPosition);
             camerasGeo.vertices.push(pointer);
+*/
+            var R = Matrix.create(cam.R),
+                T = R.inverse().x(Vector.create(cam.t).x(-1));
+            var camPosition = new THREE.Vector3(T.elements[0], T.elements[1], T.elements[2]);
+            camerasGeo.vertices.push(camPosition);
         });
-/*
+
         var particlesMaterial = new THREE.PointCloudMaterial({
             color: 0xFF0000,
             size: 5,
@@ -176,11 +185,13 @@ module.exports = Ember.View.extend(Navigatable, {
             transparent: true
         });
         return new THREE.PointCloud(camerasGeo, particlesMaterial);
-*/
+
+        /*
         var lineMaterial = new THREE.LineBasicMaterial({
             color: 0xFF0000
         });
         return new THREE.Line(camerasGeo, lineMaterial, THREE.LinePieces);
+    */
     },
 
     getOneCamera: function(cam){
