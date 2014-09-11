@@ -3,7 +3,7 @@
 var _ = require('underscore'),
     la = require('sylvester'),
     Matrix = la.Matrix,
-    Vector = la.Vector;;
+    Vector = la.Vector;
 
 var Navigatable = require('../mixins/Navigatable.js');
 
@@ -159,25 +159,50 @@ module.exports = Ember.View.extend(Navigatable, {
     },
 
     getCameras: function(){
+        var imgWidth=3000, imgHeight=2000;
         var camerasGeo = new THREE.Geometry();
         this.get('controller.cameras').forEach(function(cam){
-/*
-            var R = new THREE.Matrix3();
-            R.elements = _.flatten(cam.R);
-            var delta = new THREE.Vector3(0,0,1);
-            delta.applyMatrix3(R);
-
-            var camPosition = new THREE.Vector3(cam.t[0], cam.t[1], cam.t[2]);
-            var pointer = camPosition.clone().add(delta);
-            camerasGeo.vertices.push(camPosition);
-            camerasGeo.vertices.push(pointer);
-*/
             var R = Matrix.create(cam.R),
-                T = R.inverse().x(Vector.create(cam.t).x(-1));
-            var camPosition = new THREE.Vector3(T.elements[0], T.elements[1], T.elements[2]);
+                Ri = R.inverse(),
+                t = Vector.create(cam.t),
+                T = Ri.x(t).x(-1),
+                ratio = cam.focal* 2,
+                camWidth = imgWidth/ratio,
+                camHeight = imgHeight/ratio,
+                corner1 = Ri.x(Vector.create([camWidth/2, camHeight/2, -1]).subtract(t)),
+                corner2 = Ri.x(Vector.create([camWidth/2, -camHeight/2, -1]).subtract(t)),
+                corner3 = Ri.x(Vector.create([-camWidth/2, -camHeight/2, -1]).subtract(t)),
+                corner4 = Ri.x(Vector.create([-camWidth/2, camHeight/2, -1]).subtract(t));
+            var camPosition = array2glvector(T.elements),
+                corner1Position = array2glvector(corner1.elements),
+                corner2Position = array2glvector(corner2.elements),
+                corner3Position = array2glvector(corner3.elements),
+                corner4Position = array2glvector(corner4.elements);
+
             camerasGeo.vertices.push(camPosition);
+            camerasGeo.vertices.push(corner1Position);
+            camerasGeo.vertices.push(camPosition);
+            camerasGeo.vertices.push(corner2Position);
+            camerasGeo.vertices.push(camPosition);
+            camerasGeo.vertices.push(corner3Position);
+            camerasGeo.vertices.push(camPosition);
+            camerasGeo.vertices.push(corner4Position);
+
+            camerasGeo.vertices.push(corner1Position);
+            camerasGeo.vertices.push(corner2Position);
+
+            camerasGeo.vertices.push(corner2Position);
+            camerasGeo.vertices.push(corner3Position);
+
+            camerasGeo.vertices.push(corner3Position);
+            camerasGeo.vertices.push(corner4Position);
+
+            camerasGeo.vertices.push(corner4Position);
+            camerasGeo.vertices.push(corner1Position);
+            //console.log();
         });
 
+        /*
         var particlesMaterial = new THREE.PointCloudMaterial({
             color: 0xFF0000,
             size: 5,
@@ -185,13 +210,13 @@ module.exports = Ember.View.extend(Navigatable, {
             transparent: true
         });
         return new THREE.PointCloud(camerasGeo, particlesMaterial);
+        */
 
-        /*
         var lineMaterial = new THREE.LineBasicMaterial({
             color: 0xFF0000
         });
         return new THREE.Line(camerasGeo, lineMaterial, THREE.LinePieces);
-    */
+
     },
 
     getOneCamera: function(cam){
@@ -255,3 +280,7 @@ module.exports = Ember.View.extend(Navigatable, {
     }
 
 });
+
+function array2glvector(elements){
+    return new THREE.Vector3(elements[0], elements[1], elements[2]);
+}
