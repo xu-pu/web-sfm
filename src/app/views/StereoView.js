@@ -1,5 +1,7 @@
 "use strict";
 
+var THREE = require('three');
+
 var Navigatable = require('../mixins/Navigatable.js');
 
 module.exports = Ember.View.extend(Navigatable, {

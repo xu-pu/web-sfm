@@ -2,6 +2,7 @@
 
 var _ = require('underscore'),
     la = require('sylvester'),
+    THREE = require('three'),
     Matrix = la.Matrix,
     Vector = la.Vector;
 
