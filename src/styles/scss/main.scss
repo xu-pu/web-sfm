@@ -22,6 +22,7 @@ html, body {
   width: 100%;
   height: 100%;
   background-color: rgb(228, 228, 228);
+  overflow: hidden;
 }
 
 #controll-panel {
@@ -92,13 +93,4 @@ $matching-table-width: 20em;
   @extend %floating-window;
   width: 500px;
   right: $floating-window-offset + $matching-table-width + 1em;
-}
-
-//=======================================
-
-.main-container__stereo-container {
-}
-
-body {
-  overflow: hidden;
 }
