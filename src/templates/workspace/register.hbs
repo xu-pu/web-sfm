@@ -1,8 +1,8 @@
 {{view App.RegisterView controller=controller}}
 <div class="floating-window__register">
     <div class="floating-window__register__view-list">
-        {{#each cameras}}
-            <div class="floating-window__register__view-list__item">
+        {{#each cam in cameras}}
+            <div class="floating-window__register__view-list__item" {{action "focus" cam}}>
                 this is a camera
             </div>
         {{/each}}

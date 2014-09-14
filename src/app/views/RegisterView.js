@@ -216,7 +216,21 @@ module.exports = Ember.View.extend(Navigatable, {
 
         return cameras;
 
-    }
+    },
+
+    onFocus: function(){
+        var cam = this.get('controller.focus'),
+            camera = this.get('camera');
+        console.log(cam);
+
+        var R = Matrix.create(cam.R),
+            Ri = R.inverse(),
+            t = Vector.create(cam.t),
+            T = Ri.x(t).x(-1);
+        camera.position.set(T.elements[0], T.elements[1], T.elements[2]);
+
+    }.observes('controller.focus')
+
 
 });
 
