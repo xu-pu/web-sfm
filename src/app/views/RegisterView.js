@@ -130,12 +130,11 @@ module.exports = Ember.View.extend(Navigatable, {
 
     getCordFrame: function(){
         var axisGeo = new THREE.Geometry();
-        axisGeo.vertices.push(new THREE.Vector3(0,0,0));
-        axisGeo.vertices.push(new THREE.Vector3(1000,0,0));
-        axisGeo.vertices.push(new THREE.Vector3(0,0,0));
-        axisGeo.vertices.push(new THREE.Vector3(0,1000,0));
-        axisGeo.vertices.push(new THREE.Vector3(0,0,0));
-        axisGeo.vertices.push(new THREE.Vector3(0,0,1000));
+        axisGeo.vertices = [
+            new THREE.Vector3(0,0,0), new THREE.Vector3(500,0,0),
+            new THREE.Vector3(0,0,0), new THREE.Vector3(0,500,0),
+            new THREE.Vector3(0,0,0), new THREE.Vector3(0,0,500)
+        ];
         var axisMaterial = new THREE.LineBasicMaterial({
             color: 0xFFFFFF
         });

@@ -1,6 +1,7 @@
 @import "floating-window";
 @import "../dimensions";
 
+$view-list-padding: 10px;
 
 .floating-window__register {
   @extend %floating-window;
@@ -9,8 +10,15 @@
   overflow-y: scroll;
 }
 
-.floating-window__register__view-list {}
+.floating-window__register__view-list {
+  padding: $view-list-padding;
+}
 
 .floating-window__register__view-list__item {
   height: 4em;
+  line-height: 4em;
+  text-align: center;
+  margin-bottom: $view-list-padding;
+  background-color: ghostwhite;
+  cursor: pointer;
 }
