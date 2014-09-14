@@ -88,6 +88,7 @@ module.exports = Ember.View.extend(Navigatable, {
             height = window.innerHeight,
             SCALE = 20;
         var renderer = new THREE.WebGLRenderer();
+        renderer.setClearColor(0xe4e4e4, 1);
         renderer.setSize(width, height);
         this.$().append(renderer.domElement);
 
@@ -136,7 +137,7 @@ module.exports = Ember.View.extend(Navigatable, {
             new THREE.Vector3(0,0,0), new THREE.Vector3(0,0,500)
         ];
         var axisMaterial = new THREE.LineBasicMaterial({
-            color: 0xFFFFFF
+            color: 0x464646
         });
         return new THREE.Line(axisGeo, axisMaterial, THREE.LinePieces);
     },
@@ -149,7 +150,7 @@ module.exports = Ember.View.extend(Navigatable, {
         });
 
         var pointsMaterial = new THREE.PointCloudMaterial({
-            color: 0xFFFFFF,
+            color: 0x222222,
             size: 3
 //            blending: THREE.AdditiveBlending,
 //            transparent: true
