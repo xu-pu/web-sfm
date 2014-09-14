@@ -167,6 +167,7 @@ module.exports = Ember.View.extend(Navigatable, {
             });
 
         this.get('controller.cameras').forEach(function(cam){
+
             var R = Matrix.create(cam.R),
                 Ri = R.inverse(),
                 t = Vector.create(cam.t),
@@ -178,6 +179,7 @@ module.exports = Ember.View.extend(Navigatable, {
                 corner2 = Ri.x(Vector.create([camWidth/2, -camHeight/2, -1]).subtract(t)),
                 corner3 = Ri.x(Vector.create([-camWidth/2, -camHeight/2, -1]).subtract(t)),
                 corner4 = Ri.x(Vector.create([-camWidth/2, camHeight/2, -1]).subtract(t));
+
             var camPosition = array2glvector(T.elements),
                 corner1Position = array2glvector(corner1.elements),
                 corner2Position = array2glvector(corner2.elements),
@@ -186,29 +188,20 @@ module.exports = Ember.View.extend(Navigatable, {
 
             var camerasGeo = new THREE.Geometry();
 
-            camerasGeo.vertices.push(camPosition);
-            camerasGeo.vertices.push(corner1Position);
-            camerasGeo.vertices.push(camPosition);
-            camerasGeo.vertices.push(corner2Position);
-            camerasGeo.vertices.push(camPosition);
-            camerasGeo.vertices.push(corner3Position);
-            camerasGeo.vertices.push(camPosition);
-            camerasGeo.vertices.push(corner4Position);
+            camerasGeo.vertices = [
+                camPosition, corner1Position,
+                camPosition, corner2Position,
+                camPosition, corner3Position,
+                camPosition, corner4Position,
 
-            camerasGeo.vertices.push(corner1Position);
-            camerasGeo.vertices.push(corner2Position);
+                corner1Position, corner2Position,
+                corner2Position, corner3Position,
+                corner3Position, corner4Position,
+                corner4Position, corner1Position
+            ];
 
-            camerasGeo.vertices.push(corner2Position);
-            camerasGeo.vertices.push(corner3Position);
+            cameras.add(new THREE.Line(camerasGeo, lineMaterial, THREE.LinePieces));
 
-            camerasGeo.vertices.push(corner3Position);
-            camerasGeo.vertices.push(corner4Position);
-
-            camerasGeo.vertices.push(corner4Position);
-            camerasGeo.vertices.push(corner1Position);
-
-            var cameraObj = new THREE.Line(camerasGeo, lineMaterial, THREE.LinePieces);
-            cameras.add(cameraObj);
         });
 
         /*
