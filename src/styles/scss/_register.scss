@@ -1,0 +1,16 @@
+@import "floating-window";
+@import "dimensions";
+
+
+.floating-window__register {
+  @extend %floating-window;
+  width: $register-floating-window-width;
+  right: $floating-window-offset;
+  overflow-y: scroll;
+}
+
+.floating-window__register__view-list {}
+
+.floating-window__register__view-list__item {
+  height: 4em;
+}
