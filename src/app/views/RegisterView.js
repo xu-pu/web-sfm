@@ -146,12 +146,13 @@ module.exports = Ember.View.extend(Navigatable, {
         var pointsGeo = new THREE.Geometry();
         this.get('controller.points').forEach(function(p){
             pointsGeo.vertices.push(new THREE.Vector3(p.point[0], p.point[1], p.point[2]));
-//            pointsGeo.colors.push(new THREE.Color(p.color.R/255, p.color.G/255, p.color.B/255));
+            pointsGeo.colors.push(new THREE.Color(p.color.R/255, p.color.G/255, p.color.B/255));
         });
 
         var pointsMaterial = new THREE.PointCloudMaterial({
-            color: 0x222222,
-            size: 3
+//            color: 0x222222,
+            size: 3,
+            vertexColors: true
 //            blending: THREE.AdditiveBlending,
 //            transparent: true
         });

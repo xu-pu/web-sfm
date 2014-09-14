@@ -125,6 +125,8 @@ module.exports = Ember.View.extend(Navigatable, {
         var particlesGeometry = new THREE.Geometry();
         this.get('controller.pointcloud').forEach(function(point){
             particlesGeometry.vertices.push(new THREE.Vector3(point[0], point[1], point[2]));
+//            particlesGeometry.colors.push(new THREE.Color(point.color.R/255, point.color.G/255, point.color.B/255));
+
         });
         var particlesMaterial = new THREE.PointCloudMaterial({
             color: 0x222222,
