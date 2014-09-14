@@ -160,8 +160,12 @@ module.exports = Ember.View.extend(Navigatable, {
     },
 
     getCameras: function(){
-        var imgWidth=3000, imgHeight=2000;
-        var camerasGeo = new THREE.Geometry();
+        var imgWidth=3000, imgHeight=2000,
+            cameras = new THREE.Object3D(),
+            lineMaterial = new THREE.LineBasicMaterial({
+                color: 0xFF0000
+            });
+
         this.get('controller.cameras').forEach(function(cam){
             var R = Matrix.create(cam.R),
                 Ri = R.inverse(),
@@ -180,6 +184,8 @@ module.exports = Ember.View.extend(Navigatable, {
                 corner3Position = array2glvector(corner3.elements),
                 corner4Position = array2glvector(corner4.elements);
 
+            var camerasGeo = new THREE.Geometry();
+
             camerasGeo.vertices.push(camPosition);
             camerasGeo.vertices.push(corner1Position);
             camerasGeo.vertices.push(camPosition);
@@ -200,7 +206,9 @@ module.exports = Ember.View.extend(Navigatable, {
 
             camerasGeo.vertices.push(corner4Position);
             camerasGeo.vertices.push(corner1Position);
-            //console.log();
+
+            var cameraObj = new THREE.Line(camerasGeo, lineMaterial, THREE.LinePieces);
+            cameras.add(cameraObj);
         });
 
         /*
@@ -213,10 +221,7 @@ module.exports = Ember.View.extend(Navigatable, {
         return new THREE.PointCloud(camerasGeo, particlesMaterial);
         */
 
-        var lineMaterial = new THREE.LineBasicMaterial({
-            color: 0xFF0000
-        });
-        return new THREE.Line(camerasGeo, lineMaterial, THREE.LinePieces);
+        return cameras;
 
     },
 
