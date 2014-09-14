@@ -216,66 +216,6 @@ module.exports = Ember.View.extend(Navigatable, {
 
         return cameras;
 
-    },
-
-    getOneCamera: function(cam){
-        var geo = new THREE.Geometry();
-        geo.vertices = [
-            new THREE.Vector3(),
-            new THREE.Vector3(),
-            new THREE.Vector3(),
-            new THREE.Vector3(),
-            new THREE.Vector3()
-        ];
-        geo.faces = [];
-        var obj = new THREE.Mesh(geo, new THREE.MeshBasicMaterial( { color: 0xffff00 } ));
-        obj.scale = 20;
-        return obj;
-    },
-
-    afterLoaded: function(data){
-
-        var scene = this.get('scene');
-
-        //=============================
-        // Views
-        //=============================
-        var viewList = bundlerViewList(data);
-        var viewGeo = new THREE.Geometry();
-        [20].forEach(function(camera){
-            var cam = data.cameras[camera];
-            (viewList[camera]||[]).forEach(function(point){
-                var p = data.points[point];
-                viewGeo.vertices.push(new THREE.Vector3(p.point[0], p.point[1], p.point[2]));
-                viewGeo.vertices.push(new THREE.Vector3(cam.t[0], cam.t[1], cam.t[2]));
-            });
-        });
-        var viewMaterial = new THREE.LineBasicMaterial({
-            color: 0xFFFFFF
-        });
-        var viewSystem = new THREE.Line(viewGeo, viewMaterial, THREE.Lines);
-
-        this.set('view', viewGeo);
-        this.set('viewList', viewList);
-        this.set('currentView', 20);
-    },
-
-    nextView: function(){
-        var viewGeo = this.get('view');
-        var viewList = this.get('viewList');
-        var camera = this.get('currentView');
-        camera++;
-        this.set('currentView', camera);
-        var data = this.get('data');
-        var cam = data.cameras[camera];
-
-        (viewList[camera]||[]).forEach(function(point){
-            var p = data.points[point];
-            viewGeo.vertices = [];
-            viewGeo.vertices.push(new THREE.Vector3(p.point[0], p.point[1], p.point[2]));
-            viewGeo.vertices.push(new THREE.Vector3(cam.t[0], cam.t[1], cam.t[2]));
-        });
-
     }
 
 });
