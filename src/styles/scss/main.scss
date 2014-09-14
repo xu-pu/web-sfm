@@ -1,13 +1,16 @@
+/* Main Style Sheet of WebSFM */
+
 @import "reset";
 @import "compass";
-@import "welcome-screen";
-@import "controll-panel";
-@import "matches";
-@import "projects";
 @import "utils";
-@import "register";
-@import "floating-window";
 @import "dimensions";
+
+@import "partials/welcome-screen";
+@import "partials/controll-panel";
+@import "partials/matches";
+@import "partials/projects";
+@import "partials/register";
+@import "partials/floating-window";
 
 html, body {
   height: 100%;
