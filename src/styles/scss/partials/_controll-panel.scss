@@ -17,6 +17,10 @@ $controll-panel-delta: 8px;
   line-height: 2em;
   font-weight: bolder;
   cursor: pointer;
+
+  span {
+    vertical-align: middle;
+  }
 }
 
 .controll-panel__l1-body {

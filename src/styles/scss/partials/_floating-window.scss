@@ -22,6 +22,11 @@ $exit-icon-radius: $floating-window-height - $floating-window-header-padding - $
   padding-left: 1em;
   color: white;
   font-weight: bolder;
+
+  span {
+    vertical-align: middle;
+  }
+
 }
 
 .floating-window__header__h1 {
@@ -58,4 +63,3 @@ $exit-icon-radius: $floating-window-height - $floating-window-header-padding - $
     background-color: darkred;
   }
 }
-

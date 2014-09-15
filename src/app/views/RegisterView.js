@@ -3,6 +3,7 @@
 var _ = require('underscore'),
     la = require('sylvester'),
     THREE = require('three'),
+    V3 = THREE.Vector3,
     Matrix = la.Matrix,
     Vector = la.Vector;
 
@@ -120,6 +121,8 @@ module.exports = Ember.View.extend(Navigatable, {
         camera.position.y = 400;
         camera.position.z = 400;
 
+        camera.lookAt(new V3(0,0,0));
+
         this.get('element').addEventListener('wheel', this.wheel.bind(this), false);
 
         function render(){
@@ -170,7 +173,7 @@ module.exports = Ember.View.extend(Navigatable, {
         this.get('controller.cameras').forEach(function(cam){
 
             var R = Matrix.create(cam.R),
-                Ri = R.inverse(),
+                Ri = R.transpose(),
                 t = Vector.create(cam.t),
                 T = Ri.x(t).x(-1),
                 ratio = cam.focal* 2,
@@ -222,14 +225,14 @@ module.exports = Ember.View.extend(Navigatable, {
     onFocus: function(){
         var cam = this.get('controller.focus'),
             camera = this.get('camera');
-        console.log(cam);
 
         var R = Matrix.create(cam.R),
             Ri = R.inverse(),
             t = Vector.create(cam.t),
-            T = Ri.x(t).x(-1);
+            T = Ri.x(t).x(-1),
+            focal = Ri.x(Vector.create([0,0,1]).subtract(t));
         camera.position.set(T.elements[0], T.elements[1], T.elements[2]);
-
+        camera.lookAt(array2glvector(focal.elements));
     }.observes('controller.focus')
 
 
