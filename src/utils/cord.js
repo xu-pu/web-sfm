@@ -25,3 +25,15 @@ function RCtoImg(row, col, cam){
 function featureToImg(f, cam) {
     return [f.col, cam.height-1-f.row, 1];
 }
+
+/**
+ * @param x
+ * @param {Camera} cam
+ * @returns {{row: number, col: number}}
+ */
+function img2RT(x, cam){
+    return {
+        row: (cam.height-x.elements[1]) / x.elements[2],
+        col: x.elements[0]/ x.elements[2]
+    };
+}
