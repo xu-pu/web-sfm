@@ -1,6 +1,7 @@
 'use strict';
 
-var Promise = require('promise');
+var Promise = require('promise'),
+    fs = require('fs');
 
 module.exports.promiseWriteCanvas = promiseWriteCanvas;
 

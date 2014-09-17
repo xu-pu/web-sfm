@@ -5,6 +5,7 @@ var la = require('sylvester'),
     Vector = la.Vector;
 
 module.exports.world2img = world2img;
+module.exports.world2RT  = worldRT;
 
 /**
  *
@@ -20,9 +21,25 @@ function perspective2world(P, R, t){
     return R.transpose().x(P.subtract(t));
 }
 
-function world2img(X, R, t, focal){
+function world2img(X, R, t, focal, k1, k2, width, height){}
+
+/**
+ * @param X
+ * @param R
+ * @param t
+ * @param focal
+ * @param width
+ * @param height
+ * @returns {{row: number, col: *}}
+ */
+function worldRT(X, R, t, focal, width, height){
     var P = world2perspective(X, R, t);
-    return P.x(-focal/P.elements[2]);
+    P = P.x(-focal/P.elements[2]); // perspective divide
+    var x = P.elements[0], y = P.elements[1];
+    return {
+        row: height/2 - y,
+        col: x + width/2
+    };
 }
 
 /**
