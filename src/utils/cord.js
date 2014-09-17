@@ -1,5 +1,8 @@
+'use strict';
+
 module.exports.RCtoImg = RCtoImg;
 module.exports.featureToImg = featureToImg;
+module.exports.img2RT = img2RT;
 
 /**
  *
@@ -28,12 +31,12 @@ function featureToImg(f, cam) {
 
 /**
  * @param x
- * @param {Camera} cam
+ * @param {Number} height
  * @returns {{row: number, col: number}}
  */
-function img2RT(x, cam){
+function img2RT(x, height){
     return {
-        row: (cam.height-x.elements[1]) / x.elements[2],
+        row: (height-x.elements[1]) / x.elements[2],
         col: x.elements[0]/ x.elements[2]
     };
 }
