@@ -30,7 +30,7 @@ function testCam(index){
             canv.height = img.height;
             var ctx = canv.getContext('2d');
             ctx.drawImage(img, 0, 0);
-            drawFeatures(ctx, points, 0, 0, 1);
+            drawFeatures(ctx, points, 0, 0, 1, {markSize: 10});
             return testUtils.promiseWriteCanvas(canv, '/home/sheep/Code/geo.png')
         });
 
@@ -40,4 +40,4 @@ function getVisiblePoints(index){
 
 }
 
-testCam(50);
+testCam(10);
