@@ -35,6 +35,7 @@ function testPair(index1, index2){
 
     var H1 = Matrix.I(3), H2 = Matrix.I(3);
 
+    /*
     return Promise.all([
         samples.promiseImage(index1),
         samples.promiseImage(index2)
@@ -46,6 +47,9 @@ function testPair(index1, index2){
         saveimage(homography(img1, H1), 'png').pipe(stream1);
         saveimage(homography(img2, H2), 'png').pipe(stream2);
     });
+    */
+
+
 }
 
 function showRelative(r1, r2, t1, t2){
