@@ -17,7 +17,7 @@ module.exports.img2RT = img2RT;
  * @return {number[]}
  */
 function RCtoImg(row, col, cam){
-      return [col, cam.height-1-row, 1];
+      return [col, cam.height-row, 1];
 }
 
 /**
