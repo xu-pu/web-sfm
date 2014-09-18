@@ -6,6 +6,7 @@ var la = require('sylvester'),
 
 module.exports.world2img = world2img;
 module.exports.world2RT  = worldRT;
+module.exports.getProjectionMatrix = getProjectionMatrix;
 
 /**
  *
@@ -48,4 +49,19 @@ function worldRT(X, R, t, focal, width, height){
  */
 function getCameraPosition(R, t){
     return R.transpose().x(t).x(-1);
+}
+
+
+function getProjectionMatrix(R, t, focal, width, height){
+
+    var K = Matrix.create([
+        [-focal, 0     , width/2 , 0],
+        [0     , -focal, height/2, 0],
+        [0     , 0     , 1       , 0]
+    ]);
+
+    var P = R.augment(t).transpose().augment(Vector.create([0,0,0,1])).transpose();
+
+    return K.x(P);
+
 }

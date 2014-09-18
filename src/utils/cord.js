@@ -36,7 +36,7 @@ function featureToImg(f, cam) {
  */
 function img2RT(x, height){
     return {
-        row: (height-x.elements[1]) / x.elements[2],
-        col: x.elements[0]/ x.elements[2]
+        row: height - x.elements[1]/x.elements[2],
+        col: x.elements[0]/x.elements[2]
     };
 }

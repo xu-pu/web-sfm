@@ -23,13 +23,13 @@ function testCam(index){
     return sample
         .promiseCanvasImage(index)
         .then(function(img){
-            var projector = projections.getProjectionMatrix(R, t, focal, img.width, img.height);
+
+            var projector = bundler.getProjectionMatrix(R, t, focal, img.width, img.height);
 
             var points = sample.sparse.map(function(p){
                 var X = Vector.create([p.point[0], p.point[1], p.point[2], 1]);
                 var x = projector.x(X);
                 return cord.img2RT(x, img.height);
-//                return bundler.world2RT(X, R, t, focal, img.width, img.height);
             });
 
             var canv = new Canvas();
@@ -48,4 +48,4 @@ function getVisiblePoints(index){
 
 }
 
-testCam(1);
+testCam(5);
