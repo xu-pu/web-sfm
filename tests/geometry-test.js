@@ -48,4 +48,4 @@ function getVisiblePoints(index){
 
 }
 
-testCam(5);
+testCam(6);
