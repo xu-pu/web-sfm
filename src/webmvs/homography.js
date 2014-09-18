@@ -1,21 +1,25 @@
-var pool = require('ndarray-scratch');
-var Vector = require('sylvester').Vector;
+'use strict';
+
+var pool = require('ndarray-scratch'),
+    Vector = require('sylvester').Vector;
+
+var cord = require('../utils/cord.js');
 
 module.exports = homography;
 module.exports.pointHomography = pointHomography;
 
 
-function homography(img, rotation, focal){
+function homography(img, H){
     var width = img.shape[1],
         height = img.shape[0],
+        cam = { width: width, height: height },
         buffer = pool.zeros(img.shape);
     var row, col, mapped;
     for(row=0; row<height; row++){
         for(col=0; col<width; col++){
-            mapped = pointHomography(rotation, row, col, width, height, focal);
-            if (mapped) {
-                buffer.set(mapped[0], mapped[1], img.get(row, col));
-            }
+            mapped = cord.img2RT(H.x(Vector.create(cord.RCtoImg(row, col, cam))));
+            //buffer.set(mapped[0], mapped[1], img.get(row, col));
+            buffer.set(mapped.row, mapped.col, img.get(row, col));
         }
     }
     return buffer;

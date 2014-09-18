@@ -1,5 +1,9 @@
+'use strict';
+
 var Promise = require('promise'),
+    saveimage = require('save-pixels'),
     grayscale = require('luminance'),
+    fs = require('fs'),
     la = require('sylvester'),
     Matrix = la.Matrix,
     Vector = la.Vector;
@@ -17,31 +21,30 @@ var testRotation = Matrix.create([
 ]);
 
 function testPair(index1, index2){
+
     var cam1 = samples.getCamera(index1),
-        cam2 = samples.getCamera(index2);
-    var r1 = cam1.R,
-        r2 = cam2.R,
-        t1 = cam1.t,
-        t2 = cam2.t,
+        cam2 = samples.getCamera(index2),
+        R1 = Matrix.create(cam1.R),
+        R2 = Matrix.create(cam2.R),
+        t1 = Vector.create(cam1.t),
+        t2 = Vector.create(cam2.t),
         f1 = cam1.focal,
         f2 = cam2.focal;
 
-    showRelative(r1, r2, t1, t2);
+    //var rotations = rectification(R1, R2, t1, t2, f1, f2);
 
-    var rotations = rectification(r1, r2, t1, t2, f1, f2);
-    console.log(rotations[0].elements);
-    console.log(rotations[1].elements);
+    var H1 = Matrix.I(3), H2 = Matrix.I(3);
 
-    Promise.all([
+    return Promise.all([
         samples.promiseImage(index1),
         samples.promiseImage(index2)
     ]).then(function(results){
         var img1 = results[0],
             img2 = results[1];
-        samples.showGrayscale(homography(img1, rotations[0], f1));
-        samples.showGrayscale(homography(img2, rotations[1], f2));
-        //samples.showGrayscale(homography(img1, testRotation, f1));
-        //samples.showGrayscale(homography(img2, testRotation, f2));
+        var stream1 = fs.createWriteStream('/home/sheep/Code/writetest1.png');
+        var stream2 = fs.createWriteStream('/home/sheep/Code/writetest2.png');
+        saveimage(homography(img1, H1), 'png').pipe(stream1);
+        saveimage(homography(img2, H2), 'png').pipe(stream2);
     });
 }
 
