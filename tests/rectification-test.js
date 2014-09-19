@@ -50,8 +50,11 @@ function testPair(index1, index2){
             K1 = projections.getCalibrationMatrix(f1, width1, height1),
             K2 = projections.getCalibrationMatrix(f2, width2, height2);
 
-        var H1 = K1.x(rotate(Math.PI/6, Math.PI/6, 0)).x(K1.inverse()),
-            H2 = K2.x(rotate(Math.PI/8, Math.PI/6, Math.PI/5)).x(K2.inverse());
+//        var H1 = K1.x(rotate(Math.PI/6, Math.PI/6, 0)).x(K1.inverse()),
+//            H2 = K2.x(rotate(Math.PI/8, Math.PI/6, Math.PI/5)).x(K2.inverse());
+
+        var H1 = K1.x(RR1).x(K1.inverse()),
+            H2 = K2.x(RR2).x(K2.inverse());
 
         return Promise.all([
             testUtils.promiseSaveNdarray(homography(img1, H1, true), '/home/sheep/Code/writetest1.png'),
@@ -62,4 +65,4 @@ function testPair(index1, index2){
 
 }
 
-testPair(1,2);
+testPair(22,23);
