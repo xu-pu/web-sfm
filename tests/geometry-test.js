@@ -16,31 +16,20 @@ var bundler = require('../src/math/bundler.js'),
 function testCam(index){
 
     var cam = sample.getCamera(index),
-        R = Matrix.create(cam.R),
-        t = Vector.create(cam.t),
+        Rt = bundler.getStandardRt(Matrix.create(cam.R), Vector.create(cam.t)),
+        R = Rt.R,
+        t = Rt.t,
         focal = cam.focal;
 
     return sample
         .promiseCanvasImage(index)
         .then(function(img){
-
-            var transform = Matrix.create([
-                [-1, 0 , 0],
-                [0 , -1, 0],
-                [0 , 0 , 1]
-            ]);
-
-            var RR = transform.x(R),
-                tt = transform.x(t);
-
-            var projector = projections.getProjectionMatrix(RR, tt, focal, img.width, img.height);
-
+            var projector = projections.getProjectionMatrix(R, t, focal, img.width, img.height);
             var points = sample.sparse.map(function(p){
                 var X = Vector.create([p.point[0], p.point[1], p.point[2], 1]);
                 var x = projector.x(X);
                 return cord.img2RT(x, img.height);
             });
-
             var canv = new Canvas();
             canv.width = img.width;
             canv.height = img.height;
@@ -48,7 +37,6 @@ function testCam(index){
             ctx.drawImage(img, 0, 0);
             drawFeatures(ctx, points, 0, 0, 1, {markSize: 10});
             return testUtils.promiseWriteCanvas(canv, '/home/sheep/Code/geo.png')
-
         });
 
 }
@@ -57,4 +45,4 @@ function getVisiblePoints(index){
 
 }
 
-testCam(5);
+testCam(7);

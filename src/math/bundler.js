@@ -4,10 +4,12 @@ var la = require('sylvester'),
     Matrix = la.Matrix,
     Vector = la.Vector;
 
+module.exports.getStandardRt = getStandardRt;
 module.exports.world2img = world2img;
 module.exports.world2RT  = worldRT;
 module.exports.getProjectionMatrix = getProjectionMatrix;
 module.exports.getCalibrationMatrix = getCalibrationMatrix;
+
 
 /**
  *
@@ -69,4 +71,18 @@ function getProjectionMatrix(R, t, focal, width, height){
     var P = R.augment(t).transpose().augment(Vector.create([0,0,0,1])).transpose();
     return K.x(P);
 
+}
+
+
+var standardTransform = Matrix.create([
+    [-1, 0 , 0],
+    [0 , -1, 0],
+    [0 , 0 , 1]
+]);
+
+function getStandardRt(R ,t){
+    return {
+        R: standardTransform.x(R),
+        t: standardTransform.x(t)
+    };
 }
