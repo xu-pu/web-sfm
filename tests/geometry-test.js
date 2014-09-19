@@ -24,7 +24,16 @@ function testCam(index){
         .promiseCanvasImage(index)
         .then(function(img){
 
-            var projector = bundler.getProjectionMatrix(R, t, focal, img.width, img.height);
+            var transform = Matrix.create([
+                [-1, 0 , 0],
+                [0 , -1, 0],
+                [0 , 0 , 1]
+            ]);
+
+            var RR = transform.x(R),
+                tt = transform.x(t);
+
+            var projector = projections.getProjectionMatrix(RR, tt, focal, img.width, img.height);
 
             var points = sample.sparse.map(function(p){
                 var X = Vector.create([p.point[0], p.point[1], p.point[2], 1]);
@@ -48,4 +57,4 @@ function getVisiblePoints(index){
 
 }
 
-testCam(6);
+testCam(5);

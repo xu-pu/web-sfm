@@ -7,6 +7,7 @@ var la = require('sylvester'),
 module.exports.world2img = world2img;
 module.exports.world2RT  = worldRT;
 module.exports.getProjectionMatrix = getProjectionMatrix;
+module.exports.getCalibrationMatrix = getCalibrationMatrix;
 
 /**
  *
