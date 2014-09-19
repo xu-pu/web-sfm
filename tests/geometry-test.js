@@ -41,19 +41,21 @@ function testCam(index){
 
 }
 
-//testCam(7);
+testCam(9);
 
-var cam = sample.getCamera(3);
-var R = Matrix.create(cam.R);
-var t = Vector.create(cam.t);
-var Rt = bundler.getStandardRt(R,t);
-var o = R.transpose().x(t).x(-1);
-var v1 = toworld(R, t, Vector.create([0,0,1]));
-var v2 = toworld(Rt.R, Rt.t, Vector.create([0,0,1]));
+function bundlerTest(){
+    var cam = sample.getCamera(3);
+    var R = Matrix.create(cam.R);
+    var t = Vector.create(cam.t);
+    var Rt = bundler.getStandardRt(R,t);
+    var o = R.transpose().x(t).x(-1);
+    var v1 = toworld(R, t, Vector.create([0,0,1]));
+    var v2 = toworld(Rt.R, Rt.t, Vector.create([0,0,1]));
 
-console.log(v1.subtract(o));
-console.log(v2.subtract(o));
+    console.log(v1.subtract(o));
+    console.log(v2.subtract(o));
 
-function toworld(R, t, P){
-    return R.transpose().x(P.subtract(t));
+    function toworld(R, t, P){
+        return R.transpose().x(P.subtract(t));
+    }
 }

@@ -75,21 +75,14 @@ function getProjectionMatrix(R, t, focal, width, height){
 
 
 var standardTransform = Matrix.create([
-    [-1, 0 , 0],
-    [0 , -1, 0],
-    [0 , 0 , 1]
+    [1, 0 , 0],
+    [0 , 1, 0],
+    [0 , 0 , -1]
 ]);
 
 function getStandardRt(R ,t){
     return {
-        R: R.x(-1),
-        t: t.x(-1)
+        R: standardTransform.x(R),
+        t: standardTransform.x(t)
     };
-
-    /*
-        return {
-            R: standardTransform.x(R),
-            t: standardTransform.x(t)
-        };
-    */
 }

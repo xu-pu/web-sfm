@@ -8,7 +8,7 @@ var bundler = require('../math/bundler.js'),
     Matrix = la.Matrix,
     Vector = la.Vector;
 
-var imgWidth=3000, imgHeight=2000;
+var imgWidth=2000, imgHeight=3000;
 
 module.exports = function(cam){
     var Rt = bundler.getStandardRt(Matrix.create(cam.R), Vector.create(cam.t)),
