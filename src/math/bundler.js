@@ -82,7 +82,14 @@ var standardTransform = Matrix.create([
 
 function getStandardRt(R ,t){
     return {
-        R: standardTransform.x(R),
-        t: standardTransform.x(t)
+        R: R.x(-1),
+        t: t.x(-1)
     };
+
+    /*
+        return {
+            R: standardTransform.x(R),
+            t: standardTransform.x(t)
+        };
+    */
 }

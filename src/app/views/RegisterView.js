@@ -9,6 +9,9 @@ var _ = require('underscore'),
 
 var Navigatable = require('../mixins/Navigatable.js');
 
+var getCordFrame = require('../../visualization/getCoordinateFrame.js'),
+    getBundlerCamera = require('../../visualization/getBundlerCamera.js');
+
 module.exports = Ember.View.extend(Navigatable, {
 
     geometry: null,
@@ -107,7 +110,7 @@ module.exports = Ember.View.extend(Navigatable, {
 
         scene.add(light);
         scene.add(camera);
-        scene.add(this.getCordFrame());
+        scene.add(getCordFrame());
 
         var recovered = new THREE.Object3D();
         recovered.add(this.getCameras());
@@ -132,19 +135,6 @@ module.exports = Ember.View.extend(Navigatable, {
         render();
     },
 
-    getCordFrame: function(){
-        var axisGeo = new THREE.Geometry();
-        axisGeo.vertices = [
-            new THREE.Vector3(0,0,0), new THREE.Vector3(500,0,0),
-            new THREE.Vector3(0,0,0), new THREE.Vector3(0,500,0),
-            new THREE.Vector3(0,0,0), new THREE.Vector3(0,0,500)
-        ];
-        var axisMaterial = new THREE.LineBasicMaterial({
-            color: 0x464646
-        });
-        return new THREE.Line(axisGeo, axisMaterial, THREE.LinePieces);
-    },
-
     getPointCloud: function(){
         var pointsGeo = new THREE.Geometry();
         this.get('controller.points').forEach(function(p){
@@ -164,62 +154,11 @@ module.exports = Ember.View.extend(Navigatable, {
     },
 
     getCameras: function(){
-        var imgWidth=3000, imgHeight=2000,
-            cameras = new THREE.Object3D(),
-            lineMaterial = new THREE.LineBasicMaterial({
-                color: 0xFF0000
-            });
-
+        var cameras = new THREE.Object3D();
         this.get('controller.cameras').forEach(function(cam){
-
-            var R = Matrix.create(cam.R),
-                Ri = R.transpose(),
-                t = Vector.create(cam.t),
-                T = Ri.x(t).x(-1),
-                ratio = cam.focal* 2,
-                camWidth = imgWidth/ratio,
-                camHeight = imgHeight/ratio,
-                corner1 = Ri.x(Vector.create([camWidth/2, camHeight/2, -1]).subtract(t)),
-                corner2 = Ri.x(Vector.create([camWidth/2, -camHeight/2, -1]).subtract(t)),
-                corner3 = Ri.x(Vector.create([-camWidth/2, -camHeight/2, -1]).subtract(t)),
-                corner4 = Ri.x(Vector.create([-camWidth/2, camHeight/2, -1]).subtract(t));
-
-            var camPosition = array2glvector(T.elements),
-                corner1Position = array2glvector(corner1.elements),
-                corner2Position = array2glvector(corner2.elements),
-                corner3Position = array2glvector(corner3.elements),
-                corner4Position = array2glvector(corner4.elements);
-
-            var camerasGeo = new THREE.Geometry();
-
-            camerasGeo.vertices = [
-                camPosition, corner1Position,
-                camPosition, corner2Position,
-                camPosition, corner3Position,
-                camPosition, corner4Position,
-
-                corner1Position, corner2Position,
-                corner2Position, corner3Position,
-                corner3Position, corner4Position,
-                corner4Position, corner1Position
-            ];
-
-            cameras.add(new THREE.Line(camerasGeo, lineMaterial, THREE.LinePieces));
-
+            cameras.add(getBundlerCamera(cam));
         });
-
-        /*
-        var particlesMaterial = new THREE.PointCloudMaterial({
-            color: 0xFF0000,
-            size: 5,
-            blending: THREE.AdditiveBlending,
-            transparent: true
-        });
-        return new THREE.PointCloud(camerasGeo, particlesMaterial);
-        */
-
         return cameras;
-
     },
 
     onFocus: function(){
