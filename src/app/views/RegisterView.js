@@ -10,7 +10,8 @@ var _ = require('underscore'),
 var Navigatable = require('../mixins/Navigatable.js');
 
 var getCordFrame = require('../../visualization/getCoordinateFrame.js'),
-    getBundlerCamera = require('../../visualization/getBundlerCamera.js');
+    getBundlerCamera = require('../../visualization/getBundlerCamera.js'),
+    bundler = require('../../math/bundler.js');
 
 module.exports = Ember.View.extend(Navigatable, {
 
@@ -164,15 +165,15 @@ module.exports = Ember.View.extend(Navigatable, {
     onFocus: function(){
         var cam = this.get('controller.focus'),
             camera = this.get('camera');
-        var R = Matrix.create(cam.R),
-            Ri = R.inverse(),
-            t = Vector.create(cam.t),
+        var Rt = bundler.getStandardRt(Matrix.create(cam.R), Vector.create(cam.t)),
+            R = Rt.R,
+            t = Rt.t,
+            Ri = R.transpose(),
             T = Ri.x(t).x(-1),
-            focal = Ri.x(Vector.create([0,0,-1]).subtract(t));
+            focal = Ri.x(Vector.create([0,0,1]).subtract(t));
         camera.position.set(T.elements[0], T.elements[1], T.elements[2]);
         camera.lookAt(array2glvector(focal.elements));
     }.observes('controller.focus')
-
 
 });
 
