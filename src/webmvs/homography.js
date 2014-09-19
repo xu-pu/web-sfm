@@ -31,7 +31,7 @@ function pointHomography(r, c, H, cam){
     var rt = cord.img2RT(H.x(Vector.create(cord.RCtoImg(r, c, cam))), cam.height);
     var col = Math.floor(Math.floor(rt.col)),
         row = Math.floor(Math.floor(rt.row));
-    if (row<cam.height && col<cam.width) {
+    if (row >=0 && row<cam.height && col>=0 && col<cam.width) {
         return [row, col];
     }
     else {

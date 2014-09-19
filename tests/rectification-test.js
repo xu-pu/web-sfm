@@ -4,6 +4,7 @@ var Promise = require('promise'),
     grayscale = require('luminance'),
     fs = require('fs'),
     la = require('sylvester'),
+    lena = grayscale(require('lena')),
     Matrix = la.Matrix,
     Vector = la.Vector;
 
@@ -12,7 +13,8 @@ var samples = require('../src/utils/samples.js'),
     rectification = require('../src/webmvs/rectification.js'),
     bundler = require('../src/math/bundler.js'),
     projections = require('../src/math/projections.js'),
-    testUtils = require('../src/utils/testing.js');
+    testUtils = require('../src/utils/testing.js'),
+    rotate = require('../src/math/rotate.js');
 
 var TEST_ANGEL = Math.PI/6;
 
@@ -46,9 +48,11 @@ function testPair(index1, index2){
             width1 = img1.shape[1], height1 = img1.shape[0],
             width2 = img2.shape[1], height2 = img2.shape[0],
             K1 = projections.getCalibrationMatrix(f1, width1, height1),
-            K2 = projections.getCalibrationMatrix(f2, width2, height2),
-            H1 = K1.x(DR1).x(K1.inverse()),
-            H2 = K2.x(DR2).x(K2.inverse());
+            K2 = projections.getCalibrationMatrix(f2, width2, height2);
+
+
+        var H1 = K1.x(rotate(Math.PI/8, Math.PI/8, Math.PI/8)).x(K1.inverse()),
+            H2 = K2.x(rotate(Math.PI/10, Math.PI/10, 0)).x(K2.inverse());
 
         return Promise.all([
             testUtils.promiseSaveNdarray(homography(img1, H1), '/home/sheep/Code/writetest1.png'),
