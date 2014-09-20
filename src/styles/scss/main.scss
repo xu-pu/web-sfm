@@ -1,14 +1,21 @@
+/* Main Style Sheet of WebSFM */
+
 @import "reset";
-@import "../../../../../../.gem/ruby/2.1.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass";
-@import "welcome-screen";
-@import "controll-panel";
-@import "matches";
-@import "projects";
+@import "compass";
 @import "utils";
+@import "dimensions";
+
+@import "partials/welcome-screen";
+@import "partials/controll-panel";
+@import "partials/matches";
+@import "partials/projects";
+@import "partials/register";
+@import "partials/floating-window";
 
 html, body {
   height: 100%;
   width: 100%;
+  font-family: Electrolize;
 }
 
 #main-container {
@@ -16,18 +23,8 @@ html, body {
   width: 100%;
   height: 100%;
   background-color: rgb(228, 228, 228);
+  overflow: hidden;
 }
-
-%floating-window {
-  @include box-shadow(0 0 10px 3px rgba(0, 0, 0, 0.49));
-  position: absolute;
-  height: 90%;
-  top: 5%;
-  background-color: #CECECE;
-}
-
-$controll-panel-width: 20em;
-$floating-window-offset: $controll-panel-width + 4em;
 
 #controll-panel {
   @extend %floating-window;
@@ -55,8 +52,14 @@ $floating-window-offset: $controll-panel-width + 4em;
     background-color: grey;
   }
 
-}
+  h1 {
+    line-height: 200px;
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+  }
 
+}
 
 .main-container__input-gallery__image {
   overflow: hidden;
@@ -69,58 +72,6 @@ $floating-window-offset: $controll-panel-width + 4em;
     width: 200px;
   }
 }
-
-//=======================================
-
-$floating-window-height: 2em;
-$floating-window-header-padding: 0.5em;
-$exit-icon-radius: $floating-window-height - $floating-window-header-padding - $floating-window-header-padding;
-.floating-window__header {
-  background-color: #333333;
-  height: $floating-window-height;
-  position: relative;
-
-  line-height: $floating-window-height;
-  padding-left: 1em;
-  color: white;
-  font-weight: bolder;
-}
-
-.floating-window__header__h1 {
-  color: grey;
-}
-
-.load-indicator {
-  cursor: default;
-  position: absolute;
-  height: $exit-icon-radius;
-  width: $exit-icon-radius;
-  @include border-radius($exit-icon-radius);
-  background-color: rgb(19, 199, 19);
-  right: $exit-icon-radius + 2*$floating-window-header-padding;
-  top: $floating-window-header-padding;
-
-  &.is-loading {
-    background-color: #E4DD45;
-  }
-
-}
-
-.exit-icon {
-  cursor: pointer;
-  position: absolute;
-  height: $exit-icon-radius;
-  width: $exit-icon-radius;
-  @include border-radius($exit-icon-radius);
-  background-color: #D15743;
-  right: $floating-window-header-padding;
-  top: $floating-window-header-padding;
-
-  &:hover {
-    background-color: darkred;
-  }
-}
-
 
 .floating-window__input-image {
   @extend %floating-window;
@@ -150,13 +101,4 @@ $matching-table-width: 20em;
   @extend %floating-window;
   width: 500px;
   right: $floating-window-offset + $matching-table-width + 1em;
-}
-
-//=======================================
-
-.main-container__stereo-container {
-}
-
-body {
-  overflow: hidden;
 }

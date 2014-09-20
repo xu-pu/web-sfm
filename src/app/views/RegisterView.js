@@ -1,8 +1,17 @@
 "use strict";
 
-var _ = require('underscore');
+var _ = require('underscore'),
+    la = require('sylvester'),
+    THREE = require('three'),
+    V3 = THREE.Vector3,
+    Matrix = la.Matrix,
+    Vector = la.Vector;
 
 var Navigatable = require('../mixins/Navigatable.js');
+
+var getCordFrame = require('../../visualization/getCoordinateFrame.js'),
+    getBundlerCamera = require('../../visualization/getBundlerCamera.js'),
+    bundler = require('../../math/bundler.js');
 
 module.exports = Ember.View.extend(Navigatable, {
 
@@ -84,6 +93,7 @@ module.exports = Ember.View.extend(Navigatable, {
             height = window.innerHeight,
             SCALE = 20;
         var renderer = new THREE.WebGLRenderer();
+        renderer.setClearColor(0xe4e4e4, 1);
         renderer.setSize(width, height);
         this.$().append(renderer.domElement);
 
@@ -101,7 +111,7 @@ module.exports = Ember.View.extend(Navigatable, {
 
         scene.add(light);
         scene.add(camera);
-        scene.add(this.getCordFrame());
+        scene.add(getCordFrame());
 
         var recovered = new THREE.Object3D();
         recovered.add(this.getCameras());
@@ -115,6 +125,8 @@ module.exports = Ember.View.extend(Navigatable, {
         camera.position.y = 400;
         camera.position.z = 400;
 
+        camera.lookAt(new V3(0,0,0));
+
         this.get('element').addEventListener('wheel', this.wheel.bind(this), false);
 
         function render(){
@@ -124,30 +136,17 @@ module.exports = Ember.View.extend(Navigatable, {
         render();
     },
 
-    getCordFrame: function(){
-        var axisGeo = new THREE.Geometry();
-        axisGeo.vertices.push(new THREE.Vector3(0,0,0));
-        axisGeo.vertices.push(new THREE.Vector3(1000,0,0));
-        axisGeo.vertices.push(new THREE.Vector3(0,0,0));
-        axisGeo.vertices.push(new THREE.Vector3(0,1000,0));
-        axisGeo.vertices.push(new THREE.Vector3(0,0,0));
-        axisGeo.vertices.push(new THREE.Vector3(0,0,1000));
-        var axisMaterial = new THREE.LineBasicMaterial({
-            color: 0xFFFFFF
-        });
-        return new THREE.Line(axisGeo, axisMaterial, THREE.LinePieces);
-    },
-
     getPointCloud: function(){
         var pointsGeo = new THREE.Geometry();
         this.get('controller.points').forEach(function(p){
             pointsGeo.vertices.push(new THREE.Vector3(p.point[0], p.point[1], p.point[2]));
-//            pointsGeo.colors.push(new THREE.Color(p.color.R/255, p.color.G/255, p.color.B/255));
+            pointsGeo.colors.push(new THREE.Color(p.color.R/255, p.color.G/255, p.color.B/255));
         });
 
         var pointsMaterial = new THREE.PointCloudMaterial({
-            color: 0xFFFFFF,
-            size: 3
+//            color: 0x222222,
+            size: 3,
+            vertexColors: true
 //            blending: THREE.AdditiveBlending,
 //            transparent: true
         });
@@ -156,91 +155,28 @@ module.exports = Ember.View.extend(Navigatable, {
     },
 
     getCameras: function(){
-        var camerasGeo = new THREE.Geometry();
+        var cameras = new THREE.Object3D();
         this.get('controller.cameras').forEach(function(cam){
-            var R = new THREE.Matrix3();
-            R.elements = _.flatten(cam.R);
-            var delta = new THREE.Vector3(0,0,1);
-            delta.applyMatrix3(R);
-
-            var camPosition = new THREE.Vector3(cam.t[0], cam.t[1], cam.t[2]);
-            var pointer = camPosition.clone().add(delta);
-            camerasGeo.vertices.push(camPosition);
-            camerasGeo.vertices.push(pointer);
+            cameras.add(getBundlerCamera(cam));
         });
-/*
-        var particlesMaterial = new THREE.PointCloudMaterial({
-            color: 0xFF0000,
-            size: 5,
-            blending: THREE.AdditiveBlending,
-            transparent: true
-        });
-        return new THREE.PointCloud(camerasGeo, particlesMaterial);
-*/
-        var lineMaterial = new THREE.LineBasicMaterial({
-            color: 0xFF0000
-        });
-        return new THREE.Line(camerasGeo, lineMaterial, THREE.LinePieces);
+        return cameras;
     },
 
-    getOneCamera: function(cam){
-        var geo = new THREE.Geometry();
-        geo.vertices = [
-            new THREE.Vector3(),
-            new THREE.Vector3(),
-            new THREE.Vector3(),
-            new THREE.Vector3(),
-            new THREE.Vector3()
-        ];
-        geo.faces = [];
-        var obj = new THREE.Mesh(geo, new THREE.MeshBasicMaterial( { color: 0xffff00 } ));
-        obj.scale = 20;
-        return obj;
-    },
-
-    afterLoaded: function(data){
-
-        var scene = this.get('scene');
-
-        //=============================
-        // Views
-        //=============================
-        var viewList = bundlerViewList(data);
-        var viewGeo = new THREE.Geometry();
-        [20].forEach(function(camera){
-            var cam = data.cameras[camera];
-            (viewList[camera]||[]).forEach(function(point){
-                var p = data.points[point];
-                viewGeo.vertices.push(new THREE.Vector3(p.point[0], p.point[1], p.point[2]));
-                viewGeo.vertices.push(new THREE.Vector3(cam.t[0], cam.t[1], cam.t[2]));
-            });
-        });
-        var viewMaterial = new THREE.LineBasicMaterial({
-            color: 0xFFFFFF
-        });
-        var viewSystem = new THREE.Line(viewGeo, viewMaterial, THREE.Lines);
-
-        this.set('view', viewGeo);
-        this.set('viewList', viewList);
-        this.set('currentView', 20);
-    },
-
-    nextView: function(){
-        var viewGeo = this.get('view');
-        var viewList = this.get('viewList');
-        var camera = this.get('currentView');
-        camera++;
-        this.set('currentView', camera);
-        var data = this.get('data');
-        var cam = data.cameras[camera];
-
-        (viewList[camera]||[]).forEach(function(point){
-            var p = data.points[point];
-            viewGeo.vertices = [];
-            viewGeo.vertices.push(new THREE.Vector3(p.point[0], p.point[1], p.point[2]));
-            viewGeo.vertices.push(new THREE.Vector3(cam.t[0], cam.t[1], cam.t[2]));
-        });
-
-    }
+    onFocus: function(){
+        var cam = this.get('controller.focus'),
+            camera = this.get('camera');
+        var Rt = bundler.getStandardRt(Matrix.create(cam.R), Vector.create(cam.t)),
+            R = Rt.R,
+            t = Rt.t,
+            Ri = R.transpose(),
+            T = Ri.x(t).x(-1),
+            focal = Ri.x(Vector.create([0,0,1]).subtract(t));
+        camera.position.set(T.elements[0], T.elements[1], T.elements[2]);
+        camera.lookAt(array2glvector(focal.elements));
+    }.observes('controller.focus')
 
 });
+
+function array2glvector(elements){
+    return new THREE.Vector3(elements[0], elements[1], elements[2]);
+}

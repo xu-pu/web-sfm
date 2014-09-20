@@ -1,7 +1,9 @@
-var _ = require('underscore');
-var blur = require('ndarray-gaussian-filter');
-var ops = require('ndarray-ops');
-var pool = require('ndarray-scratch');
+'use strict';
+
+var _ = require('underscore'),
+    blur = require('ndarray-gaussian-filter'),
+    ops = require('ndarray-ops'),
+    pool = require('ndarray-scratch');
 
 module.exports = getDoGs;
 

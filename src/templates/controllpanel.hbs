@@ -5,7 +5,9 @@
 <div id="controll-panel__body">
 
     <div id="controll-panel__input" class="controll-panel__l1">
-        <div class="controll-panel__l1-tab" {{action "toggleMenu" "input"}}>INPUTS</div>
+        <div class="controll-panel__l1-tab" {{action "toggleMenu" "input"}}>
+            <span>INPUTS</span>
+        </div>
         {{#if expandInput}}
         <div class="controll-panel__l1-body">
             <div id="controll-panel__images" class="controll-panel__l2">
@@ -22,7 +24,9 @@
     </div>
 
     <div id="controll-panel__progress" class="controll-panel__l1">
-        <div class="controll-panel__l1-tab" {{action "toggleMenu" "progress"}}>PROGRESS</div>
+        <div class="controll-panel__l1-tab" {{action "toggleMenu" "progress"}}>
+            <span>PROGRESS</span>
+        </div>
         {{#if expandProgress}}
         <div class="controll-panel__l1-body">
 
@@ -55,7 +59,9 @@
     </div>
 
     <div id="controll-panel__output" class="controll-panel__l1">
-        <div class="controll-panel__l1-tab">Output</div>
+        <div class="controll-panel__l1-tab">
+            <span>Output</span>
+        </div>
     </div>
 
 </div>

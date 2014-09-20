@@ -1,5 +1,7 @@
 "use strict";
 
+var THREE = require('three');
+
 var Navigatable = require('../mixins/Navigatable.js');
 
 module.exports = Ember.View.extend(Navigatable, {
@@ -84,6 +86,7 @@ module.exports = Ember.View.extend(Navigatable, {
         var width = window.innerWidth,
             height = window.innerHeight;
         var renderer = new THREE.WebGLRenderer();
+        renderer.setClearColor(0xe4e4e4, 1);
         renderer.setSize(width, height);
         this.$().append(renderer.domElement);
 
@@ -124,10 +127,10 @@ module.exports = Ember.View.extend(Navigatable, {
             particlesGeometry.vertices.push(new THREE.Vector3(point[0], point[1], point[2]));
         });
         var particlesMaterial = new THREE.PointCloudMaterial({
-            color: 0xFFFFFF,
-            size: 5,
-            blending: THREE.AdditiveBlending,
-            transparent: true
+            color: 0x222222,
+            size: 5
+//            blending: THREE.AdditiveBlending,
+//            transparent: true
         });
         var particlesSystem = new THREE.PointCloud(particlesGeometry, particlesMaterial);
         particlesSystem.scale.x = SCALE;

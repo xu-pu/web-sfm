@@ -1,13 +1,21 @@
+'use strict';
+
+/**
+ * @typedef {{row: number, col: number, vector: number[]}} Feature
+ */
+
 var _ = require('underscore');
-var siftDescriptor = require('./descriptor.js');
-var siftDetector = require('./detector.js');
-var getDoG = require('./dogspace.js');
+
+var siftDetector = require('./detector.js'),
+    getDoGs = require('./dogspace.js'),
+    siftOrientation = require('./orientation.js');
+
 module.exports = sift;
 
 /**
  * the main function of this file, calculate SIFT of the image
  *
- * @param {SFM.Grayscale} img
+ * @param img
  * @param {object} [options]
  * @param {int} [options.octaves]
  * @param {int} [options.scales]
@@ -28,8 +36,13 @@ function sift(img, options) {
 
     var features = [];
     _.range(options.octaves).forEach(function(octave){
-        var dog = getDoG(img, octave);
-        features += siftDetector(dog, {}, siftDescriptor);
+        var dogs = getDoGs(img, octave);
+        siftDetector(dogs, octave, function(dog, row, col){
+            features.push(siftOrientation(dog, row, col));
+            if (features.length % 20 === 0) {
+                console.log('find 20 more');
+            }
+        });
     });
 
     return features;

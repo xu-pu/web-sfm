@@ -1,18 +1,27 @@
-var pool = require('ndarray-scratch');
-var Vector = require('sylvester').Vector;
+'use strict';
+
+var pool = require('ndarray-scratch'),
+    Vector = require('sylvester').Vector;
+
+var cord = require('../utils/cord.js');
 
 module.exports = homography;
 module.exports.pointHomography = pointHomography;
 
 
-function homography(img, rotation, focal){
+function homography(img, H, centered){
     var width = img.shape[1],
         height = img.shape[0],
-        buffer = pool.zeros(img.shape);
+        cam = { width: width, height: height },
+        buffer = pool.zeros(img.shape),
+        pointH = pointHomography;
+    if (centered) {
+        pointH = centeredHomography(H, cam);
+    }
     var row, col, mapped;
     for(row=0; row<height; row++){
         for(col=0; col<width; col++){
-            mapped = pointHomography(rotation, row, col, width, height, focal);
+            mapped = pointH(row, col, H, cam);
             if (mapped) {
                 buffer.set(mapped[0], mapped[1], img.get(row, col));
             }
@@ -21,16 +30,30 @@ function homography(img, rotation, focal){
     return buffer;
 }
 
+function centeredHomography(H, cam){
 
-function pointHomography(rotation, row, col, width, height, focal){
-    var x = col-width/2,
-        y = -row+height/2;
-    var cor = Vector.create([x,y,focal]);
-    cor = rotation.multiply(cor);
-    cor = cor.multiply(focal/cor.elements[2]);
-    col = Math.floor(cor.elements[0]+width/2);
-    row = Math.floor(-cor.elements[1]+height/2);
-    if (row<height && col<width) {
+    var rt = cord.img2RT(H.x(Vector.create([cam.width/2, cam.height/2, 1])), cam.height),
+        offsetRow = cam.height/2 - rt.row,
+        offsetCol = cam.width/2 - rt.col;
+
+    return function(r, c, H, cam){
+        var rt = cord.img2RT(H.x(Vector.create(cord.RCtoImg(r, c, cam))), cam.height);
+        var col = Math.floor(Math.floor(rt.col+offsetCol)),
+            row = Math.floor(Math.floor(rt.row+offsetRow));
+        if (row >=0 && row<cam.height && col>=0 && col<cam.width) {
+            return [row, col];
+        }
+        else {
+            return null;
+        }
+    };
+}
+
+function pointHomography(r, c, H, cam){
+    var rt = cord.img2RT(H.x(Vector.create(cord.RCtoImg(r, c, cam))), cam.height);
+    var col = Math.floor(Math.floor(rt.col)),
+        row = Math.floor(Math.floor(rt.row));
+    if (row >=0 && row<cam.height && col>=0 && col<cam.width) {
         return [row, col];
     }
     else {

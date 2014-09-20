@@ -15,6 +15,10 @@ module.exports.getCamera = getCamera;
 module.exports.showGrayscale = showGrayscale;
 module.exports.getFeatures = getFeatures;
 module.exports.promiseCanvasImage = promiseCanvasImage;
+module.exports.bundler = bundler;
+module.exports.cameras = bundler.cameras;
+module.exports.sparse = bundler.points;
+
 
 function getFeatures(index){
     var siftPath = DEMO_BASE + '/sift.json/' + getFullname(index) + '.json';

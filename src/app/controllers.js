@@ -86,7 +86,17 @@ module.exports = function(App){
     // Workspace.Register
     //=======================
 
-    App.WorkspaceRegisterController = Ember.ObjectController.extend();
+    App.WorkspaceRegisterController = Ember.ObjectController.extend({
+
+        focus: null,
+
+        actions: {
+            focus: function(cam){
+                this.set('focus', cam);
+            }
+        }
+
+    });
 
     //=======================
     // Workspace.Stereo
