@@ -11,18 +11,15 @@ var pool = require('ndarray-scratch'),
 
 module.exports = rectification;
 
-function rectification(R1, R2, t1, t2, f1, f2){
+function rectification(R1, R2, t1, t2){
     var R = R2.x(R1.transpose());
     var t = t2.subtract(R.x(t1));
-
-    //var ratio = f1/t.elements[2];
-    //var T = Vector.create([ratio*t.elements[0], ratio*t.elements[1], 1]);
-
-    var e1 = normalize(t);
-    var e2 = normalize(Vector.create([-t.elements[1], t.elements[0], 0]));
-    var e3 = normalize(e1.cross(e2));
+    t = R.transpose().x(t).x(-1);
+    var e1 = normalize(t),
+        e2 = normalize(Vector.create([-t.elements[1], t.elements[0], 0])),
+        e3 = normalize(e1.cross(e2));
     var rect = Matrix.create([e1.elements, e2.elements, e3.elements]);
-    return [rect, R.multiply(rect)]; // new R1, R2
+    return [rect, R.x(rect)]; // new R1, R2
 }
 
 function normalize(v){

@@ -65,4 +65,4 @@ function testPair(index1, index2){
 
 }
 
-testPair(22,23);
+testPair(2,3);
