@@ -31,7 +31,7 @@ function RCtoImg(row, col, cam){
  * @returns {number[]}
  */
 function featureToImg(f, cam) {
-    return [f.col, cam.height-1-f.row, 1];
+    return RCtoImg(f.row, f.col, cam);
 }
 
 /**
@@ -46,6 +46,12 @@ function img2RT(point, height){
     };
 }
 
+/**
+ *
+ * @param line
+ * @param width
+ * @param height
+ */
 function imgline2points(line, width, height){
     var results = [];
     [   Vector.create([1,0,0]).cross(line),
