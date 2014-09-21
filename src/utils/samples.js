@@ -15,6 +15,7 @@ module.exports.getCamera = getCamera;
 module.exports.showGrayscale = showGrayscale;
 module.exports.getFeatures = getFeatures;
 module.exports.promiseCanvasImage = promiseCanvasImage;
+module.exports.getRawMatches = getRawMatches;
 module.exports.bundler = bundler;
 module.exports.cameras = bundler.cameras;
 module.exports.sparse = bundler.points;
@@ -70,6 +71,16 @@ function showGrayscale(gray){
     imgshow(toRGB(gray));
 }
 
-function storeFeatureMatches(){}
-
-function getFeatureMatches(){}
+function getRawMatches(index1, index2){
+    var path;
+    if (index1 > index2) {
+        path = DEMO_BASE + '/raw-match/' + getFullname(index2) + '.jpg&' + getFullname(index1) + '.jpg.json';
+    }
+    else if (index1 < index2) {
+        path = DEMO_BASE + '/raw-match/' + getFullname(index1) + '.jpg&' + getFullname(index2) + '.jpg.json';
+    }
+    else {
+        throw "can not match itself";
+    }
+    return require(path);
+}

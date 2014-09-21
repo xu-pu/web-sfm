@@ -21,13 +21,10 @@ function ransac(options){
             return options.errorGenerator(relEsitmate, m, options.metadata) < options.errorThreshold;
         });
         if (inliers.length/options.dataset.length >= 1-options.outlierThreshold) {
-            console.log('return');
-            console.log(options.trials-trials);
-            console.log(inliers.length/options.dataset.length);
+            console.log('Success, ' + inliers.length+'/'+options.dataset.length + ' passed RANSAC after ' + (options.trials-trials) + ' trials');
             return { dataset: inliers, rel: relEsitmate };
         }
-        console.log('tried once');
-        console.log(inliers.length/options.dataset.length);
+        console.log(inliers.length+'/'+options.dataset.length+ ', ' + (100*inliers.length/options.dataset.length) + '% passed RANSAC, trial failed');
         trials--;
     }
     throw "RANSAC faild";

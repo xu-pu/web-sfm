@@ -119,16 +119,16 @@ function promiseEpipolarGeometry(i1, i2){
         samples.promiseCanvasImage(i1),
         samples.promiseCanvasImage(i2)
     ]).then(function(results){
+
         var features1 = samples.getFeatures(i1),
             features2 = samples.getFeatures(i2),
-            matches = require('/home/sheep/Code/matches/raw-match/00000002.jpg&00000003.jpg.json');
-
-        var metadata = {
-            cam1: results[0],
-            cam2: results[1],
-            features1: features1,
-            features2: features2
-        };
+            matches = samples.getRawMatches(i1, i2),
+            metadata = {
+                cam1: results[0],
+                cam2: results[1],
+                features1: features1,
+                features2: features2
+            };
 
         var result = ransac({
             dataset: matches,
@@ -136,8 +136,8 @@ function promiseEpipolarGeometry(i1, i2){
             subset: 8,
             relGenerator: eightpoint,
             errorGenerator: eightpoint.fundamentalMatrixError,
-            outlierThreshold: 0.15,
-            errorThreshold: 0.05,
+            outlierThreshold: 0.2,
+            errorThreshold: 0.03,
             trials: 1000
         });
 
@@ -162,12 +162,13 @@ function promiseEpipolarGeometry(i1, i2){
             promiseMatchingVisual('filtered', results[0], results[1], features1, features2, result.dataset),
             promiseEpipolarVisual(results[0], results[1], features1, features2, result.dataset, result.rel)
         ]);
+
     }).then(function(){
         console.log('finished');
     });
 }
 
-promiseEpipolarGeometry(2,3);
+promiseEpipolarGeometry(5,6);
 
 //promisePair(1,2);
 
