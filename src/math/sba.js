@@ -122,25 +122,3 @@ SFM.baTriangulation = function(cam1, cam2, point1, point2, point){
     });
 };
 
-
-
-/**
- *
- * @param {CalibratedCamera} cam1
- * @param {CalibratedCamera} cam2
- * @param {SFM.Matrix} point1
- * @param {SFM.Matrix} point2
- * @param {SFM.Matrix} point
- */
-SFM.triangulationCost = function(cam1, cam2, point1, point2, point){
-
-
-};
-
-
-
-SFM.registerIncrementCost = function(){};
-
-
-
-SFM.registerFirstPairCost = function(){};
