@@ -68,11 +68,11 @@ function eightPoint(matches, metadata){
 
 
 /**
- * @param {SFM.Matrix} F
+ * @param F
  * @param {int[]} match
  * @param metadata
- * @param metadata.cam1
- * @param metadata.cam2
+ * @param {Camera} metadata.cam1
+ * @param {Camera} metadata.cam2
  * @param {Feature[]} metadata.features1
  * @param {Feature[]} metadata.features2
  * @return {number}
