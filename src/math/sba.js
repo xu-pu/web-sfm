@@ -1,65 +1,4 @@
 /**
- * @param {Function[]} funcs
- * @param {number[]} initials
- * @return {SFM.Matrix}
- */
-SFM.getJacobian = function(funcs, initials){
-    var variables = initials.length;
-    var values = funcs.length;
-    var result = new SFM.Matrix({ rows: values, cols: variables });
-    funcs.forEach(function(func, index){
-        _.range(variables).forEach(function(xi){
-            var der = SFM.partialDerivative(func, initials, xi);
-            result.set(index, xi, der);
-        });
-    });
-    return result;
-};
-
-
-
-/**
- * @param {Function} func
- * @param {number[]} initials
- * @param {number} xi
- * @return {number}
- */
-SFM.partialDerivative = function(func, initials, xi){
-    var DELTA = 0.1;
-    var neighbor = new Float32Array(initials);
-    neighbor[xi] += DELTA;
-    return (func(neighbor)-func(initials))/DELTA;
-};
-
-
-
-/**
- * Levenberg-Marqurdt Algorithm
- *
- * @param {function} generator
- * @param {number[]} params -- initial parameters
- * @param constrains
- * @return {number[]}
- */
-SFM.lma = function(params, generator, constrains){
-
-    var func = generator(params);
-    var error = constants.map(function(constrain){
-        return func
-    });
-
-    return params;
-};
-
-
-
-/**
- * @typedef {{ cam: number, point2d: SFM.Matrix, point3d: number }} ProjectionConstrain
- */
-
-
-
-/**
  *
  * @param cams
  * -- a list of parameters that can construct projection matrix
@@ -70,7 +9,7 @@ SFM.lma = function(params, generator, constrains){
  * @param {number[]} vPoints
  * @param {number[]} vCams
  */
-SFM.bundleAdjustment = function(cams, points, constrains, vPoints, vCams){
+function bundleAdjustment(cams, points, constrains, vPoints, vCams){
 
     var pms = cams.map(function(params){
 
@@ -78,9 +17,7 @@ SFM.bundleAdjustment = function(cams, points, constrains, vPoints, vCams){
 
     var J = SFM.getJacobian()
 
-};
-
-
+}
 
 /**
  *
@@ -89,7 +26,7 @@ SFM.bundleAdjustment = function(cams, points, constrains, vPoints, vCams){
  * @param constrains
  * @returns {number}
  */
-SFM.baCost = function(cams, points, constrain){
+function baCost(cams, points, constrain){
     var error = constrains.map(function(constrain){
         var cam = cams[constrain.cam],
             point2d = points[constrain.point2d],
@@ -109,7 +46,7 @@ SFM.baCost = function(cams, points, constrain){
  * @param {SFM.Matrix} point2
  * @param {SFM.Matrix} point
  */
-SFM.baTriangulation = function(cam1, cam2, point1, point2, point){
+function baTriangulation(cam1, cam2, point1, point2, point){
     var variables = _.flatten([
         point1.getNativeRows()[0].slice(0,2),
         point2.getNativeRows()[0].slice(0,2),
@@ -120,5 +57,4 @@ SFM.baTriangulation = function(cam1, cam2, point1, point2, point){
         var p2 = new SFM.Matrix({ array: [] });
         var p  = new SFM.Matrix({ array: [] });
     });
-};
-
+}
