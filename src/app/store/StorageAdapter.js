@@ -80,17 +80,14 @@ StorageAdapter.prototype = {
      * @return {Promise}
      */
     processImageFile: function(file){
-        Ember.Logger.debug('file process begins');
 
-        var dataUrl, _id, domimg,
-            _self = this;
+        //Ember.Logger.debug('file process begins');
 
-        return utils.promiseFileDataUrl(file)
-            .then(function(result){
-                //Ember.Logger.debug('image dataUrl required');
-                dataUrl = result;
-                return utils.promiseLoadImage(dataUrl);
-            })
+        var _id, domimg,
+            _self = this,
+            domstring = URL.createObjectURL(file);
+
+        return utils.promiseLoadImage(domstring)
             .then(function(img){
                 //Ember.Logger.debug('img object required');
                 domimg = img;
@@ -102,13 +99,14 @@ StorageAdapter.prototype = {
                 var thumbnailDataUrl = utils.getImageThumbnail(domimg);
                 return Promise.all([
                     _self.promiseSetData(STORES.THUMBNAILS, _id, thumbnailDataUrl),
-                    _self.promiseSetData(STORES.FULLIMAGES, _id, dataUrl)
+                    _self.promiseSetData(STORES.FULLIMAGES, _id, domstring)
                 ]);
             })
             .then(function(){
                 Ember.Logger.debug('One image imported');
                 return _id;
             });
+
     },
 
 
