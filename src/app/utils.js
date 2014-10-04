@@ -8,6 +8,7 @@ module.exports.promiseLoadImage = promiseLoadImage;
 module.exports.getImageThumbnail = getImageThumbnail;
 module.exports.promiseFileDataUrl = promiseFileDataUrl;
 module.exports.promiseFileBuffer = promiseFileBuffer;
+module.exports.promiseBufferImage = promiseBufferImage;
 
 //==================================================
 
@@ -54,6 +55,17 @@ function promiseLoadImage(url){
         img.onabort = reject;
         img.src = url;
     });
+}
+
+/**
+ *
+ * @param buffer
+ * @returns Promise
+ */
+function promiseBufferImage(buffer){
+    var blob = new Blob([buffer]);
+    var domstring = URL.createObjectURL(blob);
+    return promiseLoadImage(domstring);
 }
 
 
