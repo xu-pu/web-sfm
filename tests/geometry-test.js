@@ -59,3 +59,25 @@ function bundlerTest(){
         return R.transpose().x(P.subtract(t));
     }
 }
+
+function drawEpipolarGeometry(i1, i2) {
+
+    var features1, features2, matches, metadata;
+
+    return Promise.all([
+        samples.promiseCanvasImage(i1),
+        samples.promiseCanvasImage(i2)
+    ]).then(function(results){
+        features1 = samples.getFeatures(i1);
+        features2 = samples.getFeatures(i2);
+        matches = samples.getRawMatches(i1, i2);
+        metadata = {
+            cam1: results[0],
+            cam2: results[1],
+            features1: features1,
+            features2: features2
+        };
+        return promiseEpipolarVisual('/home/sheep/Code/epipole/'+threshold+'.png',
+            results[0], results[1], features1, features2, result.dataset, result.rel);
+    });
+}

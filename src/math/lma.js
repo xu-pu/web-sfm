@@ -24,7 +24,6 @@ function getJacobian (funcs, initials){
 }
 
 
-
 /**
  * @param {Function} func
  * @param {number[]} initials

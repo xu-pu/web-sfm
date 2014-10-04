@@ -6,7 +6,12 @@ var la = require('sylvester'),
 
 var cord = require('../utils/cord.js');
 
-module.exports = function(config, ctx, matches, features1, features2, F){
+/**
+ * @param {TwoImageConfig} config
+ * @param ctx
+ * @param F
+ */
+module.exports = function(config, ctx, F){
     var offsetX = config.offsetX,
         offsetY = config.offsetY,
         ratio1 = config.ratio1,

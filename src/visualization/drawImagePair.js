@@ -1,11 +1,15 @@
 module.exports = drawImagePair;
 
 /**
+ * @typedef  {{alignX: boolean, ratio1: number, ratio2: number, padding: number, offsetX: number, offsetY: number, cam1: Camera, cam2: Camera}} TwoImageConfig
+ */
+
+/**
  * @param img1
  * @param img2
  * @param canvas
  * @param fixedWidth
- * @returns {{alignX: boolean, ratio1: number, ratio2: number, padding: number, offsetX: number, offsetY: number, cam1: Camera, cam2: Camera}}
+ * @returns TwoImageConfig
  */
 function drawImagePair(img1, img2, canvas, fixedWidth){
     var PADDING = 10;
