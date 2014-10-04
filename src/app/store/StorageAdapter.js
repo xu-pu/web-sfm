@@ -81,7 +81,7 @@ StorageAdapter.prototype = {
      */
     processImageFile: function(file){
 
-        //Ember.Logger.debug('file process begins');
+        Ember.Logger.debug('file process begins');
 
         var _id, domimg,
             _self = this,
@@ -94,13 +94,18 @@ StorageAdapter.prototype = {
                 var image = { filename: file.name, width: img.width, height: img.height };
                 return _self.promiseAddData(STORES.IMAGES, image);
             })
-            .then(function(_id){
+            .then(function(newid){
                 //Ember.Logger.debug('_id required');
-                var thumbnailDataUrl = utils.getImageThumbnail(domimg);
-                return Promise.all([
-                    _self.promiseSetData(STORES.THUMBNAILS, _id, thumbnailDataUrl),
-                    _self.promiseSetData(STORES.FULLIMAGES, _id, domstring)
-                ]);
+                _id = newid;
+                return _self.promiseSetData(STORES.THUMBNAILS, _id, utils.getImageThumbnail(domimg));
+            })
+            .then(function(){
+                //Ember.Logger.debug('thumbnail stored');
+                return utils.promiseFileBuffer(file);
+            })
+            .then(function(buffer){
+                Ember.Logger.debug('ArrayBuffer Loaded');
+                return _self.promiseSetData(STORES.FULLIMAGES, _id, buffer);
             })
             .then(function(){
                 Ember.Logger.debug('One image imported');
@@ -144,9 +149,13 @@ StorageAdapter.prototype = {
         var _self = this;
         return new Promise(function(resolve){
             _self.promiseDB().then(function(db){
-                db.transaction(store, 'readwrite').objectStore(store).put(data, key).onsuccess = function(e){
+                var request = db.transaction(store, 'readwrite').objectStore(store).put(data, key);
+                request.onsuccess = function(e){
                     resolve(e.target.result);
-                }
+                };
+                request.onerror = function(e){
+                    console.log(e);
+                };
             });
         });
     },
