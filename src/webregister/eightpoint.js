@@ -15,7 +15,6 @@ module.exports.fundamentalMatrixError = fundamentalMatrixError;
  * @param metadata.cam2
  * @param {Feature[]} metadata.features1
  * @param {Feature[]} metadata.features2
- * @returns {SFM.Matrix}
  */
 function eightPoint(matches, metadata){
 
