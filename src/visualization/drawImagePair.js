@@ -9,7 +9,7 @@ module.exports = drawImagePair;
  * @param img2
  * @param canvas
  * @param fixedWidth
- * @returns TwoImageConfig
+ * @returns {TwoImageConfig}
  */
 function drawImagePair(img1, img2, canvas, fixedWidth){
     var PADDING = 10;

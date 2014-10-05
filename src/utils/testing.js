@@ -2,10 +2,19 @@
 
 var Promise = require('promise'),
     fs = require('fs'),
-    saveimage = require('save-pixels');
+    saveimage = require('save-pixels'),
+    Canvas = require('canvas');
+
+var samples = require('./samples.js'),
+    drawFeatures = require('../visualization/drawFeatures.js'),
+    drawImagePair = require('../visualization/drawImagePair.js'),
+    drawMatches = require('../visualization/drawMatches.js');
+
 
 module.exports.promiseWriteCanvas = promiseWriteCanvas;
 module.exports.promiseSaveNdarray = promiseSaveNdarray;
+module.exports.promiseVisualMatch = promiseVisualMatch;
+
 
 function promiseSaveNdarray(img, path){
     var writeStream = fs.createWriteStream(path);
@@ -28,4 +37,22 @@ function promiseWriteFile(path, buffer){
 
 function promiseWriteCanvas(canvas, path){
     return promiseWriteFile(path, canvas.toBuffer());
+}
+
+
+function promiseVisualMatch(path, i1, i2, matches){
+    return Promise.all([
+        samples.promiseCanvasImage(i1),
+        samples.promiseCanvasImage(i2)
+    ]).then(function(results){
+        var canv = new Canvas(),
+            config = drawImagePair(results[0], results[1], 800),
+            ctx = canv.getContext('2d'),
+            features1 = samples.getFeatures(i1),
+            features2 = samples.getFeatures(i2);
+        drawFeatures(ctx, features1, 0, 0, config.ratio1);
+        drawFeatures(ctx, features2, config.offsetX, config.offsetY, config.ratio2);
+        drawMatches(config, ctx, matches, features1, features2);
+        return promiseWriteCanvas(canv, path);
+    });
 }
