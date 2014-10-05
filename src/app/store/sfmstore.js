@@ -29,6 +29,10 @@ var Store = Ember.Object.extend({
             localStorage.setItem('project', project.get('name'));
             console.log(this.get('adapter'));
         }
+        else {
+            this.set('adapter', null);
+            localStorage.setItem('project', null);
+        }
     }.observes('currentProject')
 
 });

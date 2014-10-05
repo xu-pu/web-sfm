@@ -1,3 +1,5 @@
+@import "compass";
+
 .welcome-screen__header {
   width: 100%;
   height: 400px;
@@ -85,6 +87,7 @@ $project-thumbnail-header-height: 2em;
 }
 
 .demo-thumbnail__header {
+  position: relative;
   background-color: #333333;
   color: white;
   height: $project-thumbnail-header-height;
