@@ -46,11 +46,12 @@ module.exports = Ember.ObjectController.extend({
             .then(function(){
                 var request = indexedDB.deleteDatabase(_self.get('name'));
                 request.onsuccess = function(){
-                    Ember.Logger.debug('deleted');
-                    _self.set('finishedImages', []);
-                    _self.set('finishedSIFT', []);
-                    _self.set('bundlerFinished', false);
-                    _self.set('mvsFinished', false);
+                    _self.setProperties({
+                        'finishedImages': [],
+                        'finishedSIFT': [],
+                        'bundlerFinished': false,
+                        'mvsFinished': false
+                    });
                 };
             });
     },
