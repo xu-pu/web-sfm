@@ -56,11 +56,19 @@ function testPair(index1, index2){
         var H1 = K1.x(RR1).x(K1.inverse()),
             H2 = K2.x(RR2).x(K2.inverse());
 
+        /*
+        return Promise.all([
+         testUtils.promiseVisualHomography('/home/sheep/Code/homocanv1.png', img1, H1),
+            testUtils.promiseVisualHomography('/home/sheep/Code/homocanv2.png', img2, H2)
+        ]);
+        */
+        return testUtils.promiseVisualHomography('/home/sheep/Code/homocanv1.png', img1, Matrix.I(3), 0.1);
+/*
         return Promise.all([
             testUtils.promiseSaveNdarray(homography(img1, H1, true), '/home/sheep/Code/writetest1.png'),
             testUtils.promiseSaveNdarray(homography(img2, H2, true), '/home/sheep/Code/writetest2.png')
         ]);
-
+*/
     });
 
 }

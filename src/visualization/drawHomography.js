@@ -12,9 +12,10 @@ module.exports = function(image, H, ctx, offsetX, offsetY, ratio){
 
     var width = image.shape[1],
         height = image.shape[0],
-        cam = { width: width, height: height },
         rows = Math.floor(height*ratio),
         cols = Math.floor(width*ratio),
+        cam = { width: width, height: height },
+        canvCam = { width: cols, height: rows },
         buffer = ctx.createImageData(cols, rows),
         HH = H.inverse(),
         ratioTransform = Matrix.create([
@@ -38,7 +39,7 @@ module.exports = function(image, H, ctx, offsetX, offsetY, ratio){
     ctx.putImageData(buffer, offsetX, offsetY);
 
     function getPointColor(){
-        var p = cord.RCtoImg(row, col, cam),
+        var p = Vector.create(cord.RCtoImg(row, col, canvCam)),
             P = ratioTransform.x(p),
             PP = HH.x(P),
             sample = cord.img2RT(PP, height);

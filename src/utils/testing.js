@@ -9,13 +9,15 @@ var samples = require('./samples.js'),
     drawFeatures = require('../visualization/drawFeatures.js'),
     drawImagePair = require('../visualization/drawImagePair.js'),
     drawMatches = require('../visualization/drawMatches.js'),
-    drawEpipolarLines = require('../visualization/drawEpipolarLines.js');
+    drawEpipolarLines = require('../visualization/drawEpipolarLines.js'),
+    drawHomography = require('../visualization/drawHomography.js');
 
 
 module.exports.promiseWriteCanvas = promiseWriteCanvas;
 module.exports.promiseSaveNdarray = promiseSaveNdarray;
 module.exports.promiseVisualMatch = promiseVisualMatch;
 module.exports.promiseVisualEpipolar = promiseVisualEpipolar;
+module.exports.promiseVisualHomography = promiseVisualHomography;
 
 
 function promiseSaveNdarray(img, path){
@@ -74,4 +76,14 @@ function promiseVisualEpipolar(path, i1, i2, F){
         });
         return promiseWriteCanvas(canv, path);
     });
+}
+
+function promiseVisualHomography(path, img, H, ratio){
+    ratio = ratio || 1;
+    var width = Math.floor(img.shape[1]*ratio),
+        height = Math.floor(img.shape[0]*ratio),
+        canv = new Canvas(width, height),
+        ctx = canv.getContext('2d');
+    drawHomography(img, H, ctx, 0, 0, ratio);
+    return promiseWriteCanvas(canv, path);
 }
