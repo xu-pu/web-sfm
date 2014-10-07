@@ -57,11 +57,12 @@ function img2RT(point, height){
 /**
  *
  * @param line
- * @param width
- * @param height
+ * @param {Camera} cam
  */
-function imgline2points(line, width, height){
-    var results = [];
+function imgline2points(line, cam){
+    var results = [],
+        width = cam.width,
+        height = cam.height;
     [   Vector.create([1,0,0]).cross(line),
         Vector.create([1,0,-width]).cross(line),
         Vector.create([0,1,-height]).cross(line),
