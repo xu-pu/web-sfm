@@ -1,18 +1,23 @@
 'use strict';
 
+var la = require('sylvester'),
+    Matrix = la.Matrix,
+    Vector = la.Vector;
+
+
 module.exports.RCtoImg = RCtoImg;
 module.exports.featureToImg = featureToImg;
 module.exports.img2RT = img2RT;
 module.exports.imgline2points = imgline2points;
+module.exports.getRandomImgCord = getRandomImgCord;
+module.exports.getRandomRT = getRandomRT;
 
-var la = require('sylvester'),
-    Matrix = la.Matrix,
-    Vector = la.Vector;
 
 /**
  *
  * @typedef {{height: number, width: number}} Camera
  */
+
 
 /**
  *
@@ -25,6 +30,7 @@ function RCtoImg(row, col, cam){
       return [col, cam.height-row, 1];
 }
 
+
 /**
  * @param {Feature} f
  * @param {Camera} cam
@@ -33,6 +39,7 @@ function RCtoImg(row, col, cam){
 function featureToImg(f, cam) {
     return RCtoImg(f.row, f.col, cam);
 }
+
 
 /**
  * @param point
@@ -45,6 +52,7 @@ function img2RT(point, height){
         col: point.elements[0]/point.elements[2]
     };
 }
+
 
 /**
  *
@@ -78,4 +86,25 @@ function rt2canvas(rt, width, height){
     else {
         return null;
     }
+}
+
+
+/**
+ *
+ * @param {Camera} cam
+ */
+function getRandomImgCord(cam){
+    return Vector.create([Math.random()*cam.width, Math.random()*cam.height, 1]);
+}
+
+
+/**
+ *
+ * @param {Camera} cam
+ */
+function getRandomRT(cam){
+    return {
+        row: Math.random()*cam.height,
+        col: Math.random()*cam.width
+    };
 }
