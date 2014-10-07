@@ -6,7 +6,10 @@ var la = require('sylvester'),
     interp = require("ndarray-linear-interpolate").d2;
 
 
-var cord = require('../utils/cord.js');
+var cord = require('../utils/cord.js'),
+    canvasUtils = require('../utils/canvas.js'),
+    testUtils = require('../utils/testing.js');
+
 
 module.exports = function(image, H, ctx, offsetX, offsetY, ratio){
 
@@ -32,7 +35,7 @@ module.exports = function(image, H, ctx, offsetX, offsetY, ratio){
             buffer.data[cursor] = color;
             buffer.data[cursor+1] = color;
             buffer.data[cursor+2] = color;
-            buffer.data[cursor+3] = 1;
+            buffer.data[cursor+3] = 255;
         }
     }
 
