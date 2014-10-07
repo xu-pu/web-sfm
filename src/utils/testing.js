@@ -46,7 +46,7 @@ function promiseVisualMatch(path, i1, i2, matches){
         samples.promiseCanvasImage(i2)
     ]).then(function(results){
         var canv = new Canvas(),
-            config = drawImagePair(results[0], results[1], 800),
+            config = drawImagePair(results[0], results[1], canv, 800),
             ctx = canv.getContext('2d'),
             features1 = samples.getFeatures(i1),
             features2 = samples.getFeatures(i2);

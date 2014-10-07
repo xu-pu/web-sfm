@@ -123,8 +123,10 @@ function testEpipolarGeometry(i1, i2){
             cam2: cam2
         };
 
-    var filtered = epiFilter(F, metadata, matches, 0.6);
-    console.log(filtered.length + '/' + matches.length + ' , ' + filtered.length/matches.length + ' passed filter.')
+    var filtered = epiFilter(F, metadata, matches, 0.1);
+    console.log(filtered.length + '/' + matches.length + ' , ' + filtered.length/matches.length + ' passed filter.');
+
+    testUtils.promiseVisualMatch('/home/sheep/Code/filter-test.png', i1, i2, filtered);
 
 }
 
