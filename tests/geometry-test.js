@@ -113,6 +113,7 @@ function testEpipolarGeometry(i1, i2){
 
     F = F.x(1/modulus).transpose();
 
+    /*
     var features1 = sample.getFeatures(i1),
         features2 = sample.getFeatures(i2),
         matches = sample.getRawMatches(i1, i2),
@@ -127,6 +128,8 @@ function testEpipolarGeometry(i1, i2){
     console.log(filtered.length + '/' + matches.length + ' , ' + filtered.length/matches.length + ' passed filter.');
 
     testUtils.promiseVisualMatch('/home/sheep/Code/filter-test.png', i1, i2, filtered);
+*/
+    testUtils.promiseVisualEpipolar('/home/sheep/Code/calibrated-epipolar.png', i1, i2, F);
 
 }
 

@@ -9,7 +9,7 @@ var samples = require('./samples.js'),
     drawFeatures = require('../visualization/drawFeatures.js'),
     drawImagePair = require('../visualization/drawImagePair.js'),
     drawMatches = require('../visualization/drawMatches.js'),
-    drawEpipolarGeometry = require('../visualization/drawEpipolarGeometry.js');
+    drawEpipolarLines = require('../visualization/drawEpipolarLines.js');
 
 
 module.exports.promiseWriteCanvas = promiseWriteCanvas;
@@ -68,7 +68,10 @@ function promiseVisualEpipolar(path, i1, i2, F){
         var canv = new Canvas(),
             config = drawImagePair(results[0], results[1], canv, 800),
             ctx = canv.getContext('2d');
-        drawEpipolarGeometry(config, ctx, F);
+        drawEpipolarLines(config, ctx, F, {
+            color: 'green',
+            amount: 60
+        });
         return promiseWriteCanvas(canv, path);
     });
 }

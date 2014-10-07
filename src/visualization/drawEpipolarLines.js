@@ -11,17 +11,24 @@ var cord = require('../utils/cord.js');
  * @param {TwoImageConfig} config
  * @param ctx
  * @param F
+ * @param [options]
  */
-module.exports = function(config, ctx, F){
+module.exports = function(config, ctx, F, options){
+    options = options || {};
+    _.defaults(options, {
+        color: 'red',
+        weight: 2,
+        amount: 50
+    });
     var offsetX = config.offsetX,
         offsetY = config.offsetY,
         ratio1 = config.ratio1,
         ratio2 = config.ratio2,
         cam1 = config.cam1,
         cam2 = config.cam2;
-    ctx.strokeStyle = 'red';
-    ctx.lineWidth = 2;
-    _.range(30).map(function(){
+    ctx.strokeStyle = options.color;
+    ctx.lineWidth = options.weight;
+    _.range(options.amount).map(function(){
         var p1 = cord.getRandomImgCord(cam1),
             p2 = cord.getRandomImgCord(cam2),
             line1 = cord.imgline2points(F.x(p2), cam1),

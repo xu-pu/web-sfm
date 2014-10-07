@@ -18,7 +18,7 @@ var samples = require('../src/utils/samples.js'),
     drawFeatures = require('../src/visualization/drawFeatures.js'),
     drawMatches = require('../src/visualization/drawMatches.js'),
     drawImagePair = require('../src/visualization/drawImagePair.js'),
-    drawEpipolarGeometry = require('../src/visualization/drawEpipolarGeometry.js'),
+    drawEpipolarLines = require('../src/visualization/drawEpipolarLines.js'),
     cord = require('../src/utils/cord.js');
 
 
@@ -50,7 +50,7 @@ function promiseEpipolarVisual(path, img1, img2, features1, features2, matches, 
     var canv = new Canvas(),
         config = drawImagePair(img1, img2, canv, 800),
         ctx = canv.getContext('2d');
-    drawEpipolarGeometry(config, ctx, _.sample(matches, 30), features1, features2, F);
+    drawEpipolarLines(config, ctx, _.sample(matches, 30), features1, features2, F);
     console.log('epipolar lines rendered');
     return promiseWriteFile(path, canv.toBuffer());
 }
