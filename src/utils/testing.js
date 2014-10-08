@@ -3,7 +3,10 @@
 var Promise = require('promise'),
     fs = require('fs'),
     saveimage = require('save-pixels'),
-    Canvas = require('canvas');
+    Canvas = require('canvas'),
+    la = require('sylvester'),
+    Matrix = la.Matrix,
+    Vector = la.Vector;
 
 var samples = require('./samples.js'),
     projections = require('../math/projections.js'),
@@ -93,11 +96,15 @@ function promiseVisualHomography(path, img, H, ratio){
 function promiseVisualHomographyPiar(path, i1, i2, H1, H2){
     return Promise.all([
         samples.promiseCanvasImage(i1),
-        samples.promiseCanvasImage(i2)
+        samples.promiseCanvasImage(i2),
+        samples.promiseImage(i1),
+        samples.promiseImage(i2)
     ]).then(function(results){
 
         var img1 = results[0],
             img2 = results[1],
+            imgdata1 = results[2],
+            imgdata2 = results[3],
             cam1 = samples.getCamera(i1),
             cam2 = samples.getCamera(i2),
             R1 = Matrix.create(cam1.R),
@@ -111,8 +118,8 @@ function promiseVisualHomographyPiar(path, i1, i2, H1, H2){
             config = drawImagePair(img1, img2, canv, 800),
             ctx = canv.getContext('2d');
 
-        drawHomography(img1, H1, ctx, 0, 0, config.ratio1);
-        drawHomography(img2, H2, ctx, config.offsetX, config.offsetY, config.ratio2);
+        drawHomography(imgdata1, H1, ctx, 0, 0, config.ratio1);
+        drawHomography(imgdata2, H2, ctx, config.offsetX, config.offsetY, config.ratio2);
         drawEpipolarLines(config, ctx, FF, {
             color: 'green',
             amount: 60
