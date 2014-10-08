@@ -92,28 +92,15 @@ function testEpipolarGeometry(i1, i2){
         R1 = Matrix.create(cam1.R),
         R2 = Matrix.create(cam2.R),
         t1 = Vector.create(cam1.t),
-        t2 = Vector.create(cam2.t),
-        R = R2.x(R1.transpose()),
-        t = t2.subtract(R.x(t1)),
-        T = R.transpose().x(t).x(-1),
-        Tx = Matrix.create([
-            [ 0      , -T.e(3) , T.e(2) ],
-            [ T.e(3) , 0       , -T.e(1)],
-            [ -t.e(2), t.e(1)  , 0      ]
-        ]),
-        K1 = projections.getCalibrationMatrix(cam1.focal, width, height),
-        K2 = projections.getCalibrationMatrix(cam2.focal, width, height),
-        F = K2.transpose().inverse().x(R).x(Tx).x(K1.inverse()),
-        modulus = Vector.create(_.flatten(F.elements)).modulus();
+        t2 = Vector.create(cam2.t);
 
     cam1.width = width;
     cam1.height = height;
     cam2.width = width;
     cam2.height = height;
 
-    F = F.x(1/modulus).transpose();
+    var F = projections.getFundamentalMatrix(R1, t1, cam1.focal, cam1, R2, t2, cam2.focal, cam2);
 
-    /*
     var features1 = sample.getFeatures(i1),
         features2 = sample.getFeatures(i2),
         matches = sample.getRawMatches(i1, i2),
@@ -124,12 +111,30 @@ function testEpipolarGeometry(i1, i2){
             cam2: cam2
         };
 
-    var filtered = epiFilter(F, metadata, matches, 0.1);
+    var filtered = epiFilter(F, metadata, matches, 0.5);
     console.log(filtered.length + '/' + matches.length + ' , ' + filtered.length/matches.length + ' passed filter.');
 
     testUtils.promiseVisualMatch('/home/sheep/Code/filter-test.png', i1, i2, filtered);
-*/
+
     testUtils.promiseVisualEpipolar('/home/sheep/Code/calibrated-epipolar.png', i1, i2, F);
+
+}
+
+function epipolarLineTest(i1, i2){
+
+    var width = 3008, height = 2000,
+        f1 = sample.getCamera(i1).focal,
+        f2 = sample.getCamera(i2).focal,
+        cam1 = { width: width, height: height },
+        cam2 = { width: width, height: height },
+        R1 = Matrix.I(3),
+        R2 = Matrix.I(3),
+        t1 = Vector.create([0,0,0]),
+        t2 = Vector.create([20,0,0]);
+
+    var F = projections.getFundamentalMatrix(R1, t1, f1, cam1, R2, t2, f2, cam2);
+
+    testUtils.promiseVisualEpipolar('/home/sheep/Code/epipolar-line-test.png', i1, i2, F);
 
 }
 
@@ -140,4 +145,6 @@ function epiFilter(F, metadata, matches, threshold){
 }
 
 
-testEpipolarGeometry(2,3);
+//testEpipolarGeometry(2,3);
+
+epipolarLineTest(2,3);
