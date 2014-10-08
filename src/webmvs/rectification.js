@@ -18,8 +18,8 @@ function rectification(R1, R2, t1, t2){
         e1 = normalize(T),
         e2 = normalize(Vector.create([-T.elements[1], T.elements[0], 0])),
         e3 = normalize(e1.cross(e2)),
-        rect = Matrix.create([e1.elements, e2.elements, e3.elements]);
-    return [rect, R.transpose().x(rect)]; // new R1, R2
+        rect = Matrix.create([e1.elements, e2.elements, e3.elements]).transpose();
+    return [rect, R.transpose().x(rect)]; // delta R1, R2
 }
 
 function normalize(v){

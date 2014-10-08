@@ -31,9 +31,8 @@ function getFundamentalMatrix(R1, t1, f1, cam1, R2, t2, f2, cam2){
     var E = getEssentialMatrix(R1, t1, R2, t2),
         K1 = getCalibrationMatrix(f1, cam1.width, cam1.height),
         K2 = getCalibrationMatrix(f2, cam2.width, cam2.height),
-        F = K1.transpose().inverse().x(E).x(K2.inverse()),
-        modulus = Vector.create(_.flatten(F.elements)).modulus();
-    return F.x(1/modulus);
+        F = K1.transpose().inverse().x(E).x(K2.inverse());
+    return normalizeMatrix(F);
 }
 
 function getEssentialMatrix(R1, t1, R2, t2){
@@ -45,7 +44,11 @@ function getEssentialMatrix(R1, t1, R2, t2){
             [ T.e(3) , 0       , -T.e(1)],
             [ -t.e(2), t.e(1)  , 0      ]
         ]),
-        E = R.x(Tx),
-        modulus = Vector.create(_.flatten(E.elements)).modulus();
-    return E.x(1/modulus).transpose();
+        E = Tx.x(R.transpose());
+    return normalizeMatrix(E);
+}
+
+function normalizeMatrix(m){
+    var modulus = Vector.create(_.flatten(m.elements)).modulus();
+    return m.x(1/modulus);
 }
