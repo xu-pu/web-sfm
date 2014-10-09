@@ -129,8 +129,10 @@ function epipolarLineTest(i1, i2){
         cam2 = { width: width, height: height },
         R1 = Matrix.I(3),
         R2 = Matrix.I(3),
-        t1 = Vector.create([0,0,0]),
-        t2 = Vector.create([20,0,0]);
+        T1 = Vector.create([0,0,0]),
+        T2 = Vector.create([20,0,0]),
+        t1 = R1.x(T1).x(-1),
+        t2 = R2.x(T2).x(-1);
 
     var F = projections.getFundamentalMatrix(R1, t1, f1, cam1, R2, t2, f2, cam2);
 

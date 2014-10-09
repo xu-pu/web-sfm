@@ -36,8 +36,8 @@ function testPair(index1, index2){
     var rotations = rectification(R1, R2, t1, t2, f1, f2);
     var RR1 = rotations[0],
         RR2 = rotations[1],
-        DR1 = RR1.x(R1.transpose()),
-        DR2 = RR2.x(R2.transpose());
+        R1new = RR1.x(R1), t1new = RR1.x(t1),
+        R2new = RR2.x(R2), t2new = RR2.x(t2);
 
     return Promise.all([
         samples.promiseCanvasImage(index1),
@@ -56,10 +56,48 @@ function testPair(index1, index2){
         var H1 = K1.x(RR1).x(K1.inverse()),
             H2 = K2.x(RR2).x(K2.inverse());
 
+//        testUtils.promiseVisualEpipolar('/home/sheep/Code/calibrated-epipolar.png', index1, index2, F);
+
+
         return testUtils.promiseVisualHomographyPiar('/home/sheep/Code/homopair.png', index1, index2, H1, H2);
 
     });
 
 }
 
-testPair(3,4);
+function rectificationTest(i1, i2){
+
+    var width = 3008, height = 2000,
+        f1 = samples.getCamera(i1).focal,
+        f2 = samples.getCamera(i2).focal,
+        cam = { width: width, height: height },
+        R1 = rotate(0, Math.PI/6, 0),
+        R2 = rotate(0, Math.PI/6, 0),
+        T1 = Vector.create([0,0,0]),
+        T2 = Vector.create([20,20,20]),
+        t1 = R1.x(T1).x(-1),
+        t2 = R2.x(T2).x(-1);
+
+    var results = rectification(R1, R2, t1, t2, f1, f2);
+    var RR1 = results[0],
+        RR2 = results[1],
+        R1new = RR1.x(R1), t1new = RR1.x(t1),
+        R2new = RR2.x(R2), t2new = RR2.x(t2);
+
+    //console.log(R1new);
+    //console.log(t1new);
+    //console.log(R2new);
+    //console.log(t2new);
+
+
+    var F = projections.getFundamentalMatrix(R1, t1, f1, cam, R2, t2, f2, cam),
+        FF = projections.getFundamentalMatrix(R1new, t1new, f1, cam, R2new, t2new, f2, cam);
+
+    testUtils.promiseVisualEpipolar('/home/sheep/Code/epipolar-line-before.png', i1, i2, F);
+    testUtils.promiseVisualEpipolar('/home/sheep/Code/epipolar-line-rectified.png', i1, i2, FF);
+
+}
+
+rectificationTest(6,7);
+
+//testPair(6,7);
