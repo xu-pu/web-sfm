@@ -2,6 +2,7 @@
 
 var Promise = require('promise'),
     fs = require('fs'),
+    _ = require('underscore'),
     saveimage = require('save-pixels'),
     Canvas = require('canvas'),
     la = require('sylvester'),
@@ -114,6 +115,8 @@ function promiseVisualHomographyPiar(path, i1, i2, H1, H2){
             F = projections.getFundamentalMatrix(R1, t1, cam1.focal, img1, R2, t2, cam2.focal, img2),
             FF = H1.transpose().inverse().x(F).x(H2.inverse());
 
+        FF = normalizeMatrix(FF);
+
         var canv = new Canvas(),
             config = drawImagePair(img1, img2, canv, 800),
             ctx = canv.getContext('2d');
@@ -127,4 +130,10 @@ function promiseVisualHomographyPiar(path, i1, i2, H1, H2){
         return promiseWriteCanvas(canv, path);
 
     });
+}
+
+
+function normalizeMatrix(m){
+    var modulus = Vector.create(_.flatten(m.elements)).modulus();
+    return m.x(1/modulus);
 }

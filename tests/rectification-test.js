@@ -1,6 +1,7 @@
 'use strict';
 
-var Promise = require('promise'),
+var _ = require('underscore'),
+    Promise = require('promise'),
     grayscale = require('luminance'),
     fs = require('fs'),
     la = require('sylvester'),
@@ -53,13 +54,21 @@ function testPair(index1, index2){
 //        var H1 = K1.x(rotate(Math.PI/6, Math.PI/6, 0)).x(K1.inverse()),
 //            H2 = K2.x(rotate(Math.PI/8, Math.PI/6, Math.PI/5)).x(K2.inverse());
 
-        var H1 = K1.x(RR1).x(K1.inverse()),
-            H2 = K2.x(RR2).x(K2.inverse());
+        var H1 = normalizeMatrix(K1.x(RR1).x(K1.inverse())),
+            H2 = normalizeMatrix(K2.x(RR2).x(K2.inverse()));
 
-//        testUtils.promiseVisualEpipolar('/home/sheep/Code/calibrated-epipolar.png', index1, index2, F);
+        var F = projections.getFundamentalMatrix(R1, t1, f1, img1, R2, t2, f2, img2);
+        var FF = projections.getFundamentalMatrix(R1new, t1new, f1, img1, R2new, t2new, f2, img2);
 
+        var FFF = normalizeMatrix(H1.transpose().inverse().x(F).x(H2.inverse()));
 
-        return testUtils.promiseVisualHomographyPiar('/home/sheep/Code/homopair.png', index1, index2, H1, H2);
+        console.log(FF.subtract(FFF));
+
+        testUtils.promiseVisualEpipolar('/home/sheep/Code/before-rect.png', index1, index2, F);
+        testUtils.promiseVisualEpipolar('/home/sheep/Code/after-rect.png', index1, index2, FF);
+        testUtils.promiseVisualEpipolar('/home/sheep/Code/after-rect-homo.png', index1, index2, FFF);
+
+        //return testUtils.promiseVisualHomographyPiar('/home/sheep/Code/after-rect-homo.png', index1, index2, H1, H2);
 
     });
 
@@ -72,7 +81,7 @@ function rectificationTest(i1, i2){
         f2 = samples.getCamera(i2).focal,
         cam = { width: width, height: height },
         R1 = rotate(0, Math.PI/6, 0),
-        R2 = rotate(0, Math.PI/6, 0),
+        R2 = rotate(0, Math.PI/5, 0),
         T1 = Vector.create([0,0,0]),
         T2 = Vector.create([20,20,20]),
         t1 = R1.x(T1).x(-1),
@@ -98,6 +107,12 @@ function rectificationTest(i1, i2){
 
 }
 
-rectificationTest(6,7);
 
-//testPair(6,7);
+function normalizeMatrix(m){
+    var modulus = Vector.create(_.flatten(m.elements)).modulus();
+    return m.x(1/modulus);
+}
+
+//rectificationTest(6,7);
+
+testPair(6,7);

@@ -149,4 +149,6 @@ function epiFilter(F, metadata, matches, threshold){
 
 //testEpipolarGeometry(2,3);
 
-epipolarLineTest(2,3);
+//epipolarLineTest(2,3);
+
+testEpipolarGeometry(2,3);
