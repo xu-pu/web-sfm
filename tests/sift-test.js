@@ -1,6 +1,7 @@
 'use strict';
 
 var _ = require('underscore'),
+    Promise = require('promise'),
     blur = require('ndarray-gaussian-filter'),
     ops = require('ndarray-ops'),
     pool = require('ndarray-scratch');
@@ -11,6 +12,7 @@ var samples = require('../src/utils/samples.js'),
     getGradient = require('../src/math/gradient.js'),
     getOrientation = require('../src/websift/orientation.js'),
     getGuassianKernel = require('../src/math/kernels.js').getGuassianKernel,
+    testUtils = require('../src/utils/testing.js'),
     detect = require('../src/websift/detector.js'),
     isNotEdge = require('../src/websift/edge-filter.js');
 
@@ -75,6 +77,11 @@ function testDetector(index){
             });
 
             console.log('dogs released');
+
+            Promise.all([
+                testUtils.promiseVisualPoints('/home/sheep/Code/detected.png', index, detected),
+                testUtils.promiseVisualPoints('/home/sheep/Code/filtered.png', index, filtered)
+            ]);
 
         });
 }
