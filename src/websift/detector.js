@@ -13,7 +13,7 @@ function detect(dogs, callback){
     console.log('detecting feature points');
 
     var imgs = dogs.map(function(dog){ return dog.img; }),
-        layer = dogs[1],
+        layer = imgs[1],
         width = layer.shape[1],
         height = layer.shape[0],
         contrastWindow = [-1,0,1];
