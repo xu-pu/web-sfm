@@ -24,6 +24,7 @@ module.exports.promiseVisualMatch = promiseVisualMatch;
 module.exports.promiseVisualEpipolar = promiseVisualEpipolar;
 module.exports.promiseVisualHomography = promiseVisualHomography;
 module.exports.promiseVisualHomographyPiar = promiseVisualHomographyPiar;
+module.exports.promiseVisualPoints = promiseVisualPoints;
 
 
 function promiseSaveNdarray(img, path){
@@ -49,6 +50,17 @@ function promiseWriteCanvas(canvas, path){
     return promiseWriteFile(path, canvas.toBuffer());
 }
 
+function promiseVisualPoints(path, index, points){
+    return samples
+        .promiseCanvasImage(index)
+        .then(function(img){
+            var canv = new Canvas(img.width, img.height),
+                ctx = canv.getContext('2d');
+            ctx.drawImage(img, 0, 0, img.width, img.height);
+            drawFeatures(ctx, points, 0, 0, 1);
+            return promiseWriteCanvas(canv, path);
+        });
+}
 
 function promiseVisualMatch(path, i1, i2, matches){
     return Promise.all([
