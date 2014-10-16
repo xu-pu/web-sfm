@@ -12,7 +12,7 @@ var samples = require('../src/utils/samples.js'),
     getOrientation = require('../src/websift/orientation.js'),
     getGuassianKernel = require('../src/math/kernels.js').getGuassianKernel,
     detect = require('../src/websift/detector.js'),
-    isNotEdge = require('../src/websift/websift.js');
+    isNotEdge = require('../src/websift/edge-filter.js');
 
 
 function testDetector(index){
@@ -45,17 +45,30 @@ function testDetector(index){
 
             console.log('guassians released');
 
-            var features = [];
+            var detected = [];
+            var filtered = [];
 
             detect(dogs, function(space, row, col){
-                console.log('found one');
-                features.push({
+                detected.push({
                     row: row,
                     col: col
                 });
+                if (isNotEdge(space[1], row, col)) {
+                    filtered.push({
+                        row: row,
+                        col: col
+                    });
+                    console.log('Found one, passed edge filter');
+                }
+                else {
+                    console.log('found one, did not pass edge filter');
+                }
             });
 
             console.log('detection finished');
+
+            console.log(detected.length);
+            console.log(filtered.length);
 
             dogs.forEach(function(dog){
                 pool.free(dog.img);
