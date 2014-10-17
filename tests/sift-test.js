@@ -51,19 +51,26 @@ function testDetector(index, octave){
             console.log('guassians released');
 
             var detected = [],
+                lowContrast = [],
                 edge = [],
                 filtered = [];
 
-            detect(dogs, function(space, row, col){
+            detect(dogs, function(space, row, col, contrast){
                 var point = { row: row*step, col: col*step };
                 detected.push(point);
-                if (isNotEdge(space[1], row, col)) {
-                    filtered.push(point);
-                    console.log('Found one, passed edge filter');
+                if (contrast > 0.05) {
+                    if (isNotEdge(space[1], row, col)) {
+                        filtered.push(point);
+                        console.log('Found one, passed contrast and edge');
+                    }
+                    else {
+                        edge.push(point);
+                        console.log('found one, passed contrast, did not pass edge');
+                    }
                 }
                 else {
-                    edge.push(point);
-                    console.log('found one, did not pass edge filter');
+                    lowContrast.push(point);
+                    console.log('found one, did not pass contrast filter');
                 }
             });
 
@@ -81,10 +88,11 @@ function testDetector(index, octave){
             Promise.all([
                 testUtils.promiseVisualPoints('/home/sheep/Code/sift-detected.png', index, detected),
                 testUtils.promiseVisualPoints('/home/sheep/Code/sift-filtered.png', index, filtered),
-                testUtils.promiseVisualPoints('/home/sheep/Code/sift-edge.png', index, edge)
+                testUtils.promiseVisualPoints('/home/sheep/Code/sift-edge.png', index, edge),
+                testUtils.promiseVisualPoints('/home/sheep/Code/sift-low-contrast.png', index, lowContrast)
             ]);
 
         });
 }
 
-testDetector(1, 1);
+testDetector(1, 2);
