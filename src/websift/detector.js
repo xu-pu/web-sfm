@@ -21,9 +21,9 @@ function detect(dogs, callback){
     _.range(height).forEach(function(row){
         _.range(width).forEach(function(col){
 
-            var center = layer.get(row,col);
-            var max = null;
-            var min = null;
+            var center = layer.get(row,col),
+                max = -Infinity,
+                min = Infinity;
 
             var isLimit = contrastWindow.every(function(x){
                 return contrastWindow.every(function(y){
@@ -33,23 +33,21 @@ function detect(dogs, callback){
                         }
                         else {
                             var cursor = imgs[1+z].get(row+y, col+x);
-                            if (cursor > center && (max === null || cursor > max)) {
+                            if (cursor > max) {
                                 max = cursor;
                             }
-                            else if (cursor < center && (min === null || cursor < min)) {
+                            if (cursor < min) {
                                 min = cursor;
                             }
-                            else if (cursor === center) {
-                                return false;
-                            }
-                            return (max === null || min === null);
+                            return !(center >= min && center <= max);
                         }
                     });
                 });
             });
 
             if (isLimit) {
-                callback(dogs, row, col);
+                var contrast = center > max ? center-max : min-center;
+                callback(dogs, row, col, contrast);
             }
 
         });
