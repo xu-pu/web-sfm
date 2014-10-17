@@ -50,14 +50,23 @@ function promiseWriteCanvas(canvas, path){
     return promiseWriteFile(path, canvas.toBuffer());
 }
 
-function promiseVisualPoints(path, index, points){
+function promiseVisualPoints(path, index, points, options){
+
+    options = options || {};
+    _.defaults(options, {
+       fixedWidth: 800
+    });
+
     return samples
         .promiseCanvasImage(index)
         .then(function(img){
-            var canv = new Canvas(img.width, img.height),
+            var ratio = options.fixedWidth/img.width,
+                width = options.fixedWidth,
+                height = img.height*ratio,
+                canv = new Canvas(width, height),
                 ctx = canv.getContext('2d');
-            ctx.drawImage(img, 0, 0, img.width, img.height);
-            drawFeatures(ctx, points, 0, 0, 1);
+            ctx.drawImage(img, 0, 0, width, height);
+            drawFeatures(ctx, points, 0, 0, ratio);
             return promiseWriteCanvas(canv, path);
         });
 }

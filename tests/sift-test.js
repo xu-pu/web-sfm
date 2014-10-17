@@ -17,16 +17,19 @@ var samples = require('../src/utils/samples.js'),
     isNotEdge = require('../src/websift/edge-filter.js');
 
 
-function testDetector(index){
+function testDetector(index, octave){
     return samples
         .promiseImage(index)
         .then(function(img){
-
-            var layers = _.range(4).map(function(index){
-                var k = Math.pow(2, 1/5);
-                var sigma = Math.pow(k, index);
-                var buffer = pool.clone(img);
-                return blur(buffer, sigma);
+            var step = Math.pow(2, octave);
+            var layers = _.range(4).map(function(layer){
+                var k = Math.pow(2, 1/5),
+                    sigma = Math.pow(2, octave) * Math.pow(k, layer),
+                    buffer = pool.clone(img);
+                console.log('convoluting image with sigma ' + sigma);
+                var view = blur(buffer, sigma).step(step, step);
+                console.log('convoluting complete, resolution ' + view.shape[0] + '*' + view.shape[1]);
+                return view;
             });
 
             console.log('gussians generated');
@@ -34,7 +37,7 @@ function testDetector(index){
             var dogs = _.range(3).map(function(index){
                 var k = Math.pow(2, 1/5),
                     sigma = Math.pow(k, index),
-                    buffer = pool.malloc(img.shape);
+                    buffer = pool.malloc(layers[0].shape);
                 ops.sub(buffer, layers[index+1], layers[index]);
                 return { img: buffer, sigma: sigma };
             });
@@ -47,22 +50,19 @@ function testDetector(index){
 
             console.log('guassians released');
 
-            var detected = [];
-            var filtered = [];
+            var detected = [],
+                edge = [],
+                filtered = [];
 
             detect(dogs, function(space, row, col){
-                detected.push({
-                    row: row,
-                    col: col
-                });
+                var point = { row: row*step, col: col*step };
+                detected.push(point);
                 if (isNotEdge(space[1], row, col)) {
-                    filtered.push({
-                        row: row,
-                        col: col
-                    });
+                    filtered.push(point);
                     console.log('Found one, passed edge filter');
                 }
                 else {
+                    edge.push(point);
                     console.log('found one, did not pass edge filter');
                 }
             });
@@ -79,11 +79,12 @@ function testDetector(index){
             console.log('dogs released');
 
             Promise.all([
-                testUtils.promiseVisualPoints('/home/sheep/Code/detected.png', index, detected),
-                testUtils.promiseVisualPoints('/home/sheep/Code/filtered.png', index, filtered)
+                testUtils.promiseVisualPoints('/home/sheep/Code/sift-detected.png', index, detected),
+                testUtils.promiseVisualPoints('/home/sheep/Code/sift-filtered.png', index, filtered),
+                testUtils.promiseVisualPoints('/home/sheep/Code/sift-edge.png', index, edge)
             ]);
 
         });
 }
 
-testDetector(1);
+testDetector(1, 1);
