@@ -50,34 +50,19 @@ function testDetector(index, octave){
 
             console.log('guassians released');
 
-            var detected = [],
-                lowContrast = [],
-                edge = [],
-                filtered = [];
+            var filter = new PointFilter(step);
 
-            detect(dogs, function(space, row, col, contrast){
+            var contrast = 255 * 0.5 * 0.04 / 3;
+
+            var detected = [];
+
+            detect(dogs, contrast, function(space, row, col) {
                 var point = { row: row*step, col: col*step };
                 detected.push(point);
-                if (contrast > 0.05) {
-                    if (isNotEdge(space[1], row, col)) {
-                        filtered.push(point);
-                        console.log('Found one, passed contrast and edge');
-                    }
-                    else {
-                        edge.push(point);
-                        console.log('found one, passed contrast, did not pass edge');
-                    }
-                }
-                else {
-                    lowContrast.push(point);
-                    console.log('found one, did not pass contrast filter');
-                }
+                filter.check(space, row, col);
             });
 
             console.log('detection finished');
-
-            console.log(detected.length);
-            console.log(filtered.length);
 
             dogs.forEach(function(dog){
                 pool.free(dog.img);
@@ -87,12 +72,35 @@ function testDetector(index, octave){
 
             Promise.all([
                 testUtils.promiseVisualPoints('/home/sheep/Code/sift-detected.png', index, detected),
-                testUtils.promiseVisualPoints('/home/sheep/Code/sift-filtered.png', index, filtered),
-                testUtils.promiseVisualPoints('/home/sheep/Code/sift-edge.png', index, edge),
-                testUtils.promiseVisualPoints('/home/sheep/Code/sift-low-contrast.png', index, lowContrast)
+                testUtils.promiseVisualPoints('/home/sheep/Code/sift-filtered.png', index, filter.results),
+                testUtils.promiseVisualPoints('/home/sheep/Code/sift-edge.png', index, filter.edge)
             ]);
 
         });
 }
 
-testDetector(1, 2);
+/**
+ *
+ * @param step
+ * @param contrastThreshold
+ * @constructor
+ */
+function PointFilter(step, contrastThreshold){
+
+    this.edge = [];
+    this.results = [];
+
+    this.check = function(space, row, col, contrast) {
+        var point = { row: row * step, col: col * step };
+        if (isNotEdge(space[1], row, col)) {
+            this.results.push(point);
+            console.log('Found one!');
+        }
+        else {
+            this.edge.push(point);
+            console.log('Did not pass edge filter');
+        }
+    };
+}
+
+testDetector(1, 1);

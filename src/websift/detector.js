@@ -6,9 +6,10 @@ module.exports = detect;
 
 /**
  * @param {DoG[]} dogs
+ * @param {Number} contrast
  * @param {Function} callback
  */
-function detect(dogs, callback){
+function detect(dogs, contrast, callback){
 
     console.log('detecting feature points');
 
@@ -24,6 +25,10 @@ function detect(dogs, callback){
             var center = layer.get(row,col),
                 max = -Infinity,
                 min = Infinity;
+
+            if (center < contrast) {
+                return;
+            }
 
             var isLimit = contrastWindow.every(function(x){
                 return contrastWindow.every(function(y){
@@ -46,8 +51,7 @@ function detect(dogs, callback){
             });
 
             if (isLimit) {
-                var contrast = center > max ? center-max : min-center;
-                callback(dogs, row, col, contrast);
+                callback(dogs, row, col);
             }
 
         });
