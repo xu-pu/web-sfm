@@ -9,6 +9,7 @@ var _ = require('underscore'),
 
 var samples = require('../src/utils/samples.js'),
     sift = require('../src/websift/websift.js'),
+    iterScales = require('../src/websift/dogspace.js'),
     getGradient = require('../src/math/gradient.js'),
     getOrientation = require('../src/websift/orientation.js'),
     getGuassianKernel = require('../src/math/kernels.js').getGuassianKernel,
@@ -79,6 +80,35 @@ function testDetector(index, octave){
         });
 }
 
+
+function pyramidTest(index, octave){
+
+    var step = Math.pow(2, octave),
+        filter = new PointFilter(step),
+        contrast = 255 * 0.5 * 0.04 / 3,
+        detected = [];
+
+    samples
+        .promiseImage(index)
+        .then(function(img){
+            iterScales(img, octave, function(dogs, o){
+                detect(dogs, contrast, function(space, row, col) {
+                    var point = { row: row*step, col: col*step };
+                    detected.push(point);
+                    filter.check(space, row, col);
+                });
+            });
+
+            return Promise.all([
+                testUtils.promiseVisualPoints('/home/sheep/Code/sift-detected.png', index, detected),
+                testUtils.promiseVisualPoints('/home/sheep/Code/sift-filtered.png', index, filter.results),
+                testUtils.promiseVisualPoints('/home/sheep/Code/sift-edge.png', index, filter.edge)
+            ]);
+
+        });
+}
+
+
 /**
  *
  * @param step
@@ -103,4 +133,6 @@ function PointFilter(step, contrastThreshold){
     };
 }
 
-testDetector(1, 1);
+//testDetector(1, 1);
+
+pyramidTest(1,0);

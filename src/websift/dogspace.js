@@ -26,9 +26,11 @@ function iterScales(img, octave, callback) {
         k = Math.pow(2, 1/SCALES);
 
     var scales = _.range(SCALES).map(function(index){
-        var sigma = baseSigma * pow(k, index),
-            buffer = pool.clone(img),
-            view = blur(buffer, sigma).step(step, step);
+        var sigma = baseSigma * Math.pow(k, index);
+        console.log('convoluting image with sigma ' + sigma);
+        var buffer = pool.clone(img);
+        var view = blur(buffer, sigma).step(step, step);
+        console.log('convoluting complete, resolution ' + view.shape[0] + '*' + view.shape[1]);
         return { img: view, sigma: sigma };
     });
 
@@ -44,17 +46,25 @@ function iterScales(img, octave, callback) {
         };
     });
 
-    _.range(dogs.length-2).forEach(function(index){
-        var space = dogs.slice(index, index+3);
-        callback(space, octave);
-    });
+    console.log('dogs generated');
 
     scales.forEach(function(scale){
         pool.free(scale.img);
     });
 
+    console.log('guassians released');
+
+    _.range(dogs.length-2).forEach(function(index){
+        var space = dogs.slice(index, index+3);
+        callback(space, octave);
+    });
+
+    console.log('scale iteration finished');
+
     dogs.forEach(function(dog){
         pool.free(dog.img);
     });
+
+    console.log('dogs released');
 
 }
