@@ -9,7 +9,6 @@ var _ = require('underscore'),
 var getGradient = require('../math/gradient.js'),
     getGuassianKernel = require('../math/kernels.js').getGuassianKernel;
 
-
 module.exports = getPointOrientation;
 
 /**
@@ -41,6 +40,7 @@ function getPointOrientation(dog, row, col, options){
             orientations[bin] += gradient.mag*guassianWeight.elements[radius+y][radius+x];
         }
     }
+
     /*
      var maximum = _.max(orientations),
         directions = [],
@@ -52,6 +52,7 @@ function getPointOrientation(dog, row, col, options){
     }
     return directions;
     */
+
     var maximum=-Infinity, maxIndex, iterOrien;
     for (iterOrien=0; iterOrien<36; iterOrien++) {
         if (orientations[iterOrien]>maximum) {

@@ -7,10 +7,11 @@ var _ = require('underscore'),
     numeric = require('numeric');
 
 var cord = require('../utils/cord.js'),
-    getGradient = require('../math/gradient.js');
-
+    getGradient = require('../math/gradient.js'),
+    kernels = require('../math/kernels.js');
 
 module.exports = siftDescriptor;
+
 
 /**
  * @param {DoG} img
@@ -22,7 +23,12 @@ function siftDescriptor(img, row, col, direction){
 
     console.log('describing feature points');
 
-    var point = cord.RCtoImg(row, col, this.width, this.height);
+    var width = img.shape[1],
+        height = img.shape[0];
+
+    var RADIUS = 8;
+
+    var point = cord.RCtoImg(row, col, width, height);
 
     var transform = Matrix.create([
         [Math.cos(direction), -Math.sin(direction), point.get(0,0)],
@@ -32,13 +38,16 @@ function siftDescriptor(img, row, col, direction){
 
     var descriptor = new Float32Array(128); // 4*4*8
 
-    _.range(-8, 8).forEach(function(x){
-        _.range(-8, 8).forEach(function(y){
-            var block = Math.floor((x+8)/4)+4*Math.floor((y+8)/4);
-            var imgPoint = transform.x(Vector.create([x,y,1])).elements;
-            var gra = getGradient(imgPoint[0], imgPoint[1]);
-            var bin = Math.floor((gra.dir+Math.PI)/(2*Math.PI/8));
+    _.range(-RADIUS, RADIUS).forEach(function(x){
+        _.range(-RADIUS, RADIUS).forEach(function(y){
+
+            var block = Math.floor((x+8)/4)+4*Math.floor((y+8)/4),
+                imgPoint = transform.x(Vector.create([x,y,1])).elements,
+                gra = getGradient(img, imgPoint[0], imgPoint[1]),
+                bin = Math.floor((gra.dir+Math.PI)/(2*Math.PI/8));
+
             descriptor[block*8+bin] += gra.mag;
+
         })
     });
 
