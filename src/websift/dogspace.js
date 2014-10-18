@@ -31,7 +31,7 @@ function iterScales(img, octave, callback) {
         var buffer = pool.clone(img);
         var view = blur(buffer, sigma).step(step, step);
         console.log('convoluting complete, resolution ' + view.shape[0] + '*' + view.shape[1]);
-        return { img: view, sigma: sigma };
+        return { buffer: buffer, img: view, sigma: sigma };
     });
 
     var dogs = _.range(SCALES-1).map(function(index){
@@ -49,7 +49,7 @@ function iterScales(img, octave, callback) {
     console.log('dogs generated');
 
     scales.forEach(function(scale){
-        pool.free(scale.img);
+        pool.free(scale.buffer);
     });
 
     console.log('guassians released');

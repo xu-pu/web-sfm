@@ -81,21 +81,24 @@ function testDetector(index, octave){
 }
 
 
-function pyramidTest(index, octave){
+function pyramidTest(index){
 
-    var step = Math.pow(2, octave),
-        filter = new PointFilter(step),
+    var filter = new PointFilter(),
         contrast = 255 * 0.5 * 0.04 / 3,
         detected = [];
 
     samples
         .promiseImage(index)
         .then(function(img){
-            iterScales(img, octave, function(dogs, o){
-                detect(dogs, contrast, function(space, row, col) {
-                    var point = { row: row*step, col: col*step };
-                    detected.push(point);
-                    filter.check(space, row, col);
+
+            _.range(4).forEach(function(octave){
+                var step = Math.pow(2, octave);
+                iterScales(img, octave, function(dogs, o){
+                    detect(dogs, contrast, function(space, row, col) {
+                        var point = { row: row*step, col: col*step };
+                        detected.push(point);
+                        filter.check(space, row, col, step);
+                    });
                 });
             });
 
@@ -110,17 +113,14 @@ function pyramidTest(index, octave){
 
 
 /**
- *
- * @param step
- * @param contrastThreshold
  * @constructor
  */
-function PointFilter(step, contrastThreshold){
+function PointFilter(){
 
     this.edge = [];
     this.results = [];
 
-    this.check = function(space, row, col, contrast) {
+    this.check = function(space, row, col, step) {
         var point = { row: row * step, col: col * step };
         if (isNotEdge(space[1], row, col)) {
             this.results.push(point);
