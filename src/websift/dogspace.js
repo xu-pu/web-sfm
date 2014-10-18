@@ -5,51 +5,56 @@ var _ = require('underscore'),
     ops = require('ndarray-ops'),
     pool = require('ndarray-scratch');
 
-module.exports = getDoGs;
+module.exports = iterScales;
 
 /**
  * @typedef {{img, sigma: number}} DoG
  */
 
 /**
- *
  * @param img
- * @param octave
- * @param options
- * @returns DoG[]
+ * @param {Number} octave
+ * @param {Function} callback
  */
-function getDoGs(img, octave, options) {
+function iterScales(img, octave, callback) {
 
     console.log('calculating dogs');
 
-    options = options || {};
-    _.defaults(options, {
-        scales: 5
+    var SCALES = 5,
+        step = Math.pow(2, octave),
+        baseSigma = Math.pow(2, octave),
+        k = Math.pow(2, 1/SCALES);
+
+    var scales = _.range(SCALES).map(function(index){
+        var sigma = baseSigma * pow(k, index),
+            buffer = pool.clone(img),
+            view = blur(buffer, sigma).step(step, step);
+        return { img: view, sigma: sigma };
     });
 
-    var step = Math.pow(2, octave);
-
-    var sigmas = _.range(options.scales).map(function(s){
-        return Math.pow(2, octave+s/options.scales);
-    });
-
-    var scales = sigmas.map(function(sigma){
-        var buffer = pool.clone(img);
-        return blur(buffer, sigma).step(step, step);
-    });
-
-    var dogs = _.range(scales.length-1).map(function(index){
-        var buffer = pool.malloc(scales[0].shape);
-        ops.sub(buffer, scales[index], scales[index+1]);
+    var dogs = _.range(SCALES-1).map(function(index){
+        var img = scales[index].img,
+            imgk = scales[index+1].img,
+            sigma = scales[index].sigma;
+        var buffer = pool.malloc(img.shape);
+        ops.sub(buffer, imgk, img);
         return {
             img: buffer,
-            sigma: sigmas[index]
+            sigma: sigma
         };
     });
 
-    scales.forEach(function(scale){
-        pool.free(scale);
+    _.range(dogs.length-2).forEach(function(index){
+        var space = dogs.slice(index, index+3);
+        callback(space, octave);
     });
 
-    return dogs;
+    scales.forEach(function(scale){
+        pool.free(scale.img);
+    });
+
+    dogs.forEach(function(dog){
+        pool.free(dog.img);
+    });
+
 }
