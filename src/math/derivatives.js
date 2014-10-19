@@ -1,5 +1,7 @@
 'use strict';
 
+var interp = require("ndarray-linear-interpolate").d2;
+
 module.exports.dx = dx;
 module.exports.dy = dy;
 module.exports.dxx = dxx;
@@ -8,11 +10,11 @@ module.exports.dxy = dxy;
 module.exports.dyx = dyx;
 
 function dx(img, row, col){
-    return img.get(row, col+1) - img.get(row, col);
+    return interp(img, row, col+1) - interp(img, row, col);
 }
 
 function dy(img, row, col){
-    return img.get(row+1, col) - img.get(row, col);
+    return interp(img, row+1, col) - interp(img, row, col);
 }
 
 function dxx(img, row, col){
