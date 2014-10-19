@@ -8,6 +8,8 @@ module.exports.dxx = dxx;
 module.exports.dyy = dyy;
 module.exports.dxy = dxy;
 module.exports.dyx = dyx;
+module.exports.gradient = gradient;
+
 
 function dx(img, row, col){
     return interp(img, row, col+1) - interp(img, row, col);
@@ -31,4 +33,24 @@ function dxy(img, row, col){
 
 function dyx(img, row, col){
     return dy(img, row, col) - dy(img, row, col-1);
+}
+
+
+/**
+ * @typedef {{dir:number, mag:number}} Gradient
+ */
+
+/**
+ * @param img
+ * @param row
+ * @param col
+ * @returns {Gradient}
+ */
+function gradient(img, row, col){
+    var gdx = dx(img, row, col),
+        gdy = dy(img, row, col);
+    return {
+        dir: Math.atan2(gdy, gdx),
+        mag: Math.sqrt( gdx*gdx + gdy*gdy )
+    };
 }
