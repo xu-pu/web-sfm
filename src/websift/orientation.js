@@ -18,12 +18,13 @@ var RADIUS = 8,
 
 module.exports = getPointOrientation;
 
+
 /**
  *
  * @param {DoG} dog
  * @param {number} row
  * @param {number} col
- * @param {Object} options
+ * @param {Object} [options]
  * @return {number[]}
  */
 function getPointOrientation(dog, row, col, options){
