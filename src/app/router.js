@@ -48,7 +48,13 @@ module.exports = function(App){
     });
 
 
-    App.ApplicationRoute = Ember.Route.extend();
+    App.ApplicationRoute = Ember.Route.extend({
+
+        model: function(){
+            return sfmstore.storePromise;
+        }
+
+    });
 
 
     App.IndexRoute = Ember.Route.extend({
