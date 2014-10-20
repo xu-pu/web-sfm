@@ -16,10 +16,7 @@ module.exports = function(App){
         itemController: 'demo'
     });
 
-    App.ProjectsController = Ember.ArrayController.extend({
-        itemController: 'project.thumbnail',
-        needs: ['application']
-    });
+    App.ProjectsController = require('./controllers/ProjectsController.js');
 
     App.DemoController = require('./controllers/DemoController.js');
 
