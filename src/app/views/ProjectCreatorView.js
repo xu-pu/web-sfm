@@ -10,8 +10,17 @@ module.exports = Ember.View.extend({
 
     InputView: Ember.TextField.extend({
 
+        keyUp: function(){
+            this.syncContent();
+        },
+
         change: function(){
-            this.get('controller').set('newProjectName', this.get('value'));
+            this.syncContent();
+        },
+
+        syncContent: function(){
+            this.get('parentView.controller').set('newProjectName', this.get('value'));
+            console.log(this.get('parentView.controller.newProjectName'));
         }
 
     })
