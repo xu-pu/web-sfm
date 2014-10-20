@@ -47,7 +47,7 @@ var Store = Ember.Object.extend({
     },
 
     syncProjects: function(){
-        utils.setLocalStorage(LOCAL_STORE.PROJECTS, this.get('demos').map(function(model){
+        utils.setLocalStorage(LOCAL_STORE.PROJECTS, this.get('projects').map(function(model){
             return model.getProperties(model.get('storedProperties'));
         }));
     }.observes('projects.length'),
