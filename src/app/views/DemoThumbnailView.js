@@ -1,6 +1,6 @@
 module.exports = Ember.View.extend({
 
-    tagName: 'li',
+    tagName: 'div',
 
     templateName: 'widgets/demo-thumbnail',
 

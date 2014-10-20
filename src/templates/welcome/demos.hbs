@@ -1,10 +1,14 @@
 <div class="welcome-screen__demos">
     <ul>
-        <li class="welcome-screen__demos__header">
-            <span>DEMOS</span>
+        <li class="welcome-screen__demos__item">
+            <div class="welcome-screen__demos__header">
+                <span>DEMOS</span>
+            </div>
         </li>
         {{#each demo in controller}}
-            {{view App.DemoThumbnailView controller=demo}}
+            <li class="welcome-screen__demos__item">
+                {{view App.DemoThumbnailView controller=demo}}
+            </li>
         {{/each}}
     </ul>
 </div>

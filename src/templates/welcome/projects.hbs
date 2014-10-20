@@ -1,10 +1,21 @@
 <div class="welcome-screen__projects">
     <ul>
-        <li class="welcome-screen__projects__header">
-            <span>Projects</span>
+
+        <li class="welcome-screen__projects__item">
+            <div class="welcome-screen__projects__header">
+                <span>Projects</span>
+            </div>
         </li>
+
         {{#each project in controller}}
-            {{view App.ProjectThumbnailView controller=project}}
+            <li class="welcome-screen__projects__item">
+                {{view App.ProjectThumbnailView controller=project}}
+            </li>
         {{/each}}
+
+        <li class="welcome-screen__projects__item">
+            {{view App.ProjectCreatorView}}
+        </li>
+
     </ul>
 </div>
