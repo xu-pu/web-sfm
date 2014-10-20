@@ -1,4 +1,4 @@
-var STATES = require('./settings.js').STATES;
+'use strict';
 
 module.exports = function(App){
 
