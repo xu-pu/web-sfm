@@ -13,7 +13,7 @@ module.exports = Ember.Object.extend({
 
     thumbnail: null,
 
-    isReady: false,
+    isReady: true,
 
     width: null,
 
@@ -32,25 +32,13 @@ module.exports = Ember.Object.extend({
             });
     }.property('_id'),
 
-
     init: function(){
-        if (this.get('file')) {
-            this.get('adapter')
-                .processImageFile(this.get('file'))
-                .then(this.afterSaved.bind(this))
-                .then(this.afterReady.bind(this));
-            Ember.Logger.debug('start processing input image file...');
-        }
-        else if (this.get('_id')){
-            this.set('isReady', true);
-            this.afterReady();
-        }
-        else {
-            throw 'need _id or file to initialze image object';
+        if (!this.get('thumbnail')){
+            this.promiseThumbnail();
         }
     },
 
-    afterReady: function(){
+    promiseThumbnail: function(){
         var _self = this;
         return sfmstore
             .promiseAdapter()
@@ -59,25 +47,6 @@ module.exports = Ember.Object.extend({
             })
             .then(function(thumbnail){
                 _self.set('thumbnail', thumbnail);
-            });
-    },
-
-    afterSaved: function(_id){
-
-        Ember.Logger.debug('image stored, _id acquired');
-        var _self = this;
-        this.set('_id', _id);
-
-        return sfmstore
-            .promiseAdapter()
-            .then(function(adapter){
-                return adapter.promiseData(STORES.IMAGES, _id);
-            })
-            .then(function(img){
-                _self.set('width', img.width);
-                _self.set('height', img.height);
-                _self.set('filename', img.filename);
-                _self.set('isReady', true);
             });
     }
 

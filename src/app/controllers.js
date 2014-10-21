@@ -32,9 +32,7 @@ module.exports = function(App){
     // Workspace.Images
     //=======================
 
-    App.WorkspaceImagesController = Ember.ArrayController.extend({
-        itemController: 'workspace.image.thumbnail'
-    });
+    App.WorkspaceImagesController = require('./controllers/WorkspaceImagesController.js');
 
     App.WorkspaceImageThumbnailController = Ember.ObjectController.extend({
         actions: {

@@ -29,10 +29,12 @@ module.exports = Ember.View.extend({
 
     drop: function(e){
         e.preventDefault();
-        var files = e.dataTransfer.files;
+        var files = e.dataTransfer.files,
+            _self = this;
         _.range(files.length).forEach(function(i){
-            this.modelFor('workspace.images').addObject(Image.create({ file: files[i] }));
-        }.bind(this));
+            _self.get('controller').importImageFile(files[i]);
+            //this.modelFor('workspace.images').addObject(Image.create({ file: files[i] }));
+        });
     }
 
 });

@@ -245,7 +245,7 @@ module.exports = Ember.ObjectController.extend({
                 blob.name = name;
                 return adapter.processImageFile(blob);
             })
-            .then(function(_id){
+            .then(function(image){
                 _self.get('finishedImages').addObject(name);
             });
     }
