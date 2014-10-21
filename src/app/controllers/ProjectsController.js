@@ -18,6 +18,7 @@ module.exports = Ember.ArrayController.extend({
     }.property('newProjectName'),
 
     actions: {
+
         createProject: function(){
             if (this.get('isValidName')) {
                 this.get('store.projects')
@@ -27,24 +28,12 @@ module.exports = Ember.ArrayController.extend({
             }
         },
 
-        deleteProject: function(project){
-            this.promiseDelete(project);
+        enter: function(project){
+            var store = this.get('store');
+            store.set('currentProject', project);
+            this.transitionToRoute('workspace');
         }
-    },
 
-    promiseDelete: function(project){
-        var store = this.get('store'),
-            currentProject = store.get('currentProject');
-        if (currentProject && currentProject.get('name') === project.get('name')) {
-            store.set('currentProject', null);
-        }
-        return new Promise(function(resolve, reject){
-            var request = indexedDB.deleteDatabase(project.get('name'));
-            request.onsuccess = function(){
-                store.get('projects').removeObject(project);
-                resolve(project);
-            };
-        });
     }
 
 });

@@ -16,20 +16,17 @@ module.exports = function(App){
         itemController: 'demo'
     });
 
-    App.ProjectsController = require('./controllers/ProjectsController.js');
-
     App.DemoController = require('./controllers/DemoController.js');
 
-    App.ProjectThumbnailController = Ember.ObjectController.extend();
+    App.ProjectsController = require('./controllers/ProjectsController.js');
+
+    App.ProjectThumbnailController = require('./controllers/ProjectThumbnailController.js');
 
     //=======================
     // Workspace
     //=======================
 
     App.WorkspaceController = require('./controllers/WorkspaceController.js');
-
-    //App.ProjectController = require('./controllers/ProjectController.js');
-
 
     //=======================
     // Workspace.Images

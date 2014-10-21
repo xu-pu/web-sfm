@@ -156,6 +156,10 @@ $project-thumbnail-header-height: 2em;
   @extend %welcome-screen__thumbnail-tile__header;
 }
 
+.project-thumbnail__body {
+  cursor: pointer;
+}
+
 //=====================================
 // Demos
 //=====================================

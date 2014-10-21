@@ -1,10 +1,12 @@
 <div class="project-thumbnail__header">
     <span>{{name}}</span>
-    <div class="exit-icon" {{action "deleteProject" controller.model}}></div>
+    <div class="exit-icon" {{action "deleteProject"}}></div>
 </div>
 
-<div class="project-thumbnail__body">
-    <div>
-        <div {{action "enter"}}>Enter</div>
-    </div>
+<div class="project-thumbnail__body" {{action "enter" controller.model}}>
+    {{#if controller.isDeleting}}
+        <div >Deleting</div>
+    {{else}}
+        <div >Enter</div>
+    {{/if}}
 </div>
