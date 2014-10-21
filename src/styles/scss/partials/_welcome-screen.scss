@@ -6,19 +6,21 @@
   background-color: #2257FF;
 }
 
-
-.welcome-screen__demos-container {
+%welcome-screen__row {
   width: 100%;
   height: 300px;
+  overflow-x: hidden;
+}
+
+.welcome-screen__demos-container {
+  @extend %welcome-screen__row;
   background-color: beige;
 }
 
 .welcome-screen__projects-container {
-  width: 100%;
-  height: 300px;
+  @extend %welcome-screen__row;
   background-color: burlywood;
 }
-
 
 .welcome-screen__demos, .welcome-screen__projects {
   height: 100%;
@@ -27,6 +29,7 @@
     height: 100%;
     box-sizing: border-box;
     padding: 15px;
+    white-space: nowrap;
   }
 }
 
