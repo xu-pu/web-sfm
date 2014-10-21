@@ -1,22 +1,27 @@
+@import "compass";
+@import "../utils";
+
 .welcome-screen__header {
   width: 100%;
   height: 400px;
   background-color: #2257FF;
 }
 
-
-.welcome-screen__demos-container {
+%welcome-screen__row {
   width: 100%;
   height: 300px;
+  overflow-x: hidden;
+}
+
+.welcome-screen__demos-container {
+  @extend %welcome-screen__row;
   background-color: beige;
 }
 
 .welcome-screen__projects-container {
-  width: 100%;
-  height: 300px;
+  @extend %welcome-screen__row;
   background-color: burlywood;
 }
-
 
 .welcome-screen__demos, .welcome-screen__projects {
   height: 100%;
@@ -25,38 +30,112 @@
     height: 100%;
     box-sizing: border-box;
     padding: 15px;
+    white-space: nowrap;
   }
 }
 
 //=====================================
-// Thumbnail
+// Demo and Project
 //=====================================
 
-%welcome-screen__thumbnail-tile {
-  display: inline-block;
-  vertical-align: top;
-  width: 15em;
-  height: 100%;
-  margin-right: 15px;
-}
 
 %welcome-screen__thumbnail-hero {
-  @extend %welcome-screen__thumbnail-tile;
   @include box-shadow(inset 0 0 10px 3px rgba(0, 0, 0, 0.49));
   @include border-radius(1em);
   line-height: 250px;
   text-align: center;
   background-color: rgba(0, 0, 0, 0.11);
+  width: 15em;
+  height: 100%;
 
   span {
     font-size: 3em;
     font-weight: bolder;
   }
+
+}
+
+%welcome-screen__item-tile {
+  display: inline-block;
+  vertical-align: top;
+  height: 100%;
+  margin-right: 15px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+
+%welcome-screen__thumbnail {
+  width: 15em;
+  height: 100%;
+  background: #CECECE;
+  @include box-shadow(0 0 4px 2px rgba(0, 0, 0, 0.49));
+}
+
+$project-thumbnail-header-height: 2em;
+
+%welcome-screen__thumbnail-tile__header {
+  position: relative;
+  background-color: #333333;
+  color: white;
+  height: $project-thumbnail-header-height;
+  line-height: $project-thumbnail-header-height;
+  font-weight: bolder;
+  padding-left: 10px;
+}
+
+
+//=====================================
+// Project Creator
+//=====================================
+
+.welcome-screen__projects__new {
+  @include box-shadow(inset 0 0 10px 3px rgba(0, 0, 0, 0.49));
+  @include transition(box-shadow 0.5s);
+  height: 100%;
+  width: 15em;
+  padding: 1em;
+  box-sizing: border-box;
+
+  &.is-invalid {
+    @include box-shadow(inset 0 0 10px 3px red);
+  }
+
+}
+
+.project-creator__input {
+  width: 100%;
+  height: 30%;
+
+  input {
+    width: 100%;
+    outline: none;
+    @include text-center(2em, 1.2em);
+  }
+
+}
+
+.project-creator__submit {
+  @include transition(background-color 0.5s);
+  width: 100%;
+  height: 70%;
+  background-color: lightgreen;
+  cursor: pointer;
+
+  &.is-invalid {
+    background-color: indianred;
+    cursor: not-allowed;
+  }
+
 }
 
 //=====================================
-// Projects
+// Project Thumbnail
 //=====================================
+
+.welcome-screen__projects__item {
+  @extend %welcome-screen__item-tile;
+}
 
 .welcome-screen__projects__header {
   @extend %welcome-screen__thumbnail-hero;
@@ -66,10 +145,28 @@
 }
 
 //=====================================
+// Project Thumbnail
+//=====================================
+
+.welcome-screen__projects__thumbnail {
+  @extend %welcome-screen__thumbnail;
+}
+
+.project-thumbnail__header {
+  @extend %welcome-screen__thumbnail-tile__header;
+}
+
+.project-thumbnail__body {
+  cursor: pointer;
+}
+
+//=====================================
 // Demos
 //=====================================
 
-$project-thumbnail-header-height: 2em;
+.welcome-screen__demos__item {
+  @extend %welcome-screen__item-tile;
+}
 
 .welcome-screen__demos__header {
   @extend %welcome-screen__thumbnail-hero;
@@ -78,19 +175,16 @@ $project-thumbnail-header-height: 2em;
   }
 }
 
+//=====================================
+// Demo Thumbnail
+//=====================================
+
 .welcome-screen__demos__thumbnail {
-  @extend %welcome-screen__thumbnail-tile;
-  background: #CECECE;
-  @include box-shadow(0 0 4px 2px rgba(0, 0, 0, 0.49));
+  @extend %welcome-screen__thumbnail;
 }
 
 .demo-thumbnail__header {
-  background-color: #333333;
-  color: white;
-  height: $project-thumbnail-header-height;
-  line-height: $project-thumbnail-header-height;
-  font-weight: bolder;
-  padding-left: 10px;
+  @extend %welcome-screen__thumbnail-tile__header;
 }
 
 .demo-thumbnail__body {

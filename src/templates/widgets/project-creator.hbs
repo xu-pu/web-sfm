@@ -1,0 +1,5 @@
+<div class="project-creator__input">
+    {{view view.InputView}}
+</div>
+
+<div {{action "createProject"}} {{bind-attr class=":project-creator__submit view.isInvalid"}}></div>

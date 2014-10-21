@@ -23,7 +23,8 @@ module.exports = Ember.ObjectController.extend({
                 return adapter.promiseData(STORES.FULLIMAGES, _self.get('_id'));
             })
             .then(function(data){
-                _self.set('dataurl', data);
+                var domstring = URL.createObjectURL(new Blob([data]));
+                _self.set('dataurl', domstring);
                 _self.set('isLoading', false);
             });
     }.observes('model')

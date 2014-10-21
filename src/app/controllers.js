@@ -1,4 +1,4 @@
-var STATES = require('./settings.js').STATES;
+'use strict';
 
 module.exports = function(App){
 
@@ -8,20 +8,19 @@ module.exports = function(App){
     // Welcome Screen
     //=======================
 
-    App.WelcomeController = Ember.ObjectController.extend();
+    App.WelcomeController = Ember.ObjectController.extend({
+        // demos, projects
+    });
 
     App.DemosController = Ember.ArrayController.extend({
         itemController: 'demo'
     });
 
-    App.ProjectsController = Ember.ArrayController.extend({
-        itemController: 'project.thumbnail'
-    });
-
     App.DemoController = require('./controllers/DemoController.js');
 
-    App.ProjectThumbnailController = Ember.ObjectController.extend();
+    App.ProjectsController = require('./controllers/ProjectsController.js');
 
+    App.ProjectThumbnailController = require('./controllers/ProjectThumbnailController.js');
 
     //=======================
     // Workspace
@@ -29,16 +28,11 @@ module.exports = function(App){
 
     App.WorkspaceController = require('./controllers/WorkspaceController.js');
 
-    //App.ProjectController = require('./controllers/ProjectController.js');
-
-
     //=======================
     // Workspace.Images
     //=======================
 
-    App.WorkspaceImagesController = Ember.ArrayController.extend({
-        itemController: 'workspace.image.thumbnail'
-    });
+    App.WorkspaceImagesController = require('./controllers/WorkspaceImagesController.js');
 
     App.WorkspaceImageThumbnailController = Ember.ObjectController.extend({
         actions: {

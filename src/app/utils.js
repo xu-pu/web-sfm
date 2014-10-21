@@ -7,6 +7,8 @@ module.exports.requireJSON = requireJSON;
 module.exports.promiseLoadImage = promiseLoadImage;
 module.exports.getImageThumbnail = getImageThumbnail;
 module.exports.promiseFileDataUrl = promiseFileDataUrl;
+module.exports.promiseFileBuffer = promiseFileBuffer;
+module.exports.promiseBufferImage = promiseBufferImage;
 
 //==================================================
 
@@ -26,38 +28,16 @@ function setLocalStorage(key, value){
 }
 
 
-function promiseImage(id){
+function promiseFileBuffer(file){
     return new Promise(function(resolve, reject){
-        IDBAdapter.promiseData(SFM.STORE_FULLIMAGES, id).then(function(dataURL){
-            var img = document.createElement('img');
-            img.onload = function(){
-                resolve(img);
-            };
-            img.src = dataURL
-        }, reject);
+        var reader = new FileReader();
+        reader.onload = function(){
+            resolve(reader.result);
+        };
+        reader.readAsArrayBuffer(file);
     });
 }
 
-
-function drawFeatures(ctx, features, offsetX, offsetY, scale, options){
-    options = options || {};
-    _.defaults(options, {
-        color: 'red',
-        markSize: 3
-    });
-    ctx.beginPath();
-    ctx.strokeStyle = options.color;
-    ctx.lineWidth = options.markSize/2;
-    features.forEach(function(feature){
-        var x = offsetX + scale*feature.col,
-            y = offsetY + scale*feature.row;
-        ctx.moveTo(x-options.markSize, y);
-        ctx.lineTo(x+options.markSize, y);
-        ctx.moveTo(x, y-options.markSize);
-        ctx.lineTo(x, y+options.markSize);
-    });
-    ctx.stroke();
-}
 
 /**
  *
@@ -75,6 +55,17 @@ function promiseLoadImage(url){
         img.onabort = reject;
         img.src = url;
     });
+}
+
+/**
+ *
+ * @param buffer
+ * @returns Promise
+ */
+function promiseBufferImage(buffer){
+    var blob = new Blob([buffer]);
+    var domstring = URL.createObjectURL(blob);
+    return promiseLoadImage(domstring);
 }
 
 

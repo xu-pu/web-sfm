@@ -24,6 +24,10 @@ module.exports = Ember.Object.extend({
             this.get('mvsFinished');
     }.property('siftFinished','bundlerFinished','mvsFinished'),
 
-    stage: STAGES.BEFORE
+    stage: STAGES.BEFORE,
+
+    storedProperties: [
+        'name'
+    ]
 
 });

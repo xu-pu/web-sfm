@@ -20,6 +20,10 @@ module.exports = Ember.ObjectController.extend({
 
     actions: {
 
+        'delete': function(){
+            this.promiseDelete();
+        },
+
         download: function(){
             this.promiseLoad();
         },
@@ -28,6 +32,28 @@ module.exports = Ember.ObjectController.extend({
             sfmstore.setCurrentProject(this.get('model'));
             this.transitionToRoute('workspace');
         }
+    },
+
+    promiseDelete: function(){
+        var _self = this;
+        sfmstore
+            .promiseProject(function(project){
+                if (project.get('name') === _self.get('name')) {
+                    sfmstore.setCurrentProject(null);
+                }
+            })
+            .catch()
+            .then(function(){
+                var request = indexedDB.deleteDatabase(_self.get('name'));
+                request.onsuccess = function(){
+                    _self.setProperties({
+                        'finishedImages': [],
+                        'finishedSIFT': [],
+                        'bundlerFinished': false,
+                        'mvsFinished': false
+                    });
+                };
+            });
     },
 
     promiseLoad: function(){
@@ -219,7 +245,7 @@ module.exports = Ember.ObjectController.extend({
                 blob.name = name;
                 return adapter.processImageFile(blob);
             })
-            .then(function(_id){
+            .then(function(image){
                 _self.get('finishedImages').addObject(name);
             });
     }

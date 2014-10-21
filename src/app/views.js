@@ -10,5 +10,6 @@ module.exports = function(App) {
     App.StereoView = require('./views/StereoView.js');
     App.TwoViewGridView = require('./views/TwoViewGridView.js');
     App.TwoViewMatchingView = require('./views/TwoViewMatchingView.js');
+    App.ProjectCreatorView = require('./views/ProjectCreatorView.js');
 
 };

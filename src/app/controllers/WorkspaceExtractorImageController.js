@@ -25,7 +25,7 @@ module.exports = Ember.ObjectController.extend({
             .promiseAdapter()
             .then(function(adapter){
                 return Promise.all([
-                    adapter.promiseData(STORES.FULLIMAGES, _self.get('_id')).then(utils.promiseLoadImage),
+                    adapter.promiseData(STORES.FULLIMAGES, _self.get('_id')).then(utils.promiseBufferImage),
                     adapter.promiseData(STORES.FEATURES, _self.get('_id'))
                 ]);
             })

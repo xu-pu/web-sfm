@@ -28,6 +28,8 @@ var GUASS_KERNEL_TEST = [
 module.exports.getGuassianKernel = getGuassianKernel;
 module.exports.sobelX = Matrix.create(SOBEL_KERNEL_X);
 module.exports.sobelY = Matrix.create(SOBEL_KERNEL_Y);
+module.exports.guassian2d = gussianFunction2d;
+module.exports.getGuassian2d = getGuassian2d;
 
 
 /**
@@ -47,6 +49,23 @@ function getGuassianKernel(size, sigma) {
 }
 
 
+/**
+ * @param {number} x
+ * @param {number} y
+ * @param {number} sigma
+ * @returns {number}
+ */
 function gussianFunction2d(x,y,sigma){
     return Math.exp(-(x*x+y*y)/(2*sigma*sigma))/(2*Math.PI*sigma*sigma);
+}
+
+
+/**
+ * @param {number} sigma
+ * @returns {Function}
+ */
+function getGuassian2d(sigma){
+    return function(x, y){
+        return Math.exp(-(x*x+y*y)/(2*sigma*sigma))/(2*Math.PI*sigma*sigma);
+    };
 }

@@ -3,61 +3,100 @@
 var _ = require('underscore'),
     la = require('sylvester'),
     Matrix = la.Matrix,
-    Vector = la.Vector,
-    numeric = require('numeric');
+    Vector = la.Vector;
 
-var getGradient = require('../math/gradient.js'),
+var derivatives = require('../math/derivatives.js'),
+    getGradient = derivatives.gradient,
     getGuassianKernel = require('../math/kernels.js').getGuassianKernel;
+
+var RADIUS = 8,
+    WINDOW_SIZE = 2 * RADIUS + 1,
+    BINS = 36,
+    BIN_SIZE = 2*Math.PI/BINS,
+    ACCEPT_THRESHOLD = 0.8;
 
 
 module.exports = getPointOrientation;
+
 
 /**
  *
  * @param {DoG} dog
  * @param {number} row
  * @param {number} col
- * @param {Object} options
- * @return {number}
+ * @param {Object} [options]
+ * @return {number[]}
  */
 function getPointOrientation(dog, row, col, options){
-    //console.log('orienting feature points');
+    console.log('orienting feature points');
+    var hist = generateHist(dog, row, col);
+    smoothHist(hist);
+    var maxIndex = getMaxIndex(hist);
+    return getOrientations(hist, maxIndex);
+}
+
+
+/**
+ * @param {DoG} dog
+ * @param {number} row
+ * @param {number} col
+ */
+function generateHist(dog, row, col){
+
     var img = dog.img,
         sigma = dog.sigma,
-        radius = 8,
-        windowSize = 2*radius+1,
-        guassianWeight = getGuassianKernel(windowSize, sigma*1.5),
-        orientations = new Float32Array(36);
+        orientations = new Float32Array(BINS),
+        weightFunction = getGuassianKernel(WINDOW_SIZE, sigma*1.5);
 
     var x, y, gradient, bin;
-    for (x=-radius; x<=radius; x++) {
-        for(y=-radius; y<=radius; y++){
+    for (x=-RADIUS; x<=RADIUS; x++) {
+        for(y=-RADIUS; y<=RADIUS; y++){
             gradient = getGradient(img, row+y, col+x);
-            //console.log(gradient);
-            bin = Math.floor(gradient.dir/(2*Math.PI/36)) % 36;
+            bin = Math.round(gradient.dir/BIN_SIZE) % BINS;
             if(bin < 0) {
-                bin = bin+36;
+                bin = bin+BINS;
             }
-            orientations[bin] += gradient.mag*guassianWeight.elements[radius+y][radius+x];
+            orientations[bin] += gradient.mag * weightFunction(x,y);
         }
     }
-    /*
-     var maximum = _.max(orientations),
-        directions = [],
-        iterBin;
-    for (iterBin=0; iterBin<36; iterBin++) {
-        if (orientations[iterBin]/maximum >= 0.8) {
-            directions.push(Math.PI/36*iterBin+Math.PI/72);
-        }
-    }
-    return directions;
-    */
+
+}
+
+
+function smoothHist(hist){
+    return hist;
+}
+
+
+/**
+ * @param {number[]} hist
+ * @returns {number}
+ */
+function getMaxIndex(hist){
     var maximum=-Infinity, maxIndex, iterOrien;
-    for (iterOrien=0; iterOrien<36; iterOrien++) {
-        if (orientations[iterOrien]>maximum) {
-            maximum = orientations[iterOrien];
+    for (iterOrien=0; iterOrien<BINS; iterOrien++) {
+        if (hist[iterOrien]>maximum) {
+            maximum = hist[iterOrien];
             maxIndex = iterOrien;
         }
     }
-    return Math.PI/36*maxIndex+Math.PI/72;
+    return maxIndex;
+}
+
+
+/**
+ * @param {number[]} hist
+ * @param {number} maxIndex
+ * @returns {number[]}
+ */
+function getOrientations(hist, maxIndex){
+    var maximum = hist[maxIndex],
+        directions = [],
+        iterBin;
+    for (iterBin=0; iterBin<BINS; iterBin++) {
+        if (hist[iterBin]/maximum >= ACCEPT_THRESHOLD) {
+            directions.push(BIN_SIZE * iterBin);
+        }
+    }
+    return directions;
 }

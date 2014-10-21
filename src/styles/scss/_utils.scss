@@ -10,3 +10,10 @@ $unicode-icons: (
   }
 
 }
+
+@mixin text-center($font-size, $container-size) {
+  text-align: center;
+  line-height: $container-size;
+  height: $container-size;
+  font-size: $font-size;
+}

@@ -80,35 +80,40 @@ StorageAdapter.prototype = {
      * @return {Promise}
      */
     processImageFile: function(file){
+
         Ember.Logger.debug('file process begins');
 
-        var dataUrl, _id, domimg,
-            _self = this;
+        var _self = this,
+            image,
+            domimg,
+            domstring = URL.createObjectURL(file);
 
-        return utils.promiseFileDataUrl(file)
-            .then(function(result){
-                //Ember.Logger.debug('image dataUrl required');
-                dataUrl = result;
-                return utils.promiseLoadImage(dataUrl);
-            })
+        return utils.promiseLoadImage(domstring)
             .then(function(img){
                 //Ember.Logger.debug('img object required');
                 domimg = img;
-                var image = { filename: file.name, width: img.width, height: img.height };
+                image = { filename: file.name, width: img.width, height: img.height };
                 return _self.promiseAddData(STORES.IMAGES, image);
             })
-            .then(function(_id){
+            .then(function(newid){
                 //Ember.Logger.debug('_id required');
-                var thumbnailDataUrl = utils.getImageThumbnail(domimg);
-                return Promise.all([
-                    _self.promiseSetData(STORES.THUMBNAILS, _id, thumbnailDataUrl),
-                    _self.promiseSetData(STORES.FULLIMAGES, _id, dataUrl)
-                ]);
+                image._id = newid;
+                image.thumbnail = utils.getImageThumbnail(domimg);
+                return _self.promiseSetData(STORES.THUMBNAILS, image._id, image.thumbnail);
+            })
+            .then(function(){
+                //Ember.Logger.debug('thumbnail stored');
+                return utils.promiseFileBuffer(file);
+            })
+            .then(function(buffer){
+                Ember.Logger.debug('ArrayBuffer Loaded');
+                return _self.promiseSetData(STORES.FULLIMAGES, image._id, buffer);
             })
             .then(function(){
                 Ember.Logger.debug('One image imported');
-                return _id;
+                return image;
             });
+
     },
 
 
@@ -146,9 +151,13 @@ StorageAdapter.prototype = {
         var _self = this;
         return new Promise(function(resolve){
             _self.promiseDB().then(function(db){
-                db.transaction(store, 'readwrite').objectStore(store).put(data, key).onsuccess = function(e){
+                var request = db.transaction(store, 'readwrite').objectStore(store).put(data, key);
+                request.onsuccess = function(e){
                     resolve(e.target.result);
-                }
+                };
+                request.onerror = function(e){
+                    console.log(e);
+                };
             });
         });
     },

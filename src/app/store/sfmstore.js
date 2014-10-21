@@ -9,15 +9,21 @@ var utils = require('../utils.js'),
 
 var DEMO_LIST_URL = '/demo/demos.json';
 
+var LOCAL_STORE = {
+    DEMOS: 'demos',
+    PROJECTS: 'projects',
+    PROJECT: 'project'
+};
+
 //============================================
 
 var Store = Ember.Object.extend({
 
-    currentProject: null,
+    currentProject: null, // Obj
 
-    projects: null,
+    projects: [],
 
-    demos: null,
+    demos: [],
 
     adapter: null,
 
@@ -26,19 +32,46 @@ var Store = Ember.Object.extend({
         var project = this.get('currentProject');
         if (project) {
             this.set('adapter', new IDBAdapter(project.get('name')));
-            localStorage.setItem('project', project.get('name'));
-            console.log(this.get('adapter'));
+            localStorage.setItem(LOCAL_STORE.PROJECT, project.get('name'));
         }
-    }.observes('currentProject')
+        else {
+            this.set('adapter', null);
+            localStorage.setItem(LOCAL_STORE.PROJECT, null);
+        }
+    }.observes('currentProject'),
+
+    syncDemos: function(){
+        utils.setLocalStorage(LOCAL_STORE.DEMOS, this.get('demos').map(function(model){
+            return model.getProperties(model.get('storedProperties'));
+        }));
+    },
+
+    syncProjects: function(){
+        utils.setLocalStorage(LOCAL_STORE.PROJECTS, this.get('projects').map(function(model){
+            return model.getProperties(model.get('storedProperties'));
+        }));
+    }.observes('projects.length'),
+
+    nameAvaliable: function(name){
+        var demos = this.get('demos'),
+            projects = this.get('projects');
+        return _.isUndefined(demos.findBy('name', name)) && _.isUndefined(projects.findBy('name', name));
+    }
 
 });
 
 var ready = initLocalStorage().then(initStore);
 
-//============================================
-// Projects have state, Demos don't
-// demo is added to projects when loaded
-//============================================
+//==========================================
+// All functionalities of sfmstore is
+// in the Store Object
+//==========================================
+
+module.exports.storePromise = ready;
+
+//==========================================
+// Shortcuts
+//==========================================
 
 module.exports.promiseDemos = function(){
     return ready.then(function(store){
@@ -72,15 +105,10 @@ module.exports.setCurrentProject = function(project){
 
 module.exports.syncDemos = function(){
     ready.then(function(store){
-        utils.setLocalStorage('demos', store.get('demos').map(function(model){
-            return model.getProperties(model.get('storedProperties'));
-        }));
+        store.syncDemos();
     });
 };
 
-/**
- * return the adapter for current project
- */
 module.exports.promiseAdapter = function(){
     return ready.then(function(store){
         return store.get('adapter');
@@ -90,9 +118,9 @@ module.exports.promiseAdapter = function(){
 //============================================
 
 function initLocalStorage(){
-    var demos = utils.getLocalStorage('demos'),
-        projects = utils.getLocalStorage('projects'),
-        project = localStorage.getItem('project');
+    var demos = utils.getLocalStorage(LOCAL_STORE.DEMOS),
+        projects = utils.getLocalStorage(LOCAL_STORE.PROJECTS),
+        project = localStorage.getItem(LOCAL_STORE.PROJECT);
     if (demos === null) {
         return utils
             .requireJSON(DEMO_LIST_URL)

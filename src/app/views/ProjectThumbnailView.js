@@ -1,11 +1,11 @@
 module.exports = Ember.View.extend({
 
-    tagName: 'li',
+    tagName: 'div',
 
     templateName: 'widgets/project-thumbnail',
 
     classNames: [
-        'project-thumbnail'
+        'welcome-screen__projects__thumbnail'
     ]
 
 });

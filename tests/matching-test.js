@@ -1,3 +1,5 @@
+'use strict';
+
 var Promise = require('promise'),
     grayscale = require('luminance'),
     la = require('sylvester'),
@@ -11,12 +13,13 @@ var samples = require('../src/utils/samples.js'),
     bruteforce = require('../src/webregister/bruteforce-matching.js'),
     eightpoint = require('../src/webregister/eightpoint.js'),
     ransac = require('../src/webregister/ransac.js'),
-    homography = require('../src/webregister/estimate-homography.js');
-
-var utils = require('../src/utils/canvas.js'),
+    homography = require('../src/webregister/estimate-homography.js'),
+    utils = require('../src/utils/canvas.js'),
     drawFeatures = require('../src/visualization/drawFeatures.js'),
     drawMatches = require('../src/visualization/drawMatches.js'),
-    drawImagePair = require('../src/visualization/drawImagePair.js');
+    drawImagePair = require('../src/visualization/drawImagePair.js'),
+    drawEpipolarLines = require('../src/visualization/drawEpipolarLines.js'),
+    cord = require('../src/utils/cord.js');
 
 
 function promiseWriteFile(path, buffer){
@@ -41,6 +44,15 @@ function promiseMatchingVisual(name, img1, img2, features1, features2, matches){
     drawFeatures(ctx, features2, config.offsetX, config.offsetY, config.ratio2);
     drawMatches(config, ctx, matches, features1, features2);
     return promiseWriteFile('/home/sheep/Code/'+name+'.png', canv.toBuffer());
+}
+
+function promiseEpipolarVisual(path, img1, img2, features1, features2, matches, F){
+    var canv = new Canvas(),
+        config = drawImagePair(img1, img2, canv, 800),
+        ctx = canv.getContext('2d');
+    drawEpipolarLines(config, ctx, _.sample(matches, 30), features1, features2, F);
+    console.log('epipolar lines rendered');
+    return promiseWriteFile(path, canv.toBuffer());
 }
 
 
@@ -69,16 +81,16 @@ function promiseEpipolarGeometry(i1, i2){
         samples.promiseCanvasImage(i1),
         samples.promiseCanvasImage(i2)
     ]).then(function(results){
+
         var features1 = samples.getFeatures(i1),
             features2 = samples.getFeatures(i2),
-            matches = require('/home/sheep/Code/matches/raw-match/00000002.jpg&00000003.jpg.json');
-
-        var metadata = {
-            cam1: results[0],
-            cam2: results[1],
-            features1: features1,
-            features2: features2
-        };
+            matches = samples.getRawMatches(i1, i2),
+            metadata = {
+                cam1: results[0],
+                cam2: results[1],
+                features1: features1,
+                features2: features2
+            };
 
         var result = ransac({
             dataset: matches,
@@ -86,50 +98,79 @@ function promiseEpipolarGeometry(i1, i2){
             subset: 8,
             relGenerator: eightpoint,
             errorGenerator: eightpoint.fundamentalMatrixError,
-            outlierThreshold: 0.15,
-            errorThreshold: 0.05,
+            outlierThreshold: 0.2,
+            errorThreshold: 0.03,
             trials: 1000
         });
 
         console.log(result.dataset.length+'/'+matches.length+' passed RANSAC');
 
-
-        var filtered = ransac({
-            dataset: result.dataset,
-            metadata: metadata,
-            subset: 4,
-            relGenerator: homography,
-            errorGenerator: homography.homographyError,
-            outlierThreshold: 0.15,
-            errorThreshold: 500,
-            trials: 1000
-        });
-
-        console.log(result.dataset.length+'/'+result.dataset.length+' passed homography RANSCA');
-
         return Promise.all([
             promiseMatchingVisual('raw', results[0], results[1], features1, features2, matches),
-            promiseMatchingVisual('filtered', results[0], results[1], features1, features2, result.dataset)
+            promiseMatchingVisual('filtered', results[0], results[1], features1, features2, result.dataset),
+            promiseEpipolarVisual('/home/sheep/Code/epipolar.png', results[0], results[1], features1, features2, result.dataset, result.rel)
         ]);
+
     }).then(function(){
         console.log('finished');
     });
 }
 
-promiseEpipolarGeometry(2,3);
+function testErrorRange(i1, i2){
+    return Promise.all([
+        samples.promiseCanvasImage(i1),
+        samples.promiseCanvasImage(i2)
+    ]).then(function(results){
 
-//promisePair(1,2);
+        var features1 = samples.getFeatures(i1),
+            features2 = samples.getFeatures(i2),
+            matches = samples.getRawMatches(i1, i2),
+            metadata = {
+                cam1: results[0],
+                cam2: results[1],
+                features1: features1,
+                features2: features2
+            };
 
-//promisePair(3,4);
+        return Promise.all([0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08,0.09, 0.1].map(function(threshold){
+            try {
+                var result = ransac({
+                    dataset: matches,
+                    metadata: metadata,
+                    subset: 8,
+                    relGenerator: eightpoint,
+                    errorGenerator: eightpoint.fundamentalMatrixError,
+                    outlierThreshold: 0.2,
+                    errorThreshold: threshold,
+                    trials: 500
+                });
 
-//samples.promiseImage(1).then(function(img){
-//    samples.showGrayscale(img);
-//});
+                console.log(result.dataset.length+'/'+matches.length+' passed RANSAC');
 
-//var matches = bruteforce(samples.getFeatures(1), samples.getFeatures(2), 0.8);
-//console.log(matches.length);
+                return promiseEpipolarVisual('/home/sheep/Code/epipole/'+threshold+'.png',
+                    results[0], results[1], features1, features2, result.dataset, result.rel);
 
-//promiseWriteFile('/home/sheep/Code/test.json', JSON.stringify(matches)).then(function(){
-//    var obj = require('/home/sheep/Code/test.json');
-//    console.log(obj.length);
-//});
+            }
+            catch (err) {
+                console.log('Did not pass when threshold = ' + threshold);
+                return Promise.resolve();
+            }
+            /*
+            return Promise.all([
+                promiseMatchingVisual('raw', results[0], results[1], features1, features2, matches),
+                promiseMatchingVisual('filtered', results[0], results[1], features1, features2, result.dataset),
+             promiseEpipolarVisual('/home/sheep/Code/epipolar.png', results[0], results[1], features1, features2, result.dataset, result.rel)
+            ]);
+            */
+
+        }));
+
+    }).then(function(){
+        console.log('finished');
+    });
+}
+
+testErrorRange(2,3);
+
+//promiseEpipolarGeometry(3,4);
+
