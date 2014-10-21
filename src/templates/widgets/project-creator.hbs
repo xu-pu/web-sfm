@@ -1,10 +1,5 @@
-<div>
-    <span>Create New Project</span>
-</div>
-<div>
+<div class="project-creator__input">
     {{view view.InputView}}
 </div>
 
-<div {{action "createProject"}}>
-    Create
-</div>
+<div class="project-creator__submit" {{action "createProject"}}></div>
