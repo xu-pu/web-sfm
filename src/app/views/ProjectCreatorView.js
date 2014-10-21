@@ -20,7 +20,6 @@ module.exports = Ember.View.extend({
 
         syncContent: function(){
             this.get('parentView.controller').set('newProjectName', this.get('value'));
-            console.log(this.get('parentView.controller.newProjectName'));
         }
 
     })

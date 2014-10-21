@@ -5,7 +5,7 @@ module.exports = Ember.View.extend({
     templateName: 'widgets/project-thumbnail',
 
     classNames: [
-        'project-thumbnail'
+        'welcome-screen__projects__thumbnail'
     ]
 
 });

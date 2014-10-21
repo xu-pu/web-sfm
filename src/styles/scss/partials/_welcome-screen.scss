@@ -34,14 +34,6 @@
 // Demo and Project
 //=====================================
 
-%welcome-screen__thumbnail-tile {
-  display: inline-block;
-  vertical-align: top;
-  height: 100%;
-  margin-right: 15px;
-  margin-top: 0;
-  margin-bottom: 0;
-}
 
 %welcome-screen__thumbnail-hero {
   @include box-shadow(inset 0 0 10px 3px rgba(0, 0, 0, 0.49));
@@ -59,12 +51,41 @@
 
 }
 
+%welcome-screen__item-tile {
+  display: inline-block;
+  vertical-align: top;
+  height: 100%;
+  margin-right: 15px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+
+%welcome-screen__thumbnail {
+  width: 15em;
+  height: 100%;
+  background: #CECECE;
+  @include box-shadow(0 0 4px 2px rgba(0, 0, 0, 0.49));
+}
+
+$project-thumbnail-header-height: 2em;
+
+%welcome-screen__thumbnail-tile__header {
+  position: relative;
+  background-color: #333333;
+  color: white;
+  height: $project-thumbnail-header-height;
+  line-height: $project-thumbnail-header-height;
+  font-weight: bolder;
+  padding-left: 10px;
+}
+
 //=====================================
 // Projects
 //=====================================
 
 .welcome-screen__projects__item {
-  @extend %welcome-screen__thumbnail-tile;
+  @extend %welcome-screen__item-tile;
 }
 
 .welcome-screen__projects__header {
@@ -75,13 +96,23 @@
 }
 
 //=====================================
+// Project Thumbnail
+//=====================================
+
+.welcome-screen__projects__thumbnail {
+  @extend %welcome-screen__thumbnail;
+}
+
+.project-thumbnail__header {
+  @extend %welcome-screen__thumbnail-tile__header;
+}
+
+//=====================================
 // Demos
 //=====================================
 
-$project-thumbnail-header-height: 2em;
-
 .welcome-screen__demos__item {
-  @extend %welcome-screen__thumbnail-tile;
+  @extend %welcome-screen__item-tile;
 }
 
 .welcome-screen__demos__header {
@@ -91,25 +122,16 @@ $project-thumbnail-header-height: 2em;
   }
 }
 
+//=====================================
+// Demo Thumbnail
+//=====================================
+
 .welcome-screen__demos__thumbnail {
-  width: 15em;
-  height: 100%;
-  background: #CECECE;
-  @include box-shadow(0 0 4px 2px rgba(0, 0, 0, 0.49));
+  @extend %welcome-screen__thumbnail;
 }
 
-//=====================================
-// Demo
-//=====================================
-
 .demo-thumbnail__header {
-  position: relative;
-  background-color: #333333;
-  color: white;
-  height: $project-thumbnail-header-height;
-  line-height: $project-thumbnail-header-height;
-  font-weight: bolder;
-  padding-left: 10px;
+  @extend %welcome-screen__thumbnail-tile__header;
 }
 
 .demo-thumbnail__body {
