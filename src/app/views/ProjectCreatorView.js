@@ -16,6 +16,10 @@ module.exports = Ember.View.extend({
 
     InputView: Ember.TextField.extend({
 
+        refresh: function(){
+            this.set('value', '');
+        }.observes('parentView.controller.controllers.application.model.projects.length'),
+
         keyUp: function(){
             this.syncContent();
         },

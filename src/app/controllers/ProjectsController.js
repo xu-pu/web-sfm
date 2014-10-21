@@ -25,6 +25,10 @@ module.exports = Ember.ArrayController.extend({
                         name: this.get('newProjectName')
                     }));
             }
+        },
+
+        deleteProject: function(project){
+            this.get('store.projects').removeObject(project);
         }
     }
 
