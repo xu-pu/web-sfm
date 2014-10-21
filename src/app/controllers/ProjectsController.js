@@ -28,8 +28,23 @@ module.exports = Ember.ArrayController.extend({
         },
 
         deleteProject: function(project){
-            this.get('store.projects').removeObject(project);
+            this.promiseDelete(project);
         }
+    },
+
+    promiseDelete: function(project){
+        var store = this.get('store'),
+            currentProject = store.get('currentProject');
+        if (currentProject && currentProject.get('name') === project.get('name')) {
+            store.set('currentProject', null);
+        }
+        return new Promise(function(resolve, reject){
+            var request = indexedDB.deleteDatabase(project.get('name'));
+            request.onsuccess = function(){
+                store.get('projects').removeObject(project);
+                resolve(project);
+            };
+        });
     }
 
 });
