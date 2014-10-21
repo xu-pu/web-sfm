@@ -91,10 +91,16 @@ $project-thumbnail-header-height: 2em;
 
 .welcome-screen__projects__new {
   @include box-shadow(inset 0 0 10px 3px rgba(0, 0, 0, 0.49));
+  @include transition(box-shadow 0.5s);
   height: 100%;
   width: 15em;
   padding: 1em;
   box-sizing: border-box;
+
+  &.is-invalid {
+    @include box-shadow(inset 0 0 10px 3px red);
+  }
+
 }
 
 .project-creator__input {
@@ -110,13 +116,15 @@ $project-thumbnail-header-height: 2em;
 }
 
 .project-creator__submit {
+  @include transition(background-color 0.5s);
   width: 100%;
   height: 70%;
-  background-color: aliceblue;
+  background-color: lightgreen;
   cursor: pointer;
 
-  span {
-    @include text-center(2em, 100%);
+  &.is-invalid {
+    background-color: indianred;
+    cursor: not-allowed;
   }
 
 }
