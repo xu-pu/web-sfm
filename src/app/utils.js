@@ -4,6 +4,7 @@ module.exports.getLocalStorage = getLocalStorage;
 module.exports.setLocalStorage = setLocalStorage;
 module.exports.requireImageFile = requireImageFile;
 module.exports.requireJSON = requireJSON;
+module.exports.promiseJSON = promiseJSON;
 module.exports.promiseLoadImage = promiseLoadImage;
 module.exports.getImageThumbnail = getImageThumbnail;
 module.exports.promiseFileDataUrl = promiseFileDataUrl;
@@ -14,7 +15,7 @@ module.exports.promiseBufferImage = promiseBufferImage;
 
 function getLocalStorage(key){
     var result = localStorage.getItem(key);
-    if (result === null) {
+    if (result === null || result === undefined) {
         return null;
     }
     else {
@@ -108,16 +109,10 @@ function getImageThumbnail(img){
 
 function promiseJSON(url){
     return new Promise(function(resolve, reject){
-        var request = new XMLHttpRequest();
-        request.responseType = 'json';
-        request.onload = function(){
-            resolve(request.response);
-        };
-        request.onerror = reject;
-        request.ontimeout = reject;
-        request.onabort = reject;
-        request.open('GET', url);
-        request.send();
+        jQuery.ajax({
+            url: url,
+            dataType: 'json'
+        }).done(resolve).fail(reject);
     });
 }
 
