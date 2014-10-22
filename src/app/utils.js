@@ -131,14 +131,14 @@ function requireJSON(url){
 function promiseImageFile(url){
     return new Promise(function(resolve, reject){
         var request = new XMLHttpRequest();
-        request.responseType = 'blob';
+        request.open('GET', url);
         request.onload = function(){
             resolve(request.response);
         };
         request.onerror = reject;
         request.ontimeout = reject;
         request.onabort = reject;
-        request.open('GET', url);
+        request.responseType = 'blob';
         request.send();
     });
 }
