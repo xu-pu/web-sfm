@@ -8,29 +8,19 @@ module.exports = function(App){
 
         this.route('welcome');
 
-        this.route('index', { path: '/'});
-
         this.route('workspace', function(){
 
-            this.route('index', { path: '/'});
-
             this.route('images', function(){
-                this.route('index', { path: '/'});
                 this.route('detail', { path: '/:id' });
             });
 
             this.route('extractor', function(){
-                this.route('index', { path: '/' });
                 this.route('image', { path: '/:id' });
             });
 
-            this.route('register', function(){
-                this.route('index', { path: '/' });
-            });
+            this.route('register', function(){});
 
-            this.route('mvs', function(){
-                this.route('index', { path: '/' });
-            });
+            this.route('mvs', function(){});
 
             /*
             this.resource('tracks', function(){
