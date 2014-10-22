@@ -7,6 +7,7 @@
 
 @import "partials/welcome-screen";
 @import "partials/controll-panel";
+@import "partials/gallery";
 @import "partials/matches";
 @import "partials/register";
 @import "partials/floating-window";
@@ -30,46 +31,6 @@ html, body {
   width: $controll-panel-width;
   right: 3em;
   overflow-y: hidden;
-}
-
-#main-container__input-gallery {
-  list-style: none;
-}
-
-.main-container__input-gallery__item {
-  display: inline-block;
-  vertical-align: top;
-  width: 200px;
-  height: 200px;
-}
-
-.main-container__input-gallery__input {
-  background-color: #FFFFFF;
-  @include transition(background-color 0.25s);
-
-  &:hover {
-    background-color: grey;
-  }
-
-  h1 {
-    line-height: 200px;
-    text-align: center;
-    font-size: 50px;
-    font-weight: bold;
-  }
-
-}
-
-.main-container__input-gallery__image {
-  overflow: hidden;
-
-  img.is_horizontal {
-    height: 200px;
-  }
-
-  img.is_vertical {
-    width: 200px;
-  }
 }
 
 .floating-window__input-image {
