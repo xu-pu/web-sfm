@@ -1,5 +1,11 @@
 @import "compass";
 
+#main-container__input-gallery-container {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 100%;
+}
+
 #main-container__input-gallery {
   list-style: none;
 }
@@ -10,6 +16,8 @@
   width: 200px;
   height: 200px;
   position: relative;
+  border: solid 2px white;
+  margin-bottom: 5px;
 }
 
 .main-container__input-gallery__input {
@@ -29,8 +37,9 @@
 
 }
 
-$hover-delta: -1em;
+$hover-delta: -1.5em;
 .main-container__input-gallery__image {
+  @include transition(box-shadow 0.25s);
   overflow: hidden;
   background: grey;
   z-index: 1;
@@ -42,7 +51,7 @@ $hover-delta: -1em;
   }
 
   &:hover {
-    @include box-shadow(0 0 6px 2px rgba(0, 0, 0, 0.49));
+    @include box-shadow(0 0 20px 10px rgba(0, 0, 0, 0.75));
     position: absolute;
     top: $hover-delta;
     bottom: $hover-delta;
