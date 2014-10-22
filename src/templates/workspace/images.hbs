@@ -1,12 +1,21 @@
 <div id="main-container__input-gallery-container">
 
     <ul id="main-container__input-gallery">
-        {{#view App.ImageLoaderView controller=controller}}
-            <h1>Drag</h1>
-            {{#if controller.inProgress}}
-                <span>Processing {{controller.queue.length}} images.</span>
-            {{/if}}
-        {{/view}}
+
+        <div class="main-container__input-gallery__item">
+            {{#view App.ImageLoaderView controller=controller}}
+
+                {{#if view.isActive}}
+                    <h1>Drop</h1>
+                {{else}}
+                    <h1>Drag</h1>
+                {{/if}}
+
+                {{#if controller.inProgress}}
+                    <span>Processing {{controller.queue.length}} images.</span>
+                {{/if}}
+            {{/view}}
+        </div>
 
         {{#each controller}}
             <div class="main-container__input-gallery__item">
