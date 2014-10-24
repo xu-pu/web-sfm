@@ -1,0 +1,27 @@
+{
+  "name": "exifreader",
+  "homepage": "https://github.com/mattiasw/ExifReader",
+  "authors": [
+    "Mattias Wallander <mattias@wallander.eu>"
+  ],
+  "description": "Client-side Exif parser",
+  "main": "js/ExifReader.js",
+  "keywords": [
+    "exif",
+    "image",
+    "png",
+    "jpg",
+    "jpeg",
+    "meta"
+  ],
+  "license": "GNU LGPL",
+  "_release": "122fdc71be",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "122fdc71be83377e392c3debf806b9aa5ede6b1c"
+  },
+  "_source": "git://github.com/mattiasw/ExifReader.git",
+  "_target": "*",
+  "_originalSource": "exifreader"
+}
