@@ -4,6 +4,7 @@
   overflow-y: scroll;
   overflow-x: hidden;
   height: 100%;
+  padding: 5px;
 }
 
 #main-container__input-gallery {
@@ -16,7 +17,7 @@
   width: 200px;
   height: 200px;
   position: relative;
-  border: solid 2px white;
+  border: solid 0.4em rgb(187,187,187);
   margin-bottom: 5px;
 }
 

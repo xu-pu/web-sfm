@@ -9,8 +9,6 @@
     <div {{bind-attr class=":floating-window__image-detail__fullimage isloading"}}>
         {{#if dataurl}}
             <img {{bind-attr src=dataurl}}>
-        {{else}}
-            <img {{bind-attr src=thumbnail}}>
         {{/if}}
     </div>
 
