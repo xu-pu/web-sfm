@@ -118,6 +118,23 @@ $project-thumbnail-header-height: 2em;
 
 }
 
+%project-deleting {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background-color: darkred;
+
+  h1 {
+    @extend %center-element;
+    font-size: 3em;
+    height: 1em;
+    line-height: 1em;
+  }
+
+}
+
 //=====================================
 // Project Creator
 //=====================================
@@ -163,7 +180,7 @@ $project-thumbnail-header-height: 2em;
 }
 
 //=====================================
-// Project Thumbnail
+// Projects
 //=====================================
 
 .welcome-screen__projects__item {
@@ -185,12 +202,30 @@ $project-thumbnail-header-height: 2em;
   @extend %welcome-screen__thumbnail;
 }
 
+.project-thumbnail__delete-confirm {
+  @extend %project-delete-confirm;
+}
+
+.project-thumbnail__delete-confirm__delete {
+  @extend %project-delete-confirm__option;
+  background-color: indianred;
+}
+
+.project-thumbnail__delete-confirm__cancel {
+  @extend %project-delete-confirm__option;
+  background-color: greenyellow;
+}
+
+.project-thumbnail__deleting {
+  @extend %project-deleting;
+}
+
 .project-thumbnail__header {
   @extend %welcome-screen__thumbnail-tile__header;
 }
 
 .project-thumbnail__body {
-  cursor: pointer;
+  @extend %welcome-screen__thumbnail-tile__body;
 }
 
 //=====================================
@@ -231,20 +266,7 @@ $project-thumbnail-header-height: 2em;
 }
 
 .demo-thumbnail__deleting {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  background-color: darkred;
-
-  h1 {
-    @extend %center-element;
-    font-size: 3em;
-    height: 1em;
-    line-height: 1em;
-  }
-
+  @extend %project-deleting;
 }
 
 .demo-thumbnail__header {
