@@ -65,14 +65,6 @@ module.exports = function (grunt) {
 
         },
 
-        copy: {
-            build: {
-                files: {
-                    'build/index.html': 'app/index.build.html'
-                }
-            }
-        },
-
         compass: {
 
             options: {
@@ -98,11 +90,8 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'browserify:build',
         'emberTemplates:build',
-        'compass:build',
-        'copy:build'
+        'compass:build'
     ]);
-
-//    grunt.registerTask('dist', ['build', 'uglify:dist']);
 
 };
 

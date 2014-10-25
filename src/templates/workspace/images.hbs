@@ -1,22 +1,33 @@
-<ul id="main-container__input-gallery">
+<div id="main-container__input-gallery-container">
 
-    {{#view App.ImageLoaderView controller=controller}}
-        <h1>Drag</h1>
-        {{#if controller.inProgress}}
-            <span>Processing {{controller.queue.length}} images.</span>
-        {{/if}}
-    {{/view}}
+    <ul id="main-container__input-gallery">
 
-    {{#each controller}}
-        <div class="main-container__input-gallery__item main-container__input-gallery__image">
-            {{#if thumbnail}}
-                <img {{bind-attr src=thumbnail}} {{action "expand"}}>
-            {{else}}
-                <div class="image-loading">Loading</div>
-            {{/if}}
+        <div class="main-container__input-gallery__item">
+            {{#view App.ImageLoaderView controller=controller}}
+
+                {{#if view.isActive}}
+                    <h1>Drop</h1>
+                {{else}}
+                    <h1>Drag</h1>
+                {{/if}}
+
+                {{#if controller.inProgress}}
+                    <span>Processing {{controller.queue.length}} images.</span>
+                {{/if}}
+            {{/view}}
         </div>
-    {{/each}}
 
-    {{outlet}}
+        {{#each controller}}
+            <div class="main-container__input-gallery__item">
+                <div class=" main-container__input-gallery__image">
+                    {{#if thumbnail}}
+                        <img {{bind-attr src=thumbnail}} {{action "expand"}}>
+                    {{/if}}
+                </div>
+            </div>
+        {{/each}}
 
-</ul>
+        {{outlet}}
+    </ul>
+
+</div>

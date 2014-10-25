@@ -9,9 +9,10 @@ module.exports = Ember.View.extend({
     tagName: 'div',
 
     classNames: [
-        'main-container__input-gallery__item',
         'main-container__input-gallery__input'
     ],
+
+    classNameBindings: ['isActive'],
 
     dragOver: function(e){
         e.preventDefault();
@@ -19,21 +20,21 @@ module.exports = Ember.View.extend({
 
     dragEnter: function(e){
         e.preventDefault();
-        this.isActive = true;
+        this.set('isActive', true);
     },
 
     dragLeave: function(e){
         e.preventDefault();
-        this.isActive = false;
+        this.set('isActive', false);
     },
 
     drop: function(e){
+        this.set('isActive', false);
         e.preventDefault();
         var files = e.dataTransfer.files,
             _self = this;
         _.range(files.length).forEach(function(i){
             _self.get('controller').importImageFile(files[i]);
-            //this.modelFor('workspace.images').addObject(Image.create({ file: files[i] }));
         });
     }
 
