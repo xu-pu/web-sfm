@@ -81,7 +81,7 @@ StorageAdapter.prototype = {
      */
     processImageFile: function(file){
 
-        Ember.Logger.debug('file process begins');
+        //Ember.Logger.debug('file process begins');
 
         var _self = this,
             image,
@@ -106,11 +106,11 @@ StorageAdapter.prototype = {
                 return utils.promiseFileBuffer(file);
             })
             .then(function(buffer){
-                Ember.Logger.debug('ArrayBuffer Loaded');
+                //Ember.Logger.debug('ArrayBuffer Loaded');
                 return _self.promiseSetData(STORES.FULLIMAGES, image._id, buffer);
             })
             .then(function(){
-                Ember.Logger.debug('One image imported');
+                //Ember.Logger.debug('One image imported');
                 return image;
             });
 
