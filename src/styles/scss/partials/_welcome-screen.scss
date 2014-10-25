@@ -42,14 +42,16 @@
 %welcome-screen__thumbnail-hero {
   @include box-shadow(inset 0 0 10px 3px rgba(0, 0, 0, 0.49));
   @include border-radius(1em);
-  line-height: 250px;
-  text-align: center;
   background-color: rgba(0, 0, 0, 0.11);
   width: 15em;
   height: 100%;
+  position: relative;
 
-  span {
+  h1 {
+    @extend %center-element;
     font-size: 3em;
+    height: 1em;
+    line-height: 1em;
     font-weight: bolder;
   }
 
@@ -170,7 +172,7 @@ $project-thumbnail-header-height: 2em;
 
 .welcome-screen__projects__header {
   @extend %welcome-screen__thumbnail-hero;
-  span {
+  h1 {
     color: white;
   }
 }
@@ -201,7 +203,7 @@ $project-thumbnail-header-height: 2em;
 
 .welcome-screen__demos__header {
   @extend %welcome-screen__thumbnail-hero;
-  span {
+  h1 {
     color: gray;
   }
 }
