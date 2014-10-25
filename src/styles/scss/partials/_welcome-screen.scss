@@ -70,6 +70,7 @@
   height: 100%;
   background: #CECECE;
   @include box-shadow(0 0 4px 2px rgba(0, 0, 0, 0.49));
+  position: relative;
 }
 
 $project-thumbnail-header-height: 2em;
@@ -84,6 +85,36 @@ $project-thumbnail-header-height: 2em;
   padding-left: 10px;
 }
 
+%welcome-screen__thumbnail-tile__body {
+  padding: 10px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: $project-thumbnail-header-height;
+}
+
+%project-delete-confirm {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+}
+
+%project-delete-confirm__option {
+  height: 50%;
+  position: relative;
+  cursor: pointer;
+
+  h1 {
+    @extend %center-element;
+    font-size: 3em;
+    height: 1em;
+    line-height: 1em;
+  }
+
+}
 
 //=====================================
 // Project Creator
@@ -183,12 +214,32 @@ $project-thumbnail-header-height: 2em;
   @extend %welcome-screen__thumbnail;
 }
 
+.demo-thumbnail__delete-confirm {
+  @extend %project-delete-confirm;
+}
+
+.demo-thumbnail__delete-confirm__delete {
+  @extend %project-delete-confirm__option;
+  background-color: indianred;
+}
+
+.demo-thumbnail__delete-confirm__cancel {
+  @extend %project-delete-confirm__option;
+  background-color: greenyellow;
+}
+
+.demo-thumbnail__deleting {
+  width: 100%;
+  height: 100%;
+  background-color: rbga(255,0,0,0.5);
+}
+
 .demo-thumbnail__header {
   @extend %welcome-screen__thumbnail-tile__header;
 }
 
 .demo-thumbnail__body {
-  padding: 10px;
+  @extend %welcome-screen__thumbnail-tile__body;
 }
 
 .demo-thumbnail__state-bar {

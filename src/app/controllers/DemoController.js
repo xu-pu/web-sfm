@@ -18,9 +18,14 @@ module.exports = Ember.ObjectController.extend({
 
     adapter: null,
 
+    isConfirmDelete: false,
+
+    isDeleting: false,
+
     actions: {
 
         'delete': function(){
+            this.set('isConfirmDelete', false);
             this.promiseDelete();
         },
 
@@ -31,7 +36,22 @@ module.exports = Ember.ObjectController.extend({
         enter: function(){
             sfmstore.setCurrentProject(this.get('model'));
             this.transitionToRoute('workspace');
+        },
+
+        confirmDelete: function(){
+            // toggle behaviour
+            if (this.get('isConfirmDelete')) {
+                this.set('isConfirmDelete', false);
+            }
+            else {
+                this.set('isConfirmDelete', true);
+            }
+        },
+
+        cancelDelete: function(){
+            this.set('isConfirmDelete', false);
         }
+
     },
 
     promiseDelete: function(){

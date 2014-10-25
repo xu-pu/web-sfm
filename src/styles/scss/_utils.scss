@@ -17,3 +17,13 @@ $unicode-icons: (
   height: $container-size;
   font-size: $font-size;
 }
+
+%center-element {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  margin: auto;
+  text-align: center;
+}
