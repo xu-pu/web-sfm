@@ -15,6 +15,8 @@ var TYPES = {
 
 module.exports = Ember.Object.extend({
 
+    name: null,
+
     demo: null,
 
     url: null,

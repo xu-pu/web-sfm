@@ -49,6 +49,7 @@ module.exports = Ember.Controller.extend({
         function complete(){
             _self.get('downloading').removeObject(task);
             task.set('state', TASK_STATES.FINISHED);
+            _self.next();
             resolve(request.response);
         }
 
