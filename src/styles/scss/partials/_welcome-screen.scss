@@ -229,9 +229,20 @@ $project-thumbnail-header-height: 2em;
 }
 
 .demo-thumbnail__deleting {
-  width: 100%;
-  height: 100%;
-  background-color: rbga(255,0,0,0.5);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background-color: darkred;
+
+  h1 {
+    @extend %center-element;
+    font-size: 3em;
+    height: 1em;
+    line-height: 1em;
+  }
+
 }
 
 .demo-thumbnail__header {

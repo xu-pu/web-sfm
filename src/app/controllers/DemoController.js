@@ -64,6 +64,7 @@ module.exports = Ember.ObjectController.extend({
             })
             .catch()
             .then(function(){
+                _self.set('isDeleting', true);
                 var request = indexedDB.deleteDatabase(_self.get('name'));
                 request.onsuccess = function(){
                     _self.setProperties({
@@ -72,6 +73,7 @@ module.exports = Ember.ObjectController.extend({
                         'bundlerFinished': false,
                         'mvsFinished': false
                     });
+                    _self.set('isDeleting', false);
                 };
             });
     },
