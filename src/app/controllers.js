@@ -2,6 +2,17 @@
 
 module.exports = function(App){
 
+
+    //=======================
+    // SFM Controllers
+    //=======================
+
+    App.DownloadSchedulerController = require('./SfmControllers/DownloadSchedulerController.js');
+
+    //=======================
+    // App Controllers
+    //=======================
+
     App.ApplicationController = Ember.ObjectController.extend();
 
     //=======================
