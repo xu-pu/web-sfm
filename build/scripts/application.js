@@ -4014,7 +4014,7 @@ Matrix.Ones = function(n, m) {
 
 module.exports = Matrix;
 
-},{"./sylvester":16,"./vector":17,"fs":1,"lapack":59}],15:[function(require,module,exports){
+},{"./sylvester":16,"./vector":17,"fs":1,"lapack":61}],15:[function(require,module,exports){
 // Copyright (c) 2011, Chris Umbel, James Coglan
 // Plane class - depends on Vector. Some methods require Matrix and Line.
 var Vector = require('./vector');
@@ -6095,6 +6095,89 @@ module.exports = Vector;
 },{}],19:[function(require,module,exports){
 'use strict';
 
+var DownloadTask = require('../models/DownloadTask.js'),
+    TASK_STATES = DownloadTask.STATES;
+
+module.exports = Ember.Controller.extend({
+
+    poolSize: 4,
+
+    downloading: [],
+
+    queue: [],
+
+    onQueue: function(){
+        while (this.next()) {}
+    }.observes('queue.length'),
+
+    isActive: function(){
+        return this.get('downloading.length') > 0;
+    }.property('downloading.length'),
+
+    next: function(){
+        var downloading = this.get('downloading'),
+            queue = this.get('queue'),
+            poolSize = this.get('poolSize'),
+            task;
+        if (downloading.get('length') < poolSize && queue.get('length') > 0) {
+            task = queue.popObject();
+            this.downloadOne(task);
+            return true;
+        }
+        else {
+            return false;
+        }
+    },
+
+    downloadOne: function(task){
+        var _self = this,
+            resolve = task.get('resolve');
+
+        task.set('state', TASK_STATES.DOWNLOADING);
+        this.get('downloading').pushObject(task);
+
+        var request = new XMLHttpRequest();
+        request.open('GET', task.get('url'));
+        request.onload = complete;
+        request.onerror = retry;
+        request.ontimeout = retry;
+        request.onabort = retry;
+        request.onprogress = progress;
+        request.responseType = task.get('type');
+        request.send();
+
+        function complete(){
+            _self.get('downloading').removeObject(task);
+            task.set('state', TASK_STATES.FINISHED);
+            _self.next();
+            resolve(request.response);
+        }
+
+        function progress(evt){
+            if (evt.lengthComputable) {
+                task.setProperties({
+                    totalSize: evt.total,
+                    downloadedSize: evt.loaded
+                });
+            }
+        }
+
+        function retry(){
+            _self.tryLater(task);
+        }
+
+    },
+
+    tryLater: function(task){
+        this.get('downloading').removeObject(task);
+        this.get('queue').pushObject(task);
+        this.next();
+    }
+
+});
+},{"../models/DownloadTask.js":31}],20:[function(require,module,exports){
+'use strict';
+
 var setupControllers = require('./controllers.js'),
     setupRoutes = require('./router.js'),
     setupViews = require('./views.js');
@@ -6109,10 +6192,21 @@ var App = window.App = Ember.Application.create({
 setupRoutes(App);
 setupControllers(App);
 setupViews(App);
-},{"./controllers.js":20,"./router.js":33,"./views.js":41}],20:[function(require,module,exports){
+},{"./controllers.js":21,"./router.js":35,"./views.js":43}],21:[function(require,module,exports){
 'use strict';
 
 module.exports = function(App){
+
+
+    //=======================
+    // SFM Controllers
+    //=======================
+
+    App.DownloadSchedulerController = require('./SfmControllers/DownloadSchedulerController.js');
+
+    //=======================
+    // App Controllers
+    //=======================
 
     App.ApplicationController = Ember.ObjectController.extend();
 
@@ -6122,6 +6216,11 @@ module.exports = function(App){
 
     App.WelcomeController = Ember.ObjectController.extend({
         // demos, projects
+
+        needs: ['downloadScheduler'],
+
+        downloading: Ember.computed.alias('controllers.downloadScheduler.downloading')
+
     });
 
     App.DemosController = Ember.ArrayController.extend({
@@ -6211,7 +6310,7 @@ module.exports = function(App){
     App.WorkspaceMvsController = Ember.Controller.extend();
 
 };
-},{"./controllers/DemoController.js":21,"./controllers/ProjectThumbnailController.js":22,"./controllers/ProjectsController.js":23,"./controllers/WorkspaceController.js":24,"./controllers/WorkspaceExtractorImageController.js":25,"./controllers/WorkspaceImagesController.js":26,"./controllers/WorkspaceImagesDetailController.js":27}],21:[function(require,module,exports){
+},{"./SfmControllers/DownloadSchedulerController.js":19,"./controllers/DemoController.js":22,"./controllers/ProjectThumbnailController.js":23,"./controllers/ProjectsController.js":24,"./controllers/WorkspaceController.js":25,"./controllers/WorkspaceExtractorImageController.js":26,"./controllers/WorkspaceImagesController.js":27,"./controllers/WorkspaceImagesDetailController.js":28}],22:[function(require,module,exports){
 "use strict";
 
 var _ = require('underscore');
@@ -6220,21 +6319,31 @@ var IDBAdapter = require('../store/StorageAdapter.js'),
     utils = require('../utils.js'),
     sfmstore = require('../store/sfmstore.js'),
     settings = require('../settings.js'),
-    STORES = settings.STORES;
+    STORES = settings.STORES,
+    DownloadTask = require('../models/DownloadTask.js'),
+    TYPES = DownloadTask.TYPES;
 
 var MVS_PATH = '/mvs/option.txt.pset.json',
     BUNDLER_PATH = '/bundler/bundler.json';
 
-
 module.exports = Ember.ObjectController.extend({
+
+    needs: ['downloadScheduler'],
+
+    scheduler: Ember.computed.alias('controllers.downloadScheduler'),
 
     isInprogress: false,
 
     adapter: null,
 
+    isConfirmDelete: false,
+
+    isDeleting: false,
+
     actions: {
 
         'delete': function(){
+            this.set('isConfirmDelete', false);
             this.promiseDelete();
         },
 
@@ -6245,7 +6354,22 @@ module.exports = Ember.ObjectController.extend({
         enter: function(){
             sfmstore.setCurrentProject(this.get('model'));
             this.transitionToRoute('workspace');
+        },
+
+        confirmDelete: function(){
+            // toggle behaviour
+            if (this.get('isConfirmDelete')) {
+                this.set('isConfirmDelete', false);
+            }
+            else {
+                this.set('isConfirmDelete', true);
+            }
+        },
+
+        cancelDelete: function(){
+            this.set('isConfirmDelete', false);
         }
+
     },
 
     promiseDelete: function(){
@@ -6258,6 +6382,7 @@ module.exports = Ember.ObjectController.extend({
             })
             .catch()
             .then(function(){
+                _self.set('isDeleting', true);
                 var request = indexedDB.deleteDatabase(_self.get('name'));
                 request.onsuccess = function(){
                     _self.setProperties({
@@ -6266,6 +6391,7 @@ module.exports = Ember.ObjectController.extend({
                         'bundlerFinished': false,
                         'mvsFinished': false
                     });
+                    _self.set('isDeleting', false);
                 };
             });
     },
@@ -6340,7 +6466,7 @@ module.exports = Ember.ObjectController.extend({
         if (this.get('downloaded')) {
             return Promise.resolve();
         }
-        return _self.promiseDownloadImages()
+        return this.promiseDownloadImages()
             .then(this.promiseDownloadSIFT.bind(this))
             .then(this.promiseDownloadBundler.bind(this))
             .then(this.promiseDownloadMVS.bind(this))
@@ -6394,8 +6520,22 @@ module.exports = Ember.ObjectController.extend({
             return Promise.resolve();
         }
         var adapter = this.get('adapter'),
-            _self = this;
-        return utils.requireJSON(this.get('root')+BUNDLER_PATH)
+            _self = this,
+            url = this.get('root')+BUNDLER_PATH,
+            queue = this.get('scheduler.queue');
+
+        var jsonPromise = new Promise(function(resolve, reject){
+            var task = DownloadTask.create({
+                name: 'Camera Registration',
+                demo: _self,
+                resolve: resolve,
+                url: url,
+                type: TYPES.JSON
+            });
+            queue.pushObject(task);
+        });
+
+        return jsonPromise
             .then(function(data){
                 return adapter.promiseSetData(STORES.SINGLETONS, STORES.BUNDLER, data);
             })
@@ -6415,8 +6555,21 @@ module.exports = Ember.ObjectController.extend({
         }
         var _self = this,
             adapter = this.get('adapter'),
-            url = this.get('root')+MVS_PATH;
-        return utils.requireJSON(url)
+            url = this.get('root')+MVS_PATH,
+            queue = this.get('scheduler.queue');
+
+        var jsonPromise = new Promise(function(resolve, reject){
+            var task = DownloadTask.create({
+                name: 'Multi-View Stereo',
+                demo: _self,
+                resolve: resolve,
+                url: url,
+                type: TYPES.JSON
+            });
+            queue.pushObject(task);
+        });
+
+        return jsonPromise
             .then(function(data){
                 return adapter.promiseSetData(STORES.SINGLETONS, STORES.MVS, data);
             })
@@ -6437,9 +6590,21 @@ module.exports = Ember.ObjectController.extend({
         var _self = this,
             adapter = this.get('adapter'),
             rawName = image.filename.split('.')[0],
-            siftUrl = this.get('root') + '/sift.json/' + rawName + '.json';
+            siftUrl = this.get('root') + '/sift.json/' + rawName + '.json',
+            queue = this.get('scheduler.queue');
 
-        return utils.requireJSON(siftUrl)
+        var jsonPromise = new Promise(function(resolve, reject){
+            var task = DownloadTask.create({
+                name: rawName,
+                demo: _self,
+                resolve: resolve,
+                url: siftUrl,
+                type: TYPES.JSON
+            });
+            queue.pushObject(task);
+        });
+
+        return jsonPromise
             .then(function(sift){
                 return adapter.promiseSetData(STORES.FEATURES, _id, sift.features);
             })
@@ -6448,13 +6613,24 @@ module.exports = Ember.ObjectController.extend({
             });
     },
 
-
     promiseProcessOneImage: function(name){
         var _self = this,
             imageUrl = this.get('root') + '/images/' + name,
-            adapter = this.get('adapter');
+            adapter = this.get('adapter'),
+            queue = this.get('scheduler.queue');
 
-        return utils.requireImageFile(imageUrl)
+        var blobPromise = new Promise(function(resolve, reject){
+            var task = DownloadTask.create({
+                name: name,
+                demo: _self,
+                resolve: resolve,
+                url: imageUrl,
+                type: TYPES.BLOB
+            });
+            queue.pushObject(task);
+        });
+
+        return blobPromise
             .then(function(blob){
                 blob.name = name;
                 return adapter.processImageFile(blob);
@@ -6465,7 +6641,7 @@ module.exports = Ember.ObjectController.extend({
     }
 
 });
-},{"../settings.js":37,"../store/StorageAdapter.js":38,"../store/sfmstore.js":39,"../utils.js":40,"underscore":18}],22:[function(require,module,exports){
+},{"../models/DownloadTask.js":31,"../settings.js":39,"../store/StorageAdapter.js":40,"../store/sfmstore.js":41,"../utils.js":42,"underscore":18}],23:[function(require,module,exports){
 'use strict';
 
 module.exports = Ember.ObjectController.extend({
@@ -6476,10 +6652,30 @@ module.exports = Ember.ObjectController.extend({
 
     isDeleting: false,
 
+    isConfirmDelete: false,
+
     actions: {
-        deleteProject: function(){
+
+        'delete': function(){
+            this.set('isConfirmDelete', false);
             this.promiseDelete()
+        },
+
+        confirmDelete: function(){
+            // toggle
+            if (this.get('isConfirmDelete')) {
+                this.set('isConfirmDelete', false);
+            }
+            else {
+                this.set('isConfirmDelete', true);
+            }
+
+        },
+
+        cancelDelete: function(){
+            this.set('isConfirmDelete', false);
         }
+
     },
 
     promiseDelete: function(){
@@ -6501,7 +6697,7 @@ module.exports = Ember.ObjectController.extend({
     }
 
 });
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 'use strict';
 
 var ProjectModel = require('../models/Project.js');
@@ -6541,7 +6737,7 @@ module.exports = Ember.ArrayController.extend({
     }
 
 });
-},{"../models/Project.js":32}],24:[function(require,module,exports){
+},{"../models/Project.js":34}],25:[function(require,module,exports){
 "use strict";
 
 var _ = require('underscore');
@@ -6673,7 +6869,7 @@ module.exports = Ember.ObjectController.extend({
 
 
 });
-},{"../models/Image.js":30,"../models/Matches.js":31,"../settings.js":37,"../store/sfmstore.js":39,"../utils.js":40,"underscore":18}],25:[function(require,module,exports){
+},{"../models/Image.js":32,"../models/Matches.js":33,"../settings.js":39,"../store/sfmstore.js":41,"../utils.js":42,"underscore":18}],26:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils.js'),
@@ -6713,7 +6909,7 @@ module.exports = Ember.ObjectController.extend({
     }.observes('model')
 
 });
-},{"../settings.js":37,"../store/sfmstore.js":39,"../utils.js":40}],26:[function(require,module,exports){
+},{"../settings.js":39,"../store/sfmstore.js":41,"../utils.js":42}],27:[function(require,module,exports){
 'use strict';
 
 var Image = require('../models/Image.js');
@@ -6747,7 +6943,7 @@ module.exports = Ember.ArrayController.extend({
     }
 
 });
-},{"../models/Image.js":30}],27:[function(require,module,exports){
+},{"../models/Image.js":32}],28:[function(require,module,exports){
 'use strict';
 
 var sfmstore = require('../store/sfmstore.js'),
@@ -6780,7 +6976,7 @@ module.exports = Ember.ObjectController.extend({
     }.observes('model')
 
 });
-},{"../settings.js":37,"../store/sfmstore.js":39}],28:[function(require,module,exports){
+},{"../settings.js":39,"../store/sfmstore.js":41}],29:[function(require,module,exports){
 var _ = require('underscore');
 
 /**
@@ -6824,7 +7020,7 @@ module.exports = Ember.Mixin.create({
     contextMenu: function(){ return false; }
 
 });
-},{"underscore":18}],29:[function(require,module,exports){
+},{"underscore":18}],30:[function(require,module,exports){
 "use strict";
 
 var _ = require('underscore');
@@ -6872,7 +7068,59 @@ module.exports = Project.extend({
     }.observes('finishedImages.length','finishedSIFT.length','bundlerFinished','mvsFinished')
 
 });
-},{"../store/sfmstore.js":39,"./Project.js":32,"underscore":18}],30:[function(require,module,exports){
+},{"../store/sfmstore.js":41,"./Project.js":34,"underscore":18}],31:[function(require,module,exports){
+'use strict';
+
+//var _ = require('underscore');
+
+var STATES = {
+    QUEUE: 0,
+    DOWNLOADING: 1,
+    FINISHED: 2
+};
+
+var TYPES = {
+    BLOB: 'blob',
+    JSON: 'json'
+};
+
+module.exports = Ember.Object.extend({
+
+    name: null,
+
+    demo: null,
+
+    url: null,
+
+    state: STATES.QUEUE,
+
+    type: null,
+
+    totalSize: Infinity,
+
+    downloadedSize: 0,
+
+    progress: function(){
+        var totalSize = this.get('totalSize'),
+            downloadedSize = this.get('downloadedSize');
+        return Math.floor(100*downloadedSize/totalSize);
+    }.property('downloadedSize'),
+
+    fileSize: function(){
+        var totalSize = this.get('totalSize');
+        if (totalSize === Infinity) {
+            return 'Unknown';
+        }
+        else {
+            return Math.round(totalSize/1024/1024) + 'MB';
+        }
+    }.property('totalSize')
+
+});
+
+module.exports.TYPES = TYPES;
+module.exports.STATES = STATES;
+},{}],32:[function(require,module,exports){
 "use strict";
 
 var STORES = require('../settings.js').STORES,
@@ -6928,7 +7176,7 @@ module.exports = Ember.Object.extend({
 });
 
 
-},{"../settings.js":37,"../store/sfmstore.js":39}],31:[function(require,module,exports){
+},{"../settings.js":39,"../store/sfmstore.js":41}],33:[function(require,module,exports){
 'use strict';
 
 var sfmstore = require('../store/sfmstore.js'),
@@ -7036,7 +7284,7 @@ module.exports = Ember.Object.extend({
     }
 
 });
-},{"../settings.js":37,"../store/sfmstore.js":39}],32:[function(require,module,exports){
+},{"../settings.js":39,"../store/sfmstore.js":41}],34:[function(require,module,exports){
 "use strict";
 
 var STAGES = require('../settings.js').STAGES;
@@ -7070,7 +7318,7 @@ module.exports = Ember.Object.extend({
     ]
 
 });
-},{"../settings.js":37}],33:[function(require,module,exports){
+},{"../settings.js":39}],35:[function(require,module,exports){
 "use strict";
 
 var sfmstore = require('./store/sfmstore.js');
@@ -7281,7 +7529,7 @@ module.exports = function(App){
     App.WorkspaceMvsIndexRoute = Ember.Route.extend();
 
 };
-},{"./routes/WelcomeRoute.js":34,"./routes/WorkspaceMvsRoute.js":35,"./routes/WorkspaceRegisterRoute.js":36,"./store/sfmstore.js":39}],34:[function(require,module,exports){
+},{"./routes/WelcomeRoute.js":36,"./routes/WorkspaceMvsRoute.js":37,"./routes/WorkspaceRegisterRoute.js":38,"./store/sfmstore.js":41}],36:[function(require,module,exports){
 var sfmstore = require('../store/sfmstore.js');
 
 module.exports = Ember.Route.extend({
@@ -7319,7 +7567,7 @@ module.exports = Ember.Route.extend({
     }
 
 });
-},{"../store/sfmstore.js":39}],35:[function(require,module,exports){
+},{"../store/sfmstore.js":41}],37:[function(require,module,exports){
 'use strict';
 
 var sfmstore = require('../store/sfmstore.js'),
@@ -7340,7 +7588,7 @@ module.exports = Ember.Route.extend({
     }
 
 });
-},{"../settings.js":37,"../store/sfmstore.js":39}],36:[function(require,module,exports){
+},{"../settings.js":39,"../store/sfmstore.js":41}],38:[function(require,module,exports){
 'use strict';
 
 var sfmstore = require('../store/sfmstore.js'),
@@ -7363,7 +7611,7 @@ module.exports = Ember.Route.extend({
     }
 
 });
-},{"../settings.js":37,"../store/sfmstore.js":39}],37:[function(require,module,exports){
+},{"../settings.js":39,"../store/sfmstore.js":41}],39:[function(require,module,exports){
 module.exports.STAGES = {
     BEFORE: 0,
     EXTRACTOR : 1,
@@ -7408,7 +7656,7 @@ module.exports.TASK_STATES = {
     RUNNING: 2,
     FINISHED: 3
 };
-},{}],38:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 "use strict";
 
 var _ = require('underscore');
@@ -7492,7 +7740,7 @@ StorageAdapter.prototype = {
      */
     processImageFile: function(file){
 
-        Ember.Logger.debug('file process begins');
+        //Ember.Logger.debug('file process begins');
 
         var _self = this,
             image,
@@ -7517,11 +7765,11 @@ StorageAdapter.prototype = {
                 return utils.promiseFileBuffer(file);
             })
             .then(function(buffer){
-                Ember.Logger.debug('ArrayBuffer Loaded');
+                //Ember.Logger.debug('ArrayBuffer Loaded');
                 return _self.promiseSetData(STORES.FULLIMAGES, image._id, buffer);
             })
             .then(function(){
-                Ember.Logger.debug('One image imported');
+                //Ember.Logger.debug('One image imported');
                 return image;
             });
 
@@ -7636,7 +7884,7 @@ StorageAdapter.prototype = {
     }
 
 };
-},{"../settings.js":37,"../utils.js":40,"underscore":18}],39:[function(require,module,exports){
+},{"../settings.js":39,"../utils.js":42,"underscore":18}],41:[function(require,module,exports){
 'use strict';
 
 var _ = require('underscore');
@@ -7811,7 +8059,7 @@ function initStore(results){
     return Store.create(params);
 
 }
-},{"../models/DemoProject.js":29,"../models/Project.js":32,"../utils.js":40,"./StorageAdapter.js":38,"underscore":18}],40:[function(require,module,exports){
+},{"../models/DemoProject.js":30,"../models/Project.js":34,"../utils.js":42,"./StorageAdapter.js":40,"underscore":18}],42:[function(require,module,exports){
 //==================================================
 
 module.exports.getLocalStorage = getLocalStorage;
@@ -7967,7 +8215,7 @@ function requireImageFile(url){
     }
 
 }
-},{}],41:[function(require,module,exports){
+},{}],43:[function(require,module,exports){
 module.exports = function(App) {
 
     App.RegisterView = require('./views/RegisterView.js');
@@ -7983,7 +8231,7 @@ module.exports = function(App) {
     App.ProjectCreatorView = require('./views/ProjectCreatorView.js');
 
 };
-},{"./views/CpuSettingView.js":42,"./views/DemoThumbnailView.js":43,"./views/ImageLoaderView.js":44,"./views/ProjectCreatorView.js":45,"./views/ProjectThumbnailView.js":46,"./views/RegisterView.js":47,"./views/SiftView.js":48,"./views/StateBarView.js":49,"./views/StereoView.js":50,"./views/TwoViewGridView.js":51,"./views/TwoViewMatchingView.js":52}],42:[function(require,module,exports){
+},{"./views/CpuSettingView.js":44,"./views/DemoThumbnailView.js":45,"./views/ImageLoaderView.js":46,"./views/ProjectCreatorView.js":47,"./views/ProjectThumbnailView.js":48,"./views/RegisterView.js":49,"./views/SiftView.js":50,"./views/StateBarView.js":51,"./views/StereoView.js":52,"./views/TwoViewGridView.js":53,"./views/TwoViewMatchingView.js":54}],44:[function(require,module,exports){
 module.exports = Ember.View.extend({
 
     templateName: 'widgets/cpu-setting',
@@ -8037,7 +8285,7 @@ module.exports = Ember.View.extend({
     })
 
 });
-},{}],43:[function(require,module,exports){
+},{}],45:[function(require,module,exports){
 module.exports = Ember.View.extend({
 
     tagName: 'div',
@@ -8049,7 +8297,7 @@ module.exports = Ember.View.extend({
     ]
 
 });
-},{}],44:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 var _ = require('underscore');
 
 var Image = require('../models/Image.js');
@@ -8091,7 +8339,7 @@ module.exports = Ember.View.extend({
     }
 
 });
-},{"../models/Image.js":30,"underscore":18}],45:[function(require,module,exports){
+},{"../models/Image.js":32,"underscore":18}],47:[function(require,module,exports){
 'use strict';
 
 module.exports = Ember.View.extend({
@@ -8129,7 +8377,7 @@ module.exports = Ember.View.extend({
     })
 
 });
-},{}],46:[function(require,module,exports){
+},{}],48:[function(require,module,exports){
 module.exports = Ember.View.extend({
 
     tagName: 'div',
@@ -8141,7 +8389,7 @@ module.exports = Ember.View.extend({
     ]
 
 });
-},{}],47:[function(require,module,exports){
+},{}],49:[function(require,module,exports){
 "use strict";
 
 var _ = require('underscore'),
@@ -8324,7 +8572,7 @@ module.exports = Ember.View.extend(Navigatable, {
 function array2glvector(elements){
     return new THREE.Vector3(elements[0], elements[1], elements[2]);
 }
-},{"../../math/bundler.js":53,"../../visualization/getBundlerCamera.js":55,"../../visualization/getCoordinateFrame.js":57,"../mixins/Navigatable.js":28,"sylvester":11,"three":71,"underscore":18}],48:[function(require,module,exports){
+},{"../../math/bundler.js":55,"../../visualization/getBundlerCamera.js":57,"../../visualization/getCoordinateFrame.js":59,"../mixins/Navigatable.js":29,"sylvester":11,"three":73,"underscore":18}],50:[function(require,module,exports){
 "use strict";
 
 var drawFeatures = require('../../visualization/drawFeatures.js');
@@ -8355,7 +8603,7 @@ module.exports = Ember.View.extend({
     }
 
 });
-},{"../../visualization/drawFeatures.js":54}],49:[function(require,module,exports){
+},{"../../visualization/drawFeatures.js":56}],51:[function(require,module,exports){
 var STAGES = require('../settings.js').STAGES;
 
 module.exports = Ember.View.extend({
@@ -8399,7 +8647,7 @@ module.exports = Ember.View.extend({
     })
 
 });
-},{"../settings.js":37}],50:[function(require,module,exports){
+},{"../settings.js":39}],52:[function(require,module,exports){
 "use strict";
 
 var THREE = require('three');
@@ -8543,7 +8791,7 @@ module.exports = Ember.View.extend(Navigatable, {
     }
 
 });
-},{"../mixins/Navigatable.js":28,"three":71}],51:[function(require,module,exports){
+},{"../mixins/Navigatable.js":29,"three":73}],53:[function(require,module,exports){
 module.exports = Ember.View.extend({
 
     tagName: 'table',
@@ -8640,7 +8888,7 @@ module.exports = Ember.View.extend({
     })
 
 });
-},{}],52:[function(require,module,exports){
+},{}],54:[function(require,module,exports){
 module.exports = Ember.View.extend({
 
     tagName: 'div',
@@ -8766,7 +9014,7 @@ module.exports = Ember.View.extend({
 
 
 });
-},{}],53:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 'use strict';
 
 var la = require('sylvester'),
@@ -8855,7 +9103,7 @@ function getStandardRt(R ,t){
         t: standardTransform.x(t)
     };
 }
-},{"sylvester":11}],54:[function(require,module,exports){
+},{"sylvester":11}],56:[function(require,module,exports){
 var _ = require('underscore');
 
 module.exports = function(ctx, features, offsetX, offsetY, scale, options){
@@ -8877,7 +9125,7 @@ module.exports = function(ctx, features, offsetX, offsetY, scale, options){
     });
     ctx.stroke();
 };
-},{"underscore":18}],55:[function(require,module,exports){
+},{"underscore":18}],57:[function(require,module,exports){
 'use strict';
 
 var THREE = require('three');
@@ -8895,7 +9143,7 @@ module.exports = function(cam){
         R = Rt.R, t = Rt.t;
     return getCameraFrame(R, t, cam.focal, imgWidth, imgHeight);
 };
-},{"../math/bundler.js":53,"./getCameraFrame.js":56,"sylvester":11,"three":71}],56:[function(require,module,exports){
+},{"../math/bundler.js":55,"./getCameraFrame.js":58,"sylvester":11,"three":73}],58:[function(require,module,exports){
 'use strict';
 
 var THREE = require('three'),
@@ -8949,7 +9197,7 @@ module.exports = function(R, t, focal, imgHeight, imgWidth){
 function array2glvector(elements){
     return new THREE.Vector3(elements[0], elements[1], elements[2]);
 }
-},{"sylvester":11,"three":71}],57:[function(require,module,exports){
+},{"sylvester":11,"three":73}],59:[function(require,module,exports){
 'use strict';
 
 var THREE = require('three');
@@ -8966,7 +9214,7 @@ module.exports = function(){
     });
     return new THREE.Line(axisGeo, axisMaterial, THREE.LinePieces);
 };
-},{"three":71}],58:[function(require,module,exports){
+},{"three":73}],60:[function(require,module,exports){
 /*
 Copyright (c) 2011, Chris Umbel
 
@@ -9055,7 +9303,7 @@ module.exports.jsMatrixToFortranArray = jsMatrixToFortranArray;
 module.exports.fortranArrayToJSArray = fortranArrayToJSArray;
 module.exports.fortranIntArrayToJSArray = fortranIntArrayToJSArray;
 
-},{"node-ffi":65}],59:[function(require,module,exports){
+},{"node-ffi":67}],61:[function(require,module,exports){
 /*
 Copyright (c) 2011, Chris Umbel
 
@@ -9087,7 +9335,7 @@ exports.lu = lapack.lu;
 exports.sgetrf = lapack.sgetrf;
 exports.sgesv = lapack.sgesv;
 
-},{"./lapack.js":60}],60:[function(require,module,exports){
+},{"./lapack.js":62}],62:[function(require,module,exports){
 /*
 Copyright (c) 2011, Chris Umbel
 
@@ -9370,7 +9618,7 @@ exports.sgesv = sgesv;
 exports.qr = qr;
 exports.lu = lu;
 
-},{"./fortranArray":58,"node-ffi":65}],61:[function(require,module,exports){
+},{"./fortranArray":60,"node-ffi":67}],63:[function(require,module,exports){
 var ffi = require('./ffi')
 
 /**
@@ -9413,7 +9661,7 @@ Callback.prototype.getPointer = function getPointer () {
   return this.pointer
 }
 
-},{"./ffi":65}],62:[function(require,module,exports){
+},{"./ffi":67}],64:[function(require,module,exports){
 var ffi = require('./ffi')
 
 /**
@@ -9452,7 +9700,7 @@ module.exports = CIF
 
 CIF.prototype.getPointer = function () { return this.pointer }
 
-},{"./ffi":65}],63:[function(require,module,exports){
+},{"./ffi":67}],65:[function(require,module,exports){
 var ffi = require('./ffi')
   , read  = require('fs').readFileSync
   , dlopen = ffi.ForeignFunction(ffi.Bindings.StaticFunctions.dlopen
@@ -9547,7 +9795,7 @@ DynamicLibrary.prototype.error = function error () {
   return dlerror()
 }
 
-},{"./ffi":65,"fs":1}],64:[function(require,module,exports){
+},{"./ffi":67,"fs":1}],66:[function(require,module,exports){
 (function (process){
 
 /**
@@ -9576,7 +9824,7 @@ function errno () {
 module.exports = errno
 
 }).call(this,require("JkpR2F"))
-},{"./ffi":65,"JkpR2F":8}],65:[function(require,module,exports){
+},{"./ffi":67,"JkpR2F":8}],67:[function(require,module,exports){
 var ffi = module.exports
 
 ffi.Bindings = require('bindings')('ffi_bindings.node')
@@ -9764,7 +10012,7 @@ ffi.FFI_TYPE = ffi.Struct([
 ])
 
 
-},{"./callback":61,"./cif":62,"./dynamic_library":63,"./errno":64,"./foreign_function":66,"./library":67,"./pointer":68,"./struct":69,"bindings":70}],66:[function(require,module,exports){
+},{"./callback":63,"./cif":64,"./dynamic_library":65,"./errno":66,"./foreign_function":68,"./library":69,"./pointer":70,"./struct":71,"bindings":72}],68:[function(require,module,exports){
 (function (Buffer){
 var ffi = require('./ffi')
   , EventEmitter = require('events').EventEmitter
@@ -9877,7 +10125,7 @@ module.exports = ForeignFunction
 ForeignFunction.build = ForeignFunction
 
 }).call(this,require("buffer").Buffer)
-},{"./ffi":65,"buffer":2,"events":5}],67:[function(require,module,exports){
+},{"./ffi":67,"buffer":2,"events":5}],69:[function(require,module,exports){
 (function (process){
 var ffi = require('./ffi')
   , EXT = ffi.PLATFORM_LIBRARY_EXTENSIONS[process.platform]
@@ -9918,7 +10166,7 @@ function Library (libfile, funcs) {
 module.exports = Library
 
 }).call(this,require("JkpR2F"))
-},{"./ffi":65,"JkpR2F":8}],68:[function(require,module,exports){
+},{"./ffi":67,"JkpR2F":8}],70:[function(require,module,exports){
 (function (Buffer){
 var ffi = require('./ffi')
   , util = require('util')
@@ -10043,7 +10291,7 @@ Object.keys(ffi.NON_SPECIFIC_TYPES).forEach(function (type) {
 Pointer.NULL = new Pointer(0)
 
 }).call(this,require("buffer").Buffer)
-},{"./ffi":65,"buffer":2,"util":10}],69:[function(require,module,exports){
+},{"./ffi":67,"buffer":2,"util":10}],71:[function(require,module,exports){
 (function (Buffer){
 var ffi = require('./ffi')
 
@@ -10229,7 +10477,7 @@ function Struct () {
 module.exports = Struct
 
 }).call(this,require("buffer").Buffer)
-},{"./ffi":65,"buffer":2}],70:[function(require,module,exports){
+},{"./ffi":67,"buffer":2}],72:[function(require,module,exports){
 (function (process,__filename){
 
 /**
@@ -10399,7 +10647,7 @@ exports.getRoot = function getRoot (file) {
 }
 
 }).call(this,require("JkpR2F"),"/../../../../../node_modules/lapack/node_modules/node-ffi/node_modules/bindings/bindings.js")
-},{"JkpR2F":8,"fs":1,"path":7}],71:[function(require,module,exports){
+},{"JkpR2F":8,"fs":1,"path":7}],73:[function(require,module,exports){
 var self = self || {};// File:src/Three.js
 
 /**
@@ -46256,4 +46504,4 @@ if (typeof exports !== 'undefined') {
   this['THREE'] = THREE;
 }
 
-},{}]},{},[19]);
+},{}]},{},[20]);

@@ -129,14 +129,32 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.TEMPLATES["welcome"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  var buffer = '', stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
 
+function program1(depth0,data) {
+  
+  var buffer = '', stack1;
+  data.buffer.push("\n        <div class=\"welcome-screen__download-indicator__task\">\n            ");
+  stack1 = helpers._triageMustache.call(depth0, "task.name", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push(" ");
+  stack1 = helpers._triageMustache.call(depth0, "task.fileSize", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push(" ");
+  stack1 = helpers._triageMustache.call(depth0, "task.progress", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("%\n        </div>\n    ");
+  return buffer;
+  }
 
   data.buffer.push("<div class=\"welcome-screen__header\">Welcome to WebSFM</div>\n<div class=\"welcome-screen__projects-container\">");
   data.buffer.push(escapeExpression((helper = helpers.outlet || (depth0 && depth0.outlet),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "projects", options) : helperMissing.call(depth0, "outlet", "projects", options))));
   data.buffer.push("</div>\n<div class=\"welcome-screen__demos-container\">");
   data.buffer.push(escapeExpression((helper = helpers.outlet || (depth0 && depth0.outlet),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "demos", options) : helperMissing.call(depth0, "outlet", "demos", options))));
-  data.buffer.push("</div>");
+  data.buffer.push("</div>\n\n<div class=\"welcome-screen__download-indicator\">\n\n    ");
+  stack1 = helpers.each.call(depth0, "task", "in", "downloading", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n\n</div>");
   return buffer;
   
 });
@@ -157,7 +175,7 @@ function program1(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("<div class=\"welcome-screen__demos\">\n    <ul>\n        <li class=\"welcome-screen__demos__item\">\n            <div class=\"welcome-screen__demos__header\">\n                <span>DEMOS</span>\n            </div>\n        </li>\n        ");
+  data.buffer.push("<div class=\"welcome-screen__demos\">\n    <ul>\n        <li class=\"welcome-screen__demos__item\">\n            <div class=\"welcome-screen__demos__header\">\n                <h1>DEMOS</h1>\n            </div>\n        </li>\n        ");
   stack1 = helpers.each.call(depth0, "demo", "in", "controller", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n    </ul>\n</div>");
@@ -181,7 +199,7 @@ function program1(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("<div class=\"welcome-screen__projects\">\n    <ul>\n\n        <li class=\"welcome-screen__projects__item\">\n            <div class=\"welcome-screen__projects__header\">\n                <span>Projects</span>\n            </div>\n        </li>\n\n        ");
+  data.buffer.push("<div class=\"welcome-screen__projects\">\n    <ul>\n\n        <li class=\"welcome-screen__projects__item\">\n            <div class=\"welcome-screen__projects__header\">\n                <h1>Projects</h1>\n            </div>\n        </li>\n\n        ");
   stack1 = helpers.each.call(depth0, "project", "in", "controller", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n\n        <li class=\"welcome-screen__projects__item\">\n            ");
@@ -257,28 +275,45 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   var buffer = '';
+  data.buffer.push("\n        <div class=\"demo-thumbnail__delete-confirm\">\n            <div ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "cancelDelete", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(" class=\"demo-thumbnail__delete-confirm__cancel\">\n                <h1>Cancel</h1>\n            </div>\n            <div ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "delete", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(" class=\"demo-thumbnail__delete-confirm__delete\">\n                <h1>Delete</h1>\n            </div>\n        </div>\n    ");
+  return buffer;
+  }
+
+function program3(depth0,data) {
+  
+  
+  data.buffer.push("\n        <div class=\"demo-thumbnail__deleting\">\n            <h1>Deleting</h1>\n        </div>\n    ");
+  }
+
+function program5(depth0,data) {
+  
+  var buffer = '';
   data.buffer.push("\n            <div ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "enter", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
   data.buffer.push(">Enter</div>\n        ");
   return buffer;
   }
 
-function program3(depth0,data) {
+function program7(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\n            ");
-  stack1 = helpers['if'].call(depth0, "isInprogress", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(6, program6, data),fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "isInprogress", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(10, program10, data),fn:self.program(8, program8, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n        ");
   return buffer;
   }
-function program4(depth0,data) {
+function program8(depth0,data) {
   
   
   data.buffer.push("\n                <div>Downloading</div>\n            ");
   }
 
-function program6(depth0,data) {
+function program10(depth0,data) {
   
   var buffer = '';
   data.buffer.push("\n                <div ");
@@ -287,38 +322,38 @@ function program6(depth0,data) {
   return buffer;
   }
 
-function program8(depth0,data) {
+function program12(depth0,data) {
   
   
   data.buffer.push("\n            finished\n        ");
   }
 
-function program10(depth0,data) {
+function program14(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\n            ");
-  stack1 = helpers['if'].call(depth0, "hasBundler", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(13, program13, data),fn:self.program(11, program11, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "hasBundler", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(17, program17, data),fn:self.program(15, program15, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n        ");
   return buffer;
   }
-function program11(depth0,data) {
+function program15(depth0,data) {
   
   
   data.buffer.push("\n                avaliable\n            ");
   }
 
-function program13(depth0,data) {
+function program17(depth0,data) {
   
   
   data.buffer.push("\n                not avaliable\n            ");
   }
 
-function program15(depth0,data) {
+function program19(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\n            ");
-  stack1 = helpers['if'].call(depth0, "hasMVS", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(13, program13, data),fn:self.program(11, program11, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "hasMVS", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(17, program17, data),fn:self.program(15, program15, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n        ");
   return buffer;
@@ -328,13 +363,19 @@ function program15(depth0,data) {
   stack1 = helpers._triageMustache.call(depth0, "name", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("</span>\n    <div class=\"exit-icon\" ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "delete", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push("></div>\n</div>\n\n<div class=\"demo-thumbnail__body\">\n\n    <div ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "confirmDelete", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push("></div>\n</div>\n\n<div class=\"demo-thumbnail__body\">\n\n    ");
+  stack1 = helpers['if'].call(depth0, "isConfirmDelete", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n\n    ");
+  stack1 = helpers['if'].call(depth0, "isDeleting", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n\n    <div ");
   data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
     'class': (":demo-thumbnail__state-bar isDownloaded isInprogress")
   },hashTypes:{'class': "STRING"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
   data.buffer.push(">\n        ");
-  stack1 = helpers['if'].call(depth0, "isDownloaded", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "isDownloaded", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(7, program7, data),fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n    </div>\n\n    <div id=\"demo-thumbnail__details__images\" class=\"demo-thumbnail__detail\">\n        IMAGES ");
   stack1 = helpers._triageMustache.call(depth0, "finishedImages.length", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
@@ -349,10 +390,10 @@ function program15(depth0,data) {
   stack1 = helpers._triageMustache.call(depth0, "images.length", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n    </div>\n\n    <div id=\"demo-thumbnail__details__bundler\" class=\"demo-thumbnail__detail\">\n        BUNDLER\n        ");
-  stack1 = helpers['if'].call(depth0, "bundlerFinished", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(10, program10, data),fn:self.program(8, program8, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "bundlerFinished", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(14, program14, data),fn:self.program(12, program12, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n    </div>\n\n    <div id=\"demo-thumbnail__details__mvs\" class=\"demo-thumbnail__detail\">\n        MVS\n        ");
-  stack1 = helpers['if'].call(depth0, "mvsFinished", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(15, program15, data),fn:self.program(8, program8, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "mvsFinished", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(19, program19, data),fn:self.program(12, program12, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n    </div>\n\n</div>");
   return buffer;
@@ -385,27 +426,35 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 
 function program1(depth0,data) {
   
-  
-  data.buffer.push("\n        <div >Deleting</div>\n    ");
+  var buffer = '';
+  data.buffer.push("\n        <div class=\"project-thumbnail__delete-confirm\">\n            <div ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "cancelDelete", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(" class=\"project-thumbnail__delete-confirm__cancel\">\n                <h1>Cancel</h1>\n            </div>\n            <div ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "delete", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(" class=\"project-thumbnail__delete-confirm__delete\">\n                <h1>Delete</h1>\n            </div>\n        </div>\n    ");
+  return buffer;
   }
 
 function program3(depth0,data) {
   
   
-  data.buffer.push("\n        <div >Enter</div>\n    ");
+  data.buffer.push("\n        <div class=\"project-thumbnail__deleting\">\n            <h1>Deleting</h1>\n        </div>\n    ");
   }
 
   data.buffer.push("<div class=\"project-thumbnail__header\">\n    <span>");
   stack1 = helpers._triageMustache.call(depth0, "name", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("</span>\n    <div class=\"exit-icon\" ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "deleteProject", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push("></div>\n</div>\n\n<div class=\"project-thumbnail__body\" ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "enter", "controller.model", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
-  data.buffer.push(">\n    ");
-  stack1 = helpers['if'].call(depth0, "controller.isDeleting", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "confirmDelete", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push("></div>\n</div>\n\n<div class=\"project-thumbnail__body\">\n\n    ");
+  stack1 = helpers['if'].call(depth0, "isConfirmDelete", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n</div>");
+  data.buffer.push("\n\n    ");
+  stack1 = helpers['if'].call(depth0, "isDeleting", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n\n    <div ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "enter", "controller.model", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
+  data.buffer.push(">Enter</div>\n\n</div>");
   return buffer;
   
 });

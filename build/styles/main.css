@@ -70,6 +70,17 @@ table {
   content: "\23EF";
 }
 
+/* line 21, ../../src/styles/scss/_utils.scss */
+.welcome-screen__projects__header h1, .welcome-screen__demos__header h1, .project-thumbnail__delete-confirm__delete h1, .project-thumbnail__delete-confirm__cancel h1, .demo-thumbnail__delete-confirm__delete h1, .demo-thumbnail__delete-confirm__cancel h1, .project-thumbnail__deleting h1, .demo-thumbnail__deleting h1 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  margin: auto;
+  text-align: center;
+}
+
 /* line 8, ../../src/styles/scss/_utils.scss */
 .icon-pause:before {
   content: "\23F8";
@@ -80,35 +91,66 @@ table {
   content: "\23EF";
 }
 
-/* line 4, ../../src/styles/scss/partials/_welcome-screen.scss */
+/* line 21, ../../src/styles/scss/_utils.scss */
+.welcome-screen__projects__header h1, .welcome-screen__demos__header h1, .project-thumbnail__delete-confirm__delete h1, .project-thumbnail__delete-confirm__cancel h1, .demo-thumbnail__delete-confirm__delete h1, .demo-thumbnail__delete-confirm__cancel h1, .project-thumbnail__deleting h1, .demo-thumbnail__deleting h1 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  margin: auto;
+  text-align: center;
+}
+
+/* line 8, ../../src/styles/scss/partials/_welcome-screen.scss */
+.welcome-screen__download-indicator {
+  position: fixed;
+  width: 10em;
+  top: 1em;
+  right: 1em;
+}
+
+/* line 15, ../../src/styles/scss/partials/_welcome-screen.scss */
+.welcome-screen__download-indicator__task {
+  -webkit-box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.49);
+  -moz-box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.49);
+  box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.49);
+  width: 100%;
+  height: 3em;
+  margin-bottom: 0.5em;
+  overflow: hidden;
+  background-color: ghostwhite;
+}
+
+/* line 28, ../../src/styles/scss/partials/_welcome-screen.scss */
 .welcome-screen__header {
   width: 100%;
   height: 400px;
   background-color: #2257FF;
 }
 
-/* line 10, ../../src/styles/scss/partials/_welcome-screen.scss */
+/* line 34, ../../src/styles/scss/partials/_welcome-screen.scss */
 .welcome-screen__demos-container, .welcome-screen__projects-container {
   width: 100%;
   height: 300px;
   overflow-x: hidden;
 }
 
-/* line 16, ../../src/styles/scss/partials/_welcome-screen.scss */
+/* line 40, ../../src/styles/scss/partials/_welcome-screen.scss */
 .welcome-screen__demos-container {
   background-color: beige;
 }
 
-/* line 21, ../../src/styles/scss/partials/_welcome-screen.scss */
+/* line 45, ../../src/styles/scss/partials/_welcome-screen.scss */
 .welcome-screen__projects-container {
   background-color: burlywood;
 }
 
-/* line 26, ../../src/styles/scss/partials/_welcome-screen.scss */
+/* line 50, ../../src/styles/scss/partials/_welcome-screen.scss */
 .welcome-screen__demos, .welcome-screen__projects {
   height: 100%;
 }
-/* line 29, ../../src/styles/scss/partials/_welcome-screen.scss */
+/* line 53, ../../src/styles/scss/partials/_welcome-screen.scss */
 .welcome-screen__demos ul, .welcome-screen__projects ul {
   height: 100%;
   box-sizing: border-box;
@@ -116,7 +158,7 @@ table {
   white-space: nowrap;
 }
 
-/* line 42, ../../src/styles/scss/partials/_welcome-screen.scss */
+/* line 66, ../../src/styles/scss/partials/_welcome-screen.scss */
 .welcome-screen__projects__header, .welcome-screen__demos__header {
   -webkit-box-shadow: inset 0 0 10px 3px rgba(0, 0, 0, 0.49);
   -moz-box-shadow: inset 0 0 10px 3px rgba(0, 0, 0, 0.49);
@@ -126,19 +168,20 @@ table {
   -ms-border-radius: 1em;
   -o-border-radius: 1em;
   border-radius: 1em;
-  line-height: 250px;
-  text-align: center;
   background-color: rgba(0, 0, 0, 0.11);
   width: 15em;
   height: 100%;
+  position: relative;
 }
-/* line 51, ../../src/styles/scss/partials/_welcome-screen.scss */
-.welcome-screen__projects__header span, .welcome-screen__demos__header span {
+/* line 74, ../../src/styles/scss/partials/_welcome-screen.scss */
+.welcome-screen__projects__header h1, .welcome-screen__demos__header h1 {
   font-size: 3em;
+  height: 1em;
+  line-height: 1em;
   font-weight: bolder;
 }
 
-/* line 58, ../../src/styles/scss/partials/_welcome-screen.scss */
+/* line 84, ../../src/styles/scss/partials/_welcome-screen.scss */
 .welcome-screen__projects__item, .welcome-screen__demos__item {
   display: inline-block;
   vertical-align: top;
@@ -148,7 +191,7 @@ table {
   margin-bottom: 0;
 }
 
-/* line 68, ../../src/styles/scss/partials/_welcome-screen.scss */
+/* line 94, ../../src/styles/scss/partials/_welcome-screen.scss */
 .welcome-screen__projects__thumbnail, .welcome-screen__demos__thumbnail {
   width: 15em;
   height: 100%;
@@ -156,9 +199,10 @@ table {
   -webkit-box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.49);
   -moz-box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.49);
   box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.49);
+  position: relative;
 }
 
-/* line 77, ../../src/styles/scss/partials/_welcome-screen.scss */
+/* line 104, ../../src/styles/scss/partials/_welcome-screen.scss */
 .project-thumbnail__header, .demo-thumbnail__header {
   position: relative;
   background-color: #333333;
@@ -169,7 +213,55 @@ table {
   padding-left: 10px;
 }
 
-/* line 92, ../../src/styles/scss/partials/_welcome-screen.scss */
+/* line 114, ../../src/styles/scss/partials/_welcome-screen.scss */
+.project-thumbnail__body, .demo-thumbnail__body {
+  padding: 10px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 2em;
+}
+
+/* line 123, ../../src/styles/scss/partials/_welcome-screen.scss */
+.project-thumbnail__delete-confirm, .demo-thumbnail__delete-confirm {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+}
+
+/* line 131, ../../src/styles/scss/partials/_welcome-screen.scss */
+.project-thumbnail__delete-confirm__delete, .project-thumbnail__delete-confirm__cancel, .demo-thumbnail__delete-confirm__delete, .demo-thumbnail__delete-confirm__cancel {
+  height: 50%;
+  position: relative;
+  cursor: pointer;
+}
+/* line 136, ../../src/styles/scss/partials/_welcome-screen.scss */
+.project-thumbnail__delete-confirm__delete h1, .project-thumbnail__delete-confirm__cancel h1, .demo-thumbnail__delete-confirm__delete h1, .demo-thumbnail__delete-confirm__cancel h1 {
+  font-size: 3em;
+  height: 1em;
+  line-height: 1em;
+}
+
+/* line 145, ../../src/styles/scss/partials/_welcome-screen.scss */
+.project-thumbnail__deleting, .demo-thumbnail__deleting {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background-color: darkred;
+}
+/* line 153, ../../src/styles/scss/partials/_welcome-screen.scss */
+.project-thumbnail__deleting h1, .demo-thumbnail__deleting h1 {
+  font-size: 3em;
+  height: 1em;
+  line-height: 1em;
+}
+
+/* line 166, ../../src/styles/scss/partials/_welcome-screen.scss */
 .welcome-screen__projects__new {
   -webkit-box-shadow: inset 0 0 10px 3px rgba(0, 0, 0, 0.49);
   -moz-box-shadow: inset 0 0 10px 3px rgba(0, 0, 0, 0.49);
@@ -183,19 +275,19 @@ table {
   padding: 1em;
   box-sizing: border-box;
 }
-/* line 100, ../../src/styles/scss/partials/_welcome-screen.scss */
+/* line 174, ../../src/styles/scss/partials/_welcome-screen.scss */
 .welcome-screen__projects__new.is-invalid {
   -webkit-box-shadow: inset 0 0 10px 3px red;
   -moz-box-shadow: inset 0 0 10px 3px red;
   box-shadow: inset 0 0 10px 3px red;
 }
 
-/* line 106, ../../src/styles/scss/partials/_welcome-screen.scss */
+/* line 180, ../../src/styles/scss/partials/_welcome-screen.scss */
 .project-creator__input {
   width: 100%;
   height: 30%;
 }
-/* line 110, ../../src/styles/scss/partials/_welcome-screen.scss */
+/* line 184, ../../src/styles/scss/partials/_welcome-screen.scss */
 .project-creator__input input {
   width: 100%;
   outline: none;
@@ -205,7 +297,7 @@ table {
   font-size: 2em;
 }
 
-/* line 118, ../../src/styles/scss/partials/_welcome-screen.scss */
+/* line 192, ../../src/styles/scss/partials/_welcome-screen.scss */
 .project-creator__submit {
   -webkit-transition: background-color 0.5s;
   -moz-transition: background-color 0.5s;
@@ -216,40 +308,50 @@ table {
   background-color: lightgreen;
   cursor: pointer;
 }
-/* line 125, ../../src/styles/scss/partials/_welcome-screen.scss */
+/* line 199, ../../src/styles/scss/partials/_welcome-screen.scss */
 .project-creator__submit.is-invalid {
   background-color: indianred;
   cursor: not-allowed;
 }
 
-/* line 142, ../../src/styles/scss/partials/_welcome-screen.scss */
-.welcome-screen__projects__header span {
+/* line 216, ../../src/styles/scss/partials/_welcome-screen.scss */
+.welcome-screen__projects__header h1 {
   color: white;
 }
 
-/* line 159, ../../src/styles/scss/partials/_welcome-screen.scss */
-.project-thumbnail__body {
-  cursor: pointer;
+/* line 233, ../../src/styles/scss/partials/_welcome-screen.scss */
+.project-thumbnail__delete-confirm__delete {
+  background-color: indianred;
 }
 
-/* line 173, ../../src/styles/scss/partials/_welcome-screen.scss */
-.welcome-screen__demos__header span {
+/* line 238, ../../src/styles/scss/partials/_welcome-screen.scss */
+.project-thumbnail__delete-confirm__cancel {
+  background-color: greenyellow;
+}
+
+/* line 265, ../../src/styles/scss/partials/_welcome-screen.scss */
+.welcome-screen__demos__header h1 {
   color: gray;
 }
 
-/* line 190, ../../src/styles/scss/partials/_welcome-screen.scss */
-.demo-thumbnail__body {
-  padding: 10px;
+/* line 282, ../../src/styles/scss/partials/_welcome-screen.scss */
+.demo-thumbnail__delete-confirm__delete {
+  background-color: indianred;
 }
 
-/* line 194, ../../src/styles/scss/partials/_welcome-screen.scss */
+/* line 287, ../../src/styles/scss/partials/_welcome-screen.scss */
+.demo-thumbnail__delete-confirm__cancel {
+  background-color: greenyellow;
+}
+
+/* line 304, ../../src/styles/scss/partials/_welcome-screen.scss */
 .demo-thumbnail__state-bar {
   width: 100%;
   height: 40px;
   cursor: pointer;
   background-color: red;
 }
-/* line 200, ../../src/styles/scss/partials/_welcome-screen.scss */
+/* line 310, ../../src/styles/scss/partials/_welcome-screen.scss */
 .demo-thumbnail__state-bar > div {
   height: 100%;
   width: 100%;
@@ -259,24 +361,24 @@ table {
   text-align: center;
   color: #301717;
 }
-/* line 210, ../../src/styles/scss/partials/_welcome-screen.scss */
+/* line 320, ../../src/styles/scss/partials/_welcome-screen.scss */
 .demo-thumbnail__state-bar:hover {
   background-color: #cf3636;
 }
-/* line 214, ../../src/styles/scss/partials/_welcome-screen.scss */
+/* line 324, ../../src/styles/scss/partials/_welcome-screen.scss */
 .demo-thumbnail__state-bar.is-downloaded {
   background-color: greenyellow;
 }
-/* line 216, ../../src/styles/scss/partials/_welcome-screen.scss */
+/* line 326, ../../src/styles/scss/partials/_welcome-screen.scss */
 .demo-thumbnail__state-bar.is-downloaded:hover {
   background-color: #92b956;
 }
-/* line 221, ../../src/styles/scss/partials/_welcome-screen.scss */
+/* line 331, ../../src/styles/scss/partials/_welcome-screen.scss */
 .demo-thumbnail__state-bar.is-inprogress {
   background-color: green;
 }
 
-/* line 227, ../../src/styles/scss/partials/_welcome-screen.scss */
+/* line 337, ../../src/styles/scss/partials/_welcome-screen.scss */
 .demo-thumbnail__enter {
   width: 100%;
   height: 50px;
@@ -284,7 +386,7 @@ table {
   cursor: pointer;
 }
 
-/* line 235, ../../src/styles/scss/partials/_welcome-screen.scss */
+/* line 345, ../../src/styles/scss/partials/_welcome-screen.scss */
 .demo-thumbnail__detail {
   height: 2em;
   line-height: 2em;
