@@ -21,6 +21,11 @@ module.exports = function(App){
 
     App.WelcomeController = Ember.ObjectController.extend({
         // demos, projects
+
+        needs: ['downloadScheduler'],
+
+        downloading: Ember.computed.alias('controllers.downloadScheduler.downloading')
+
     });
 
     App.DemosController = Ember.ArrayController.extend({

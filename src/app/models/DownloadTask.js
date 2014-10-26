@@ -1,6 +1,6 @@
 'use strict';
 
-var _ = require('underscore');
+//var _ = require('underscore');
 
 var STATES = {
     QUEUE: 0,
@@ -25,20 +25,25 @@ module.exports = Ember.Object.extend({
 
     type: null,
 
-    totalSize: null,
+    totalSize: Infinity,
 
     downloadedSize: 0,
 
     progress: function(){
         var totalSize = this.get('totalSize'),
             downloadedSize = this.get('downloadedSize');
-        if (_.isNumber(totalSize)) {
-            return Math.floor(100*downloadedSize/totalSize);
+        return Math.floor(100*downloadedSize/totalSize);
+    }.property('downloadedSize'),
+
+    fileSize: function(){
+        var totalSize = this.get('totalSize');
+        if (totalSize === Infinity) {
+            return 'Unknown';
         }
         else {
-            return 0;
+            return Math.round(totalSize/1024/1024) + 'MB';
         }
-    }.property('downloadedSize')
+    }.property('totalSize')
 
 });
 

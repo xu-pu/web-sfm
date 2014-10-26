@@ -1,6 +1,30 @@
 @import "compass";
 @import "../utils";
 
+//=====================================
+// Download Indicator
+//=====================================
+
+.welcome-screen__download-indicator {
+  position: fixed;
+  width: 10em;
+  top: 1em;
+  right: 1em;
+}
+
+.welcome-screen__download-indicator__task {
+  @include box-shadow(0 0 6px 2px rgba(0, 0, 0, 0.49));
+  width: 100%;
+  height: 3em;
+  margin-bottom: 0.5em;
+  overflow: hidden;
+  background-color: ghostwhite;
+}
+
+//=====================================
+// Rows
+//=====================================
+
 .welcome-screen__header {
   width: 100%;
   height: 400px;

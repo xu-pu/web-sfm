@@ -15,6 +15,10 @@ module.exports = Ember.Controller.extend({
         while (this.next()) {}
     }.observes('queue.length'),
 
+    isActive: function(){
+        return this.get('downloading.length') > 0;
+    }.property('downloading.length'),
+
     next: function(){
         var downloading = this.get('downloading'),
             queue = this.get('queue'),
@@ -22,8 +26,6 @@ module.exports = Ember.Controller.extend({
             task;
         if (downloading.get('length') < poolSize && queue.get('length') > 0) {
             task = queue.popObject();
-            task.set('state', TASK_STATES.DOWNLOADING);
-            downloading.pushObject(task);
             this.downloadOne(task);
             return true;
         }
@@ -35,6 +37,9 @@ module.exports = Ember.Controller.extend({
     downloadOne: function(task){
         var _self = this,
             resolve = task.get('resolve');
+
+        task.set('state', TASK_STATES.DOWNLOADING);
+        this.get('downloading').pushObject(task);
 
         var request = new XMLHttpRequest();
         request.open('GET', task.get('url'));
@@ -57,7 +62,7 @@ module.exports = Ember.Controller.extend({
             if (evt.lengthComputable) {
                 task.setProperties({
                     totalSize: evt.total,
-                    downloaded: evt.loaded
+                    downloadedSize: evt.loaded
                 });
             }
         }
