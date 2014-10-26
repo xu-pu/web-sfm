@@ -1,7 +1,9 @@
 'use strict';
 
-var DownloadTask = require('../models/DownloadTask.js'),
-    TASK_STATES = DownloadTask.STATES;
+var utils = require('../utils.js'),
+    DownloadTask = require('../models/DownloadTask.js'),
+    TASK_STATES = DownloadTask.STATES,
+    TASK_TYPES = DownloadTask.TYPES;
 
 module.exports = Ember.Controller.extend({
 
@@ -54,20 +56,15 @@ module.exports = Ember.Controller.extend({
         function complete(){
             _self.get('downloading').removeObject(task);
             task.set('state', TASK_STATES.FINISHED);
+            resolve(request.response);
             _self.next();
-            if (task.get('type') === '') {
-                resolve(JSON.parse(request.responseText));
-            }
-            else {
-                resolve(request.response);
-            }
         }
 
         function progress(evt){
             if (evt.lengthComputable) {
                 task.setProperties({
                     totalSize: evt.total,
-                    downloadedSize: evt.loaded
+                    progress: Math.floor(100*evt.loaded/evt.total)
                 });
             }
         }

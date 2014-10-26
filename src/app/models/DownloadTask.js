@@ -10,7 +10,7 @@ var STATES = {
 
 var TYPES = {
     BLOB: 'blob',
-    JSON: ''
+    JSON: 'json'
 };
 
 module.exports = Ember.Object.extend({
@@ -27,13 +27,9 @@ module.exports = Ember.Object.extend({
 
     totalSize: Infinity,
 
-    downloadedSize: 0,
-
-    progress: function(){
-        var totalSize = this.get('totalSize'),
-            downloadedSize = this.get('downloadedSize');
-        return Math.floor(100*downloadedSize/totalSize);
-    }.property('downloadedSize'),
+    hasProgress: function(){
+        return this.get('totalSize') !== Infinity;
+    }.property('totalSize'),
 
     fileSize: function(){
         var totalSize = this.get('totalSize');

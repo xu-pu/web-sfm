@@ -13,6 +13,18 @@ module.exports.promiseBufferImage = promiseBufferImage;
 
 //==================================================
 
+module.exports.promiseBlobJson = function(blob){
+    return new Promise(function(resolve, reject){
+        var reader = new FileReader();
+        reader.onload = function(){
+            resolve(JSON.parse(reader.result));
+        };
+        reader.readAsText(blob);
+    });
+};
+
+//==================================================
+
 function getLocalStorage(key){
     var result = localStorage.getItem(key);
     if (result === null || result === undefined) {

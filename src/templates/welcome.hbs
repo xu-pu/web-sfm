@@ -6,8 +6,11 @@
 
     {{#each task in downloading}}
         <div class="welcome-screen__download-indicator__task">
-            {{task.name}} {{task.fileSize}} {{task.progress}}%
-        </div>
+            <h1>{{task.name}}</h1>
+            {{#if task.hasProgress}}
+                <h2>{{task.fileSize}} {{task.progress}}%</h2>
+            {{/if}}
+            </div>
     {{/each}}
 
 </div>
