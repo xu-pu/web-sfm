@@ -6095,8 +6095,10 @@ module.exports = Vector;
 },{}],19:[function(require,module,exports){
 'use strict';
 
-var DownloadTask = require('../models/DownloadTask.js'),
-    TASK_STATES = DownloadTask.STATES;
+var utils = require('../utils.js'),
+    DownloadTask = require('../models/DownloadTask.js'),
+    TASK_STATES = DownloadTask.STATES,
+    TASK_TYPES = DownloadTask.TYPES;
 
 module.exports = Ember.Controller.extend({
 
@@ -6149,20 +6151,15 @@ module.exports = Ember.Controller.extend({
         function complete(){
             _self.get('downloading').removeObject(task);
             task.set('state', TASK_STATES.FINISHED);
+            resolve(request.response);
             _self.next();
-            if (task.get('type') === '') {
-                resolve(JSON.parse(request.responseText));
-            }
-            else {
-                resolve(request.response);
-            }
         }
 
         function progress(evt){
             if (evt.lengthComputable) {
                 task.setProperties({
                     totalSize: evt.total,
-                    downloadedSize: evt.loaded
+                    progress: Math.floor(100*evt.loaded/evt.total)
                 });
             }
         }
@@ -6180,7 +6177,7 @@ module.exports = Ember.Controller.extend({
     }
 
 });
-},{"../models/DownloadTask.js":31}],20:[function(require,module,exports){
+},{"../models/DownloadTask.js":31,"../utils.js":42}],20:[function(require,module,exports){
 'use strict';
 
 var setupControllers = require('./controllers.js'),
@@ -7086,7 +7083,7 @@ var STATES = {
 
 var TYPES = {
     BLOB: 'blob',
-    JSON: ''
+    JSON: 'json'
 };
 
 module.exports = Ember.Object.extend({
@@ -7103,13 +7100,9 @@ module.exports = Ember.Object.extend({
 
     totalSize: Infinity,
 
-    downloadedSize: 0,
-
-    progress: function(){
-        var totalSize = this.get('totalSize'),
-            downloadedSize = this.get('downloadedSize');
-        return Math.floor(100*downloadedSize/totalSize);
-    }.property('downloadedSize'),
+    hasProgress: function(){
+        return this.get('totalSize') !== Infinity;
+    }.property('totalSize'),
 
     fileSize: function(){
         var totalSize = this.get('totalSize');
@@ -8077,6 +8070,18 @@ module.exports.getImageThumbnail = getImageThumbnail;
 module.exports.promiseFileDataUrl = promiseFileDataUrl;
 module.exports.promiseFileBuffer = promiseFileBuffer;
 module.exports.promiseBufferImage = promiseBufferImage;
+
+//==================================================
+
+module.exports.promiseBlobJson = function(blob){
+    return new Promise(function(resolve, reject){
+        var reader = new FileReader();
+        reader.onload = function(){
+            resolve(JSON.parse(reader.result));
+        };
+        reader.readAsText(blob);
+    });
+};
 
 //==================================================
 
