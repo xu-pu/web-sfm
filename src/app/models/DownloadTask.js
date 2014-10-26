@@ -10,7 +10,7 @@ var STATES = {
 
 var TYPES = {
     BLOB: 'blob',
-    JSON: 'json'
+    JSON: ''
 };
 
 module.exports = Ember.Object.extend({
