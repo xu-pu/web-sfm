@@ -6150,7 +6150,12 @@ module.exports = Ember.Controller.extend({
             _self.get('downloading').removeObject(task);
             task.set('state', TASK_STATES.FINISHED);
             _self.next();
-            resolve(request.response);
+            if (task.get('type') === '') {
+                resolve(JSON.parse(request.responseText));
+            }
+            else {
+                resolve(request.response);
+            }
         }
 
         function progress(evt){
@@ -7081,7 +7086,7 @@ var STATES = {
 
 var TYPES = {
     BLOB: 'blob',
-    JSON: 'json'
+    JSON: ''
 };
 
 module.exports = Ember.Object.extend({
