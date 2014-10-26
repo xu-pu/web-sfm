@@ -8,10 +8,30 @@ module.exports = Ember.ObjectController.extend({
 
     isDeleting: false,
 
+    isConfirmDelete: false,
+
     actions: {
-        deleteProject: function(){
+
+        'delete': function(){
+            this.set('isConfirmDelete', false);
             this.promiseDelete()
+        },
+
+        confirmDelete: function(){
+            // toggle
+            if (this.get('isConfirmDelete')) {
+                this.set('isConfirmDelete', false);
+            }
+            else {
+                this.set('isConfirmDelete', true);
+            }
+
+        },
+
+        cancelDelete: function(){
+            this.set('isConfirmDelete', false);
         }
+
     },
 
     promiseDelete: function(){

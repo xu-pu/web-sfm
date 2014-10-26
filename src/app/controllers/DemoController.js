@@ -6,21 +6,31 @@ var IDBAdapter = require('../store/StorageAdapter.js'),
     utils = require('../utils.js'),
     sfmstore = require('../store/sfmstore.js'),
     settings = require('../settings.js'),
-    STORES = settings.STORES;
+    STORES = settings.STORES,
+    DownloadTask = require('../models/DownloadTask.js'),
+    TYPES = DownloadTask.TYPES;
 
 var MVS_PATH = '/mvs/option.txt.pset.json',
     BUNDLER_PATH = '/bundler/bundler.json';
 
-
 module.exports = Ember.ObjectController.extend({
+
+    needs: ['downloadScheduler'],
+
+    scheduler: Ember.computed.alias('controllers.downloadScheduler'),
 
     isInprogress: false,
 
     adapter: null,
 
+    isConfirmDelete: false,
+
+    isDeleting: false,
+
     actions: {
 
         'delete': function(){
+            this.set('isConfirmDelete', false);
             this.promiseDelete();
         },
 
@@ -31,7 +41,22 @@ module.exports = Ember.ObjectController.extend({
         enter: function(){
             sfmstore.setCurrentProject(this.get('model'));
             this.transitionToRoute('workspace');
+        },
+
+        confirmDelete: function(){
+            // toggle behaviour
+            if (this.get('isConfirmDelete')) {
+                this.set('isConfirmDelete', false);
+            }
+            else {
+                this.set('isConfirmDelete', true);
+            }
+        },
+
+        cancelDelete: function(){
+            this.set('isConfirmDelete', false);
         }
+
     },
 
     promiseDelete: function(){
@@ -44,6 +69,7 @@ module.exports = Ember.ObjectController.extend({
             })
             .catch()
             .then(function(){
+                _self.set('isDeleting', true);
                 var request = indexedDB.deleteDatabase(_self.get('name'));
                 request.onsuccess = function(){
                     _self.setProperties({
@@ -52,6 +78,7 @@ module.exports = Ember.ObjectController.extend({
                         'bundlerFinished': false,
                         'mvsFinished': false
                     });
+                    _self.set('isDeleting', false);
                 };
             });
     },
@@ -126,7 +153,7 @@ module.exports = Ember.ObjectController.extend({
         if (this.get('downloaded')) {
             return Promise.resolve();
         }
-        return _self.promiseDownloadImages()
+        return this.promiseDownloadImages()
             .then(this.promiseDownloadSIFT.bind(this))
             .then(this.promiseDownloadBundler.bind(this))
             .then(this.promiseDownloadMVS.bind(this))
@@ -180,8 +207,22 @@ module.exports = Ember.ObjectController.extend({
             return Promise.resolve();
         }
         var adapter = this.get('adapter'),
-            _self = this;
-        return utils.requireJSON(this.get('root')+BUNDLER_PATH)
+            _self = this,
+            url = this.get('root')+BUNDLER_PATH,
+            queue = this.get('scheduler.queue');
+
+        var jsonPromise = new Promise(function(resolve, reject){
+            var task = DownloadTask.create({
+                name: 'Camera Registration',
+                demo: _self,
+                resolve: resolve,
+                url: url,
+                type: TYPES.JSON
+            });
+            queue.pushObject(task);
+        });
+
+        return jsonPromise
             .then(function(data){
                 return adapter.promiseSetData(STORES.SINGLETONS, STORES.BUNDLER, data);
             })
@@ -201,8 +242,21 @@ module.exports = Ember.ObjectController.extend({
         }
         var _self = this,
             adapter = this.get('adapter'),
-            url = this.get('root')+MVS_PATH;
-        return utils.requireJSON(url)
+            url = this.get('root')+MVS_PATH,
+            queue = this.get('scheduler.queue');
+
+        var jsonPromise = new Promise(function(resolve, reject){
+            var task = DownloadTask.create({
+                name: 'Multi-View Stereo',
+                demo: _self,
+                resolve: resolve,
+                url: url,
+                type: TYPES.JSON
+            });
+            queue.pushObject(task);
+        });
+
+        return jsonPromise
             .then(function(data){
                 return adapter.promiseSetData(STORES.SINGLETONS, STORES.MVS, data);
             })
@@ -223,9 +277,21 @@ module.exports = Ember.ObjectController.extend({
         var _self = this,
             adapter = this.get('adapter'),
             rawName = image.filename.split('.')[0],
-            siftUrl = this.get('root') + '/sift.json/' + rawName + '.json';
+            siftUrl = this.get('root') + '/sift.json/' + rawName + '.json',
+            queue = this.get('scheduler.queue');
 
-        return utils.requireJSON(siftUrl)
+        var jsonPromise = new Promise(function(resolve, reject){
+            var task = DownloadTask.create({
+                name: rawName,
+                demo: _self,
+                resolve: resolve,
+                url: siftUrl,
+                type: TYPES.JSON
+            });
+            queue.pushObject(task);
+        });
+
+        return jsonPromise
             .then(function(sift){
                 return adapter.promiseSetData(STORES.FEATURES, _id, sift.features);
             })
@@ -234,13 +300,24 @@ module.exports = Ember.ObjectController.extend({
             });
     },
 
-
     promiseProcessOneImage: function(name){
         var _self = this,
             imageUrl = this.get('root') + '/images/' + name,
-            adapter = this.get('adapter');
+            adapter = this.get('adapter'),
+            queue = this.get('scheduler.queue');
 
-        return utils.requireImageFile(imageUrl)
+        var blobPromise = new Promise(function(resolve, reject){
+            var task = DownloadTask.create({
+                name: name,
+                demo: _self,
+                resolve: resolve,
+                url: imageUrl,
+                type: TYPES.BLOB
+            });
+            queue.pushObject(task);
+        });
+
+        return blobPromise
             .then(function(blob){
                 blob.name = name;
                 return adapter.processImageFile(blob);
