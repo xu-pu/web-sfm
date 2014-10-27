@@ -3,53 +3,50 @@
 var _ = require('underscore'),
     blur = require('ndarray-gaussian-filter'),
     ops = require('ndarray-ops'),
-    pool = require('ndarray-scratch');
+    pool = require('ndarray-scratch'),
+    downsample = require('ndarray-downsample2x');
 
-module.exports = iterScales;
+var INIT_SIGMA = 1.6,
+    INTERVALS = 3,
+    SCALES = INTERVALS + 3;
+
+module.exports = iterDoGs;
 
 /**
  * @typedef {{img, sigma: number}} DoG
  */
 
+
 /**
- * @param img
+ * @typedef {{img, sigma: number}} Scale
+ */
+
+/**
+ * @param baseImage
  * @param {Number} octave
  * @param {Function} callback
  */
-function iterScales(img, octave, callback) {
+function iterDoGs(baseImage, octave, callback) {
 
     console.log('calculating dogs');
 
-    var SCALES = 5,
-        step = Math.pow(2, octave),
-        baseSigma = Math.pow(2, octave),
-        k = Math.pow(2, 1/SCALES);
+    var img;
+    if (octave > 0) {
+        img = pool.malloc(baseImage.step(2,2).shape);
+        downsample(img, baseImage, 0, 255);
+    }
+    else {
+        img = pool.clone(baseImage);
+    }
 
-    var scales = _.range(SCALES).map(function(index){
-        var sigma = baseSigma * Math.pow(k, index);
-        console.log('convoluting image with sigma ' + sigma);
-        var buffer = pool.clone(img);
-        var view = blur(buffer, sigma).step(step, step);
-        console.log('convoluting complete, resolution ' + view.shape[0] + '*' + view.shape[1]);
-        return { buffer: buffer, img: view, sigma: sigma };
-    });
-
-    var dogs = _.range(SCALES-1).map(function(index){
-        var img = scales[index].img,
-            imgk = scales[index+1].img,
-            sigma = scales[index].sigma;
-        var buffer = pool.malloc(img.shape);
-        ops.sub(buffer, imgk, img);
-        return {
-            img: buffer,
-            sigma: sigma
-        };
-    });
+    var scales = getScaleSpace(img),
+        tail = scales[SCALES-1],
+        dogs = getDoGs(scales);
 
     console.log('dogs generated');
 
-    scales.forEach(function(scale){
-        pool.free(scale.buffer);
+    _.range(SCALES-1).forEach(function(scale){
+        pool.free(scales[scale].img);
     });
 
     console.log('guassians released');
@@ -66,5 +63,48 @@ function iterScales(img, octave, callback) {
     });
 
     console.log('dogs released');
+
+    return tail.img;
+}
+
+/**
+ * @param base
+ * @returns {Scale[]}
+ */
+function getScaleSpace(base){
+
+    var k = Math.pow(2, 1/INTERVALS),
+        sigmaDeltaBase = INIT_SIGMA * Math.sqrt(k*k-1),
+        space = [{ img: base, sigma: INIT_SIGMA }];
+
+    _.range(1, SCALES).forEach(function(layer){
+        var deltaSigma = sigmaDeltaBase * Math.pow(k, layer-1),
+            sigma = INIT_SIGMA * Math.pow(k, layer);
+        console.log('convoluting image with sigma ' + deltaSigma);
+        var buffer = pool.clone(space[layer-1].img);
+        blur(buffer, deltaSigma);
+        console.log('convoluting complete, resolution ' + buffer.shape[0] + '*' + buffer.shape[1]);
+        space[layer] = { img: buffer, sigma: sigma };
+    });
+
+    return space;
+
+}
+
+
+/**
+ *
+ * @param {Scale[]} scales
+ * @returns {DoG[]}
+ */
+function getDoGs(scales){
+    return _.range(SCALES-1).map(function(index){
+        var image = scales[index].img,
+            imageK = scales[index+1].img,
+            sigma = scales[index].sigma;
+        var buffer = pool.malloc(image.shape);
+        ops.sub(buffer, imageK, image);
+        return { img: buffer, sigma: sigma };
+    });
 
 }

@@ -12,13 +12,13 @@ var _ = require('underscore'),
 var samples = require('../src/utils/samples.js'),
     sift = require('../src/websift/websift.js'),
     iterScales = require('../src/websift/dogspace.js'),
-    getGradient = require('../src/math/gradient.js'),
     getOrientation = require('../src/websift/orientation.js'),
     getGuassianKernel = require('../src/math/kernels.js').getGuassianKernel,
     testUtils = require('../src/utils/testing.js'),
     detect = require('../src/websift/detector.js'),
     isNotEdge = require('../src/websift/edge-filter.js'),
-    kernels = require('../src/math/kernels.js');
+    kernels = require('../src/math/kernels.js'),
+    iterOctave = require('../src/websift/iterOctave.js');
 
 
 function testDetector(index, octave){
@@ -97,14 +97,12 @@ function pyramidTest(index){
         .promiseImage(index)
         .then(function(img){
 
-            _.range(4).forEach(function(octave){
+            iterOctave(img, function(dogs, octave){
                 var step = Math.pow(2, octave);
-                iterScales(img, octave, function(dogs, o){
-                    detect(dogs, contrast, function(space, row, col) {
-                        var point = { row: row*step, col: col*step };
-                        detected.push(point);
-                        filter.check(space, row, col, step);
-                    });
+                detect(dogs, contrast, function(space, row, col) {
+                    var point = { row: row*step, col: col*step };
+                    detected.push(point);
+                    filter.check(space, row, col, step);
                 });
             });
 
@@ -139,6 +137,6 @@ function PointFilter(){
     };
 }
 
-testDetector(1, 1);
+//testDetector(1, 1);
 
-//pyramidTest(1,0);
+pyramidTest(1);

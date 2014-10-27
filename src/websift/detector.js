@@ -15,14 +15,14 @@ function detect(dogs, contrast, callback){
 
     var imgs = dogs.map(function(dog){ return dog.img; }),
         layer = imgs[1],
-        width = layer.shape[1],
-        height = layer.shape[0],
+        width = layer.shape[0],
+        height = layer.shape[1],
         contrastWindow = [-1,0,1];
 
     _.range(height).forEach(function(row){
         _.range(width).forEach(function(col){
 
-            var center = layer.get(row,col),
+            var center = layer.get(col, row),
                 max = -Infinity,
                 min = Infinity;
 
@@ -37,7 +37,7 @@ function detect(dogs, contrast, callback){
                             return true;
                         }
                         else {
-                            var cursor = imgs[1+z].get(row+y, col+x);
+                            var cursor = imgs[1+z].get(col+x, row+y);
                             if (cursor > max) {
                                 max = cursor;
                             }

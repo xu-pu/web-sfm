@@ -12,11 +12,11 @@ module.exports.gradient = gradient;
 
 
 function dx(img, row, col){
-    return interp(img, row, col+1) - interp(img, row, col);
+    return interp(img, col+1, row) - interp(img, col, row);
 }
 
 function dy(img, row, col){
-    return interp(img, row+1, col) - interp(img, row, col);
+    return interp(img, col, row+1) - interp(img, col, row);
 }
 
 function dxx(img, row, col){
