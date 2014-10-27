@@ -1,3 +1,5 @@
+'use strict';
+
 //==================================================
 
 module.exports.getLocalStorage = getLocalStorage;
@@ -13,11 +15,11 @@ module.exports.promiseBufferImage = promiseBufferImage;
 
 //==================================================
 
-module.exports.promiseBlobJson = function(blob){
+module.exports.promiseBlob = function(blob){
     return new Promise(function(resolve, reject){
         var reader = new FileReader();
         reader.onload = function(){
-            resolve(JSON.parse(reader.result));
+            resolve(reader.result);
         };
         reader.readAsText(blob);
     });

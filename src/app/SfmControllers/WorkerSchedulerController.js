@@ -4,7 +4,7 @@ var Thread = require('../models/Thread.js'),
     STATES = require('../settings.js').STATES,
     TASK_STATE = require('../settings.js').TASK_STATES;
 
-var Scheduler = Ember.Object.extend({
+module.exports = Ember.Controller.extend({
 
     state: STATES.STOPPED,
 
@@ -42,5 +42,3 @@ var Scheduler = Ember.Object.extend({
     }.observes('state')
 
 });
-
-module.exports = Scheduler.create();
