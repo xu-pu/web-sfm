@@ -29,7 +29,7 @@ function sift(img, options) {
 
     _.defaults(options, {
         octaves: 4,
-        scales: 5,
+        scales: 3,
         kernelSize: 3,
         contractThreshold: 0,
         orientationWindow: 17

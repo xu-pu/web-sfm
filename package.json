@@ -14,6 +14,7 @@
         "ndarray-unpack": "latest",
         "ndarray-linear-interpolate": "latest",
         "ndarray-ops": "latest",
+        "ndarray-convolve": "latest",
         "ndarray-gaussian-filter": "latest",
         "luminance": "latest",
         "jquery": "latest",

@@ -139,4 +139,4 @@ function PointFilter(){
 
 //testDetector(1, 1);
 
-pyramidTest(1);
+pyramidTest(6);
