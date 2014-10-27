@@ -7,7 +7,7 @@
 var _ = require('underscore');
 
 var detector = require('./detector.js'),
-    iterScales = require('./dogspace.js'),
+    iterOctave = require('./iterOctave.js'),
     isNotEdge = require('./edge-filter.js'),
     siftOrientation = require('./orientation.js');
 
@@ -36,13 +36,11 @@ function sift(img, options) {
     });
 
     var features = [];
-    _.range(options.octaves).forEach(function(octave){
-        iterScales(img, octave, function(dogs, o){
-            detector(dogs, octave, function(space, row, col){
-                if (isNotEdge(space, row, col)) {
-                    features.push({ row: row, col: col });
-                }
-            });
+    iterOctave(img, function(dogs, octave){
+        detector(dogs, octave, function(space, row, col){
+            if (isNotEdge(space, row, col)) {
+                features.push({ row: row, col: col });
+            }
         });
     });
 

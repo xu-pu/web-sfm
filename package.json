@@ -9,6 +9,7 @@
         "mathjs": "latest",
         "sylvester": "latest",
         "ndarray": "latest",
+        "ndarray-scratch": "latest",
         "ndarray-pack": "latest",
         "ndarray-unpack": "latest",
         "ndarray-linear-interpolate": "latest",
