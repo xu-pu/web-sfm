@@ -7,7 +7,7 @@
 var _ = require('underscore');
 
 var detector = require('./detector.js'),
-    iterOctave = require('./iterOctave.js'),
+    iterOctave = require('./iter-octave.js'),
     isNotEdge = require('./edge-filter.js'),
     siftOrientation = require('./orientation.js');
 

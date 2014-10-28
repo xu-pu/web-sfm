@@ -18,7 +18,7 @@ var samples = require('../src/utils/samples.js'),
     detect = require('../src/websift/detector.js'),
     isNotEdge = require('../src/websift/edge-filter.js'),
     kernels = require('../src/math/kernels.js'),
-    iterOctave = require('../src/websift/iterOctave.js');
+    iterOctave = require('../src/websift/iter-octave.js');
 
 
 function testDetector(index, octave){
