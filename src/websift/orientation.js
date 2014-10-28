@@ -16,7 +16,7 @@ var RADIUS = 8,
     ACCEPT_THRESHOLD = 0.8;
 
 
-module.exports = getPointOrientation;
+module.exports = getFeatureOrientation;
 
 
 /**
@@ -27,12 +27,12 @@ module.exports = getPointOrientation;
  * @param {Object} [options]
  * @return {number[]}
  */
-function getPointOrientation(dog, row, col, options){
+function getFeatureOrientation(dog, row, col, options){
     console.log('orienting feature points');
     var hist = generateHist(dog, row, col);
-    smoothHist(hist);
-    var maxIndex = getMaxIndex(hist);
-    return getOrientations(hist, maxIndex);
+    var smoothedHist = smoothHist(hist);
+    var maxIndex = getMaxIndex(smoothedHist);
+    return getOrientations(smoothedHist, maxIndex);
 }
 
 
@@ -64,7 +64,11 @@ function generateHist(dog, row, col){
 
 
 function smoothHist(hist){
-    return hist;
+    return hist.map(function(mag, bin){
+        var pre = bin === 0 ? BINS-1 : bin-1,
+            nex = (bin+1) % BINS;
+        return 0.25*hist[pre] + 0.5*hist[bin] + 0.25*hist[nex];
+    });
 }
 
 
@@ -90,13 +94,27 @@ function getMaxIndex(hist){
  * @returns {number[]}
  */
 function getOrientations(hist, maxIndex){
-    var maximum = hist[maxIndex],
-        directions = [],
-        iterBin;
-    for (iterBin=0; iterBin<BINS; iterBin++) {
-        if (hist[iterBin]/maximum >= ACCEPT_THRESHOLD) {
-            directions.push(BIN_SIZE * iterBin);
+
+    var thresh = hist[maxIndex]*ACCEPT_THRESHOLD,
+        directions = [];
+
+    _.range(BINS).forEach(function(bin){
+        var mag = hist[bin],
+            pre = bin === 0 ? BINS-1 : bin- 1,
+            nex = (bin+1) % BINS;
+        if (mag > hist[pre] && mag > hist[nex] && mag >= thresh) {
+            var offset = histInterp(hist[pre], hist[bin], hist[nex]);
+            var interped = bin + offset;
+            interped = interped >= BINS ? interped-BINS : interped;
+            interped = interped < 0 ? interped+BINS : interped;
+            directions.push(BIN_SIZE * interped);
         }
-    }
+    });
+
     return directions;
+
+    function histInterp(l,c,r){
+        return ((l-r)/2)/(l-2*c+r);
+    }
+
 }
