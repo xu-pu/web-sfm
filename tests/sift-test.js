@@ -24,19 +24,19 @@ var samples = require('../src/utils/samples.js'),
 function pyramidTest(index){
 
     var filter = new PointFilter(),
-        contrast = 255 * 0.5 * 0.04 / 3,
+        contrast = 255 * 0.5 * 0.03 / 3,
         detected = [];
 
     samples
         .promiseImage(index)
         .then(function(img){
 
-            iterOctave(img, function(dogs, octave){
+            iterOctave(img, function(dogspace, layer, octave){
                 var step = Math.pow(2, octave);
-                detect(dogs, contrast, function(space, row, col) {
+                detect(dogspace, layer, contrast, function(row, col) {
                     var point = { row: row*step, col: col*step };
                     detected.push(point);
-                    filter.check(space, row, col, step);
+                    filter.check(dogspace, layer, row, col, step);
                 });
             });
 
@@ -58,9 +58,9 @@ function PointFilter(){
     this.edge = [];
     this.results = [];
 
-    this.check = function(space, row, col, step) {
+    this.check = function(dogspace, layer, row, col, step) {
         var point = { row: row * step, col: col * step };
-        if (isNotEdge(space[1], row, col)) {
+        if (isNotEdge(dogspace.dogs[layer], row, col)) {
             this.results.push(point);
             console.log('Found one!');
         }

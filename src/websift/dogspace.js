@@ -33,9 +33,8 @@ function iterDoGs(baseImage, octave, callback) {
     var dogspace = new DogSpace(baseImage, octave),
         dogs = dogspace.dogs;
 
-    _.range(dogs.length-2).forEach(function(index){
-        var space = dogs.slice(index, index+3);
-        callback(space, octave, dogspace);
+    _.range(1, dogs.length-1).forEach(function(layer){
+        callback(dogspace, layer, octave);
     });
 
     console.log('scale iteration finished');
@@ -89,7 +88,7 @@ function DogSpace(baseImage, octave){
  * @returns {Number}
  */
 DogSpace.prototype.get = function(row,col,layer){
-    return this.dogs[layer].img.get(row,col);
+    return this.dogs[layer].img.get(col, row);
 };
 
 
