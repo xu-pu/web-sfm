@@ -28,32 +28,14 @@ module.exports = iterDoGs;
  */
 function iterDoGs(baseImage, octave, callback) {
 
-    console.log('calculating dogs');
-
-    var img;
-    if (octave > 0) {
-        img = pool.malloc(baseImage.step(2,2).shape);
-        downsample(img, baseImage, 0, 255);
-    }
-    else {
-        img = pool.clone(baseImage);
-    }
-
-    var scales = getScaleSpace(img),
-        tail = scales[SCALES-1],
-        dogs = getDoGs(scales);
-
-    console.log('dogs generated');
-
-    _.range(SCALES-1).forEach(function(scale){
-        pool.free(scales[scale].img);
-    });
-
     console.log('guassians released');
+
+    var dogspace = new DogSpace(baseImage, octave),
+        dogs = dogspace.dogs;
 
     _.range(dogs.length-2).forEach(function(index){
         var space = dogs.slice(index, index+3);
-        callback(space, octave);
+        callback(space, octave, dogspace);
     });
 
     console.log('scale iteration finished');
@@ -64,8 +46,52 @@ function iterDoGs(baseImage, octave, callback) {
 
     console.log('dogs released');
 
-    return tail.img;
+    return dogspace.tail.img;
 }
+
+
+/**
+ *
+ * @param baseImage
+ * @param {Number} octave
+ * @constructor
+ */
+function DogSpace(baseImage, octave){
+
+    console.log('Calculating DoG Space');
+
+    var img;
+    if (octave > 0) {
+        img = pool.malloc(baseImage.step(2,2).shape);
+        downsample(img, baseImage, 0, 255);
+    }
+    else {
+        img = pool.clone(baseImage);
+    }
+
+    var scales = getScaleSpace(img);
+    this.tail = scales[SCALES-1];
+    this.dogs = getDoGs(scales);
+
+    console.log('dogs generated');
+
+    _.range(SCALES-1).forEach(function(scale){
+        pool.free(scales[scale].img);
+    });
+
+}
+
+/**
+ * Ndarray interface
+ * @param {Number} row
+ * @param {Number} col
+ * @param {Number} layer
+ * @returns {Number}
+ */
+DogSpace.prototype.get = function(row,col,layer){
+    return this.dogs[layer].img.get(row,col);
+};
+
 
 /**
  * @param base

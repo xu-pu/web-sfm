@@ -21,72 +21,6 @@ var samples = require('../src/utils/samples.js'),
     iterOctave = require('../src/websift/iter-octave.js');
 
 
-function testDetector(index, octave){
-    return samples
-        .promiseImage(index)
-        .then(function(img){
-
-            var step = Math.pow(2, octave);
-
-            var layers = _.range(4).map(function(layer){
-                var k = Math.pow(2, 1/5),
-                    sigma = Math.pow(2, octave) * Math.pow(k, layer),
-                    buffer = pool.clone(img);
-                console.log('convoluting image with sigma ' + sigma);
-                var view = blur(buffer, sigma).step(step, step);
-                console.log('convoluting complete, resolution ' + view.shape[0] + '*' + view.shape[1]);
-//                testUtils.promiseSaveNdarray(buffer, '/home/sheep/Code/blur' + layer+ '.png');
-                return view;
-            });
-
-            console.log('gussians generated');
-
-            var dogs = _.range(3).map(function(index){
-                var k = Math.pow(2, 1/5),
-                    sigma = Math.pow(k, index),
-                    buffer = pool.malloc(layers[0].shape);
-                ops.sub(buffer, layers[index+1], layers[index]);
-                return { img: buffer, sigma: sigma };
-            });
-
-            console.log('dogs generated');
-
-            layers.forEach(function(buffer){
-                pool.free(buffer);
-            });
-
-            console.log('guassians released');
-
-            var filter = new PointFilter();
-
-            var contrast = 255 * 0.5 * 0.04 / 3;
-
-            var detected = [];
-
-            detect(dogs, contrast, function(space, row, col) {
-                var point = { row: row*step, col: col*step };
-                detected.push(point);
-                filter.check(space, row, col, step);
-            });
-
-            console.log('detection finished');
-
-            dogs.forEach(function(dog){
-                pool.free(dog.img);
-            });
-
-            console.log('dogs released');
-
-            Promise.all([
-                testUtils.promiseVisualPoints('/home/sheep/Code/sift-detected.png', index, detected),
-                testUtils.promiseVisualPoints('/home/sheep/Code/sift-filtered.png', index, filter.results),
-                testUtils.promiseVisualPoints('/home/sheep/Code/sift-edge.png', index, filter.edge)
-            ]);
-
-        });
-}
-
-
 function pyramidTest(index){
 
     var filter = new PointFilter(),
@@ -136,7 +70,5 @@ function PointFilter(){
         }
     };
 }
-
-//testDetector(1, 1);
 
 pyramidTest(6);
