@@ -33,6 +33,8 @@ function Node(head, tail, parent, features){
         features: features
     });
 
+    console.log('node between ' + head + ' ~ ' + tail);
+
     this.isLeaf = (tail - head) === 0;
     if (this.isLeaf) {
         this.leaf = head;
@@ -53,18 +55,31 @@ Node.prototype.partition = function(){
         tail = this.tail,
         features = this.features,
         ki = this.ki,
-        kv = this.kv;
+        kv = this.kv,
+        n = tail-head+1;
+
+//    console.log('split index ' + ki + ' at ' + kv);
 
     var cursor, counter = 0;
     for (cursor = head; cursor<=tail; cursor++) {
         if (features[cursor].vector[ki] <= kv) {
-            swap(cursor, counter);
+            swap(cursor, head+counter);
             counter += 1;
         }
     }
 
-    this.left = new Node(head, head+counter-1, this, features);
-    this.right = new Node(head+counter, tail, this, features);
+    if (counter === 0) {
+        this.kv = this.kvmax;
+        this.partition();
+    }
+    else if (counter === n) {
+        this.kv = this.kvmin;
+        this.partition();
+    }
+    else {
+        this.left = new Node(head, head+counter-1, this, features);
+        this.right = new Node(head+counter, tail, this, features);
+    }
 
     function swap(i1, i2){
         var tmp = features[i1];
@@ -116,9 +131,13 @@ Node.prototype.findSplit = function(){
         dimSlice[cursor] = features[head+cursor].vector[maxVarianceIndex];
     }
 
-    dimSlice.sort();
+    dimSlice.sort(function(a,b){ return a-b; });
 
-    this.kv = n % 2 === 0 ? (dimSlice[n / 2] + dimSlice[(n / 2) - 1]) / 2 : dimSlice[(n - 1) / 2];
+    this.kv = n % 2 === 0 ? (dimSlice[n/2] + dimSlice[(n/2)-1]) / 2 : dimSlice[(n-1)/2];
     this.ki = maxVarianceIndex;
+    this.kvmin = dimSlice[0];
+    this.kvmax = dimSlice[dimSlice.length-1];
+
+    console.log('median ' + this.kv + ' from ' + dimSlice[0] + ' to ' + dimSlice[dimSlice.length-1]);
 
 };
