@@ -22,6 +22,17 @@ function Root(features){
  * @param {int} tail
  * @param {Node} parent
  * @param {Feature[]} features
+ *
+ * @property {boolean} isLeaf
+ * @property {Node} parent
+ * @property {Node} [left]
+ * @property {Node} [right]
+ * @property {int} [leaf]
+ *
+ * @property {number} [kv]
+ * @property {number} [kvmin]
+ * @property {number} [kvmax]
+ *
  * @constructor
  */
 function Node(head, tail, parent, features){
@@ -33,13 +44,13 @@ function Node(head, tail, parent, features){
         features: features
     });
 
-    console.log('node between ' + head + ' ~ ' + tail);
-
     this.isLeaf = (tail - head) === 0;
     if (this.isLeaf) {
+        console.log('Leaf at ' + head);
         this.leaf = head;
     }
     else {
+        console.log('Node between ' + head + ' ~ ' + tail);
         this.findSplit();
         this.partition();
     }
@@ -138,6 +149,6 @@ Node.prototype.findSplit = function(){
     this.kvmin = dimSlice[0];
     this.kvmax = dimSlice[dimSlice.length-1];
 
-    console.log('median ' + this.kv + ' from ' + dimSlice[0] + ' to ' + dimSlice[dimSlice.length-1]);
+    //console.log('median ' + this.kv + ' from ' + dimSlice[0] + ' to ' + dimSlice[dimSlice.length-1]);
 
 };
