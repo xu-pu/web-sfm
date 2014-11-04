@@ -28,25 +28,28 @@ function searchNN(root, feature, n){
 function searchTree(root, feature, mins){
 
     if (root.isLeaf) {
-        min.checkMin(root.leaf, getDistance(feature, root.leaf));
+        mins.checkMin(root.leaf, getDistance(feature, root.features[root.leaf]));
     }
+    else {
 
-    var cursor = findLeaf(root, feature), parent, kd, sibling;
+        var cursor = findLeaf(root, feature), parent, kd, sibling;
 
-    do {
+        do {
 
-        parent = root.parent;
-        kd = feature.vector[parent.ki] - parent.kv;
-        kd = kd*kd;
-        sibling = cursor === parent.left ? parent.right : parent.left;
+            parent = cursor.parent;
+            kd = feature.vector[parent.ki] - parent.kv;
+            kd = kd*kd;
+            sibling = cursor === parent.left ? parent.right : parent.left;
 
-        if (min.getMin() > kd) {
-            searchTree(sibling, feature, mins);
-        }
+            if (mins.getMin() > kd) {
+                searchTree(sibling, feature, mins);
+            }
 
-        cursor = parent;
+            cursor = parent;
 
-    } while (cursor !== root);
+        } while (cursor !== root);
+
+    }
 
 }
 
@@ -72,7 +75,7 @@ function getDistance(f1, f2){
  * @returns {Node}
  */
 function findLeaf(root, f){
-    if (this.isLeaf) {
+    if (root.isLeaf) {
         return root;
     }
     else {

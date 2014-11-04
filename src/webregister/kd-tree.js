@@ -43,11 +43,11 @@ function Node(head, tail, parent, features){
 
     this.isLeaf = (tail - head) === 0;
     if (this.isLeaf) {
-        console.log('Leaf at ' + head);
+//        console.log('Leaf at ' + head);
         this.leaf = head;
     }
     else {
-        console.log('Node between ' + head + ' ~ ' + tail);
+//        console.log('Node between ' + head + ' ~ ' + tail);
         this.findSplit();
         this.partition();
     }
