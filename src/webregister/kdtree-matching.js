@@ -1,5 +1,7 @@
 'use strict';
 
+var _ = require('underscore');
+
 var kdtree = require('./kd-tree.js'),
     searchNN = require('./nn-search.js');
 
@@ -16,14 +18,23 @@ module.exports = function(features1, features2){
         tree1 = kdtree.initTree(ff1),
         tree2 = kdtree.initTree(ff2);
 
-    var matches = [];
+    var matches = [], backMatches = [];
     ff1.forEach(function(f, i){
         console.log('match one');
-        var match = findNNFeature(tree2, f);
-        if (match !== null) {
-            var matchBack = findNNFeature(tree1, ff2[match]);
-            if (matchBack === i) {
-                matches.push([i, match]);
+        var f2 = findNNFeature(tree2, f);
+        if (f2 !== null) {
+            var f1;
+            if (_.isNumber(backMatches[f2])) {
+                f1 = backMatches[f2];
+            }
+            else {
+                f1 = findNNFeature(tree1, ff2[f2]);
+                if (f1 !== null) {
+                    backMatches[f2] = f1;
+                }
+            }
+            if (f1 === i) {
+                matches.push([f1, f2]);
             }
         }
     });
