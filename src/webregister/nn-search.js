@@ -33,6 +33,9 @@ function searchTree(root, feature, mins){
     else {
 
         var cursor = findLeaf(root, feature), parent, kd, sibling;
+        mins.checkMin(cursor.leaf, getDistance(feature, root.features[cursor.leaf]));
+
+        //console.log(cursor.leaf);
 
         do {
 
