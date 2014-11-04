@@ -3,18 +3,15 @@
 var _ = require('underscore');
 
 module.exports.Node = Node;
-module.exports.Root = Root;
-
 
 /**
  *
  * @param {Feature[]} features
  * @returns {Node}
- * @constructor
  */
-function Root(features){
+module.exports.initTree = function(features){
     return new Node(0, features.length-1, null, features);
-}
+};
 
 
 /**
