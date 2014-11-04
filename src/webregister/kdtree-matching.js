@@ -18,6 +18,7 @@ module.exports = function(features1, features2){
 
     var matches = [];
     ff1.forEach(function(f, i){
+        console.log('match one');
         var match = findNNFeature(tree2, f);
         if (match !== null) {
             var matchBack = findNNFeature(tree1, ff2[match]);
@@ -44,9 +45,10 @@ module.exports = function(features1, features2){
  * @returns {number|null}
  */
 function findNNFeature(tree, feature){
-    var mins = searchNN(tree, feature, 2);
-    if (mins[0].dist/mins[1].dist < 0.6) {
-        return mins[0].feature;
+    var mins = searchNN(tree, feature, 2),
+        queue = mins.queue;
+    if (queue[0].dist/queue[1].dist < 0.6*0.6) {
+        return queue[0].feature;
     }
     else {
         return null;
