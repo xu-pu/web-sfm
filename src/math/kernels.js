@@ -38,14 +38,20 @@ module.exports.getGuassian2d = getGuassian2d;
  * @param {number} sigma
  */
 function getGuassianKernel(size, sigma) {
-    var kernel = Matrix.Zero(size, size);
-    var x, y, centerX=(size-1)/2, centerY=(size-1)/2;
+
+    var kernel = Matrix.Zero(size, size),
+        center=(size-1)/2,
+        x, y, norm = 0;
+
     for (x=0; x<size; x++) {
         for (y=0; y<size; y++) {
-            kernel.elements[y][x] = gussianFunction2d(x-centerX, y-centerY, sigma);
+            kernel.elements[y][x] = gussianFunction2d(x-center, y-center, sigma);
+            norm += kernel.elements[y][x];
         }
     }
-    return kernel;
+
+    return kernel.x(1/norm);
+
 }
 
 

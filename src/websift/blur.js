@@ -22,8 +22,8 @@ module.exports = function(target, source, sigma, radius){
     for (row=0; row<rows; row++) {
         for (col=0; col<cols; col++) {
             pixel = 0;
-            for(offsetR=-1; offsetR<2; offsetR++) {
-                for(offsetC=-1; offsetC<2; offsetC++) {
+            for(offsetR=-center; offsetR<radius; offsetR++) {
+                for(offsetC=-center; offsetC<radius; offsetC++) {
                     pixel += kern[center+offsetR][center+offsetC] * (source.get(col+offsetC, row+offsetR) || 0);
                 }
             }
