@@ -6,6 +6,8 @@ var _ = require('underscore'),
     pool = require('ndarray-scratch'),
     downsample = require('ndarray-downsample2x');
 
+var convBlur = require('./blur.js');
+
 var INIT_SIGMA = 1.6,
     INTERVALS = 3,
     SCALES = INTERVALS + 3;
@@ -99,15 +101,21 @@ DogSpace.prototype.get = function(row,col,layer){
 function getScaleSpace(base){
 
     var k = Math.pow(2, 1/INTERVALS),
-        sigmaDeltaBase = INIT_SIGMA * Math.sqrt(k*k-1),
+        delta = Math.sqrt(k*k-1),
         space = [{ img: base, sigma: INIT_SIGMA }];
 
     _.range(1, SCALES).forEach(function(layer){
-        var deltaSigma = sigmaDeltaBase * Math.pow(k, layer-1),
+        var previous = space[layer-1],
+            deltaSigma = previous.sigma * delta,
             sigma = INIT_SIGMA * Math.pow(k, layer);
-        console.log('convoluting image with sigma ' + deltaSigma);
-        var buffer = pool.clone(space[layer-1].img);
-        blur(buffer, deltaSigma);
+        console.log('convoluting image with delta sigma ' + deltaSigma);
+
+        //var buffer = pool.clone(space[layer-1].img);
+        //blur(buffer, deltaSigma);
+
+        var buffer = pool.malloc(base.shape);
+        convBlur(buffer, previous.img, deltaSigma, 5);
+
         console.log('convoluting complete, resolution ' + buffer.shape[0] + '*' + buffer.shape[1]);
         space[layer] = { img: buffer, sigma: sigma };
     });

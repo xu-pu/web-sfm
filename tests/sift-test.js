@@ -24,7 +24,7 @@ var samples = require('../src/utils/samples.js'),
 function pyramidTest(index){
 
     var filter = new PointFilter(),
-        contrast = 255 * 0.5 * 0.03 / 3,
+        contrast = 255 * 0.5 * 0.04 / 5,
         detected = [];
 
     samples
