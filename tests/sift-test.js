@@ -2,12 +2,7 @@
 
 var _ = require('underscore'),
     Promise = require('promise'),
-    blur = require('ndarray-gaussian-filter'),
-    ops = require('ndarray-ops'),
-    pool = require('ndarray-scratch'),
-    convolve = require('ndarray-convolve'),
-    pack = require('ndarray-pack');
-
+    blur = require('ndarray-gaussian-filter');
 
 var samples = require('../src/utils/samples.js'),
     sift = require('../src/websift/websift.js'),
@@ -17,7 +12,6 @@ var samples = require('../src/utils/samples.js'),
     testUtils = require('../src/utils/testing.js'),
     detect = require('../src/websift/detector.js'),
     isNotEdge = require('../src/websift/edge-filter.js'),
-    kernels = require('../src/math/kernels.js'),
     iterOctave = require('../src/websift/iter-octave.js');
 
 
