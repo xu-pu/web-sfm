@@ -31,7 +31,9 @@ module.exports = Ember.Controller.extend({
     adapter: null,
 
 
-
+    /**
+     * sync adapter and localstorage when current project changed
+     */
     onSwichProject: function(){
         Ember.Logger.debug('project switch triggered!');
         var project = this.get('currentProject');
@@ -54,7 +56,9 @@ module.exports = Ember.Controller.extend({
     },
 
 
-
+    /**
+     * sync projects to localstrorage when new ones added
+     */
     syncProjects: function(){
         utils.setLocalStorage(LOCAL_STORE.PROJECTS, this.get('projects').map(function(model){
             return model.getProperties(model.get('storedProperties'));
@@ -91,7 +95,10 @@ module.exports = Ember.Controller.extend({
     },
 
 
-
+    /**
+     * promise initialize SfmStore
+     * @returns {Promise}
+     */
     promiseResume: function(){
         return this.initLocalStorage().then(this.initStore.bind(this));
     },
