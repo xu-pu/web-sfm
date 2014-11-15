@@ -21,6 +21,24 @@
   background-color: ghostwhite;
 }
 
+
+//=====================================
+// Detail
+//=====================================
+
+.welcome-screen__detail-container {
+
+  @include transition(height 0.5s);
+  @include box-shadow(inset 0 0 20px 5px rgba(0, 0, 0, 0.49));
+  height: 300px;
+  background-color: rgb(157, 157, 157);
+  overflow: hidden;
+
+  &.is-detail-closed {
+    height: 0;
+  }
+}
+
 //=====================================
 // Rows
 //=====================================

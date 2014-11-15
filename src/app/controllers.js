@@ -14,14 +14,7 @@ module.exports = function(App){
     // Welcome Screen
     //=======================
 
-    App.WelcomeController = Ember.ObjectController.extend({
-        // demos, projects
-
-        needs: ['downloadScheduler'],
-
-        downloading: Ember.computed.alias('controllers.downloadScheduler.downloading')
-
-    });
+    App.WelcomeController = require('./controllers/WelcomeController.js');
 
     App.DemosController = Ember.ArrayController.extend({
         itemController: 'demo'

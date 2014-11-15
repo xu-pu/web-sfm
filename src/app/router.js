@@ -4,7 +4,9 @@ module.exports = function(App){
 
     App.Router.map(function() {
 
-        this.route('welcome');
+        this.route('welcome', function(){
+            this.route('demo');
+        });
 
         this.route('workspace', function(){
 
@@ -53,6 +55,26 @@ module.exports = function(App){
     });
 
     App.WelcomeRoute = require('./routes/WelcomeRoute.js');
+
+    App.WelcomeIndexRoute = Ember.Route.extend({
+
+        setupController: function(){
+            this.controllerFor('welcome').set('isDetailClosed', true);
+        }
+
+    });
+
+    App.WelcomeDemoRoute = Ember.Route.extend({
+
+        actions: {
+
+            didTransition: function(){
+                this.controllerFor('welcome').set('isDetailClosed', false);
+            }
+
+        }
+
+    });
 
     App.WorkspaceRoute = require('./routes/WorkspaceRoute.js');
 

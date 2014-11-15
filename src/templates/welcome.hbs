@@ -1,5 +1,13 @@
 <div class="welcome-screen__header">Welcome to WebSFM</div>
 <div class="welcome-screen__projects-container">{{outlet projects}}</div>
+
+<div {{bind-attr class=":welcome-screen__detail-container isDetailClosed"}}>
+    <div>
+        {{#link-to "welcome"}}close{{/link-to}}
+    </div>
+    {{outlet}}
+</div>
+
 <div class="welcome-screen__demos-container">{{outlet demos}}</div>
 
 <div class="welcome-screen__download-indicator">
@@ -10,7 +18,7 @@
             {{#if task.hasProgress}}
                 <h2>{{task.fileSize}} {{task.progress}}%</h2>
             {{/if}}
-            </div>
+        </div>
     {{/each}}
 
 </div>
