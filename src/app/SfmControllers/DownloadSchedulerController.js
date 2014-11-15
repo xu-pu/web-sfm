@@ -5,7 +5,9 @@ var utils = require('../utils.js'),
     TASK_STATES = DownloadTask.STATES,
     TASK_TYPES = DownloadTask.TYPES;
 
-module.exports = Ember.Controller.extend({
+module.exports = Ember.ArrayController.extend({
+
+    itemController: 'demoDownloader',
 
     poolSize: 4,
 
@@ -20,6 +22,11 @@ module.exports = Ember.Controller.extend({
     isActive: function(){
         return this.get('downloading.length') > 0;
     }.property('downloading.length'),
+
+    downloadDemo: function(demo){
+        this.get('model').pushObject(demo);
+        this.findBy('name', demo.get('name')).promiseLoad();
+    },
 
     next: function(){
         var downloading = this.get('downloading'),

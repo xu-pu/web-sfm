@@ -1,0 +1,33 @@
+<div id="demo-thumbnail__details__images" class="demo-thumbnail__detail">
+    IMAGES {{finishedImages.length}}/{{images.length}}
+</div>
+
+<div id="demo-thumbnail__details__sift" class="demo-thumbnail__detail">
+    FEATURES {{finishedSIFT.length}}/{{images.length}}
+</div>
+
+<div id="demo-thumbnail__details__bundler" class="demo-thumbnail__detail">
+    BUNDLER
+    {{#if bundlerFinished}}
+        finished
+    {{else}}
+        {{#if hasBundler}}
+            avaliable
+        {{else}}
+            not avaliable
+        {{/if}}
+    {{/if}}
+</div>
+
+<div id="demo-thumbnail__details__mvs" class="demo-thumbnail__detail">
+    MVS
+    {{#if mvsFinished}}
+        finished
+    {{else}}
+        {{#if hasMVS}}
+            avaliable
+        {{else}}
+            not avaliable
+        {{/if}}
+    {{/if}}
+</div>
