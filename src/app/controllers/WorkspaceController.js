@@ -2,14 +2,17 @@
 
 var _ = require('underscore');
 
-var sfmstore = require('../store/sfmstore.js'),
-    Image = require('../models/Image.js'),
+var Image = require('../models/Image.js'),
     Matches = require('../models/Matches.js'),
     utils = require('../utils.js'),
     settings = require('../settings.js'),
     STORES = settings.STORES;
 
 module.exports = Ember.ObjectController.extend({
+
+    needs: ['sfmStore'],
+
+    adapter: Ember.computed.alias('controllers.sfmStore.adapter'),
 
     isRunning: false,
 
@@ -65,10 +68,8 @@ module.exports = Ember.ObjectController.extend({
         if (this.get('imageModels')){
             return Promise.resolve(this.get('imageModels'));
         }
-        return sfmstore.promiseAdapter()
-            .then(function(adapter){
-                return adapter.promiseAll(STORES.IMAGES);
-            })
+        return this.get('adapter')
+            .promiseAll(STORES.IMAGES)
             .then(function(results){
                 _self.set('imageModels', results.map(function(res){
                     res.value._id = res.key;
