@@ -92,13 +92,17 @@ StorageAdapter.prototype = {
             .then(function(img){
                 //Ember.Logger.debug('img object required');
                 domimg = img;
-                image = { filename: file.name, width: img.width, height: img.height };
+                image = {
+                    filename: file.name,
+                    width: img.width,
+                    height: img.height,
+                    thumbnail: utils.getImageThumbnail(domimg)
+                };
                 return _self.promiseAddData(STORES.IMAGES, image);
             })
             .then(function(newid){
-                //Ember.Logger.debug('_id required');
+                //Ember.Logger.debug('_id aquired');
                 image._id = newid;
-                image.thumbnail = utils.getImageThumbnail(domimg);
                 return _self.promiseSetData(STORES.THUMBNAILS, image._id, image.thumbnail);
             })
             .then(function(){
