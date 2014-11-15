@@ -5,7 +5,7 @@ module.exports = function(App){
     App.Router.map(function() {
 
         this.route('welcome', function(){
-            this.route('demo');
+            this.route('demo', { path: '/demo/:name' });
         });
 
         this.route('workspace', function(){
@@ -26,6 +26,10 @@ module.exports = function(App){
 
     });
 
+
+    //=============================
+    // Routes
+    //=============================
 
     App.ApplicationRoute = Ember.Route.extend({
 
@@ -54,6 +58,10 @@ module.exports = function(App){
 
     });
 
+    //=============================
+    // Welcome
+    //=============================
+
     App.WelcomeRoute = require('./routes/WelcomeRoute.js');
 
     App.WelcomeIndexRoute = Ember.Route.extend({
@@ -64,17 +72,11 @@ module.exports = function(App){
 
     });
 
-    App.WelcomeDemoRoute = Ember.Route.extend({
+    App.WelcomeDemoRoute = require('./routes/WelcomeDemoRoute.js');
 
-        actions: {
-
-            didTransition: function(){
-                this.controllerFor('welcome').set('isDetailClosed', false);
-            }
-
-        }
-
-    });
+    //=============================
+    // Workspace
+    //=============================
 
     App.WorkspaceRoute = require('./routes/WorkspaceRoute.js');
 
