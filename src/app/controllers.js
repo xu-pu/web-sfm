@@ -8,6 +8,7 @@ module.exports = function(App){
     //=======================
 
     App.DownloadSchedulerController = require('./SfmControllers/DownloadSchedulerController.js');
+    App.SfmStoreController = require('./SfmControllers/SfmStoreController.js');
 
     //=======================
     // App Controllers
