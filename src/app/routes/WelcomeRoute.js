@@ -1,17 +1,13 @@
-var sfmstore = require('../store/sfmstore.js');
+'use strict';
 
 module.exports = Ember.Route.extend({
 
     model: function(){
-        return Promise.all([
-            sfmstore.promiseDemos(),
-            sfmstore.promiseProjects(),
-        ]).then(function(results){
-            return {
-                demos: results[0],
-                projects: results[1]
-            }
-        });
+        var sfmstore = this.controllerFor('sfmStore');
+        return {
+            demos: sfmstore.get('demos'),
+            projects: sfmstore.get('projects')
+        };
     },
 
     setupController: function(controller, model){

@@ -1,7 +1,5 @@
 "use strict";
 
-var sfmstore = require('./store/sfmstore.js');
-
 module.exports = function(App){
 
     App.Router.map(function() {
@@ -22,17 +20,6 @@ module.exports = function(App){
 
             this.route('mvs', function(){});
 
-            /*
-            this.resource('tracks', function(){
-                this.route('index');
-            });
-
-            this.resource('matches', function(){
-                this.route('index', { path: '/' });
-                this.route('pair',  { path: '/:pair' });
-            });
-
- */
         });
 
     });
@@ -40,8 +27,12 @@ module.exports = function(App){
 
     App.ApplicationRoute = Ember.Route.extend({
 
+        beforeModel: function(){
+            return this.controllerFor('sfmStore').promiseResume();
+        },
+
         model: function(){
-            return sfmstore.storePromise;
+            return this.controllerFor('sfmStore');
         }
 
     });
@@ -50,7 +41,7 @@ module.exports = function(App){
     App.IndexRoute = Ember.Route.extend({
 
         model: function(){
-            return sfmstore.promiseProject();
+            return this.controllerFor('sfmStore').promiseProject();
         },
 
         afterModel: function(){
@@ -67,23 +58,7 @@ module.exports = function(App){
 
     App.WelcomeRoute = require('./routes/WelcomeRoute.js');
 
-    App.WorkspaceRoute = Ember.Route.extend({
-
-        model: function(){
-            return sfmstore.promiseProject();
-        },
-
-        actions: {
-
-            error: function(error, transition){
-                console.log(error);
-                console.log('error, back to welcome');
-                this.transitionTo('welcome');
-            }
-
-        }
-
-    });
+    App.WorkspaceRoute = require('./routes/WorkspaceRoute.js');
 
     App.WorkspaceIndexRoute = Ember.Route.extend();
 
@@ -95,10 +70,6 @@ module.exports = function(App){
 
         model: function() {
             return this.controllerFor('workspace').promiseImages();
-        },
-
-        afterModel: function(model){
-            //console.log(model);
         }
 
     });
@@ -152,41 +123,18 @@ module.exports = function(App){
 
         model: function(){
             return this.controllerFor('workspace').get('project').promiseMatches();
-            //return App.SfmStore.promiseMatches();
         }
 
     });
 
     App.MatchesIndexRoute = Ember.Route.extend();
 
-    App.MatchesPairRoute = Ember.Route.extend({
-
-        model: function(params){
-            return new Promise(function(resolve, reject){
-                var id1 = parseInt(params.pair.split('&')[0]),
-                    id2 = parseInt(params.pair.split('&')[1]);
-                var bigger = id1<id2 ? id2 : id1,
-                    smaller = id1<id2 ? id1 : id2;
-                App.SfmStore.promiseImages().then(function(images){
-                    resolve({
-                        view1: images.findBy('_id', smaller),
-                        view2: images.findBy('_id', bigger)
-                    });
-                }, reject);
-            });
-        },
-
-        serialize: function(model){
-            return { pair: model.view1.get('_id') + '&' + model.view2.get('_id') };
-        }
-
-    });
+    App.MatchesPairRoute = require('./routes/MatchesPairRoute.js');
 
     App.TracksRoute = Ember.Route.extend({
 
         model: function(){
             return this.controllerFor('workspace').get('project').promiseTracks();
-            //return App.SfmStore.promiseTracks();
         }
 
     });
