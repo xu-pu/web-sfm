@@ -11,12 +11,6 @@ module.exports = function(App){
     App.SfmStoreController = require('./SfmControllers/SfmStoreController.js');
 
     //=======================
-    // App Controllers
-    //=======================
-
-    App.ApplicationController = Ember.ObjectController.extend();
-
-    //=======================
     // Welcome Screen
     //=======================
 

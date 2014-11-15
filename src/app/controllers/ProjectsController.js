@@ -6,11 +6,11 @@ module.exports = Ember.ArrayController.extend({
 
     itemController: 'project.thumbnail',
 
-    needs: ['application'],
+    needs: ['sfmStore'],
+
+    store: Ember.computed.alias('controllers.sfmStore'),
 
     newProjectName: 'new-project',
-
-    store: Ember.computed.alias('controllers.application.model'),
 
     isValidName: function(){
         var name = this.get('newProjectName');

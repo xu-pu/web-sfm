@@ -2,9 +2,9 @@
 
 module.exports = Ember.ObjectController.extend({
 
-    needs: ['application'],
+    needs: ['sfmStore'],
 
-    store: Ember.computed.alias('controllers.application.model'),
+    store: Ember.computed.alias('controllers.sfmStore'),
 
     isDeleting: false,
 
@@ -14,18 +14,11 @@ module.exports = Ember.ObjectController.extend({
 
         'delete': function(){
             this.set('isConfirmDelete', false);
-            this.promiseDelete()
+            this.promiseDelete();
         },
 
         confirmDelete: function(){
-            // toggle
-            if (this.get('isConfirmDelete')) {
-                this.set('isConfirmDelete', false);
-            }
-            else {
-                this.set('isConfirmDelete', true);
-            }
-
+            this.toggleProperty('isConfirmDelete');
         },
 
         cancelDelete: function(){

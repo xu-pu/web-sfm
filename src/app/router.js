@@ -29,10 +29,6 @@ module.exports = function(App){
 
         beforeModel: function(){
             return this.controllerFor('sfmStore').promiseResume();
-        },
-
-        model: function(){
-            return this.controllerFor('sfmStore');
         }
 
     });
