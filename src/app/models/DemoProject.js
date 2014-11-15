@@ -2,8 +2,7 @@
 
 var _ = require('underscore');
 
-var Project = require('./Project.js'),
-    sfmstore = require('../store/sfmstore.js');
+var Project = require('./Project.js');
 
 module.exports = Project.extend({
 
@@ -38,10 +37,6 @@ module.exports = Project.extend({
             (!this.get('hasSIFT') || this.get('siftFinished')) &&
             (!this.get('hasBundler') || this.get('bundlerFinished')) &&
             (!this.get('hasMVS') || this.get('mvsFinished'));
-    }.property('imagesFinished', 'siftFinished','bundlerFinished','mvsFinished', 'hasSIFT','hasBundler','hasMVS'),
-
-    syncLocalStorage: function(){
-        sfmstore.syncDemos();
-    }.observes('finishedImages.length','finishedSIFT.length','bundlerFinished','mvsFinished')
+    }.property('imagesFinished', 'siftFinished','bundlerFinished','mvsFinished', 'hasSIFT','hasBundler','hasMVS')
 
 });

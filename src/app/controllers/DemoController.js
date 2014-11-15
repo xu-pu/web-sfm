@@ -52,6 +52,11 @@ module.exports = Ember.ObjectController.extend({
 
     },
 
+    syncLocalStorage: function(){
+        this.get('controllers.sfmStore').syncDemos();
+    }.observes('finishedImages.length','finishedSIFT.length','bundlerFinished','mvsFinished'),
+
+
     promiseDelete: function(){
         var _self = this,
             store = this.get('controllers.sfmStore');

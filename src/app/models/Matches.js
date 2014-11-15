@@ -1,7 +1,6 @@
 'use strict';
 
-var sfmstore = require('../store/sfmstore.js'),
-    STORES = require('../settings.js').STORES;
+var STORES = require('../settings.js').STORES;
 
 
 module.exports = Ember.Object.extend({
