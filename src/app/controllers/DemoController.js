@@ -4,7 +4,6 @@ var _ = require('underscore');
 
 var IDBAdapter = require('../store/StorageAdapter.js'),
     utils = require('../utils.js'),
-    sfmstore = require('../store/sfmstore.js'),
     settings = require('../settings.js'),
     STORES = settings.STORES,
     DownloadTask = require('../models/DownloadTask.js'),
@@ -15,7 +14,7 @@ var MVS_PATH = '/mvs/option.txt.pset.json',
 
 module.exports = Ember.ObjectController.extend({
 
-    needs: ['downloadScheduler'],
+    needs: ['downloadScheduler', 'sfmStore'],
 
     scheduler: Ember.computed.alias('controllers.downloadScheduler'),
 
@@ -39,18 +38,12 @@ module.exports = Ember.ObjectController.extend({
         },
 
         enter: function(){
-            sfmstore.setCurrentProject(this.get('model'));
+            this.get('controllers.sfmStore').set('currentProject', this.get('model'));
             this.transitionToRoute('workspace');
         },
 
         confirmDelete: function(){
-            // toggle behaviour
-            if (this.get('isConfirmDelete')) {
-                this.set('isConfirmDelete', false);
-            }
-            else {
-                this.set('isConfirmDelete', true);
-            }
+            this.toggleProperty('isConfirmDelete');
         },
 
         cancelDelete: function(){
@@ -60,11 +53,13 @@ module.exports = Ember.ObjectController.extend({
     },
 
     promiseDelete: function(){
-        var _self = this;
-        sfmstore
-            .promiseProject(function(project){
+        var _self = this,
+            store = this.get('controllers.sfmStore');
+
+        store.promiseProject()
+            .then(function(project){
                 if (project.get('name') === _self.get('name')) {
-                    sfmstore.setCurrentProject(null);
+                    store.set('currentProject', null);
                 }
             })
             .catch()
@@ -84,7 +79,7 @@ module.exports = Ember.ObjectController.extend({
     },
 
     promiseLoad: function(){
-        Ember.Logger.debug('project storage adapter created');
+        //Ember.Logger.debug('project storage adapter created');
         var adapter = new IDBAdapter(this.get('name'));
         this.set('adapter', adapter);
         this.promiseResume().then(this.promiseDownload.bind(this));
