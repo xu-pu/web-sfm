@@ -152,7 +152,7 @@ module.exports = Ember.Controller.extend({
         }
 
         // init currentProject
-        if (_.isString(project)) {
+        if (_.isString(project) && params.projects) {
             params.currentProject = params.projects.findBy('name', project) || params.demos.findBy('name', project) || null;
         }
         if (params.currentProject) {
