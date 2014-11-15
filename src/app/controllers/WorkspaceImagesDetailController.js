@@ -1,9 +1,10 @@
 'use strict';
 
-var sfmstore = require('../store/sfmstore.js'),
-    STORES = require('../settings.js').STORES;
+var STORES = require('../settings.js').STORES;
 
 module.exports = Ember.ObjectController.extend({
+
+    needs: ['sfmStore'],
 
     isLoadng: true,
 
@@ -16,17 +17,20 @@ module.exports = Ember.ObjectController.extend({
     },
 
     onNewImage: function(){
-        var _self = this;
+
         this.set('isLoading', true);
-        sfmstore.promiseAdapter()
-            .then(function(adapter){
-                return adapter.promiseData(STORES.FULLIMAGES, _self.get('_id'));
-            })
+
+        var _self = this,
+            adapter = this.get('controllers.sfmStore.adapter');
+
+        return adapter
+            .promiseData(STORES.FULLIMAGES, _self.get('_id'))
             .then(function(data){
                 var domstring = URL.createObjectURL(new Blob([data]));
                 _self.set('dataurl', domstring);
                 _self.set('isLoading', false);
             });
+
     }.observes('model')
 
 });

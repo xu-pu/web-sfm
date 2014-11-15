@@ -1,10 +1,11 @@
 'use strict';
 
 var utils = require('../utils.js'),
-    sfmstore = require('../store/sfmstore.js'),
     STORES = require('../settings.js').STORES;
 
 module.exports = Ember.ObjectController.extend({
+
+    needs: ['sfmStore'],
 
     img: null,
 
@@ -19,21 +20,23 @@ module.exports = Ember.ObjectController.extend({
     },
 
     onNewImage: function(){
-        var _self = this;
+
         this.set('isLoading', true);
-        sfmstore
-            .promiseAdapter()
-            .then(function(adapter){
-                return Promise.all([
-                    adapter.promiseData(STORES.FULLIMAGES, _self.get('_id')).then(utils.promiseBufferImage),
-                    adapter.promiseData(STORES.FEATURES, _self.get('_id'))
-                ]);
-            })
-            .then(function(results){
-                _self.set('img', results[0]);
-                _self.set('features', results[1]);
-                _self.set('isLoading', false);
+
+        var _self = this,
+            adapter = this.get('controllers.sfmStore.adapter');
+
+        return Promise.all([
+            adapter.promiseData(STORES.FULLIMAGES, _self.get('_id')).then(utils.promiseBufferImage),
+            adapter.promiseData(STORES.FEATURES, _self.get('_id'))
+        ]).then(function(results){
+            _self.setProperties({
+                img: results[0],
+                features: results[1],
+                isLoading: false
             });
+        });
+
     }.observes('model')
 
 });
