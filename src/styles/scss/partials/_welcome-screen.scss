@@ -34,6 +34,9 @@
   position: relative;
   background-color: rgb(157, 157, 157);
   overflow: hidden;
+  background-image: url(/demo/Hall-Demo/profile.png);
+  background-size: cover;
+  background-position: 50%;
 
   &.is-detail-closed {
     height: 0;
@@ -340,6 +343,11 @@ $project-thumbnail-header-height: 2em;
 
 .demo-thumbnail__body {
   @extend %welcome-screen__thumbnail-tile__body;
+
+  background-image: url(/demo/Hall-Demo/thumbnail.jpg);
+  background-size: cover;
+  background-position: 50%;
+
 }
 
 .demo-thumbnail__state-bar {
