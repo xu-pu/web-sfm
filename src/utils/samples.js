@@ -1,14 +1,23 @@
+'use strict';
+
 var DEMO_BASE = '/home/sheep/Code/Project/web-sfm/demo/Hall-Demo';
 
-var Promise = require('promise');
-var getPixels = require('get-pixels');
-var grayscale = require('luminance');
-var imgshow = require('ndarray-imshow');
-var Image = require('canvas').Image;
-var fs = require('fs');
+var _ = require('underscore'),
+    Promise = require('promise'),
+    getPixels = require('get-pixels'),
+    grayscale = require('luminance'),
+    imgshow = require('ndarray-imshow'),
+    Image = require('canvas').Image,
+    fs = require('fs'),
+    la = require('sylvester'),
+    Matrix = la.Matrix,
+    Vector = la.Vector;
+
 
 var toRGB = require('../websift/gray2rgb.js');
 var bundler = require(DEMO_BASE + '/bundler/bundler.json');
+
+//==============================================
 
 module.exports.promiseImage = promiseImage;
 module.exports.getCamera = getCamera;
@@ -20,6 +29,31 @@ module.exports.bundler = bundler;
 module.exports.cameras = bundler.cameras;
 module.exports.sparse = bundler.points;
 
+//==============================================
+
+/**
+ * A view pair for processing
+ * @param {number} i1
+ * @param {number} i2
+ * @returns {{R1, R2, t1, t2, f1: number, f2: number, cam1: Camera, cam2: Camera}}
+ */
+module.exports.getTwoView = function(i1, i2){
+    var cam1 = getCamera(i1),
+        cam2 = getCamera(i2),
+        cam = { width: 3008, height: 2000 };
+    return {
+        R1: Matrix.create(cam1.R),
+        R2: Matrix.create(cam2.R),
+        t1: Vector.create(cam1.t),
+        t2: Vector.create(cam2.t),
+        f1: cam1.f,
+        f2: cam2.f,
+        cam1: cam,
+        cam2: cam
+    };
+};
+
+//==============================================
 
 function getFeatures(index){
     var siftPath = DEMO_BASE + '/sift.json/' + getFullname(index) + '.json';
