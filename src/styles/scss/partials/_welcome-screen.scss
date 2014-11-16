@@ -55,6 +55,18 @@
   background-color: rgba(29, 29, 29, 0.76);
 }
 
+
+.welcome-screen__detail__progress__entry {
+  height: 2em;
+  line-height: 2em;
+  background-color: #6D6D6D;
+  color: lightgray;
+  padding-left: 0.5em;
+  margin-top: 10px;
+  font-weight: bolder;
+}
+
+
 .welcome-screen__detail__toggle {
   @include border-radius(1em);
   @include box-shadow(0 0 6px 2px rgba(0, 0, 0, 0.49));
@@ -357,28 +369,36 @@ $project-thumbnail-header-height: 2em;
 
 .demo-thumbnail__body {
   @extend %welcome-screen__thumbnail-tile__body;
-
   background-image: url(/demo/Hall-Demo/thumbnail.jpg);
   background-size: cover;
   background-position: 50%;
 
 }
 
-.demo-thumbnail__state-bar {
+%demo-thumbnail__tab {
+  @include transition(background-color 0.5s);
   width: 100%;
-  height: 40px;
+  height: 4em;
   cursor: pointer;
-  background-color: rgba(255, 0, 0, 0.85);
+  position: relative;
+  margin-bottom: 1em;
+  margin-top: 1em;
 
-  > div {
-    height: 100%;
+  h1 {
+    @extend %center-element-y;
     width: 100%;
-    line-height: 40px;
-    font-size: 20px;
+    height: 1em;
+    font-size: 2em;
     font-weight: bolder;
     text-align: center;
-    color: rgb(48, 23, 23);
   }
+
+}
+
+.demo-thumbnail__state-bar {
+  @extend %demo-thumbnail__tab;
+  color: rgb(48, 23, 23);
+  background-color: rgba(255, 0, 0, 0.85);
 
   &:hover {
     background-color: rgb(207, 54, 54);
@@ -397,20 +417,13 @@ $project-thumbnail-header-height: 2em;
 
 }
 
-.demo-thumbnail__enter {
-  width: 100%;
-  height: 50px;
-  background-color: yellow;
-  cursor: pointer;
-}
-
-
 .demo-thumbnail__detail {
-  height: 2em;
-  line-height: 2em;
-  background-color: #6D6D6D;
+  @extend %demo-thumbnail__tab;
+  background-color: rgba(29, 29, 29, 0.76);
   color: lightgray;
-  padding-left: 0.5em;
-  margin-top: 10px;
-  font-weight: bolder;
+
+  &:hover {
+    background-color: rgb(61, 61, 61);
+  }
+
 }

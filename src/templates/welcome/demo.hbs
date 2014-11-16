@@ -1,14 +1,14 @@
 <div class="welcome-screen__detail__progress">
 
-    <div id="demo-thumbnail__details__images" class="demo-thumbnail__detail">
+    <div id="demo-thumbnail__details__images" class="welcome-screen__detail__progress__entry">
         IMAGES {{finishedImages.length}}/{{images.length}}
     </div>
 
-    <div id="demo-thumbnail__details__sift" class="demo-thumbnail__detail">
+    <div id="demo-thumbnail__details__sift" class="welcome-screen__detail__progress__entry">
         FEATURES {{finishedSIFT.length}}/{{images.length}}
     </div>
 
-    <div id="demo-thumbnail__details__bundler" class="demo-thumbnail__detail">
+    <div id="demo-thumbnail__details__bundler" class="welcome-screen__detail__progress__entry">
         BUNDLER
         {{#if bundlerFinished}}
             finished
@@ -21,7 +21,7 @@
         {{/if}}
     </div>
 
-    <div id="demo-thumbnail__details__mvs" class="demo-thumbnail__detail">
+    <div id="demo-thumbnail__details__mvs" class="welcome-screen__detail__progress__entry">
         MVS
         {{#if mvsFinished}}
             finished

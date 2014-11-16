@@ -3,7 +3,7 @@
     <div class="exit-icon" {{action "confirmDelete"}}></div>
 </div>
 
-<div class="demo-thumbnail__body" {{action "toggleDetail"}}>
+<div class="demo-thumbnail__body">
 
     {{#if isConfirmDelete}}
         <div class="demo-thumbnail__delete-confirm">
@@ -22,14 +22,18 @@
         </div>
     {{/if}}
 
+    <div class="demo-thumbnail__detail"  {{action "toggleDetail"}}>
+        <h1>Detail</h1>
+    </div>
+
     <div {{bind-attr class=":demo-thumbnail__state-bar isDownloaded isInprogress"}}>
         {{#if isDownloaded}}
-            <div {{action "enter"}}>Enter</div>
+            <h1 {{action "enter"}}>Enter</h1>
         {{else}}
             {{#if isInprogress}}
-                <div>Downloading</div>
+                <h1>Downloading</h1>
             {{else}}
-                <div {{action "download"}}>Click to download</div>
+                <h1 {{action "download"}}>Load</h1>
             {{/if}}
         {{/if}}
     </div>

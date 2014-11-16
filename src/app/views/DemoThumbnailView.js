@@ -4,6 +4,8 @@ module.exports = Ember.View.extend({
 
     templateName: 'widgets/demo-thumbnail',
 
+    classNameBindings: ['controller.isExpanded'],
+
     classNames: [
         'welcome-screen__demos__thumbnail'
     ]
