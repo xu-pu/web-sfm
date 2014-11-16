@@ -21,12 +21,33 @@ function getCalibrationMatrix(focal, width, height){
 
 }
 
+
+/**
+ *
+ * @param R
+ * @param t
+ * @param {number} focal
+ * @param {number} width
+ * @param {number} height
+ */
 function getProjectionMatrix(R, t, focal, width, height){
     var K = getCalibrationMatrix(focal, width, height).augment(Vector.create([0,0,0]));
     var P = R.augment(t).transpose().augment(Vector.create([0,0,0,1])).transpose();
     return K.x(P);
 }
 
+
+/**
+ *
+ * @param R1
+ * @param t1
+ * @param {number} f1
+ * @param {Camera} cam1
+ * @param R2
+ * @param t2
+ * @param {number} f2
+ * @param {Camera} cam2
+ */
 function getFundamentalMatrix(R1, t1, f1, cam1, R2, t2, f2, cam2){
     var E = getEssentialMatrix(R1, t1, R2, t2),
         K1 = getCalibrationMatrix(f1, cam1.width, cam1.height),
