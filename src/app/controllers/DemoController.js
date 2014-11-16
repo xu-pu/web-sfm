@@ -8,7 +8,12 @@ var utils = require('../utils.js'),
 
 module.exports = Ember.ObjectController.extend({
 
-    needs: ['downloadScheduler', 'sfmStore'],
+    needs: ['downloadScheduler', 'sfmStore', 'welcomeDemo', 'welcome'],
+
+    isExpanded: function(){
+        return !this.get('controllers.welcome.isDetailClosed') &&
+            this.get('controllers.welcomeDemo.model') === this.get('model');
+    }.property('controllers.welcomeDemo.model', 'model', 'controllers.welcome.isDetailClosed'),
 
     loader: Ember.computed.alias('controllers.downloadScheduler'),
 
@@ -47,6 +52,15 @@ module.exports = Ember.ObjectController.extend({
 
         cancelDelete: function(){
             this.set('isConfirmDelete', false);
+        },
+
+        toggleDetail: function(){
+            if (this.get('isExpanded')) {
+                this.transitionTo('welcome');
+            }
+            else {
+                this.transitionTo('welcome.demo', this.get('model'));
+            }
         }
 
     },

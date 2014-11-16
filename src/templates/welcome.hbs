@@ -1,15 +1,3 @@
-<div class="welcome-screen__header">Welcome to WebSFM</div>
-<div class="welcome-screen__projects-container">{{outlet projects}}</div>
-
-<div {{bind-attr class=":welcome-screen__detail-container isDetailClosed"}}>
-    <div>
-        {{#link-to "welcome"}}close{{/link-to}}
-    </div>
-    {{outlet}}
-</div>
-
-<div class="welcome-screen__demos-container">{{outlet demos}}</div>
-
 <div class="welcome-screen__download-indicator">
 
     {{#each task in downloading}}
@@ -22,3 +10,18 @@
     {{/each}}
 
 </div>
+
+
+<div class="welcome-screen__header">Welcome to WebSFM</div>
+<div class="welcome-screen__projects-container">{{outlet projects}}</div>
+
+<div {{bind-attr class=":welcome-screen__detail-container isDetailClosed"}}>
+    {{#link-to "welcome" class="welcome-screen__detail__toggle"}}{{/link-to}}
+    {{outlet}}
+</div>
+
+<div class="welcome-screen__demos-container">{{outlet demos}}</div>
+
+<div class="welcome-screen__header">Some Content</div>
+
+<div class="welcome-screen__projects-container">Some Content</div>

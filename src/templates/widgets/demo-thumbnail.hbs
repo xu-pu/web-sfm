@@ -3,7 +3,7 @@
     <div class="exit-icon" {{action "confirmDelete"}}></div>
 </div>
 
-<div class="demo-thumbnail__body">
+<div class="demo-thumbnail__body" {{action "toggleDetail"}}>
 
     {{#if isConfirmDelete}}
         <div class="demo-thumbnail__delete-confirm">
@@ -32,10 +32,6 @@
                 <div {{action "download"}}>Click to download</div>
             {{/if}}
         {{/if}}
-    </div>
-
-    <div class="demo-thumbnail__detail">
-        {{#link-to "welcome.demo" model}}Detail{{/link-to}}
     </div>
 
 </div>

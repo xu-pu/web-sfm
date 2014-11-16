@@ -27,3 +27,12 @@ $unicode-icons: (
   margin: auto;
   text-align: center;
 }
+
+
+%center-element-y {
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  margin: auto;
+  text-align: center;
+}
