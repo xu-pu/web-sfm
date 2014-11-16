@@ -69,7 +69,6 @@
 
 .welcome-screen__detail__toggle {
   @include border-radius(1em);
-  @include box-shadow(0 0 6px 2px rgba(0, 0, 0, 0.49));
   display: block;
   position: absolute;
   left: 1em;
@@ -77,6 +76,11 @@
   width: 2em;
   height: 2em;
   background-color: rgb(255, 118, 118);
+
+  &:hover {
+    @include box-shadow(0 0 6px 2px rgba(0, 0, 0, 0.49));
+  }
+
 }
 
 //=====================================
@@ -185,6 +189,7 @@ $project-thumbnail-header-height: 2em;
   right: 0;
   bottom: 0;
   top: 0;
+  z-index: 10;
 }
 
 %project-delete-confirm__option {
