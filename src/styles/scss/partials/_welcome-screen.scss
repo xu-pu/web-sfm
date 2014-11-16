@@ -194,40 +194,51 @@ $project-thumbnail-header-height: 2em;
 //=====================================
 
 .welcome-screen__projects__new {
-  @include box-shadow(inset 0 0 10px 3px rgba(0, 0, 0, 0.49));
-  @include transition(box-shadow 0.5s);
+  @include transition(border-color 0.5s);
+  @include border-radius(1em);
   height: 100%;
   width: 15em;
   padding: 1em;
   box-sizing: border-box;
+  border: 2px dotted gray;
 
   &.is-invalid {
-    @include box-shadow(inset 0 0 10px 3px red);
+    border-color: red;
   }
 
 }
 
 .project-creator__input {
+  $padding: 10px;
+  @include border-radius($padding);
+  background-color: white;
   width: 100%;
   height: 30%;
+  border: 0;
+  padding-right: $padding;
+  padding-left: $padding;
+  position: relative;
+  box-sizing: border-box;
 
   input {
+    font-size: 2em;
     width: 100%;
     outline: none;
-    @include text-center(2em, 1.2em);
+    border: 0;
   }
 
 }
 
 .project-creator__submit {
-  @include transition(background-color 0.5s);
+  @include transition(border-color 0.5s);
   width: 100%;
   height: 70%;
-  background-color: lightgreen;
   cursor: pointer;
+  border: 2px dotted gray;
+  @include border-radius(10px);
 
   &.is-invalid {
-    background-color: indianred;
+    border-color: red;
     cursor: not-allowed;
   }
 
