@@ -19,7 +19,7 @@ module.exports = Ember.Route.extend({
     actions: {
 
         error: function(){
-            this.transitionTo('welcome');
+            this.transitionToRoute('welcome');
         },
 
         didTransition: function(){

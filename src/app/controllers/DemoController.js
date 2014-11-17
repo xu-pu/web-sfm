@@ -56,10 +56,10 @@ module.exports = Ember.ObjectController.extend({
 
         toggleDetail: function(){
             if (this.get('isExpanded')) {
-                this.transitionTo('welcome');
+                this.transitionToRoute('welcome');
             }
             else {
-                this.transitionTo('welcome.demo', this.get('model'));
+                this.transitionToRoute('welcome.demo', this.get('model'));
             }
         }
 
