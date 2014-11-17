@@ -47,7 +47,6 @@
 .welcome-screen__detail__progress {
   position: absolute;
   width: 20em;
-  height: 100%;
   right: 2em;
   top: 0;
   bottom: 0;
@@ -71,11 +70,12 @@
   @include border-radius(1em);
   display: block;
   position: absolute;
-  left: 1em;
+  right: 1em;
   top: 1em;
   width: 2em;
   height: 2em;
   background-color: rgb(255, 118, 118);
+  z-index: 10;
 
   &:hover {
     @include box-shadow(0 0 6px 2px rgba(0, 0, 0, 0.49));
