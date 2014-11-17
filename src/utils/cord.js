@@ -14,10 +14,14 @@ module.exports.getRandomRT = getRandomRT;
 
 
 /**
- *
  * @typedef {{height: number, width: number}} Camera
  */
 
+
+//=======================================
+// Convert between img and rc
+// x=c, y+r=height-1,
+//=======================================
 
 /**
  *
@@ -27,17 +31,7 @@ module.exports.getRandomRT = getRandomRT;
  * @return {number[]}
  */
 function RCtoImg(row, col, cam){
-      return [col, cam.height-row, 1];
-}
-
-
-/**
- * @param {Feature} f
- * @param {Camera} cam
- * @returns {number[]}
- */
-function featureToImg(f, cam) {
-    return RCtoImg(f.row, f.col, cam);
+      return [col, cam.height-row-1, 1];
 }
 
 
@@ -47,10 +41,22 @@ function featureToImg(f, cam) {
  * @returns {{row: number, col: number}}
  */
 function img2RT(point, height){
+    point = point.x(1/point.e(3));
     return {
-        row: height - point.elements[1]/point.elements[2],
-        col: point.elements[0]/point.elements[2]
+        row: height-point.e(2)-1,
+        col: point.e(1)
     };
+}
+
+//=======================================
+
+/**
+ * @param {Feature} f
+ * @param {Camera} cam
+ * @returns {number[]}
+ */
+function featureToImg(f, cam) {
+    return RCtoImg(f.row, f.col, cam);
 }
 
 
