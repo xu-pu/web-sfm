@@ -11,6 +11,12 @@ module.exports.getFundamentalMatrix = getFundamentalMatrix;
 module.exports.getEssentialMatrix = getEssentialMatrix;
 
 
+/**
+ *
+ * @param {number} focal
+ * @param {number} width
+ * @param {number} height
+ */
 function getCalibrationMatrix(focal, width, height){
 
     return Matrix.create([
@@ -56,18 +62,25 @@ function getFundamentalMatrix(R1, t1, f1, cam1, R2, t2, f2, cam2){
     return normalizeMatrix(F);
 }
 
+
+/**
+ * @param R1
+ * @param t1
+ * @param R2
+ * @param t2
+ */
 function getEssentialMatrix(R1, t1, R2, t2){
     var R = R2.x(R1.transpose()),
-        t = t2.subtract(R.x(t1)),
-        T = R.transpose().x(t).x(-1),
+        t = R2.x(t1).add(t2),
         Tx = Matrix.create([
-            [ 0      , -T.e(3) , T.e(2) ],
-            [ T.e(3) , 0       , -T.e(1)],
+            [ 0      , -t.e(3) , t.e(2) ],
+            [ t.e(3) , 0       , -t.e(1)],
             [ -t.e(2), t.e(1)  , 0      ]
         ]),
-        E = Tx.x(R.transpose());
+        E = R.transpose().x(Tx);
     return normalizeMatrix(E);
 }
+
 
 function normalizeMatrix(m){
     var modulus = Vector.create(_.flatten(m.elements)).modulus();
