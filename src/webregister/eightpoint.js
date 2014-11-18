@@ -78,8 +78,13 @@ function eightPoint(matches, metadata){
  */
 function fundamentalMatrixError(F, match, metadata){
     var f1 = metadata.features1[match[0]],
-        f2 = metadata.features2[match[1]];
-    var p1 = Matrix.create([cord.featureToImg(f1, metadata.cam1)]),
-        p2 = Vector.create(cord.featureToImg(f2, metadata.cam2));
-    return Math.abs(p1.x(F).x(p2).elements[0]);
+        f2 = metadata.features2[match[1]],
+        p1 = Vector.create(cord.featureToImg(f1, metadata.cam1)),
+        p2 = Vector.create(cord.featureToImg(f2, metadata.cam2)),
+        line = F.x(p2),
+        a = line.e(1), b = line.e(2),
+        modulus = Math.sqrt(a*a+b*b),
+        dist = Math.abs(p1.dot(line)/modulus);
+    console.log(dist);
+    return dist;
 }
