@@ -46,8 +46,8 @@ module.exports.getTwoView = function(i1, i2){
         R2: Matrix.create(cam2.R),
         t1: Vector.create(cam1.t),
         t2: Vector.create(cam2.t),
-        f1: cam1.f,
-        f2: cam2.f,
+        f1: cam1.focal,
+        f2: cam2.focal,
         cam1: cam,
         cam2: cam
     };
