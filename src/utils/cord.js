@@ -87,10 +87,12 @@ function imgline2points(line, cam){
 
 
 function rt2canvas(rt, width, height){
-    if (rt.row >=0 && rt.col >=0 && rt.row <= height && rt.col <= width) {
+    var row = Math.round(rt.row),
+        col = Math.round(rt.col);
+        if (row >=0 && col >=0 && row <= height && col <= width) {
         return {
-            row: Math.floor(rt.row),
-            col: Math.floor(rt.col)
+            row: row,
+            col: col
         };
     }
     else {
