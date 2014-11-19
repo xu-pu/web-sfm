@@ -16,7 +16,7 @@ var projections = require('../src/math/projections.js'),
     drawDetailedMatch = require('../src/visualization/drawDetailedMatch.js');
 
 function filterMatches(i1,i2){
-    var THRESHOLD = 100;
+    var THRESHOLD = 1;
     var features1 = samples.getFeatures(i1),
         features2 = samples.getFeatures(i2),
         data = samples.getTwoView(i1, i2),
@@ -62,14 +62,15 @@ function promiseVisualMatch(i1, i2){
             ctx = canv.getContext('2d'),
             features1 = samples.getFeatures(i1),
             features2 = samples.getFeatures(i2);
-        ['red', 'blue', 'yellow', 'green', 'black', 'orange'].forEach(function(color, index){
-            drawDetailedMatch(ctx, config, fmatrix, matches[index*30], color, features1, features2, data.cam1, data.cam2);
+        ['red', 'blue', 'yellow', 'green', 'black', 'orange', 'purple', 'gray', 'white'].forEach(function(color){
+            var index = Math.floor(Math.random() * matches.length);
+            drawDetailedMatch(ctx, config, fmatrix, matches[index], color, features1, features2, data.cam1, data.cam2);
         });
         return testUtils.promiseWriteCanvas(canv, '/home/sheep/Code/visual-detailed-fmatrix.png');
     });
 }
 
 
-//filterMatches(3,5);
+filterMatches(3,8);
 //getFmatrix(20,21);
-promiseVisualMatch(1,2);
+//promiseVisualMatch(4,5);
