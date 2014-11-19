@@ -127,16 +127,12 @@ function promiseVisualHomographyPiar(path, i1, i2, H1, H2){
             img2 = results[1],
             imgdata1 = results[2],
             imgdata2 = results[3],
-            cam1 = samples.getCamera(i1),
-            cam2 = samples.getCamera(i2),
-            R1 = Matrix.create(cam1.R),
-            R2 = Matrix.create(cam2.R),
-            t1 = Vector.create(cam1.t),
-            t2 = Vector.create(cam2.t),
-            F = projections.getFundamentalMatrix(R1, t1, cam1.focal, img1, R2, t2, cam2.focal, img2),
-            FF = H1.transpose().inverse().x(F).x(H2.inverse());
-
-        FF = normalizeMatrix(FF);
+            data = samples.getTwoView(i1, i2),
+            cam1 = data.cam1, cam2 = data.cam2,
+            R1 = data.R1, R2 = data.R2,
+            t1 = data.t1, t2 = data.t2,
+            F = projections.getFundamentalMatrix(R1, t1, data.f1, cam1, R2, t2, data.f2, cam2),
+            FF = normalizeMatrix(H1.transpose().inverse().x(F).x(H2.inverse()));
 
         var canv = new Canvas(),
             config = drawImagePair(img1, img2, canv, 800),
@@ -148,6 +144,7 @@ function promiseVisualHomographyPiar(path, i1, i2, H1, H2){
             color: 'green',
             amount: 60
         });
+
         return promiseWriteCanvas(canv, path);
 
     });
