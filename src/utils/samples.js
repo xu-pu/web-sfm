@@ -14,8 +14,9 @@ var _ = require('underscore'),
     Vector = la.Vector;
 
 
-var toRGB = require('../websift/gray2rgb.js');
-var bundler = require(DEMO_BASE + '/bundler/bundler.json');
+var toRGB = require('../websift/gray2rgb.js'),
+    bundler = require(DEMO_BASE + '/bundler/bundler.json'),
+    bundlerUtils = require('../math/bundler.js');
 
 //==============================================
 
@@ -40,14 +41,12 @@ module.exports.sparse = bundler.points;
 module.exports.getTwoView = function(i1, i2){
     var cam1 = getCamera(i1),
         cam2 = getCamera(i2),
-        cam = { width: 3008, height: 2000 };
+        cam = { width: 3008, height: 2000},
+        rt1 = bundlerUtils.getStandardRt(Matrix.create(cam1.R), Vector.create(cam1.t)),
+        rt2 = bundlerUtils.getStandardRt(Matrix.create(cam2.R), Vector.create(cam2.t));
     return {
-        R1: Matrix.create(cam1.R),
-        R2: Matrix.create(cam2.R),
-        t1: Vector.create(cam1.t),
-        t2: Vector.create(cam2.t),
-        f1: cam1.focal,
-        f2: cam2.focal,
+        R1: rt1.R, t1: rt1.t, f1: cam1.focal,
+        R2: rt2.R, t2: rt2.t, f2: cam2.focal,
         cam1: cam,
         cam2: cam
     };
