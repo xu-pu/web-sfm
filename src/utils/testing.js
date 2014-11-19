@@ -34,12 +34,13 @@ module.exports.promiseVisualPoints = promiseVisualPoints;
  * @param {int} i1
  * @param {int} i2
  * @param {int[][]} matches
+ * @param [F]
  * @returns {Promise}
  */
-module.exports.promiseDetailedMatches = function(path, i1, i2, matches){
+module.exports.promiseDetailedMatches = function(path, i1, i2, matches, F){
 
     var data = samples.getTwoView(i1, i2),
-        fmatrix = projections.getFundamentalMatrix(data.R1, data.t1, data.f1, data.cam1, data.R2, data.t2, data.f2, data.cam2),
+        fmatrix = F || projections.getFundamentalMatrix(data.R1, data.t1, data.f1, data.cam1, data.R2, data.t2, data.f2, data.cam2),
         features1 = samples.getFeatures(i1),
         features2 = samples.getFeatures(i2);
 
