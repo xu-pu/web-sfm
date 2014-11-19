@@ -15,7 +15,8 @@ var samples = require('./samples.js'),
     drawImagePair = require('../visualization/drawImagePair.js'),
     drawMatches = require('../visualization/drawMatches.js'),
     drawEpipolarLines = require('../visualization/drawEpipolarLines.js'),
-    drawHomography = require('../visualization/drawHomography.js');
+    drawHomography = require('../visualization/drawHomography.js'),
+    drawDetailedMatch = require('../visualization/drawDetailedMatch.js');
 
 
 module.exports.promiseWriteCanvas = promiseWriteCanvas;
@@ -26,6 +27,48 @@ module.exports.promiseVisualHomography = promiseVisualHomography;
 module.exports.promiseVisualHomographyPiar = promiseVisualHomographyPiar;
 module.exports.promiseVisualPoints = promiseVisualPoints;
 
+//==================================================
+
+/**
+ * @param {string} path
+ * @param {int} i1
+ * @param {int} i2
+ * @param {int[][]} matches
+ * @returns {Promise}
+ */
+module.exports.promiseDetailedMatches = function(path, i1, i2, matches){
+
+    var data = samples.getTwoView(i1, i2),
+        fmatrix = projections.getFundamentalMatrix(data.R1, data.t1, data.f1, data.cam1, data.R2, data.t2, data.f2, data.cam2),
+        features1 = samples.getFeatures(i1),
+        features2 = samples.getFeatures(i2);
+
+    return Promise.all([
+        samples.promiseCanvasImage(i1),
+        samples.promiseCanvasImage(i2)
+    ]).then(function(results){
+        var canv = new Canvas(),
+            config = drawImagePair(results[0], results[1], canv, 1200),
+            ctx = canv.getContext('2d');
+        matches.forEach(function(match){
+            drawDetailedMatch(ctx, config, fmatrix, match, getRandomColor(), features1, features2, data.cam1, data.cam2);
+        });
+        return exports.promiseWriteCanvas(canv, path);
+    });
+
+};
+
+//==================================================
+
+function getRandomColor(){
+
+    return 'rgb(' + getInt() + ',' + getInt() + ',' + getInt() + ')';
+
+    function getInt(){
+        return Math.floor(255*Math.random());
+    }
+
+}
 
 function promiseSaveNdarray(img, path){
     var writeStream = fs.createWriteStream(path);

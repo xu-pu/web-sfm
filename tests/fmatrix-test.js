@@ -50,27 +50,11 @@ function getFmatrix(i1, i2){
 
 
 function promiseVisualMatch(i1, i2){
-    var data = samples.getTwoView(i1, i2),
-        matches = samples.getRawMatches(i1, i2),
-        fmatrix = projections.getFundamentalMatrix(data.R1, data.t1, data.f1, data.cam1, data.R2, data.t2, data.f2, data.cam2);
-    return Promise.all([
-        samples.promiseCanvasImage(i1),
-        samples.promiseCanvasImage(i2)
-    ]).then(function(results){
-        var canv = new Canvas(),
-            config = drawImagePair(results[0], results[1], canv, 800),
-            ctx = canv.getContext('2d'),
-            features1 = samples.getFeatures(i1),
-            features2 = samples.getFeatures(i2);
-        ['red', 'blue', 'yellow', 'green', 'black', 'orange', 'purple', 'gray', 'white'].forEach(function(color){
-            var index = Math.floor(Math.random() * matches.length);
-            drawDetailedMatch(ctx, config, fmatrix, matches[index], color, features1, features2, data.cam1, data.cam2);
-        });
-        return testUtils.promiseWriteCanvas(canv, '/home/sheep/Code/visual-detailed-fmatrix.png');
-    });
+    var matches = samples.getRawMatches(i1, i2);
+    return testUtils.promiseDetailedMatches('/home/sheep/Code/visual-detailed-matches.png', i1, i2, _.sample(matches, 50));
 }
 
 
-filterMatches(3,8);
+//filterMatches(3,8);
 //getFmatrix(20,21);
-//promiseVisualMatch(4,5);
+promiseVisualMatch(4,5);
