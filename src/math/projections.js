@@ -5,10 +5,44 @@ var _ = require('underscore'),
     Matrix = la.Matrix,
     Vector = la.Vector;
 
-module.exports.getProjectionMatrix = getProjectionMatrix;
-module.exports.getCalibrationMatrix = getCalibrationMatrix;
-module.exports.getFundamentalMatrix = getFundamentalMatrix;
-module.exports.getEssentialMatrix = getEssentialMatrix;
+//===================================
+
+/**
+ * get RT of cam2 relative to cam1
+ * @param R1
+ * @param t1
+ * @param R2
+ * @param t2
+ * @returns {{R, t}}
+ */
+module.exports.getRelativePose = function(R1, t1, R2, t2){
+    var R = R2.x(R1.transpose()),
+        t = R.x(t1).x(-1).add(t2);
+    return { R: R, t: t };
+};
+
+
+/**
+ * Essential Matrix
+ * @param R1
+ * @param t1
+ * @param R2
+ * @param t2
+ */
+module.exports.getEssentialMatrix = function (R1, t1, R2, t2){
+    var pos = exports.getRelativePose(R1, t1, R2, t2),
+        R = pos.R,
+        t = pos.t,
+        T = R.transpose().x(t).x(-1),
+        Tx = Matrix.create([
+            [ 0      , -T.e(3) , T.e(2) ],
+            [ T.e(3) , 0       , -T.e(1)],
+            [ -T.e(2), T.e(1)  , 0      ]
+        ]),
+        E = Tx.x(R.transpose());
+    return normalizeMatrix(E);
+};
+
 
 
 /**
@@ -17,7 +51,7 @@ module.exports.getEssentialMatrix = getEssentialMatrix;
  * @param {number} width
  * @param {number} height
  */
-function getCalibrationMatrix(focal, width, height){
+module.exports.getCalibrationMatrix = function(focal, width, height){
 
     return Matrix.create([
         [focal, 0    , width/2 ],
@@ -25,7 +59,7 @@ function getCalibrationMatrix(focal, width, height){
         [0    , 0    , 1       ]
     ]);
 
-}
+};
 
 
 /**
@@ -36,11 +70,11 @@ function getCalibrationMatrix(focal, width, height){
  * @param {number} width
  * @param {number} height
  */
-function getProjectionMatrix(R, t, focal, width, height){
-    var K = getCalibrationMatrix(focal, width, height).augment(Vector.create([0,0,0]));
+module.exports.getProjectionMatrix = function(R, t, focal, width, height){
+    var K = exports.getCalibrationMatrix(focal, width, height).augment(Vector.create([0,0,0]));
     var P = R.augment(t).transpose().augment(Vector.create([0,0,0,1])).transpose();
     return K.x(P);
-}
+};
 
 
 /**
@@ -54,33 +88,15 @@ function getProjectionMatrix(R, t, focal, width, height){
  * @param {number} f2
  * @param {Camera} cam2
  */
-function getFundamentalMatrix(R1, t1, f1, cam1, R2, t2, f2, cam2){
-    var E = getEssentialMatrix(R1, t1, R2, t2),
-        K1 = getCalibrationMatrix(f1, cam1.width, cam1.height),
-        K2 = getCalibrationMatrix(f2, cam2.width, cam2.height),
+module.exports.getFundamentalMatrix = function(R1, t1, f1, cam1, R2, t2, f2, cam2){
+    var E = exports.getEssentialMatrix(R1, t1, R2, t2),
+        K1 = exports.getCalibrationMatrix(f1, cam1.width, cam1.height),
+        K2 = exports.getCalibrationMatrix(f2, cam2.width, cam2.height),
         F = K1.transpose().inverse().x(E).x(K2.inverse());
     return normalizeMatrix(F);
-}
+};
 
-
-/**
- * @param R1
- * @param t1
- * @param R2
- * @param t2
- */
-function getEssentialMatrix(R1, t1, R2, t2){
-    var R = R2.x(R1.transpose()),
-        t = R2.x(t1).add(t2),
-        Tx = Matrix.create([
-            [ 0      , -t.e(3) , t.e(2) ],
-            [ t.e(3) , 0       , -t.e(1)],
-            [ -t.e(2), t.e(1)  , 0      ]
-        ]),
-        E = R.transpose().x(Tx);
-    return normalizeMatrix(E);
-}
-
+//===================================
 
 function normalizeMatrix(m){
     var modulus = Vector.create(_.flatten(m.elements)).modulus();
