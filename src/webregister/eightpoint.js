@@ -1,3 +1,5 @@
+'use strict';
+
 var _ = require('underscore'),
     la = require('sylvester'),
     Matrix = la.Matrix,
@@ -5,8 +7,7 @@ var _ = require('underscore'),
     numeric = require('numeric'),
     cord = require('../utils/cord.js');
 
-module.exports = eightPoint;
-module.exports.fundamentalMatrixError = fundamentalMatrixError;
+//====================================================
 
 /**
  * @param {int[][]} matches
@@ -16,7 +17,7 @@ module.exports.fundamentalMatrixError = fundamentalMatrixError;
  * @param {Feature[]} metadata.features1
  * @param {Feature[]} metadata.features2
  */
-function eightPoint(matches, metadata){
+module.exports = function(matches, metadata){
 
     if (matches.length !== 8){
         throw 'need exact 8 points';
@@ -63,7 +64,7 @@ function eightPoint(matches, metadata){
         F = fSVD.U.x(fSVD.S).x(fSVD.V.transpose());
     }
     return T1.transpose().x(F).x(T2);
-}
+};
 
 
 /**
@@ -76,15 +77,13 @@ function eightPoint(matches, metadata){
  * @param {Feature[]} metadata.features2
  * @return {number}
  */
-function fundamentalMatrixError(F, match, metadata){
+module.exports.fundamentalMatrixError = function(F, match, metadata){
     var f1 = metadata.features1[match[0]],
         f2 = metadata.features2[match[1]],
         p1 = Vector.create(cord.featureToImg(f1, metadata.cam1)),
         p2 = Vector.create(cord.featureToImg(f2, metadata.cam2)),
         line = F.x(p2),
         a = line.e(1), b = line.e(2),
-        modulus = Math.sqrt(a*a+b*b),
-        dist = Math.abs(p1.dot(line)/modulus);
-    console.log(dist);
-    return dist;
-}
+        modulus = Math.sqrt(a*a+b*b);
+    return Math.abs(p1.dot(line)/modulus);
+};
