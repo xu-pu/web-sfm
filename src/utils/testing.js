@@ -18,14 +18,10 @@ var samples = require('./samples.js'),
     drawHomography = require('../visualization/drawHomography.js'),
     drawDetailedMatch = require('../visualization/drawDetailedMatch.js');
 
+//==================================================
 
 module.exports.promiseWriteCanvas = promiseWriteCanvas;
 module.exports.promiseSaveNdarray = promiseSaveNdarray;
-module.exports.promiseVisualMatch = promiseVisualMatch;
-module.exports.promiseVisualEpipolar = promiseVisualEpipolar;
-module.exports.promiseVisualHomography = promiseVisualHomography;
-module.exports.promiseVisualHomographyPiar = promiseVisualHomographyPiar;
-module.exports.promiseVisualPoints = promiseVisualPoints;
 
 //==================================================
 
@@ -59,63 +55,16 @@ module.exports.promiseDetailedMatches = function(path, i1, i2, matches, F){
 
 };
 
-//==================================================
 
-function getRandomColor(){
-
-    return 'rgb(' + getInt() + ',' + getInt() + ',' + getInt() + ')';
-
-    function getInt(){
-        return Math.floor(255*Math.random());
-    }
-
-}
-
-function promiseSaveNdarray(img, path){
-    var writeStream = fs.createWriteStream(path);
-    saveimage(img, 'png').pipe(writeStream);
-}
-
-function promiseWriteFile(path, buffer){
-    return new Promise(function(resolve, reject){
-        fs.writeFile(path, buffer, function(err){
-            if (err) {
-                reject(err);
-            }
-            else {
-                resolve();
-            }
-        });
-    });
-}
-
-
-function promiseWriteCanvas(canvas, path){
-    return promiseWriteFile(path, canvas.toBuffer());
-}
-
-function promiseVisualPoints(path, index, points, options){
-
-    options = options || {};
-    _.defaults(options, {
-       fixedWidth: 800
-    });
-
-    return samples
-        .promiseCanvasImage(index)
-        .then(function(img){
-            var ratio = options.fixedWidth/img.width,
-                width = options.fixedWidth,
-                height = img.height*ratio,
-                canv = new Canvas(width, height),
-                ctx = canv.getContext('2d');
-            ctx.drawImage(img, 0, 0, width, height);
-            drawFeatures(ctx, points, 0, 0, ratio);
-            return promiseWriteCanvas(canv, path);
-        });
-}
-
-function promiseVisualMatch(path, i1, i2, matches){
+/**
+ *
+ * @param {string} path
+ * @param {int} i1
+ * @param {int} i2
+ * @param {int[][]} matches
+ * @returns {Promise}
+ */
+module.exports.promiseVisualMatch = function(path, i1, i2, matches){
     return Promise.all([
         samples.promiseCanvasImage(i1),
         samples.promiseCanvasImage(i2)
@@ -130,10 +79,18 @@ function promiseVisualMatch(path, i1, i2, matches){
         drawMatches(config, ctx, matches, features1, features2);
         return promiseWriteCanvas(canv, path);
     });
-}
+};
 
 
-function promiseVisualEpipolar(path, i1, i2, F){
+/**
+ *
+ * @param {string} path
+ * @param {int} i1
+ * @param {int} i2
+ * @param F
+ * @returns {Promise}
+ */
+module.exports.promiseVisualEpipolar = function(path, i1, i2, F){
     return Promise.all([
         samples.promiseCanvasImage(i1),
         samples.promiseCanvasImage(i2)
@@ -147,19 +104,50 @@ function promiseVisualEpipolar(path, i1, i2, F){
         });
         return promiseWriteCanvas(canv, path);
     });
-}
+};
 
-function promiseVisualHomography(path, img, H, ratio){
-    ratio = ratio || 1;
-    var width = Math.floor(img.shape[1]*ratio),
-        height = Math.floor(img.shape[0]*ratio),
-        canv = new Canvas(width, height),
-        ctx = canv.getContext('2d');
-    drawHomography(img, H, ctx, 0, 0, ratio);
-    return promiseWriteCanvas(canv, path);
-}
 
-function promiseVisualHomographyPiar(path, i1, i2, H1, H2){
+/**
+ *
+ * @param {string} path
+ * @param {int} index
+ * @param points
+ * @param options
+ * @returns {Promise}
+ */
+module.exports.promiseVisualPoints = function(path, index, points, options){
+
+    options = options || {};
+    _.defaults(options, {
+        fixedWidth: 800
+    });
+
+    return samples
+        .promiseCanvasImage(index)
+        .then(function(img){
+            var ratio = options.fixedWidth/img.width,
+                width = options.fixedWidth,
+                height = img.height*ratio,
+                canv = new Canvas(width, height),
+                ctx = canv.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+            drawFeatures(ctx, points, 0, 0, ratio);
+            return promiseWriteCanvas(canv, path);
+        });
+
+};
+
+
+/**
+ *
+ * @param {string} path
+ * @param {int} i1
+ * @param {int} i2
+ * @param H1
+ * @param H2
+ * @returns {Promise}
+ */
+module.exports.promiseVisualHomographyPiar = function(path, i1, i2, H1, H2){
     return Promise.all([
         samples.promiseCanvasImage(i1),
         samples.promiseCanvasImage(i2),
@@ -192,6 +180,64 @@ function promiseVisualHomographyPiar(path, i1, i2, H1, H2){
         return promiseWriteCanvas(canv, path);
 
     });
+};
+
+
+/**
+ *
+ * @param {string} path
+ * @param img
+ * @param H
+ * @param {number} ratio
+ * @returns {Promise}
+ */
+module.exports.promiseVisualHomography = function(path, img, H, ratio){
+    ratio = ratio || 1;
+    var width = Math.floor(img.shape[1]*ratio),
+        height = Math.floor(img.shape[0]*ratio),
+        canv = new Canvas(width, height),
+        ctx = canv.getContext('2d');
+    drawHomography(img, H, ctx, 0, 0, ratio);
+    return promiseWriteCanvas(canv, path);
+};
+
+
+//==================================================
+
+
+function getRandomColor(){
+
+    return 'rgb(' + getInt() + ',' + getInt() + ',' + getInt() + ')';
+
+    function getInt(){
+        return Math.floor(255*Math.random());
+    }
+
+}
+
+
+function promiseSaveNdarray(img, path){
+    var writeStream = fs.createWriteStream(path);
+    saveimage(img, 'png').pipe(writeStream);
+}
+
+
+function promiseWriteFile(path, buffer){
+    return new Promise(function(resolve, reject){
+        fs.writeFile(path, buffer, function(err){
+            if (err) {
+                reject(err);
+            }
+            else {
+                resolve();
+            }
+        });
+    });
+}
+
+
+function promiseWriteCanvas(canvas, path){
+    return promiseWriteFile(path, canvas.toBuffer());
 }
 
 
