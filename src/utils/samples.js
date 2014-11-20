@@ -52,6 +52,24 @@ module.exports.getTwoView = function(i1, i2){
     };
 };
 
+
+/**
+ *
+ * @param i
+ * @returns {{R, t, f: number, cam: Camera}}
+ */
+module.exports.getView = function(i){
+    var camera = getCamera(i),
+        cam = { width: 3008, height: 2000},
+        rt = bundlerUtils.getStandardRt(Matrix.create(camera.R), Vector.create(camera.t));
+    return {
+        R: rt.R,
+        t: rt.t,
+        f: camera.focal,
+        cam: cam
+    };
+};
+
 //==============================================
 
 function getFeatures(index){
