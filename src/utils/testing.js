@@ -112,7 +112,7 @@ module.exports.promiseVisualEpipolar = function(path, i1, i2, F){
  * @param {string} path
  * @param {int} index
  * @param points
- * @param options
+ * @param [options]
  * @returns {Promise}
  */
 module.exports.promiseVisualPoints = function(path, index, points, options){

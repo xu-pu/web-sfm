@@ -3,28 +3,22 @@
 var _ = require('underscore'),
     la = require('sylvester'),
     Matrix = la.Matrix,
-    Vector = la.Vector,
-    Canvas = require('canvas');
+    Vector = la.Vector;
 
 var bundler = require('../src/math/bundler.js'),
     sample = require('../src/utils/samples.js'),
-    drawFeatures = require('../src/visualization/drawFeatures.js'),
     testUtils = require('../src/utils/testing.js'),
     projections = require('../src/math/projections.js'),
-    cord = require('../src/utils/cord.js'),
-    FError = require('../src/webregister/eightpoint.js').fundamentalMatrixError;
-
+    cord = require('../src/utils/cord.js');
 
 function testCam(index){
 
-    var cam = sample.getCamera(index),
-        Rt = bundler.getStandardRt(Matrix.create(cam.R), Vector.create(cam.t)),
-        R = Rt.R,
-        t = Rt.t,
-        focal = cam.focal;
+    var data = sample.getView(index),
+        R = data.R,
+        t = data.t,
+        focal = data.f;
 
-    return sample
-        .promiseCanvasImage(index)
+    return sample.promiseCanvasImage(index)
         .then(function(img){
             var projector = projections.getProjectionMatrix(R, t, focal, img.width, img.height);
             var points = sample.sparse.map(function(p){
@@ -32,45 +26,9 @@ function testCam(index){
                 var x = projector.x(X);
                 return cord.img2RT(x, img.height);
             });
-            var canv = new Canvas();
-            canv.width = img.width;
-            canv.height = img.height;
-            var ctx = canv.getContext('2d');
-            ctx.drawImage(img, 0, 0);
-            drawFeatures(ctx, points, 0, 0, 1, {markSize: 10});
-            return testUtils.promiseWriteCanvas(canv, '/home/sheep/Code/geo.png')
+            return testUtils.promiseVisualPoints('/home/sheep/Code/projection-test.png', index, points);
         });
 
 }
 
-//testCam(9);
-
-function bundlerTest(){
-    var cam = sample.getCamera(3);
-    var R = Matrix.create(cam.R);
-    var t = Vector.create(cam.t);
-    var Rt = bundler.getStandardRt(R,t);
-    var o = R.transpose().x(t).x(-1);
-    var v1 = toworld(R, t, Vector.create([0,0,1]));
-    var v2 = toworld(Rt.R, Rt.t, Vector.create([0,0,1]));
-
-    console.log(v1.subtract(o));
-    console.log(v2.subtract(o));
-
-    function toworld(R, t, P){
-        return R.transpose().x(P.subtract(t));
-    }
-}
-
-function epiFilter(F, metadata, matches, threshold){
-    return matches.filter(function(match){
-        return FError(F, match, metadata) < threshold;
-    });
-}
-
-
-//testEpipolarGeometry(2,3);
-
-//epipolarLineTest(2,3);
-
-testEpipolarGeometry(2,3);
+testCam(50);
