@@ -119,7 +119,7 @@ module.exports.promiseVisualPoints = function(path, index, points, options){
 
     options = options || {};
     _.defaults(options, {
-        fixedWidth: 800
+        fixedWidth: 1200
     });
 
     return samples
