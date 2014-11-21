@@ -1,17 +1,39 @@
-module.exports = trianguation;
+'use strict';
+
+var la = require('sylvester'),
+    Matrix = la.Matrix,
+    Vector = la.Vector;
+
+var laUtils = require('../math/la-utils.js');
 
 /**
  *
- * @param {CalibratedCamera} cam1
- * @param {CalibratedCamera} cam2
- * @param {SFM.Matrix} img1Point
- * @param {SFM.Matrix} img2Point
+ * @param P1 - projection matrix of camera 1
+ * @param P2 - projection matrix of camera 2
+ * @param x1 - cord on camera 1
+ * @param x2 - cord on camera 2
  */
-function trianguation(cam1, cam2, img1Point, img2Point){
-    var A = new SFM.Matrix({ rows: 4, cols: 4 });
-    A.setRow(0, cam1.P.getRow(2).dot(img1Point.get(0,0)).sub(cam1.P.getRow(0)));
-    A.setRow(1, cam1.P.getRow(2).dot(img1Point.get(1,0)).sub(cam1.P.getRow(1)));
-    A.setRow(2, cam2.P.getRow(2).dot(img2Point.get(0,0)).sub(cam2.P.getRow(0)));
-    A.setRow(3, cam2.P.getRow(2).dot(img2Point.get(1,0)).sub(cam2.P.getRow(1)));
-    return A.svdSolve().homogeneous();
-}
+module.exports = function(P1, P2, x1, x2){
+
+    var x1Hat = laUtils.crossVector(x1),
+        x2Hat = laUtils.crossVector(x2),
+        eqSet1 = x1Hat.x(P1).elements,
+        eqSet2 = x2Hat.x(P2).elements;
+
+    var equation = Matrix.create([
+        eqSet1[0],
+        eqSet1[1],
+        eqSet1[2],
+        eqSet2[0],
+        eqSet2[1],
+        eqSet2[2]
+    ]);
+
+    var result = equation.svd(),
+        V = result.V,
+        v = V.col(4),
+        X = v.x(1/ v.modulus());
+
+    return X;
+
+};
