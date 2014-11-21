@@ -3,9 +3,10 @@
 var _ = require('underscore'),
     la = require('sylvester'),
     Matrix = la.Matrix,
-    Vector = la.Vector,
-    numeric = require('numeric'),
-    cord = require('../utils/cord.js');
+    Vector = la.Vector;
+
+var cord = require('../utils/cord.js'),
+    laUtils = require('../math/la-utils.js');
 
 
 /**
@@ -22,15 +23,11 @@ module.exports = function(dataset){
             x = pair.x,
             XX = Matrix.create([X.elements]);
 
-        [
-            [  0      ,  x.e(3) , -x.e(2) ],
-            [ -x.e(3) ,  0      ,  x.e(1) ],
-            [  x.e(2) , -x.e(1) ,  0      ]
-        ].forEach(function(skewed){
-                var xx = Matrix.create(skewed),
-                    coeM = xx.x(XX),
-                    coeV = _.flatten(coeM.elements);
-                A.push(coeV);
+        laUtils.crossVector(x).elements.forEach(function(skewed){
+            var xx = Matrix.create(skewed),
+                coeM = xx.x(XX),
+                coeV = _.flatten(coeM.elements);
+            A.push(coeV);
         });
 
     });

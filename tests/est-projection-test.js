@@ -57,5 +57,5 @@ function testCam(i){
 
 }
 
-testCam(40);
+testCam(8);
 
