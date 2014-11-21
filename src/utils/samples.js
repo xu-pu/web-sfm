@@ -16,7 +16,8 @@ var _ = require('underscore'),
 
 var toRGB = require('../websift/gray2rgb.js'),
     bundler = require(DEMO_BASE + '/bundler/bundler.json'),
-    bundlerUtils = require('../math/bundler.js');
+    bundlerUtils = require('../math/bundler.js'),
+    cord = require('./cord.js');
 
 //==============================================
 
@@ -69,6 +70,43 @@ module.exports.getView = function(i){
         cam: cam
     };
 };
+
+
+/**
+ * Get visible sparse point cloud of one view
+ * @param {int} i
+ * @returns {{ feature: { row: number, col: number }, point: number[] }[]}
+ */
+module.exports.getViewSparse = function(i){
+
+    var cam = { width: 3008, height: 2000},
+        pointset = [];
+
+    exports.sparse.forEach(function(point){
+
+
+        var targetView;
+
+        var visiable = point.views.some(function(view){
+            if (view.view === i) {
+                targetView = view;
+                return true;
+            }
+        });
+
+        if (visiable && targetView) {
+            pointset.push({
+                feature: cord.bundler2RT(targetView.x, targetView.y, cam),
+                point: point.point
+            });
+        }
+
+    });
+
+    return pointset;
+
+};
+
 
 //==============================================
 
