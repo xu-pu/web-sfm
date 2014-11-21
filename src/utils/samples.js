@@ -77,50 +77,42 @@ module.exports.getTwoView = function(i1, i2){
 
 
 /**
- *
- * @param i
- * @returns {{R, t, f: number, cam: Camera}}
+ * Get calibrated camera
+ * @param {int} i
+ * @returns {{ P, R, t, f: number, cam: Camera }}
  */
 module.exports.getView = function(i){
     var camera = exports.getCamera(i),
         cam = { width: 3008, height: 2000},
-        rt = bundlerUtils.getStandardRt(Matrix.create(camera.R), Vector.create(camera.t));
-    return {
-        R: rt.R,
-        t: rt.t,
-        f: camera.focal,
-        cam: cam
-    };
+        rt = bundlerUtils.getStandardRt(Matrix.create(camera.R), Vector.create(camera.t)),
+        R = rt.R, t = rt.t, f = camera.focal,
+        P = projections.getProjectionMatrix(R, t, f, cam.width, cam.height);
+    return { P: P, R: R, t: t, f: f, cam: cam };
 };
 
 
 /**
  * Get visible sparse point cloud of one view
  * @param {int} i
- * @returns {{ feature: { row: number, col: number }, point: number[] }[]}
+ * @returns {{ x: RowCol, X }[]}
  */
 module.exports.getViewSparse = function(i){
 
-    var cam = { width: 3008, height: 2000},
+    var data = exports.getView(i),
         pointset = [];
 
     exports.sparse.forEach(function(point){
 
-
-        var targetView;
-
         var visiable = point.views.some(function(view){
-            if (view.view === i) {
-                targetView = view;
-                return true;
-            }
+            return view.view === i;
         });
 
-        if (visiable && targetView) {
-            pointset.push({
-                feature: cord.bundler2RT(targetView.x, targetView.y, cam),
-                point: point.point
-            });
+        if (visiable) {
+            var p = point.point,
+                X = Vector.create([p[0], p[1], p[2], 1]),
+                x = data.P.x(X),
+                rc = cord.img2RT(x, data.cam.height);
+            pointset.push({ x: rc, X: X });
         }
 
     });
