@@ -42,6 +42,24 @@ module.exports.img2RT = function(point, height){
 };
 
 
+/**
+ * @param {number} x
+ * @param {number} y
+ * @param {Camera} cam
+ * @returns {{row: number, col: number}}
+ */
+module.exports.bundler2RT = function(x, y, cam){
+    var yy = y+cam.height/2,
+        row = cam.height-yy,
+        col = x+cam.width/2;
+    return {
+        row: row,
+        col: col
+    };
+
+};
+
+
 //=======================================
 // Generate random cord
 //=======================================
