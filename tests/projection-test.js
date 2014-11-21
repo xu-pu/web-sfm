@@ -1,6 +1,7 @@
 'use strict';
 
 var _ = require('underscore'),
+    Promise = require('promise'),
     la = require('sylvester'),
     Matrix = la.Matrix,
     Vector = la.Vector;
@@ -31,4 +32,34 @@ function testCam(index){
 
 }
 
-testCam(50);
+
+function testVisiable(index){
+
+    var data = sample.getView(index),
+        R = data.R,
+        t = data.t,
+        focal = data.f,
+        cloud = sample.getViewSparse(index);
+
+    return sample.promiseCanvasImage(index)
+        .then(function(img){
+            var projector = projections.getProjectionMatrix(R, t, focal, img.width, img.height),
+                points = cloud.map(function(pair){
+                    var X = Vector.create([pair.point[0], pair.point[1], pair.point[2], 1]);
+                    var x = projector.x(X);
+                    return cord.img2RT(x, img.height);
+                }),
+                reference = cloud.map(function(pair){
+                    return pair.feature;
+                });
+            return Promise.all([
+                testUtils.promiseVisualPoints('/home/sheep/Code/projection-visiable-test.png', index, points),
+                testUtils.promiseVisualPoints('/home/sheep/Code/projection-visiable-reference.png', index, reference)
+            ]);
+        });
+
+}
+
+testVisiable(20);
+
+//testCam(50);
