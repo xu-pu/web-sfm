@@ -13,12 +13,16 @@ var bundler = require('../src/math/bundler.js'),
     triangulation = require('../src/webregister/triangulation.js');
 
 
-function testPair(i1, i2){
+function testPair(i1, i2, iref){
 
     var cloud = sample.getTwoViewSparse(i1, i2),
-        data = sample.getTwoView(i1, i2);
+        data = sample.getTwoView(i1, i2),
+        reference = sample.getView(iref);
 
     var dataset = _.sample(cloud, 500),
+        selectedRefer = dataset.map(function(track){
+            return cord.img2RT(reference.P.x(track.X), reference.cam.height);
+        }),
         selected1 = dataset.map(function(track){
             return track.x1;
         }),
@@ -38,6 +42,9 @@ function testPair(i1, i2){
         }),
         reprojected2 = estimated.map(function(X){
             return cord.img2RT(data.P2.x(X), data.cam2.height);
+        }),
+        reprojectedRefer = estimated.map(function(X){
+            return cord.img2RT(reference.P.x(X), reference.cam.height);
         });
 
 
@@ -45,9 +52,11 @@ function testPair(i1, i2){
         testUtils.promiseVisualPoints('/home/sheep/Code/triangulation-1-refer.png', i1, selected1),
         testUtils.promiseVisualPoints('/home/sheep/Code/triangulation-1-reprojected.png', i1, reprojected1),
         testUtils.promiseVisualPoints('/home/sheep/Code/triangulation-2-refer.png', i2, selected2),
-        testUtils.promiseVisualPoints('/home/sheep/Code/triangulation-2-reprojected.png', i2, reprojected2)
+        testUtils.promiseVisualPoints('/home/sheep/Code/triangulation-2-reprojected.png', i2, reprojected2),
+        testUtils.promiseVisualPoints('/home/sheep/Code/triangulation-refer.png', iref, selectedRefer),
+        testUtils.promiseVisualPoints('/home/sheep/Code/triangulation-refer-reprojected.png', iref, reprojectedRefer)
     ]);
 
 }
 
-testPair(8,10);
+testPair(8,10,9);
