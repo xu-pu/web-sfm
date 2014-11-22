@@ -24,10 +24,10 @@ module.exports = function(matches, metadata){
 
     var A = Matrix.create(matches.map(function(match){
         var f1 = features1[match[0]],
-            f2 = features2[match[1]];
-        var p1 = Matrix.create([cord.featureToImg(f1, cam1)]),
-            p2 = Matrix.create([cord.featureToImg(f2, cam2)]).transpose();
-        return _.flatten(p2.x(p1).elements);
+            f2 = features2[match[1]],
+            p1 = Matrix.create(cord.featureToImg(f1, cam1)),
+            p2 = Matrix.create([cord.featureToImg(f2, cam2)]);
+        return _.flatten(p1.x(p2).elements);
     }));
 
     var V = A.svd().V,
@@ -39,6 +39,6 @@ module.exports = function(matches, metadata){
         result.slice(0, 3),
         result.slice(3, 6),
         result.slice(6, 9)
-    ]).transpose();
+    ]);
 
 };
