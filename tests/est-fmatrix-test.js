@@ -11,8 +11,7 @@ var bundler = require('../src/math/bundler.js'),
     projections = require('../src/math/projections.js'),
     testUtils = require('../src/utils/testing.js'),
     cord = require('../src/utils/cord.js'),
-    filterRawMatches = require('../src/webregister/filterRawMatches.js'),
-    estimateFmatrix = require('../src/webregister/estimate-fmatrix.js');
+    estimateFmatrix = require('../src/webregister/eightpoint.js');
 
 
 function testCam(i1, i2){
@@ -29,9 +28,9 @@ function testCam(i1, i2){
             cam2: data.cam2
         };
 
-    var result = filterRawMatches(matches, metadata),
-        dataset = _.sample(result.dataset, 100),
-        estF = estimateFmatrix(dataset, metadata);
+    var results = estimateFmatrix(matches, metadata);
+    var estF = results.F;
+    var dataset = _.sample(matches, 100);
 
     return Promise.all([
         testUtils.promiseVisualEpipolar('/home/sheep/Code/est-fmatrix-refer.png', i1, i2, F),
@@ -43,4 +42,4 @@ function testCam(i1, i2){
 
 }
 
-testCam(8,9);
+testCam(5,9);
