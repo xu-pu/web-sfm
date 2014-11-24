@@ -7,26 +7,20 @@ var _ = require('underscore'),
     numeric = require('numeric'),
     cord = require('../utils/cord.js');
 
-/**
- * @param {int[][]} matches
- * @param {object} metadata
- * @param {Camera} metadata.cam1
- * @param {Camera} metadata.cam2
- * @param {Feature[]} metadata.features1
- * @param {Feature[]} metadata.features2
- */
-module.exports = function(matches, metadata){
+//=================================================
 
-    var features1 = metadata.features1,
-        features2 = metadata.features2,
-        cam1 = metadata.cam1,
-        cam2 = metadata.cam2;
+
+/**
+ * recover fmatrix from image cord pairs using svd
+ * @param {{x1, x2}[]} matches - in image cord
+ */
+module.exports = function(matches){
 
     var A = Matrix.create(matches.map(function(match){
-        var f1 = features1[match[0]],
-            f2 = features2[match[1]],
-            p1 = Matrix.create(cord.featureToImg(f1, cam1)),
-            p2 = Matrix.create([cord.featureToImg(f2, cam2)]);
+        var x1 = match.x1.elements,
+            x2 = match.x2.elements,
+            p1 = Matrix.create(x1),
+            p2 = Matrix.create([x2]);
         return _.flatten(p1.x(p2).elements);
     }));
 
@@ -40,5 +34,34 @@ module.exports = function(matches, metadata){
         result.slice(3, 6),
         result.slice(6, 9)
     ]);
+
+};
+
+
+/**
+ * @param {int[][]} matches
+ * @param {object} metadata
+ * @param {Camera} metadata.cam1
+ * @param {Camera} metadata.cam2
+ * @param {Feature[]} metadata.features1
+ * @param {Feature[]} metadata.features2
+ */
+module.exports.shortcut = function(matches, metadata){
+
+    var features1 = metadata.features1,
+        features2 = metadata.features2,
+        cam1 = metadata.cam1,
+        cam2 = metadata.cam2;
+
+    var formatted = matches.map(function(match){
+        var f1 = features1[match[0]],
+            f2 = features2[match[1]];
+        return {
+            x1: Vector.create(cord.featureToImg(f1, cam1)),
+            x2: Vector.create(cord.featureToImg(f2, cam2))
+        };
+    });
+
+    return module.exports(formatted);
 
 };
