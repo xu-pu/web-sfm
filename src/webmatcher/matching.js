@@ -1,6 +1,6 @@
 var _ = require('underscore'),
     eightPoint = require('eightpoint.js'),
-    ransac = require('./ransac.js'),
+    ransac = require('./../webregister/ransac.js'),
     bruteforce = require('./bruteforce-matching.js'),
     la = require('sylvester'),
     Matrix = la.Matrix,
