@@ -1,12 +1,33 @@
+'use strict';
+
 var _ = require('underscore');
 
-module.exports = tracking;
+//======================================================
+
+
+/**
+ * @typedef {{cam: number, point: number}} View
+ */
+
+
+/**
+ * @typedef {{cam1: number, cam2: number, matches: number[][]}} TwoViewMatches
+ */
+
+
+/**
+ * @typedef {Object} Track
+ */
+
+
+//======================================================
+
 
 /**
  * @param {TwoViewMatches[]} matchList
  * @returns {{tracks:Track[], views: Object}}
  */
-function tracking(matchList) {
+module.exports = function(matchList) {
     var tracks = [];
     var views = {};
     matchList.forEach(function(match){
@@ -29,19 +50,7 @@ function tracking(matchList) {
         });
     });
     return { tracks: tracks, views: views };
-}
-
-/**
- * @typedef {{cam: number, point: number}} View
- */
-
-/**
- * @typedef {{cam1: number, cam2: number, matches: number[][]}} TwoViewMatches
- */
-
-/**
- * @typedef {Object} Track
- */
+};
 
 /**
  *
