@@ -30,16 +30,15 @@ function testCam(i1, i2){
 
     var results = estimateFmatrix(matches, metadata);
     var estF = results.F;
-    var dataset = _.sample(matches, 100);
+    var dataset = _.sample(results.dataset, 100);
 
     return Promise.all([
-        testUtils.promiseVisualEpipolar('/home/sheep/Code/est-fmatrix-refer.png', i1, i2, F),
-        testUtils.promiseVisualEpipolar('/home/sheep/Code/est-fmatrix-est.png', i1, i2, estF),
+        testUtils.promiseVisualEpipolar('/home/sheep/Code/est-fmatrix-refer.png'        , i1, i2, F),
+        testUtils.promiseVisualEpipolar('/home/sheep/Code/est-fmatrix-est.png'          , i1, i2, estF),
         testUtils.promiseDetailedMatches('/home/sheep/Code/est-fmatrix-detail-refer.png', i1, i2, dataset, F),
-        testUtils.promiseDetailedMatches('/home/sheep/Code/est-fmatrix-detail-est.png', i1, i2, dataset, estF)
-
+        testUtils.promiseDetailedMatches('/home/sheep/Code/est-fmatrix-detail-est.png'  , i1, i2, dataset, estF)
     ]);
 
 }
 
-testCam(5,9);
+testCam(3,7);

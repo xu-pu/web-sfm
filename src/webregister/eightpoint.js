@@ -21,7 +21,7 @@ var ransac = require('./ransac.js'),
 
 
 /**
- *
+ * Normalized eight point algorithm to filter matches and estimate Fmatrix
  * @param {int[][]} matches
  * @param {TwoViewMetadata} metadata
  * @returns {{dataset: [], F}}
@@ -59,9 +59,9 @@ module.exports = function(matches, metadata){
         subset: 8,
         relGenerator: estimateFmatrix,
         errorGenerator: module.exports.fundamentalMatrixError,
-        outlierThreshold: 0.2,
+        outlierThreshold: 0.15,
         errorThreshold: 0.006,
-        trials: 1000
+        trials: 2000
     });
 
     var Fsvd = estimateFmatrix(_.sample(results.dataset, 100)),
@@ -69,19 +69,26 @@ module.exports = function(matches, metadata){
 
     F = T1.transpose().x(F).x(T2);
 
+    var filteredMatches = results.dataset.map(function(pair){
+        var i = normalizedMatches.indexOf(pair);
+        if (i === -1) {
+            throw 'Match not fount while constructing filtered matches';
+        }
+        else {
+            return matches[i];
+        }
+    });
+
     return {
-        dataset: results.dataset,
+        dataset: filteredMatches,
         F: F
     };
 
 };
 
-function refineF(F, matches){
-    return F;
-}
-
 
 /**
+ * fundamental matrix error for a match
  * @param F
  * @param {{x1, x2}} match
  * @return {number}
@@ -94,3 +101,8 @@ module.exports.fundamentalMatrixError = function(F, match){
         modulus = Math.sqrt(a*a+b*b);
     return Math.abs(p1.dot(line)/modulus);
 };
+
+
+function refineF(F, matches){
+    return F;
+}
