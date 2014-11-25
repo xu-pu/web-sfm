@@ -11,7 +11,7 @@ var bundler = require('../src/math/bundler.js'),
     testUtils = require('../src/utils/testing.js'),
     projections = require('../src/math/projections.js'),
     cord = require('../src/utils/cord.js'),
-    dlt = require('../src/webregister/dlt-projection-estimation.js');
+    dlt = require('../src/webregister/estimate-projection.js');
 
 function testCam(i){
 
