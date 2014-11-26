@@ -91,9 +91,27 @@ ConnectivityGraph.prototype.requireNode = function(cam, feature){
 
 
 /**
- *
+ * Convert Graph into tracks
+ * @returns {ConnectivityNode[][]}
  */
 ConnectivityGraph.prototype.toTracks = function(){
+
+    while (this.nodes.length > 0) {
+        this.tracks.push(
+            this.track(this.nodes[0])
+        );
+    }
+
+    return this.tracks;
+
+};
+
+
+/**
+ * Destructive depth first traversal, removed from nodes after traversal
+ * @returns {ConnectivityNode[]}
+ */
+ConnectivityGraph.prototype.track = function(start){
 
 };
 
