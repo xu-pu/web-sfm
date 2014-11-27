@@ -2,18 +2,25 @@
 
 var _ = require('underscore');
 
+//==================================================
+
+module.exports = Patch;
+
+//==================================================
+
 
 /**
  * Patch class
  *
  * @property c - patch center
  * @property n - normal vector
- * @property R - reference image
- * @property V - visiable images
+ * @property {ImageCellGrid}   R     - reference image
+ * @property {ImageCellGrid[]} V     - visiable images
+ * @property {ImageCellGrid[]} Vstar - visiable & photometric consistent images
  * @constructor
  */
-module.exports = function(options){
+function Patch(options){
 
     _.extend(this, options);
 
-};
+}

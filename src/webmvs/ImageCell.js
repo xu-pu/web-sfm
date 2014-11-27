@@ -19,10 +19,12 @@ module.exports = ImageCell;
 /**
  * Image cell class
  *
- * @property {undefined|Feature[]} features
+ * @property {Feature[]} features
  * @property {ImageCellGrid} grid
  * @property {int} row
  * @property {int} col
+ * @property {Patch[]} Q     - reverse reference of Patch.V
+ * @property {Patch[]} Qstar - reverse reference of Patch.Vstar
  * @constructor
  */
 function ImageCell(grid, row, col){
