@@ -1,13 +1,15 @@
 'use strict';
 
+//====================================================
+
 
 /**
- * Normalized Cross Correlation (NCC) score
+ * Normalized Cross Correlation (NCC) score, [0,1], higher better
  * @param {number[][]} array1
  * @param {number[][]} array2
  * @returns {number}
  */
-module.exports = function(array1, array2){
+module.exports.ncc = function(array1, array2){
 
     var size = array1.length,
         row, col,
@@ -25,6 +27,20 @@ module.exports = function(array1, array2){
     return memo/mean;
 
 };
+
+
+/**
+ * Photometric discrepency [0,1], lower better
+ * @param {number[][]} array1
+ * @param {number[][]} array2
+ * @returns {number}
+ */
+module.exports.discrepency = function(array1, array2){
+    return 1-exports.ncc(array1, array2);
+};
+
+
+//====================================================
 
 
 /**
