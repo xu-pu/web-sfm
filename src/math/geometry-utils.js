@@ -5,7 +5,16 @@ var la = require('sylvester'),
     Vector = la.Vector,
     Plane = la.Plane;
 
+//==========================================================
 
+
+/**
+ *
+ * @param x
+ * @param y
+ * @param z
+ * @returns {*}
+ */
 module.exports.getRotation = function getRotation(x,y,z){
     return rotateX(x).x(rotateY(y)).x(rotateZ(z));
 };
@@ -16,7 +25,7 @@ module.exports.getRotation = function getRotation(x,y,z){
  * @param R
  * @returns {number[]}
  */
-module.exports.toEuler = function(R){
+module.exports.getEulerAngles = function(R){
 
     var origin = Vector.create([0,0,0]),
         z = Vector.create([0,0,1]),
@@ -26,10 +35,21 @@ module.exports.toEuler = function(R){
         nline = p.intersectionWith(P).direction,
         n = nline.x(1/nline.modulus()),
         N = R.transpose().x(n);
-
-
-
 };
+
+
+/**
+ * Distance from point to line
+ * @param point - Vector
+ * @param line - Vector
+ */
+module.exports.getPoint2Line = function(point, line){
+    var a = line.e(1), b = line.e(2),
+        modulus = Math.sqrt(a*a+b*b);
+    return Math.abs(point.dot(line)/modulus);
+};
+
+//==========================================================
 
 
 function rotateX(angle){
