@@ -14,7 +14,7 @@ var samples = require('../src/utils/samples.js'),
     testUtils = require('../src/utils/testing.js'),
     drawHomography = require('../src/visualization/drawHomography.js'),
     projections = require('../src/math/projections.js'),
-    rotate = require('../src/math/rotate.js');
+    rotate = require('../src/math/geometry-utils.js');
 
 function testRotateMotion(i){
 
