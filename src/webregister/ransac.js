@@ -6,7 +6,7 @@ var _ = require('underscore');
 
 
 /**
- * @param {[]} options.dataset
+ * @param {[]}       options.dataset
  * @param {number}   options.outlierThreshold
  * @param {int}      options.trials
  * @param            options.metadata
@@ -27,7 +27,7 @@ module.exports = function(options){
         SUBSET            = options.subset,
         TRIALS            = options.trials;
 
-    var relEsitmate, inliers,
+    var relEsitmate, inliers, inlierRatio,
         trials=TRIALS;
 
     while(trials !== 0){
@@ -35,11 +35,12 @@ module.exports = function(options){
         inliers = dataset.filter(function(entry){
             return errorGenerator(relEsitmate, entry, metadata) < ERROR_THRESHOLD;
         });
-        if (inliers.length/dataset.length >= 1-OUTLIER_THRESHOLD) {
+        inlierRatio = inliers.length/dataset.length;
+        if (inlierRatio >= 1-OUTLIER_THRESHOLD) {
             console.log('Success, ' + inliers.length + '/' + dataset.length + ' passed RANSAC after ' + (TRIALS-trials) + ' trials');
             return { dataset: inliers, rel: relEsitmate };
         }
-        console.log(inliers.length + '/' + dataset.length + ', ' + (100*inliers.length/dataset.length) + '% passed RANSAC, trial failed');
+        console.log(inliers.length + '/' + dataset.length + ', ' + (100*inlierRatio) + '% passed RANSAC, trial failed');
         trials--;
     }
 
