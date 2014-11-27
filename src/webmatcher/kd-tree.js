@@ -2,28 +2,36 @@
 
 var _ = require('underscore');
 
-module.exports.Node = Node;
+module.exports.Node = KdtreeNode;
+
+//====================================================================
+
 
 /**
- *
+ * Create root node from features
  * @param {Feature[]} features
- * @returns {Node}
+ * @returns {KdtreeNode}
  */
 module.exports.initTree = function(features){
-    return new Node(0, features.length-1, null, features);
+    return new KdtreeNode(0, features.length-1, null, features);
 };
 
 
 /**
+ * Kd-tree node class
  * @param {int} head
  * @param {int} tail
- * @param {Node} parent
+ * @param {KdtreeNode} parent
  * @param {Feature[]} features
  *
+ * @property {int} head
+ * @property {int} tail
+ * @property {KdtreeNode} parent
+ * @property {Feature[]} features
+ *
  * @property {boolean} isLeaf
- * @property {Node} parent
- * @property {Node} [left]
- * @property {Node} [right]
+ * @property {KdtreeNode} [left]
+ * @property {KdtreeNode} [right]
  * @property {int} [leaf]
  *
  * @property {number} [kv]
@@ -32,7 +40,7 @@ module.exports.initTree = function(features){
  *
  * @constructor
  */
-function Node(head, tail, parent, features){
+function KdtreeNode(head, tail, parent, features){
 
     _.extend(this, {
         head: head,
@@ -57,7 +65,7 @@ function Node(head, tail, parent, features){
 /**
  *
  */
-Node.prototype.partition = function(){
+KdtreeNode.prototype.partition = function(){
 
     var head = this.head,
         tail = this.tail,
@@ -85,8 +93,8 @@ Node.prototype.partition = function(){
         this.partition();
     }
     else {
-        this.left = new Node(head, head+counter-1, this, features);
-        this.right = new Node(head+counter, tail, this, features);
+        this.left = new KdtreeNode(head, head+counter-1, this, features);
+        this.right = new KdtreeNode(head+counter, tail, this, features);
     }
 
     function swap(i1, i2){
@@ -101,7 +109,7 @@ Node.prototype.partition = function(){
 /**
  *
  */
-Node.prototype.findSplit = function(){
+KdtreeNode.prototype.findSplit = function(){
 
     var head = this.head,
         tail = this.tail,

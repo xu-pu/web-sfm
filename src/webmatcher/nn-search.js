@@ -2,26 +2,29 @@
 
 var _ = require('underscore');
 
-module.exports = searchNN;
+//==========================================================
 
 
 /**
  *
- * @param {Node} root
+ * @param {KdtreeNode} root
  * @param {Feature} feature
  * @param {number} n
  * @returns {MinimumQueue}
  */
-function searchNN(root, feature, n){
+module.exports = function(root, feature, n){
     var mins = new MinimumQueue(n);
     searchTree(root, feature, mins);
     return mins;
-}
+};
+
+
+//==========================================================
 
 
 /**
  *
- * @param {Node} root
+ * @param {KdtreeNode} root
  * @param {Feature} feature
  * @param {MinimumQueue} mins
  */
@@ -73,9 +76,9 @@ function getDistance(f1, f2){
 
 /**
  *
- * @param {Node} root
+ * @param {KdtreeNode} root
  * @param {Feature} f
- * @returns {Node}
+ * @returns {KdtreeNode}
  */
 function findLeaf(root, f){
     if (root.isLeaf) {
@@ -85,6 +88,9 @@ function findLeaf(root, f){
         return f.vector[root.ki] <= root.kv ? findLeaf(root.left, f) : findLeaf(root.right, f);
     }
 }
+
+
+//==========================================================
 
 
 /**

@@ -5,6 +5,9 @@ var _ = require('underscore');
 var kdtree = require('./kd-tree.js'),
     searchNN = require('./nn-search.js');
 
+//=============================================================
+
+
 /**
  *
  * @param {Feature[]} features1
@@ -51,7 +54,7 @@ module.exports = function(features1, features2){
 
 /**
  *
- * @param {Node} tree
+ * @param {KdtreeNode} tree
  * @param {Feature} feature
  * @returns {number|null}
  */
