@@ -45,7 +45,7 @@ module.exports.getEulerAngles = function(R){
  */
 module.exports.getPoint2Line = function(point, line){
     var a = line.e(1), b = line.e(2),
-        modulus = Math.sqrt(a*a+b*b);
+        modulus = Math.sqrt(a*a+b*b)*point.e(3);
     return Math.abs(point.dot(line)/modulus);
 };
 
