@@ -3,9 +3,9 @@
 var _ = require('underscore'),
     la = require('sylvester'),
     Matrix = la.Matrix,
-    Vector = la.Vector,
-    numeric = require('numeric'),
-    cord = require('../utils/cord.js');
+    Vector = la.Vector;
+
+var cord = require('../utils/cord.js');
 
 //=================================================
 
