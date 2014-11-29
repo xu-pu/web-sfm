@@ -16,3 +16,19 @@ module.exports.crossVector = function(v){
         [ -v.e(2), v.e(1)  , 0      ]
     ]);
 };
+
+
+/**
+ * max of abs
+ * @param {Matrix} m
+ * @returns number
+ */
+module.exports.matrixInfiniteNorm = function(m){};
+
+
+/**
+ * max of abs
+ * @param {Vector} v
+ * @returns number
+ */
+module.exports.vectorInfiniteNorm = function(v){};
