@@ -49,6 +49,19 @@ module.exports.getPoint2Line = function(point, line){
     return Math.abs(point.dot(line)/modulus);
 };
 
+
+/**
+ * Distance in (row,col)
+ * @param {RowCol} rc1
+ * @param {RowCol} rc2
+ * @returns number
+ */
+module.exports.getDistanceRC = function(rc1, rc2){
+    var dr = rc1.row - rc2.row;
+    var dc = rc1.col - rc2.col;
+    return Math.sqrt( dr*dr + dc*dc );
+};
+
 //==========================================================
 
 
