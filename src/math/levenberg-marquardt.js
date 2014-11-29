@@ -5,53 +5,152 @@ var _ = require('underscore'),
     Matrix = la.Matrix,
     Vector = la.Vector;
 
+var laUtils = require('../math/la-utils.js'),
+    sparse = require('../math/sparse-matrix.js'),
+    SparseMatrix = sparse.SparseMatrix;
 
-/**
- * @param {Function[]} funcs
- * @param {number[]} initials
- */
-function getJacobian (funcs, initials){
-    var variables = initials.length;
-    var values = funcs.length;
-    var result = Matrix.create({ rows: values, cols: variables });
-    funcs.forEach(function(func, index){
-        _.range(variables).forEach(function(xi){
-            var der = partialDerivative(func, initials, xi);
-            result.set(index, xi, der);
-        });
-    });
-    return result;
-}
-
-
-/**
- * @param {Function} func
- * @param {number[]} initials
- * @param {number} xi
- * @return {number}
- */
-function partialDerivative(func, initials, xi){
-    var DELTA = 0.1;
-    var neighbor = new Float32Array(initials);
-    neighbor[xi] += DELTA;
-    return (func(neighbor)-func(initials))/DELTA;
-}
+//==========================================
 
 
 /**
  * Levenberg-Marqurdt Algorithm
  *
- * @param {function} generator
- * @param {number[]} params -- initial parameters
- * @param constrains
- * @return {number[]}
+ * @param {function(Vector):Vector} func - f(vx) => vy
+ * @param {Vector} x0 - start point x0[]
+ * @param {Vector} target - target
+ * @return {Vector}
  */
-function lma(params, generator, constrains){
+module.exports.lma = function(func, x0, target){
 
-    var func = generator(params);
-    var error = constants.map(function(constrain){
-        return func
+    var MAX_STEPS = 100,
+        DAMP_BASE = Math.pow(10, -3),
+        ZERO_THRESHOLD = Math.pow(10, -15),
+        DEFAULT_STEP_BASE = 2;
+
+    var y0 = func(x0),
+        xs = x0.elements.length,
+        ys = y0.elements.length;
+
+    var     p = x0.dup(),
+            y = y0,
+        sigma = target.subtract(y0),
+            J = getJacobian(func, x0),
+            A = J.transpose().x(J),
+            g = J.transpose().x(sigma),
+         damp = DAMP_BASE*laUtils.matrixInfiniteNorm(A);
+
+    var N, deltaX, newSigma, newX, newY,
+             improvement = 0,
+        improvementRatio = 0,
+                dampStep = DEFAULT_STEP_BASE,
+                    done = false,
+             stepCounter = 0;
+
+    while (!done && stepCounter < MAX_STEPS) {
+
+        stepCounter++;
+
+        while( !done && !(improvementRatio>0) ) {
+
+            // from p, try to find next step, if rejected, change damping and try again
+
+            N = A.add(Matrix.I(xs).x(damp));
+
+            deltaX = solveEquationSet(N, g);
+
+            if (deltaX.modulus() < ZERO_THRESHOLD* p.modulus()) {
+                // end if step is too small
+                done = true;
+                break;
+            }
+
+            newX = p.add(deltaX);
+            newY = func(newX);
+            newSigma = target.subtract(y);
+
+            improvement = sigma.modulus()-newSigma.modulus();
+            improvementRatio = improvement/(deltaX.x(damp).add(g).dot(deltaX));
+
+            if (improvementRatio <= 0) {
+                // accept the step, refresh the equation
+                damp *= dampStep;
+                dampStep *= DEFAULT_STEP_BASE;
+            }
+
+        }
+
+        // the newX is accepted
+        p = newX;
+        y = func(p);
+        sigma = target.subtract(y);
+
+        if (!done){
+
+            // refresh the equation
+            J = getJacobian(func, p);
+            A = J.transpose().x(J);
+            g = J.transpose().x(sigma);
+
+            // reset iteration variables
+            damp *= Math.max(1/3, 1-Math.pow(2*improvementRatio-1, 3));
+            dampStep = DEFAULT_STEP_BASE;
+            improvement = 0;
+            improvementRatio = 0;
+        }
+
+        if (laUtils.vectorInfiniteNorm(g) < ZERO_THRESHOLD) {
+            done = true;
+        }
+
+    }
+
+    return p;
+
+};
+
+
+/**
+ *
+ * @param {Matrix|SparseMatrix} N
+ * @param {Vector} g
+ * @returns Vector
+ */
+function solveEquationSet(N, g){
+    if (N.isSparse) {
+
+    }
+    else {
+        return N.inverse().x(g);
+    }
+}
+
+
+/**
+ * Get Jacobian Matrix
+ * @param {function(Vector):Vector} func - f(vx) => vy
+ * @param {Vector} x - start point x0[]
+ * @returns {Matrix}
+ */
+function getJacobian (func, x){
+
+    var DELTA = 0.1;
+
+    var y = func(x),
+        xx = x.dup(),
+        xs = x.elements.length,
+        ys = y.elements.length;
+
+    var J = _.range(xs).map(function(xi){
+        xx.elements[xi] = xx.elements[xi] + DELTA;
+        var yy = func(xx);
+        xx.elements[xi] = xx.elements[xi] - DELTA;
+        return _.range(ys).map(function(yi){
+            return (yy.elements[yi]-y.elements[yi])/DELTA;
+        });
     });
 
-    return params;
+    J = Matrix.create(J);
+
+    return J
+
 }
