@@ -5,6 +5,39 @@ var _ = require('underscore'),
     Matrix = la.Matrix,
     Vector = la.Vector;
 
+//===================================================
+
+
+/**
+ * ATA of dense matrix without create transpose matrix, more efficient
+ * @param {Matrix} A
+ * @returns Matrix
+ */
+module.exports.denseATA = function(A){
+    // todo A.transpose().x(A)
+    return A.transpose().x(A);
+};
+
+
+/**
+ * ATA of sparse matrix without create transpose matrix, more efficient
+ * @param {SparseMatrix} A
+ * @returns SparseMatrix
+ */
+module.exports.sparseATA = function(A){
+    // todo A.transpose().x(A)
+};
+
+
+/**
+ * ATA without create transpose matrix, more efficient, a shortcut
+ * @param {Matrix|SparseMatrix} A
+ * @returns Matrix|SparseMatrix
+ */
+module.exports.ATA = function(A){
+    return A.isSparse ? exports.sparseATA(A) : exports.denseATA(A);
+};
+
 
 /**
  * get skewed matrix equivalent as cross product
