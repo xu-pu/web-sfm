@@ -7,13 +7,21 @@ var _ = require('underscore'),
 
 var ransac = require('./ransac.js'),
     cord = require('../utils/cord.js'),
-    estimateFmatrix = require('./estimate-fmatrix.js');
+    estimateFmatrix = require('./estimate-fmatrix.js'),
+    lma = require('../math/levenberg-marquardt.js'),
+    laUtils = require('../math/la-utils.js'),
+    geoUtils = require('../math/geometry-utils.js');
 
 //====================================================
 
 
 /**
- * @typedef {{features1: Feature[], features2: Feature[], cam2: Camera, cam2: Camera}} TwoViewMetadata
+ * @typedef {{ features1: Feature[], features2: Feature[], cam2: Camera, cam2: Camera }} TwoViewMetadata
+ */
+
+
+/**
+ * @typedef {{ x1: Vector, x2: Vector }} PointMatch
  */
 
 
@@ -24,7 +32,7 @@ var ransac = require('./ransac.js'),
  * Normalized eight point algorithm to filter matches and estimate Fmatrix
  * @param {int[][]} matches
  * @param {TwoViewMetadata} metadata
- * @returns {{dataset: [], F}}
+ * @returns {{ dataset: PointMatch[], F: Matrix }}
  */
 module.exports = function(matches, metadata){
 
@@ -89,8 +97,8 @@ module.exports = function(matches, metadata){
 
 /**
  * fundamental matrix error for a match
- * @param F
- * @param {{x1, x2}} match
+ * @param {Matrix} F
+ * @param {PointMatch} match
  * @return {number}
  */
 module.exports.fundamentalMatrixError = function(F, match){
@@ -103,6 +111,25 @@ module.exports.fundamentalMatrixError = function(F, match){
 };
 
 
+/**
+ *
+ * @param {Matrix} F
+ * @param {PointMatch[]} matches
+ * @returns {Matrix}
+ */
 function refineF(F, matches){
-    return F;
+
+    var refined = lma(
+        function(parameters){
+            var currentF = laUtils.inflateVector(parameters, 3, 3);
+            return Vector.create(matches.map(function(match){
+                return exports.fundamentalMatrixError(currentF, match);
+            }));
+        },
+        laUtils.flattenMatrix(F).x(1000),
+        Vector.Zero(matches.length)
+    );
+
+    return laUtils.inflateVector(refined, 3, 3);
+
 }
