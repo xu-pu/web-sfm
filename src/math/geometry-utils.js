@@ -62,6 +62,21 @@ module.exports.getDistanceRC = function(rc1, rc2){
     return Math.sqrt( dr*dr + dc*dc );
 };
 
+
+/**
+ *
+ * @param {RowCol} rc1
+ * @param {RowCol} rc2
+ * @param {Camera} cam
+ * @returns number
+ */
+module.exports.getNormalizedDist = function(rc1, rc2, cam){
+    var dr = (rc1.row - rc2.row)/cam.height;
+    var dc = (rc1.col - rc2.col)/cam.width;
+    return Math.sqrt( dr*dr + dc*dc );
+};
+
+
 //==========================================================
 
 
