@@ -19,18 +19,11 @@ var bundler = require('../src/math/bundler.js'),
 function testCam(i){
 
     var cloud = sample.getViewSparse(i),
-        data = sample.getView(i);
-
-    var reference = cloud.map(function(track){
+        data = sample.getView(i),
+        reference = cloud.map(function(track){
             return track.x;
         }),
         dataset = _.sample(cloud, 100),
-        datasetRC = dataset.map(function(track){
-            return track.x;
-        }),
-        datasetX = dataset.map(function(track){
-            return track.X;
-        }),
         datasetPairs = dataset.map(function(track){
             var rc = track.x;
             return {
@@ -45,10 +38,9 @@ function testCam(i){
         function(parameter){
             var pro = laUtils.inflateVector(parameter, 3, 4);
             return Vector.create(cloud.map(function(track, index){
-                return geoUtils.getNormalizedDist(
+                return geoUtils.getDistanceRC(
                     cord.img2RT(pro.x(track.X), data.cam.height),
-                    reference[index],
-                    data.cam
+                    reference[index]
                 );
             }))
         },
@@ -57,11 +49,6 @@ function testCam(i){
     );
 
     var refinedPro = laUtils.inflateVector(refined, 3, 4);
-
-    var estimated = datasetX.map(function(X){
-        return cord.img2RT(estPro.x(X), data.cam.height);
-    });
-
 
     var reprojectedDLT = cloud.map(function(track){
             var X = track.X;
@@ -77,13 +64,8 @@ function testCam(i){
         testUtils.promiseVisualPoints('/home/sheep/Code/est-projection-all.png'    , i, reference),
         testUtils.promiseVisualPoints('/home/sheep/Code/est-projection-all-dlt.png', i, reprojectedDLT),
         testUtils.promiseVisualPoints('/home/sheep/Code/est-projection-all-lma.png', i, reprojectedLMA)
-
-        // a small random sample set
-        //testUtils.promiseVisualPoints('/home/sheep/Code/est-projection-dataset.png'          , i, datasetRC),
-        //testUtils.promiseVisualPoints('/home/sheep/Code/est-projection-est.png'              , i, estimated)
     ]);
 
 }
 
-testCam(6);
-
+testCam(19);
