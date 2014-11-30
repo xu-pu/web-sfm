@@ -44,14 +44,15 @@ function testCam(i){
     var refined = lma(
         function(parameter){
             var pro = laUtils.inflateVector(parameter, 3, 4);
-            return Vector.create(cloud.map(function(point, index){
-                return geoUtils.getDistanceRC(
-                    cord.img2RT(pro.x(point), data.cam.height),
-                    reference[index]
+            return Vector.create(cloud.map(function(track, index){
+                return geoUtils.getNormalizedDist(
+                    cord.img2RT(pro.x(track.X), data.cam.height),
+                    reference[index],
+                    data.cam
                 );
             }))
         },
-        Vector.create(_.flatten(estPro.elements)),
+        laUtils.flattenMatrix(estPro).x(1000),
         Vector.Zero(cloud.length)
     );
 
@@ -73,13 +74,16 @@ function testCam(i){
 
 
     return Promise.all([
-        testUtils.promiseVisualPoints('/home/sheep/Code/est-projection-refer.png', i, reference),
-        testUtils.promiseVisualPoints('/home/sheep/Code/est-projection-refer-reprojected.png', i, reprojectedDLT),
-        testUtils.promiseVisualPoints('/home/sheep/Code/est-projection-dataset.png', i, datasetRC),
-        testUtils.promiseVisualPoints('/home/sheep/Code/est-projection-est.png', i, estimated)
+        testUtils.promiseVisualPoints('/home/sheep/Code/est-projection-all.png'    , i, reference),
+        testUtils.promiseVisualPoints('/home/sheep/Code/est-projection-all-dlt.png', i, reprojectedDLT),
+        testUtils.promiseVisualPoints('/home/sheep/Code/est-projection-all-lma.png', i, reprojectedLMA)
+
+        // a small random sample set
+        //testUtils.promiseVisualPoints('/home/sheep/Code/est-projection-dataset.png'          , i, datasetRC),
+        //testUtils.promiseVisualPoints('/home/sheep/Code/est-projection-est.png'              , i, estimated)
     ]);
 
 }
 
-testCam(8);
+testCam(6);
 
