@@ -12,7 +12,7 @@ var cord = require('../utils/cord.js');
 
 /**
  * recover fmatrix from image cord pairs using svd
- * @param {{x1, x2}[]} matches - in image cord
+ * @param {{x1: Vector, x2: Vector}[]} matches - in image cord
  */
 module.exports = function(matches){
 
@@ -39,6 +39,7 @@ module.exports = function(matches){
 
 
 /**
+ * Shortcut for dlt from features
  * @param {int[][]} matches
  * @param {object} metadata
  * @param {Camera} metadata.cam1
