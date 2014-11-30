@@ -11,8 +11,8 @@ var _ = require('underscore'),
 /**
  * Get Jacobian Matrix
  * @param {function(Vector):Vector} func - f(vx) => vy
- * @param {Vector} x - start point x0[]
- * @returns {Matrix}
+ * @param {Vector} x
+ * @returns Matrix
  */
 module.exports = function(func, x){
 
@@ -21,19 +21,19 @@ module.exports = function(func, x){
     var y = func(x),
         xx = x.dup(),
         xs = x.elements.length,
-        ys = y.elements.length;
+        ys = y.elements.length,
+        jacobian = Matrix.Zero(ys,xs),
+        yNew, xi, yi;
 
-    var J = _.range(xs).map(function(xi){
+    for (xi=0; xi<xs; xi++) {
         xx.elements[xi] = xx.elements[xi] + DELTA;
-        var yy = func(xx);
+        yNew = func(xx);
         xx.elements[xi] = xx.elements[xi] - DELTA;
-        return _.range(ys).map(function(yi){
-            return (yy.elements[yi]-y.elements[yi])/DELTA;
-        });
-    });
+        for (yi=0; yi<ys; yi++) {
+            jacobian.elements[yi][xi] = (yNew.elements[yi] - y.elements[yi]) / DELTA;
+        }
+    }
 
-    J = Matrix.create(J);
-
-    return J
+    return jacobian;
 
 };
