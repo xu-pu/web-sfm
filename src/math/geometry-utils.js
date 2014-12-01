@@ -62,10 +62,15 @@ module.exports.getEulerAngles = function(R){
         alpha = x2n > Math.PI ? (x2n - Math.PI) : x2n;
 
     // get beta
-    var beta = Z.angleFrom(z);
+    var alphaRotate = rotateZ(alpha),
+        ZZ = alphaRotate.x(Z),
+        beta = exports.getRightHandRotation([z.e(2), z.e(3)], [ZZ.e(2), ZZ.e(3)]);
 
     // get gamma
-    var gamma = X.angleFrom(N);
+    var reverse = R.transpose(),
+        NN = reverse.x(N),
+        XX = x,
+        gamma = exports.getRightHandRotation([NN.e(1), NN.e(2)], [XX.e(1), XX.e(2)]);
 
     return [alpha, beta, gamma];
 
@@ -78,7 +83,9 @@ module.exports.getEulerAngles = function(R){
  * @param {number[]} toV
  * @returns {number}
  */
-module.exports.getRightHandRotation = function(fromV, toV){};
+module.exports.getRightHandRotation = function(fromV, toV){
+
+};
 
 
 /**
