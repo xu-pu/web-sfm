@@ -85,6 +85,87 @@ module.exports.getEulerAngles = function(R){
  */
 module.exports.getRightHandRotation = function(fromV, toV){
 
+    var x1 = fromV[0], y1 = fromV[1],
+        x2 = toV[0]  , y2 = toV[1];
+
+    var block1, block2;
+
+    if (x1>=0 && y1>0) {
+        block1 = 1;
+    }
+    else if (x1<0 && y1>=0) {
+        block1 = 2;
+    }
+    else if (x1<=0 && y1<0) {
+        block1 = 3;
+    }
+    else if (x1>0 && y1<=0) {
+        block1 = 4;
+    }
+
+    if (x2>0 && y2>=0) {
+        block2 = 1;
+    }
+    else if (x2<=0 && y2>0) {
+        block2 = 2;
+    }
+    else if (x2<0 && y2<=0) {
+        block2 = 3;
+    }
+    else if (x2>=0 && y2<0) {
+        block2 = 4;
+    }
+
+    var angle1, angle2;
+
+    switch (block1) {
+        case 1:
+            angle1 = Vector.create([0,1]).angleFrom(Vector.create(fromV));
+            break;
+        case 2:
+            angle1 = Vector.create([-1,0]).angleFrom(Vector.create(fromV));
+            break;
+        case 3:
+            angle1 = Vector.create([0,-1]).angleFrom(Vector.create(fromV));
+            break;
+        case 4:
+            angle1 = Vector.create([1,0]).angleFrom(Vector.create(fromV));
+            break;
+    }
+
+    switch (block2) {
+        case 1:
+            angle2 = Vector.create([1,0]).angleFrom(Vector.create(toV));
+            break;
+        case 2:
+            angle2 = Vector.create([0,1]).angleFrom(Vector.create(toV));
+            break;
+        case 3:
+            angle2 = Vector.create([-1,0]).angleFrom(Vector.create(toV));
+            break;
+        case 4:
+            angle2 = Vector.create([0,-1]).angleFrom(Vector.create(toV));
+            break;
+    }
+
+    var blogdiff = 0, cursor = block1;
+    while (cursor !== block2) {
+        cursor = cursor === 4 ? 1 : cursor+1;
+        blogdiff++;
+    }
+
+    if (block1 === block2) {
+        if (angle1+angle2 >= Math.PI/2) {
+            return angle1 + angle2 - Math.PI/2;
+        }
+        else {
+            return angle1 + angle2 + Math.PI*3/2;
+        }
+    }
+    else {
+        return (blogdiff-1)*Math.PI/2 + angle1 + angle2;
+    }
+
 };
 
 
