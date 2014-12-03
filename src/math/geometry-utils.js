@@ -27,10 +27,9 @@ module.exports.getRotation = function getRotation(x,y,z){
  * @returns {Matrix}
  */
 module.exports.getRotationFromEuler = function(alpha, beta, gamma){
-    return rotateZ(gamma)
-        .x(rotateX(beta))
-        .x(rotateZ(alpha))
-        .transpose();
+    return rotateZ(gamma).transpose()
+        .x(rotateX(beta).transpose())
+        .x(rotateZ(alpha).transpose());
 };
 
 
@@ -57,12 +56,9 @@ module.exports.getEulerAngles = function(R){
 
     // get alpha
     var x2n = exports.getRightHandRotation([x.e(1), x.e(2)], [N.e(1), N.e(2)]),
-        alpha = x2n > Math.PI ? (x2n - Math.PI) : x2n;
+        alpha = x2n > Math.PI ? (x2n - Math.PI) : x2n,
+        alphaRotate = rotateZ(alpha).transpose();
 
-    var alphaRotate = rotateZ(alpha).transpose(),
-        nrotated = alphaRotate.x(N);
-
-    console.log(nrotated.x(1/nrotated.e(1)).elements + ' need to be the x axis');
     console.log('alpha: ' + alpha);
 
     // get beta
@@ -70,19 +66,13 @@ module.exports.getEulerAngles = function(R){
         ZZ = alphaRotate.x(Z),
         beta = exports.getRightHandRotation([zz.e(2), zz.e(3)], [ZZ.e(2), ZZ.e(3)]);
 
-    var rtemp = rotateX(beta).x(rotateZ(alpha)).transpose(),
-        betaZ = rtemp.x(Z),
-        betaN = rtemp.x(N);
-
-    console.log(betaZ.x(1/betaZ.e(1)).elements + ' need to be the z axis');
-    console.log(betaN.x(1/betaN.e(1)).elements + ' need to be the x axis');
-    console.log(beta);
+    console.log('beta: ' + beta);
 
     // get gamma
     var NN = R.x(N),
         gamma = exports.getRightHandRotation([NN.e(1), NN.e(2)], [x.e(1), x.e(2)]);
 
-    console.log(gamma);
+    console.log('gamma: ' + gamma);
 
     return [alpha, beta, gamma];
 
