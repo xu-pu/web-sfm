@@ -52,25 +52,39 @@ module.exports.getEulerAngles = function(R){
         X = RR.x(x),
         Y = RR.x(y),
         Z = RR.x(z),
-        N = Vector.create([1, -Z.e(1)/ Z.e(2), 0]);
+        N = Vector.create([1, -Z.e(1)/ Z.e(2), 0]),
+        NN = Vector.create([1, -Z.e(1)/ Z.e(2), 0]).x(-1);
+
+    var rotated;
 
     // get alpha
-    var x2n = exports.getRightHandRotation([x.e(1), x.e(2)], [N.e(1), N.e(2)]),
-        alpha = x2n > Math.PI ? (x2n - Math.PI) : x2n,
-        alphaRotate = rotateZ(alpha).transpose();
+    var alpha = Math.min(
+            exports.getRightHandRotation([x.e(1), x.e(2)], [N.e(1), N.e(2)]),
+            exports.getRightHandRotation([x.e(1), x.e(2)], [NN.e(1), NN.e(2)])
+        );
 
+    rotated = rotateZ(alpha).transpose();
+
+    var xnalign = rotated.x(N);
+    //console.log(xnalign.elements + ' should align with x axis');
     console.log('alpha: ' + alpha);
 
     // get beta
-    var zz = alphaRotate.x(z),
-        ZZ = alphaRotate.x(Z),
+    var zz = rotated.x(z),
+        ZZ = rotated.x(Z),
         beta = exports.getRightHandRotation([zz.e(2), zz.e(3)], [ZZ.e(2), ZZ.e(3)]);
+
+    rotated = rotateX(beta).transpose().x(rotated);
+    xnalign = rotated.x(N);
+    var zzalign = rotated.x(Z);
+    //console.log(xnalign.elements + ' should align with x axis');
+    //console.log(zzalign.elements + ' should align with z axis');
 
     console.log('beta: ' + beta);
 
     // get gamma
-    var NN = R.x(N),
-        gamma = exports.getRightHandRotation([NN.e(1), NN.e(2)], [x.e(1), x.e(2)]);
+    var XX = rotated.x(X),
+        gamma = exports.getRightHandRotation([x.e(1), x.e(2)], [XX.e(1), XX.e(2)]);
 
     console.log('gamma: ' + gamma);
 

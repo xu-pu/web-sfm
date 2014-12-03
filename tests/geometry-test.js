@@ -21,24 +21,38 @@ function testAngles(a, b,c){
 
     var refer = geoUtils.getRotationFromEuler(a,b,c),
         angles = geoUtils.getEulerAngles(refer),
-        reR = geoUtils.getRotationFromEuler(angles[0], angles[1], angles[2]);
+        reR = geoUtils.getRotationFromEuler(angles[0], angles[1], angles[2]),
+        errorMatrix = refer.transpose().x(reR).subtract(Matrix.I(3));
 
-    console.log(refer.transpose().x(reR));
+    console.log('error matrix infinite norm: ' + laUtils.matrixInfiniteNorm(errorMatrix));
 
 }
 
 
 function testCam(i){
 
-    var cam = sample.getView(i),
-        referR = cam.R,
-        angles = geoUtils.getEulerAngles(referR),
-        reR = geoUtils.getRotationFromEuler(angles[0], angles[1], angles[2]);
+    var refer = sample.getView(i).R,
+        angles = geoUtils.getEulerAngles(refer),
+        reR = geoUtils.getRotationFromEuler(angles[0], angles[1], angles[2]),
+        reAngle = geoUtils.getEulerAngles(reR),
+        diff = reR.x(refer.transpose()),
+        diffAngle = geoUtils.getEulerAngles(diff);
 
-    console.log(referR.transpose().x(reR));
+    var referError = refer.transpose().x(refer).subtract(Matrix.I(3)),
+        reRError = reR.transpose().x(reR).subtract(Matrix.I(3)),
+        diffError = diff.subtract(Matrix.I(3));
+
+    console.log('refer error matrix infinite norm: ' + laUtils.matrixInfiniteNorm(referError));
+    console.log('reR error matrix infinite norm: ' + laUtils.matrixInfiniteNorm(reRError));
+    console.log('diff error matrix infinite norm: ' + laUtils.matrixInfiniteNorm(diffError));
 
 }
 
-//testAngles(4.1, 3.5, 3.7);
+var halfpi = Math.PI/ 2,
+    pi = Math.PI;
 
-testCam(10);
+//testAngles(0.4+pi/2, 1.2+pi/2, 2.4+pi/2);
+//testAngles(0.4, 1.2, 2.4);
+testAngles(1,5,6);
+
+//testCam(21);
