@@ -2,8 +2,7 @@
 
 var la = require('sylvester'),
     Matrix = la.Matrix,
-    Vector = la.Vector,
-    Plane = la.Plane;
+    Vector = la.Vector;
 
 //==========================================================
 
@@ -25,10 +24,13 @@ module.exports.getRotation = function getRotation(x,y,z){
  * @param {number} alpha
  * @param {number} beta
  * @param {number} gamma
- * @returns Matrix
+ * @returns {Matrix}
  */
 module.exports.getRotationFromEuler = function(alpha, beta, gamma){
-    return rotateZ(gamma).x(rotateX(beta)).x(rotateZ(alpha));
+    return rotateZ(gamma)
+        .x(rotateX(beta))
+        .x(rotateZ(alpha))
+        .transpose();
 };
 
 
@@ -44,33 +46,43 @@ module.exports.getEulerAngles = function(R){
 
     // prepare
 
-    var origin = Vector.create([0,0,0]),
+    var RR = R.transpose(),
         x = Vector.create([1,0,0]),
         y = Vector.create([0,1,0]),
         z = Vector.create([0,0,1]),
-        X = R.x(x),
-        Y = R.x(y),
-        Z = R.x(z);
+        X = RR.x(x),
+        Y = RR.x(y),
+        Z = RR.x(z),
+        N = Vector.create([1, -Z.e(1)/ Z.e(2), 0]);
 
     // get alpha
-
-    var xyPlane = Plane.create(origin, z),
-        XYPlane = Plane.create(origin, Z),
-        N = xyPlane.intersectionWith(XYPlane).direction;
-
     var x2n = exports.getRightHandRotation([x.e(1), x.e(2)], [N.e(1), N.e(2)]),
         alpha = x2n > Math.PI ? (x2n - Math.PI) : x2n;
 
+    var alphaRotate = rotateZ(alpha).transpose(),
+        nrotated = alphaRotate.x(N);
+
+    console.log(nrotated.x(1/nrotated.e(1)).elements + ' need to be the x axis');
+    console.log('alpha: ' + alpha);
+
     // get beta
-    var alphaRotate = rotateZ(alpha),
+    var zz = alphaRotate.x(z),
         ZZ = alphaRotate.x(Z),
-        beta = exports.getRightHandRotation([z.e(2), z.e(3)], [ZZ.e(2), ZZ.e(3)]);
+        beta = exports.getRightHandRotation([zz.e(2), zz.e(3)], [ZZ.e(2), ZZ.e(3)]);
+
+    var rtemp = rotateX(beta).x(rotateZ(alpha)).transpose(),
+        betaZ = rtemp.x(Z),
+        betaN = rtemp.x(N);
+
+    console.log(betaZ.x(1/betaZ.e(1)).elements + ' need to be the z axis');
+    console.log(betaN.x(1/betaN.e(1)).elements + ' need to be the x axis');
+    console.log(beta);
 
     // get gamma
-    var reverse = R.transpose(),
-        NN = reverse.x(N),
-        XX = x,
-        gamma = exports.getRightHandRotation([NN.e(1), NN.e(2)], [XX.e(1), XX.e(2)]);
+    var NN = R.x(N),
+        gamma = exports.getRightHandRotation([NN.e(1), NN.e(2)], [x.e(1), x.e(2)]);
+
+    console.log(gamma);
 
     return [alpha, beta, gamma];
 
@@ -211,6 +223,11 @@ module.exports.getNormalizedDist = function(rc1, rc2, cam){
 //==========================================================
 
 
+/**
+ *
+ * @param {number} angle
+ * @returns {Matrix}
+ */
 function rotateX(angle){
     return Matrix.create([
         [ 1, 0              ,  0               ],
@@ -220,6 +237,11 @@ function rotateX(angle){
 }
 
 
+/**
+ *
+ * @param {number} angle
+ * @returns {Matrix}
+ */
 function rotateY(angle){
     return Matrix.create([
         [  Math.cos(angle), 0, Math.sin(angle) ],
@@ -229,6 +251,11 @@ function rotateY(angle){
 }
 
 
+/**
+ *
+ * @param {number} angle
+ * @returns {Matrix}
+ */
 function rotateZ(angle){
     return Matrix.create([
         [ Math.cos(angle), -Math.sin(angle), 0 ],
