@@ -38,7 +38,7 @@ function searchTree(root, feature, mins){
     }
     else {
 
-        var cursor = findLeaf(root, feature), parent, kd, sibling;
+        var cursor = root.findLeaf(feature), parent, kd, sibling;
         mins.checkMin(cursor.leaf, matching.getFeatureDistance(feature, root.features[cursor.leaf]));
 
         //console.log(cursor.leaf);
@@ -60,20 +60,4 @@ function searchTree(root, feature, mins){
 
     }
 
-}
-
-
-/**
- *
- * @param {KdtreeNode} root
- * @param {Feature} f
- * @returns {KdtreeNode}
- */
-function findLeaf(root, f){
-    if (root.isLeaf) {
-        return root;
-    }
-    else {
-        return f.vector[root.ki] <= root.kv ? findLeaf(root.left, f) : findLeaf(root.right, f);
-    }
 }

@@ -51,20 +51,17 @@ function KdtreeNode(head, tail, parent, features){
 
     this.isLeaf = (tail - head) === 0;
     if (this.isLeaf) {
-//        console.log('Leaf at ' + head);
+        // console.log('Leaf at ' + head);
         this.leaf = head;
     }
     else {
-//        console.log('Node between ' + head + ' ~ ' + tail);
+        // console.log('Node between ' + head + ' ~ ' + tail);
         this.findSplit();
         this.partition();
     }
 }
 
 
-/**
- *
- */
 KdtreeNode.prototype.partition = function(){
 
     var head = this.head,
@@ -74,7 +71,7 @@ KdtreeNode.prototype.partition = function(){
         kv = this.kv,
         n = tail-head+1;
 
-//    console.log('split index ' + ki + ' at ' + kv);
+    // console.log('split index ' + ki + ' at ' + kv);
 
     var cursor, counter = 0;
     for (cursor = head; cursor<=tail; cursor++) {
@@ -106,9 +103,6 @@ KdtreeNode.prototype.partition = function(){
 };
 
 
-/**
- *
- */
 KdtreeNode.prototype.findSplit = function(){
 
     var head = this.head,
@@ -155,5 +149,22 @@ KdtreeNode.prototype.findSplit = function(){
     this.kvmax = dimSlice[dimSlice.length-1];
 
     //console.log('median ' + this.kv + ' from ' + dimSlice[0] + ' to ' + dimSlice[dimSlice.length-1]);
+
+};
+
+
+/**
+ * Find nearest leaf node
+ * @param {Feature} f
+ * @returns {KdtreeNode}
+ */
+KdtreeNode.prototype.findLeaf = function(f){
+
+    if (this.isLeaf) {
+        return this;
+    }
+    else {
+        return (f.vector[this.ki] <= this.kv) ? this.left.findLeaf(f) : this.right.findLeaf(f);
+    }
 
 };

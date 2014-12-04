@@ -7,7 +7,7 @@ var _ = require('underscore'),
 
 
 var kdtree = require('../src/webmatcher/kd-tree.js'),
-    searchNN = require('../src/webmatcher/nn-search.js'),
+    searchNN = require('../src/webmatcher/search-nn.js'),
     matching = require('../src/webmatcher/feature-matching.js'),
     matchTree = require('../src/webmatcher/kdtree-matching.js'),
     samples = require('../src/utils/samples.js'),
