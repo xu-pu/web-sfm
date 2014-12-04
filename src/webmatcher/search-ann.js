@@ -9,16 +9,43 @@ var matching = require('./feature-matching.js'),
 
 
 /**
- *
+ * Approximate Nearest Neighbor (ANN) search on Kd-tree
  * @param {KdtreeNode} root
  * @param {Feature} feature
  * @param {number} n
  * @param {number} error - acceptable error ratio
  * @returns {MinimumQueue}
  */
-module.exports = function(root, feature, n, error){
+module.exports.searchANN = function(root, feature, n, error){
     var mins = new MinimumQueue(n);
     searchTree(root, feature, mins, error);
+    return mins;
+};
+
+
+/**
+ * Nearest Neighbor (NN) search on Kd-tree
+ * @param {KdtreeNode} root
+ * @param {Feature} feature
+ * @param {number} n
+ * @returns {MinimumQueue}
+ */
+module.exports.searchNN = function(root, feature, n){
+    return exports.searchANN(root, feature, n, 0);
+};
+
+
+/**
+ * Bruteforce NN search for (f) in (features)
+ * @param {Feature} f
+ * @param {Feature[]} features
+ * @returns {MinimumQueue}
+ */
+module.exports.searchBruteforce = function(f, features){
+    var mins = new MinimumQueue(2);
+    features.forEach(function(f2, index2){
+        mins.checkMin(index2, matching.getFeatureDistance(f, f2));
+    });
     return mins;
 };
 
