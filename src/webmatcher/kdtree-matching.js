@@ -3,7 +3,7 @@
 var _ = require('underscore');
 
 var kdtree = require('./kd-tree.js'),
-    searchNN = require('./nn-search.js');
+    searchNN = require('./search-nn.js');
 
 //=============================================================
 
