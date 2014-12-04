@@ -13,7 +13,7 @@ module.exports.Node = KdtreeNode;
  * @returns {KdtreeNode}
  */
 module.exports.initTree = function(features){
-    return new KdtreeNode(0, features.length-1, null, features);
+    return new KdtreeNode(0, features.length-1, null, features.slice());
 };
 
 
