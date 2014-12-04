@@ -1,26 +1,46 @@
 'use strict';
 
-var kdtree = require('../src/webregister/kd-tree.js'),
-    searchNN = require('../src/webregister/nn-search.js'),
-    matchTree = require('../src/webregister/kdtree-matching.js'),
-    samples = require('../src/utils/samples.js');
+var _ = require('underscore'),
+    la = require('sylvester'),
+    Matrix = la.Matrix,
+    Vector = la.Vector;
 
 
-function constructTree(i){
-    var features = samples.getFeatures(i);
-    var root = kdtree.initTree(features);
-    console.log('kdtree generated');
-    var target = features[10];
-    var result = searchNN(root, target, 2);
-    console.log(result);
+var kdtree = require('../src/webmatcher/kd-tree.js'),
+    searchNN = require('../src/webmatcher/nn-search.js'),
+    matching = require('../src/webmatcher/feature-matching.js'),
+    matchTree = require('../src/webmatcher/kdtree-matching.js'),
+    samples = require('../src/utils/samples.js'),
+    genRamdom = require('../src/utils/random.js');
+
+
+function testRandomSample(){
+
+    var SAMPLE_SIZE = 100;
+
+    var target = genRamdom.getRandomFeature(),
+        reference, minDist = Infinity;
+
+    var dataset = _.range(SAMPLE_SIZE).map(function(){
+
+        var sample = genRamdom.getRandomFeature(),
+            dist = matching.getFeatureDistance(target, sample);
+
+        if (dist < minDist) {
+            minDist = dist;
+            reference = sample;
+        }
+
+        return sample;
+
+    });
+
+    var tr = kdtree.initTree(dataset);
+
+    var result = searchNN(tr, target, 2);
+
+    console.log();
+
 }
 
-function matchTest(i1, i2){
-    var features1 = samples.getFeatures(i1),
-        features2 = samples.getFeatures(i2);
-    matchTree(features1, features2);
-}
-
-//constructTree(8);
-
-matchTest(1,2);
+testRandomSample();
