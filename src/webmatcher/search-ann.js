@@ -3,7 +3,7 @@
 var _ = require('underscore');
 
 var laUtils = require('../math/la-utils.js'),
-    MinimumQueue = require('./minimum-queue.js');
+    BinaryMinimumQueue = require('./minimum-queue.js').BinaryMinimumQueue;
 
 //==========================================================
 
@@ -12,12 +12,11 @@ var laUtils = require('../math/la-utils.js'),
  * Approximate Nearest Neighbor (ANN) search on Kd-tree
  * @param {KdtreeNode} root
  * @param {Feature} feature
- * @param {number} n
  * @param {number} error - acceptable error ratio
- * @returns {MinimumQueue}
+ * @returns {BinaryMinimumQueue}
  */
-module.exports.searchANN = function(root, feature, n, error){
-    var mins = new MinimumQueue(n);
+module.exports.searchANN = function(root, feature, error){
+    var mins = new BinaryMinimumQueue();
     searchTree(root, feature, mins, error);
     return mins;
 };
@@ -27,11 +26,10 @@ module.exports.searchANN = function(root, feature, n, error){
  * Nearest Neighbor (NN) search on Kd-tree
  * @param {KdtreeNode} root
  * @param {Feature} feature
- * @param {number} n
- * @returns {MinimumQueue}
+ * @returns {BinaryMinimumQueue}
  */
-module.exports.searchNN = function(root, feature, n){
-    return exports.searchANN(root, feature, n, 0);
+module.exports.searchNN = function(root, feature){
+    return exports.searchANN(root, feature, 0);
 };
 
 
@@ -39,10 +37,10 @@ module.exports.searchNN = function(root, feature, n){
  * Bruteforce NN search for (f) in (features)
  * @param {Feature} f
  * @param {Feature[]} features
- * @returns {MinimumQueue}
+ * @returns {BinaryMinimumQueue}
  */
 module.exports.searchBruteforce = function(f, features){
-    var mins = new MinimumQueue(2);
+    var mins = new BinaryMinimumQueue();
     features.forEach(function(f2, index2){
         mins.checkMin(index2, laUtils.getFeatureDistance(f, f2));
     });
@@ -54,10 +52,10 @@ module.exports.searchBruteforce = function(f, features){
 
 
 /**
- *
+ * Recursive search for ANN on a Kd-tree
  * @param {KdtreeNode} root
  * @param {Feature} feature
- * @param {MinimumQueue} mins
+ * @param {MinimumQueue|BinaryMinimumQueue} mins
  * @param {number} error
  */
 function searchTree(root, feature, mins, error){
