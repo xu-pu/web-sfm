@@ -29,7 +29,7 @@ module.exports.BinaryMinimumQueue = BinaryMinimumQueue;
  * @constructor
  */
 function BinaryMinimumQueue(){
-    this.top = { dist: Infinity, feature: -1 };
+    this.optimal = { dist: Infinity, feature: -1 };
     this.second = { dist: Infinity, feature: -1 };
 }
 
@@ -38,7 +38,7 @@ function BinaryMinimumQueue(){
  * Get largest minimum
  * @returns {number}
  */
-MinimumQueue.prototype.getMin = function(){
+BinaryMinimumQueue.prototype.getMin = function(){
     return this.second.dist;
 };
 
@@ -48,7 +48,7 @@ MinimumQueue.prototype.getMin = function(){
  * @param {int} index
  * @param {number} dist
  */
-MinimumQueue.prototype.checkMin = function(index, dist){
+BinaryMinimumQueue.prototype.checkMin = function(index, dist){
 
     if (dist < this.optimal.dist) {
         this.second = this.optimal;

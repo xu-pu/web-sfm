@@ -8,9 +8,9 @@ var _ = require('underscore'),
 
 var kdtree = require('../src/webmatcher/kd-tree.js'),
     ann = require('../src/webmatcher/search-ann.js'),
-    matching = require('../src/webmatcher/feature-matching.js'),
     samples = require('../src/utils/samples.js'),
-    genRamdom = require('../src/utils/random.js');
+    genRamdom = require('../src/utils/random.js'),
+    laUtils = require('../src/math/la-utils.js');
 
 
 function testRandomSample(){
@@ -22,7 +22,7 @@ function testRandomSample(){
 
     var dataset = _.range(SAMPLE_SIZE).map(function(){
         var sample = genRamdom.getRandomFeature(),
-            dist = matching.getFeatureDistance(target, sample);
+            dist = laUtils.getFeatureDistance(target, sample);
         if (dist < minDist) {
             minDist = dist;
             reference = sample;
@@ -32,8 +32,8 @@ function testRandomSample(){
 
     var tr = kdtree.initTree(dataset);
 
-    var nnResult = ann.searchNN(tr, target, 2);
-    var annResult = ann.searchANN(tr, target, 2, 0.05);
+    var nnResult = ann.searchNN(tr, target);
+    var annResult = ann.searchANN(tr, target, 0.05);
 
     console.log();
 
