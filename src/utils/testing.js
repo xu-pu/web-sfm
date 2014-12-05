@@ -1,13 +1,13 @@
 'use strict';
 
-var Promise = require('promise'),
-    fs = require('fs'),
-    _ = require('underscore'),
-    saveimage = require('save-pixels'),
-    Canvas = require('canvas'),
+var _ = require('underscore'),
     la = require('sylvester'),
     Matrix = la.Matrix,
-    Vector = la.Vector;
+    Vector = la.Vector,
+    Canvas = require('canvas'),
+    Promise = require('promise'),
+    fs = require('fs'),
+    saveimage = require('save-pixels');
 
 var samples = require('./samples.js'),
     projections = require('../math/projections.js'),
@@ -24,6 +24,18 @@ module.exports.promiseWriteCanvas = promiseWriteCanvas;
 module.exports.promiseSaveNdarray = promiseSaveNdarray;
 
 //==================================================
+
+
+/**
+ * Save json to file
+ * @param {string} path
+ * @param {Object} obj
+ * @returns {Promise}
+ */
+module.exports.promiseSaveJson = function(path, obj){
+    return promiseWriteFile(path, JSON.stringify(obj));
+};
+
 
 /**
  * @param {string} path
