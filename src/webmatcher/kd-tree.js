@@ -2,9 +2,10 @@
 
 var _ = require('underscore');
 
-module.exports.Node = KdtreeNode;
-
 //====================================================================
+
+
+module.exports.Node = KdtreeNode;
 
 
 /**
@@ -15,6 +16,9 @@ module.exports.Node = KdtreeNode;
 module.exports.initTree = function(features){
     return new KdtreeNode(0, features.length-1, null, features.slice());
 };
+
+
+//====================================================================
 
 
 /**
