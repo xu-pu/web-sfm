@@ -2,7 +2,7 @@
 
 var _ = require('underscore');
 
-var matching = require('./feature-matching.js'),
+var laUtils = require('../math/la-utils.js'),
     MinimumQueue = require('./minimum-queue.js');
 
 //==========================================================
@@ -44,7 +44,7 @@ module.exports.searchNN = function(root, feature, n){
 module.exports.searchBruteforce = function(f, features){
     var mins = new MinimumQueue(2);
     features.forEach(function(f2, index2){
-        mins.checkMin(index2, matching.getFeatureDistance(f, f2));
+        mins.checkMin(index2, laUtils.getFeatureDistance(f, f2));
     });
     return mins;
 };
@@ -63,12 +63,12 @@ module.exports.searchBruteforce = function(f, features){
 function searchTree(root, feature, mins, error){
 
     if (root.isLeaf) {
-        mins.checkMin(root.leaf, matching.getFeatureDistance(feature, root.features[root.leaf]));
+        mins.checkMin(root.leaf, laUtils.getFeatureDistance(feature, root.features[root.leaf]));
     }
     else {
 
         var cursor = root.findLeaf(feature), parent, kd, sibling;
-        mins.checkMin(cursor.leaf, matching.getFeatureDistance(feature, root.features[cursor.leaf]));
+        mins.checkMin(cursor.leaf, laUtils.getFeatureDistance(feature, root.features[cursor.leaf]));
 
         //console.log(cursor.leaf);
 
