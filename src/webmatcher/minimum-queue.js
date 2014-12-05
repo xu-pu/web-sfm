@@ -4,7 +4,62 @@ var _ = require('underscore');
 
 //=======================================================
 
-module.exports = MinimumQueue;
+
+module.exports.MinimumQueue = MinimumQueue;
+module.exports.BinaryMinimumQueue = BinaryMinimumQueue;
+
+
+//=======================================================
+
+
+/**
+ * @typedef {{ dist: number, feature: int }} QueueEntry
+ */
+
+
+//=======================================================
+
+
+/**
+ * Queue for finding top 2 minimum
+ *
+ * @property {QueueEntry} optimal
+ * @property {QueueEntry} second
+ *
+ * @constructor
+ */
+function BinaryMinimumQueue(){
+    this.top = { dist: Infinity, feature: -1 };
+    this.second = { dist: Infinity, feature: -1 };
+}
+
+
+/**
+ * Get largest minimum
+ * @returns {number}
+ */
+MinimumQueue.prototype.getMin = function(){
+    return this.second.dist;
+};
+
+
+/**
+ * Check the queue
+ * @param {int} index
+ * @param {number} dist
+ */
+MinimumQueue.prototype.checkMin = function(index, dist){
+
+    if (dist < this.optimal.dist) {
+        this.second = this.optimal;
+        this.optimal = { feature: index, dist: dist };
+    }
+    else if (dist < this.second.dist) {
+        this.second = { feature: index, dist: dist };
+    }
+
+};
+
 
 //=======================================================
 
@@ -23,7 +78,8 @@ function MinimumQueue(n){
 
 
 /**
- *
+ * Get largest minimum
+ * @returns {number}
  */
 MinimumQueue.prototype.getMin = function(){
     return this.queue[this.length-1].dist;
@@ -31,7 +87,7 @@ MinimumQueue.prototype.getMin = function(){
 
 
 /**
- *
+ * Check the queue
  * @param {int} index
  * @param {number} dist
  */
