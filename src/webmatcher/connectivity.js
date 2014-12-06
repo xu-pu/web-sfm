@@ -1,5 +1,9 @@
 'use strict';
 
+var _ = require('underscore');
+
+//========================================================
+
 module.exports.ConnectivityGraph = ConnectivityGraph;
 module.exports.ConnectivityNode = ConnectivityNode;
 
@@ -94,24 +98,41 @@ ConnectivityGraph.prototype.requireNode = function(cam, feature){
  * Convert Graph into tracks
  * @returns {ConnectivityNode[][]}
  */
-ConnectivityGraph.prototype.toTracks = function(){
+ConnectivityGraph.prototype.getTracks = function(){
 
-    while (this.nodes.length > 0) {
-        this.tracks.push(
-            this.track(this.nodes[0])
-        );
+    var nodes = this.nodes.slice(),
+        tracks = [], seed, track;
+
+    while (nodes.length > 0) {
+        seed = nodes[0];
+        track = this.traverseNode(seed);
+        tracks.push(track);
+        nodes = _.without(nodes, track);
     }
 
-    return this.tracks;
+    return tracks;
 
 };
 
 
 /**
- * Destructive depth first traversal, removed from nodes after traversal
+ * @param {ConnectivityNode} source
  * @returns {ConnectivityNode[]}
  */
-ConnectivityGraph.prototype.track = function(start){
+ConnectivityGraph.prototype.traverseNode = function(source){
+
+    var traversed = [source], cursor = 0;
+
+    while (cursor < traversed.length) {
+        traversed[cursor].connected.forEach(function(node){
+            if (traversed.indexOf(node) === -1) {
+                traversed.push(node);
+            }
+        });
+        cursor++;
+    }
+
+    return traversed;
 
 };
 
