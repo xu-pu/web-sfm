@@ -107,7 +107,7 @@ ConnectivityGraph.prototype.getTracks = function(){
         seed = nodes[0];
         track = this.traverseNode(seed);
         tracks.push(track);
-        nodes = _.without(nodes, track);
+        nodes = _.difference(nodes, track);
     }
 
     return tracks;
