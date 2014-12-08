@@ -31,7 +31,7 @@ function testAngles(a, b,c){
 
 function testCam(i){
 
-    var refer = sample.getView(i).R,
+    var refer = Matrix.create(sample.getCamera(i).R),
         angles = geoUtils.getEulerAngles(refer),
         reR = geoUtils.getRotationFromEuler(angles[0], angles[1], angles[2]),
         reAngle = geoUtils.getEulerAngles(reR),
@@ -48,11 +48,38 @@ function testCam(i){
 
 }
 
+function cordFrameTest(i){
+
+    var refer = sample.getView(i).R,
+        RR = refer.transpose(),
+        angles = geoUtils.getEulerAngles(refer),
+        reR = geoUtils.getRotationFromEuler(angles[0], angles[1], angles[2]),
+        reRR = reR.transpose();
+
+    var x = Vector.create([1,0,0]),
+        y = Vector.create([0,1,0]),
+        z = Vector.create([0,0,1]);
+
+    var X = RR.x(x), Y = RR.x(y), Z = RR.x(z);
+    var XX = reRR.x(x), YY = reRR.x(y), ZZ = reRR.x(z);
+
+    console.log(X.subtract(XX));
+    console.log(Y.subtract(YY));
+    console.log(Z.subtract(ZZ));
+
+    console.log(refer.det());
+    console.log(reR.det());
+    //console.log(.det());
+}
+
+
 var halfpi = Math.PI/ 2,
     pi = Math.PI;
 
 //testAngles(0.4+pi/2, 1.2+pi/2, 2.4+pi/2);
 //testAngles(0.4, 1.2, 2.4);
-testAngles(1,5,6);
+//testAngles(1,5,6);
 
-//testCam(21);
+testCam(21);
+
+//cordFrameTest(20);
