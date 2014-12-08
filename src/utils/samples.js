@@ -16,7 +16,6 @@ var _ = require('underscore'),
 
 var toRGB = require('../websift/gray2rgb.js'),
     bundler = require(DEMO_BASE + '/bundler/bundler.json'),
-    bundlerUtils = require('../math/bundler.js'),
     cord = require('./cord.js'),
     projections = require('../math/projections.js');
 
@@ -60,8 +59,8 @@ module.exports.getTwoView = function(i1, i2){
     var cam1 = exports.getCamera(i1),
         cam2 = exports.getCamera(i2),
         cam = { width: 3008, height: 2000},
-        rt1 = bundlerUtils.getStandardRt(Matrix.create(cam1.R), Vector.create(cam1.t)),
-        rt2 = bundlerUtils.getStandardRt(Matrix.create(cam2.R), Vector.create(cam2.t)),
+        rt1 = cord.getStandardRt(Matrix.create(cam1.R), Vector.create(cam1.t)),
+        rt2 = cord.getStandardRt(Matrix.create(cam2.R), Vector.create(cam2.t)),
         R1 = rt1.R, t1 = rt1.t, f1 = cam1.focal,
         R2 = rt2.R, t2 = rt2.t, f2 = cam2.focal,
         P1 = projections.getProjectionMatrix(R1, t1, f1, cam.width, cam.height),
@@ -84,7 +83,7 @@ module.exports.getTwoView = function(i1, i2){
 module.exports.getView = function(i){
     var camera = exports.getCamera(i),
         cam = { width: 3008, height: 2000},
-        rt = bundlerUtils.getStandardRt(Matrix.create(camera.R), Vector.create(camera.t)),
+        rt = cord.getStandardRt(Matrix.create(camera.R), Vector.create(camera.t)),
         R = rt.R, t = rt.t, f = camera.focal,
         P = projections.getProjectionMatrix(R, t, f, cam.width, cam.height);
     return { P: P, R: R, t: t, f: f, cam: cam };
