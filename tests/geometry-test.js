@@ -31,9 +31,7 @@ function testCam(i){
     var refer = Matrix.create(sample.getCamera(i).R),
         angles = geoUtils.getEulerAngles(refer),
         reR = geoUtils.getRotationFromEuler(angles[0], angles[1], angles[2]),
-        reAngle = geoUtils.getEulerAngles(reR),
-        diff = reR.x(refer.transpose()),
-        diffAngle = geoUtils.getEulerAngles(diff);
+        diff = reR.x(refer.transpose());
 
     var referError = refer.transpose().x(refer).subtract(Matrix.I(3)),
         reRError = reR.transpose().x(reR).subtract(Matrix.I(3)),

@@ -65,28 +65,16 @@ module.exports.getEulerAngles = function(R){
 
     rotated = rotateZ(alpha).transpose();
 
-    var xnalign = rotated.x(N);
-    //console.log(xnalign.elements + ' should align with x axis');
-    console.log('alpha: ' + alpha);
-
     // get beta
     var zz = rotated.x(z),
         ZZ = rotated.x(Z),
         beta = exports.getRightHandRotation([zz.e(2), zz.e(3)], [ZZ.e(2), ZZ.e(3)]);
 
     rotated = rotateX(beta).transpose().x(rotated);
-    xnalign = rotated.x(N);
-    var zzalign = rotated.x(Z);
-    //console.log(xnalign.elements + ' should align with x axis');
-    //console.log(zzalign.elements + ' should align with z axis');
-
-    console.log('beta: ' + beta);
 
     // get gamma
     var XX = rotated.x(X),
         gamma = exports.getRightHandRotation([x.e(1), x.e(2)], [XX.e(1), XX.e(2)]);
-
-    console.log('gamma: ' + gamma);
 
     return [alpha, beta, gamma];
 
