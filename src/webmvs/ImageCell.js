@@ -53,7 +53,7 @@ ImageCell.prototype.searchEpipolarLine = function(line){
     }
 
     var mu = this.grid.mu,
-        center = Vector.create(cord.RCtoImg(mu*this.row+mu/2, mu*this.col+mu/2, this.grid.cam));
+        center = Vector.create(cord.rc2img(mu * this.row + mu / 2, mu * this.col + mu / 2));
 
     if (geoUtils.getPoint2Line(center, line) > this.grid.bound) {
         // out of radius

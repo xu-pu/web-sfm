@@ -33,19 +33,19 @@ function testCam(i){
             var rc = track.x;
             return {
                 X: track.X,
-                x: Vector.create(cord.RCtoImg(rc.row, rc.col, data.cam))
+                x: Vector.create(cord.rc2img(rc.row, rc.col))
             };
         });
 
     var estPro = dlt(pairs);
 
     var estimated = points.map(function(X){
-        return cord.img2RT(estPro.x(X), data.cam.height);
+        return cord.img2RC(estPro.x(X));
     });
 
     var reprojected = cloud.map(function(track){
         var X = track.X;
-        return cord.img2RT(estPro.x(X), data.cam.height);
+        return cord.img2RC(estPro.x(X));
     });
 
     return Promise.all([

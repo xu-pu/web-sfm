@@ -6,83 +6,51 @@ var la = require('sylvester'),
 
 //=======================================
 
+
 /**
- * @typedef {{height: number, width: number}} Camera
+ * @typedef {{ height: number, width: number }} Camera
  */
+
+
+//=======================================
+
+
+/**
+ * Convert bundler cord system to websfm cord system
+ * bundler's camera is right hand and negative focal plane
+ * @param {Matrix} R
+ * @param {Vector} t
+ * @returns {{R: Matrix, t: Matrix}}
+ */
+module.exports.getStandardRt = function(R ,t){
+    return { R: R.x(-1), t: t.x(-1) };
+};
+
 
 //=======================================
 // Convert between img and rc
-// x=c, y+r=height-1,
+// row := y
+// col := x
 //=======================================
 
 
 /**
- *
  * @param {int} row
  * @param {int} col
- * @param {Camera} cam
  * @return {number[]}
  */
-module.exports.RCtoImg = function(row, col, cam){
-      return [col, cam.height-row, 1];
+module.exports.rc2img = function(row, col){
+      return [col, row, 1];
 };
 
 
 /**
  * @param point
- * @param {Number} height
  * @returns {{row: number, col: number}}
  */
-module.exports.img2RT = function(point, height){
+module.exports.img2RC = function(point){
     point = point.x(1/point.e(3));
-    return {
-        row: height-point.e(2),
-        col: point.e(1)
-    };
-};
-
-
-/**
- * @param {number} x
- * @param {number} y
- * @param {Camera} cam
- * @returns {{row: number, col: number}}
- */
-module.exports.bundler2RT = function(x, y, cam){
-    var yy = y+cam.height/2,
-        row = cam.height-yy,
-        col = x+cam.width/2;
-    return {
-        row: row,
-        col: col
-    };
-
-};
-
-
-//=======================================
-// Generate random cord
-//=======================================
-
-
-/**
- *
- * @param {Camera} cam
- */
-module.exports.getRandomImgCord = function(cam){
-    return Vector.create([Math.random()*cam.width, Math.random()*cam.height, 1]);
-};
-
-
-/**
- *
- * @param {Camera} cam
- */
-module.exports.getRandomRT = function(cam){
-    return {
-        row: Math.random()*cam.height,
-        col: Math.random()*cam.width
-    };
+    return { row: point.e(2), col: point.e(1) };
 };
 
 
@@ -95,7 +63,7 @@ module.exports.getRandomRT = function(cam){
  * @returns {number[]}
  */
 module.exports.featureToImg = function(f, cam) {
-    return exports.RCtoImg(f.row, f.col, cam);
+    return exports.rc2img(f.row, f.col);
 };
 
 
@@ -124,7 +92,7 @@ module.exports.imgline2points = function(line, cam){
             return edge.cross(line)
         })
         .forEach(function(point){
-            var rt = rt2canvas(exports.img2RT(point, height), width, height);
+            var rt = rt2canvas(exports.img2RC(point), width, height);
             if (rt) {
                 results.push(rt);
             }
@@ -133,6 +101,9 @@ module.exports.imgline2points = function(line, cam){
     return results;
 
 };
+
+
+//=======================================
 
 
 function rt2canvas(rt, width, height){

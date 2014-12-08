@@ -21,7 +21,7 @@ function testPair(i1, i2, iref){
 
     var dataset = _.sample(cloud, 500),
         selectedRefer = dataset.map(function(track){
-            return cord.img2RT(reference.P.x(track.X), reference.cam.height);
+            return cord.img2RC(reference.P.x(track.X));
         }),
         selected1 = dataset.map(function(track){
             return track.x1;
@@ -32,19 +32,19 @@ function testPair(i1, i2, iref){
 
     var estimated = dataset.map(function(track){
             var rc1 = track.x1,
-                x1 = Vector.create(cord.RCtoImg(rc1.row, rc1.col, data.cam1)),
+                x1 = Vector.create(cord.rc2img(rc1.row, rc1.col)),
                 rc2 = track.x2,
-                x2 = Vector.create(cord.RCtoImg(rc2.row, rc2.col, data.cam2));
+                x2 = Vector.create(cord.rc2img(rc2.row, rc2.col));
             return triangulation(data.P1, data.P2, x1, x2);
         }),
         reprojected1 = estimated.map(function(X){
-            return cord.img2RT(data.P1.x(X), data.cam1.height);
+            return cord.img2RC(data.P1.x(X));
         }),
         reprojected2 = estimated.map(function(X){
-            return cord.img2RT(data.P2.x(X), data.cam2.height);
+            return cord.img2RC(data.P2.x(X));
         }),
         reprojectedRefer = estimated.map(function(X){
-            return cord.img2RT(reference.P.x(X), reference.cam.height);
+            return cord.img2RC(reference.P.x(X));
         });
 
 

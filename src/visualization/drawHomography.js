@@ -39,9 +39,9 @@ module.exports = function(image, H, ctx, offsetX, offsetY, ratio){
     ctx.putImageData(buffer, offsetX, offsetY);
 
     function getPointColor(){
-        var p = Vector.create(cord.RCtoImg(row, col, canvCam)),
+        var p = Vector.create(cord.rc2img(row, col)),
             P = HH.x(p),
-            sample = cord.img2RT(P, height);
+            sample = cord.img2RC(P);
         if (sample.row >=0 && sample.col >=0 && sample.row < height && sample.col < width) {
             return interp(image, sample.col, sample.row);
         }

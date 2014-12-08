@@ -111,7 +111,7 @@ module.exports.getViewSparse = function(i){
             var p = point.point,
                 X = Vector.create([p[0], p[1], p[2], 1]),
                 x = data.P.x(X),
-                rc = cord.img2RT(x, data.cam.height);
+                rc = cord.img2RC(x);
             pointset.push({ x: rc, X: X });
         }
 
@@ -151,8 +151,8 @@ module.exports.getTwoViewSparse = function(i1, i2){
             x2 = data.P2.x(X);
         return {
             X: X,
-            x1: cord.img2RT(x1, data.cam1.height),
-            x2: cord.img2RT(x2, data.cam2.height)
+            x1: cord.img2RC(x1),
+            x2: cord.img2RC(x2)
         };
     });
 

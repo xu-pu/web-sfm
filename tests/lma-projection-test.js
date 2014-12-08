@@ -28,7 +28,7 @@ function testCam(i){
             var rc = track.x;
             return {
                 X: track.X,
-                x: Vector.create(cord.RCtoImg(rc.row, rc.col, data.cam))
+                x: Vector.create(cord.rc2img(rc.row, rc.col))
             };
         });
 
@@ -39,7 +39,7 @@ function testCam(i){
             var pro = laUtils.inflateVector(parameter, 3, 4);
             return Vector.create(cloud.map(function(track, index){
                 return geoUtils.getDistanceRC(
-                    cord.img2RT(pro.x(track.X), data.cam.height),
+                    cord.img2RC(pro.x(track.X)),
                     reference[index]
                 );
             }))
@@ -52,11 +52,11 @@ function testCam(i){
 
     var reprojectedDLT = cloud.map(function(track){
             var X = track.X;
-            return cord.img2RT(estPro.x(X), data.cam.height);
+            return cord.img2RC(estPro.x(X));
         }),
         reprojectedLMA = cloud.map(function(track){
             var X = track.X;
-            return cord.img2RT(refinedPro.x(X), data.cam.height);
+            return cord.img2RC(refinedPro.x(X));
         });
 
 

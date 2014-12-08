@@ -47,7 +47,7 @@ module.exports = function(img, H, centered){
  * @returns {null|int[]}
  */
 module.exports.pointHomography = function pointHomography(r, c, H, cam){
-    var rt = cord.img2RT(H.x(Vector.create(cord.RCtoImg(r, c, cam))), cam.height);
+    var rt = cord.img2RC(H.x(Vector.create(cord.rc2img(r, c))));
     var col = Math.floor(Math.floor(rt.col)),
         row = Math.floor(Math.floor(rt.row));
     if (row >=0 && row<cam.height && col>=0 && col<cam.width) {
@@ -70,12 +70,12 @@ module.exports.pointHomography = function pointHomography(r, c, H, cam){
  */
 function centeredHomography(H, cam){
 
-    var rt = cord.img2RT(H.x(Vector.create([cam.width/2, cam.height/2, 1])), cam.height),
+    var rt = cord.img2RC(H.x(Vector.create([cam.width / 2, cam.height / 2, 1]))),
         offsetRow = cam.height/2 - rt.row,
         offsetCol = cam.width/2 - rt.col;
 
     return function(r, c, H, cam){
-        var rt = cord.img2RT(H.x(Vector.create(cord.RCtoImg(r, c, cam))), cam.height);
+        var rt = cord.img2RC(H.x(Vector.create(cord.rc2img(r, c))));
         var col = Math.floor(Math.floor(rt.col+offsetCol)),
             row = Math.floor(Math.floor(rt.row+offsetRow));
         if (row >=0 && row<cam.height && col>=0 && col<cam.width) {

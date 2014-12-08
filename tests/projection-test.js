@@ -25,7 +25,7 @@ function testCam(index){
             var points = sample.sparse.map(function(p){
                 var X = Vector.create([p.point[0], p.point[1], p.point[2], 1]);
                 var x = projector.x(X);
-                return cord.img2RT(x, img.height);
+                return cord.img2RC(x);
             });
             return testUtils.promiseVisualPoints('/home/sheep/Code/projection-test.png', index, points);
         });
@@ -47,7 +47,7 @@ function testVisiable(index){
                 points = cloud.map(function(pair){
                     var X = Vector.create([pair.point[0], pair.point[1], pair.point[2], 1]);
                     var x = projector.x(X);
-                    return cord.img2RT(x, img.height);
+                    return cord.img2RC(x);
                 }),
                 reference = cloud.map(function(pair){
                     return pair.feature;

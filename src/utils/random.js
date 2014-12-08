@@ -14,6 +14,46 @@ var DEFAULT_CAMERA = {
 };
 
 
+//=======================================
+// Generate random cord
+//=======================================
+
+
+/**
+ * Create ramdom img cord
+ * @param {Camera} [cam]
+ * @return {Vector}
+ */
+module.exports.getRandomImgCord = function(cam){
+
+    cam = cam || DEFAULT_CAMERA;
+
+    return Vector.create([
+        Math.random() * cam.width,
+        Math.random() * cam.height,
+        1
+    ]);
+
+};
+
+
+/**
+ * Create ramdom RC
+ * @param {Camera} [cam]
+ * @returns {RowCol}
+ */
+module.exports.getRandomRT = function(cam){
+
+    cam = cam || DEFAULT_CAMERA;
+
+    return {
+        row: Math.random()*cam.height,
+        col: Math.random()*cam.width
+    };
+
+};
+
+
 //=====================================================
 
 
