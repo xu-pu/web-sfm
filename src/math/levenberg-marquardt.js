@@ -32,7 +32,7 @@ module.exports = function(func, x0, target){
         xs = x0.elements.length,
         ys = y0.elements.length;
 
-    console.log('begin initializing');
+    //console.log('begin initializing');
 
     var     p = x0.dup(),
             y = y0,
@@ -49,7 +49,10 @@ module.exports = function(func, x0, target){
                     done = false,
              stepCounter = 0;
 
-    console.log('enter main lma loop with error ' + sigma.modulus());
+
+    var initError = sigma.modulus(), finalError = initError;
+
+    //console.log('enter main lma loop with error ' + sigma.modulus());
 
     while (!done && stepCounter < MAX_STEPS) {
 
@@ -59,7 +62,7 @@ module.exports = function(func, x0, target){
 
             // from p, try to find next step, if rejected, change damping and try again
 
-            console.log('try to find step ' + stepCounter + ' with damping ' + damp);
+            //console.log('try to find step ' + stepCounter + ' with damping ' + damp);
 
             N = A.add(Matrix.I(xs).x(damp));
 
@@ -79,11 +82,11 @@ module.exports = function(func, x0, target){
             improvement = sigma.modulus()-newSigma.modulus();
             improvementRatio = improvement/(deltaX.x(damp).add(g).dot(deltaX));
 
-            console.log('new step calculated, new error ' + newSigma.modulus() + ', improved ' + improvement);
+            //console.log('new step calculated, new error ' + newSigma.modulus() + ', improved ' + improvement);
 
             if (improvement <= 0) {
 
-                console.log('no improvement, change damp and try again');
+                //console.log('no improvement, change damp and try again');
 
                 damp *= dampStep;
                 dampStep *= DEFAULT_STEP_BASE;
@@ -95,10 +98,11 @@ module.exports = function(func, x0, target){
         p = newX;
         y = func(p);
         sigma = target.subtract(y);
+        finalError = sigma.modulus();
 
         if (!done){
 
-            console.log('step accepted, refresh the equation');
+            //console.log('step accepted, refresh the equation');
 
             // refresh the equation
             J = getJacobian(func, p);
@@ -114,12 +118,14 @@ module.exports = function(func, x0, target){
 
         if (laUtils.vectorInfiniteNorm(g) < ZERO_THRESHOLD) {
 
-            console.log('g too small, end lma');
+            //console.log('g too small, end lma');
 
             done = true;
         }
 
     }
+
+    console.log('lam ended with ' + stepCounter + ' steps, error imporved from ' + initError + ' to ' + finalError);
 
     return p;
 

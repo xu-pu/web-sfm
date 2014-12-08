@@ -43,7 +43,7 @@ function testCam(i){
                 );
             }))
         },
-        laUtils.flattenMatrix(estPro).x(1000),
+        laUtils.flattenMatrix(estPro).x(10000),
         Vector.Zero(cloud.length)
     );
 
@@ -67,4 +67,4 @@ function testCam(i){
 
 }
 
-testCam(19);
+testCam(37);
