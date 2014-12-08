@@ -21,8 +21,8 @@ var cord = require('../utils/cord.js');
 module.exports = function(ctx, config, F, match, color, features1, features2, cam1, cam2){
     var f1 = features1[match[0]],
         f2 = features2[match[1]],
-        p1 = Vector.create(cord.featureToImg(f1, cam1)),
-        p2 = Vector.create(cord.featureToImg(f2, cam2)),
+        p1 = Vector.create(cord.featureToImg(f1)),
+        p2 = Vector.create(cord.featureToImg(f2)),
         line1 = cord.imgline2points(F.x(p2), cam1),
         line2 = cord.imgline2points(F.transpose().x(p1), cam2);
     if (line1.length === 2 && line2.length === 2) {

@@ -56,8 +56,8 @@ module.exports = function(matches, metadata){
     var normalizedMatches = matches.map(function(match){
         var f1 = features1[match[0]],
             f2 = features2[match[1]],
-            p1 = Vector.create(cord.featureToImg(f1, cam1)),
-            p2 = Vector.create(cord.featureToImg(f2, cam2));
+            p1 = Vector.create(cord.featureToImg(f1)),
+            p2 = Vector.create(cord.featureToImg(f2));
         return { x1: T1.x(p1), x2: T2.x(p2) };
     });
 

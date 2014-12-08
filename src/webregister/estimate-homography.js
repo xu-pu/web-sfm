@@ -37,8 +37,8 @@ function getHomography(matches, metadata){
     matches.forEach(function(match){
         var f1 = features1[match[0]],
             f2 = features2[match[1]],
-            p1 = Matrix.create([cord.featureToImg(f1, cam1)]).transpose(),
-            p2 = Matrix.create([cord.featureToImg(f2, cam2)]).transpose();
+            p1 = Matrix.create([cord.featureToImg(f1)]).transpose(),
+            p2 = Matrix.create([cord.featureToImg(f2)]).transpose();
         p1 = T1.x(p1).transpose();
         p2 = T2.x(p2).transpose();
         var xx = p2.elements[0][0],
@@ -70,7 +70,7 @@ function getHomography(matches, metadata){
 function homographyError(homography, match, metadata){
     var f1 = metadata.features1[match[0]],
         f2 = metadata.features2[match[1]];
-    var p1 = Vector.create(cord.featureToImg(f1, metadata.cam1)),
-        p2 = Vector.create(cord.featureToImg(f2, metadata.cam2));
+    var p1 = Vector.create(cord.featureToImg(f1)),
+        p2 = Vector.create(cord.featureToImg(f2));
     return homography.x(p1).subtract(p2).modulus();
 }

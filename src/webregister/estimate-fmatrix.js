@@ -58,8 +58,8 @@ module.exports.shortcut = function(matches, metadata){
         var f1 = features1[match[0]],
             f2 = features2[match[1]];
         return {
-            x1: Vector.create(cord.featureToImg(f1, cam1)),
-            x2: Vector.create(cord.featureToImg(f2, cam2))
+            x1: Vector.create(cord.featureToImg(f1)),
+            x2: Vector.create(cord.featureToImg(f2))
         };
     });
 

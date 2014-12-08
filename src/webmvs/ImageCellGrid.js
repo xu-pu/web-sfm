@@ -62,7 +62,7 @@ function ImageCellGrid(img, features, mu){
         var r = Math.floor(f.row/mu),
             c = Math.floor(f.col/mu),
             cell = grid[r][c],
-            point = Vector.create(cord.featureToImg(f, cam));
+            point = Vector.create(cord.featureToImg(f));
 
         if (cell.features) {
             cell.features.push(point);

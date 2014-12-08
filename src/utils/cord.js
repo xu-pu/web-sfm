@@ -69,10 +69,9 @@ module.exports.img2RC = function(point){
 
 /**
  * @param {Feature} f
- * @param {Camera} cam
  * @returns {number[]}
  */
-module.exports.featureToImg = function(f, cam) {
+module.exports.featureToImg = function (f) {
     return exports.rc2img(f.row, f.col);
 };
 
