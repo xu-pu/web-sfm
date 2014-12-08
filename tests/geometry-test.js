@@ -10,8 +10,6 @@ var sample = require('../src/utils/samples.js'),
     testUtils = require('../src/utils/testing.js'),
     projections = require('../src/math/projections.js'),
     cord = require('../src/utils/cord.js'),
-    dlt = require('../src/webregister/estimate-projection.js'),
-    lma = require('../src/math/levenberg-marquardt.js'),
     laUtils = require('../src/math/la-utils.js'),
     geoUtils = require('../src/math/geometry-utils.js');
 
@@ -65,10 +63,9 @@ function cordFrameTest(i){
     console.log(X.subtract(XX));
     console.log(Y.subtract(YY));
     console.log(Z.subtract(ZZ));
-
     console.log(refer.det());
     console.log(reR.det());
-    //console.log(.det());
+
 }
 
 
@@ -79,6 +76,6 @@ var halfpi = Math.PI/ 2,
 //testAngles(0.4, 1.2, 2.4);
 //testAngles(1,5,6);
 
-testCam(21);
+testCam(44);
 
 //cordFrameTest(20);
