@@ -6,7 +6,7 @@ var _ = require('underscore'),
     Vector = la.Vector;
 
 var cord = require('../utils/cord.js'),
-    ImageCell = require('./ImageCell.js'),
+    ImageCell = require('./image-cell.js'),
     settings = require('./settings.js');
 
 //===========================================================
@@ -21,18 +21,20 @@ module.exports = ImageCellGrid;
  *
  * @param img
  * @param {Feature[]} features
- * @param {int} mu
+ * @param {int} mu - 5 or 7
+ * @param {int} beta1 - 2
  *
- * @property {Camera} cam
+ * @property {CalibratedCamera} cam
  * @property {int} rows
  * @property {int} cols
  * @property {number} bound       - radius bound for feature matching
- * @property {int} mu             - cell size
+ * @property {int} beta1           - cell size
+ * @property {int} mu             - patch size
  * @property {ImageCell[][]} grid - cell grid
  * @property img                  - image ndarray
  * @constructor
  */
-function ImageCellGrid(img, features, mu){
+function ImageCellGrid(img, features, mu, beta1){
 
     var _self = this,
         width = img.shape[0],
