@@ -1,5 +1,14 @@
 'use strict';
 
+var _ = require('underscore'),
+    la = require('sylvester'),
+    Vector = la.Vector,
+    Matrix = la.Matrix,
+    interp = require("ndarray-linear-interpolate").d2;
+
+var cord = require('../utils/cord.js'),
+    geoUtils = require('../math/geometry-utils.js');
+
 //====================================================
 
 
@@ -37,6 +46,40 @@ module.exports.ncc = function(array1, array2){
  */
 module.exports.discrepency = function(array1, array2){
     return 1-exports.ncc(array1, array2);
+};
+
+
+/**
+ *
+ * @param {ImageCellGrid[]} imgs
+ * @param {Patch} p
+ * @param {int} mu
+ * @returns {PatchSample[]}
+ */
+module.exports.samplePatch = function(imgs, p, mu){
+
+    var T = c,
+        R = geoUtils.getRotationFromEuler(n[0], n[1], n[2]),
+        RR = R.transpose(),
+        offset = mu/2;
+
+    var samplePoints = _.range(mu).map(function(row){
+        return _.range(mu).map(function(col){
+            return RR.x(Vector.create([col-offset, row-offset, 0])).add(T);
+        });
+    });
+
+    return imgs.map(function(img){
+        var projector = img.cam.P;
+        return _.range(mu).map(function(row) {
+            return _.range(mu).map(function (col) {
+                var imgP = projector.x(samplePoints[row][col]);
+                var rc = cord.img2RC(imgP);
+                return interp(img.img, rc.col, rc.row);
+            });
+        });
+    })
+
 };
 
 
