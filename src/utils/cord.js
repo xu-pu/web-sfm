@@ -68,11 +68,23 @@ module.exports.img2RC = function(point){
 
 
 /**
+ * Deprecated, switch to feature2img
  * @param {Feature} f
  * @returns {number[]}
  */
 module.exports.featureToImg = function (f) {
     return exports.rc2img(f.row, f.col);
+};
+
+
+/**
+ * @param {Feature} f
+ * @returns {Vector}
+ */
+module.exports.feature2img = function (f) {
+    return Vector.create(
+        exports.rc2img(f.row, f.col)
+    );
 };
 
 
