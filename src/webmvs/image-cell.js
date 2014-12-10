@@ -19,7 +19,7 @@ module.exports = ImageCell;
 /**
  * Image cell class
  *
- * @property {Feature[]} features
+ * @property {Vector[]} features
  * @property {ImageCellGrid} grid
  * @property {int} row
  * @property {int} col

@@ -20,6 +20,7 @@ module.exports = ImageCellGrid;
  * Image cell grid class
  *
  * @param img
+ * @param {CalibratedCamera} cam
  * @param {int} beta - 2
  *
  * @property {CalibratedCamera} cam
@@ -31,12 +32,11 @@ module.exports = ImageCellGrid;
  * @property img                  - image ndarray
  * @constructor
  */
-function ImageCellGrid(img, beta){
+function ImageCellGrid(img, cam, beta){
 
     var _self = this,
         width = img.shape[0],
         height = img.shape[1],
-        cam = { width: width, height: height },
         rows = Math.ceil(height/beta),
         cols = Math.ceil(width/beta),
         grid = _.range(rows).map(function(row){
@@ -54,7 +54,6 @@ function ImageCellGrid(img, beta){
         grid: grid,
         bound: bound
     });
-
 
 }
 

@@ -5,8 +5,11 @@ var _ = require('underscore'),
     Matrix = la.Matrix,
     Vector = la.Vector;
 
-var triangulation = require('../webregister/triangulation.js'),
-    Patch = require('./Patch.js');
+var lma = require('../math/levenberg-marquardt.js'),
+    geoUtils = require('../math/geometry-utils.js'),
+    triangulation = require('../webregister/triangulation.js'),
+    Patch = require('./patch.js'),
+    photometrics = require('./photometrics.js');
 
 //===============================================================
 
@@ -21,7 +24,7 @@ module.exports = function(){
 
 /**
  *
- * @param {PmvsState} state
+ * @param {PMVSContext} state
  * @param {ImageCellGrid} imgRef
  * @param {ImageCellGrid} img
  * @param {Vector} fRef
@@ -59,5 +62,41 @@ function patchFromFeaturePair(state, imgRef, img, fRef, f){
     });
 
     return new Patch({ c: c, n: n, R: R, V: V, Vstar: Vstar });
+
+}
+
+
+/**
+ * @param {Patch} p
+ * @param {int} mu
+ */
+function refinePatch(p, mu){
+
+    var initParam = flatten(c,n);
+
+    var Vs = _.without(Vstar, R);
+
+    var refinedParam = lma(
+        function(params){
+
+            var cn = inflate(params),
+                center = cn.c,
+                normal = cn.n;
+
+            var R = geoUtils.getRotationFromEuler(normal[0], normal[1], normal[2]);
+
+            var sampleRefer;
+
+            return Vector.create();
+
+        },
+        initParam,
+        Vector.Zero(Vstar.length)
+    );
+
+
+    function inflate(params){}
+
+    function flatten(c, n){}
 
 }
