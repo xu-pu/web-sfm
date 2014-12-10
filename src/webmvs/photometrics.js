@@ -14,8 +14,8 @@ var cord = require('../utils/cord.js'),
 
 /**
  * Normalized Cross Correlation (NCC) score, [0,1], higher better
- * @param {number[][]} array1
- * @param {number[][]} array2
+ * @param {PatchSample} array1
+ * @param {PatchSample} array2
  * @returns {number}
  */
 module.exports.ncc = function(array1, array2){
@@ -40,8 +40,8 @@ module.exports.ncc = function(array1, array2){
 
 /**
  * Photometric discrepency [0,1], lower better
- * @param {number[][]} array1
- * @param {number[][]} array2
+ * @param {PatchSample} array1
+ * @param {PatchSample} array2
  * @returns {number}
  */
 module.exports.discrepency = function(array1, array2){
