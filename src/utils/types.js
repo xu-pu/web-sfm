@@ -7,3 +7,13 @@
 /**
  * @typedef {number[][]} PatchSample
  */
+
+
+/**
+ * @typedef {{R: number[][], t: number[], focal: number}} BundlerCamera
+ */
+
+
+/**
+ * @typedef {{row: number, col: number}} RowCol
+ */

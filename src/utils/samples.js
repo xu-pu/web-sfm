@@ -31,24 +31,13 @@ module.exports.sparse = bundler.points;
 
 //==============================================
 
-
-/**
- * @typedef {{R: number[][], t: number[], focal: number}} BundlerCamera
- */
-
-
-/**
- * @typedef {{row: number, col: number}} RowCol
- */
-
-
 //==============================================
 
 /**
  * A view pair for processing
  * @param {number} i1
  * @param {number} i2
- * @returns {{R1, R2, t1, t2, f1: number, f2: number, cam1: Camera, cam2: Camera}}
+ * @returns {{ R1: Matrix, R2: Matrix, t1: Vector, t2: Vector, f1: number, f2: number, cam1: Camera, cam2: Camera}}
  */
 module.exports.getTwoView = function(i1, i2){
 
@@ -78,7 +67,7 @@ module.exports.getTwoView = function(i1, i2){
 /**
  * Get calibrated camera
  * @param {int} i
- * @returns {{ P, R, t, f: number, cam: Camera }}
+ * @returns {{ P: Matrix, R: Matrix, t: Vector, f: number, cam: Camera }}
  */
 module.exports.getView = function(i){
     var camera = exports.getCamera(i),
@@ -111,7 +100,7 @@ module.exports.getCalibratedCamera = function(i){
 /**
  * Get visible sparse point cloud of one view
  * @param {int} i
- * @returns {{ x: RowCol, X }[]}
+ * @returns {{ x: RowCol, X: Vector }[]}
  */
 module.exports.getViewSparse = function(i){
 
@@ -140,10 +129,9 @@ module.exports.getViewSparse = function(i){
 
 
 /**
- *
  * @param i1
  * @param i2
- * @returns {{X, x1: RowCol, x2: RowCol}[]}
+ * @returns {{ X: Vector, x1: RowCol, x2: RowCol }[]}
  */
 module.exports.getTwoViewSparse = function(i1, i2){
 
@@ -182,7 +170,6 @@ module.exports.getTwoViewSparse = function(i1, i2){
 
 
 /**
- *
  * @param index
  * @returns {Feature[]}
  */
@@ -193,7 +180,6 @@ module.exports.getFeatures = function(index){
 
 
 /**
- *
  * @param index
  * @returns {BundlerCamera}
  */
