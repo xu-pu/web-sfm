@@ -91,6 +91,24 @@ module.exports.getView = function(i){
 
 
 /**
+ * Get a sample calibrated camera
+ * @param {int} i
+ * @returns {CalibratedCamera}
+ */
+module.exports.getCalibratedCamera = function(i){
+    var data = exports.getView(i);
+    return {
+        R: data.R,
+        t: data.t,
+        focal: data.f,
+        P: data.P,
+        width: data.cam.width,
+        height: data.cam.height
+    };
+};
+
+
+/**
  * Get visible sparse point cloud of one view
  * @param {int} i
  * @returns {{ x: RowCol, X }[]}
