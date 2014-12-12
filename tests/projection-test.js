@@ -83,4 +83,4 @@ function testVisiable(index){
 
 //testCam(3);
 
-testCamDense(40);
+testCamDense(33);

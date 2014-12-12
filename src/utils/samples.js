@@ -171,7 +171,7 @@ module.exports.getTwoViewSparse = function(i1, i2){
 module.exports.getViewDense = function(i){
     var cloud = [];
     exports.dense.forEach(function(patch){
-        if (patch.consistent.indexOf(i) !== -1) {
+        if (patch.consistent.indexOf(i) !== -1 || patch.inconsistent.indexOf(i) !== -1) {
             cloud.push(Vector.create(patch.point));
         }
     });
