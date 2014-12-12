@@ -23,6 +23,17 @@ module.exports.getRelativePose = function(R1, t1, R2, t2){
 
 
 /**
+ * Get perspective transformation
+ * @param {Matrix} R
+ * @param {Vector} t
+ * @returns {Matrix}
+ */
+module.exports.getPerspective = function(R, t){
+    return R.augment(t).transpose().augment(Vector.create([0,0,0,1])).transpose();
+};
+
+
+/**
  * Essential Matrix
  * @param R1
  * @param t1
