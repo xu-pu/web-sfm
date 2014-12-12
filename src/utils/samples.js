@@ -28,8 +28,7 @@ module.exports.getRawMatches = getRawMatches;
 module.exports.bundler = bundler;
 module.exports.cameras = bundler.cameras;
 module.exports.sparse = bundler.points;
-
-//==============================================
+module.exports.dense = require('../../demo/Hall-Demo/mvs/patches.json');
 
 //==============================================
 
@@ -161,6 +160,22 @@ module.exports.getTwoViewSparse = function(i1, i2){
         };
     });
 
+};
+
+
+/**
+ * Get dence point cloud of visiable in a specific camera
+ * @param {int} i
+ * @returns {HomoPoint3D[]}
+ */
+module.exports.getViewDense = function(i){
+    var cloud = [];
+    exports.dense.forEach(function(patch){
+        if (patch.consistent.indexOf(i) !== -1) {
+            cloud.push(Vector.create(patch.point));
+        }
+    });
+    return cloud;
 };
 
 

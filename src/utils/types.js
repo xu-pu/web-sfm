@@ -17,3 +17,12 @@
 /**
  * @typedef {{row: number, col: number}} RowCol
  */
+
+
+/**
+ * @typedef {Vector} HomoPoint3D
+ */
+
+/**
+ * @typedef {Vector} HomoPoint2D
+ */

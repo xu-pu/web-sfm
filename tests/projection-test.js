@@ -32,6 +32,26 @@ function testCam(index){
 }
 
 
+function testCamDense(index){
+
+    var data = sample.getView(index),
+        cloud = sample.getViewDense(index),
+        R = data.R,
+        t = data.t,
+        focal = data.f;
+
+    return sample.promiseCanvasImage(index)
+        .then(function(img){
+            var projector = projections.getProjectionMatrix(R, t, focal, img.width, img.height);
+            var points = cloud.map(function(p){
+                var x = projector.x(p);
+                return cord.img2RC(x);
+            });
+            return testUtils.promiseVisualPoints('/home/sheep/Code/projection-test.png', index, points);
+        });
+
+}
+
 function testVisiable(index){
 
     var data = sample.getView(index),
@@ -61,4 +81,6 @@ function testVisiable(index){
 
 //testVisiable(20);
 
-testCam(3);
+//testCam(3);
+
+testCamDense(40);
