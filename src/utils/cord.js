@@ -55,8 +55,8 @@ module.exports.rc2img = function(row, col){
 
 
 /**
- * @param point
- * @returns {{row: number, col: number}}
+ * @param {HomoPoint2D} point
+ * @returns {RowCol}
  */
 module.exports.img2RC = function(point){
     point = point.x(1/point.e(3));
