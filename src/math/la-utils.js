@@ -3,7 +3,8 @@
 var _ = require('underscore'),
     la = require('sylvester'),
     Matrix = la.Matrix,
-    Vector = la.Vector;
+    Vector = la.Vector,
+    numeric = require('numeric');
 
 //===================================================
 
@@ -106,10 +107,10 @@ module.exports.vectorInfiniteNorm = function(v){
  */
 module.exports.svdSolve = function(A){
 
-    var V = A.svd().V,
-        v = V.col(9);
+    var solve = numeric.svd(A.elements),
+        V = Matrix.create(solve.V);
 
-    return v.x(1/v.modulus());
+    return V.col(A.cols());
 
 };
 
