@@ -28,7 +28,6 @@ module.exports.getRawMatches = getRawMatches;
 module.exports.bundler = bundler;
 module.exports.cameras = bundler.cameras;
 module.exports.sparse = bundler.points;
-module.exports.dense = require('../../demo/Hall-Demo/mvs/patches.json');
 
 //==============================================
 
@@ -169,6 +168,7 @@ module.exports.getTwoViewSparse = function(i1, i2){
  * @returns {HomoPoint3D[]}
  */
 module.exports.getViewDense = function(i){
+    requireDense();
     var cloud = [];
     exports.dense.forEach(function(patch){
         if (patch.consistent.indexOf(i) !== -1 || patch.inconsistent.indexOf(i) !== -1) {
@@ -259,4 +259,10 @@ function getRawMatches(index1, index2){
         throw "can not match itself";
     }
     return require(path);
+}
+
+function requireDense(){
+    if (!exports.dense) {
+        exports.dense = require('../../demo/Hall-Demo/mvs/patches.json');
+    }
 }
