@@ -54,9 +54,6 @@ module.exports.getRandomRT = function(cam){
 };
 
 
-//=====================================================
-
-
 /**
  *
  * @param {Camera} [cam] - optional bounding camera
@@ -77,5 +74,58 @@ module.exports.getRandomFeature = function(cam){
         })
 
     };
+
+};
+
+
+/**
+ * Generate a random linear equation set
+ * @param {Vector} [solve]
+ * @param {int} [rows]
+ * @return {Matrix}
+ */
+module.exports.getRandomLinearEquationSet = function(solve, rows){
+
+    var cols;
+
+    if (solve) {
+        cols = solve.elements.length;
+    }
+    else {
+        cols = 6 + Math.floor(10*Math.random());
+        solve = Vector.Random(cols);
+    }
+
+    rows = rows || cols + 4 + Math.floor(10*Math.random());
+
+    return Matrix.create(_.range(rows).map(function(){
+        return module.exports.getRandomOrthogonalVector(solve).elements;
+    }));
+
+};
+
+
+/**
+ * V*V'=0
+ * @param {Vector} v
+ * @returns {Vector}
+ */
+module.exports.getRandomOrthogonalVector = function(v){
+
+    var dims = v.elements.length,
+        ind = Math.floor(dims*Math.random()),
+        result = Vector.Random(dims),
+        cursor,
+        memo = 0;
+
+    for (cursor=0; cursor<dims; cursor++) {
+        if (cursor != ind) {
+            memo += v.elements[cursor] * result.elements[cursor];
+        }
+    }
+
+    result.elements[ind] = -memo/v.elements[ind];
+
+    return result;
 
 };
