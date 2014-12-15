@@ -49,16 +49,15 @@ module.exports = function(matches, metadata){
     var results = ransac({
         dataset: normalizedMatches,
         metadata: null,
-        subset: 8,
+        subset: 10,
         relGenerator: module.exports.estimateFmatrix,
         errorGenerator: module.exports.fmatrixError,
         outlierThreshold: 0.15,
-        errorThreshold: 0.006,
+        errorThreshold: 0.004,
         trials: 2000
     });
 
-    var Fsvd = module.exports.estimateFmatrix(_.sample(results.dataset, 100)),
-        F = module.exports.refineFmatrix(Fsvd, results.dataset);
+    var F = module.exports.refineFmatrix(results.rel, results.dataset);
 
     F = T1.transpose().x(F).x(T2);
 
@@ -97,35 +96,7 @@ module.exports.estimateFmatrix = function(matches){
 
     var solve = laUtils.svdSolve(A);
 
-    return laUtils.inflateVector(solve, 3, 4);
-
-};
-
-
-/**
- * Shortcut for dlt from features
- * @param {int[][]} matches
- * @param {object} metadata
- * @param {Camera} metadata.cam1
- * @param {Camera} metadata.cam2
- * @param {Feature[]} metadata.features1
- * @param {Feature[]} metadata.features2
- */
-module.exports.shortcut = function(matches, metadata){
-
-    var features1 = metadata.features1,
-        features2 = metadata.features2;
-
-    var formatted = matches.map(function(match){
-        var f1 = features1[match[0]],
-            f2 = features2[match[1]];
-        return {
-            x1: Vector.create(cord.featureToImg(f1)),
-            x2: Vector.create(cord.featureToImg(f2))
-        };
-    });
-
-    return module.exports(formatted);
+    return laUtils.inflateVector(solve, 3, 3);
 
 };
 
@@ -161,7 +132,7 @@ module.exports.refineFmatrix = function(F, matches){
                 return module.exports.fmatrixError(currentF, match);
             }));
         },
-        laUtils.flattenMatrix(F).x(1000),
+        laUtils.flattenMatrix(F).x(10000000),
         Vector.Zero(matches.length)
     );
 

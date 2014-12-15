@@ -6,12 +6,11 @@ var _ = require('underscore'),
     Matrix = la.Matrix,
     Vector = la.Vector;
 
-var bundler = require('../src/math/bundler.js'),
-    sample = require('../src/utils/samples.js'),
+var sample = require('../src/utils/samples.js'),
     projections = require('../src/math/projections.js'),
     testUtils = require('../src/utils/testing.js'),
     cord = require('../src/utils/cord.js'),
-    estimateFmatrix = require('../src/webregister/eightpoint.js');
+    estFmatrix = require('../src/webregister/estimate-fmatrix.js');
 
 
 function testCam(i1, i2){
@@ -28,17 +27,15 @@ function testCam(i1, i2){
             cam2: data.cam2
         };
 
-    var results = estimateFmatrix(matches, metadata);
+    var results = estFmatrix(matches, metadata);
     var estF = results.F;
     var dataset = _.sample(results.dataset, 100);
 
     return Promise.all([
-        testUtils.promiseVisualEpipolar('/home/sheep/Code/est-fmatrix-refer.png'        , i1, i2, F),
-        testUtils.promiseVisualEpipolar('/home/sheep/Code/est-fmatrix-est.png'          , i1, i2, estF),
         testUtils.promiseDetailedMatches('/home/sheep/Code/est-fmatrix-detail-refer.png', i1, i2, dataset, F),
         testUtils.promiseDetailedMatches('/home/sheep/Code/est-fmatrix-detail-est.png'  , i1, i2, dataset, estF)
     ]);
 
 }
 
-testCam(3,7);
+testCam(2,5);

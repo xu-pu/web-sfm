@@ -25,7 +25,7 @@ module.exports = function(func, x0, target){
 
     var MAX_STEPS = 100,
         DAMP_BASE = Math.pow(10, -3),
-        ZERO_THRESHOLD = Math.pow(10, -15),
+        ZERO_THRESHOLD = Math.pow(10, -30),
         DEFAULT_STEP_BASE = 2;
 
     var y0 = func(x0),
