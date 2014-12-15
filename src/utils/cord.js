@@ -8,21 +8,6 @@ var la = require('sylvester'),
 
 
 /**
- * @typedef {{ height: number, width: number }} Camera
- */
-
-
-//=======================================
-
-
-var BUNDLER_CONVERSION = Matrix.create([
-    [ 1,  0,  0 ],
-    [ 0, -1,  0 ],
-    [ 0,  0, -1 ]
-]);
-
-
-/**
  * Convert bundler cord system to websfm cord system
  * bundler's camera is right hand and negative focal plane
  * @param {Matrix} R
@@ -35,6 +20,13 @@ module.exports.getStandardRt = function(R ,t){
         t: BUNDLER_CONVERSION.x(t)
     };
 };
+
+
+var BUNDLER_CONVERSION = Matrix.create([
+    [ 1,  0,  0 ],
+    [ 0, -1,  0 ],
+    [ 0,  0, -1 ]
+]);
 
 
 //=======================================

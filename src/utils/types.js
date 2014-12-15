@@ -1,3 +1,7 @@
+//=================================================
+// Declare Types
+//=================================================
+
 
 /**
  * @typedef {{ R: Matrix, t: Vector, focal: number, P: Matrix, height: number, width: number }} CalibratedCamera
@@ -41,4 +45,9 @@
 
 /**
  * @typedef {{ x1: Vector, x2: Vector }} PointMatch
+ */
+
+
+/**
+ * @typedef {{ height: number, width: number }} Camera
  */
