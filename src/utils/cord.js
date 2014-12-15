@@ -124,6 +124,29 @@ module.exports.imgline2points = function(line, cam){
 };
 
 
+/**
+ * @param {Vector} p
+ * @returns {HomoPoint3D}
+ */
+module.exports.toHomo3D = function(p){
+    return Vector.create(
+        [ p.e(1), p.e(2), p.e(3), 1 ]
+    );
+};
+
+
+/**
+ * @param {HomoPoint3D} p
+ * @returns {Vector}
+ */
+module.exports.toInhomo3D = function(p){
+    var deno = p.e(4);
+    return Vector.create(
+        [ p.e(1)/deno, p.e(2)/deno, p.e(3)/deno ]
+    );
+};
+
+
 //=======================================
 
 
