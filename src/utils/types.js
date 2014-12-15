@@ -23,6 +23,22 @@
  * @typedef {Vector} HomoPoint3D
  */
 
+
 /**
  * @typedef {Vector} HomoPoint2D
+ */
+
+
+/**
+ * @typedef {number[]} EulerAngles
+ */
+
+
+/**
+ * @typedef {{ features1: Feature[], features2: Feature[], cam2: Camera, cam2: Camera }} TwoViewMetadata
+ */
+
+
+/**
+ * @typedef {{ x1: Vector, x2: Vector }} PointMatch
  */

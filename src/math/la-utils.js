@@ -100,6 +100,21 @@ module.exports.vectorInfiniteNorm = function(v){
 
 
 /**
+ * Shortcut for least mean square solve of Ax=0 using SVD (Normalized)
+ * @param {Matrix} A
+ * @returns {Vector}
+ */
+module.exports.svdSolve = function(A){
+
+    var V = A.svd().V,
+        v = V.col(9);
+
+    return v.x(1/v.modulus());
+
+};
+
+
+/**
  * flatten a matrix into a vector
  * @param {Matrix} m
  * @returns Vector
@@ -177,12 +192,5 @@ module.exports.getFeatureDistance = function(f1, f2){
     }
 
     return memo;
-
-    /*
-     return f1.vector.reduce(function(memo, val, i){
-     var diff = f1.vector[i] - f2.vector[i];
-     return memo + diff*diff;
-     }, 0);
-     */
 
 };

@@ -7,10 +7,14 @@ var _ = require('underscore'),
     numeric = require('numeric'),
     cord = require('../utils/cord.js');
 
-module.exports = getHomography;
-module.exports.homographyError = homographyError;
 
-function getHomography(matches, metadata){
+/**
+ *
+ * @param matches
+ * @param metadata
+ * @returns {*}
+ */
+module.exports = function(matches, metadata){
 
     if (matches.length !== 4){
         throw 'need exact 4 points';
@@ -65,12 +69,26 @@ function getHomography(matches, metadata){
         F = fSVD.U.x(fSVD.S).x(fSVD.V.transpose());
     }
     return T2.inverse().x(F).x(T1);
-}
+};
 
-function homographyError(homography, match, metadata){
-    var f1 = metadata.features1[match[0]],
-        f2 = metadata.features2[match[1]];
-    var p1 = Vector.create(cord.featureToImg(f1)),
-        p2 = Vector.create(cord.featureToImg(f2));
+
+/**
+ *
+ * @param matches
+ */
+module.exports.estimateHomography = function(matches){
+
+};
+
+
+/**
+ *
+ * @param {Matrix} homography
+ * @param {Vector[]} match
+ * @returns {number}
+ */
+module.exports.homographyError = function(homography, match){
+    var p1 = match[0],
+        p2 = match[1];
     return homography.x(p1).subtract(p2).modulus();
-}
+};
