@@ -17,7 +17,7 @@ var ransac  = require('./ransac.js'),
  * Normalized eight point algorithm to filter matches and estimate Fmatrix
  * @param {int[][]} matches
  * @param {TwoViewMetadata} metadata
- * @returns {{ dataset: PointMatch[], F: Matrix }}
+ * @returns {{ dataset: int[][], F: Matrix }}
  */
 module.exports = function(matches, metadata){
 
