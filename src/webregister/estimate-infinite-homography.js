@@ -4,20 +4,31 @@ var _ = require('underscore'),
     la = require('sylvester'),
     Matrix = la.Matrix,
     Vector = la.Vector,
-    numeric = require('numeric'),
-    cord = require('../utils/cord.js');
+    numeric = require('numeric');
+
+var cord     = require('../utils/cord.js'),
+    ransac   = require('./ransac.js'),
+    lma      = require('../math/levenberg-marquardt.js'),
+    laUtils  = require('../math/la-utils.js'),
+    geoUtils = require('../math/geometry-utils.js');
+
+//================================================================
+
+var HOMOGRAPHY_MATCH = 10;
+
+//================================================================
 
 
 /**
  *
  * @param matches
  * @param metadata
- * @returns {*}
+ * @returns {Matrix}
  */
 module.exports = function(matches, metadata){
 
-    if (matches.length !== 4){
-        throw 'need exact 4 points';
+    if (matches.length < HOMOGRAPHY_MATCH){
+        throw 'More matches needed';
     }
 
     var cam1 = metadata.cam1,
@@ -32,63 +43,104 @@ module.exports = function(matches, metadata){
     ]);
 
     var T2 = Matrix.create([
-            [2.0/cam2.width, 0,               -1],
-            [0,              2.0/cam2.height, -1],
-            [0,              0,                1]]
-    );
-
-    var A = [];
-    matches.forEach(function(match){
-        var f1 = features1[match[0]],
-            f2 = features2[match[1]],
-            p1 = Matrix.create([cord.featureToImg(f1)]).transpose(),
-            p2 = Matrix.create([cord.featureToImg(f2)]).transpose();
-        p1 = T1.x(p1).transpose();
-        p2 = T2.x(p2).transpose();
-        var xx = p2.elements[0][0],
-            yy = p2.elements[0][1],
-            zz = p2.elements[0][2];
-        var param1 = Matrix.create([[ -1,0, xx/zz]]).transpose(),
-            param2 = Matrix.create([[ 0,-1, yy/zz]]).transpose();
-        A.push(_.flatten(param1.x(p1).elements));
-        A.push(_.flatten(param2.x(p1).elements));
-    });
-    A = Matrix.create(A);
-
-    var result = Matrix.create(numeric.svd(A.transpose().elements).U).col(8);
-
-    var F = Matrix.create([
-        result.elements.slice(0, 3),
-        result.elements.slice(3, 6),
-        result.elements.slice(6, 9)
+        [2.0/cam2.width, 0,               -1],
+        [0,              2.0/cam2.height, -1],
+        [0,              0,                1]
     ]);
 
-    if (F.determinant() !== 0) {
-        var fSVD = F.svd();
-        fSVD.S.elements[2][2] = 0;
-        F = fSVD.U.x(fSVD.S).x(fSVD.V.transpose());
-    }
-    return T2.inverse().x(F).x(T1);
+    var dataset = matches.map(function(match){
+        var f1 = features1[match[0]],
+            f2 = features2[match[1]],
+            p1 = cord.feature2img(f1),
+            p2 = cord.feature2img(f2);
+        return { x1: T1.x(p1), x2: T2.x(p2) };
+    });
+
+    var results = ransac({
+        dataset: dataset,
+        metadata: null,
+        subset: HOMOGRAPHY_MATCH,
+        relGenerator: module.exports.estimateHomography,
+        errorGenerator: module.exports.homographyError,
+        outlierThreshold: 0.15,
+        errorThreshold: 0.06,
+        trials: 2000
+    });
+
+    var H = module.exports.refineHomography(results.rel, results.dataset);
+
+    return T2.inverse().x(H).x(T1);
+
 };
 
 
 /**
- *
- * @param matches
+ * H * x1 = k * x2
+ * @param {PointMatch[]} matches
+ * @returns {Matrix}
  */
 module.exports.estimateHomography = function(matches){
 
+    var A = [];
+
+    matches.forEach(function(pair){
+
+        var x1 = pair.x1,
+            x2 = pair.x2,
+            x2Hat = laUtils.crossVector(x2),
+            xx1 = Matrix.create([x1.elements]);
+
+        x2Hat.elements.forEach(function(eles){
+            var xx2 = Matrix.create(eles),
+                coeM = xx2.x(xx1),
+                coeV = _.flatten(coeM.elements);
+            A.push(coeV)
+        });
+
+    });
+
+    A = Matrix.create(A);
+
+    var solve = laUtils.svdSolve(A);
+
+    return laUtils.inflateVector(solve, 3, 3);
+
+};
+
+
+/**
+ * Homography error = || x2-x2' ||
+ * @param {Matrix} homography
+ * @param {PointMatch} match
+ * @returns {number}
+ */
+module.exports.homographyError = function(homography, match){
+    var x1 = match.x1,
+        x2 = match.x2,
+        x2H = homography.x(x1);
+    return geoUtils.distHomo2D(x2, x2H);
 };
 
 
 /**
  *
- * @param {Matrix} homography
- * @param {Vector[]} match
- * @returns {number}
+ * @param {Matrix} H
+ * @param {PointMatch[]} matches
+ * @returns {Matrix}
  */
-module.exports.homographyError = function(homography, match){
-    var p1 = match[0],
-        p2 = match[1];
-    return homography.x(p1).subtract(p2).modulus();
+module.exports.refineHomography = function(H, matches){
+
+    var refined = lma(
+        function(parameters){
+            var currentF = laUtils.inflateVector(parameters, 3, 3);
+            return Vector.create(matches.map(function(match){
+                return module.exports.homographyError(currentF, match);
+            }));
+        },
+        laUtils.flattenMatrix(H).x(10000000),
+        Vector.Zero(matches.length)
+    );
+
+    return laUtils.inflateVector(refined, 3, 3);
+
 };
