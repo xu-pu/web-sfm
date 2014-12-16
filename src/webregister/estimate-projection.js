@@ -5,15 +5,53 @@ var _ = require('underscore'),
     Matrix = la.Matrix,
     Vector = la.Vector;
 
-var cord = require('../utils/cord.js'),
-    laUtils = require('../math/la-utils.js');
+var lma      = require('../math/levenberg-marquardt.js'),
+    ransac   = require('./ransac.js'),
+    cord     = require('../utils/cord.js'),
+    laUtils  = require('../math/la-utils.js'),
+    geoUtils = require('../math/geometry-utils.js');
+
+//==========================================================
+
+var PROJECTION_MINIMUM = 10;
+
+//==========================================================
+
+
+/**
+ *
+ * @param {{ X: HomoPoint3D, x: HomoPoint2D }[]} tracks
+ */
+module.exports = function(tracks){
+
+    if (tracks.length < PROJECTION_MINIMUM){
+        throw 'More matches needed';
+    }
+
+    var results = ransac({
+        dataset: tracks,
+        metadata: null,
+        subset: PROJECTION_MINIMUM,
+        relGenerator: module.exports.estimateProjection,
+        errorGenerator: module.exports.projectionError,
+        outlierThreshold: 0.05,
+        errorThreshold: 0.004,
+        trials: 2000
+    });
+
+    var P = results.rel;
+
+    return module.exports.refineProjection(P, results.dataset);
+
+};
 
 
 /**
  * Estimate projection matrix from imgCord/3dCord pairs
- * @param {{X, x}[]} dataset
+ * @param {{ X: HomoPoint3D, x: HomoPoint2D }[]} dataset
+ * @returns {Matrix}
  */
-module.exports = function(dataset){
+module.exports.estimateProjection = function(dataset){
 
     var A = [];
 
@@ -32,16 +70,42 @@ module.exports = function(dataset){
 
     });
 
-    var results = Matrix.create(A).svd(),
-        V = results.V,
-        v = V.col(12),
-        normalizedV = v.x(1/v.modulus()),
-        result = normalizedV.elements;
+    var solve = laUtils.svdSolve(Matrix.create(A));
 
-    return Matrix.create([
-        result.slice(0, 4),
-        result.slice(4, 8),
-        result.slice(8, 12)
-    ]);
+    return laUtils.inflateVector(solve, 3, 4);
 
+};
+
+
+/**
+ *
+ * @param {Matrix} P
+ * @param {{ X: HomoPoint3D, x: HomoPoint2D }[]} tracks
+ * @returns {Matrix}
+ */
+module.exports.refineProjection = function(P, tracks){
+
+    var refined = lma(
+        function(parameter){
+            var pro = laUtils.inflateVector(parameter, 3, 4);
+            return Vector.create(tracks.map(function(track){
+                return module.exports.projectionError(pro, track);
+            }))
+        },
+        laUtils.flattenMatrix(P).x(10000),
+        Vector.Zero(tracks.length)
+    );
+
+    return laUtils.inflateVector(refined, 3, 4);
+
+};
+
+
+/**
+ * @param {Matrix} P
+ * @param {{ X: HomoPoint3D, x: HomoPoint2D }} pair
+ * @returns {number}
+ */
+module.exports.projectionError = function(P, pair){
+    return geoUtils.distHomo2D(P.x(pair.X), pair.x);
 };

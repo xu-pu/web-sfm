@@ -6,41 +6,27 @@ var _ = require('underscore'),
     Matrix = la.Matrix,
     Vector = la.Vector;
 
-var bundler = require('../src/math/bundler.js'),
-    sample = require('../src/utils/samples.js'),
+var sample = require('../src/utils/samples.js'),
     testUtils = require('../src/utils/testing.js'),
     projections = require('../src/math/projections.js'),
     cord = require('../src/utils/cord.js'),
-    dlt = require('../src/webregister/estimate-projection.js');
+    estimateProjection = require('../src/webregister/estimate-projection.js');
 
 function testCam(i){
 
-    var cloud = sample.getViewSparse(i),
-        data = sample.getView(i);
+    var cloud = sample.getViewSparse(i);
 
-    var reference = cloud.map(function(track){
-            return track.x;
-        });
+    var dataset = cloud.map(function(track){
+        return {
+            X: track.X,
+            x: cord.feature2img(track.x)
+        };
+    });
 
-    var dataset = _.sample(cloud, 100),
-        selected = dataset.map(function(track){
-            return track.x;
-        }),
-        points = dataset.map(function(track){
-            return track.X;
-        }),
-        pairs = dataset.map(function(track){
-            var rc = track.x;
-            return {
-                X: track.X,
-                x: Vector.create(cord.rc2img(rc.row, rc.col))
-            };
-        });
+    var estPro = estimateProjection(dataset);
 
-    var estPro = dlt(pairs);
-
-    var estimated = points.map(function(X){
-        return cord.img2RC(estPro.x(X));
+    var estimated = cloud.map(function(track){
+        return track.x;
     });
 
     var reprojected = cloud.map(function(track){
@@ -49,13 +35,11 @@ function testCam(i){
     });
 
     return Promise.all([
-        testUtils.promiseVisualPoints('/home/sheep/Code/est-projection-refer.png', i, reference),
         testUtils.promiseVisualPoints('/home/sheep/Code/est-projection-refer-reprojected.png', i, reprojected),
-        testUtils.promiseVisualPoints('/home/sheep/Code/est-projection-dataset.png', i, selected),
         testUtils.promiseVisualPoints('/home/sheep/Code/est-projection-est.png', i, estimated)
     ]);
 
 }
 
-testCam(8);
+testCam(33);
 
