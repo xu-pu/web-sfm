@@ -4,6 +4,8 @@ var la = require('sylvester'),
     Matrix = la.Matrix,
     Vector = la.Vector;
 
+var cord = require('../utils/cord.js');
+
 //==========================================================
 
 
@@ -209,6 +211,16 @@ module.exports.getNormalizedDist = function(rc1, rc2, cam){
     var dr = (rc1.row - rc2.row)/cam.height;
     var dc = (rc1.col - rc2.col)/cam.width;
     return Math.sqrt( dr*dr + dc*dc );
+};
+
+
+/**
+ * @param {HomoPoint2D} p1
+ * @param {HomoPoint2D} p2
+ * @returns {number}
+ */
+module.exports.distHomo2D = function(p1, p2){
+    return module.exports.getDistanceRC(cord.img2RC(p1), cord.img2RC(p2));
 };
 
 
