@@ -8,20 +8,35 @@ var _ = require('underscore'),
 
 var convBlur = require('./blur.js');
 
-var INIT_SIGMA = 1.6,
-    INTERVALS = 3,
-    SCALES = INTERVALS + 3;
+var INTERVALS = 3,
+    SCALES = INTERVALS + 3,
+    INIT_SIGMA = 1.6,
+    INITIAL_SIGMA = 0.5,
+    OCTAVES = 5;
 
-module.exports = iterDoGs;
-
-/**
- * @typedef {{img, sigma: number}} DoG
- */
+//===============================================
 
 
 /**
- * @typedef {{img, sigma: number}} Scale
+ *
+ * @param img
+ * @param callback
  */
+module.exports = function(img, callback){
+
+    var base = pool.malloc(img.shape),
+        delta = Math.sqrt(INIT_SIGMA*INIT_SIGMA-INITIAL_SIGMA*INITIAL_SIGMA);
+    convBlur(base, img, delta, 5);
+
+    _.range(OCTAVES).forEach(function(octave){
+        var newBase = iterDoG(base, octave, callback);
+        pool.free(base);
+        base = newBase;
+    });
+
+    pool.free(base);
+
+};
 
 /**
  * @param baseImage
@@ -70,9 +85,9 @@ function DogSpace(baseImage, octave){
         img = pool.clone(baseImage);
     }
 
-    var scales = getScaleSpace(img);
+    var scales = genGuassianPyramid(img);
     this.tail = scales[SCALES-1];
-    this.dogs = getDoGs(scales);
+    this.dogs = genDogPyramid(scales);
 
     console.log('dogs generated');
 
@@ -98,7 +113,7 @@ DogSpace.prototype.get = function(row,col,layer){
  * @param base
  * @returns {Scale[]}
  */
-function getScaleSpace(base){
+function genGuassianPyramid(base){
 
     var k = Math.pow(2, 1/INTERVALS),
         delta = Math.sqrt(k*k-1),
@@ -130,7 +145,7 @@ function getScaleSpace(base){
  * @param {Scale[]} scales
  * @returns {DoG[]}
  */
-function getDoGs(scales){
+function genDogPyramid(scales){
     return _.range(SCALES-1).map(function(index){
         var image = scales[index].img,
             imageK = scales[index+1].img,
