@@ -51,3 +51,14 @@
 /**
  * @typedef {{ height: number, width: number }} Camera
  */
+
+
+
+/**
+ * @typedef {{img, sigma: number}} DoG
+ */
+
+
+/**
+ * @typedef {{img, sigma: number}} Scale
+ */

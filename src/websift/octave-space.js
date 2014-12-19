@@ -1,7 +1,6 @@
 'use strict';
 
 var _ = require('underscore'),
-    blur = require('ndarray-gaussian-filter'),
     pool = require('ndarray-scratch');
 
 var GuassianPyramid = require('./guassian-pyramid.js'),
