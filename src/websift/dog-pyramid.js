@@ -53,3 +53,15 @@ DogPyramid.prototype.release = function(){
     });
     delete this.pyramid;
 };
+
+
+/**
+ * Ndarray interface
+ * @param {Number} row
+ * @param {Number} col
+ * @param {int} layer
+ * @returns {Number}
+ */
+DogPyramid.prototype.get = function(row,col,layer){
+    return this.pyramid[layer].img.get(col, row);
+};
