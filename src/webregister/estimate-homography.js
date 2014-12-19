@@ -23,7 +23,7 @@ var HOMOGRAPHY_MATCH = 10;
  *
  * @param matches
  * @param metadata
- * @returns {Matrix}
+ * @returns {{ dataset: int[][], H: Matrix }}
  */
 module.exports = function(matches, metadata){
 
@@ -62,14 +62,27 @@ module.exports = function(matches, metadata){
         subset: HOMOGRAPHY_MATCH,
         relGenerator: module.exports.estimateHomography,
         errorGenerator: module.exports.homographyError,
-        outlierThreshold: 0.15,
-        errorThreshold: 0.06,
+        outlierThreshold: 0.25,
+        errorThreshold: 0.004,
         trials: 2000
     });
 
     var H = module.exports.refineHomography(results.rel, results.dataset);
 
-    return T2.inverse().x(H).x(T1);
+    var filteredMatches = results.dataset.map(function(pair){
+        var i = dataset.indexOf(pair);
+        if (i === -1) {
+            throw 'Match not fount while constructing filtered matches';
+        }
+        else {
+            return matches[i];
+        }
+    });
+
+    return {
+        H: T2.inverse().x(H).x(T1),
+        dataset: filteredMatches
+    };
 
 };
 

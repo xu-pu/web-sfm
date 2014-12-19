@@ -23,7 +23,7 @@ var getJacobian = require('./jacobian.js'),
  */
 module.exports = function(func, x0, target){
 
-    var MAX_STEPS = 100,
+    var MAX_STEPS = 200,
         DAMP_BASE = Math.pow(10, -3),
         ZERO_THRESHOLD = Math.pow(10, -30),
         DEFAULT_STEP_BASE = 2;

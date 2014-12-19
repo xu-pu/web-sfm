@@ -16,7 +16,7 @@ var _ = require('underscore'),
  */
 module.exports = function(func, x){
 
-    var DELTA = 0.00001;
+    var DELTA = Math.pow(10, -6);
 
     var y = func(x),
         xx = x.dup(),
