@@ -6,8 +6,8 @@
 
 var _ = require('underscore');
 
-var detector = require('./detector.js'),
-    iterOctave = require('./iter-octave.js'),
+var OctaveSpace = require('./octave-space'),
+    detector = require('./detector.js'),
     isNotEdge = require('./edge-filter.js'),
     siftOrientation = require('./orientation.js');
 
@@ -28,21 +28,40 @@ function sift(img, options) {
     options = options || {};
 
     _.defaults(options, {
-        octaves: 4,
-        scales: 3,
-        kernelSize: 3,
-        contractThreshold: 0,
-        orientationWindow: 17
+        octaves: 4
     });
 
-    var features = [];
-    iterOctave(img, function(dogs, octave){
-        detector(dogs, octave, function(space, row, col){
-            if (isNotEdge(space, row, col)) {
-                features.push({ row: row, col: col });
+    var octaves = new OctaveSpace(img),
+        oct, scales, dogs, oi = octaves.nextOctave,
+        features = [];
+
+    while (octaves.hasNext()) {
+
+        oct    = octaves.next();
+        scales = oct.scales;
+        dogs   = oct.dogs;
+
+        detector(
+
+            dogs, scales,
+
+            /**
+             * SIFT detector callback
+             * @param {Scale} scale
+             * @param {number} row
+             * @param {number} col
+             */
+            function(scale, row, col){
+                if (isNotEdge(scale, row, col)) {
+                    features.push({ row: row, col: col });
+                }
             }
-        });
-    });
+
+        );
+
+        oi = octaves.nextOctave;
+
+    }
 
     return features;
 }

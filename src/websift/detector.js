@@ -2,19 +2,43 @@
 
 var _ = require('underscore');
 
-module.exports = detect;
+var settings = require('./settings.js'),
+    CONTRAST_THRESHOLD = settings.CONTRAST_THRESHOLD;
+
+//================================================================
+
 
 /**
- * @param {DogSpace} dogspace
- * @param {Number} layer
- * @param {Number} contrast
+ *
+ * @param {DogPyramid} dogspace
+ * @param {GuassianPyramid} scales
+ * @param {function} callback
+ */
+module.exports = function(dogspace, scales, callback){
+
+    _.range(1, dogspace.pyramid.length-1).forEach(function(layer){
+
+        var scale = scales.pyramid[layer];
+
+        module.exports.detect(dogspace, layer, function(row, col){
+            callback(scale, row, col);
+        })
+
+    });
+
+};
+
+
+/**
+ * @param {DogPyramid} dogspace
+ * @param {int} layer
  * @param {Function} callback
  */
-function detect(dogspace, layer, contrast, callback){
+module.exports.detect = function(dogspace, layer, callback){
 
     console.log('detecting feature points');
 
-    var img = dogspace.dogs[layer].img,
+    var img = dogspace.pyramid[layer].img,
         width = img.shape[0],
         height = img.shape[1],
         contrastWindow = [-1,0,1];
@@ -26,7 +50,7 @@ function detect(dogspace, layer, contrast, callback){
                 max = -Infinity,
                 min = Infinity;
 
-            if (center < contrast) {
+            if (center < CONTRAST_THRESHOLD) {
                 return;
             }
 
@@ -57,4 +81,4 @@ function detect(dogspace, layer, contrast, callback){
         });
     });
 
-}
+};
