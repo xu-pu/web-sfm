@@ -33,7 +33,12 @@ function OctaveSpace(img){
 
     var base = pool.malloc(img.shape),
         delta = Math.sqrt(INIT_SIGMA*INIT_SIGMA-INITIAL_SIGMA*INITIAL_SIGMA);
+
+    console.log('init blur begin');
+
     convBlur(base, img, delta, 5);
+
+    console.log('init blur end');
 
     _.extend(this, {
         octaves: OCTAVES,

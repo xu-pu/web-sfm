@@ -5,43 +5,56 @@ var _ = require('underscore'),
     blur = require('ndarray-gaussian-filter');
 
 var samples = require('../src/utils/samples.js'),
-    sift = require('../src/websift/websift.js'),
-    iterScales = require('../src/websift/dogspace.js'),
     getOrientation = require('../src/websift/orientation.js'),
     getGuassianKernel = require('../src/math/kernels.js').getGuassianKernel,
     testUtils = require('../src/utils/testing.js'),
     detect = require('../src/websift/detector.js'),
     isNotEdge = require('../src/websift/edge-filter.js'),
-    iterOctave = require('../src/websift/iter-octave.js');
+    OctaveSpace = require('../src/websift/octave-space'),
+    detector = require('../src/websift/detector.js'),
+    siftOrientation = require('../src/websift/orientation.js');
 
 
 function pyramidTest(index){
 
+    /**
     var filter = new PointFilter(),
         contrast = 255 * 0.5 * 0.04 / 5,
         detected = [];
-
+*/
     samples
         .promiseImage(index)
         .then(function(img){
 
-            iterOctave(img, function(dogspace, layer, octave){
-                var step = Math.pow(2, octave);
-                detect(dogspace, layer, contrast, function(row, col) {
-                    var point = { row: row*step, col: col*step };
-                    detected.push(point);
-                    filter.check(dogspace, layer, row, col, step);
-                });
-            });
+            var octaves = new OctaveSpace(img);
 
+            while (octaves.hasNext()) {
+                octaves.next();
+            }
+/*
             return Promise.all([
                 testUtils.promiseVisualPoints('/home/sheep/Code/sift-detected.png', index, detected),
                 testUtils.promiseVisualPoints('/home/sheep/Code/sift-filtered.png', index, filter.results),
                 testUtils.promiseVisualPoints('/home/sheep/Code/sift-edge.png', index, filter.edge)
             ]);
-
+*/
         });
 }
+
+
+function pyramidtest(){
+
+    var img = require('lena');
+
+    var octaves = new OctaveSpace(img);
+
+    while (octaves.hasNext()) {
+        octaves.next();
+    }
+
+}
+
+pyramidtest();
 
 
 /**
@@ -65,4 +78,4 @@ function PointFilter(){
     };
 }
 
-pyramidTest(6);
+//pyramidTest(6);
