@@ -1,9 +1,5 @@
 'use strict';
 
-/**
- * @typedef {{row: number, col: number, vector: number[]}} Feature
- */
-
 var _ = require('underscore');
 
 var OctaveSpace = require('./octave-space'),
@@ -11,7 +7,8 @@ var OctaveSpace = require('./octave-space'),
     isNotEdge = require('./edge-filter.js'),
     siftOrientation = require('./orientation.js');
 
-module.exports = sift;
+//=================================================================
+
 
 /**
  * the main function of this file, calculate SIFT of the image
@@ -21,15 +18,9 @@ module.exports = sift;
  * @param {int} [options.octaves]
  * @param {int} [options.scales]
  * @param {int} [options.kernelSize]
- * @returns {object[]}
+ * @returns {Feature[]}
  */
-function sift(img, options) {
-
-    options = options || {};
-
-    _.defaults(options, {
-        octaves: 4
-    });
+module.exports = function(img, options) {
 
     var octaves = new OctaveSpace(img),
         oct, scales, dogs, oi = octaves.nextOctave,
@@ -64,4 +55,5 @@ function sift(img, options) {
     }
 
     return features;
-}
+
+};

@@ -53,6 +53,15 @@
  */
 
 
+//=================================================
+// SIFT related types
+//=================================================
+
+
+/**
+ * @typedef {{row: number, col: number, vector: number[]}} Feature
+ */
+
 
 /**
  * @typedef {{img, sigma: number}} DoG
