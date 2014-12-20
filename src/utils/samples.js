@@ -14,7 +14,7 @@ var _ = require('underscore'),
     Vector = la.Vector;
 
 
-var toRGB = require('../websift/gray2rgb.js'),
+var toRGB = require('../utils/image-conversion.js').gray2rgb,
     bundler = require(DEMO_BASE + '/bundler/bundler.json'),
     cord = require('./cord.js'),
     projections = require('../math/projections.js');
