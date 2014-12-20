@@ -8,6 +8,7 @@ var samples = require('../src/utils/samples.js'),
     getOrientation = require('../src/websift/orientation.js'),
     getGuassianKernel = require('../src/math/kernels.js').getGuassianKernel,
     testUtils = require('../src/utils/testing.js'),
+    imgUtils = require('../src/utils/image-conversion.js'),
     isNotEdge = require('../src/websift/edge-filter.js'),
     OctaveSpace = require('../src/websift/octave-space'),
     detector = require('../src/websift/detector.js'),
@@ -79,7 +80,7 @@ function pyramidTest(index){
 
 function pyramidtest(){
 
-    var img = require('lena');
+    var img = imgUtils.rgb2gray(require('lena'));
 
     var octaves = new OctaveSpace(img),
         oct, scales, dogs, oi = octaves.nextOctave,
@@ -107,6 +108,7 @@ function pyramidtest(){
                     console.log('found one');
                     features.push({ row: row, col: col });
                 }
+
             }
 
         );
@@ -148,4 +150,5 @@ function PointFilter(){
     };
 }
 
-pyramidTest(6);
+//pyramidTest(6);
+pyramidtest();

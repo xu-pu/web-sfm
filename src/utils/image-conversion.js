@@ -2,7 +2,8 @@
 
 var ndarray = require('ndarray'),
     pool = require('ndarray-scratch'),
-    downsample = require('ndarray-downsample2x');
+    downsample = require('ndarray-downsample2x'),
+    grayscale = require('luminance');
 
 //======================================================
 
@@ -57,4 +58,13 @@ module.exports.gray2rgb = function(img){
         }
     }
     return result;
+};
+
+
+/**
+ * Shortcut for rgb to grayscale
+ * @param img
+ */
+module.exports.rgb2gray = function(img){
+    return grayscale(img);
 };
