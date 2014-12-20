@@ -22,13 +22,12 @@ module.exports = GuassianPyramid;
 /**
  *
  * @param base
- * @param octave
  *
  * @property {Scale[]} pyramid
  *
  * @constructor
  */
-function GuassianPyramid(base, octave){
+function GuassianPyramid(base){
 
     var k = Math.pow(2, 1/INTERVALS),
         delta = Math.sqrt(k*k-1),

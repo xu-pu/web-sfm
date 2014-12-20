@@ -50,7 +50,7 @@ module.exports.detect = function(dogspace, layer, callback){
                 max = -Infinity,
                 min = Infinity;
 
-            if (center < CONTRAST_THRESHOLD) {
+            if (Math.abs(center) < CONTRAST_THRESHOLD) {
                 return;
             }
 
