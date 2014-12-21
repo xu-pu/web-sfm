@@ -7,33 +7,32 @@ var _ = require('underscore'),
 
 var derivatives = require('../math/derivatives.js'),
     getGradient = derivatives.gradient,
-    getGuassianKernel = require('../math/kernels.js').getGuassianKernel;
+    getGuassianKernel = require('../math/kernels.js').getGuassianKernel,
+    settings = require('./settings.js');
 
-var RADIUS = 8,
-    WINDOW_SIZE = 2 * RADIUS + 1,
-    BINS = 36,
-    BIN_SIZE = 2*Math.PI/BINS,
+var      RADIUS = settings.ORIENTATION_WINDOW_RADIUS,
+    WINDOW_SIZE = settings.ORIENTATION_WINDOW,
+           BINS = settings.ORIENTATION_BINS,
+       BIN_SIZE = settings.ORIENTATION_BIN_SIZE,
     ACCEPT_THRESHOLD = 0.8;
 
-
-module.exports = getFeatureOrientation;
+//==========================================================
 
 
 /**
  *
- * @param {DoG} dog
+ * @param {Scale} scale
  * @param {number} row
  * @param {number} col
- * @param {Object} [options]
  * @return {number[]}
  */
-function getFeatureOrientation(dog, row, col, options){
+module.exports = function(scale, row, col){
     console.log('orienting feature points');
-    var hist = generateHist(dog, row, col);
+    var hist = generateHist(scale, row, col);
     var smoothedHist = smoothHist(hist);
     var maxIndex = getMaxIndex(smoothedHist);
     return getOrientations(smoothedHist, maxIndex);
-}
+};
 
 
 /**
