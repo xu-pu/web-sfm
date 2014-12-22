@@ -1,11 +1,11 @@
 <div class="project-creator__input">
+
     {{view view.InputView}}
+
+    {{#unless view.isInvalid}}
+        <div class="project-creator__submit" {{action "createProject"}}>
+            <h1>Create</h1>
+        </div>
+    {{/unless}}
+
 </div>
-
-{{#if view.isInvalid}}
-
-{{else}}
-    <div class="project-creator__submit" {{action "createProject"}}>Create</div>
-{{/if}}
-
-

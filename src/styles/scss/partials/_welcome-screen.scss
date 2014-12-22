@@ -327,6 +327,7 @@ $project-thumbnail-header-height: 2em;
 
   input {
     color: greenyellow;
+    text-align: center;
     font-size: 2em;
     width: 100%;
     height: 100%;
@@ -339,17 +340,22 @@ $project-thumbnail-header-height: 2em;
 
 .project-creator__submit {
 
-  $size: 3em;
-  @include transition(border-color 0.5s);
-  @include border-radius($size/2);
+  $size: 2em;
 
   position: absolute;
-  right: $size/4;
-  bottom: $size/4;
-  width: $size*2;
+  right: 0;
+  bottom: -($size+0.8em);
+  width: 6em;
   height: $size;
   cursor: pointer;
-  background-color: green;
+  background-color: greenyellow;
+
+  h1 {
+    @extend %center-element;
+    font-size: 1.5em;
+    height: 1em;
+    color: green;
+  }
 
 }
 
