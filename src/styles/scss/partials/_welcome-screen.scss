@@ -87,11 +87,13 @@
 // Rows
 //=====================================
 
+
 .welcome-screen__header {
   width: 100%;
-  height: 400px;
-  background-color: #2257FF;
+  height: 200px;
+  background-color: #ECE7E1;
 }
+
 
 %welcome-screen__row {
   width: 100%;
@@ -99,15 +101,18 @@
   overflow-x: hidden;
 }
 
-.welcome-screen__demos-container {
-  @extend %welcome-screen__row;
-  background-color: beige;
-}
 
 .welcome-screen__projects-container {
   @extend %welcome-screen__row;
-  background-color: burlywood;
+  background-color: #2F1231;
 }
+
+
+.welcome-screen__demos-container {
+  @extend %welcome-screen__row;
+  background-color: #4B4261;
+}
+
 
 .welcome-screen__demos, .welcome-screen__projects {
   height: 100%;
@@ -120,13 +125,24 @@
   }
 }
 
+#welcome-screen__row1 {
+  @extend %welcome-screen__row;
+  background-color: #607091;
+}
+
+
+#welcome-screen__row2 {
+  @extend %welcome-screen__row;
+  background-color: #89B0C1;
+}
+
+
 //=====================================
 // Demo and Project
 //=====================================
 
 
 %welcome-screen__thumbnail-hero {
-  @include box-shadow(inset 0 0 10px 3px rgba(0, 0, 0, 0.49));
   @include border-radius(1em);
   background-color: rgba(0, 0, 0, 0.11);
   width: 15em;
@@ -142,6 +158,7 @@
   }
 
 }
+
 
 %welcome-screen__item-tile {
   display: inline-block;
@@ -299,6 +316,9 @@ $project-thumbnail-header-height: 2em;
 
 .welcome-screen__projects__header {
   @extend %welcome-screen__thumbnail-hero;
+
+  @include box-shadow(inset 0 0 10px 3px rgba(0, 0, 0, 1));
+
   h1 {
     color: white;
   }
@@ -348,8 +368,11 @@ $project-thumbnail-header-height: 2em;
 
 .welcome-screen__demos__header {
   @extend %welcome-screen__thumbnail-hero;
+
+  @include box-shadow(inset 0 0 10px 3px rgba(0, 0, 0, 0.49));
+
   h1 {
-    color: gray;
+    color: white;
   }
 }
 

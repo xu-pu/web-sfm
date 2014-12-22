@@ -25,14 +25,11 @@
 
     "devDependencies": {
         "grunt": "latest",
-        "grunt-contrib-uglify": "latest",
-        "grunt-contrib-concat": "latest",
-        "grunt-neuter": "latest",
         "grunt-contrib-watch": "latest",
         "grunt-concat-sourcemap": "latest",
         "grunt-contrib-copy": "latest",
         "grunt-contrib-compass": "latest",
-        "grunt-ember-templates": "latest",
+        "grunt-ember-templates": "0.4.23",
         "grunt-browserify": "latest",
         "mocha": "latest",
         "should": "latest"

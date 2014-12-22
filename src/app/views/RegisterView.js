@@ -11,7 +11,7 @@ var Navigatable = require('../mixins/Navigatable.js');
 
 var getCordFrame = require('../../visualization/getCoordinateFrame.js'),
     getBundlerCamera = require('../../visualization/getBundlerCamera.js'),
-    bundler = require('../../math/bundler.js');
+    cord = require('../../utils/cord.js');
 
 module.exports = Ember.View.extend(Navigatable, {
 
@@ -165,7 +165,7 @@ module.exports = Ember.View.extend(Navigatable, {
     onFocus: function(){
         var cam = this.get('controller.focus'),
             camera = this.get('camera');
-        var Rt = bundler.getStandardRt(Matrix.create(cam.R), Vector.create(cam.t)),
+        var Rt = cord.getStandardRt(Matrix.create(cam.R), Vector.create(cam.t)),
             R = Rt.R,
             t = Rt.t,
             Ri = R.transpose(),
