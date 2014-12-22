@@ -2,4 +2,10 @@
     {{view view.InputView}}
 </div>
 
-<div {{action "createProject"}} {{bind-attr class=":project-creator__submit view.isInvalid"}}></div>
+{{#if view.isInvalid}}
+
+{{else}}
+    <div class="project-creator__submit" {{action "createProject"}}>Create</div>
+{{/if}}
+
+

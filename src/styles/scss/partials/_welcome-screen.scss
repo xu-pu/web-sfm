@@ -293,28 +293,44 @@ $project-thumbnail-header-height: 2em;
   padding: 1em;
   box-sizing: border-box;
   border: 2px dotted gray;
+  position: relative;
 
   &.is-invalid {
+
     border-color: red;
+
+    .project-creator__input {
+      border-color: red;
+      input { color: red; }
+    }
+
+    .project-creator__submit {
+      background-color: red;
+      cursor: not-allowed;
+    }
+
   }
 
 }
 
 .project-creator__input {
+  @include transition(border-color 0.5s);
+  @extend %center-element;
   $padding: 10px;
-  @include border-radius($padding);
-  background-color: white;
-  width: 100%;
-  height: 30%;
-  border: 0;
+  width: 90%;
+  height: 6em;
   padding-right: $padding;
   padding-left: $padding;
-  position: relative;
   box-sizing: border-box;
+  border-bottom: solid green 0.3em;
+  border-top: solid green 0.3em;
 
   input {
+    color: greenyellow;
     font-size: 2em;
     width: 100%;
+    height: 100%;
+    background-color: transparent;
     outline: none;
     border: 0;
   }
@@ -322,17 +338,18 @@ $project-thumbnail-header-height: 2em;
 }
 
 .project-creator__submit {
-  @include transition(border-color 0.5s);
-  width: 100%;
-  height: 70%;
-  cursor: pointer;
-  border: 2px dotted gray;
-  @include border-radius(10px);
 
-  &.is-invalid {
-    border-color: red;
-    cursor: not-allowed;
-  }
+  $size: 3em;
+  @include transition(border-color 0.5s);
+  @include border-radius($size/2);
+
+  position: absolute;
+  right: $size/4;
+  bottom: $size/4;
+  width: $size*2;
+  height: $size;
+  cursor: pointer;
+  background-color: green;
 
 }
 
