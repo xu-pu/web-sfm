@@ -5,7 +5,7 @@
         <div {{bind-attr class=":load-indicator isLoading"}}></div>
         <div class="exit-icon" {{action "back"}}></div>
     </div>
-    {{#view App.SiftView controller=controller}}
+    {{#view "sift" controller=controller}}
         <canvas></canvas>
     {{/view}}
 </div>

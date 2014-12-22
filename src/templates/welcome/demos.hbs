@@ -7,7 +7,7 @@
         </li>
         {{#each demo in controller}}
             <li class="welcome-screen__demos__item">
-                {{view App.DemoThumbnailView controller=demo}}
+                {{view "demoThumbnail" controller=demo}}
             </li>
         {{/each}}
     </ul>

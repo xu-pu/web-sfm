@@ -16,7 +16,7 @@
             <div id="controll-panel__parameters" class="controll-panel__l2">
                 <div class="controll-panel__l2-tab">
                     <div>Use {{threadPoolSize}} CPU Cores</div>
-                    {{view App.CpuSettingView controller=controller}}
+                    {{view "cpuSetting" controller=controller}}
                 </div>
             </div>
         </div>
@@ -68,5 +68,5 @@
 
 
 <div id="controll-panel__footer">
-    {{view App.StateBarView controller=controller}}
+    {{view "stateBar" controller=controller}}
 </div>

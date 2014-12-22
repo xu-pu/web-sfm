@@ -9,12 +9,12 @@
 
         {{#each project in controller}}
             <li class="welcome-screen__projects__item">
-                {{view App.ProjectThumbnailView controller=project}}
+                {{view "projectThumbnail" controller=project}}
             </li>
         {{/each}}
 
         <li class="welcome-screen__projects__item">
-            {{view App.ProjectCreatorView controller=controller}}
+            {{view "projectCreator" controller=controller}}
         </li>
 
     </ul>
