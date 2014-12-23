@@ -12,6 +12,14 @@ module.exports = Ember.ArrayController.extend({
 
     queue: [],
 
+    actions: {
+
+        expand: function(model){
+            this.transitionToRoute('workspace.images.detail', model);
+        }
+
+    },
+
     inProgress: function(){
         return this.get('queue.length') !== 0;
     }.property('queue.length'),

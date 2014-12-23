@@ -29,7 +29,7 @@
         "grunt-concat-sourcemap": "latest",
         "grunt-contrib-copy": "latest",
         "grunt-contrib-compass": "latest",
-        "grunt-ember-templates": "0.4.23",
+        "grunt-ember-templates": "0.5",
         "grunt-browserify": "latest",
         "mocha": "latest",
         "should": "latest"

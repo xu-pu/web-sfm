@@ -17,7 +17,7 @@
 </div>
 
 <div class="welcome-screen__projects-container">
-    {{outlet projects}}
+    {{outlet "projects"}}
 </div>
 
 <div {{bind-attr class=":welcome-screen__detail-container isDetailClosed"}}>
@@ -25,7 +25,7 @@
     {{outlet}}
 </div>
 
-<div class="welcome-screen__demos-container">{{outlet demos}}</div>
+<div class="welcome-screen__demos-container">{{outlet "demos"}}</div>
 
 <div id="welcome-screen__row1" class="welcome-screen__row">
     <h1>Some Content</h1>
