@@ -6,12 +6,11 @@ var THREE = require('three'),
     Vector = la.Vector;
 
 
-var camMaterial = new THREE.LineBasicMaterial({
-    color: 0xFF0000
-});
-
-
 module.exports = function(R, t, focal, imgHeight, imgWidth){
+
+    var camMaterial = new THREE.LineBasicMaterial({
+        color: 0xFF0000
+    });
 
     var Ri = R.transpose(),
         T = Ri.x(t).x(-1),
