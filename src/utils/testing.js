@@ -125,25 +125,7 @@ module.exports.promiseVisualEpipolar = function(path, i1, i2, F){
  * @returns {Promise}
  */
 module.exports.promiseVisualPoints = function(path, index, points, options){
-
-    options = options || {};
-    _.defaults(options, {
-        fixedWidth: 1200
-    });
-
-    return samples
-        .promiseCanvasImage(index)
-        .then(function(img){
-            var ratio = options.fixedWidth/img.width,
-                width = options.fixedWidth,
-                height = img.height*ratio,
-                canv = new Canvas(width, height),
-                ctx = canv.getContext('2d');
-            ctx.drawImage(img, 0, 0, width, height);
-            drawFeatures(ctx, points, 0, 0, ratio);
-            return testUtils.promiseWriteCanvas(path, canv);
-        });
-
+    return testUtils.promiseVisualPoints(path, samples.getImagePath(index), points, options);
 };
 
 

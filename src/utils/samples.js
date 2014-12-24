@@ -15,11 +15,20 @@ var bundler = require(DEMO_BASE + '/bundler/bundler.json'),
     projections = require('../math/projections.js'),
     testUtils = require('./test-utils.js');
 
+
 //==============================================
+
 
 module.exports.bundler = bundler;
 module.exports.cameras = bundler.cameras;
 module.exports.sparse = bundler.points;
+
+function requireDense(){
+    if (!exports.dense) {
+        exports.dense = require('../../demo/Hall-Demo/mvs/patches.json');
+    }
+}
+
 
 //==============================================
 
@@ -182,7 +191,7 @@ module.exports.getViewDense = function(i){
  * @returns {Feature[]}
  */
 module.exports.getFeatures = function(index){
-    var siftPath = DEMO_BASE + '/sift.json/' + getFullname(index) + '.json';
+    var siftPath = DEMO_BASE + '/sift.json/' + exports.getFullname(index) + '.json';
     return require(siftPath).features;
 };
 
@@ -196,18 +205,13 @@ module.exports.getCamera = function(index){
 };
 
 
-//==============================================
-//
-//==============================================
-
-
 /**
  *
  * @param {int} index
  * @returns {Promise}
  */
 module.exports.promiseImage = function(index){
-    return testUtils.promiseImage(getImagePath(index));
+    return testUtils.promiseImage(exports.getImagePath(index));
 };
 
 
@@ -217,7 +221,7 @@ module.exports.promiseImage = function(index){
  * @returns {Promise}
  */
 module.exports.promiseCanvasImage = function(index){
-    return testUtils.promiseCanvasImage(getImagePath(index));
+    return testUtils.promiseCanvasImage(exports.getImagePath(index));
 };
 
 
@@ -230,10 +234,10 @@ module.exports.promiseCanvasImage = function(index){
 module.exports.getRawMatches = function(index1, index2){
     var path;
     if (index1 > index2) {
-        path = DEMO_BASE + '/raw-match/' + getFullname(index2) + '.jpg&' + getFullname(index1) + '.jpg.json';
+        path = DEMO_BASE + '/raw-match/' + exports.getFullname(index2) + '.jpg&' + exports.getFullname(index1) + '.jpg.json';
     }
     else if (index1 < index2) {
-        path = DEMO_BASE + '/raw-match/' + getFullname(index1) + '.jpg&' + getFullname(index2) + '.jpg.json';
+        path = DEMO_BASE + '/raw-match/' + exports.getFullname(index1) + '.jpg&' + exports.getFullname(index2) + '.jpg.json';
     }
     else {
         throw "can not match itself";
@@ -242,24 +246,26 @@ module.exports.getRawMatches = function(index1, index2){
 };
 
 
-//==============================================
+/**
+ *
+ * @param {int} index
+ * @returns {string}
+ */
+module.exports.getImagePath = function(index){
+    return DEMO_BASE + '/images/' + exports.getFullname(index) + '.jpg';
+};
 
 
-function getImagePath(index){
-    return DEMO_BASE + '/images/' + getFullname(index) + '.jpg';
-}
-
-function getFullname(index){
+/**
+ *
+ * @param {int} index
+ * @returns {string}
+ */
+module.exports.getFullname = function(index){
     var name = String(index),
         prefixLength = 8-name.length;
     for (var i= 0; i<prefixLength; i++) {
         name = '0' + name;
     }
     return name;
-}
-
-function requireDense(){
-    if (!exports.dense) {
-        exports.dense = require('../../demo/Hall-Demo/mvs/patches.json');
-    }
-}
+};

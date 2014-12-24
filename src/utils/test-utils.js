@@ -12,6 +12,17 @@ var _ = require('underscore'),
     grayscale = require('luminance'),
     Image = require('canvas').Image;
 
+var samples = require('./samples.js'),
+    randomUtils = require('./random.js'),
+    laUtils = require('../math/la-utils.js'),
+    projections = require('../math/projections.js'),
+    drawFeatures = require('../visualization/drawFeatures.js'),
+    drawImagePair = require('../visualization/drawImagePair.js'),
+    drawMatches = require('../visualization/drawMatches.js'),
+    drawEpipolarLines = require('../visualization/drawEpipolarLines.js'),
+    drawHomography = require('../visualization/drawHomography.js'),
+    drawDetailedMatch = require('../visualization/drawDetailedMatch.js');
+
 
 //=====================================================
 // Image loading utilities
@@ -113,3 +124,34 @@ module.exports.promiseSaveJson = function(path, obj){
 //=====================================================
 // Common visualization utilities
 //=====================================================
+
+
+/**
+ *
+ * @param {string} resultPath
+ * @param {string} sourcePath
+ * @param {RowCol[]} points
+ * @param [options]
+ * @returns {Promise}
+ */
+module.exports.promiseVisualPoints = function(resultPath, sourcePath, points, options){
+
+    options = options || {};
+
+    _.defaults(options, {
+        fixedWidth: 1200
+    });
+
+    return exports.promiseCanvasImage(sourcePath)
+        .then(function(img){
+            var ratio = options.fixedWidth/img.width,
+                width = options.fixedWidth,
+                height = img.height*ratio,
+                canv = new Canvas(width, height),
+                ctx = canv.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+            drawFeatures(ctx, points, 0, 0, ratio);
+            return exports.promiseWriteCanvas(resultPath, canv);
+        });
+
+};
