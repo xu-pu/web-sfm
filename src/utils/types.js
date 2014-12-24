@@ -71,3 +71,8 @@
 /**
  * @typedef {{img, sigma: number}} Scale
  */
+
+
+/**
+ * @typedef {{ row: number, col: number, layer: number, value: number }} Subpixel
+ */
