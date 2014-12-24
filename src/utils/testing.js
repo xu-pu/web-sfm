@@ -10,6 +10,8 @@ var _ = require('underscore'),
 
 var samples = require('./samples.js'),
     testUtils = require('./test-utils.js'),
+    randomUtils = require('./random.js'),
+    laUtils = require('../math/la-utils.js'),
     projections = require('../math/projections.js'),
     drawFeatures = require('../visualization/drawFeatures.js'),
     drawImagePair = require('../visualization/drawImagePair.js'),
@@ -55,7 +57,7 @@ module.exports.promiseDetailedMatches = function(path, i1, i2, matches, F){
             config = drawImagePair(results[0], results[1], canv, 1200),
             ctx = canv.getContext('2d');
         matches.forEach(function(match){
-            drawDetailedMatch(ctx, config, fmatrix, match, getRandomColor(), features1, features2, data.cam1, data.cam2);
+            drawDetailedMatch(ctx, config, fmatrix, match, randomUtils.genRGBString(), features1, features2, data.cam1, data.cam2);
         });
         return testUtils.promiseWriteCanvas(path, canv);
     });
@@ -171,7 +173,7 @@ module.exports.promiseVisualHomographyPiar = function(path, i1, i2, H1, H2){
             R1 = data.R1, R2 = data.R2,
             t1 = data.t1, t2 = data.t2,
             F = projections.getFundamentalMatrix(R1, t1, data.f1, cam1, R2, t2, data.f2, cam2),
-            FF = normalizeMatrix(H1.transpose().inverse().x(F).x(H2.inverse()));
+            FF = laUtils.normalizedMatrix(H1.transpose().inverse().x(F).x(H2.inverse()));
 
         var canv = new Canvas(),
             config = drawImagePair(img1, img2, canv, 800),
@@ -207,23 +209,3 @@ module.exports.promiseVisualHomography = function(path, img, H, ratio){
     drawHomography(img, H, ctx, 0, 0, ratio);
     return testUtils.promiseWriteCanvas(path, canv);
 };
-
-
-//==================================================
-
-
-function getRandomColor(){
-
-    return 'rgb(' + getInt() + ',' + getInt() + ',' + getInt() + ')';
-
-    function getInt(){
-        return Math.floor(255*Math.random());
-    }
-
-}
-
-
-function normalizeMatrix(m){
-    var modulus = Vector.create(_.flatten(m.elements)).modulus();
-    return m.x(1/modulus);
-}

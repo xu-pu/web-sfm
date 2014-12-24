@@ -54,6 +54,27 @@ module.exports.getRandomRT = function(cam){
 };
 
 
+//=======================================
+
+
+/**
+ * Generate random RGB color string like rgb(255,255,255)
+ * @returns {string}
+ */
+module.exports.genRGBString = function(){
+
+    return 'rgb(' + getInt() + ',' + getInt() + ',' + getInt() + ')';
+
+    function getInt(){
+        return Math.floor(255*Math.random());
+    }
+
+};
+
+
+//=======================================
+
+
 /**
  *
  * @param {Camera} [cam] - optional bounding camera
