@@ -7,7 +7,8 @@ var _ = require('underscore'),
 var samples = require('../src/utils/samples.js'),
     getOrientation = require('../src/websift/orientation.js'),
     getGuassianKernel = require('../src/math/kernels.js').getGuassianKernel,
-    testUtils = require('../src/utils/testing.js'),
+    visualUtils = require('../src/utils/testing.js'),
+    testUtils = require('../src/utils/test-utils.js'),
     imgUtils = require('../src/utils/image-conversion.js'),
     isNotEdge = require('../src/websift/edge-filter.js'),
     OctaveSpace = require('../src/websift/octave-space'),
@@ -16,12 +17,6 @@ var samples = require('../src/utils/samples.js'),
 
 
 function pyramidTest(index){
-
-    /**
-    var filter = new PointFilter(),
-        contrast = 255 * 0.5 * 0.04 / 5,
-        detected = [];
-*/
 
     var features = [],
         all = [];
@@ -70,63 +65,68 @@ function pyramidTest(index){
             return Promise.all([
 //                testUtils.promiseVisualPoints('/home/sheep/Code/sift-detected.png', index, detected),
 //                testUtils.promiseVisualPoints('/home/sheep/Code/sift-filtered.png', index, filter.results),
-                testUtils.promiseVisualPoints('/home/sheep/Code/sift.png', index, features),
-                testUtils.promiseVisualPoints('/home/sheep/Code/sift-all.png', index, all)
+                visualUtils.promiseVisualPoints('/home/sheep/Code/sift.png', index, features),
+                visualUtils.promiseVisualPoints('/home/sheep/Code/sift-all.png', index, all)
             ]);
 
         });
 }
 
 
-function pyramidtest(){
 
-    var img = imgUtils.rgb2gray(require('lena'));
+function testExternal(filePath){
 
-    var octaves = new OctaveSpace(img),
-        oct, scales, dogs, oi = octaves.nextOctave,
-        features = [];
+    var features = [],
+        all = [];
 
-    while (octaves.hasNext()) {
+    testUtils.promiseImage(filePath)
+        .then(function(img){
 
-        oct    = octaves.next();
-        scales = oct.scales;
-        dogs   = oct.dogs;
+            var octaves = new OctaveSpace(img),
+                oct, scales, dogs, ratio,
+                oi = octaves.nextOctave;
 
-        detector(
+            while (octaves.hasNext()) {
 
-            dogs, scales,
+                oct    = octaves.next();
+                scales = oct.scales;
+                dogs   = oct.dogs;
+                ratio  = Math.pow(2, oi);
 
-            /**
-             * SIFT detector callback
-             * @param {Scale} scale
-             * @param {number} row
-             * @param {number} col
-             */
-            function(scale, row, col){
+                detector(
 
-                if (isNotEdge(scale, row, col)) {
-                    console.log('found one');
-                    features.push({ row: row, col: col });
-                }
+                    dogs, scales,
+
+                    /**
+                     * SIFT detector callback
+                     * @param {Scale} scale
+                     * @param {number} row
+                     * @param {number} col
+                     */
+                    function(scale, row, col){
+                        var f = { row: ratio * row, col: ratio * col };
+                        all.push(f);
+                        if (isNotEdge(scale, row, col)) {
+                            console.log('found one');
+                            features.push(f);
+                        }
+                    }
+
+                );
+
+                oi = octaves.nextOctave;
 
             }
 
-        );
+            return Promise.all([
+//                testUtils.promiseVisualPoints('/home/sheep/Code/sift-detected.png', index, detected),
+//                testUtils.promiseVisualPoints('/home/sheep/Code/sift-filtered.png', index, filter.results),
+                testUtils.promiseVisualPoints('/home/sheep/Code/sift.png', filePath, features),
+                testUtils.promiseVisualPoints('/home/sheep/Code/sift-all.png', filePath, all)
+            ]);
 
-        oi = octaves.nextOctave;
-
-    }
-
-    return features;
-
-
+        });
 }
-
-
-
-//pyramidtest();
-
-
 
 
 /**
@@ -150,5 +150,6 @@ function PointFilter(){
     };
 }
 
-//pyramidTest(6);
-pyramidtest();
+//pyramidTest(10);
+//pyramidtest();
+testExternal('/home/sheep/Downloads/comet/Comet_on_5_September_2014.jpg');
