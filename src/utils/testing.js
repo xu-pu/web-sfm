@@ -6,10 +6,10 @@ var _ = require('underscore'),
     Vector = la.Vector,
     Canvas = require('canvas'),
     Promise = require('promise'),
-    fs = require('fs'),
-    saveimage = require('save-pixels');
+    fs = require('fs');
 
 var samples = require('./samples.js'),
+    testUtils = require('./test-utils.js'),
     projections = require('../math/projections.js'),
     drawFeatures = require('../visualization/drawFeatures.js'),
     drawImagePair = require('../visualization/drawImagePair.js'),
@@ -17,11 +17,6 @@ var samples = require('./samples.js'),
     drawEpipolarLines = require('../visualization/drawEpipolarLines.js'),
     drawHomography = require('../visualization/drawHomography.js'),
     drawDetailedMatch = require('../visualization/drawDetailedMatch.js');
-
-//==================================================
-
-module.exports.promiseWriteCanvas = promiseWriteCanvas;
-module.exports.promiseSaveNdarray = promiseSaveNdarray;
 
 //==================================================
 
@@ -33,7 +28,7 @@ module.exports.promiseSaveNdarray = promiseSaveNdarray;
  * @returns {Promise}
  */
 module.exports.promiseSaveJson = function(path, obj){
-    return promiseWriteFile(path, JSON.stringify(obj));
+    return testUtils.promiseWriteFile(path, JSON.stringify(obj));
 };
 
 
@@ -42,7 +37,7 @@ module.exports.promiseSaveJson = function(path, obj){
  * @param {int} i1
  * @param {int} i2
  * @param {int[][]} matches
- * @param [F]
+ * @param {Matrix} [F]
  * @returns {Promise}
  */
 module.exports.promiseDetailedMatches = function(path, i1, i2, matches, F){
@@ -62,7 +57,7 @@ module.exports.promiseDetailedMatches = function(path, i1, i2, matches, F){
         matches.forEach(function(match){
             drawDetailedMatch(ctx, config, fmatrix, match, getRandomColor(), features1, features2, data.cam1, data.cam2);
         });
-        return exports.promiseWriteCanvas(canv, path);
+        return testUtils.promiseWriteCanvas(path, canv);
     });
 
 };
@@ -89,7 +84,7 @@ module.exports.promiseVisualMatch = function(path, i1, i2, matches){
         drawFeatures(ctx, features1, 0, 0, config.ratio1);
         drawFeatures(ctx, features2, config.offsetX, config.offsetY, config.ratio2);
         drawMatches(config, ctx, matches, features1, features2);
-        return promiseWriteCanvas(canv, path);
+        return testUtils.promiseWriteCanvas(path, canv);
     });
 };
 
@@ -99,7 +94,7 @@ module.exports.promiseVisualMatch = function(path, i1, i2, matches){
  * @param {string} path
  * @param {int} i1
  * @param {int} i2
- * @param F
+ * @param {Matrix} F
  * @returns {Promise}
  */
 module.exports.promiseVisualEpipolar = function(path, i1, i2, F){
@@ -114,7 +109,7 @@ module.exports.promiseVisualEpipolar = function(path, i1, i2, F){
             color: 'green',
             amount: 60
         });
-        return promiseWriteCanvas(canv, path);
+        return testUtils.promiseWriteCanvas(path, canv);
     });
 };
 
@@ -123,7 +118,7 @@ module.exports.promiseVisualEpipolar = function(path, i1, i2, F){
  *
  * @param {string} path
  * @param {int} index
- * @param points
+ * @param {RowCol[]} points
  * @param [options]
  * @returns {Promise}
  */
@@ -144,7 +139,7 @@ module.exports.promiseVisualPoints = function(path, index, points, options){
                 ctx = canv.getContext('2d');
             ctx.drawImage(img, 0, 0, width, height);
             drawFeatures(ctx, points, 0, 0, ratio);
-            return promiseWriteCanvas(canv, path);
+            return testUtils.promiseWriteCanvas(path, canv);
         });
 
 };
@@ -155,8 +150,8 @@ module.exports.promiseVisualPoints = function(path, index, points, options){
  * @param {string} path
  * @param {int} i1
  * @param {int} i2
- * @param H1
- * @param H2
+ * @param {Matrix} H1
+ * @param {Matrix} H2
  * @returns {Promise}
  */
 module.exports.promiseVisualHomographyPiar = function(path, i1, i2, H1, H2){
@@ -189,7 +184,7 @@ module.exports.promiseVisualHomographyPiar = function(path, i1, i2, H1, H2){
             amount: 60
         });
 
-        return promiseWriteCanvas(canv, path);
+        return testUtils.promiseWriteCanvas(path, canv);
 
     });
 };
@@ -199,7 +194,7 @@ module.exports.promiseVisualHomographyPiar = function(path, i1, i2, H1, H2){
  *
  * @param {string} path
  * @param img
- * @param H
+ * @param {Matrix} H
  * @param {number} ratio
  * @returns {Promise}
  */
@@ -210,7 +205,7 @@ module.exports.promiseVisualHomography = function(path, img, H, ratio){
         canv = new Canvas(width, height),
         ctx = canv.getContext('2d');
     drawHomography(img, H, ctx, 0, 0, ratio);
-    return promiseWriteCanvas(canv, path);
+    return testUtils.promiseWriteCanvas(path, canv);
 };
 
 
@@ -225,31 +220,6 @@ function getRandomColor(){
         return Math.floor(255*Math.random());
     }
 
-}
-
-
-function promiseSaveNdarray(img, path){
-    var writeStream = fs.createWriteStream(path);
-    saveimage(img, 'png').pipe(writeStream);
-}
-
-
-function promiseWriteFile(path, buffer){
-    return new Promise(function(resolve, reject){
-        fs.writeFile(path, buffer, function(err){
-            if (err) {
-                reject(err);
-            }
-            else {
-                resolve();
-            }
-        });
-    });
-}
-
-
-function promiseWriteCanvas(canvas, path){
-    return promiseWriteFile(path, canvas.toBuffer());
 }
 
 

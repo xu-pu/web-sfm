@@ -4,32 +4,25 @@ var DEMO_BASE = '/home/sheep/Code/Project/web-sfm/demo/Hall-Demo';
 
 var _ = require('underscore'),
     Promise = require('promise'),
-    getPixels = require('get-pixels'),
-    grayscale = require('luminance'),
-    imgshow = require('ndarray-imshow'),
     Image = require('canvas').Image,
     fs = require('fs'),
     la = require('sylvester'),
     Matrix = la.Matrix,
     Vector = la.Vector;
 
-
-var toRGB = require('../utils/image-conversion.js').gray2rgb,
-    bundler = require(DEMO_BASE + '/bundler/bundler.json'),
+var bundler = require(DEMO_BASE + '/bundler/bundler.json'),
     cord = require('./cord.js'),
-    projections = require('../math/projections.js');
+    projections = require('../math/projections.js'),
+    testUtils = require('./test-utils.js');
 
 //==============================================
 
-module.exports.promiseImage = promiseImage;
-module.exports.showGrayscale = showGrayscale;
-module.exports.promiseCanvasImage = promiseCanvasImage;
-module.exports.getRawMatches = getRawMatches;
 module.exports.bundler = bundler;
 module.exports.cameras = bundler.cameras;
 module.exports.sparse = bundler.points;
 
 //==============================================
+
 
 /**
  * A view pair for processing
@@ -204,6 +197,53 @@ module.exports.getCamera = function(index){
 
 
 //==============================================
+//
+//==============================================
+
+
+/**
+ *
+ * @param {int} index
+ * @returns {Promise}
+ */
+module.exports.promiseImage = function(index){
+    return testUtils.promiseImage(getImagePath(index));
+};
+
+
+/**
+ *
+ * @param {int} index
+ * @returns {Promise}
+ */
+module.exports.promiseCanvasImage = function(index){
+    return testUtils.promiseCanvasImage(getImagePath(index));
+};
+
+
+/**
+ *
+ * @param index1
+ * @param index2
+ * @returns {int[][]}
+ */
+module.exports.getRawMatches = function(index1, index2){
+    var path;
+    if (index1 > index2) {
+        path = DEMO_BASE + '/raw-match/' + getFullname(index2) + '.jpg&' + getFullname(index1) + '.jpg.json';
+    }
+    else if (index1 < index2) {
+        path = DEMO_BASE + '/raw-match/' + getFullname(index1) + '.jpg&' + getFullname(index2) + '.jpg.json';
+    }
+    else {
+        throw "can not match itself";
+    }
+    return require(path);
+};
+
+
+//==============================================
+
 
 function getImagePath(index){
     return DEMO_BASE + '/images/' + getFullname(index) + '.jpg';
@@ -216,49 +256,6 @@ function getFullname(index){
         name = '0' + name;
     }
     return name;
-}
-
-
-
-function promiseImage(index){
-    return new Promise(function(resolve, reject){
-        getPixels(getImagePath(index), function(err, img){
-            console.log('image loaded');
-            resolve(grayscale(img));
-        });
-    });
-}
-
-function promiseCanvasImage(index){
-    return new Promise(function(resolve, reject){
-        fs.readFile(getImagePath(index), function(err, buffer){
-            if (err) {
-                console.log('load failed');
-                reject(err);
-            }
-            var img = new Image;
-            img.src = buffer;
-            resolve(img);
-        });
-    });
-}
-
-function showGrayscale(gray){
-    imgshow(toRGB(gray));
-}
-
-function getRawMatches(index1, index2){
-    var path;
-    if (index1 > index2) {
-        path = DEMO_BASE + '/raw-match/' + getFullname(index2) + '.jpg&' + getFullname(index1) + '.jpg.json';
-    }
-    else if (index1 < index2) {
-        path = DEMO_BASE + '/raw-match/' + getFullname(index1) + '.jpg&' + getFullname(index2) + '.jpg.json';
-    }
-    else {
-        throw "can not match itself";
-    }
-    return require(path);
 }
 
 function requireDense(){

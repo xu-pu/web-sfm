@@ -12,6 +12,9 @@ var _ = require('underscore'),
     grayscale = require('luminance'),
     Image = require('canvas').Image;
 
+
+//=====================================================
+// Image loading utilities
 //=====================================================
 
 
@@ -105,3 +108,8 @@ module.exports.promiseWriteCanvas = function(path, canvas){
 module.exports.promiseSaveJson = function(path, obj){
     return exports.promiseWriteFile(path, JSON.stringify(obj));
 };
+
+
+//=====================================================
+// Common visualization utilities
+//=====================================================
