@@ -122,6 +122,7 @@ function testExternal(filePath){
 //                testUtils.promiseVisualPoints('/home/sheep/Code/sift-detected.png', index, detected),
 //                testUtils.promiseVisualPoints('/home/sheep/Code/sift-filtered.png', index, filter.results),
                 testUtils.promiseVisualPoints('/home/sheep/Code/sift.png', filePath, features),
+                testUtils.promiseVisualPoints('/home/sheep/Code/sift-edge.png', filePath, _.difference(all, features)),
                 testUtils.promiseVisualPoints('/home/sheep/Code/sift-all.png', filePath, all)
             ]);
 
@@ -150,6 +151,15 @@ function PointFilter(){
     };
 }
 
+var smallComet = 'Colour_image_of_comet.jpg';
+var bigComet = 'Comet_on_5_September_2014.jpg';
+
+var smallpic = '/home/sheep/Code/Project/web-sfm/tests/images/ibzi0xiqN0on8v.jpg';
+
+var hallpic = '';
+
 //pyramidTest(10);
 //pyramidtest();
-testExternal('/home/sheep/Downloads/comet/Comet_on_5_September_2014.jpg');
+//testExternal('/home/sheep/Downloads/comet/' +bigComet);
+//testExternal(smallpic);
+testExternal(samples.getImagePath(3));

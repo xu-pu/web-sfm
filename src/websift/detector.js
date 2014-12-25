@@ -2,7 +2,8 @@
 
 var _ = require('underscore');
 
-var settings = require('./settings.js'),
+var extremum = require('./subpixel-extremum.js'),
+    settings = require('./settings.js'),
     CONTRAST_THRESHOLD = settings.CONTRAST_THRESHOLD,
     DETECTION_BORDER = settings.DETECTION_BORDER;
 
@@ -54,9 +55,10 @@ module.exports.detect = function(dogspace, layer, callback){
 
                 var center = img.get(col, row),
                     max = -Infinity,
-                    min = Infinity;
+                    min = Infinity,
+                    subpixel;
 
-                if (Math.abs(center) < CONTRAST_THRESHOLD) {
+                if (Math.abs(center) < CONTRAST_THRESHOLD/2) {
                     return;
                 }
 
@@ -74,58 +76,22 @@ module.exports.detect = function(dogspace, layer, callback){
                                 if (cursor < min) {
                                     min = cursor;
                                 }
-                                return !(center >= min && center <= max);
+                                return center < min || center > max;
                             }
                         });
                     });
                 });
 
                 if (isLimit) {
-                    callback(row, col);
+                    subpixel = extremum.subpixel(dogspace, row, col, layer);
+                    if (subpixel && Math.abs(subpixel.value) > CONTRAST_THRESHOLD) {
+                        callback(subpixel.row, subpixel.col);
+                    }
                 }
 
             })();
 
         }
     }
-
-
-    _.range(height).forEach(function(row){
-        _.range(width).forEach(function(col){
-
-            var center = img.get(col, row),
-                max = -Infinity,
-                min = Infinity;
-
-            if (Math.abs(center) < CONTRAST_THRESHOLD) {
-                return;
-            }
-
-            var isLimit = contrastWindow.every(function(x){
-                return contrastWindow.every(function(y){
-                    return contrastWindow.every(function(z){
-                        if(x===0 && y===0 && z===0) {
-                            return true;
-                        }
-                        else {
-                            var cursor = dogspace.get(row+y, col+x, layer+z);
-                            if (cursor > max) {
-                                max = cursor;
-                            }
-                            if (cursor < min) {
-                                min = cursor;
-                            }
-                            return !(center >= min && center <= max);
-                        }
-                    });
-                });
-            });
-
-            if (isLimit) {
-                callback(row, col);
-            }
-
-        });
-    });
 
 };

@@ -17,43 +17,24 @@ var la = require('sylvester'),
  */
 module.exports.subpixel = function(dogs, r, c, layer){
 
-    var steps = 0;
+    var intR = r, intC = c, intLayer = layer;
 
-    var intR = r, intC = c, intLayer = layer,
-        subR = 0, subC = 0, subLayer = 0;
+    var deriv, hess, delta;
 
-    var deriv, hess, delta, valid = false;
+    deriv = exports.deriv3D(dogs, intR, intC, intLayer);
+    hess = exports.hessian(dogs, intR, intC, intLayer);
+    delta = hess.inverse().x(deriv).x(-1);
 
-    while(steps<5){
-
-        steps++;
-
-        deriv = exports.deriv3D(dogs, intR, intC, intLayer);
-        hess = exports.hessian(dogs, intR, intC, intLayer);
-        delta = hess.x(deriv).x(-1);
-
-        subR = delta.e(2);
-        subC = delta.e(1);
+    var subR = delta.e(2),
+        subC = delta.e(1),
         subLayer = delta.e(3);
-        valid = Math.abs(subR) < 0.5 && Math.abs(subC) < 0.5 && Math.abs(subLayer) < 0.5;
 
-        if (valid) {
-            break;
-        }
-        else {
-            intR = intR + Math.round(subR);
-            intC = intC + Math.round(subC);
-            intLayer = intLayer + Math.round(subLayer);
-        }
-
-    }
-
-    if (valid) {
+    if (Math.abs(subR) < 1 && Math.abs(subC) < 1 && Math.abs(subLayer) < 1) {
         return {
             row: intR+subR,
             col: intC+subC,
             layer: intLayer+subLayer,
-            value: dogs.get(intR, intC, intLayer) + deriv.x(delta)/2
+            value: dogs.get(intR, intC, intLayer) + deriv.dot(delta)/2
         };
     }
     else {
@@ -91,6 +72,8 @@ module.exports.deriv3D = function(space, row, col, layer){
  * @return {Matrix}
  */
 module.exports.hessian = function(space, row, col, layer){
+
+//    console.log(row + ',' + col + ',' + layer);
 
     var v   = space.get(row, col, layer),
         dxx = ( space.get(row, col+1, layer) + space.get(row, col-1, layer) - 2 * v ),
