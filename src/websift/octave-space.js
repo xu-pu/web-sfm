@@ -6,13 +6,12 @@ var _ = require('underscore'),
 var GuassianPyramid = require('./guassian-pyramid.js'),
     DogPyramid = require('./dog-pyramid.js'),
     convBlur = require('./blur.js'),
-    imgUtils = require('../utils/image-conversion.js');
+    imgUtils = require('../utils/image-conversion.js'),
+    settings = require('./settings.js');
 
-var INTERVALS = 3,
-    SCALES = INTERVALS + 3,
-    INIT_SIGMA = 1.6,
-    INITIAL_SIGMA = 0.5,
-    OCTAVES = 5;
+var INIT_SIGMA = settings.INIT_SIGMA,
+    INITIAL_SIGMA = settings.INITIAL_SIGMA,
+    OCTAVES = settings.OCTAVES;
 
 //===============================================
 

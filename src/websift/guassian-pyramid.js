@@ -4,13 +4,12 @@ var _ = require('underscore'),
     blur = require('ndarray-gaussian-filter'),
     pool = require('ndarray-scratch');
 
-var convBlur = require('./blur.js');
+var convBlur = require('./blur.js'),
+    settings = require('./settings.js');
 
-var INTERVALS = 3,
-    SCALES = INTERVALS + 3,
-    INIT_SIGMA = 1.6,
-    INITIAL_SIGMA = 0.5,
-    OCTAVES = 5;
+var INTERVALS = settings.INTERVALS,
+    SCALES = settings.SCALES,
+    INIT_SIGMA = settings.INIT_SIGMA;
 
 //===============================================
 

@@ -5,8 +5,9 @@ var _ = require('underscore'),
     ops = require('ndarray-ops'),
     pool = require('ndarray-scratch');
 
-var INTERVALS = 3,
-    SCALES = INTERVALS + 3;
+var settings = require('./settings.js');
+
+var SCALES = settings.SCALES;
 
 //===============================================
 
