@@ -1,20 +1,41 @@
 'use strict';
 
-var Thread = require('../models/Thread.js'),
+var Worker = require('../models/Worker.js'),
     STATES = require('../settings.js').STATES,
     TASK_STATE = require('../settings.js').TASK_STATES;
 
-module.exports = Ember.Controller.extend({
+/**
+ * The WorkerScheduler maintains:
+ * 1. Worker Pool
+ * 2. Task Queue
+ * Application set its [poolSize] to change its size, [#promiseTask] to assign task,
+ * [#suspend] and [#resume] to control execution
+ */
+module.exports = Ember.ArrayController.extend({
+
+    itemController: 'worker',
+
+    queue: [],
 
     state: STATES.STOPPED,
 
     poolSize: 4,
 
-    threads: [],
 
-    queue: [],
+    /**
+     * Primise the worker script is loaded
+     * @returns {Promise}
+     */
+    promiseReady: function(){},
 
-    inprogress: [],
+
+    /**
+     * Promise to finish a task
+     * @param {Task} task
+     * @returns {Promise}
+     */
+    promiseTask: function(task){},
+
 
     suspend: function(){
 
@@ -22,10 +43,6 @@ module.exports = Ember.Controller.extend({
 
     resume: function(){
 
-    },
-
-    assign: function(){
-        this.get('queue').addObject(task);
     },
 
     onResize: function(){

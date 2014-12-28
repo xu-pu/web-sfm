@@ -1,3 +1,6 @@
+'use strict';
+
+
 module.exports.STAGES = {
     BEFORE: 0,
     EXTRACTOR : 1,
@@ -9,11 +12,13 @@ module.exports.STAGES = {
     AFTER: 7
 };
 
+
 module.exports.STATES = {
     RUNNING: 0,
     STOPPED: 1,
     DONE: 2
 };
+
 
 module.exports.STORES = {
     FEATURES: 'features',
@@ -27,6 +32,12 @@ module.exports.STORES = {
     MVS: 'mvs',
     BUNDLER: 'bundler'
 };
+
+
+//==========================================
+// Task Constants
+//==========================================
+
 
 module.exports.TASKS = {
     SIFT: 0,
@@ -42,3 +53,9 @@ module.exports.TASK_STATES = {
     RUNNING: 2,
     FINISHED: 3
 };
+
+
+//==========================================
+// Worker Constants
+//==========================================
+
