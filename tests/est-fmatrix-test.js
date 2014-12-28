@@ -38,4 +38,4 @@ function testCam(i1, i2){
 
 }
 
-testCam(2,5);
+testCam(4,5);

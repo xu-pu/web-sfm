@@ -12,8 +12,8 @@ module.exports = Patch;
 /**
  * Patch class
  *
- * @property c - patch center
- * @property n - normal vector
+ * @property {HomoPoint3D} c - patch center
+ * @property {EulerAngles} n - normal vector
  * @property {ImageCellGrid}   R     - reference image
  * @property {ImageCellGrid[]} V     - visiable images
  * @property {ImageCellGrid[]} Vstar - visiable & photometric consistent images

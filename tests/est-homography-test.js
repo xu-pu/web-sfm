@@ -8,11 +8,13 @@ var _ = require('underscore'),
 
 var sample = require('../src/utils/samples.js'),
     projections = require('../src/math/projections.js'),
+    geoUtils = require('../src/math/geometry-utils.js'),
     testUtils = require('../src/utils/testing.js'),
     cord = require('../src/utils/cord.js'),
-    estHomography = require('../src/webregister/estimate-infinite-homography.js'),
+    estHomography = require('../src/webregister/estimate-homography.js'),
     estFmatrix = require('../src/webregister/estimate-fmatrix.js');
 
+var THRESHOLD = 3;
 
 function testPair(i1, i2){
 
@@ -27,10 +29,29 @@ function testPair(i1, i2){
             cam2: data.cam2
         };
 
-    var result = estFmatrix(matches, metadata);
+    var resultF = estFmatrix(matches, metadata);
+    var resultH = estHomography(resultF.dataset, metadata);
 
-    var H = estHomography(result.dataset, metadata);
+    var filtered = resultH.dataset,
+        H = resultH.H;
+
+    var persice = filtered.filter(function(match){
+        var f1 = features1[match[0]],
+            f2 = features2[match[1]],
+            x1 = cord.feature2img(f1),
+            x2 = cord.feature2img(f2),
+            xx2 = H.x(x1);
+        return geoUtils.distHomo2D(x2, xx2) < THRESHOLD;
+    });
+
+    console.log(persice.length + '/' + filtered.length + ' is percise');
+
+    return Promise.all([
+        testUtils.promiseVisualMatch('/home/sheep/Code/est-homo-accepted.png', i1, i2, filtered),
+        testUtils.promiseVisualMatch('/home/sheep/Code/est-homo-rejected.png', i1, i2, _.difference(resultF.dataset, filtered)),
+        testUtils.promiseVisualMatch('/home/sheep/Code/est-homo-percise.png', i1, i2, persice)
+    ]);
 
 }
 
-testPair(3,4);
+testPair(4,5);

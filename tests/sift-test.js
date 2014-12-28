@@ -5,15 +5,16 @@ var _ = require('underscore'),
     blur = require('ndarray-gaussian-filter');
 
 var samples = require('../src/utils/samples.js'),
-    getOrientation = require('../src/websift/orientation.js'),
-    getGuassianKernel = require('../src/math/kernels.js').getGuassianKernel,
     visualUtils = require('../src/utils/testing.js'),
     testUtils = require('../src/utils/test-utils.js'),
-    imgUtils = require('../src/utils/image-conversion.js'),
     isNotEdge = require('../src/websift/edge-filter.js'),
     OctaveSpace = require('../src/websift/octave-space'),
-    detector = require('../src/websift/detector.js'),
-    siftOrientation = require('../src/websift/orientation.js');
+    detector = require('../src/websift/detector.js');
+
+
+var smallComet = 'Colour_image_of_comet.jpg',
+    bigComet = 'Comet_on_5_September_2014.jpg',
+    smallpic = '/home/sheep/Code/Project/web-sfm/tests/images/ibzi0xiqN0on8v.jpg';
 
 
 function pyramidTest(index){
@@ -114,6 +115,9 @@ function testExternal(filePath){
 
                 );
 
+                dogs.release();
+                scales.release();
+
                 oi = octaves.nextOctave;
 
             }
@@ -130,36 +134,8 @@ function testExternal(filePath){
 }
 
 
-/**
- * @constructor
- */
-function PointFilter(){
-
-    this.edge = [];
-    this.results = [];
-
-    this.check = function(dogspace, layer, row, col, step) {
-        var point = { row: row * step, col: col * step };
-        if (isNotEdge(dogspace.dogs[layer], row, col)) {
-            this.results.push(point);
-            console.log('Found one!');
-        }
-        else {
-            this.edge.push(point);
-            console.log('Did not pass edge filter');
-        }
-    };
-}
-
-var smallComet = 'Colour_image_of_comet.jpg';
-var bigComet = 'Comet_on_5_September_2014.jpg';
-
-var smallpic = '/home/sheep/Code/Project/web-sfm/tests/images/ibzi0xiqN0on8v.jpg';
-
-var hallpic = '';
-
 //pyramidTest(10);
 //pyramidtest();
-//testExternal('/home/sheep/Downloads/comet/' +bigComet);
+testExternal('/home/sheep/Downloads/comet/' + bigComet);
 //testExternal(smallpic);
-testExternal(samples.getImagePath(3));
+//testExternal(samples.getImagePath(3));

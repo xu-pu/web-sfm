@@ -6,7 +6,8 @@ var _ = require('underscore'),
     Matrix = la.Matrix,
     interp = require("ndarray-linear-interpolate").d2;
 
-var cord = require('../utils/cord.js'),
+var projections = require('../math/projections.js'),
+    cord = require('../utils/cord.js'),
     geoUtils = require('../math/geometry-utils.js');
 
 //====================================================
@@ -58,14 +59,17 @@ module.exports.discrepency = function(array1, array2){
  */
 module.exports.samplePatch = function(imgs, p, mu){
 
-    var T = c,
-        R = geoUtils.getRotationFromEuler(n[0], n[1], n[2]),
-        RR = R.transpose(),
-        offset = mu/2;
+    var angles = p.n,
+        T = cord.fromHomo3D(p.c),
+        R = geoUtils.getRotationFromEuler(angles[0], angles[1], angles[2]),
+        t = R.x(T).x(-1),
+        offset = mu/ 2,
+        perspective = projections.getPerspective(R, t),
+        rePerspective = perspective.inverse();
 
     var samplePoints = _.range(mu).map(function(row){
         return _.range(mu).map(function(col){
-            return RR.x(Vector.create([col-offset, row-offset, 0])).add(T);
+            return rePerspective.x(Vector.create([col-offset, row-offset, 0, 1]));
         });
     });
 
