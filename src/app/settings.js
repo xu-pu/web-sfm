@@ -34,6 +34,13 @@ module.exports.STORES = {
 };
 
 
+module.exports.LOCAL_STORE = {
+    DEMOS: 'demos',
+    PROJECTS: 'projects',
+    PROJECT: 'project'
+};
+
+
 //==========================================
 // Task Constants
 //==========================================
@@ -43,7 +50,9 @@ module.exports.TASKS = {
     SIFT: 0,
     MATCHING: 1,
     STEREO: 2,
-    TRACKING: 3
+    TRACKING: 3,
+    DOWNLOAD_JSON: 4,
+    DOWNLOAD_IMAGE: 5
 };
 
 
@@ -59,3 +68,10 @@ module.exports.TASK_STATES = {
 // Worker Constants
 //==========================================
 
+module.exports.WORKER_SCRIPT = '/build/worker.js';
+
+module.exports.WORKER_STATE = {
+    IDLE: 0,
+    BUSY: 1,
+    ASYNC: 2
+};
