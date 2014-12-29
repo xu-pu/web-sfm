@@ -1,0 +1,49 @@
+{
+
+  "name": "Another-Hall-Demo",
+
+  "root": "/demo/Hall-Demo",
+
+  "images": [
+    { "id": 0, "file": "00000000.jpg" },
+    { "id": 1, "file": "00000001.jpg" },
+    { "id": 2, "file": "00000002.jpg" },
+    { "id": 3, "file": "00000003.jpg" },
+    { "id": 4, "file": "00000004.jpg" },
+    { "id": 5, "file": "00000005.jpg" },
+    { "id": 6, "file": "00000006.jpg" },
+    { "id": 7, "file": "00000007.jpg" },
+    { "id": 8, "file": "00000008.jpg" },
+    { "id": 9, "file": "00000009.jpg" },
+    { "id": 10, "file": "00000010.jpg" },
+    { "id": 11, "file": "00000011.jpg" },
+    { "id": 12, "file": "00000012.jpg" },
+    { "id": 13, "file": "00000013.jpg" },
+    { "id": 14, "file": "00000014.jpg" },
+    { "id": 15, "file": "00000015.jpg" },
+    { "id": 16, "file": "00000016.jpg" },
+    { "id": 17, "file": "00000017.jpg" },
+    { "id": 18, "file": "00000018.jpg" },
+    { "id": 19, "file": "00000019.jpg" },
+    { "id": 20, "file": "00000020.jpg" },
+    { "id": 21, "file": "00000021.jpg" },
+    { "id": 22, "file": "00000022.jpg" },
+    { "id": 23, "file": "00000023.jpg" },
+    { "id": 24, "file": "00000024.jpg" },
+    { "id": 25, "file": "00000025.jpg" },
+    { "id": 26, "file": "00000026.jpg" },
+    { "id": 27, "file": "00000027.jpg" },
+    { "id": 28, "file": "00000028.jpg" },
+    { "id": 29, "file": "00000029.jpg" },
+    { "id": 30, "file": "00000030.jpg" }
+  ],
+
+  "hasFeature": true,
+
+  "hasMatch": false,
+
+  "hasCalibration": true,
+
+  "hasMVS": true
+
+}
