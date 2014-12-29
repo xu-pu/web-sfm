@@ -6,6 +6,32 @@ var Project = require('./Project.js');
 
 module.exports = Project.extend({
 
+    // entries in the description
+
+    root: null,
+
+    hasFeature: false,
+
+    hasMatch: false,
+
+    hasCalibration: false,
+
+    hasMVS: false,
+
+    images: null,
+
+
+    // Demo state
+
+    finishedImages: [],
+
+    imagesFinished: function(){
+        return this.get('finishedImages.length') === this.get('images.length');
+    }.property('finishedImages.length'),
+
+
+    // config of Demo Class
+
     storedProperties: [
         'name',
         'root',
@@ -19,24 +45,7 @@ module.exports = Project.extend({
         'finishedSIFT',
         'bundlerFinished',
         'mvsFinished'
-    ],
+    ]
 
-    root: null,
-
-    finishedImages: [],
-    imagesFinished: function(){
-        return this.get('finishedImages.length') === this.get('images.length');
-    }.property('finishedImages.length'),
-
-    hasSIFT: false,
-    hasBundler: false,
-    hasMVS: false,
-
-    isDownloaded: function(){
-        return this.get('imagesFinished') &&
-            (!this.get('hasSIFT') || this.get('siftFinished')) &&
-            (!this.get('hasBundler') || this.get('bundlerFinished')) &&
-            (!this.get('hasMVS') || this.get('mvsFinished'));
-    }.property('imagesFinished', 'siftFinished','bundlerFinished','mvsFinished', 'hasSIFT','hasBundler','hasMVS')
 
 });

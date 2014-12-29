@@ -1,9 +1,14 @@
 'use strict';
 
+var WORKER_STATE = require('../settings.js').WORKER_STATE;
+
+
 module.exports = Ember.ObjectController.extend({
 
-    worker: null
+    state: WORKER_STATE.IDLE,
 
+    task: null,
 
+    tasks: null
 
 });
