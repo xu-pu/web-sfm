@@ -1,13 +1,20 @@
 'use strict';
 
-var Worker = require('../models/Worker.js'),
-    STATES = require('../settings.js').STATES,
-    TASK_STATE = require('../settings.js').TASK_STATES;
+var utils = require('../utils.js'),
+    Worker = require('../models/Worker.js'),
+    settings = require('../settings.js'),
+    STATES = settings.STATES,
+    TASK_STATE = settings.TASK_STATES,
+    TASKS = settings.TASKS;
+
+//===================================================================
+
 
 /**
- * The WorkerScheduler maintains:
+ * The Scheduler maintains:
  * 1. Worker Pool
  * 2. Task Queue
+ * It's Controller[] of Worker[]
  * Application set its [poolSize] to change its size, [#promiseTask] to assign task,
  * [#suspend] and [#resume] to control execution
  */
@@ -21,20 +28,39 @@ module.exports = Ember.ArrayController.extend({
 
     poolSize: 4,
 
+    script: null,
 
     /**
      * Primise the worker script is loaded
      * @returns {Promise}
      */
-    promiseReady: function(){},
+    promiseReady: function(){
+        var _self = this;
+        if (!this.promised) {
+            this.promised = utils.promiseScript()
+                .then(function(dataurl){
+                    _self.set('script', dataurl);
+                });
+        }
+        return this.promised;
+    },
 
 
     /**
      * Promise to finish a task
-     * @param {Task} task
+     * @param task
      * @returns {Promise}
      */
-    promiseTask: function(task){},
+    promiseTask: function(task){
+        switch (task.get('type')) {
+            case TASKS.DOWNLOAD_JSON:
+                break;
+            case TASKS.DOWNLOAD_IMAGE:
+                break;
+            default:
+                throw 'Task not implemented yet';
+        }
+    },
 
 
     suspend: function(){
