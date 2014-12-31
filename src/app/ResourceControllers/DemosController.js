@@ -25,9 +25,7 @@ module.exports = Ember.ArrayController.extend({
     /**
      * Recover demos from LocalStorage and demos configuration
      */
-    init: function(){
-
-        this._super();
+    recover: function(){
 
         var data = utils.getLocalStorage(LOCAL_STORES.DEMOS),
             recovered = [];
@@ -42,12 +40,12 @@ module.exports = Ember.ArrayController.extend({
             .filter(function(d){
                 return !recovered.findBy('name', d.name);
             })
-            .map(function(d){
-                return DemoProject.create(d)
+            .map(function(config){
+                return DemoProject.create(config.description)
             });
 
         this.set('model', recovered.concat(additional));
 
-    }
+    }.on('init')
 
 });

@@ -33,10 +33,6 @@ module.exports = Ember.View.extend({
 
         cancelDelete: function(){
             this.set('isConfirmDelete', false);
-        },
-
-        detail: function(){
-            this.transitionToRoute('welcome.demo', this.get('model'));
         }
 
     }

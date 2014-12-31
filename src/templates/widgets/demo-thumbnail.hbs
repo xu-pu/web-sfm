@@ -22,9 +22,11 @@
         </div>
     {{/if}}
 
-    <div class="demo-thumbnail__detail"  {{action "detail"}}>
-        <h1>Detail</h1>
-    </div>
+    {{#link-to "welcome.demo" model}}
+        <div class="demo-thumbnail__detail">
+            <h1>Detail</h1>
+        </div>
+    {{/link-to}}
 
     <div {{bind-attr class=":demo-thumbnail__state-bar isInprogress"}}>
         {{#if isInprogress}}
