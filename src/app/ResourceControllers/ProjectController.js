@@ -2,9 +2,9 @@
 
 module.exports = Ember.ObjectController.extend({
 
-    needs: ['sfmStore'],
+    needs: ['context'],
 
-    store: Ember.computed.alias('controllers.sfmStore'),
+    context: Ember.computed.alias('controllers.context'),
 
     isDeleting: false,
 
@@ -15,34 +15,30 @@ module.exports = Ember.ObjectController.extend({
         'delete': function(){
             this.set('isConfirmDelete', false);
             this.promiseDelete();
-        },
-
-        confirmDelete: function(){
-            this.toggleProperty('isConfirmDelete');
-        },
-
-        cancelDelete: function(){
-            this.set('isConfirmDelete', false);
         }
 
     },
 
     promiseDelete: function(){
+
         var _self = this,
             project = this.get('model'),
-            store = this.get('store'),
-            currentProject = store.get('currentProject');
+            context = this.get('context'),
+            currentProject = context.get('currentProject');
+
         if (currentProject && currentProject.get('name') === project.get('name')) {
-            store.set('currentProject', null);
+            context.set('currentProject', null);
         }
+
         return new Promise(function(resolve, reject){
             _self.set('isDeleting', true);
             var request = indexedDB.deleteDatabase(project.get('name'));
             request.onsuccess = function(){
-                store.get('projects').removeObject(project);
+                context.get('projects').removeObject(project);
                 resolve(project);
             };
         });
+
     }
 
 });
