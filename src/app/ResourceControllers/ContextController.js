@@ -3,7 +3,6 @@
 var _ = require('underscore');
 
 var IDBAdapter = require('../store/StorageAdapter.js'),
-    Project = require('../models/Project.js'),
     utils = require('../utils.js'),
     settings = require('../settings.js'),
     LOCAL_STORES = settings.LOCAL_STORE;
@@ -19,23 +18,23 @@ module.exports = Ember.Controller.extend({
 
     currentProject: null,
 
-    adapter: null,
-
 
     /**
      * sync adapter and localstorage when current project changed
      */
     onSwichProject: function(){
+
         Ember.Logger.debug('project switch triggered!');
+
         var project = this.get('currentProject');
+
         if (project) {
-            this.set('adapter', new IDBAdapter(project.get('name')));
             localStorage.setItem(LOCAL_STORES.PROJECT, project.get('name'));
         }
         else {
-            this.set('adapter', null);
             localStorage.removeItem(LOCAL_STORES.PROJECT);
         }
+
     }.observes('currentProject'),
 
 
@@ -66,23 +65,16 @@ module.exports = Ember.Controller.extend({
     },
 
 
-    init: function(){
+    recover: function(){
 
-        this._super();
-
-        var project = localStorage.getItem(LOCAL_STORES.PROJECT),
-            currentProject, adapter;
+        var currentProject,
+            project = localStorage.getItem(LOCAL_STORES.PROJECT);
 
         if (_.isString(project)) {
             currentProject = this.get('projects.model').findBy('name', project) || this.get('demos.model').findBy('name', project) || null;
             this.set('currentProject', currentProject);
         }
 
-        if (currentProject) {
-            adapter = new IDBAdapter(currentProject.get('name'));
-            this.set('adapter', adapter);
-        }
-
-    }
+    }.on('init')
 
 });

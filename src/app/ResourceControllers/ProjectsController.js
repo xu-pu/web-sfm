@@ -9,49 +9,36 @@ var ProjectModel = require('../models/Project.js'),
 
 module.exports = Ember.ArrayController.extend({
 
+    needs: 'context',
+
+    context: Ember.computed.alias('controllers.context'),
 
     itemController: 'project',
 
-
-    /**
-     * sync projects to localstrorage when new ones added
-     */
-    syncProjects: function(){
-        utils.setLocalStorage(LOCAL_STORES.PROJECTS, this.get('model')
-            .map(function(model){
-                return model.getProperties(model.get('storedProperties'));
-            }));
-    }.observes('projects.length'),
-
-
     newProjectName: 'new-project',
 
-
     isValidName: function(){
-        var name = this.get('newProjectName');
-        return name !== '' && this.get('store').nameAvaliable(name);
+        var name = this.get('newProjectName'),
+            contex = this.get('context');
+        return name !== '' && contex.nameAvaliable(name);
     }.property('newProjectName'),
 
 
     actions: {
 
-
         createProject: function(){
             if (this.get('isValidName')) {
-                this.get('store.projects')
-                    .pushObject(ProjectModel.create({
-                        name: this.get('newProjectName')
-                    }));
+                this.get('model').pushObject(ProjectModel.create({
+                    name: this.get('newProjectName')
+                }));
             }
         },
 
-
         enter: function(project){
-            var store = this.get('store');
-            store.set('currentProject', project);
+            var context = this.get('context');
+            context.set('currentProject', project);
             this.transitionToRoute('workspace');
         }
-
 
     },
 
@@ -71,6 +58,17 @@ module.exports = Ember.ArrayController.extend({
 
         this.set('model', content);
 
-    }
+    },
+
+
+    /**
+     * sync projects to localstrorage when new ones added
+     */
+    syncProjects: function(){
+        utils.setLocalStorage(LOCAL_STORES.PROJECTS, this.get('model')
+            .map(function(model){
+                return model.getProperties(model.get('storedProperties'));
+            }));
+    }.observes('projects.length')
 
 });
