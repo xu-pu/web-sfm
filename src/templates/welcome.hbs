@@ -1,6 +1,11 @@
+{{! ===================================================== }}
+{{!                    Indicator                          }}
+{{! ===================================================== }}
+
+
 <div class="welcome-screen__download-indicator">
 
-    {{#each task in downloading}}
+    {{#each task in scheduler.queue}}
         <div class="welcome-screen__download-indicator__task">
             <h1>{{task.name}}</h1>
             {{#if task.hasProgress}}
@@ -12,20 +17,89 @@
 </div>
 
 
+{{! ===================================================== }}
+{{!                      Welcome                          }}
+{{! ===================================================== }}
+
+
 <div class="welcome-screen__header">
     <h1>Welcome to WebSFM</h1>
 </div>
 
+
+{{! ===================================================== }}
+{{!                      Projects                         }}
+{{! ===================================================== }}
+
+
 <div class="welcome-screen__projects-container">
-    {{outlet "projects"}}
+
+    <div class="welcome-screen__projects">
+        <ul>
+
+            <li class="welcome-screen__projects__item">
+                <div class="welcome-screen__projects__header">
+                    <h1>Projects</h1>
+                </div>
+            </li>
+
+            {{#each project in projects}}
+                <li class="welcome-screen__projects__item">
+                    {{view "projectThumbnail" controller=project}}
+                </li>
+            {{/each}}
+
+            <li class="welcome-screen__projects__item">
+                {{view "projectCreator" controller=projects}}
+            </li>
+
+        </ul>
+
+    </div>
+
 </div>
+
+
+{{! ===================================================== }}
+{{!                   Demo Detail                         }}
+{{! ===================================================== }}
+
 
 <div {{bind-attr class=":welcome-screen__detail-container isDetailClosed"}}>
     {{#link-to "welcome" class="welcome-screen__detail__toggle"}}{{/link-to}}
     {{outlet}}
 </div>
 
-<div class="welcome-screen__demos-container">{{outlet "demos"}}</div>
+
+{{! ===================================================== }}
+{{!                        Demos                          }}
+{{! ===================================================== }}
+
+
+<div class="welcome-screen__demos-container">
+
+    <div class="welcome-screen__demos">
+        <ul>
+            <li class="welcome-screen__demos__item">
+                <div class="welcome-screen__demos__header">
+                    <h1>DEMOS</h1>
+                </div>
+            </li>
+            {{#each demo in demos}}
+                <li class="welcome-screen__demos__item">
+                    {{view "demoThumbnail" controller=demo}}
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+
+</div>
+
+
+{{! ===================================================== }}
+{{!                    Description                        }}
+{{! ===================================================== }}
+
 
 <div id="welcome-screen__row1" class="welcome-screen__row">
     <h1>Some Content</h1>
