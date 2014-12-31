@@ -22,19 +22,15 @@
         </div>
     {{/if}}
 
-    <div class="demo-thumbnail__detail"  {{action "toggleDetail"}}>
+    <div class="demo-thumbnail__detail"  {{action "detail"}}>
         <h1>Detail</h1>
     </div>
 
-    <div {{bind-attr class=":demo-thumbnail__state-bar isDownloaded isInprogress"}}>
-        {{#if isDownloaded}}
-            <h1 {{action "enter"}}>Enter</h1>
+    <div {{bind-attr class=":demo-thumbnail__state-bar isInprogress"}}>
+        {{#if isInprogress}}
+            <h1>Downloading</h1>
         {{else}}
-            {{#if isInprogress}}
-                <h1>Downloading</h1>
-            {{else}}
-                <h1 {{action "download"}}>Load</h1>
-            {{/if}}
+            <h1 {{action "download"}}>Load</h1>
         {{/if}}
     </div>
 

@@ -20,7 +20,7 @@ module.exports = Ember.View.extend({
 
         refresh: function(){
             this.set('value', '');
-        }.observes('store.projects.length'),
+        },
 
         keyUp: function(){
             this.syncContent();

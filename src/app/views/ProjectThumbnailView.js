@@ -10,6 +10,8 @@ module.exports = Ember.View.extend({
         'welcome-screen__projects__thumbnail'
     ],
 
+    isConfirmDelete: false,
+
     actions: {
 
         'delete': function(){
