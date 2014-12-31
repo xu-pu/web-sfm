@@ -2,14 +2,24 @@
 
 module.exports = function(App){
 
-
     //=======================
-    // SFM Controllers
+    // Resource Controllers
     //=======================
 
-    App.DownloadSchedulerController = require('./SfmControllers/DownloadSchedulerController.js');
-    App.DemoDownloaderController = require('./SfmControllers/DemoDownloaderController.js');
-    App.SfmStoreController = require('./SfmControllers/SfmStoreController.js');
+    App.ContextController = require('./ResourceControllers/ContextController.js');
+
+    App.WorkerController = require('./ResourceControllers/WorkerController.js');
+
+    App.SchedulerController = require('./ResourceControllers/SchedulerController.js');
+
+    App.DemoController = require('./ResourceControllers/DemoController.js');
+
+    App.DemosController = require('./ResourceControllers/DemosController.js');
+
+    App.ProjectController = require('./ResourceControllers/ProjectController.js');
+
+    App.ProjectsController = require('./ResourceControllers/ProjectsController.js');
+
 
     //=======================
     // Welcome Screen
@@ -19,21 +29,13 @@ module.exports = function(App){
 
     App.WelcomeDemoController = Ember.ObjectController.extend();
 
-    App.DemosController = Ember.ArrayController.extend({
-        itemController: 'demo'
-    });
-
-    App.DemoController = require('./controllers/DemoController.js');
-
-    App.ProjectsController = require('./controllers/ProjectsController.js');
-
-    App.ProjectThumbnailController = require('./controllers/ProjectThumbnailController.js');
 
     //=======================
     // Workspace
     //=======================
 
     App.WorkspaceController = require('./controllers/WorkspaceController.js');
+
 
     //=======================
     // Workspace.Images
