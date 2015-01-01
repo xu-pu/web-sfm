@@ -4,8 +4,11 @@
 
     <ul class="welcome-screen__detail__download-selections">
 
-        <li class="is-selected">
+        <li {{bind-attr class="selectedImage:is-selected"}}
+            {{action "toggleImage"}}>
+
             <h1>Images {{loadedImages.length}}/{{images.length}}</h1>
+
         </li>
 
         <li {{bind-attr class="selectedFeature:is-selected hasFeature::not-avaliable"}}

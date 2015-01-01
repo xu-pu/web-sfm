@@ -14,27 +14,31 @@ module.exports = Ember.ObjectController.extend({
 
     actions: {
 
+        toggleImage: function(){
+            this.get('demoController').toggleProperty('selectedImage');
+        },
+
         toggleFeature: function(){
             if (this.get('hasFeature')) {
-                this.get('demoController').send('toggleFeature');
+                this.get('demoController').toggleProperty('selectedFeature');
             }
         },
 
         toggleMatch: function(){
             if (this.get('hasMatch')) {
-                this.get('demoController').send('toggleMatch');
+                this.get('demoController').toggleProperty('selectedMatch');
             }
         },
 
         toggleCalibration: function(){
             if (this.get('hasCalibration')) {
-                this.get('demoController').send('toggleCalibration');
+                this.get('demoController').toggleProperty('selectedCalibration');
             }
         },
 
         toggleMVS: function(){
             if (this.get('hasMVS')) {
-                this.get('demoController').send('toggleMVS');
+                this.get('demoController').toggleProperty('selectedMVS');
             }
         }
 

@@ -59,7 +59,7 @@
 
   display: block;
 
-  background-color: #6D6D6D;
+  background-color: rgba(109, 109, 109, 0.72);
   color: lightgray;
 
   padding-left: 1em;
@@ -82,7 +82,7 @@
   }
 
   &.is-selected {
-    background-color: rgba(29, 200, 29, 0.76);
+    background-color: rgba(73, 160, 73, 0.76);
   }
 
 }

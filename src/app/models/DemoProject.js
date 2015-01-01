@@ -24,6 +24,8 @@ module.exports = Project.extend({
 
     // Demo state
 
+    selectedImage: false,
+
     selectedFeature: false,
 
     selectedMatch: false,
