@@ -15,7 +15,7 @@ module.exports = Ember.ArrayController.extend({
 
 
     syncDemos: function(){
-        utils.setLocalStorage(LOCAL_STORES.DEMOS, this.get('demos')
+        utils.setLocalStorage(LOCAL_STORES.DEMOS, this.get('model')
             .map(function(model){
                 return model.getProperties(model.get('storedProperties'));
             }));
@@ -45,6 +45,8 @@ module.exports = Ember.ArrayController.extend({
             });
 
         this.set('model', recovered.concat(additional));
+
+        this.syncDemos();
 
     }.on('init')
 
