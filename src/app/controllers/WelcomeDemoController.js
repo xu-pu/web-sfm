@@ -15,19 +15,27 @@ module.exports = Ember.ObjectController.extend({
     actions: {
 
         toggleFeature: function(){
-            this.get('demoController').send('toggleFeature');
+            if (this.get('hasFeature')) {
+                this.get('demoController').send('toggleFeature');
+            }
         },
 
         toggleMatch: function(){
-            this.get('demoController').send('toggleMatch');
+            if (this.get('hasMatch')) {
+                this.get('demoController').send('toggleMatch');
+            }
         },
 
         toggleCalibration: function(){
-            this.get('demoController').send('toggleCalibration');
+            if (this.get('hasCalibration')) {
+                this.get('demoController').send('toggleCalibration');
+            }
         },
 
         toggleMVS: function(){
-            this.get('demoController').send('toggleMVS');
+            if (this.get('hasMVS')) {
+                this.get('demoController').send('toggleMVS');
+            }
         }
 
     }
