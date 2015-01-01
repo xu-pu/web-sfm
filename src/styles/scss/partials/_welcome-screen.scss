@@ -56,13 +56,28 @@
 
 
 .welcome-screen__detail__progress__entry {
-  height: 2em;
-  line-height: 2em;
+
   background-color: #6D6D6D;
   color: lightgray;
+
   padding-left: 0.5em;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
   margin-top: 10px;
-  font-weight: bolder;
+  cursor: pointer;
+
+  h1 {
+    font-size: 1.5em;
+    height: 1em;
+    line-height: 1em;
+    vertical-align: middle;
+  }
+
+  &.is-selected {
+    background-color: rgba(29, 200, 29, 0.76);
+  }
+
 }
 
 

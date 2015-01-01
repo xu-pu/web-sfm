@@ -32,17 +32,31 @@ module.exports = Ember.ObjectController.extend({
 
         download: function(){
             this.promiseDownload();
-        }
+        },
 
+        toggleFeature: function(){
+            this.toggleProperty('selectedFeature');
+        },
+
+        toggleMatch: function(){
+            this.toggleProperty('selectedMatch');
+        },
+
+        toggleCalibration: function(){
+            this.toggleProperty('selectedCalibration');
+        },
+
+        toggleMVS: function(){
+            this.toggleProperty('selectedMVS');
+        }
 
     },
 
+
     syncLocalStorage: function(){
         this.get('context').syncDemos();
-    }.observes('finishedImages.length','finishedSIFT.length','bundlerFinished','mvsFinished'),
+    }.observes('loadedImages.length'),
 
-
-    isPending: function(){}.property(),
 
     promiseDownload: function(){
 

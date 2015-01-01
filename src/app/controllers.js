@@ -27,7 +27,7 @@ module.exports = function(App){
 
     App.WelcomeController = require('./controllers/WelcomeController.js');
 
-    App.WelcomeDemoController = Ember.ObjectController.extend();
+    App.WelcomeDemoController = require('./controllers/WelcomeDemoController.js');
 
 
     //=======================
