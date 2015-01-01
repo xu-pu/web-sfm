@@ -43,9 +43,7 @@ module.exports = Ember.ArrayController.extend({
     },
 
 
-    init: function(){
-
-        this._super();
+    recover: function(){
 
         var data = utils.getLocalStorage(LOCAL_STORES.PROJECTS),
             content = [];
@@ -58,7 +56,7 @@ module.exports = Ember.ArrayController.extend({
 
         this.set('model', content);
 
-    },
+    }.on('init'),
 
 
     /**

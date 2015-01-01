@@ -203,3 +203,10 @@ module.exports.promiseImageFile = function(url){
         request.send();
     });
 };
+
+
+/**
+ * Load the script and return a dataurl of the loaded file
+ * @param {string} path
+ */
+module.exports.promiseScript = function(path){};
