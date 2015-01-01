@@ -1,68 +1,68 @@
 <div class="welcome-screen__detail__progress">
 
-    <div id="demo-thumbnail__details__images" class="welcome-screen__detail__progress__entry is-selected">
-        <h1>Images {{loadedImages.length}}/{{images.length}}</h1>
-    </div>
+    <ul class="welcome-screen__detail__download-selections">
 
-    <div id="demo-thumbnail__details__sift" class="welcome-screen__detail__progress__entry"
-        {{bind-attr class="selectedFeature:is-selected"}}
-        {{action "toggleFeature"}}>
+        <li class="is-selected">
+            <h1>Images {{loadedImages.length}}/{{images.length}}</h1>
+        </li>
 
-        <h1>Features {{finishedSIFT.length}}/{{images.length}}</h1>
+        <li {{bind-attr class="selectedFeature:is-selected hasFeature::not-avaliable"}}
+            {{action "toggleFeature"}}>
 
-    </div>
+            <h1>Features {{finishedSIFT.length}}/{{images.length}}</h1>
 
-    <div id="demo-thumbnail__details__match" class="welcome-screen__detail__progress__entry"
-        {{bind-attr class="selectedMatch:is-selected"}}
-        {{action "toggleMatch"}}>
+        </li>
 
-        <h1>
-            Matches
-            {{#if hasMatch}}
-                avaliable
-            {{else}}
-                not avaliable
-            {{/if}}
-        </h1>
+        <li {{bind-attr class="selectedMatch:is-selected hasMatch::not-avaliable"}}
+            {{action "toggleMatch"}}>
 
-    </div>
-
-    <div id="demo-thumbnail__details__bundler" class="welcome-screen__detail__progress__entry"
-        {{bind-attr class="selectedCalibration:is-selected"}}
-        {{action "toggleCalibration"}}>
-
-        <h1>
-            Calibration
-            {{#if calibrationLoaded}}
-                finished
-            {{else}}
-                {{#if hasCalibration}}
+            <h1>
+                Matches
+                {{#if hasMatch}}
                     avaliable
                 {{else}}
                     not avaliable
                 {{/if}}
-            {{/if}}
-        </h1>
+            </h1>
 
-    </div>
+        </li>
 
-    <div id="demo-thumbnail__details__mvs" class="welcome-screen__detail__progress__entry"
-        {{bind-attr class="selectedMVS:is-selected"}}
-        {{action "toggleMVS"}}>
+        <li {{bind-attr class="selectedCalibration:is-selected hasCalibration::not-avaliable"}}
+            {{action "toggleCalibration"}}>
 
-        <h1>
-            MVS
-            {{#if mvsLoaded}}
-                finished
-            {{else}}
-                {{#if hasMVS}}
-                    avaliable
+            <h1>
+                Calibration
+                {{#if calibrationLoaded}}
+                    finished
                 {{else}}
-                    not avaliable
+                    {{#if hasCalibration}}
+                        avaliable
+                    {{else}}
+                        not avaliable
+                    {{/if}}
                 {{/if}}
-            {{/if}}
-        </h1>
+            </h1>
 
-    </div>
+        </li>
+
+        <li {{bind-attr class="selectedMVS:is-selected hasMVS::not-avaliable"}}
+            {{action "toggleMVS"}}>
+
+            <h1>
+                MVS
+                {{#if mvsLoaded}}
+                    finished
+                {{else}}
+                    {{#if hasMVS}}
+                        avaliable
+                    {{else}}
+                        not avaliable
+                    {{/if}}
+                {{/if}}
+            </h1>
+
+        </li>
+
+    </ul>
 
 </div>

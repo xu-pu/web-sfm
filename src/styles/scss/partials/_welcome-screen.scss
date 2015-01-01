@@ -55,7 +55,9 @@
 }
 
 
-.welcome-screen__detail__progress__entry {
+.welcome-screen__detail__download-selections > li {
+
+  display: block;
 
   background-color: #6D6D6D;
   color: lightgray;
@@ -72,6 +74,11 @@
     height: 1em;
     line-height: 1em;
     vertical-align: middle;
+  }
+
+  &.not-avaliable {
+    cursor: not-allowed;
+    background-color: rgba(100, 29, 29, 0.76);
   }
 
   &.is-selected {
