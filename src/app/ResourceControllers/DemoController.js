@@ -12,11 +12,13 @@ var MVS_PATH = '/mvs/option.txt.pset.json',
 
 module.exports = Ember.ObjectController.extend({
 
-    needs: ['scheduler', 'context'],
+    needs: ['scheduler', 'context', 'demos'],
 
     scheduler: Ember.computed.alias('controllers.scheduler'),
 
     context: Ember.computed.alias('controllers.context'),
+
+    demos: Ember.computed.alias('controllers.demos'),
 
     isInprogress: false,
 
@@ -52,9 +54,8 @@ module.exports = Ember.ObjectController.extend({
 
     },
 
-
     syncLocalStorage: function(){
-        this.get('context').syncDemos();
+        this.get('demos').syncDemos();
     }.observes('loadedImages.length'),
 
 

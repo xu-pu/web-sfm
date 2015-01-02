@@ -1,5 +1,7 @@
 module.exports = function(App) {
 
+    App.WelcomeDemoView = require('./views/WelcomeDemoView.js');
+
     App.RegisterView = require('./views/RegisterView.js');
     App.ProjectThumbnailView = require('./views/ProjectThumbnailView.js');
     App.DemoThumbnailView = require('./views/DemoThumbnailView.js');

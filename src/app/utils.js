@@ -1,5 +1,7 @@
 'use strict';
 
+var _ = require('underscore');
+
 //==================================================
 
 
@@ -210,3 +212,17 @@ module.exports.promiseImageFile = function(url){
  * @param {string} path
  */
 module.exports.promiseScript = function(path){};
+
+
+/**
+ *
+ * @param {int} t
+ * @returns {Promise}
+ */
+module.exports.promiseDelay = function(t){
+    return new Promise(function(resolve, reject){
+        _.delay(function(){
+            resolve();
+        }, t)
+    });
+};
