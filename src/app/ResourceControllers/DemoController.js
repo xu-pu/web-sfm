@@ -5,7 +5,8 @@ var _ = require('underscore');
 var IDBAdapter = require('../store/StorageAdapter.js'),
     utils = require('../utils.js'),
     settings = require('../settings.js'),
-    STORES = settings.STORES;
+    STORES = settings.STORES,
+    ENTRIES = settings.DEMO_ENTRY;
 
 var MVS_PATH = '/mvs/option.txt.pset.json',
     BUNDLER_PATH = '/bundler/bundler.json';
@@ -34,22 +35,6 @@ module.exports = Ember.ObjectController.extend({
 
         download: function(){
             this.promiseDownload();
-        },
-
-        toggleFeature: function(){
-            this.toggleProperty('selectedFeature');
-        },
-
-        toggleMatch: function(){
-            this.toggleProperty('selectedMatch');
-        },
-
-        toggleCalibration: function(){
-            this.toggleProperty('selectedCalibration');
-        },
-
-        toggleMVS: function(){
-            this.toggleProperty('selectedMVS');
         }
 
     },

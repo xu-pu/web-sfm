@@ -20,9 +20,11 @@ module.exports = Ember.View.extend({
 
     inflate: function(){
         var _self = this;
-        return utils.promiseDelay(100).then(function(){
-            _self.set('isExpanded', true);
-        });
+        return utils
+            .promiseDelay(0)
+            .then(function(){
+                _self.set('isExpanded', true);
+            });
     }.on('didInsertElement'),
 
     actions: {

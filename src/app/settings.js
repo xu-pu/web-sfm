@@ -42,6 +42,34 @@ module.exports.LOCAL_STORE = {
 
 
 //==========================================
+// Demos
+//==========================================
+
+
+module.exports.DEMO_ENTRY = {
+    IMAGE: 0,
+    FEATURE: 1,
+    MATCH: 2,
+    CALIBRATION: 3,
+    MVS: 4
+};
+
+
+//==========================================
+// Message
+//==========================================
+
+
+module.exports.WORKER_MSG_TYPE = {
+    ASSIGN: 0,
+    ABORT: 1,
+    PROGRESS: 2,
+    ACK_ASSIGN: 3,
+    ACK_ABORT: 4
+};
+
+
+//==========================================
 // Task Constants
 //==========================================
 
@@ -51,8 +79,7 @@ module.exports.TASKS = {
     MATCHING: 1,
     STEREO: 2,
     TRACKING: 3,
-    DOWNLOAD_JSON: 4,
-    DOWNLOAD_IMAGE: 5
+    DOWNLOAD: 4
 };
 
 
@@ -68,10 +95,11 @@ module.exports.TASK_STATES = {
 // Worker Constants
 //==========================================
 
+module.exports.DOWNLOAD_THRESHOLD = 5;
+
 module.exports.WORKER_SCRIPT = '/build/worker.js';
 
 module.exports.WORKER_STATE = {
     IDLE: 0,
-    BUSY: 1,
-    ASYNC: 2
+    BUSY: 1
 };

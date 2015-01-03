@@ -57,7 +57,7 @@ module.exports.setLocalStorage = function(key, value){
 
 /**
  *
- * @param {File} file
+ * @param {File|Blob} file
  * @returns {Promise}
  */
 module.exports.promiseFileBuffer = function(file){
