@@ -28,12 +28,8 @@
         </div>
     {{/link-to}}
 
-    <div {{bind-attr class=":demo-thumbnail__state-bar isInprogress"}}>
-        {{#if isInprogress}}
-            <h1>Downloading</h1>
-        {{else}}
-            <h1 {{action "download"}}>Load</h1>
-        {{/if}}
+    <div {{bind-attr class=":demo-thumbnail__state-bar"}}>
+        <h1>Enter</h1>
     </div>
 
 </div>

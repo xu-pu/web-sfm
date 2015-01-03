@@ -27,7 +27,6 @@
 //=====================================
 
 .welcome-screen__detail-container {
-//  height: 30em;
   position: relative;
   background-color: #ECE7E1;
   overflow: hidden;
@@ -115,6 +114,34 @@
   }
 
 }
+
+
+.welcome-screen__detail__download {
+  @include transition(background-color 0.5s);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2em;
+  height: 5em;
+  background-color: rgba(109, 109, 109, 0.72);
+//  background-color: rgba(93, 129, 93, 0.76);
+  color: lightgray;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(73, 160, 73, 0.76);
+  }
+
+  h1 {
+    @extend %center-element;
+    font-size: 2em;
+    height: 1em;
+    line-height: 1em;
+    vertical-align: middle;
+  }
+
+}
+
 
 //=====================================
 // Rows
