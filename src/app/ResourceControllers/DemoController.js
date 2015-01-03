@@ -39,9 +39,10 @@ module.exports = Ember.ObjectController.extend({
 
     },
 
+
     syncLocalStorage: function(){
-        this.get('demos').syncDemos();
-    }.observes('loadedImages.length'),
+        this.get('demos').sync();
+    }.observes('loadedImages.length', 'loadedFeatures.length', 'selectedEntries.length', 'loadedEntries.length'),
 
 
     promiseDownload: function(){
