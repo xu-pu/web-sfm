@@ -124,7 +124,6 @@
   bottom: 2em;
   height: 5em;
   background-color: rgba(109, 109, 109, 0.72);
-//  background-color: rgba(93, 129, 93, 0.76);
   color: lightgray;
   cursor: pointer;
 
@@ -138,8 +137,11 @@
     height: 1em;
     line-height: 1em;
     vertical-align: middle;
+    font-family: Arvo, serif;
+    font-weight: bold;
+    color: rgb(157, 221, 157);
+    text-transform: uppercase;
   }
-
 }
 
 
