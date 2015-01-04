@@ -12,6 +12,8 @@ module.exports = function(App){
 
     App.SchedulerController = require('./ResourceControllers/SchedulerController.js');
 
+    App.DownloaderController = require('./ResourceControllers/DownloaderController.js');
+
     App.DemoController = require('./ResourceControllers/DemoController.js');
 
     App.DemosController = require('./ResourceControllers/DemosController.js');

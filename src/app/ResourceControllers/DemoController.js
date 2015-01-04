@@ -3,8 +3,10 @@
 var _ = require('underscore');
 
 var IDBAdapter = require('../store/StorageAdapter.js'),
+    Task = require('../models/Task.js'),
     utils = require('../utils.js'),
     settings = require('../settings.js'),
+    TASK_TYPE = settings.TASKS,
     STORES = settings.STORES,
     ENTRIES = settings.DEMO_ENTRY;
 
@@ -49,11 +51,22 @@ module.exports = Ember.ObjectController.extend({
 
         this.set('isInprogress', true);
 
-        var _self = this,
-            tasks = [this.promiseDownloadImages()];
+        if (!this.get('adapter')) {
+            this.set('adapter', new IDBAdapter(this.get('name')));
+        }
+
+        var _self = this, tasks = [];
+
+        if (this.get('selectedImage')) {
+            tasks.push(this.promiseDownloadImages());
+        }
 
         if (this.get('selectedFeature')) {
             tasks.push(this.promiseDownloadFeatures());
+        }
+
+        if (this.get('selectedMatch')) {
+            // todo
         }
 
         if (this.get('selectedCalibration')) {
@@ -90,25 +103,26 @@ module.exports = Ember.ObjectController.extend({
 
         return Promise.all(images
             .filter(function(image){
-                return loaded.indexOf(image.id) === -1;
+                return !loaded.contains(image.id);
             })
             .map(function(image){
-                var imageUrl = root + '/images/' + name + image.extension;
-                var task = DownloadTask.create({
-                    name: name,
-                    demo: _self,
-                    resolve: resolve,
-                    url: imageUrl,
-                    type: TYPES.BLOB
-                });
+
+                var imageUrl = root + '/images/' + name + image.extension,
+                    task = Task.create({
+                        name: name,
+                        data: { url: imageUrl, type: 'blob' }
+                    });
+
                 return scheduler.promiseTask(task)
                     .then(function(blob){
+                        task.destroy();
                         blob.name = name;
                         return adapter.processImageFile(blob, image.id);
                     })
                     .then(function(){
                         _self.get('loadedImages').addObject(image.id);
                     });
+
             }));
     },
 
@@ -119,8 +133,7 @@ module.exports = Ember.ObjectController.extend({
             return Promise.resolve();
         }
 
-        var _self = this,
-            adapter = this.get('adapter'),
+        var adapter = this.get('adapter'),
             root = this.get('root'),
             loaded = this.get('loadedFeatures'),
             images = this.get('images'),
@@ -128,26 +141,23 @@ module.exports = Ember.ObjectController.extend({
 
         return Promise.all(images
             .filter(function(image){
-                return loaded.indexOf(image.id) === -1;
+                return !loaded.contains(image.id);
             })
             .map(function(image){
 
-                var siftUrl = root + '/sift.json/' + image.name + '.json';
-
-                var task = Task.create({
-                    name: image.name,
-                    demo: _self,
-                    resolve: resolve,
-                    url: siftUrl,
-                    type: TYPES.JSON
-                });
+                var siftUrl = root + '/sift.json/' + image.name + '.json',
+                    task = Task.create({
+                        name: image.name,
+                        data: { url: siftUrl, type: 'json' }
+                    });
 
                 return scheduler.promiseTask(task)
                     .then(function(sift){
+                        task.destroy();
                         return adapter.promiseSetData(STORES.FEATURES, image.id, sift.features);
                     })
                     .then(function(){
-                        _self.get('finishedSIFT').addObject(image.id);
+                        loaded.addObject(image.id);
                     });
 
             }));
@@ -168,22 +178,20 @@ module.exports = Ember.ObjectController.extend({
         var adapter = this.get('adapter'),
             _self = this,
             url = this.get('root')+BUNDLER_PATH,
-            scheduler = this.get('scheduler');
-
-        var task = Task.create({
-            name: 'Camera Registration',
-            demo: _self,
-            resolve: resolve,
-            url: url,
-            type: TYPES.JSON
-        });
+            scheduler = this.get('scheduler'),
+            task = Task.create({
+                name: 'Camera Registration',
+                type: TASK_TYPE.DOWNLOAD,
+                data: { url: url, type: 'json' }
+            });
 
         return scheduler.promiseTask(task)
             .then(function(data){
+                task.destroy();
                 return adapter.promiseSetData(STORES.SINGLETONS, STORES.BUNDLER, data);
             })
             .then(function(){
-                _self.set('calibrationLoaded', true);
+                _self.get('loadedEntries').addObject(ENTRIES.CALIBRATION);
                 Ember.Logger.debug('Bundler downloaded and stored');
             });
 
@@ -205,20 +213,19 @@ module.exports = Ember.ObjectController.extend({
             url = this.get('root')+MVS_PATH,
             scheduler = this.get('scheduler');
 
-        var task  = Task.create({
+        var task = Task.create({
             name: 'Multi-View Stereo',
-            demo: _self,
-            resolve: resolve,
-            url: url,
-            type: TYPES.JSON
+            type: TASK_TYPE.DOWNLOAD,
+            data: { url: url, type: 'json' }
         });
 
         return scheduler.promiseTask(task)
             .then(function(data){
+                task.destroy();
                 return adapter.promiseSetData(STORES.SINGLETONS, STORES.MVS, data);
             })
             .then(function(){
-                _self.set('mvsLoaded', true);
+                _self.get('loadedEntries').pushObject(ENTRIES.MVS);
                 Ember.Logger.debug('MVS downloaded and stored');
             });
 
@@ -226,6 +233,7 @@ module.exports = Ember.ObjectController.extend({
 
 
     promiseDelete: function(){
+
         var _self = this,
             context = this.get('context');
 
@@ -241,12 +249,11 @@ module.exports = Ember.ObjectController.extend({
                 var request = indexedDB.deleteDatabase(_self.get('name'));
                 request.onsuccess = function(){
                     _self.setProperties({
-                        'finishedImages': [],
-                        'finishedSIFT': [],
-                        'bundlerFinished': false,
-                        'mvsFinished': false
+                        loadedImages: [],
+                        loadedFeatures: [],
+                        loadedEntries: [],
+                        isDeleting: false
                     });
-                    _self.set('isDeleting', false);
                 };
             });
     }

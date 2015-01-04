@@ -14,6 +14,10 @@ module.exports = Ember.ObjectController.extend({
 
     actions: {
 
+        download: function(){
+            this.get('demoController').send('download');
+        },
+
         toggleImage: function(){
             this.get('model').toggleImage();
         },

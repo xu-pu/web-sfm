@@ -20,6 +20,10 @@ var utils = require('../utils.js'),
  */
 module.exports = Ember.ArrayController.extend({
 
+    needs: ['downloader'],
+
+    downloader: Ember.computed.alias('controllers.downloader'),
+
     itemController: 'worker',
 
     queue: [],
@@ -52,14 +56,21 @@ module.exports = Ember.ArrayController.extend({
      * @returns {Promise}
      */
     promiseTask: function(task){
+
+        task.set('state', TASK_STATE.PENDING);
+
         switch (task.get('type')) {
-            case TASKS.DOWNLOAD_JSON:
-                break;
-            case TASKS.DOWNLOAD_IMAGE:
+            case TASKS.DOWNLOAD:
+                this.get('downloader.queue').pushObject(task);
                 break;
             default:
                 throw 'Task not implemented yet';
         }
+
+        return new Promise(function(resolve, reject){
+            task.set('callback', resolve);
+        });
+
     },
 
 
