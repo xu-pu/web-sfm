@@ -4,21 +4,21 @@
 
     <ul class="welcome-screen__detail__download-selections">
 
-        <li {{bind-attr class="selectedImage:is-selected"}}
+        <li {{bind-attr class="selectedImage:is-selected imagesFinished:is-loaded"}}
             {{action "toggleImage"}}>
 
             <h1>Images {{loadedImages.length}}/{{images.length}}</h1>
 
         </li>
 
-        <li {{bind-attr class="selectedFeature:is-selected hasFeature::not-avaliable"}}
+        <li {{bind-attr class="selectedFeature:is-selected hasFeature::not-avaliable featuresFinished:is-loaded"}}
             {{action "toggleFeature"}}>
 
             <h1>Features {{finishedSIFT.length}}/{{images.length}}</h1>
 
         </li>
 
-        <li {{bind-attr class="selectedMatch:is-selected hasMatch::not-avaliable"}}
+        <li {{bind-attr class="selectedMatch:is-selected hasMatch::not-avaliable matchesLoaded:is-loaded"}}
             {{action "toggleMatch"}}>
 
             <h1>
@@ -32,7 +32,7 @@
 
         </li>
 
-        <li {{bind-attr class="selectedCalibration:is-selected hasCalibration::not-avaliable"}}
+        <li {{bind-attr class="selectedCalibration:is-selected hasCalibration::not-avaliable calibrationLoaded:is-loaded"}}
             {{action "toggleCalibration"}}>
 
             <h1>
@@ -50,7 +50,7 @@
 
         </li>
 
-        <li {{bind-attr class="selectedMVS:is-selected hasMVS::not-avaliable"}}
+        <li {{bind-attr class="selectedMVS:is-selected hasMVS::not-avaliable mvsLoaded:is-loaded"}}
             {{action "toggleMVS"}}>
 
             <h1>

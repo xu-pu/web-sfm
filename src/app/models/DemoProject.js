@@ -119,11 +119,11 @@ module.exports = Project.extend({
 
     calibrationLoaded: function(){
         return this.get('loadedEntries').contains(ENTRIES.CALIBRATION);
-    }.property('loadedEntries'),
+    }.property('loadedEntries.length'),
 
     mvsLoaded: function(){
         return this.get('loadedEntries').contains(ENTRIES.MVS);
-    }.property('loadedEntries'),
+    }.property('loadedEntries.length'),
 
     loadedImages: [],
 

@@ -68,18 +68,17 @@
 .welcome-screen__detail__download-selections > li {
 
   display: block;
-
+  position: relative;
   background-color: rgba(109, 109, 109, 0.72);
   color: lightgray;
-
-  padding-left: 1em;
-  padding-top: 10px;
-  padding-bottom: 10px;
-
+  height: 3em;
+  box-sizing: border-box;
   margin-top: 10px;
   cursor: pointer;
 
   h1 {
+    @extend %center-element-y;
+    left: 1em;
     font-size: 1.5em;
     height: 1em;
     line-height: 1em;
@@ -92,7 +91,14 @@
   }
 
   &.is-selected {
-    background-color: rgba(73, 160, 73, 0.76);
+
+    &.is-loaded {
+      background-color: rgba(73, 160, 73, 0.76);
+      border-bottom: 0;
+    }
+
+    border-bottom: solid 0.3em greenyellow;
+
   }
 
 }

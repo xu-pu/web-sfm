@@ -31,6 +31,15 @@ module.exports = Ember.ObjectController.extend({
 
     actions: {
 
+        releaseDB: function(){
+            var adapter = this.get('adapter');
+            if (adapter) {
+                adapter.close();
+                console.log('release');
+            }
+            this.set('adapter', null);
+        },
+
         'delete': function(){
             this.promiseDelete();
         },
@@ -83,12 +92,12 @@ module.exports = Ember.ObjectController.extend({
         }
 
         return Promise.all(tasks)
-            .then(function(){
-                _self.set('isInprogress', false);
-            })
             .catch(function(){
                 Ember.Logger.debug('download error');
+            })
+            .then(function(){
                 _self.set('isInprogress', false);
+                _self.send('releaseDB');
             });
     },
 
@@ -197,7 +206,7 @@ module.exports = Ember.ObjectController.extend({
             })
             .then(function(){
                 _self.get('loadedEntries').addObject(ENTRIES.CALIBRATION);
-                Ember.Logger.debug('Bundler downloaded and stored');
+                Ember.Logger.debug('Calibration downloaded and stored');
             });
 
     },
@@ -242,13 +251,17 @@ module.exports = Ember.ObjectController.extend({
         var _self = this,
             context = this.get('context');
 
+        this.send('releaseDB');
+
         context.promiseProject()
             .then(function(project){
                 if (project.get('name') === _self.get('name')) {
                     context.set('currentProject', null);
                 }
             })
-            .catch()
+            .catch(function(){
+                // no current project
+            })
             .then(function(){
                 _self.set('isDeleting', true);
                 var request = indexedDB.deleteDatabase(_self.get('name'));

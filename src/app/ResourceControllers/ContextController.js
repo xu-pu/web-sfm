@@ -18,6 +18,7 @@ module.exports = Ember.Controller.extend({
 
     currentProject: null,
 
+    adapter: null,
 
     /**
      * sync adapter and localstorage when current project changed
@@ -26,8 +27,21 @@ module.exports = Ember.Controller.extend({
 
         Ember.Logger.debug('project switch triggered!');
 
-        var project = this.get('currentProject');
+        var project = this.get('currentProject'),
+            oldadapter = this.get('adapter');
 
+        // release old connection
+        if (oldadapter) {
+            oldadapter.close();
+            this.set('adapter', null);
+        }
+
+        // establish new connection
+        if (project) {
+            this.set('adapter', new IDBAdapter(project.get('name')));
+        }
+
+        // sync to localstorage
         if (project) {
             localStorage.setItem(LOCAL_STORES.PROJECT, project.get('name'));
         }

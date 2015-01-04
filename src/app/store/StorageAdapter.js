@@ -23,6 +23,13 @@ function StorageAdapter(projectName){
 
 StorageAdapter.prototype = {
 
+    close: function(){
+        if (this.connection) {
+            this.connection.close();
+            delete this.connection;
+        }
+    },
+
     promiseDB: function(){
         var _self = this;
 
