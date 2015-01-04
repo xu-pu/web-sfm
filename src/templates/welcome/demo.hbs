@@ -7,14 +7,41 @@
         <li {{bind-attr class="selectedImage:is-selected imagesFinished:is-loaded"}}
             {{action "toggleImage"}}>
 
-            <h1>Images {{loadedImages.length}}/{{images.length}}</h1>
+            <h1>
+                Images {{loadedImages.length}}/{{images.length}}
+                {{#if imagesFinished}}
+                    loaded
+                {{else}}
+                    {{#if selectedImage}}
+                        selected
+                    {{else}}
+                        avaliable
+                    {{/if}}
+                {{/if}}
+            </h1>
 
         </li>
 
         <li {{bind-attr class="selectedFeature:is-selected hasFeature::not-avaliable featuresFinished:is-loaded"}}
             {{action "toggleFeature"}}>
 
-            <h1>Features {{finishedSIFT.length}}/{{images.length}}</h1>
+            <h1>
+                Features {{finishedSIFT.length}}/{{images.length}}
+
+                {{#if featuresFinished}}
+                    loaded
+                {{else}}
+                    {{#if hasFeature}}
+                        {{#if selectedFeature}}
+                            selected
+                        {{else}}
+                            avaliable
+                        {{/if}}
+                    {{else}}
+                        not avaliable
+                    {{/if}}
+                {{/if}}
+            </h1>
 
         </li>
 
@@ -23,10 +50,18 @@
 
             <h1>
                 Matches
-                {{#if hasMatch}}
-                    avaliable
+                {{#if matchLoaded}}
+                    loaded
                 {{else}}
-                    not avaliable
+                    {{#if hasMatch}}
+                        {{#if selectedMatch}}
+                            selected
+                        {{else}}
+                            avaliable
+                        {{/if}}
+                    {{else}}
+                        not avaliable
+                    {{/if}}
                 {{/if}}
             </h1>
 
@@ -41,7 +76,11 @@
                     finished
                 {{else}}
                     {{#if hasCalibration}}
-                        avaliable
+                        {{#if selectedCalibration}}
+                            selected
+                        {{else}}
+                            avaliable
+                        {{/if}}
                     {{else}}
                         not avaliable
                     {{/if}}
@@ -56,10 +95,14 @@
             <h1>
                 MVS
                 {{#if mvsLoaded}}
-                    finished
+                    loaded
                 {{else}}
                     {{#if hasMVS}}
-                        avaliable
+                        {{#if selectedMVS}}
+                            selected
+                        {{else}}
+                            avaliable
+                        {{/if}}
                     {{else}}
                         not avaliable
                     {{/if}}

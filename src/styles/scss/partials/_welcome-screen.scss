@@ -72,13 +72,12 @@
   background-color: rgba(109, 109, 109, 0.72);
   color: lightgray;
   height: 3em;
-  box-sizing: border-box;
   margin-top: 10px;
   cursor: pointer;
 
   h1 {
     @extend %center-element-y;
-    left: 1em;
+    left: 0.6em;
     font-size: 1.5em;
     height: 1em;
     line-height: 1em;
@@ -91,13 +90,15 @@
   }
 
   &.is-selected {
+    border-left: solid 0.8em #9ddd9d;
+  }
 
-    &.is-loaded {
-      background-color: rgba(73, 160, 73, 0.76);
-      border-bottom: 0;
-    }
+  &:hover {
+    background-color: rgba(73, 160, 73, 0.76);
+  }
 
-    border-bottom: solid 0.3em greenyellow;
+  &.is-selected.is-loaded {
+    background-color: rgba(73, 160, 73, 0.76);
 
   }
 
