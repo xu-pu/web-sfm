@@ -91,6 +91,7 @@
 
   &.is-selected {
     border-left: solid 0.8em #9ddd9d;
+    background-color: rgba(151, 194, 151, 0.5);
   }
 
   &:hover {
@@ -170,9 +171,14 @@
 
   h1 {
     @extend %center-element;
-    font-size: 4em;
+    font-size: 6em;
     height: 2em;
     line-height: 2em;
+    font-family: "Monoton";
+    text-transform: uppercase;
+    cursor: default;
+    color: #00396F;
+    font-weight: 400;
   }
 
 }
