@@ -2,7 +2,8 @@
 
 var _ = require('underscore');
 
-var Image = require('../models/Image.js'),
+var IDBAdapter = require('../store/StorageAdapter.js'),
+    Image = require('../models/Image.js'),
     Matches = require('../models/Matches.js'),
     utils = require('../utils.js'),
     settings = require('../settings.js'),
@@ -10,9 +11,11 @@ var Image = require('../models/Image.js'),
 
 module.exports = Ember.ObjectController.extend({
 
-    needs: ['sfmStore'],
+//    needs: ['sfmStore'],
 
-    adapter: Ember.computed.alias('controllers.sfmStore.adapter'),
+//    adapter: Ember.computed.alias('controllers.sfmStore.adapter'),
+
+    adapter: null,
 
     isRunning: false,
 
@@ -26,6 +29,7 @@ module.exports = Ember.ObjectController.extend({
     expandStereo: true,
 
     onSwitchProject: function(){
+        this.set('adapter', new IDBAdapter(this.get('model.name')));
         this.set('imageModels', null);
     }.observes('model'),
 

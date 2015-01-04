@@ -16,12 +16,11 @@ module.exports = Ember.Controller.extend({
     }.observes('queue.length', 'running.length'),
 
     assign: function(){
-
         var queue = this.get('queue'),
             running = this.get('running'),
             cursor;
 
-        while ( queue.length < LIMIT && running.length > 0 ) {
+        while ( running.length < LIMIT && queue.length > 0 ) {
             cursor = queue.popObject();
             running.addObject(cursor);
             this.startDownloadTask(cursor);
@@ -36,6 +35,8 @@ module.exports = Ember.Controller.extend({
         var _self = this,
             request,
             data = task.get('data');
+
+        attempt();
 
         function attempt(){
             request = new XMLHttpRequest();

@@ -37,6 +37,11 @@ module.exports = Ember.ObjectController.extend({
 
         download: function(){
             this.promiseDownload();
+        },
+
+        enter: function(){
+            this.get('context').set('currentProject', this.get('model'));
+            this.transitionToRoute('workspace');
         }
 
     },
