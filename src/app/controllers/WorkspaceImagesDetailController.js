@@ -4,7 +4,9 @@ var STORES = require('../settings.js').STORES;
 
 module.exports = Ember.ObjectController.extend({
 
-    needs: ['sfmStore'],
+    needs: ['workspace'],
+
+    adapter: Ember.computed.alias('controllers.workspace.adapter'),
 
     isLoadng: true,
 
@@ -21,7 +23,7 @@ module.exports = Ember.ObjectController.extend({
         this.set('isLoading', true);
 
         var _self = this,
-            adapter = this.get('controllers.sfmStore.adapter');
+            adapter = this.get('adapter');
 
         return adapter
             .promiseData(STORES.FULLIMAGES, _self.get('_id'))

@@ -50,7 +50,7 @@ module.exports = Ember.ArrayController.extend({
 
         if (_.isArray(data)) {
             content = data.map(function(p){
-                return Project.create(p);
+                return ProjectModel.create(p);
             });
         }
 

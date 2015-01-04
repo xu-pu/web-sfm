@@ -6,9 +6,9 @@ module.exports = Ember.ArrayController.extend({
 
     itemController: 'workspace.image.thumbnail',
 
-    needs: ['sfmStore'],
+    needs: ['workspace'],
 
-    adapter: Ember.computed.alias('controllers.sfmStore.adapter'),
+    adapter: Ember.computed.alias('controllers.workspace.adapter'),
 
     queue: [],
 

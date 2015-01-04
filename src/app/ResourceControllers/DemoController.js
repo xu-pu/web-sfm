@@ -121,16 +121,18 @@ module.exports = Ember.ObjectController.extend({
             })
             .map(function(image){
 
-                var imageUrl = root + '/images/' + name + image.extension,
+                var filename = image.name + image.extension,
+                    imageUrl = root + '/images/' + filename,
                     task = Task.create({
-                        name: name,
+                        type: TASK_TYPE.DOWNLOAD,
+                        name: image.name + image.extension,
                         data: { url: imageUrl, type: 'blob' }
                     });
 
                 return scheduler.promiseTask(task)
                     .then(function(blob){
                         task.destroy();
-                        blob.name = name;
+                        blob.name = filename;
                         return adapter.processImageFile(blob, image.id);
                     })
                     .then(function(){
