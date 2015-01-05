@@ -73,7 +73,7 @@
             <h1>
                 Calibration
                 {{#if calibrationLoaded}}
-                    finished
+                    loaded
                 {{else}}
                     {{#if hasCalibration}}
                         {{#if selectedCalibration}}
@@ -113,13 +113,17 @@
 
     </ul>
 
-    <div {{bind-attr class=":welcome-screen__detail__download demoController.isInprogress:is-downloading"}}
-        {{action "download"}}>
+    <div {{bind-attr class=":welcome-screen__detail__download isInprogress:is-downloading isReady:is-ready"}}
+        {{action "progress"}}>
 
-        {{#if demoController.isInprogress}}
+        {{#if isInprogress}}
             <h1>Loading</h1>
         {{else}}
-            <h1>Load</h1>
+            {{#if isReady}}
+                <h1>Enter</h1>
+            {{else}}
+                <h1>Load</h1>
+            {{/if}}
         {{/if}}
 
     </div>

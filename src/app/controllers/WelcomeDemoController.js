@@ -8,6 +8,8 @@ module.exports = Ember.ObjectController.extend({
 
     isInprogress: Ember.computed.alias('demoController.isInprogress'),
 
+    isReady: Ember.computed.alias('demoController.isReady'),
+
     onDemoChange: function(){
         var demos = this.get('controllers.demos'),
             name = this.get('model.name');
@@ -16,8 +18,16 @@ module.exports = Ember.ObjectController.extend({
 
     actions: {
 
-        download: function(){
-            this.get('demoController').send('download');
+        progress: function(){
+            if (this.get('isInprogress')) {
+                return;
+            }
+            else if (this.get('isReady')) {
+                this.get('demoController').send('enter');
+            }
+            else {
+                this.get('demoController').send('download');
+            }
         },
 
         toggleImage: function(){
