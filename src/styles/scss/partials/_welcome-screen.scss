@@ -56,17 +56,18 @@
 
 .welcome-screen__detail__progress {
   position: absolute;
-  width: 20em;
+  box-sizing: border-box;
+  width: 25em;
   right: 2em;
   top: 0;
-  bottom: 0;
+  height: 30em;
   padding: 2em;
   background-color: rgba(29, 29, 29, 0.76);
 }
 
 
 .welcome-screen__detail__download-selections > li {
-
+  @include transition(background-color 0.5s);
   display: block;
   position: relative;
   background-color: rgba(109, 109, 109, 0.72);

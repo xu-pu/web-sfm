@@ -6,6 +6,8 @@ module.exports = Ember.ObjectController.extend({
 
     demoController: null,
 
+    isInprogress: Ember.computed.alias('demoController.isInprogress'),
+
     onDemoChange: function(){
         var demos = this.get('controllers.demos'),
             name = this.get('model.name');
@@ -19,23 +21,66 @@ module.exports = Ember.ObjectController.extend({
         },
 
         toggleImage: function(){
-            this.get('model').toggleImage();
+            if (this.get('isInprogress')) {
+                return;
+            }
+            if (this.get('selectedImage') && this.get('loadedImages').length != 0) {
+                if (window.confirm('Delete loaded images?')) {
+                    this.get('model').toggleImage();
+                }
+            }
+            else {
+                this.get('model').toggleImage();
+            }
         },
 
         toggleFeature: function(){
-            this.get('model').toggleFeature();
+            if (this.get('isInprogress')) {
+                return;
+            }
+            if (this.get('selectedFeature') && this.get('loadedFeatures').length != 0) {
+                if (window.confirm('Delete loaded features?')) {
+                    this.get('model').toggleFeature();
+                }
+            }
+            else {
+                this.get('model').toggleFeature();
+            }
         },
 
         toggleMatch: function(){
+            if (this.get('isInprogress')) {
+                return;
+            }
             this.get('model').toggleMatch();
         },
 
         toggleCalibration: function(){
-            this.get('model').toggleCalibration();
+            if (this.get('isInprogress')) {
+                return;
+            }
+            if (this.get('selectedCalibration') && this.get('calibrationLoaded')) {
+                if (window.confirm('Delete loaded calibration information?')) {
+                    this.get('model').toggleCalibration();
+                }
+            }
+            else {
+                this.get('model').toggleCalibration();
+            }
         },
 
         toggleMVS: function(){
-            this.get('model').toggleMVS();
+            if (this.get('isInprogress')) {
+                return;
+            }
+            if (this.get('selectedMVS') && this.get('mvsLoaded')) {
+                if (window.confirm('Delete loaded Multi-View Stereo data?')) {
+                    this.get('model').toggleMVS();
+                }
+            }
+            else {
+                this.get('model').toggleMVS();
+            }
         }
 
     }
