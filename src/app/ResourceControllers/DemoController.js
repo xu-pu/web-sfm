@@ -145,7 +145,11 @@ module.exports = Ember.ObjectController.extend({
 
     promiseDownloadFeatures: function(){
 
-        if (this.get('hasSIFT') && this.get('siftFinished')) {
+        if (!this.get('hasFeature')) {
+            return Promise.reject('Feature is not avaliable in this demo!');
+        }
+
+        if (this.get('featuresFinished')) {
             return Promise.resolve();
         }
 
@@ -163,6 +167,7 @@ module.exports = Ember.ObjectController.extend({
 
                 var siftUrl = root + '/sift.json/' + image.name + '.json',
                     task = Task.create({
+                        type: TASK_TYPE.DOWNLOAD,
                         name: image.name,
                         data: { url: siftUrl, type: 'json' }
                     });
