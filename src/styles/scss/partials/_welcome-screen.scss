@@ -151,9 +151,20 @@
   }
 
   &.is-downloading {
-    background-color: rgba(73, 160, 73, 0.76);
+    @include animation(blink 0.5s ease-in-out infinite alternate);
   }
 
+}
+
+
+@include keyframes(blink) {
+  0% {
+    background-color: rgba(109, 109, 109, 0.72);
+
+  }
+  100% {
+    background-color: rgba(73, 160, 73, 0.76);
+  }
 }
 
 
