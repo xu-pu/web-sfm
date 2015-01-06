@@ -1,5 +1,8 @@
 'use strict';
 
+var settings = require('../settings.js'),
+    ENTRIES = settings.DEMO_ENTRY;
+
 module.exports = Ember.ObjectController.extend({
 
     needs: ['demos'],
@@ -71,7 +74,7 @@ module.exports = Ember.ObjectController.extend({
             }
             if (this.get('selectedCalibration') && this.get('calibrationLoaded')) {
                 if (window.confirm('Delete loaded calibration information?')) {
-                    this.get('model').toggleCalibration();
+                    this.get('model').get('selectedEntries').removeObject(ENTRIES.CALIBRATION);
                 }
             }
             else {

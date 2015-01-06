@@ -200,6 +200,28 @@ StorageAdapter.prototype = {
         });
     },
 
+    promiseRemoveData: function(store, key){
+        var _self = this;
+        return new Promise(function(resolve){
+            _self.promiseDB().then(function(db){
+                db.transaction(store, 'readwrite').objectStore(store).delete(key).onsuccess = function(){
+                    resolve(true);
+                }
+            });
+        });
+    },
+
+    promiseClear: function(store){
+        var _self = this;
+        return new Promise(function(resolve){
+            _self.promiseDB().then(function(db){
+                db.transaction(store, 'readwrite').objectStore(store).clear().onsuccess = function(){
+                    resolve(true);
+                }
+            });
+        });
+    },
+
     promiseFindBy: function(store, index, key){
         var _self = this;
         return new Promise(function(resolve, reject){

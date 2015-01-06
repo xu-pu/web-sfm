@@ -61,6 +61,82 @@ module.exports = Ember.ObjectController.extend({
     }.observes('loadedImages.length', 'loadedFeatures.length', 'selectedEntries.length', 'loadedEntries.length'),
 
 
+    watchForUnselect: function(){
+
+        var _self = this,
+            selected = this.get('selectedEntries'),
+            loaded = this.get('loadedEntries');
+
+        loaded.forEach(function(entry){
+            switch (entry) {
+                case ENTRIES.CALIBRATION:
+                    if (!selected.contains(ENTRIES.CALIBRATION)) {
+                        deleteCalibration();
+                    }
+                    break;
+                case ENTRIES.MVS:
+                    if (!selected.contains(ENTRIES.MVS)) {
+                        deleteMVS();
+                    }
+                    break;
+                default:
+                    throw 'Invalid Entry';
+            }
+        });
+
+        if (!selected.contains(ENTRIES.IMAGE) && this.get('loadedImages.length') > 0) {
+            deleteImage();
+        }
+
+        if (!selected.contains(ENTRIES.FEATURE) && this.get('loadedFeatures.length') > 0) {
+            deleteFeature();
+        }
+
+        function deleteImage(){
+            var adapter = new IDBAdapter(_self.get('name'));
+            adapter
+                .promiseClear(STORES.IMAGES)
+                .then(function(){
+                    _self.get('loadedImages').clear();
+                    adapter.close();
+                });
+        }
+
+        function deleteFeature(){
+            var adapter = new IDBAdapter(_self.get('name'));
+            adapter
+                .promiseClear(STORES.FEATURES)
+                .then(function(){
+                    _self.get('loadedFeatures').clear();
+                    adapter.close();
+                });
+        }
+
+        function deleteMatch(){}
+
+        function deleteCalibration(){
+            var adapter = new IDBAdapter(_self.get('name'));
+            adapter
+                .promiseRemoveData(STORES.SINGLETONS, STORES.BUNDLER)
+                .then(function(){
+                    loaded.removeObject(ENTRIES.CALIBRATION);
+                    adapter.close();
+                });
+        }
+
+        function deleteMVS(){
+            var adapter = new IDBAdapter(_self.get('name'));
+            adapter
+                .promiseRemoveData(STORES.SINGLETONS, STORES.MVS)
+                .then(function(){
+                    loaded.removeObject(ENTRIES.MVS);
+                    adapter.close();
+                });
+        }
+
+    }.observes('selectedEntries.length'),
+
+
     promiseDownload: function(){
 
         this.set('isInprogress', true);
