@@ -22,78 +22,56 @@ module.exports = Ember.ObjectController.extend({
     actions: {
 
         progress: function(){
-            if (this.get('isInprogress')) {
-                return;
-            }
-            else if (this.get('isReady')) {
-                this.get('demoController').send('enter');
-            }
-            else {
-                this.get('demoController').send('download');
-            }
-        },
-
-        toggleImage: function(){
-            if (this.get('isInprogress')) {
-                return;
-            }
-            if (this.get('selectedImage') && this.get('loadedImages').length != 0) {
-                if (window.confirm('Delete loaded images?')) {
-                    this.get('model').toggleImage();
+            if (!this.get('isInprogress')) {
+                if (this.get('isReady')) {
+                    this.get('demoController').send('enter');
+                }
+                else {
+                    this.get('demoController').send('download');
                 }
             }
-            else {
-                this.get('model').toggleImage();
-            }
         },
 
-        toggleFeature: function(){
-            if (this.get('isInprogress')) {
+        toggleSelection: function(entry){
+
+            var entries = this.get('entries'),
+                selected = this.get('selectedEntries'),
+                loaded = this.get('loadedEntries');
+
+            if (this.get('isInprogress') || !entries.contains(entry)) {
                 return;
             }
-            if (this.get('selectedFeature') && this.get('loadedFeatures').length != 0) {
-                if (window.confirm('Delete loaded features?')) {
-                    this.get('model').toggleFeature();
+
+            if (!selected.contains(entry)) {
+                selected.addObject(entry);
+            }
+            else {
+
+                var needDelete = false;
+
+                switch (entry) {
+                    case ENTRIES.IMAGE:
+                        needDelete = this.get('loadedImages.length') > 0;
+                        break;
+                    case ENTRIES.FEATURE:
+                        needDelete = this.get('loadedFeatures.length') > 0;
+                        break;
+                    default:
+                        needDelete = loaded.contains(entry);
+                        break;
                 }
-            }
-            else {
-                this.get('model').toggleFeature();
-            }
-        },
 
-        toggleMatch: function(){
-            if (this.get('isInprogress')) {
-                return;
-            }
-            this.get('model').toggleMatch();
-        },
-
-        toggleCalibration: function(){
-            if (this.get('isInprogress')) {
-                return;
-            }
-            if (this.get('selectedCalibration') && this.get('calibrationLoaded')) {
-                if (window.confirm('Delete loaded calibration information?')) {
-                    this.get('model').get('selectedEntries').removeObject(ENTRIES.CALIBRATION);
+                if (needDelete) {
+                    if (window.confirm('Delete loaded '+ entries + '?')) {
+                        selected.removeObject(entry);
+                    }
                 }
-            }
-            else {
-                this.get('model').toggleCalibration();
-            }
-        },
-
-        toggleMVS: function(){
-            if (this.get('isInprogress')) {
-                return;
-            }
-            if (this.get('selectedMVS') && this.get('mvsLoaded')) {
-                if (window.confirm('Delete loaded Multi-View Stereo data?')) {
-                    this.get('model').toggleMVS();
+                else {
+                    selected.removeObject(entry);
                 }
+
             }
-            else {
-                this.get('model').toggleMVS();
-            }
+
         }
 
     }
