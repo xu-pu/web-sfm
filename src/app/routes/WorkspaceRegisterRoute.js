@@ -6,7 +6,7 @@ module.exports = Ember.Route.extend({
 
     model: function(){
         return this
-            .controllerFor('sfmStore')
+            .controllerFor('workspace')
             .get('adapter')
             .promiseData(STORES.SINGLETONS, STORES.BUNDLER);
     },

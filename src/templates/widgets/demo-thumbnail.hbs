@@ -1,6 +1,6 @@
 <div class="demo-thumbnail__header">
     <span>{{name}}</span>
-    <div class="exit-icon" {{action "confirmDelete"}}></div>
+    <div class="exit-icon" {{action "delete"}}></div>
 </div>
 
 <div class="demo-thumbnail__body">
@@ -22,20 +22,10 @@
         </div>
     {{/if}}
 
-    <div class="demo-thumbnail__detail"  {{action "toggleDetail"}}>
-        <h1>Detail</h1>
-    </div>
-
-    <div {{bind-attr class=":demo-thumbnail__state-bar isDownloaded isInprogress"}}>
-        {{#if isDownloaded}}
-            <h1 {{action "enter"}}>Enter</h1>
-        {{else}}
-            {{#if isInprogress}}
-                <h1>Downloading</h1>
-            {{else}}
-                <h1 {{action "download"}}>Load</h1>
-            {{/if}}
-        {{/if}}
-    </div>
+    {{#link-to "welcome.demo" model}}
+        <div class="demo-thumbnail__detail">
+            <h1>Detail</h1>
+        </div>
+    {{/link-to}}
 
 </div>

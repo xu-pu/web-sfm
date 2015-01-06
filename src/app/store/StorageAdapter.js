@@ -23,6 +23,13 @@ function StorageAdapter(projectName){
 
 StorageAdapter.prototype = {
 
+    close: function(){
+        if (this.connection) {
+            this.connection.close();
+            delete this.connection;
+        }
+    },
+
     promiseDB: function(){
         var _self = this;
 
@@ -77,9 +84,10 @@ StorageAdapter.prototype = {
     /**
      *
      * @param {File} file
+     * @param {int} [id]
      * @return {Promise}
      */
-    processImageFile: function(file){
+    processImageFile: function(file, id){
 
         //Ember.Logger.debug('file process begins');
 
@@ -98,11 +106,21 @@ StorageAdapter.prototype = {
                     height: img.height,
                     thumbnail: utils.getImageThumbnail(domimg)
                 };
-                return _self.promiseAddData(STORES.IMAGES, image);
+                if (id) {
+                    return _self.promiseSetData(STORES.IMAGES, id, image);
+                }
+                else {
+                    return _self.promiseAddData(STORES.IMAGES, image);
+                }
             })
             .then(function(newid){
                 //Ember.Logger.debug('_id aquired');
-                image._id = newid;
+                if (id) {
+                    image._id = id;
+                }
+                else {
+                    image._id = newid;
+                }
                 return _self.promiseSetData(STORES.THUMBNAILS, image._id, image.thumbnail);
             })
             .then(function(){
@@ -177,6 +195,28 @@ StorageAdapter.prototype = {
             _self.promiseDB().then(function(db){
                 db.transaction(store, 'readwrite').objectStore(store).add(data).onsuccess = function(e){
                     resolve(e.target.result);
+                }
+            });
+        });
+    },
+
+    promiseRemoveData: function(store, key){
+        var _self = this;
+        return new Promise(function(resolve){
+            _self.promiseDB().then(function(db){
+                db.transaction(store, 'readwrite').objectStore(store).delete(key).onsuccess = function(){
+                    resolve(true);
+                }
+            });
+        });
+    },
+
+    promiseClear: function(store){
+        var _self = this;
+        return new Promise(function(resolve){
+            _self.promiseDB().then(function(db){
+                db.transaction(store, 'readwrite').objectStore(store).clear().onsuccess = function(){
+                    resolve(true);
                 }
             });
         });

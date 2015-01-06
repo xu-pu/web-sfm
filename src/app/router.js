@@ -33,9 +33,11 @@ module.exports = function(App){
 
     App.ApplicationRoute = Ember.Route.extend({
 
+        /*
         beforeModel: function(){
             return this.controllerFor('sfmStore').promiseResume();
         }
+        */
 
     });
 
@@ -43,7 +45,7 @@ module.exports = function(App){
     App.IndexRoute = Ember.Route.extend({
 
         model: function(){
-            return this.controllerFor('sfmStore').promiseProject();
+            return this.controllerFor('context').promiseProject();
         },
 
         afterModel: function(){
@@ -58,11 +60,12 @@ module.exports = function(App){
 
     });
 
+
     //=============================
     // Welcome
     //=============================
 
-    App.WelcomeRoute = require('./routes/WelcomeRoute.js');
+    App.WelcomeRoute = Ember.Route.extend();
 
     App.WelcomeIndexRoute = Ember.Route.extend({
 

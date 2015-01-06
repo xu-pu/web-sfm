@@ -14,13 +14,19 @@ module.exports = Ember.View.extend({
 
     templateName: 'widgets/project-creator',
 
-    store: Ember.computed.alias('controller.controllers.sfmStore'),
+    actions: {
+
+        createProject: function(){
+            this.get('controller').send('createProject');
+        }
+
+    },
 
     InputView: Ember.TextField.extend({
 
         refresh: function(){
             this.set('value', '');
-        }.observes('store.projects.length'),
+        },
 
         keyUp: function(){
             this.syncContent();

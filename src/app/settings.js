@@ -34,6 +34,41 @@ module.exports.STORES = {
 };
 
 
+module.exports.LOCAL_STORE = {
+    DEMOS: 'demos',
+    PROJECTS: 'projects',
+    PROJECT: 'project'
+};
+
+
+//==========================================
+// Demos
+//==========================================
+
+
+module.exports.DEMO_ENTRY = {
+    IMAGE: 'image',
+    FEATURE: 'feature',
+    MATCH: 'match',
+    CALIBRATION: 'calibration',
+    MVS: 'mvs'
+};
+
+
+//==========================================
+// Message
+//==========================================
+
+
+module.exports.WORKER_MSG_TYPE = {
+    ASSIGN: 0,
+    ABORT: 1,
+    PROGRESS: 2,
+    ACK_ASSIGN: 3,
+    ACK_ABORT: 4
+};
+
+
 //==========================================
 // Task Constants
 //==========================================
@@ -43,7 +78,8 @@ module.exports.TASKS = {
     SIFT: 0,
     MATCHING: 1,
     STEREO: 2,
-    TRACKING: 3
+    TRACKING: 3,
+    DOWNLOAD: 4
 };
 
 
@@ -59,3 +95,11 @@ module.exports.TASK_STATES = {
 // Worker Constants
 //==========================================
 
+module.exports.DOWNLOAD_THRESHOLD = 5;
+
+module.exports.WORKER_SCRIPT = '/build/worker.js';
+
+module.exports.WORKER_STATE = {
+    IDLE: 0,
+    BUSY: 1
+};

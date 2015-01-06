@@ -1,37 +1,131 @@
+<div class="welcome-screen__detail__toggle" {{action "close" target=view}}></div>
+
 <div class="welcome-screen__detail__progress">
 
-    <div id="demo-thumbnail__details__images" class="welcome-screen__detail__progress__entry">
-        IMAGES {{finishedImages.length}}/{{images.length}}
-    </div>
+    <ul class="welcome-screen__detail__download-selections">
 
-    <div id="demo-thumbnail__details__sift" class="welcome-screen__detail__progress__entry">
-        FEATURES {{finishedSIFT.length}}/{{images.length}}
-    </div>
+        <li {{bind-attr class="selectedImage:is-selected imagesFinished:is-loaded"}}
+            {{action "toggleSelection" "image"}}>
 
-    <div id="demo-thumbnail__details__bundler" class="welcome-screen__detail__progress__entry">
-        BUNDLER
-        {{#if bundlerFinished}}
-            finished
+            <h1>
+                Images {{loadedImages.length}}/{{images.length}}
+                {{#if imagesFinished}}
+                    loaded
+                {{else}}
+                    {{#if selectedImage}}
+                        selected
+                    {{else}}
+                        avaliable
+                    {{/if}}
+                {{/if}}
+            </h1>
+
+        </li>
+
+        <li {{bind-attr class="selectedFeature:is-selected hasFeature::not-avaliable featuresFinished:is-loaded"}}
+            {{action "toggleSelection" "feature"}}>
+
+            <h1>
+                Features {{loadedFeatures.length}}/{{images.length}}
+
+                {{#if featuresFinished}}
+                    loaded
+                {{else}}
+                    {{#if hasFeature}}
+                        {{#if selectedFeature}}
+                            selected
+                        {{else}}
+                            avaliable
+                        {{/if}}
+                    {{else}}
+                        not avaliable
+                    {{/if}}
+                {{/if}}
+            </h1>
+
+        </li>
+
+        <li {{bind-attr class="selectedMatch:is-selected hasMatch::not-avaliable matchesLoaded:is-loaded"}}
+            {{action "toggleSelection" "match"}}>
+
+            <h1>
+                Matches
+                {{#if matchLoaded}}
+                    loaded
+                {{else}}
+                    {{#if hasMatch}}
+                        {{#if selectedMatch}}
+                            selected
+                        {{else}}
+                            avaliable
+                        {{/if}}
+                    {{else}}
+                        not avaliable
+                    {{/if}}
+                {{/if}}
+            </h1>
+
+        </li>
+
+        <li {{bind-attr class="selectedCalibration:is-selected hasCalibration::not-avaliable calibrationLoaded:is-loaded"}}
+            {{action "toggleSelection" "calibration"}}>
+
+            <h1>
+                Calibration
+                {{#if calibrationLoaded}}
+                    loaded
+                {{else}}
+                    {{#if hasCalibration}}
+                        {{#if selectedCalibration}}
+                            selected
+                        {{else}}
+                            avaliable
+                        {{/if}}
+                    {{else}}
+                        not avaliable
+                    {{/if}}
+                {{/if}}
+            </h1>
+
+        </li>
+
+        <li {{bind-attr class="selectedMVS:is-selected hasMVS::not-avaliable mvsLoaded:is-loaded"}}
+            {{action "toggleSelection" "mvs"}}>
+
+            <h1>
+                MVS
+                {{#if mvsLoaded}}
+                    loaded
+                {{else}}
+                    {{#if hasMVS}}
+                        {{#if selectedMVS}}
+                            selected
+                        {{else}}
+                            avaliable
+                        {{/if}}
+                    {{else}}
+                        not avaliable
+                    {{/if}}
+                {{/if}}
+            </h1>
+
+        </li>
+
+    </ul>
+
+    <div {{bind-attr class=":welcome-screen__detail__download isInprogress:is-downloading isReady:is-ready"}}
+        {{action "progress"}}>
+
+        {{#if isInprogress}}
+            <h1>Loading</h1>
         {{else}}
-            {{#if hasBundler}}
-                avaliable
+            {{#if isReady}}
+                <h1>Enter</h1>
             {{else}}
-                not avaliable
+                <h1>Load</h1>
             {{/if}}
         {{/if}}
-    </div>
 
-    <div id="demo-thumbnail__details__mvs" class="welcome-screen__detail__progress__entry">
-        MVS
-        {{#if mvsFinished}}
-            finished
-        {{else}}
-            {{#if hasMVS}}
-                avaliable
-            {{else}}
-                not avaliable
-            {{/if}}
-        {{/if}}
     </div>
 
 </div>

@@ -3,7 +3,7 @@
 module.exports = Ember.Route.extend({
 
     model: function(params){
-        var demo = this.controllerFor('sfmStore').get('demos').findBy('name', params.name);
+        var demo = this.controllerFor('demos').get('model').findBy('name', params.name);
         if (demo) {
             return demo;
         }

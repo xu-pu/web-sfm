@@ -10,9 +10,9 @@ var Image = require('../models/Image.js'),
 
 module.exports = Ember.ObjectController.extend({
 
-    needs: ['sfmStore'],
+    needs: ['context'],
 
-    adapter: Ember.computed.alias('controllers.sfmStore.adapter'),
+    adapter: Ember.computed.alias('controllers.context.adapter'),
 
     isRunning: false,
 
@@ -28,6 +28,7 @@ module.exports = Ember.ObjectController.extend({
     onSwitchProject: function(){
         this.set('imageModels', null);
     }.observes('model'),
+
 
     actions: {
 

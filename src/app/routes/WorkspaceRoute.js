@@ -3,7 +3,7 @@
 module.exports = Ember.Route.extend({
 
     model: function(){
-        return this.controllerFor('sfmStore').promiseProject();
+        return this.controllerFor('context').promiseProject();
     },
 
     actions: {

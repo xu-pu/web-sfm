@@ -1,5 +1,7 @@
 'use strict';
 
+var _ = require('underscore');
+
 //==================================================
 
 
@@ -55,7 +57,7 @@ module.exports.setLocalStorage = function(key, value){
 
 /**
  *
- * @param {File} file
+ * @param {File|Blob} file
  * @returns {Promise}
  */
 module.exports.promiseFileBuffer = function(file){
@@ -201,5 +203,26 @@ module.exports.promiseImageFile = function(url){
         request.onabort = reject;
         request.responseType = 'blob';
         request.send();
+    });
+};
+
+
+/**
+ * Load the script and return a dataurl of the loaded file
+ * @param {string} path
+ */
+module.exports.promiseScript = function(path){};
+
+
+/**
+ *
+ * @param {int} t
+ * @returns {Promise}
+ */
+module.exports.promiseDelay = function(t){
+    return new Promise(function(resolve, reject){
+        _.delay(function(){
+            resolve();
+        }, t)
     });
 };
