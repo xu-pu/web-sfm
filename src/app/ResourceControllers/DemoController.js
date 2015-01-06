@@ -79,8 +79,6 @@ module.exports = Ember.ObjectController.extend({
                         deleteMVS();
                     }
                     break;
-                default:
-                    throw 'Invalid Entry';
             }
         });
 
@@ -184,8 +182,7 @@ module.exports = Ember.ObjectController.extend({
             return Promise.resolve();
         }
 
-        var _self = this,
-            loaded = this.get('loadedImages'),
+        var loaded = this.get('loadedImages'),
             images = this.get('images'),
             root = this.get('root'),
             adapter = this.get('adapter'),
@@ -212,7 +209,7 @@ module.exports = Ember.ObjectController.extend({
                         return adapter.processImageFile(blob, image.id);
                     })
                     .then(function(){
-                        _self.get('loadedImages').addObject(image.id);
+                        loaded.addObject(image.id);
                     });
 
             }));

@@ -87,14 +87,14 @@ module.exports = Project.extend({
         var loaded = this.get('loadedEntries');
 
         if (this.get('imagesFinished')) {
-            loaded.pushObject(ENTRIES.IMAGE);
+            loaded.addObject(ENTRIES.IMAGE);
         }
         else {
             loaded.removeObject(ENTRIES.IMAGE);
         }
 
         if (this.get('featuresFinished')) {
-            loaded.pushObject();
+            loaded.addObject(ENTRIES.FEATURE);
         }
         else {
             loaded.removeObject(ENTRIES.FEATURE);
