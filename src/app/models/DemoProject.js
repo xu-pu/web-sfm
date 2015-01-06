@@ -13,13 +13,23 @@ module.exports = Project.extend({
 
     root: null,
 
-    hasFeature: false,
+    entries: [],
 
-    hasMatch: false,
+    hasFeature: function(){
+        return this.get('entries').contains(ENTRIES.FEATURE);
+    }.property('entries'),
 
-    hasCalibration: false,
+    hasMatch: function(){
+        return this.get('entries').contains(ENTRIES.MATCH);
+    }.property('entries'),
 
-    hasMVS: false,
+    hasCalibration: function(){
+        return this.get('entries').contains(ENTRIES.CALIBRATION);
+    }.property('entries'),
+
+    hasMVS: function(){
+        return this.get('entries').contains(ENTRIES.MVS);
+    }.property('entries'),
 
     images: null,
 
@@ -186,11 +196,7 @@ module.exports = Project.extend({
         'name',
         'root',
         'images',
-
-        'hasFeature',
-        'hasMatch',
-        'hasCalibration',
-        'hasMVS',
+        'entries',
 
         'selectedEntries',
         'loadedEntries',

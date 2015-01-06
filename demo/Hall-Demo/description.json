@@ -38,12 +38,6 @@
     { "id": 30, "name": "00000030", "extension": ".jpg" }
   ],
 
-  "hasFeature": true,
-
-  "hasMatch": false,
-
-  "hasCalibration": true,
-
-  "hasMVS": true
+  "entries": ["feature", "calibration", "mvs"]
 
 }
