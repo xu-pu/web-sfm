@@ -47,11 +47,11 @@ module.exports.LOCAL_STORE = {
 
 
 module.exports.DEMO_ENTRY = {
-    IMAGE: 0,
-    FEATURE: 1,
-    MATCH: 2,
-    CALIBRATION: 3,
-    MVS: 4
+    IMAGE: 'image',
+    FEATURE: 'feature',
+    MATCH: 'match',
+    CALIBRATION: 'calibration',
+    MVS: 'mvs'
 };
 
 
