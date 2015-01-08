@@ -4,40 +4,58 @@ var la = require('sylvester'),
     Matrix = la.Matrix,
     Vector = la.Vector;
 
-var SOBEL_KERNEL_X = [
+//=================================================================
+
+module.exports.sobelX = Matrix.create([
     [-1,0,1],
     [-2,0,2],
     [-1,0,1]
-];
+]);
 
-var SOBEL_KERNEL_Y = [
+module.exports.sobelY = Matrix.create([
     [ 1, 2, 1],
     [ 0, 0, 0],
     [-1,-2,-1]
-];
+]);
 
-var GUASS_KERNEL_TEST = [
-    [0.0030, 0.0133, 0.0219, 0.0133, 0.0030],
-    [0.0133, 0.0596, 0.0983, 0.0596, 0.0133],
-    [0.0219, 0.0983, 0.1621, 0.0983, 0.0219],
-    [0.0133, 0.0596, 0.0983, 0.0596, 0.0133],
-    [0.0030, 0.0133, 0.0219, 0.0133, 0.0030]
-];
+//=================================================================
 
 
-module.exports.getGuassianKernel = getGuassianKernel;
-module.exports.sobelX = Matrix.create(SOBEL_KERNEL_X);
-module.exports.sobelY = Matrix.create(SOBEL_KERNEL_Y);
-module.exports.guassian2d = gussianFunction2d;
-module.exports.getGuassian2d = getGuassian2d;
+/**
+ * @param {number} x
+ * @param {number} y
+ * @param {number} sigma
+ * @returns {number}
+ */
+module.exports.guassian2d = function gussianFunction2d(x, y, sigma){
+    var sig2 = 2*sigma*sigma;
+    return Math.exp(-(x*x+y*y)/sig2)/(Math.PI*sig2);
+};
+
+
+/**
+ * @param {number} sigma
+ * @returns {Function}
+ */
+module.exports.getGuassian2d = function(sigma){
+
+    var factor = 2*Math.PI*sigma*sigma,
+        base = 2*sigma*sigma;
+
+    return function(x, y){
+        return Math.exp(-(x*x+y*y)/base)/factor;
+    };
+
+};
 
 
 /**
  * Construct a Guassian kernel with specific radius
- * @param size
+ * @param {int} size
  * @param {number} sigma
+ * @returns {Matrix}
  */
-function getGuassianKernel(size, sigma) {
+module.exports.getGuassianKernel = function(size, sigma) {
 
     var kernel = Matrix.Zero(size, size),
         center=(size-1)/2,
@@ -52,26 +70,4 @@ function getGuassianKernel(size, sigma) {
 
     return kernel.x(1/norm);
 
-}
-
-
-/**
- * @param {number} x
- * @param {number} y
- * @param {number} sigma
- * @returns {number}
- */
-function gussianFunction2d(x,y,sigma){
-    return Math.exp(-(x*x+y*y)/(2*sigma*sigma))/(2*Math.PI*sigma*sigma);
-}
-
-
-/**
- * @param {number} sigma
- * @returns {Function}
- */
-function getGuassian2d(sigma){
-    return function(x, y){
-        return Math.exp(-(x*x+y*y)/(2*sigma*sigma))/(2*Math.PI*sigma*sigma);
-    };
-}
+};
