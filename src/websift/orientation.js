@@ -5,16 +5,18 @@ var _ = require('underscore'),
     Matrix = la.Matrix,
     Vector = la.Vector;
 
-var derivatives = require('../math/derivatives.js'),
-    getGradient = derivatives.gradient,
-    getGuassianKernel = require('../math/kernels.js').getGuassianKernel,
+var getGradient = require('../math/image-calculus.js').discreteGradient,
+    kernels = require('../math/kernels.js'),
     settings = require('./settings.js');
 
-var      RADIUS = settings.ORIENTATION_WINDOW_RADIUS,
-    WINDOW_SIZE = settings.ORIENTATION_WINDOW,
-           BINS = settings.ORIENTATION_BINS,
-       BIN_SIZE = settings.ORIENTATION_BIN_SIZE,
-    ACCEPT_THRESHOLD = 0.8;
+var             BINS = settings.ORIENTATION_BINS,
+          INIT_SIGMA = settings.INIT_SIGMA,
+           INTERVALS = settings.INTERVALS,
+        SIGMA_FACTOR = settings.ORIENTATION_SIGMA_FACTOR,
+       RADIUS_FACTOR = settings.ORIENTATION_RADIUS_FACTOR,
+    ACCEPT_THRESHOLD = 0.8,
+                  PI = Math.PI,
+                 PI2 = PI * 2;
 
 //==========================================================
 
@@ -22,40 +24,40 @@ var      RADIUS = settings.ORIENTATION_WINDOW_RADIUS,
 /**
  *
  * @param {Scale} scale
- * @param {number} row
- * @param {number} col
+ * @param {{ row: number, col: number, octave: int, layer: int}} f
  * @return {number[]}
  */
-module.exports = function(scale, row, col){
+module.exports = function(scale, f){
     console.log('orienting feature points');
-    var hist = generateHist(scale, row, col);
+    var hist = generateHist(scale, f);
     var smoothedHist = smoothHist(hist);
-    var maxIndex = getMaxIndex(smoothedHist);
-    return getOrientations(smoothedHist, maxIndex);
+    var thresh = getThreshold(smoothedHist);
+    return getOrientations(smoothedHist, thresh);
 };
 
 
 /**
- * @param {DoG} dog
- * @param {number} row
- * @param {number} col
+ * @param {Scale} scale
+ * @param {{ row: number, col: number, octave: int, layer: int}} f
  */
-function generateHist(dog, row, col){
+function generateHist(scale, f){
 
-    var img = dog.img,
-        sigma = dog.sigma,
-        orientations = new Float32Array(BINS),
-        weightFunction = getGuassianKernel(WINDOW_SIZE, sigma*1.5);
+    var    row = f.row,
+           col = f.col,
+           img = scale.img,
+        factor = INIT_SIGMA * Math.pow(2, f.layer/INTERVALS),
+        radius = factor * RADIUS_FACTOR,
+         sigma = factor * SIGMA_FACTOR,
+          hist = new Float32Array(BINS),
+        weight = kernels.getGuassian2d(sigma);
 
     var x, y, gradient, bin;
-    for (x=-RADIUS; x<=RADIUS; x++) {
-        for(y=-RADIUS; y<=RADIUS; y++){
-            gradient = getGradient(img, row+y, col+x);
-            bin = Math.round(gradient.dir/BIN_SIZE) % BINS;
-            if(bin < 0) {
-                bin = bin+BINS;
-            }
-            orientations[bin] += gradient.mag * weightFunction(x,y);
+    for (x=-radius; x<=radius; x++) {
+        for(y=-radius; y<=radius; y++){
+            gradient = getGradient(img, col+x, row+y);
+            bin = Math.round( BINS * (gradient.ori + PI) / PI2 );
+            bin = bin < BINS ? bin : 0;
+            hist[bin] += gradient.mag * weight(x,y);
         }
     }
 
@@ -63,10 +65,10 @@ function generateHist(dog, row, col){
 
 
 function smoothHist(hist){
-    return hist.map(function(mag, bin){
-        var pre = bin === 0 ? BINS-1 : bin-1,
-            nex = (bin+1) % BINS;
-        return 0.25*hist[pre] + 0.5*hist[bin] + 0.25*hist[nex];
+    return hist.map(function(mag, index){
+        var pre = index === 0 ? BINS-1 : index-1,
+            nex = index === BINS-1 ? 0 : index+1;
+        return 0.25*hist[pre] + 0.5*hist[index] + 0.25*hist[nex];
     });
 }
 
@@ -75,38 +77,36 @@ function smoothHist(hist){
  * @param {number[]} hist
  * @returns {number}
  */
-function getMaxIndex(hist){
-    var maximum=-Infinity, maxIndex, iterOrien;
+function getThreshold(hist){
+    var maximum=-Infinity, iterOrien;
     for (iterOrien=0; iterOrien<BINS; iterOrien++) {
         if (hist[iterOrien]>maximum) {
             maximum = hist[iterOrien];
-            maxIndex = iterOrien;
-        }
+         }
     }
-    return maxIndex;
+    return maximum * ACCEPT_THRESHOLD;
 }
 
 
 /**
  * @param {number[]} hist
- * @param {number} maxIndex
+ * @param {number} thresh
  * @returns {number[]}
  */
-function getOrientations(hist, maxIndex){
+function getOrientations(hist, thresh){
 
-    var thresh = hist[maxIndex]*ACCEPT_THRESHOLD,
-        directions = [];
+    var directions = [];
 
     _.range(BINS).forEach(function(bin){
         var mag = hist[bin],
-            pre = bin === 0 ? BINS-1 : bin- 1,
-            nex = (bin+1) % BINS;
+            pre = bin === 0 ? BINS-1 : bin-1,
+            nex = bin === BINS-1 ? 0 : bin+1;
         if (mag > hist[pre] && mag > hist[nex] && mag >= thresh) {
-            var offset = histInterp(hist[pre], hist[bin], hist[nex]);
-            var interped = bin + offset;
+            var offset = histInterp(hist[pre], mag, hist[nex]);
+            var interped = mag + offset;
             interped = interped >= BINS ? interped-BINS : interped;
             interped = interped < 0 ? interped+BINS : interped;
-            directions.push(BIN_SIZE * interped);
+            directions.push(interped*PI2/BINS - PI);
         }
     });
 
