@@ -3,142 +3,168 @@
 var _ = require('underscore'),
     la = require('sylvester'),
     Matrix = la.Matrix,
-    Vector = la.Vector,
-    numeric = require('numeric');
+    Vector = la.Vector;
 
-var derivatives = require('../math/derivatives.js'),
-    getGradient = derivatives.gradient,
-    kernels = require('../math/kernels.js');
+var shortcuts = require('../utils/shortcuts.js'),
+    getGradient = require('../math/image-calculus.js').discreteGradient,
+    kernels = require('../math/kernels.js'),
+    settings = require('./settings.js');
 
-var GRID_WIDTH = 4,
-    RADIUS = 8,
-    BINS = 8,
-    BIN_SIZE = 2*Math.PI/BINS,
-    VECTOR_LENGTH = GRID_WIDTH*GRID_WIDTH*BINS,
-    ENTRY_THRESHOLD = 0.2;
+var        WIDTH = settings.DESCRIPTOR_WIDTH,
+          LENGTH = settings.DESCRIPTOR_LENGTH,
+      INIT_SIGMA = settings.INIT_SIGMA,
+       INTERVALS = settings.INTERVALS,
+    SCALE_FACTOR = settings.DESCRIPTOR_SCALE_FACTOR,
+            BINS = settings.DESCRIPTOR_BINS,
+         MAG_CAP = settings.DESCRIPTOR_MAG_CAP,
+      INT_FACTOR = settings.DESCRIPTOR_INT_FACTOR,
+       ENTRY_CAP = settings.DESCRIPTOR_ENTRY_CAP,
+              PI = Math.PI,
+             PI2 = PI * 2;
 
-
-module.exports = siftDescriptor;
+//===============================================================
 
 
 /**
- * @param {DoG} dog
- * @param {number} row
- * @param {number} col
- * @param {number} direction
+ * @param {Scale} scale
+ * @param {{ row: number, col: number, octave: int, layer: int, orientation: number }} f
  * @returns {Feature}
  */
-function siftDescriptor(dog, row, col, direction){
+module.exports = function(scale, f){
 
     console.log('describing feature points');
 
-    var img = dog.img,
-        sigma = dog.sigma,
-        weightFunction = kernels.getGuassian2d(sigma),
-        hist = new HistGrid(row, col, direction, scale);
+    var row = f.row,
+        col = f.col,
+        referOri = f.orientation,
+        img = scale.img,
+        factor = INIT_SIGMA * Math.pow(2, f.layer/INTERVALS),
+        histWidth = factor * SCALE_FACTOR,
+        weight = kernels.getGuassian2d(WIDTH),
+        radius = histWidth * Math.sqrt(2)*(WIDTH+1)/2 + 0.5,
+        hist = shortcuts.zeros(LENGTH);
 
-    var x, y;
-    for (x=-RADIUS; x<=RADIUS; x++) {
-        for (y=-RADIUS; y<=RADIUS; y++) {
-            scanPoint()
+    var dx, dy;
+    for (dx=-radius; dx<=radius; dx++) {
+        for (dy=-radius; dy<=radius; dy++) {
+            (function(){
+                var gra = getGradient(img, col+dx, row+dy);
+                var cor = toLocalCord(x, y);
+                var mag = gra.mag * weight(cor.x, cor.y);
+                var ori = gra.ori - referOri;
+                ori = ori < 0 ? ori+PI2 : ori;
+                ori = ori >= PI2 ? ori-PI2 : ori;
+
+                var binRow = cor.y + WIDTH/2 - 0.5,
+                    binCol = cor.x + WIDTH/2 - 0.5,
+                    bin = BINS*ori/PI2;
+
+                interpHist(hist, mag, binRow, binCol, bin);
+
+            })();
         }
     }
 
     return {
         row: row,
         col: col,
-        direction: direction,
-        vector: hist.getVector()
+        vector: hist2vector(hist)
     };
 
-    function scanPoint(){
-        var row = p[1], col = p[0],
-            gra = getGradient(img, row, col),
-            mag = gra.mag * weightFunction(x,y);
-        hist.sample(row, col, mag, gra.dir)
+
+    /**
+     *
+     * @param x
+     * @param y
+     * @returns {XY}
+     */
+    function toLocalCord(x, y){
+        var cost = Math.cos(referOri),
+            sint = Math.sin(referOri);
+        return {
+            x: (cost * x - sint * y) / histWidth,
+            y: (sint * x + cost * y) / histWidth
+        };
     }
 
+};
+
+
+function interpHist(hist, mag, binRow, binCol, binOri){
+
+    var intR = Math.floor(binRow),
+        intC = Math.floor(binCol),
+        intO = Math.floor(binOri),
+        fraR = binRow - intR,
+        fraC = binCol - intC,
+        fraO = binOri - intO;
+
+    [0,1].forEach(function(offsetR){
+
+        var row = intR + offsetR,
+            weighted = mag;
+
+        if (row < 0 || row >= WIDTH) {
+            return;
+        }
+
+        weighted *= ( offsetR === 0 ? 1-fraR : fraR );
+
+        [0,1].forEach(function(offsetC){
+
+            var col = intC + offsetC;
+
+            if (col < 0 || col >= WIDTH) {
+                return;
+            }
+
+            weighted *= ( offsetC === 0 ? 1-fraC : fraC );
+
+            [0,1].forEach(function(offsetO){
+
+                var ori = (intO + offsetO) % BINS;
+
+                weighted *= ( offsetO === 0 ? 1-fraO : fraO );
+
+                hist[(WIDTH*row+col)*BINS+ori] += weighted;
+
+            });
+
+        });
+
+    });
+
+
 }
 
 
 /**
- *
- * @param row
- * @param col
- * @param orientation
- * @param unit
- *
- * @property {Float32Array} vector
- * @property transform
- * @constructor
-
- */
-function HistGrid(row, col, orientation, unit){
-
-    this.vector = new Float32Array(VECTOR_LENGTH);
-
-    this.transform = Matrix.create([
-        [ Math.cos(orientation), -Math.sin(orientation), col ],
-        [ Math.sin(orientation),  Math.cos(orientation), row ],
-        [ 0                    ,  0                    , 1   ]
-    ]);
-
-    this.unit = unit;
-
-}
-
-
-/**
- *
- * @param row
- * @param col
- * @param mag
- * @param ori
- */
-HistGrid.prototype.sample = function(row, col, mag, ori){
-
-    var transform = this.transform,
-        p = transform.x(Vector.create([x,y,1])).elements;
-
-};
-
-
-/**
- *
- * @param {int} rBin
- * @param {int} cBin
- * @param {number} mag
- * @param {number} ori
- */
-HistGrid.prototype.add = function(rBin, cBin, mag, ori){
-
-    var vector = this.vector,
-        cursor = (rBin * GRID_WIDTH + cBin) * BINS,
-        bin = ori/BIN_SIZE;
-
-
-};
-
-
-
-/**
- *
+ * @param {number[]} hist
  * @returns {int[]}
  */
-HistGrid.prototype.getVector = function(){
-    var index, vector = this.vector;
-    var norm = Vector.create(vector).norm2();
-    for (index=0; index<vector.length; index++) {
-        vector[index] = vector[index]/norm;
+function hist2vector(hist){
+
+    hist = normalize(hist);
+
+    hist = hist.map(function(entry){
+        return Math.min(MAG_CAP, entry);
+    });
+
+    hist = normalize(hist);
+
+    hist = hist.map(function(entry){
+        return Math.min(ENTRY_CAP, entry*INT_FACTOR);
+    });
+
+    return hist;
+
+    function normalize(a){
+        var norm = a.reduce(function(e, memo){
+            return memo + e*e;
+        }, 0);
+        return a.map(function(e){
+            return e/norm;
+        });
     }
-    for (index=0; index<vector.length; index++) {
-        if (vector[index] > ENTRY_THRESHOLD) {
-            vector[index] = ENTRY_THRESHOLD;
-        }
-    }
-    norm = Vector.create(vector).norm2();
-    for (index=0; index<vector.length; index++) {
-        vector[index] = vector[index]/norm;
-    }
-    return vector;
-};
+
+}

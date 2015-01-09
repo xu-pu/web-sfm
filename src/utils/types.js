@@ -24,6 +24,11 @@
 
 
 /**
+ * @typedef {{x: number, y: number}} XY
+ */
+
+
+/**
  * @typedef {Vector} HomoPoint3D
  */
 

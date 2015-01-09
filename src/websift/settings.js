@@ -15,3 +15,12 @@ module.exports.ORIENTATION_WINDOW_RADIUS = 8;
 module.exports.ORIENTATION_WINDOW = 2 * exports.ORIENTATION_WINDOW_RADIUS + 1;
 module.exports.ORIENTATION_BINS = 36;
 module.exports.ORIENTATION_BIN_SIZE = 2 * Math.PI / exports.ORIENTATION_BINS;
+
+
+module.exports.DESCRIPTOR_WIDTH = 4;
+module.exports.DESCRIPTOR_BINS = 8;
+module.exports.DESCRIPTOR_LENGTH = exports.DESCRIPTOR_WIDTH * exports.DESCRIPTOR_WIDTH * exports.DESCRIPTOR_BINS;
+module.exports.DESCRIPTOR_SCALE_FACTOR = 3;
+module.exports.DESCRIPTOR_MAG_CAP = 0.2;
+module.exports.DESCRIPTOR_ENTRY_CAP = 255;
+module.exports.DESCRIPTOR_INT_FACTOR = 512;
