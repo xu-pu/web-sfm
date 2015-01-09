@@ -27,27 +27,28 @@ var        WIDTH = settings.DESCRIPTOR_WIDTH,
 
 /**
  * @param {Scale} scale
- * @param {{ row: number, col: number, octave: int, layer: int, orientation: number }} f
+ * @param {OrientedFeature} f
  * @returns {Feature}
  */
 module.exports = function(scale, f){
 
-    console.log('describing feature points');
+    console.log('Enter descriptor');
 
-    var row = f.row,
-        col = f.col,
-        referOri = f.orientation,
-        img = scale.img,
-        factor = INIT_SIGMA * Math.pow(2, f.layer/INTERVALS),
+    var       row = f.row,
+              col = f.col,
+         referOri = f.orientation,
+              img = scale.img,
+           factor = INIT_SIGMA * Math.pow(2, f.layer/INTERVALS),
         histWidth = factor * SCALE_FACTOR,
-        weight = kernels.getGuassian2d(WIDTH),
-        radius = histWidth * Math.sqrt(2)*(WIDTH+1)/2 + 0.5,
-        hist = shortcuts.zeros(LENGTH);
+           weight = kernels.getGuassian2d(WIDTH),
+           radius = histWidth * (WIDTH+1) * Math.sqrt(2) / 2 + 0.5,
+             hist = shortcuts.zeros(LENGTH);
 
     var dx, dy;
     for (dx=-radius; dx<=radius; dx++) {
         for (dy=-radius; dy<=radius; dy++) {
             (function(){
+
                 var gra = getGradient(img, col+dx, row+dy);
                 var cor = toLocalCord(x, y);
                 var mag = gra.mag * weight(cor.x, cor.y);
@@ -153,7 +154,7 @@ function hist2vector(hist){
     hist = normalize(hist);
 
     hist = hist.map(function(entry){
-        return Math.min(ENTRY_CAP, entry*INT_FACTOR);
+        return Math.min(ENTRY_CAP, Math.round(entry*INT_FACTOR));
     });
 
     return hist;

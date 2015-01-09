@@ -67,6 +67,20 @@
  * @typedef {{row: number, col: number, vector: number[]}} Feature
  */
 
+/**
+ * @typedef {{row: number, col: number, octave: int, layer: int}} DetectedFeature
+ */
+
+
+/**
+ * @typedef {{row: number, col: number, octave: int, layer: int, orientation: number}} OrientedFeature
+ */
+
+
+/**
+ * @typedef {{row: number, col: number, octave: int, layer: int, orientation: number, vector: int[]}} DescribedFeature
+ */
+
 
 /**
  * @typedef {{img, sigma: number}} DoG

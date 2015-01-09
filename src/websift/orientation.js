@@ -5,7 +5,8 @@ var _ = require('underscore'),
     Matrix = la.Matrix,
     Vector = la.Vector;
 
-var getGradient = require('../math/image-calculus.js').discreteGradient,
+var shortcuts = require('../utils/shortcuts.js'),
+    getGradient = require('../math/image-calculus.js').discreteGradient,
     kernels = require('../math/kernels.js'),
     settings = require('./settings.js');
 
@@ -24,21 +25,30 @@ var             BINS = settings.ORIENTATION_BINS,
 /**
  *
  * @param {Scale} scale
- * @param {{ row: number, col: number, octave: int, layer: int}} f
- * @return {number[]}
+ * @param {DetectedFeature} f
+ * @returns {OrientedFeature[]}
  */
 module.exports = function(scale, f){
-    console.log('orienting feature points');
+
+    console.log('Enter orientation assignment');
+
     var hist = generateHist(scale, f);
     var smoothedHist = smoothHist(hist);
     var thresh = getThreshold(smoothedHist);
-    return getOrientations(smoothedHist, thresh);
+    var orientations = getOrientations(smoothedHist, thresh);
+
+    return orientations.map(function(ori){
+        var p = _.clone(f);
+        p.orientation = ori;
+        return p;
+    });
+
 };
 
 
 /**
  * @param {Scale} scale
- * @param {{ row: number, col: number, octave: int, layer: int}} f
+ * @param {DetectedFeature} f
  */
 function generateHist(scale, f){
 
@@ -48,7 +58,7 @@ function generateHist(scale, f){
         factor = INIT_SIGMA * Math.pow(2, f.layer/INTERVALS),
         radius = factor * RADIUS_FACTOR,
          sigma = factor * SIGMA_FACTOR,
-          hist = new Float32Array(BINS),
+          hist = shortcuts.zeros(BINS),
         weight = kernels.getGuassian2d(sigma);
 
     var x, y, gradient, bin;
