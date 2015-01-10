@@ -8,6 +8,8 @@ module.exports.INIT_SIGMA = 1.6;
 module.exports.INITIAL_SIGMA = 0.5;
 module.exports.DETECTION_BORDER = 5;
 
+module.exports.EDGE_RATIO = 10;
+module.exports.EDGE_CURVATURE_THRESHOLD = Math.pow(exports.EDGE_RATIO+1, 2)/exports.EDGE_RATIO;
 
 module.exports.ORIENTATION_SIGMA_FACTOR = 1.5;
 module.exports.ORIENTATION_RADIUS_FACTOR = exports.ORIENTATION_SIGMA_FACTOR * 3;

@@ -30,7 +30,7 @@ var        WIDTH = settings.DESCRIPTOR_WIDTH,
  * @param {OrientedFeature} f
  * @returns {Feature}
  */
-module.exports = function(scale, f){
+module.exports.getDescriptor = function(scale, f){
 
     console.log('Enter descriptor');
 

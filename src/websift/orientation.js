@@ -28,7 +28,7 @@ var             BINS = settings.ORIENTATION_BINS,
  * @param {DetectedFeature} f
  * @returns {OrientedFeature[]}
  */
-module.exports = function(scale, f){
+module.exports.getOrientation = function(scale, f){
 
     console.log('Enter orientation assignment');
 

@@ -5,7 +5,8 @@ var _ = require('underscore');
 var OctaveSpace = require('./octave-space'),
     detector = require('./detector.js'),
     isNotEdge = require('./edge-filter.js'),
-    siftOrientation = require('./orientation.js');
+    orientation = require('./orientation.js'),
+    descriptor = require('./descriptor.js');
 
 //=================================================================
 
@@ -39,12 +40,14 @@ module.exports = function(img, options) {
             /**
              * SIFT detector callback
              * @param {Scale} scale
-             * @param {number} row
-             * @param {number} col
+             * @param {DetectedFeature} detectedF
              */
-            function(scale, row, col){
-                if (isNotEdge(scale, row, col)) {
-                    features.push({ row: row, col: col });
+            function(scale, detectedF){
+                if (isNotEdge(scale, detectedF.row, detectedF.col)) {
+                    orientation.getOrientation(scale, detectedF)
+                        .forEach(function(orientedF){
+                            features.push(descriptor.getDescriptor(scale, orientedF));
+                        });
                 }
             }
 

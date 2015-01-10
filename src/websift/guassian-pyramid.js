@@ -21,12 +21,13 @@ module.exports = GuassianPyramid;
 /**
  *
  * @param base
+ * @param {int} octave
  *
  * @property {Scale[]} pyramid
- *
+ * @property {int} octave
  * @constructor
  */
-function GuassianPyramid(base){
+function GuassianPyramid(base, octave){
 
     var k = Math.pow(2, 1/INTERVALS),
         delta = Math.sqrt(k*k-1),
@@ -45,11 +46,12 @@ function GuassianPyramid(base){
 
         console.log('convoluting complete, resolution ' + buffer.shape[0] + '*' + buffer.shape[1]);
 
-        space[layer] = { img: buffer, sigma: sigma };
+        space[layer] = { img: buffer, sigma: sigma, layer: layer, octave: octave };
 
     });
 
     this.pyramid = space;
+    this.octave = octave;
 
 }
 

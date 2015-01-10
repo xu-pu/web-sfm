@@ -23,7 +23,8 @@ module.exports = function(dogspace, scales, callback){
         var scale = scales.pyramid[layer];
 
         module.exports.detect(dogspace, layer, function(row, col){
-            callback(scale, row, col);
+            var detectedF = { row: row, col: col, octave: scales.octave, layer: layer };
+            callback(scale, detectedF);
         })
 
     });
