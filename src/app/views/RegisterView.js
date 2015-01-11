@@ -33,7 +33,7 @@ module.exports = Ember.View.extend(Navigatable, {
 
     wheel: function(e){
         var camera = this.get('camera');
-        var ratio = e.wheelDelta > 0 ? 0.9 : 1.1;
+        var ratio = e.deltaY < 0 ? 0.9 : 1.1;
         camera.position.x = ratio*camera.position.x;
         camera.position.y = ratio*camera.position.y;
         camera.position.z = ratio*camera.position.z;
@@ -126,8 +126,6 @@ module.exports = Ember.View.extend(Navigatable, {
         camera.position.z = 400;
 
         camera.lookAt(new V3(0,0,0));
-
-        this.get('element').addEventListener('wheel', this.wheel.bind(this), false);
 
         function render(){
             renderer.render(scene, camera);

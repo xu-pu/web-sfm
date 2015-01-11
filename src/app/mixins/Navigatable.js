@@ -38,6 +38,14 @@ module.exports = Ember.Mixin.create({
         window.addEventListener('mouseup', this.getMouseUpHandler(), false);
     },
 
-    contextMenu: function(){ return false; }
+    contextMenu: function(){ return false; },
+
+    registerWheel: function(){
+        this.get('element').addEventListener('wheel', this.wheel.bind(this), false);
+    }.on('didInsertElement'),
+
+    releaseWheel: function(){
+        jQuery(this.get('element')).off('wheel');
+    }.on('willDestroyElement')
 
 });
