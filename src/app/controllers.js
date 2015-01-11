@@ -22,6 +22,9 @@ module.exports = function(App){
 
     App.ProjectsController = require('./ResourceControllers/ProjectsController.js');
 
+    App.ImagesController = require('./ResourceControllers/ImagesController.js');
+
+    App.ImageImporterController = require('./ResourceControllers/ImageImporterController.js');
 
     //=======================
     // Welcome Screen
