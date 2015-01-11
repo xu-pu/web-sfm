@@ -6,11 +6,9 @@ module.exports = Ember.ArrayController.extend({
 
     itemController: 'workspace.image.thumbnail',
 
-    needs: ['workspace', 'images', 'imageImporter'],
+    needs: ['workspace', 'images'],
 
     adapter: Ember.computed.alias('controllers.workspace.adapter'),
-
-    importer: Ember.computed.alias('controllers.imageImporter'),
 
     images: Ember.computed.alias('controllers.images'),
 

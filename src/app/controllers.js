@@ -24,7 +24,6 @@ module.exports = function(App){
 
     App.ImagesController = require('./ResourceControllers/ImagesController.js');
 
-    App.ImageImporterController = require('./ResourceControllers/ImageImporterController.js');
 
     //=======================
     // Welcome Screen
