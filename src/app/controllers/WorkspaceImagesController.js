@@ -4,8 +4,6 @@ var Image = require('../models/Image.js');
 
 module.exports = Ember.Controller.extend({
 
-    itemController: 'workspace.image.thumbnail',
-
     needs: ['workspace', 'images'],
 
     adapter: Ember.computed.alias('controllers.workspace.adapter'),

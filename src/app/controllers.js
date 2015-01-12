@@ -47,8 +47,6 @@ module.exports = function(App){
 
     App.WorkspaceImagesController = require('./controllers/WorkspaceImagesController.js');
 
-    App.WorkspaceImageThumbnailController = Ember.ObjectController.extend();
-
     App.WorkspaceImagesDetailController = require('./controllers/WorkspaceImagesDetailController.js');
 
 
