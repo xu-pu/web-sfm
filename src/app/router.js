@@ -130,7 +130,18 @@ module.exports = function(App){
     App.WorkspaceExtractorRoute = Ember.Route.extend({
 
         model: function() {
-            return this.controllerFor('workspace').promiseImages();
+            if (this.controllerFor('images').get('model')) {
+                return Promise.resolve();
+            }
+            else {
+                return this.controllerFor('workspace').promiseImages();
+            }
+        },
+
+        setupController: function(controller, model){
+            if (model) {
+                this.controllerFor('images').set('model', model);
+            }
         }
 
     });
