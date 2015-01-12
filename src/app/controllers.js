@@ -24,6 +24,8 @@ module.exports = function(App){
 
     App.ImagesController = require('./ResourceControllers/ImagesController.js');
 
+    App.MatchesController = require('./ResourceControllers/MatchesController.js');
+
 
     //=======================
     // Welcome Screen
@@ -75,10 +77,14 @@ module.exports = function(App){
     // Workspace.Matches
     //=======================
 
-    App.MatchesController = Ember.ObjectController.extend();
+    App.WorkspaceMatcherController = Ember.ObjectController.extend();
 
-    App.MatchesPairController = Ember.ObjectController.extend({
-        needs: ['matches']
+    App.WorkspaceMatcherPairController = Ember.ObjectController.extend({
+
+        needs: ['matches'],
+
+        queryParams: ['from', 'to']
+
     });
 
     App.TracksController = Ember.ObjectController.extend();

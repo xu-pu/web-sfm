@@ -41,6 +41,8 @@ module.exports = Ember.ArrayController.extend({
 
         });
 
+        return groups;
+
     }.property('model.length'),
 
     isMatched: function(from, to){

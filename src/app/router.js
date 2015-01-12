@@ -18,6 +18,10 @@ module.exports = function(App){
                 this.route('image', { path: '/:id' });
             });
 
+            this.route('matcher', function(){
+                this.route('pair');
+            });
+
             this.route('register', function(){});
 
             this.route('mvs', function(){});
@@ -164,25 +168,18 @@ module.exports = function(App){
     // Workspace.Mathces
     //=============================
 
-    App.MatchesRoute = Ember.Route.extend({
+    App.WorkspaceMatcherRoute = Ember.Route.extend({
 
         model: function(){
-            return this.controllerFor('workspace').get('project').promiseMatches();
+            return this.controllerFor('workspace').promiseMatches();
         }
 
     });
 
-    App.MatchesIndexRoute = Ember.Route.extend();
+    App.WorkspaceMatchesIndexRoute = Ember.Route.extend();
 
-    App.MatchesPairRoute = require('./routes/MatchesPairRoute.js');
+    App.WorkspaceMatchesPairRoute = require('./routes/WorkspaceMatcherPairRoute.js');
 
-    App.TracksRoute = Ember.Route.extend({
-
-        model: function(){
-            return this.controllerFor('workspace').get('project').promiseTracks();
-        }
-
-    });
 
     //=============================
     // Workspace.Register
