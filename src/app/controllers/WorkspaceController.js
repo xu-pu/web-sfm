@@ -3,7 +3,6 @@
 var _ = require('underscore');
 
 var Image = require('../models/Image.js'),
-    Matches = require('../models/Matches.js'),
     utils = require('../utils.js'),
     settings = require('../settings.js'),
     STORES = settings.STORES;
@@ -60,6 +59,7 @@ module.exports = Ember.ObjectController.extend({
     },
 
     /**
+     * Return all images stored in IDB
      * @returns {Promise}
      */
     promiseImages: function(){
@@ -73,6 +73,11 @@ module.exports = Ember.ObjectController.extend({
             });
     },
 
+
+    /**
+     * Return all tracks stored in IDB
+     * @returns {Promise}
+     */
     promiseTracks: function(){
         var adapter = this.get('adapter');
         return Promise.all([
@@ -90,37 +95,21 @@ module.exports = Ember.ObjectController.extend({
 
 
     /**
-     *
+     * Return all matches stored in IDB
      * @returns {Promise}
      */
     promiseMatches: function(){
-        var _self = this,
-            matches = this.get('matches'),
-            adapter = this.get('adapter');
-        if (matches) {
-            return Promise.resolve(matches);
-        }
-        else {
-            return this.promiseImages().then(function(imgs){
-                return new Promise(function(resolve, reject){
-                    var storedMatches = [];
-                    adapter.queryEach(STORES.MATCHES,
-                        function(key, value){
-                            storedMatches.push(key);
-                        },
-                        function(){
-                            _self.set('matches', Matches.create({
-                                images: imgs,
-                                finished: storedMatches
-                            }));
-                            resolve(_self.get('matches'));
-                        }
-                    );
+
+        return this.get('adapter')
+            .promiseAll(STORES.MATCHES)
+            .then(function(results){
+                return results.map(function(entry){
+                    var value = entry.value;
+                    value._id = entry.key;
+                    return value;
                 });
-
             });
-        }
-    }
 
+    }
 
 });
