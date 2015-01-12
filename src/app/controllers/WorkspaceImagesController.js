@@ -2,7 +2,7 @@
 
 var Image = require('../models/Image.js');
 
-module.exports = Ember.ArrayController.extend({
+module.exports = Ember.Controller.extend({
 
     itemController: 'workspace.image.thumbnail',
 

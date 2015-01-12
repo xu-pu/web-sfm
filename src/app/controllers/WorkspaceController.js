@@ -16,8 +16,6 @@ module.exports = Ember.ObjectController.extend({
 
     isRunning: false,
 
-    imageModels: null,
-
     threadPoolSize: 4,
 
     expandInput: true,
@@ -65,18 +63,13 @@ module.exports = Ember.ObjectController.extend({
      * @returns {Promise}
      */
     promiseImages: function(){
-        var _self = this;
-        if (this.get('imageModels')){
-            return Promise.resolve(this.get('imageModels'));
-        }
         return this.get('adapter')
             .promiseAll(STORES.IMAGES)
             .then(function(results){
-                _self.set('imageModels', results.map(function(res){
+                return results.map(function(res){
                     res.value._id = res.key;
                     return Image.create(res.value);
-                }));
-                return _self.get('imageModels');
+                });
             });
     },
 
