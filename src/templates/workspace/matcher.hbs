@@ -9,10 +9,8 @@
         {{! ===================================================== }}
 
         {{#each imgTo in images}}
-            <div class="match-grid__cell match-grid__thumbnail-top">
-                <div class="main-container__match-table__thumbnail">
-                    <img {{bind-attr src=imgTo.thumbnail}}>
-                </div>
+            <div class="match-grid__cell">
+                <img class="match-grid__thumbnail" {{bind-attr src=imgTo.thumbnail}}>
             </div>
         {{/each}}
 
@@ -27,9 +25,7 @@
         <div class="match-grid__row">
 
             <div class="match-grid__cell">
-                <div class="main-container__match-table__thumbnail">
-                    <img {{bind-attr src=iFrom.thumbnail}}>
-                </div>
+                <img class="match-grid__thumbnail" {{bind-attr src=iFrom.thumbnail}}>
             </div>
 
             {{#each iTo in images}}

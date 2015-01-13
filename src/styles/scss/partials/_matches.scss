@@ -27,27 +27,6 @@ $matching-trace-color: orange;
 }
 
 
-.main-container__match-table {
-
-  th {
-    padding: 0
-  }
-
-  &:hover .main-container__match-table__pair {
-
-    &.is-horizontal {
-      border: 5px solid $matching-trace-color;
-    }
-
-    &.is-vertical {
-      border: 5px solid $matching-trace-color;
-    }
-
-  }
-
-}
-
-
 .main-container__match-table__pair {
 
   @include transition(background-color 0.25s);
@@ -72,15 +51,13 @@ $matching-trace-color: orange;
   &:active {
     background-color: green;
   }
+
 }
 
-.main-container__match-table__thumbnail {
 
-  img {
-    height: 100%;
-    width: 100%;
-  }
-
+img.match-grid__thumbnail {
+  height: 100%;
+  width: 100%;
 }
 
 .floating-window__matching-pair__canvas-container {
