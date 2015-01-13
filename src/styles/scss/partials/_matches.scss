@@ -1,6 +1,6 @@
 @import "compass";
 
-$default-grid-size: 50em;
+$default-grid-size: 55em;
 $grid-border-size: 10px;
 $grid-border-color: green;
 $matching-trace-color: orange;
@@ -38,11 +38,11 @@ $matching-trace-color: orange;
   background-color: greenyellow;
 
   &.is-hover {
-    border: 10px solid rgb(92, 181, 21);
+    border: 5px solid rgb(92, 181, 21);
   }
 
   &.is-trace, &.is-trace.is-diag {
-    border: 10px solid rgb(0, 203, 64);
+    border: 5px solid rgb(0, 203, 64);
   }
 
 }
