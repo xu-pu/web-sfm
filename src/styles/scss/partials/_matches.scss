@@ -1,12 +1,18 @@
 @import "compass";
 
-$default-grid-size: 30em;
+$default-grid-size: 50em;
 $grid-border-size: 10px;
 $grid-border-color: green;
 $matching-trace-color: orange;
 
 
+.main-container__match-grid {
+  width: 100%;
+  height: 100%;
+}
+
 .match-grid__body {
+  margin: 1em;
   display: flex;
   @include flex-direction(column);
   height: $default-grid-size;
@@ -22,7 +28,6 @@ $matching-trace-color: orange;
 
 .match-grid__cell {
   @include flex(1);
-  background-color: greenyellow;
   border: solid $grid-border-size/2 $grid-border-color;
   position: relative;
 }
@@ -30,13 +35,14 @@ $matching-trace-color: orange;
 
 .match-grid__node {
 
+  background-color: greenyellow;
+
   &.is-hover {
-    border: 5px solid rgb(0, 203, 64);
+    border: 10px solid rgb(92, 181, 21);
   }
 
   &.is-trace, &.is-trace.is-diag {
-    border: 5px solid rgb(0, 203, 64);
-//    background-color: yellow;
+    border: 10px solid rgb(0, 203, 64);
   }
 
 }
@@ -49,18 +55,12 @@ $matching-trace-color: orange;
 
 .match-grid__node.is-diag, .match-grid__anchor {
   background-color: #ffffff;
-//  cursor: grab;
 }
 
 
 .main-container__match-table__pair {
 
   @include transition(background-color 0.25s);
-  background-color: black;
-
-  &.is-diag {
-    background-color: white;
-  }
 
   &.is-finished {
     background-color: rgb(114, 218, 114);
@@ -68,10 +68,6 @@ $matching-trace-color: orange;
 
   &.is-inprogress {
     background-color: blue;
-  }
-
-  &:hover {
-    border: 5px solid yellow;
   }
 
   &:active {
