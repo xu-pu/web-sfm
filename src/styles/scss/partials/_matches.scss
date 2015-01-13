@@ -24,6 +24,30 @@ $matching-trace-color: orange;
   @include flex(1);
   background-color: greenyellow;
   border: solid $grid-border-size/2 $grid-border-color;
+  position: relative;
+}
+
+
+.match-grid__node {
+
+  &.is-hover {
+    background-color: rgb(0, 203, 64);
+  }
+
+  &.is-trace, &.is-trace.is-diag {
+    background-color: yellow;
+  }
+
+}
+
+.match-grid__node, .match-grid__anchor {
+  position: absolute;
+  top: 0; bottom: 0; left: 0; right: 0;
+}
+
+.match-grid__node.is-diag, .match-grid__anchor {
+  background-color: #ffffff;
+//  cursor: grab;
 }
 
 

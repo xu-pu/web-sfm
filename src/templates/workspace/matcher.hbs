@@ -1,8 +1,10 @@
-<div class="match-grid__body">
+{{#view view.GridView}}
 
     <div class="match-grid__row">
 
-        <div id=" match-grid__anchor" class="match-grid__cell"></div>
+        <div class="match-grid__cell">
+            <div class="match-grid__anchor"></div>
+        </div>
 
         {{! ===================================================== }}
         {{!                   Top Thumbnails                      }}
@@ -38,6 +40,6 @@
 
     {{/each}}
 
-</div>
+{{/view}}
 
 {{outlet}}
