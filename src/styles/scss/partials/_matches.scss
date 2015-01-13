@@ -31,16 +31,18 @@ $matching-trace-color: orange;
 .match-grid__node {
 
   &.is-hover {
-    background-color: rgb(0, 203, 64);
+    border: 5px solid rgb(0, 203, 64);
   }
 
   &.is-trace, &.is-trace.is-diag {
-    background-color: yellow;
+    border: 5px solid rgb(0, 203, 64);
+//    background-color: yellow;
   }
 
 }
 
 .match-grid__node, .match-grid__anchor {
+  box-sizing: border-box;
   position: absolute;
   top: 0; bottom: 0; left: 0; right: 0;
 }
