@@ -5,7 +5,7 @@ module.exports = Ember.View.extend({
     tagName: 'div',
 
     classNames: [
-        'main-container__match-table'
+        'main-container__match-grid'
     ],
 
     hover: null,
@@ -18,8 +18,6 @@ module.exports = Ember.View.extend({
             return !this.get('hover.isDiag');
         }
     }.property('hover'),
-
-    templateName: 'widgets/twoviewgrid',
 
     NodeView: Ember.View.extend({
 

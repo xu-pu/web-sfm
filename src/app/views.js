@@ -3,6 +3,7 @@
 module.exports = function(App) {
 
     App.WelcomeDemoView = require('./RouteViews/WelcomeDemoView.js');
+    App.WorkspaceMatcherView = require('./RouteViews/WorkspaceMatcherView.js');
 
     App.RegisterView = require('./views/RegisterView.js');
     App.ProjectThumbnailView = require('./views/ProjectThumbnailView.js');
@@ -12,7 +13,6 @@ module.exports = function(App) {
     App.SiftView = require('./views/SiftView.js');
     App.StateBarView = require('./views/StateBarView.js');
     App.StereoView = require('./views/StereoView.js');
-    App.TwoViewGridView = require('./views/TwoViewGridView.js');
     App.TwoViewMatchingView = require('./views/TwoViewMatchingView.js');
     App.ProjectCreatorView = require('./views/ProjectCreatorView.js');
 
