@@ -77,7 +77,15 @@ module.exports = function(App){
     // Workspace.Matches
     //=======================
 
-    App.WorkspaceMatcherController = Ember.ObjectController.extend();
+    App.WorkspaceMatcherController = Ember.ObjectController.extend({
+
+        needs: ['workspace', 'matches', 'images'],
+
+        images: Ember.computed.alias('controllers.images'),
+
+        matches: Ember.computed.alias('controllers.matches')
+
+    });
 
     App.WorkspaceMatcherPairController = Ember.ObjectController.extend({
 

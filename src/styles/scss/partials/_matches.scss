@@ -1,7 +1,31 @@
 @import "compass";
 
-$node-size: 40px;
+$default-grid-size: 30em;
+$grid-border-size: 10px;
+$grid-border-color: green;
 $matching-trace-color: orange;
+
+
+.match-grid__body {
+  display: flex;
+  @include flex-direction(column);
+  height: $default-grid-size;
+  width:  $default-grid-size;
+  border: solid $grid-border-size/2 $grid-border-color;
+}
+
+.match-grid__row {
+  @include flex(1);
+  display: flex;
+  @include flex-direction(row);
+}
+
+.match-grid__cell {
+  @include flex(1);
+  background-color: greenyellow;
+  border: solid $grid-border-size/2 $grid-border-color;
+}
+
 
 .main-container__match-table {
 
@@ -23,18 +47,9 @@ $matching-trace-color: orange;
 
 }
 
-%main-container__match-table__node {
-  position: relative;
-  height: $node-size;
-  width: $node-size;
-  box-sizing: border-box;
-
-}
-
 
 .main-container__match-table__pair {
 
-  @extend %main-container__match-table__node;
   @include transition(background-color 0.25s);
   background-color: black;
 
@@ -60,8 +75,6 @@ $matching-trace-color: orange;
 }
 
 .main-container__match-table__thumbnail {
-
-  @extend %main-container__match-table__node;
 
   img {
     height: 100%;

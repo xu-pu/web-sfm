@@ -1,6 +1,8 @@
+'use strict';
+
 module.exports = Ember.View.extend({
 
-    tagName: 'table',
+    tagName: 'div',
 
     classNames: [
         'main-container__match-table'
@@ -21,23 +23,18 @@ module.exports = Ember.View.extend({
 
     NodeView: Ember.View.extend({
 
-        tagName: 'th',
+        tagName: 'div',
+
+        from: null,
+
+        to: null,
 
         mouseEnter: function(){
             this.get('parentView').set('hover', this);
         },
 
         click: function(){
-            var bigger, smaller;
-            if (this.get('viewX._id') < this.get('viewY._id')) {
-                smaller = this.get('viewX');
-                bigger = this.get('viewY');
-            }
-            else {
-                smaller = this.get('viewY');
-                bigger = this.get('viewX');
-            }
-            this.controller.transitionToRoute('matches.pair', { view1: smaller, view2: bigger });
+            this.get('controller').transitionToRoute('matcher.pair', { from: this.get('from'), to: this.get('to') });
         },
 
         isHorizontal: function(){
@@ -47,32 +44,6 @@ module.exports = Ember.View.extend({
         isVertical: function(){
             return this.get('parentView.isTraced') && this.get('parentView.hover.indexX') === this.get('indexX') && this.get('parentView.hover.indexY') > this.get('indexY');
         }.property('parentView.hover'),
-
-        viewX: null,
-
-        viewY: null,
-
-        indexX: function(){
-            return this.get('controller.images').indexOf(this.get('viewX'));
-        }.property(),
-
-        indexY: function(){
-            return this.get('controller.images').indexOf(this.get('viewY'));
-        }.property(),
-
-        key: function(){
-            var id1 = this.get('viewX').get('_id'),
-                id2 = this.get('viewY').get('_id');
-            if (id1>id2) {
-                return id2 + '&' + id1;
-            }
-            else if (id1<id2) {
-                return id1 + '&' + id2;
-            }
-            else {
-                return null;
-            }
-        }.property(),
 
         isFinished: function(){
             return !this.get('isDiag') && this.get('controller.finished').indexOf(this.get('key')) !== -1;

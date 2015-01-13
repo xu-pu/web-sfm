@@ -1,27 +1,45 @@
-<tbody>
-<tr>
-    <th></th>
-    {{#each imgX in controller.images}}
-        <th>
-            <div class="main-container__match-table__thumbnail">
-                <img {{bind-attr src=imgX.thumbnail}}>
-            </div>
-        </th>
-    {{/each}}
-</tr>
-{{#each imgY in controller.images}}
-    <tr>
-        <th>
-            <div class="main-container__match-table__thumbnail">
-                <img {{bind-attr src=imgY.thumbnail}}>
-            </div>
-        </th>
+<div class="match-grid__body">
 
-        {{#each imgX in controller.images}}
-            {{#view view.NodeView viewX=imgX viewY=imgY controller=controller}}
-                <div {{bind-attr class=":main-container__match-table__pair view.isFinished view.isDiag view.isInprogress view.isHorizontal view.isVertical"}}></div>
-            {{/view}}
+    <div class="match-grid__row">
+
+        <div id=" match-grid__anchor" class="match-grid__cell"></div>
+
+        {{! ===================================================== }}
+        {{!                   Top Thumbnails                      }}
+        {{! ===================================================== }}
+
+        {{#each imgTo in images}}
+            <div class="match-grid__cell match-grid__thumbnail-top">
+                <div class="main-container__match-table__thumbnail">
+                    <img {{bind-attr src=imgTo.thumbnail}}>
+                </div>
+            </div>
         {{/each}}
-    </tr>
-{{/each}}
-</tbody>
+
+    </div>
+
+    {{#each iFrom in images}}
+
+    {{! ===================================================== }}
+    {{!                     Each Row                          }}
+    {{! ===================================================== }}
+
+        <div class="match-grid__row">
+
+            <div class="match-grid__cell">
+                <div class="main-container__match-table__thumbnail">
+                    <img {{bind-attr src=iFrom.thumbnail}}>
+                </div>
+            </div>
+
+            {{#each iTo in images}}
+                <div class="match-grid__cell">
+                    {{#view view.NodeView from=iFrom to=iTo}}{{/view}}
+                </div>
+            {{/each}}
+
+        </div>
+
+    {{/each}}
+
+</div>

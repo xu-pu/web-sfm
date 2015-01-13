@@ -170,8 +170,40 @@ module.exports = function(App){
 
     App.WorkspaceMatcherRoute = Ember.Route.extend({
 
-        model: function(){
-            return this.controllerFor('workspace').promiseMatches();
+
+        /**
+         * Requires Images and Matches
+         * @returns {Promise}
+         */
+        model: function() {
+            var workspace = this.controllerFor('workspace');
+            if (!this.controllerFor('images').get('model')) {
+                return Promise.all([
+                    workspace.promiseImages(),
+                    workspace.promiseMatches()
+                ]);
+            }
+            else if (!this.controllerFor('matches').get('model')) {
+                return workspace.promiseMatches();
+            }
+            else {
+                return Promise.resolve();
+            }
+        },
+
+        setupController: function(controller, model){
+            if (!model) {}
+            else if (model.length === 1) {
+                this.controllerFor('matches').set('model', model);
+            }
+            else if (model.length === 2) {
+                this.controllerFor('images').set('model', model[0]);
+                this.controllerFor('matches').set('model', model[1]);
+            }
+            else {
+                Ember.Logger.debug('this should never happen');
+                Ember.Logger.debug(model);
+            }
         }
 
     });
