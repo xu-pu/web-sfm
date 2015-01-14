@@ -27,7 +27,7 @@ module.exports.sobelY = Matrix.create([
  * @param {number} sigma
  * @returns {number}
  */
-module.exports.guassian2d = function gussianFunction2d(x, y, sigma){
+module.exports.guassian2d = function(x, y, sigma){
     var sig2 = 2*sigma*sigma;
     return Math.exp(-(x*x+y*y)/sig2)/(Math.PI*sig2);
 };
@@ -63,7 +63,7 @@ module.exports.getGuassianKernel = function(size, sigma) {
 
     for (x=0; x<size; x++) {
         for (y=0; y<size; y++) {
-            kernel.elements[y][x] = gussianFunction2d(x-center, y-center, sigma);
+            kernel.elements[y][x] = exports.guassian2d(x-center, y-center, sigma);
             norm += kernel.elements[y][x];
         }
     }

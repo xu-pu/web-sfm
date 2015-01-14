@@ -12,7 +12,8 @@ var imgUtils = require('../src/utils/image-conversion.js'),
     OctaveSpace = require('../src/websift/octave-space'),
     detector = require('../src/websift/detector.js'),
     orientation = require('../src/websift/orientation.js'),
-    descriptor = require('../src/websift/descriptor.js');
+    descriptor = require('../src/websift/descriptor.js'),
+    sift = require('../src/websift/websift.js');
 
 
 var smallComet = 'Colour_image_of_comet.jpg',
@@ -38,7 +39,18 @@ function descroptorTest(){
     console.log(des.vector);
 }
 
-descroptorTest();
+//descroptorTest();
+
+
+function fulltest(img) {
+
+    sift.forEachDetected(img, function(scale, detectedF){
+        console.log('detected');
+    });
+
+}
+
+fulltest(imgUtils.rgb2gray(require('lena')));
 
 function pyramidTest(index){
 

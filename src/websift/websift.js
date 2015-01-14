@@ -21,7 +21,7 @@ var OctaveSpace = require('./octave-space'),
  * @param {int} [options.kernelSize]
  * @returns {Feature[]}
  */
-module.exports = function(img, options) {
+module.exports.sift = function(img, options) {
 
     var octaves = new OctaveSpace(img),
         oct, scales, dogs, oi = octaves.nextOctave,
@@ -58,5 +58,26 @@ module.exports = function(img, options) {
     }
 
     return features;
+
+};
+
+
+
+module.exports.forEachDetected = function(img, callback){
+
+    var octaves = new OctaveSpace(img),
+        oct, scales, dogs, oi = octaves.nextOctave;
+
+    while (octaves.hasNext()) {
+
+        oct    = octaves.next();
+        scales = oct.scales;
+        dogs   = oct.dogs;
+
+        detector(dogs, scales, callback);
+
+        oi = octaves.nextOctave;
+
+    }
 
 };
