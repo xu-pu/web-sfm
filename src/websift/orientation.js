@@ -52,11 +52,11 @@ module.exports.getOrientation = function(scale, f){
  */
 function generateHist(scale, f){
 
-    var    row = f.row,
-           col = f.col,
+    var    row = Math.round(f.row),
+           col = Math.round(f.col),
            img = scale.img,
         factor = INIT_SIGMA * Math.pow(2, f.layer/INTERVALS),
-        radius = factor * RADIUS_FACTOR,
+        radius = Math.round(factor * RADIUS_FACTOR),
          sigma = factor * SIGMA_FACTOR,
           hist = shortcuts.zeros(BINS),
         weight = kernels.getGuassian2d(sigma);
@@ -65,11 +65,15 @@ function generateHist(scale, f){
     for (x=-radius; x<=radius; x++) {
         for(y=-radius; y<=radius; y++){
             gradient = getGradient(img, col+x, row+y);
-            bin = Math.round( BINS * (gradient.ori + PI) / PI2 );
-            bin = bin < BINS ? bin : 0;
-            hist[bin] += gradient.mag * weight(x,y);
+            if (gradient) {
+                bin = Math.round( BINS * (gradient.ori + PI) / PI2 );
+                bin = bin < BINS ? bin : 0;
+                hist[bin] += gradient.mag * weight(x,y);
+            }
         }
     }
+
+    return hist;
 
 }
 

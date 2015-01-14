@@ -10,14 +10,26 @@
  * @param img
  * @param {int} x
  * @param {int} y
- * @returns {Gradient}
+ * @returns {Gradient|null}
  */
 module.exports.discreteGradient = function(img, x, y){
+
+    if (!( x>0 && x<img.shape[0]-1 && y>0 && y<img.shape[1]-1 )) {
+        return null;
+    }
+
     var dx = exports.discreteDx(img, x, y),
-        dy = exports.discreteDy(img, x, y),
-        mag = Math.sqrt(dx*dx+dy*dy),
-        ori = Math.atan2(dy, dx);
-    return { mag: mag, ori: ori };
+        dy = exports.discreteDy(img, x, y);
+
+    if (dx === 0 && dy === 0) {
+        return null;
+    }
+    else {
+        var mag = Math.sqrt(dx*dx+dy*dy),
+            ori = Math.atan2(dy, dx);
+        return { mag: mag, ori: ori };
+    }
+
 };
 
 
