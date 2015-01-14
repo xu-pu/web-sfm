@@ -36,32 +36,34 @@ module.exports.getDescriptor = function(scale, f){
 
     var       row = f.row,
               col = f.col,
+                r = Math.round(row),
+                c = Math.round(col),
          referOri = f.orientation,
               img = scale.img,
            factor = INIT_SIGMA * Math.pow(2, f.layer/INTERVALS),
         histWidth = factor * SCALE_FACTOR,
            weight = kernels.getGuassian2d(WIDTH),
-           radius = histWidth * (WIDTH+1) * Math.sqrt(2) / 2 + 0.5,
+           radius = Math.round(histWidth * (WIDTH+1) * Math.sqrt(2) / 2 + 0.5),
              hist = shortcuts.zeros(LENGTH);
 
     var dx, dy;
     for (dx=-radius; dx<=radius; dx++) {
         for (dy=-radius; dy<=radius; dy++) {
             (function(){
+                var gra = getGradient(img, c+dx, r+dy);
+                if (gra) {
+                    var cor = toLocalCord(dx, dy);
+                    var mag = gra.mag * weight(cor.x, cor.y);
+                    var ori = gra.ori - referOri;
+                    ori = ori < 0 ? ori+PI2 : ori;
+                    ori = ori >= PI2 ? ori-PI2 : ori;
 
-                var gra = getGradient(img, col+dx, row+dy);
-                var cor = toLocalCord(x, y);
-                var mag = gra.mag * weight(cor.x, cor.y);
-                var ori = gra.ori - referOri;
-                ori = ori < 0 ? ori+PI2 : ori;
-                ori = ori >= PI2 ? ori-PI2 : ori;
+                    var binRow = cor.y + WIDTH/2 - 0.5,
+                        binCol = cor.x + WIDTH/2 - 0.5,
+                        bin = BINS*ori/PI2;
 
-                var binRow = cor.y + WIDTH/2 - 0.5,
-                    binCol = cor.x + WIDTH/2 - 0.5,
-                    bin = BINS*ori/PI2;
-
-                interpHist(hist, mag, binRow, binCol, bin);
-
+                    interpHist(hist, mag, binRow, binCol, bin);
+                }
             })();
         }
     }
@@ -145,7 +147,11 @@ function interpHist(hist, mag, binRow, binCol, binOri){
  */
 function hist2vector(hist){
 
+//    console.log(hist);
+
     hist = normalize(hist);
+
+//    console.log(hist);
 
     hist = hist.map(function(entry){
         return Math.min(MAG_CAP, entry);
@@ -160,9 +166,12 @@ function hist2vector(hist){
     return hist;
 
     function normalize(a){
-        var norm = a.reduce(function(e, memo){
-            return memo + e*e;
-        }, 0);
+        var ind, cursor, memo = 0;
+        for(ind=0; ind<a.length; ind++){
+            cursor = a[ind];
+            memo += cursor*cursor;
+        }
+        var norm = Math.sqrt(memo);
         return a.map(function(e){
             return e/norm;
         });
