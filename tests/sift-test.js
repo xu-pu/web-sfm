@@ -45,7 +45,9 @@ function descroptorTest(){
 function fulltest(img) {
 
     sift.forEachDetected(img, function(scale, detectedF){
-        console.log('detected');
+        if (isNotEdge(scale, detectedF)) {
+            console.log('detected');
+        }
     });
 
 }

@@ -7,6 +7,7 @@ module.exports.CONTRAST_THRESHOLD = 255 * 0.04 / exports.INTERVALS;
 module.exports.INIT_SIGMA = 1.6;
 module.exports.INITIAL_SIGMA = 0.5;
 module.exports.DETECTION_BORDER = 5;
+module.exports.IMAGE_SIZE_THRESHOLD = 1500;
 
 module.exports.EDGE_RATIO = 10;
 module.exports.EDGE_CURVATURE_THRESHOLD = Math.pow(exports.EDGE_RATIO+1, 2)/exports.EDGE_RATIO;

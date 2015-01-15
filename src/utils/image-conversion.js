@@ -2,6 +2,7 @@
 
 var ndarray = require('ndarray'),
     pool = require('ndarray-scratch'),
+    interp = require('ndarray-linear-interpolate').d2,
     downsample = require('ndarray-downsample2x'),
     grayscale = require('luminance');
 
@@ -37,6 +38,27 @@ module.exports.getDownsample = function(img){
     var result = pool.malloc(img.step(2,2).shape);
     downsample(result, img, 0, 255);
     return result;
+};
+
+
+/**
+ * x2 Supersample ndarray
+ * @param img
+ */
+module.exports.getSupersample = function(img){
+
+    var newRows = img.shape[0]*2, newCols = img.shape[1]*2;
+    var result = pool.malloc([newRows, newCols]);
+
+    var r,c;
+    for (r=0; r<newRows; r++) {
+        for (c=0; c<newCols; c++) {
+            result.set(r, c, interp(img, r/2, c/2));
+        }
+    }
+
+    return result;
+
 };
 
 

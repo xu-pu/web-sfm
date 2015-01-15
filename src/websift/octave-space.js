@@ -10,7 +10,8 @@ var GuassianPyramid = require('./guassian-pyramid.js'),
     settings = require('./settings.js');
 
 var INIT_SIGMA = settings.INIT_SIGMA,
-    INITIAL_SIGMA = settings.INITIAL_SIGMA,
+    ASSUMED_SIGMA = settings.INITIAL_SIGMA,
+    SIZE_THRESHOLD = settings.IMAGE_SIZE_THRESHOLD,
     OCTAVES = settings.OCTAVES;
 
 //===============================================
@@ -30,18 +31,27 @@ module.exports = OctaveSpace;
  */
 function OctaveSpace(img){
 
-    var base = pool.malloc(img.shape),
-        delta = Math.sqrt(INIT_SIGMA*INIT_SIGMA-INITIAL_SIGMA*INITIAL_SIGMA);
+    var scaleUp = Math.max(img.shape[0], img.shape[1]) < SIZE_THRESHOLD;
+
+    var base, deltaSigma;
+
+    if (scaleUp) {
+        img = imgUtils.getSupersample(img);
+        deltaSigma = Math.sqrt(INIT_SIGMA*INIT_SIGMA-4*ASSUMED_SIGMA*ASSUMED_SIGMA);
+    }
+    else {
+        deltaSigma = Math.sqrt(INIT_SIGMA*INIT_SIGMA-ASSUMED_SIGMA*ASSUMED_SIGMA);
+    }
+
+    base = pool.malloc(img.shape);
 
     console.log('init blur begin');
-
-    convBlur(base, img, delta, 5);
-
+    convBlur(base, img, deltaSigma, 5);
     console.log('init blur end');
 
     _.extend(this, {
         octaves: OCTAVES,
-        nextOctave: 0,
+        nextOctave: scaleUp ? -1 : 0,
         base: base
     });
 
