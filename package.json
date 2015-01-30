@@ -6,7 +6,6 @@
     "dependencies": {
         "underscore": "latest",
         "numeric": "latest",
-        "mathjs": "latest",
         "sylvester": "latest",
         "ndarray": "latest",
         "ndarray-scratch": "latest",
@@ -17,7 +16,6 @@
         "ndarray-convolve": "latest",
         "ndarray-gaussian-filter": "latest",
         "luminance": "latest",
-        "jquery": "latest",
         "promise": "latest",
         "get-pixels": "latest",
         "canvas": "latest"
