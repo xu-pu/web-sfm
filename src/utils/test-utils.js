@@ -32,13 +32,19 @@ var samples = require('./samples.js'),
 /**
  *
  * @param {string} path
+ * @param {boolean} isRGB
  * @returns {Promise}
  */
-module.exports.promiseImage = function(path){
+module.exports.promiseImage = function(path ,isRGB){
     return new Promise(function(resolve, reject){
         getPixels(path, function(err, img){
             console.log('image loaded');
-            resolve(grayscale(img));
+            if (isRGB) {
+                resolve(img);
+            }
+            else {
+                resolve(grayscale(img));
+            }
         });
     });
 };

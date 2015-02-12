@@ -208,10 +208,11 @@ module.exports.getCamera = function(index){
 /**
  *
  * @param {int} index
+ * @param {boolean} isRGB
  * @returns {Promise}
  */
-module.exports.promiseImage = function(index){
-    return testUtils.promiseImage(exports.getImagePath(index));
+module.exports.promiseImage = function(index, isRGB){
+    return testUtils.promiseImage(exports.getImagePath(index), isRGB);
 };
 
 
