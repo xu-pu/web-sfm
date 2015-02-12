@@ -19,14 +19,6 @@ module.exports = Ember.View.extend({
 
     light: null,
 
-    clock: null,
-
-    isRotating: false,
-
-    isMoving: false,
-
-    anchor: null,
-
     prepareRendering: function(){
 
         var width = window.innerWidth,
@@ -38,14 +30,12 @@ module.exports = Ember.View.extend({
 
         var camera = new THREE.PerspectiveCamera(45, width/height, 0.1, 10000);
         var scene = new THREE.Scene();
-        var clock = new THREE.Clock();
         var light = new THREE.PointLight(0xffffff);
         var control = new OrbitControls(camera);
 
         this.set('scene', scene);
         this.set('camera', camera);
         this.set('light', light);
-        this.set('clock', clock);
 
         scene.add(light);
         scene.add(camera);
