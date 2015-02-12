@@ -10,7 +10,7 @@ var IDBAdapter = require('../store/StorageAdapter.js'),
     STORES = settings.STORES,
     ENTRIES = settings.DEMO_ENTRY;
 
-var MVS_PATH = '/mvs/option.txt.pset.json',
+var MVS_PATH = '/mvs/surfels.json',
     BUNDLER_PATH = '/bundler/bundler.json';
 
 module.exports = Ember.ObjectController.extend({
