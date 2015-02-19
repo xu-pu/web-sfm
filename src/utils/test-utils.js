@@ -32,7 +32,7 @@ var samples = require('./samples.js'),
 /**
  *
  * @param {string} path
- * @param {boolean} isRGB
+ * @param {boolean} [isRGB]
  * @returns {Promise}
  */
 module.exports.promiseImage = function(path ,isRGB){

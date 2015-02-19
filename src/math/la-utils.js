@@ -99,6 +99,19 @@ module.exports.vectorInfiniteNorm = function(v){
 
 };
 
+/**
+ * @param {Matrix} m
+ * @returns {{U: Matrix, S: Vector, V: Matrix}}
+ */
+module.exports.svd = function(m){
+    var usv = numeric.svd(m.elements);
+    return {
+        U: Matrix.create(usv.U),
+        S: Vector.create(usv.S),
+        V: Matrix.create(usv.V)
+    };
+};
+
 
 /**
  * Shortcut for least mean square solve of Ax=0 using SVD (Normalized)
