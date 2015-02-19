@@ -12,7 +12,7 @@ var shortcuts = require('../utils/shortcuts.js'),
 
 var        WIDTH = settings.DESCRIPTOR_WIDTH,
           LENGTH = settings.DESCRIPTOR_LENGTH,
-      INIT_SIGMA = settings.INIT_SIGMA,
+      INIT_SIGMA = settings.SIGMA_0,
        INTERVALS = settings.INTERVALS,
     SCALE_FACTOR = settings.DESCRIPTOR_SCALE_FACTOR,
             BINS = settings.DESCRIPTOR_BINS,

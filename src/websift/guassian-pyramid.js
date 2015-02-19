@@ -7,9 +7,10 @@ var _ = require('underscore'),
 var convBlur = require('./blur.js'),
     settings = require('./settings.js');
 
-var INTERVALS = settings.INTERVALS,
-    SCALES = settings.SCALES,
-    INIT_SIGMA = settings.INIT_SIGMA;
+var SCALES   = settings.SCALES,
+    SIGMA_0  = settings.SIGMA_0,
+    SIGMA_K  = settings.SIGMA_K,
+    SIGMA_D0 = settings.SIGMA_D0;
 
 //===============================================
 
@@ -29,15 +30,13 @@ module.exports = GuassianPyramid;
  */
 function GuassianPyramid(base, octave){
 
-    var k = Math.pow(2, 1/INTERVALS),
-        delta = Math.sqrt(k*k-1),
-        space = [{ img: base, sigma: INIT_SIGMA }];
+    var space = [{ img: base, sigma: SIGMA_0 }];
 
     _.range(1, SCALES).forEach(function(layer){
 
         var previous = space[layer-1],
-            deltaSigma = previous.sigma * delta,
-            sigma = INIT_SIGMA * Math.pow(k, layer);
+            deltaSigma = SIGMA_D0 * Math.pow(SIGMA_K, layer),
+            sigma = SIGMA_0 * Math.pow(SIGMA_K, layer);
 
         console.log('convoluting image with delta sigma ' + deltaSigma);
 

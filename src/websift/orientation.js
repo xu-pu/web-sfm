@@ -11,7 +11,7 @@ var shortcuts = require('../utils/shortcuts.js'),
     settings = require('./settings.js');
 
 var             BINS = settings.ORIENTATION_BINS,
-          INIT_SIGMA = settings.INIT_SIGMA,
+          INIT_SIGMA = settings.SIGMA_0,
            INTERVALS = settings.INTERVALS,
         SIGMA_FACTOR = settings.ORIENTATION_SIGMA_FACTOR,
        RADIUS_FACTOR = settings.ORIENTATION_RADIUS_FACTOR,

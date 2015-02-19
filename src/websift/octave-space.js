@@ -9,8 +9,9 @@ var GuassianPyramid = require('./guassian-pyramid.js'),
     imgUtils = require('../utils/image-conversion.js'),
     settings = require('./settings.js');
 
-var INIT_SIGMA = settings.INIT_SIGMA,
-    ASSUMED_SIGMA = settings.INITIAL_SIGMA,
+var SIGMA_0 = settings.SIGMA_0,
+    SIGMA_N = settings.SIGMA_N,
+    SIGMA_K = settings.SIGMA_K,
     SIZE_THRESHOLD = settings.IMAGE_SIZE_THRESHOLD,
     OCTAVES = settings.OCTAVES;
 
@@ -31,27 +32,26 @@ module.exports = OctaveSpace;
  */
 function OctaveSpace(img){
 
-    var scaleUp = Math.max(img.shape[0], img.shape[1]) < SIZE_THRESHOLD;
-
-    var base, deltaSigma;
+    var //scaleUp = false,
+        scaleUp = Math.max(img.shape[0], img.shape[1]) < SIZE_THRESHOLD,
+        initOctave = scaleUp ? -1 : 0,
+        sa = SIGMA_0 * Math.pow(SIGMA_K, -1),
+        sb = SIGMA_N * Math.pow(2, -initOctave),
+        sd = Math.sqrt(sa*sa-sb*sb);
 
     if (scaleUp) {
         img = imgUtils.getSupersample(img);
-        deltaSigma = Math.sqrt(INIT_SIGMA*INIT_SIGMA-4*ASSUMED_SIGMA*ASSUMED_SIGMA);
-    }
-    else {
-        deltaSigma = Math.sqrt(INIT_SIGMA*INIT_SIGMA-ASSUMED_SIGMA*ASSUMED_SIGMA);
     }
 
-    base = pool.malloc(img.shape);
+    var base = pool.malloc(img.shape);
 
     console.log('init blur begin');
-    convBlur(base, img, deltaSigma, 5);
+    convBlur(base, img, sd, 5);
     console.log('init blur end');
 
     _.extend(this, {
         octaves: OCTAVES,
-        nextOctave: scaleUp ? -1 : 0,
+        nextOctave: initOctave,
         base: base
     });
 

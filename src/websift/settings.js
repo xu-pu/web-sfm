@@ -4,8 +4,13 @@ module.exports.OCTAVES = 5;
 module.exports.INTERVALS = 3;
 module.exports.SCALES = exports.INTERVALS + 3;
 module.exports.CONTRAST_THRESHOLD = 255 * 0.04 / exports.INTERVALS;
-module.exports.INIT_SIGMA = 1.6;
-module.exports.INITIAL_SIGMA = 0.5;
+//module.exports.CONTRAST_THRESHOLD = 0;
+
+module.exports.SIGMA_N = 0.5;
+module.exports.SIGMA_K = Math.pow(2, 1/exports.INTERVALS);
+module.exports.SIGMA_0 = 1.6 * exports.SIGMA_K;
+module.exports.SIGMA_D0 = exports.SIGMA_0 * Math.sqrt(1-1/(exports.SIGMA_K*exports.SIGMA_K));
+
 module.exports.DETECTION_BORDER = 5;
 module.exports.IMAGE_SIZE_THRESHOLD = 1500;
 

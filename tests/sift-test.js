@@ -52,7 +52,7 @@ function fulltest(img) {
 
 }
 
-fulltest(imgUtils.rgb2gray(require('lena')));
+//fulltest(imgUtils.rgb2gray(require('lena')));
 
 function pyramidTest(index){
 
@@ -63,46 +63,17 @@ function pyramidTest(index){
         .promiseImage(index)
         .then(function(img){
 
-            var octaves = new OctaveSpace(img),
-                oct, scales, dogs, ratio,
-                oi = octaves.nextOctave;
-
-            while (octaves.hasNext()) {
-
-                oct    = octaves.next();
-                scales = oct.scales;
-                dogs   = oct.dogs;
-                ratio  = Math.pow(2, oi);
-
-                detector(
-
-                    dogs, scales,
-
-                    /**
-                     * SIFT detector callback
-                     * @param {Scale} scale
-                     * @param {number} row
-                     * @param {number} col
-                     */
-                    function(scale, row, col){
-                        var f = { row: ratio * row, col: ratio * col };
-                        all.push(f);
-                        if (isNotEdge(scale, row, col)) {
-                            console.log('found one');
-                            features.push(f);
-                        }
-                    }
-
-                );
-
-                oi = octaves.nextOctave;
-
-            }
-
+            sift.forEachDetected(img, function(scale, detectedF){
+                var factor = Math.pow(2, detectedF.octave);
+                var f = { row: factor*detectedF.row, col: factor*detectedF.col };
+                all.push(f);
+                if (isNotEdge(scale, detectedF)) {
+                    features.push(f);
+                    console.log('detected');
+                }
+            });
 
             return Promise.all([
-//                testUtils.promiseVisualPoints('/home/sheep/Code/sift-detected.png', index, detected),
-//                testUtils.promiseVisualPoints('/home/sheep/Code/sift-filtered.png', index, filter.results),
                 visualUtils.promiseVisualPoints('/home/sheep/Code/sift.png', index, features),
                 visualUtils.promiseVisualPoints('/home/sheep/Code/sift-all.png', index, all)
             ]);
@@ -120,48 +91,17 @@ function testExternal(filePath){
     testUtils.promiseImage(filePath)
         .then(function(img){
 
-            var octaves = new OctaveSpace(img),
-                oct, scales, dogs, ratio,
-                oi = octaves.nextOctave;
-
-            while (octaves.hasNext()) {
-
-                oct    = octaves.next();
-                scales = oct.scales;
-                dogs   = oct.dogs;
-                ratio  = Math.pow(2, oi);
-
-                detector(
-
-                    dogs, scales,
-
-                    /**
-                     * SIFT detector callback
-                     * @param {Scale} scale
-                     * @param {number} row
-                     * @param {number} col
-                     */
-                    function(scale, row, col){
-                        var f = { row: ratio * row, col: ratio * col };
-                        all.push(f);
-                        if (isNotEdge(scale, row, col)) {
-                            console.log('found one');
-                            features.push(f);
-                        }
-                    }
-
-                );
-
-                dogs.release();
-                scales.release();
-
-                oi = octaves.nextOctave;
-
-            }
+            sift.forEachDetected(img, function(scale, detectedF){
+                var factor = Math.pow(2, detectedF.octave);
+                var f = { row: factor*detectedF.row, col: factor*detectedF.col };
+                all.push(f);
+                if (isNotEdge(scale, detectedF)) {
+                    features.push(f);
+                    console.log('detected');
+                }
+            });
 
             return Promise.all([
-//                testUtils.promiseVisualPoints('/home/sheep/Code/sift-detected.png', index, detected),
-//                testUtils.promiseVisualPoints('/home/sheep/Code/sift-filtered.png', index, filter.results),
                 testUtils.promiseVisualPoints('/home/sheep/Code/sift.png', filePath, features),
                 testUtils.promiseVisualPoints('/home/sheep/Code/sift-edge.png', filePath, _.difference(all, features)),
                 testUtils.promiseVisualPoints('/home/sheep/Code/sift-all.png', filePath, all)
@@ -173,7 +113,7 @@ function testExternal(filePath){
 
 //pyramidTest(10);
 //pyramidtest();
-//testExternal('/home/sheep/Downloads/comet/' + bigComet);
+testExternal(samples.getImagePath(1));
 //testExternal('/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/images/000.png');
-//testExternal(smallpic);
+//testExternal('/home/sheep/Downloads/comet/' + smallComet);
 //testExternal(samples.getImagePath(3));

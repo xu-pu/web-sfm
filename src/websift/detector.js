@@ -88,6 +88,7 @@ module.exports.detect = function(dogspace, layer, callback){
                     if (subpixel && Math.abs(subpixel.value) > CONTRAST_THRESHOLD) {
                         callback(subpixel.row, subpixel.col);
                     }
+                    //callback(row, col);
                 }
 
             })();
