@@ -1,18 +1,64 @@
 'use strict';
 
-var Promise = require('promise'),
+var _ = require('underscore'),
+    Promise = require('promise'),
     Lazy = require("lazy"),
     fs  = require("fs");
 
+require('shelljs/global');
+
 var testUtils = require('./testing.js');
+
+var SIFT_PROGRRAM_PATH = '/home/sheep/Downloads/siftDemoV4/sift';
+
+
+exports.promiseCMD = function(cmd){
+    return new Promise(function(resolve, reject){
+        exec(cmd, { async: true }, function(code, output){
+            if (code === 0) {
+                resolve(output);
+            }
+            else {
+                reject(output);
+            }
+        });
+    });
+};
 
 
 /**
  *
+ * @param {string} path - image full path
+ */
+exports.loweSIFT = function(path){
+
+    var filename = _.last(path.split('/')),
+        tmpPGM = '/tmp/' + filename + '.pgm',
+        tmpTXT = '/tmp/' + filename + '.sift',
+        conversionCMD = _.template('convert <%= input %> <%= output %>')({ input: path, output: tmpPGM }),
+        siftCMD = _.template('<%= program %> < <%= input %> > <%= output %>')({ program: SIFT_PROGRRAM_PATH, input: tmpPGM, output: tmpTXT });
+
+    return exports.promiseCMD(conversionCMD)
+        .then(function(){
+            return exports.promiseCMD(siftCMD);
+        })
+        .then(function(){
+            return exports.promiseConvertSIFT(tmpTXT);
+        })
+        .then(function(data){
+            rm(tmpPGM, tmpTXT);
+            return data;
+        });
+
+};
+
+
+/**
+ * Load a lowe format SIFT result file
  * @param {string} path
  * @returns {Promise}
  */
-exports.convertSIFT = function(path){
+exports.promiseConvertSIFT = function(path){
 
     var SIFT_STATE = {
         INIT: 0,
@@ -123,9 +169,3 @@ exports.convertSIFT = function(path){
     });
 
 };
-
-exports.convertSIFT('/home/sheep/Downloads/siftDemoV4/test.key')
-    .then(function(data){
-        console.log(data[0]);
-        console.log(data[data.length-1].vector.length);
-    });
