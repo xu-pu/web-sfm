@@ -35,8 +35,6 @@ var parseState = PARSER_STATES.INIT,
     patchState = PATCH_READER_STATES.INIT;
 
 
-
-
 new lazy(fs.createReadStream(FROM))
     .lines
     .forEach(function(line){
