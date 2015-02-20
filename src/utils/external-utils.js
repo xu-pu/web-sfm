@@ -83,9 +83,10 @@ exports.convertSIFT = function(path){
 
                 function addVector(){
 
-                    var parsed = line.toString()
+                    var parsed = line
+                        .toString()
+                        .trim()
                         .split(/\s+/)
-                        .slice(1)
                         .map(function(s){
                             return parseInt(s, 10);
                         });
@@ -96,7 +97,8 @@ exports.convertSIFT = function(path){
 
                 function addFeature(){
 
-                    var result = line.toString()
+                    var result = line
+                        .toString()
                         .split(/\s+/)
                         .map(function(s){
                             return parseFloat(s);
