@@ -7,7 +7,9 @@ var imgUtils = require('../src/utils/image-conversion.js'),
     samples = require('../src/utils/samples.js'),
     visualUtils = require('../src/utils/testing.js'),
     testUtils = require('../src/utils/test-utils.js'),
-    externalUtils = require('../src/utils/external-utils.js');
+    externalUtils = require('../src/utils/external-utils.js'),
+    matcher = require('../src/webmatcher/match-feature.js'),
+    estFmatrix = require('../src/webregister/estimate-fmatrix.js');
 
 var cometRoot = '/home/sheep/Downloads/comet-demo/',
     smallComet = 'Colour_image_of_comet.jpg',
@@ -47,6 +49,42 @@ function preparePair(){
         });
 
 }
+
+function estF(){
+
+    var features1 = require('/home/sheep/Code/comet-pair-A.json'),
+        features2 = require('/home/sheep/Code/comet-pair-B.json'),
+        matches = require('/home/sheep/Code/comet-matches-0.1.json');
+
+    var results = estFmatrix(
+        matches,
+        {
+            features1: features1,
+            features2: features2,
+            cam1: { width: 2048, height: 2048 },
+            cam2: { width: 2048, height: 2048 }
+        }
+    );
+
+    testUtils.promiseDetailedMatches(
+        '/home/sheep/Code/comet-fmatrix-demo.png',
+        cometRoot + cometPair1,
+        cometRoot + cometPair2,
+        features1,
+        features2,
+        _.sample(results.dataset, 100),
+        results.F
+    );
+
+
+}
+
+estF();
+
+
 //preparePair();
 //testUtils.promiseVisualPoints('/home/sheep/Code/comet-pair-A.png', cometRoot + cometPair1, require('/home/sheep/Code/comet-pair-A.json'));
 //testUtils.promiseVisualPoints('/home/sheep/Code/comet-pair-B.png', cometRoot + cometPair2, require('/home/sheep/Code/comet-pair-B.json'));
+
+//var matches = matcher(require('/home/sheep/Code/comet-pair-A.json'), require('/home/sheep/Code/comet-pair-B.json'));
+//testUtils.promiseSaveJson('/home/sheep/Code/comet-matches-0.1.json', matches);
