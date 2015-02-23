@@ -75,6 +75,21 @@ module.exports.getCalibrationMatrix = function(focal, width, height){
 
 /**
  *
+ * @param {number} focal
+ * @param {number} px - principal point X
+ * @param {number} py - principal point y
+ * @returns Matrix
+ */
+module.exports.getK = function(focal, px, py){
+    return Matrix.create([
+        [ focal, 0    , px ],
+        [ 0    , focal, py ],
+        [ 0    , 0    , 1  ]
+    ]);
+};
+
+/**
+ *
  * @param R
  * @param t
  * @param {number} focal
