@@ -3,7 +3,9 @@
 var _ = require('underscore'),
     Promise = require('promise');
 
-var imgUtils = require('../src/utils/image-conversion.js'),
+var projections = require('../src/math/projections.js'),
+    decompositions = require('../src/webregister/decompositions.js'),
+    imgUtils = require('../src/utils/image-conversion.js'),
     samples = require('../src/utils/samples.js'),
     visualUtils = require('../src/utils/testing.js'),
     testUtils = require('../src/utils/test-utils.js'),
@@ -66,6 +68,19 @@ function estF(){
         }
     );
 
+    var F = results.F;
+
+    var K1 = projections.getK(1.2 * 2048, 1024, 1024);
+    var K2 = projections.getK(1.2 * 2048, 1024, 1024);
+
+    var E = K1.transpose().x(F).x(K2);
+
+    var decs = decompositions.ematrix2Rt(E);
+
+
+
+
+/*
     testUtils.promiseDetailedMatches(
         '/home/sheep/Code/comet-fmatrix-demo.png',
         cometRoot + cometPair1,
@@ -75,12 +90,17 @@ function estF(){
         _.sample(results.dataset, 100),
         results.F
     );
+*/
+
 
 
 }
 
-estF();
 
+function packParams(fa,pax1,pay1,fb,pbx1,pby1,R1,t1){}
+function unpackParams(v){}
+
+estF();
 
 //preparePair();
 //testUtils.promiseVisualPoints('/home/sheep/Code/comet-pair-A.png', cometRoot + cometPair1, require('/home/sheep/Code/comet-pair-A.json'));
