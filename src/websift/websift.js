@@ -4,7 +4,6 @@ var _ = require('underscore');
 
 var OctaveSpace = require('./octave-space'),
     detector = require('./detector.js'),
-    isNotEdge = require('./edge-filter.js'),
     orientation = require('./orientation.js'),
     descriptor = require('./descriptor.js');
 
@@ -74,7 +73,7 @@ module.exports.forEachDetected = function(img, callback){
         scales = oct.scales;
         dogs   = oct.dogs;
 
-        detector(dogs, scales, callback);
+        detector.detect(dogs, scales, callback);
 
         oi = octaves.nextOctave;
 

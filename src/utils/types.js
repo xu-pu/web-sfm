@@ -68,7 +68,7 @@
  */
 
 /**
- * @typedef {{row: number, col: number, octave: int, layer: int}} DetectedFeature
+ * @typedef {{row: number, col: number, scale: number, octave: int, layer: int}} DetectedFeature
  */
 
 
@@ -93,5 +93,5 @@
 
 
 /**
- * @typedef {{ row: number, col: number, layer: number, value: number }} Subpixel
+ * @typedef {{ row: number, col: number, scale: number }} Subpixel
  */

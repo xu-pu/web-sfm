@@ -8,7 +8,6 @@ var imgUtils = require('../src/utils/image-conversion.js'),
     samples = require('../src/utils/samples.js'),
     visualUtils = require('../src/utils/testing.js'),
     testUtils = require('../src/utils/test-utils.js'),
-    isNotEdge = require('../src/websift/edge-filter.js'),
     OctaveSpace = require('../src/websift/octave-space'),
     detector = require('../src/websift/detector.js'),
     orientation = require('../src/websift/orientation.js'),
@@ -91,20 +90,17 @@ function testExternal(filePath){
     testUtils.promiseImage(filePath)
         .then(function(img){
 
-            sift.forEachDetected(img, function(scale, detectedF){
-                var factor = Math.pow(2, detectedF.octave);
-                var f = { row: factor*detectedF.row, col: factor*detectedF.col };
-                all.push(f);
-                if (isNotEdge(scale, detectedF)) {
-                    features.push(f);
-                    console.log('detected');
-                }
+            sift.forEachDetected(img, function(detectedF){
+                console.log('detected');
+                var factor = Math.pow(2, detectedF.octave),
+                    f = { row: factor*detectedF.row, col: factor*detectedF.col };
+                features.push(f);
             });
 
             return Promise.all([
-                testUtils.promiseVisualPoints('/home/sheep/Code/sift.png', filePath, features),
-                testUtils.promiseVisualPoints('/home/sheep/Code/sift-edge.png', filePath, _.difference(all, features)),
-                testUtils.promiseVisualPoints('/home/sheep/Code/sift-all.png', filePath, all)
+                testUtils.promiseVisualPoints('/home/sheep/Code/sift.png', filePath, features)
+//                testUtils.promiseVisualPoints('/home/sheep/Code/sift-edge.png', filePath, _.difference(all, features)),
+//                testUtils.promiseVisualPoints('/home/sheep/Code/sift-all.png', filePath, all)
             ]);
 
         });
@@ -113,7 +109,8 @@ function testExternal(filePath){
 
 //pyramidTest(10);
 //pyramidtest();
-testExternal(samples.getImagePath(1));
+//testExternal(samples.getImagePath(1));
 //testExternal('/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/images/000.png');
-//testExternal('/home/sheep/Downloads/comet/' + smallComet);
+//testExternal('/home/sheep/Downloads/comet-demo/' + smallComet);
+//testExternal(smallpic);
 //testExternal(samples.getImagePath(3));

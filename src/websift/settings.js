@@ -3,8 +3,8 @@
 module.exports.OCTAVES = 5;
 module.exports.INTERVALS = 3;
 module.exports.SCALES = exports.INTERVALS + 3;
-module.exports.CONTRAST_THRESHOLD = 255 * 0.04 / exports.INTERVALS;
-//module.exports.CONTRAST_THRESHOLD = 0;
+//module.exports.CONTRAST_THRESHOLD = 255 * 0.04 / exports.INTERVALS;
+module.exports.CONTRAST_THRESHOLD = 255 * 0.03;
 
 module.exports.SIGMA_N = 0.5;
 module.exports.SIGMA_K = Math.pow(2, 1/exports.INTERVALS);
@@ -14,8 +14,8 @@ module.exports.SIGMA_D0 = exports.SIGMA_0 * Math.sqrt(1-1/(exports.SIGMA_K*expor
 module.exports.DETECTION_BORDER = 5;
 module.exports.IMAGE_SIZE_THRESHOLD = 1500;
 
-module.exports.EDGE_RATIO = 10;
-module.exports.EDGE_CURVATURE_THRESHOLD = Math.pow(exports.EDGE_RATIO+1, 2)/exports.EDGE_RATIO;
+var EDGE_RATIO = 10;
+module.exports.EDGE_CURVATURE_THRESHOLD = (EDGE_RATIO+1)*(EDGE_RATIO+1)/EDGE_RATIO;
 
 module.exports.ORIENTATION_SIGMA_FACTOR = 1.5;
 module.exports.ORIENTATION_RADIUS_FACTOR = exports.ORIENTATION_SIGMA_FACTOR * 3;

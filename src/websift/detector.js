@@ -17,17 +17,25 @@ var settings = require('./settings.js'),
  *
  * @param {DogPyramid} dogspace
  * @param {GuassianPyramid} scales
- * @param {function} callback
+ * @param {function} callback -- callback when feature is detected
  */
-exports.detector = function(dogspace, scales, callback){
+exports.detect = function(dogspace, scales, callback){
 
     _.range(1, dogspace.pyramid.length-1).forEach(function(layer){
 
-        var scale = scales.pyramid[layer];
-
-        exports.detect(dogspace, layer, function(row, col){
-            var detectedF = { row: row, col: col, octave: scales.octave, layer: layer };
-            callback(scale, detectedF);
+        exports.scanLayer(dogspace, layer, function(row, col){
+            var subpixel = exports.subpixel(dogspace, row, col, layer);
+            if (subpixel) {
+                if (exports.isNotEdge(dogspace.pyramid[layer], row, col)) {
+                    callback({
+                        row   : subpixel.row,
+                        col   : subpixel.col,
+                        scale : subpixel.scale,
+                        octave: scales.octave,
+                        layer : layer
+                    });
+                }
+            }
         })
 
     });
@@ -40,7 +48,7 @@ exports.detector = function(dogspace, scales, callback){
  * @param {int} layer
  * @param {Function} callback
  */
-exports.detect = function(dogspace, layer, callback){
+exports.scanLayer = function(dogspace, layer, callback){
 
     console.log('detecting feature points');
 
@@ -59,8 +67,7 @@ exports.detect = function(dogspace, layer, callback){
 
                 var center = img.get(col, row),
                     max = -Infinity,
-                    min = Infinity,
-                    subpixel;
+                    min = Infinity;
 
                 if (Math.abs(center) < CONTRAST_THRESHOLD/2) {
                     return;
@@ -87,10 +94,7 @@ exports.detect = function(dogspace, layer, callback){
                 });
 
                 if (isLimit) {
-                    subpixel = exports.subpixel(dogspace, row, col, layer);
-                    if (subpixel && Math.abs(subpixel.value) > CONTRAST_THRESHOLD) {
-                        callback(subpixel.row, subpixel.col);
-                    }
+                    callback(row, col);
                 }
 
             })();
@@ -111,17 +115,17 @@ exports.detect = function(dogspace, layer, callback){
  */
 exports.deriv3D = function(space, row, col, layer){
 
-    var dxx = ( space.get(row, col+1, layer) - space.get(row, col-1, layer) ) / 2,
-        dyy = ( space.get(row+1, col, layer) - space.get(row-1, col, layer) ) / 2,
-        dss = ( space.get(row, col, layer+1) - space.get(row, col, layer-1) ) / 2;
+    var dx = ( space.get(row, col+1, layer) - space.get(row, col-1, layer) ) / 2,
+        dy = ( space.get(row+1, col, layer) - space.get(row-1, col, layer) ) / 2,
+        ds = ( space.get(row, col, layer+1) - space.get(row, col, layer-1) ) / 2;
 
-    return Vector.create([dxx, dyy, dss]);
+    return Vector.create([dx, dy, ds]);
 
 };
 
 
 /**
- *
+ * Subpixel interpolation and contrast filter
  * @param {DogPyramid} dogs
  * @param {int} r
  * @param {int} c
@@ -130,24 +134,22 @@ exports.deriv3D = function(space, row, col, layer){
  */
 exports.subpixel = function(dogs, r, c, layer){
 
-    var intR = r, intC = c, intLayer = layer;
-
-    var deriv, hess, delta;
-
-    deriv = exports.deriv3D(dogs, intR, intC, intLayer);
-    hess = exports.hessian(dogs, intR, intC, intLayer);
-    delta = hess.inverse().x(deriv).x(-1);
-
-    var subR = delta.e(2),
+    var intR = r,
+        intC = c,
+        intL = layer,
+        deriv = exports.deriv3D(dogs, intR, intC, intL),
+        hess = exports.hessian(dogs, intR, intC, intL),
+        delta = hess.inverse().x(deriv).x(-1),
+        subR = delta.e(2),
         subC = delta.e(1),
-        subLayer = delta.e(3);
+        subL = delta.e(3),
+        contrast = Math.abs(dogs.get(r, c, layer) + 0.5 * deriv.dot(delta));
 
-    if (Math.abs(subR) < 1 && Math.abs(subC) < 1 && Math.abs(subLayer) < 1) {
+    if (Math.abs(subR) < 1 && Math.abs(subC) < 1 && Math.abs(subL) < 1 && contrast > CONTRAST_THRESHOLD) {
         return {
-            row: intR+subR,
-            col: intC+subC,
-            layer: intLayer+subLayer,
-            value: dogs.get(intR, intC, intLayer) + deriv.dot(delta)/2
+            row  : intR + subR,
+            col  : intC + subC,
+            scale: intL + subL
         };
     }
     else {
@@ -213,23 +215,13 @@ exports.isNotEdge = function(dog, row, col) {
         v   = img.get(col, row),
         dxx = ( img.get(col+1, row) + img.get(col-1, row) - 2 * v ),
         dyy = ( img.get(col, row+1) + img.get(col, row-1) - 2 * v ),
-        dxy = 0.25 * ( img.get(col+1, row+1) - img.get(col-1, row+1) - img.get(col+1, row-1) + img.get(col-1, row-1) );
-
-    /*
-    var H = Matrix.create([
-            [ dxx(img, row, col), dxy(img, row, col) ],
-            [ dyx(img, row, col), dyy(img, row, col) ]
-        ]),
-        det = H.det(),
-        tr = H.e(1,1) + H.e(2,2);
-    */
-
-    var H = Matrix.create([
+        dxy = ( img.get(col+1, row+1) - img.get(col-1, row+1) - img.get(col+1, row-1) + img.get(col-1, row-1) ) / 4,
+        H = Matrix.create([
             [ dxx, dxy ],
             [ dxy, dyy ]
         ]),
         det = H.det(),
-        tr = H.e(1,1) + H.e(2,2);
+        tr = dxx + dyy;
 
     if (det < 0) {
         // det of H is unlikely to be negative, if so, discard the point as edge
