@@ -12,7 +12,7 @@ module.exports.SIGMA_0 = 1.6 * exports.SIGMA_K;
 module.exports.SIGMA_D0 = exports.SIGMA_0 * Math.sqrt(1-1/(exports.SIGMA_K*exports.SIGMA_K));
 
 module.exports.DETECTION_BORDER = 5;
-module.exports.IMAGE_SIZE_THRESHOLD = 1500;
+module.exports.IMAGE_SIZE_THRESHOLD = 2000;
 
 var EDGE_RATIO = 10;
 module.exports.EDGE_CURVATURE_THRESHOLD = (EDGE_RATIO+1)*(EDGE_RATIO+1)/EDGE_RATIO;

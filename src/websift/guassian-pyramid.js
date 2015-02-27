@@ -41,7 +41,7 @@ function GuassianPyramid(base, octave){
         console.log('convoluting image with delta sigma ' + deltaSigma);
 
         var buffer = pool.malloc(base.shape);
-        convBlur(buffer, previous.img, deltaSigma, 5);
+        convBlur(buffer, previous.img, deltaSigma);
 
         console.log('convoluting complete, resolution ' + buffer.shape[0] + '*' + buffer.shape[1]);
 

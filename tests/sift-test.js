@@ -111,6 +111,6 @@ function testExternal(filePath){
 //pyramidtest();
 //testExternal(samples.getImagePath(1));
 //testExternal('/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/images/000.png');
-//testExternal('/home/sheep/Downloads/comet-demo/' + smallComet);
+testExternal('/home/sheep/Downloads/comet-demo/' + smallComet);
 //testExternal(smallpic);
 //testExternal(samples.getImagePath(3));

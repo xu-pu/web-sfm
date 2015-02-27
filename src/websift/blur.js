@@ -8,11 +8,11 @@ var kernels = require('../math/kernels.js');
  * @param target
  * @param source
  * @param {number} sigma
- * @param {int} radius
  */
-module.exports = function(target, source, sigma, radius){
+module.exports = function(target, source, sigma){
 
-    var size = radius*2 - 1,
+    var radius = Math.round(sigma*2),
+        size = radius*2 - 1,
         center = radius-1,
         rows = target.shape[1],
         cols = target.shape[0],

@@ -32,8 +32,8 @@ module.exports = OctaveSpace;
  */
 function OctaveSpace(img){
 
-    var //scaleUp = false,
-        scaleUp = Math.max(img.shape[0], img.shape[1]) < SIZE_THRESHOLD,
+    var //scaleUp = Math.max(img.shape[0], img.shape[1]) < SIZE_THRESHOLD,
+        scaleUp = true,
         initOctave = scaleUp ? -1 : 0,
         sa = SIGMA_0 * Math.pow(SIGMA_K, -1),
         sb = SIGMA_N * Math.pow(2, -initOctave),
@@ -46,7 +46,7 @@ function OctaveSpace(img){
     var base = pool.malloc(img.shape);
 
     console.log('init blur begin');
-    convBlur(base, img, sd, 5);
+    convBlur(base, img, sd);
     console.log('init blur end');
 
     _.extend(this, {
