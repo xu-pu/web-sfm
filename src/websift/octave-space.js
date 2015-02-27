@@ -32,8 +32,7 @@ module.exports = OctaveSpace;
  */
 function OctaveSpace(img){
 
-    var //scaleUp = Math.max(img.shape[0], img.shape[1]) < SIZE_THRESHOLD,
-        scaleUp = true,
+    var scaleUp = Math.max(img.shape[0], img.shape[1]) < SIZE_THRESHOLD,
         initOctave = scaleUp ? -1 : 0,
         sa = SIGMA_0 * Math.pow(SIGMA_K, -1),
         sb = SIGMA_N * Math.pow(2, -initOctave),
