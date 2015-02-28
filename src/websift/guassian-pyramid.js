@@ -27,6 +27,9 @@ module.exports = GuassianPyramid;
  *
  * @property {Scale[]} pyramid
  * @property {int} octave
+ * @property {int} width
+ * @property {int} height
+ * @property {[]} gradientCache
  * @constructor
  */
 function GuassianPyramid(base, octave){
@@ -53,7 +56,8 @@ function GuassianPyramid(base, octave){
     this.pyramid = space;
     this.gradientCache = cache;
     this.octave = octave;
-
+    this.width = width;
+    this.height = height;
 }
 
 
@@ -62,9 +66,10 @@ function GuassianPyramid(base, octave){
  * @param {int} row
  * @param {int} col
  * @param {int} layer
- * @returns {{ mag: number, ang: number }}
+ * @returns {{ mag: number, ang: number } | null}
  */
 GuassianPyramid.prototype.getGradient = function(row, col, layer){
+    if ( row<0 || row>=this.height || col<0 || col>=this.width ) return null;
     var buffer = this.gradientCache[layer-1];
     return {
         mag: buffer.get(col, row, 0),

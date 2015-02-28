@@ -6,16 +6,15 @@ var _ = require('underscore'),
     Vector = la.Vector;
 
 var shortcuts = require('../utils/shortcuts.js'),
-    getGradient = require('../math/image-calculus.js').discreteGradient,
     kernels = require('../math/kernels.js'),
     settings = require('./settings.js');
 
-var             BINS = settings.ORIENTATION_BINS,
-          INIT_SIGMA = settings.SIGMA_0,
-           INTERVALS = settings.INTERVALS,
-        SIGMA_FACTOR = settings.ORIENTATION_SIGMA_FACTOR,
+var ACCEPT_THRESHOLD = 0.8,
+       WINDOW_FACTOR = settings.ORIENTATION_WINDOW_FACTOR,
        RADIUS_FACTOR = settings.ORIENTATION_RADIUS_FACTOR,
-    ACCEPT_THRESHOLD = 0.8,
+                BINS = settings.ORIENTATION_BINS,
+             SIGMA_0 = settings.SIGMA_0,
+           INTERVALS = settings.INTERVALS,
                   PI = Math.PI,
                  PI2 = PI * 2;
 
@@ -24,18 +23,18 @@ var             BINS = settings.ORIENTATION_BINS,
 
 /**
  *
- * @param {Scale} scale
+ * @param {GuassianPyramid} scales
  * @param {DetectedFeature} f
  * @returns {OrientedFeature[]}
  */
-module.exports.getOrientation = function(scale, f){
+exports.getOrientation = function(scales, f){
 
     console.log('Enter orientation assignment');
 
-    var hist = generateHist(scale, f);
-    var smoothedHist = smoothHist(hist);
-    var thresh = getThreshold(smoothedHist);
-    var orientations = getOrientations(smoothedHist, thresh);
+    var hist = exports.generateHist(scales, f);
+    var smoothedHist = exports.smoothHist(hist);
+    var thresh = exports.getThreshold(smoothedHist);
+    var orientations = exports.getOrientations(smoothedHist, thresh);
 
     return orientations.map(function(ori){
         var p = _.clone(f);
@@ -47,27 +46,27 @@ module.exports.getOrientation = function(scale, f){
 
 
 /**
- * @param {Scale} scale
+ * @param {GuassianPyramid} scales
  * @param {DetectedFeature} f
+ * @returns {number[]}
  */
-function generateHist(scale, f){
+exports.generateHist = function(scales, f){
 
-    var    row = Math.round(f.row),
+    var  layer = f.layer,
+           row = Math.round(f.row),
            col = Math.round(f.col),
-           img = scale.img,
-        factor = INIT_SIGMA * Math.pow(2, f.layer/INTERVALS),
-        radius = Math.round(factor * RADIUS_FACTOR),
-         sigma = factor * SIGMA_FACTOR,
+         sigma = SIGMA_0 * Math.pow(2, f.scale/INTERVALS),
+        sigmaw = sigma * WINDOW_FACTOR,
+        radius = Math.floor(sigmaw * RADIUS_FACTOR),
           hist = shortcuts.zeros(BINS),
-        weight = kernels.getGuassian2d(sigma);
+        weight = kernels.getGuassian2d(sigmaw);
 
     var x, y, gradient, bin;
     for (x=-radius; x<=radius; x++) {
         for(y=-radius; y<=radius; y++){
-            gradient = getGradient(img, col+x, row+y);
+            gradient = scales.getGradient(row+y, col+x, layer);
             if (gradient) {
-                bin = Math.round( BINS * (gradient.ori + PI) / PI2 );
-                bin = bin < BINS ? bin : 0;
+                bin = Math.floor(BINS*gradient.ang/PI2) % BINS;
                 hist[bin] += gradient.mag * weight(x,y);
             }
         }
@@ -75,23 +74,28 @@ function generateHist(scale, f){
 
     return hist;
 
-}
+};
 
 
-function smoothHist(hist){
+/**
+ * @param {number[]} hist
+ * @returns {number[]}
+ */
+exports.smoothHist = function(hist){
     return hist.map(function(mag, index){
         var pre = index === 0 ? BINS-1 : index-1,
             nex = index === BINS-1 ? 0 : index+1;
-        return 0.25*hist[pre] + 0.5*hist[index] + 0.25*hist[nex];
+//        return 0.25*hist[pre] + 0.5*hist[index] + 0.25*hist[nex];
+        return (hist[pre]+hist[index]+hist[nex]) / 3;
     });
-}
+};
 
 
 /**
  * @param {number[]} hist
  * @returns {number}
  */
-function getThreshold(hist){
+exports.getThreshold = function(hist){
     var maximum=-Infinity, iterOrien;
     for (iterOrien=0; iterOrien<BINS; iterOrien++) {
         if (hist[iterOrien]>maximum) {
@@ -99,7 +103,7 @@ function getThreshold(hist){
          }
     }
     return maximum * ACCEPT_THRESHOLD;
-}
+};
 
 
 /**
@@ -107,7 +111,7 @@ function getThreshold(hist){
  * @param {number} thresh
  * @returns {number[]}
  */
-function getOrientations(hist, thresh){
+exports.getOrientations = function(hist, thresh){
 
     var directions = [];
 
@@ -117,17 +121,14 @@ function getOrientations(hist, thresh){
             nex = bin === BINS-1 ? 0 : bin+1;
         if (mag > hist[pre] && mag > hist[nex] && mag >= thresh) {
             var offset = histInterp(hist[pre], mag, hist[nex]);
-            var interped = mag + offset;
-            interped = interped >= BINS ? interped-BINS : interped;
-            interped = interped < 0 ? interped+BINS : interped;
-            directions.push(interped*PI2/BINS - PI);
+            directions.push( (bin+offset+0.5)*PI2/BINS );
         }
     });
 
-    return directions;
+    return directions.length > 4 ? directions.slice(0,4) : directions;
 
     function histInterp(l,c,r){
         return ((l-r)/2)/(l-2*c+r);
     }
 
-}
+};
