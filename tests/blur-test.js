@@ -2,7 +2,7 @@
 
 var pool = require('ndarray-scratch');
 
-var blur = require('../src/websift/blur.js'),
+var blur = require('../src/websift/utils.js').blur,
     samples = require('../src/utils/samples.js'),
     testUtils = require('../src/utils/testing.js'),
     kernels = require('../src/math/kernels.js');

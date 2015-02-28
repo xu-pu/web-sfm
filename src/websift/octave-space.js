@@ -5,7 +5,7 @@ var _ = require('underscore'),
 
 var GuassianPyramid = require('./guassian-pyramid.js'),
     DogPyramid = require('./dog-pyramid.js'),
-    convBlur = require('./blur.js'),
+    siftUtils = require('./utils.js'),
     imgUtils = require('../utils/image-conversion.js'),
     settings = require('./settings.js');
 
@@ -45,7 +45,7 @@ function OctaveSpace(img){
     var base = pool.malloc(img.shape);
 
     console.log('init blur begin');
-    convBlur(base, img, sd);
+    siftUtils.blur(base, img, sd);
     console.log('init blur end');
 
     _.extend(this, {

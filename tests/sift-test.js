@@ -2,7 +2,8 @@
 
 var _ = require('underscore'),
     Promise = require('promise'),
-    blur = require('ndarray-gaussian-filter');
+    blur = require('ndarray-gaussian-filter'),
+    pool = require('ndarray-scratch');
 
 var imgUtils = require('../src/utils/image-conversion.js'),
     samples = require('../src/utils/samples.js'),
@@ -12,7 +13,8 @@ var imgUtils = require('../src/utils/image-conversion.js'),
     detector = require('../src/websift/detector.js'),
     orientation = require('../src/websift/orientation.js'),
     descriptor = require('../src/websift/descriptor.js'),
-    sift = require('../src/websift/websift.js');
+    sift = require('../src/websift/websift.js'),
+    siftUtils = require('../src/websift/utils.js');
 
 
 var smallComet = 'Colour_image_of_comet.jpg',
@@ -106,11 +108,31 @@ function testExternal(filePath){
         });
 }
 
+function testGradient(path){
+    return testUtils.promiseImage(path)
+        .then(function(img){
+            var cache = siftUtils.cacheGradient(img),
+                width = img.shape[0],
+                height = img.shape[1],
+                buffer = pool.malloc([width, height]),
+                ratio = 5;
+            var r, c;
+            for (r=0; r<height; r++) {
+                for (c=0; c<width; c++) {
+                    buffer.set(c, r, ratio*cache.get(c, r, 0));
+                }
+            }
+            testUtils.promiseSaveNdarray('/home/sheep/Code/gradient.png', buffer);
+        });
+}
+
 
 //pyramidTest(10);
 //pyramidtest();
 //testExternal(samples.getImagePath(1));
 //testExternal('/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/images/000.png');
-testExternal('/home/sheep/Downloads/comet-demo/' + smallComet);
+//testExternal('/home/sheep/Downloads/comet-demo/' + smallComet);
+//testExternal('/home/sheep/Downloads/comet-demo/' + bigComet);
 //testExternal(smallpic);
 //testExternal(samples.getImagePath(3));
+testGradient('/home/sheep/Downloads/comet-demo/' + bigComet);
