@@ -2,9 +2,11 @@
 
 var _ = require('underscore'),
     Promise = require('promise'),
+    ndarray = require('ndarray'),
     la = require('sylvester'),
     Matrix = la.Matrix,
     Vector = la.Vector,
+    ArrayBufferToBuffer = require('arraybuffer-to-buffer'),
     interp = require("ndarray-linear-interpolate").d3;
 
 var halldemo = require('../src/utils/samples.js'),
@@ -128,7 +130,7 @@ function sortPatches(){
 
 }
 
-sortPatches();
+//sortPatches();
 
 function promiseOneView(i, patches){
 
@@ -164,3 +166,35 @@ function promiseOneView(i, patches){
 
 
 //getViewSurfel(3);
+
+function convertSurfels(){
+
+    var surfels = require('/home/sheep/Code/Project/web-sfm/demo/Hall-Demo/mvs/surfels.json');
+    var length = surfels.length;
+    var vertextArray = new Float32Array(length*3);
+    var vertexBuffer = ndarray(vertextArray, [length, 3]);
+    var colorArray = new Uint8Array(length*3);
+    var colorBuffer = ndarray(colorArray, [length, 3]);
+
+
+    surfels.forEach(function(patch, i){
+        var point = patch.point;
+        var color = patch.color;
+        vertexBuffer.set(i, 0, point[0]);
+        vertexBuffer.set(i, 1, point[1]);
+        vertexBuffer.set(i, 2, point[2]);
+        colorBuffer.set(i, 0, color.R);
+        colorBuffer.set(i, 1, color.G);
+        colorBuffer.set(i, 2, color.B);
+    });
+
+    console.log(vertexBuffer.data.buffer.byteLength);
+
+    var buffer = ArrayBufferToBuffer(vertexBuffer.data.buffer);
+
+    testUtils.promiseWriteFile('/home/sheep/Code/gltest/data/surfels-array', buffer);
+    testUtils.promiseWriteFile('/home/sheep/Code/gltest/data/surfels-color-array', ArrayBufferToBuffer(colorBuffer.data.buffer));
+
+}
+
+convertSurfels();

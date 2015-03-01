@@ -56,14 +56,28 @@ module.exports = Ember.View.extend({
     }.on('didInsertElement'),
 
     getPointCloud: function(){
+
+        var size = this.get('controller.size'),
+            points = this.get('controller.points'),
+            colors = this.get('controller.colors');
+
         var SCALE = 40;
         var surfelsGeometry = new THREE.Geometry();
-        this.get('controller.pointcloud').forEach(function(patch){
-            var point = patch.point,
-                color = patch.color;
-            surfelsGeometry.vertices.push(new THREE.Vector3(point[0], point[1], point[2]));
-            surfelsGeometry.colors.push(new THREE.Color(color.R/255, color.G/255, color.B/255));
-        });
+
+        var cursor;
+        for (cursor=0; cursor<size; cursor++) {
+            surfelsGeometry.vertices.push(new THREE.Vector3(
+                points.get(cursor, 0),
+                points.get(cursor, 1),
+                points.get(cursor, 2)
+            ));
+            surfelsGeometry.colors.push(new THREE.Color(
+                colors.get(cursor, 0) / 255,
+                colors.get(cursor, 1) / 255,
+                colors.get(cursor, 2) / 255
+            ));
+        }
+
         var surfelsMaterial = new THREE.PointCloudMaterial({
             vertexColors: true,
             size: 4,

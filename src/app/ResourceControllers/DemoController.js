@@ -11,6 +11,8 @@ var IDBAdapter = require('../store/StorageAdapter.js'),
     ENTRIES = settings.DEMO_ENTRY;
 
 var MVS_PATH = '/mvs/surfels.json',
+    MVS_POINTS_PATH = '/mvs/surfels.points',
+    MVS_COLORS_PATH = '/mvs/surfels.colors',
     BUNDLER_PATH = '/bundler/bundler.json';
 
 module.exports = Ember.ObjectController.extend({
@@ -304,24 +306,32 @@ module.exports = Ember.ObjectController.extend({
 
         var _self = this,
             adapter = this.get('adapter'),
-            url = this.get('root')+MVS_PATH,
+            root = this.get('root'),
             scheduler = this.get('scheduler');
 
-        var task = Task.create({
-            name: 'Multi-View Stereo',
+        var pointsPromised = scheduler.promiseTask(Task.create({
+            name: 'Multi-View Stereo Points Buffer',
             type: TASK_TYPE.DOWNLOAD,
-            data: { url: url, type: 'json' }
+            data: { url: root+MVS_POINTS_PATH, type: 'arraybuffer' }
+        })).then(function(buffer){
+            return adapter.promiseSetData(STORES.SINGLETONS, STORES.MVS_POINTS, buffer);
         });
 
-        return scheduler.promiseTask(task)
-            .then(function(data){
-                task.destroy();
-                return adapter.promiseSetData(STORES.SINGLETONS, STORES.MVS, data);
-            })
-            .then(function(){
-                _self.get('loadedEntries').pushObject(ENTRIES.MVS);
-                Ember.Logger.debug('MVS downloaded and stored');
-            });
+        var colorsPromised = scheduler.promiseTask(Task.create({
+            name: 'Multi-View Stereo Colors Buffer',
+            type: TASK_TYPE.DOWNLOAD,
+            data: { url: root+MVS_COLORS_PATH, type: 'arraybuffer' }
+        })).then(function(buffer){
+            return adapter.promiseSetData(STORES.SINGLETONS, STORES.MVS_COLORS, buffer);
+        });
+
+        return Promise.all([
+            pointsPromised,
+            colorsPromised
+        ]).then(function(){
+            _self.get('loadedEntries').pushObject(ENTRIES.MVS);
+            Ember.Logger.debug('MVS downloaded and stored');
+        });
 
     },
 

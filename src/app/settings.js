@@ -30,7 +30,9 @@ module.exports.STORES = {
     TRACKS: 'tracks',
     VIEWS: 'views',
     MVS: 'mvs',
-    BUNDLER: 'bundler'
+    BUNDLER: 'bundler',
+    MVS_POINTS: 'mvs_points',
+    MVS_COLORS: 'mvs_colors'
 };
 
 

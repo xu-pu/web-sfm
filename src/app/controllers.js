@@ -117,6 +117,6 @@ module.exports = function(App){
     // Workspace.Stereo
     //=======================
 
-    App.WorkspaceMvsController = Ember.Controller.extend();
+    App.WorkspaceMvsController = Ember.ObjectController.extend();
 
 };
