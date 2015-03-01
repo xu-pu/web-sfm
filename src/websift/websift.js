@@ -43,7 +43,7 @@ module.exports.sift = function(img, options) {
              */
             function(scale, detectedF){
                 if (isNotEdge(scale, detectedF.row, detectedF.col)) {
-                    orientation.getOrientation(scale, detectedF)
+                    orientation.orient(scale, detectedF)
                         .forEach(function(orientedF){
                             features.push(descriptor.getDescriptor(scale, orientedF));
                         });
@@ -73,7 +73,9 @@ module.exports.forEachDetected = function(img, callback){
         scales = oct.scales;
         dogs   = oct.dogs;
 
-        detector.detect(dogs, scales, callback);
+        detector.detect(dogs, scales, function(f){
+            callback(scales, f);
+        });
 
         oi = octaves.nextOctave;
 

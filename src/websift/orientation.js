@@ -22,38 +22,80 @@ var ACCEPT_THRESHOLD = 0.8,
 
 
 /**
- *
+ * DetectedFeature => OrientedFeature[]
  * @param {GuassianPyramid} scales
  * @param {DetectedFeature} f
  * @returns {OrientedFeature[]}
  */
-exports.getOrientation = function(scales, f){
+exports.orient = function(scales, f){
 
     console.log('Enter orientation assignment');
 
-    var hist = exports.generateHist(scales, f);
-    var smoothedHist = exports.smoothHist(hist);
-    var thresh = exports.getThreshold(smoothedHist);
-    var orientations = exports.getOrientations(smoothedHist, thresh);
+    var gradient = scales.gradientCache[f.layer-1];
 
-    return orientations.map(function(ori){
-        var p = _.clone(f);
-        p.orientation = ori;
-        return p;
-    });
+    return exports.getOrientations(gradient, f)
+        .map(function(ori){
+            var p = _.clone(f);
+            p.orientation = ori;
+            return p;
+        });
 
 };
 
 
 /**
- * @param {GuassianPyramid} scales
+ *
+ * @param gradient
  * @param {DetectedFeature} f
  * @returns {number[]}
  */
-exports.generateHist = function(scales, f){
+exports.getOrientations = function(gradient, f){
 
-    var  layer = f.layer,
-           row = Math.round(f.row),
+    var hist = exports.generateHist(gradient, f);
+    var smoothedHist = smoothHist(hist);
+    var thresh = getThreshold(smoothedHist);
+    var directions =  exports.interpOrientations(smoothedHist, thresh);
+    return directions.length > 4 ? directions.slice(0,4) : directions;
+
+    /**
+     * @param {number[]} hist
+     * @returns {number[]}
+     */
+    function smoothHist(hist){
+        return hist.map(function(mag, index){
+            var pre = index === 0 ? BINS-1 : index-1,
+                nex = index === BINS-1 ? 0 : index+1;
+            //return 0.25*hist[pre] + 0.5*hist[index] + 0.25*hist[nex];
+            return (hist[pre]+hist[index]+hist[nex]) / 3;
+        });
+    }
+
+
+    /**
+     * @param {number[]} hist
+     * @returns {number}
+     */
+    function getThreshold(hist){
+        var maximum=-Infinity, iterOrien;
+        for (iterOrien=0; iterOrien<BINS; iterOrien++) {
+            if (hist[iterOrien]>maximum) {
+                maximum = hist[iterOrien];
+            }
+        }
+        return maximum * ACCEPT_THRESHOLD;
+    }
+
+};
+
+
+/**
+ * @param gradient
+ * @param {DetectedFeature} f
+ * @returns {number[]}
+ */
+exports.generateHist = function(gradient, f){
+
+    var    row = Math.round(f.row),
            col = Math.round(f.col),
          sigma = SIGMA_0 * Math.pow(2, f.scale/INTERVALS),
         sigmaw = sigma * WINDOW_FACTOR,
@@ -61,13 +103,14 @@ exports.generateHist = function(scales, f){
           hist = shortcuts.zeros(BINS),
         weight = kernels.getGuassian2d(sigmaw);
 
-    var x, y, gradient, bin;
+    var x, y, bin, mag, ori;
     for (x=-radius; x<=radius; x++) {
         for(y=-radius; y<=radius; y++){
-            gradient = scales.getGradient(row+y, col+x, layer);
-            if (gradient) {
-                bin = Math.floor(BINS*gradient.ang/PI2) % BINS;
-                hist[bin] += gradient.mag * weight(x,y);
+            mag = gradient.get(col+x, row+y, 0);
+            ori = gradient.get(col+x, row+y, 1);
+            if (mag) {
+                bin = Math.floor(ori*BINS/PI2) % BINS;
+                hist[bin] += mag * weight(x,y);
             }
         }
     }
@@ -79,39 +122,10 @@ exports.generateHist = function(scales, f){
 
 /**
  * @param {number[]} hist
- * @returns {number[]}
- */
-exports.smoothHist = function(hist){
-    return hist.map(function(mag, index){
-        var pre = index === 0 ? BINS-1 : index-1,
-            nex = index === BINS-1 ? 0 : index+1;
-//        return 0.25*hist[pre] + 0.5*hist[index] + 0.25*hist[nex];
-        return (hist[pre]+hist[index]+hist[nex]) / 3;
-    });
-};
-
-
-/**
- * @param {number[]} hist
- * @returns {number}
- */
-exports.getThreshold = function(hist){
-    var maximum=-Infinity, iterOrien;
-    for (iterOrien=0; iterOrien<BINS; iterOrien++) {
-        if (hist[iterOrien]>maximum) {
-            maximum = hist[iterOrien];
-         }
-    }
-    return maximum * ACCEPT_THRESHOLD;
-};
-
-
-/**
- * @param {number[]} hist
  * @param {number} thresh
  * @returns {number[]}
  */
-exports.getOrientations = function(hist, thresh){
+exports.interpOrientations = function(hist, thresh){
 
     var directions = [];
 
@@ -125,7 +139,7 @@ exports.getOrientations = function(hist, thresh){
         }
     });
 
-    return directions.length > 4 ? directions.slice(0,4) : directions;
+    return directions;
 
     function histInterp(l,c,r){
         return ((l-r)/2)/(l-2*c+r);

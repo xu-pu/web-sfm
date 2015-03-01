@@ -9,6 +9,7 @@ var imgUtils = require('../src/utils/image-conversion.js'),
     samples = require('../src/utils/samples.js'),
     visualUtils = require('../src/utils/testing.js'),
     testUtils = require('../src/utils/test-utils.js'),
+    GuassianPyramid = require('../src/websift/guassian-pyramid.js'),
     OctaveSpace = require('../src/websift/octave-space'),
     detector = require('../src/websift/detector.js'),
     orientation = require('../src/websift/orientation.js'),
@@ -24,13 +25,13 @@ var smallComet = 'Colour_image_of_comet.jpg',
 
 function orientationTest(){
     var lena = imgUtils.rgb2gray(require('lena'));
-    var scale = { img: lena, sigma: 1.6 };
-    var f = { row: 100.6, col: 17.3, octave: 0, layer: 1 };
-    var oriented = orientation.getOrientation(scale, f);
-    console.log(oriented);
+    var gradient = siftUtils.cacheGradient(lena);
+    var f = { row: 400.6, col: 417.3, scale: 1, octave: 0, layer: 1 };
+    var directions = orientation.getOrientations(gradient, f);
+    console.log(directions);
 }
 
-//orientationTest();
+orientationTest();
 
 function descroptorTest(){
     var lena = imgUtils.rgb2gray(require('lena'));
@@ -86,25 +87,17 @@ function pyramidTest(index){
 
 function testExternal(filePath){
 
-    var features = [],
-        all = [];
+    var features = [];
 
     testUtils.promiseImage(filePath)
         .then(function(img){
-
-            sift.forEachDetected(img, function(detectedF){
+            sift.forEachDetected(img, function(scales, detectedF){
                 console.log('detected');
                 var factor = Math.pow(2, detectedF.octave),
                     f = { row: factor*detectedF.row, col: factor*detectedF.col };
                 features.push(f);
             });
-
-            return Promise.all([
-                testUtils.promiseVisualPoints('/home/sheep/Code/sift.png', filePath, features)
-//                testUtils.promiseVisualPoints('/home/sheep/Code/sift-edge.png', filePath, _.difference(all, features)),
-//                testUtils.promiseVisualPoints('/home/sheep/Code/sift-all.png', filePath, all)
-            ]);
-
+            return testUtils.promiseVisualPoints('/home/sheep/Code/sift.png', filePath, features);
         });
 }
 
@@ -115,7 +108,7 @@ function testGradient(path){
                 width = img.shape[0],
                 height = img.shape[1],
                 buffer = pool.malloc([width, height]),
-                ratio = 5;
+                ratio = 1;
             var r, c;
             for (r=0; r<height; r++) {
                 for (c=0; c<width; c++) {
@@ -135,4 +128,4 @@ function testGradient(path){
 //testExternal('/home/sheep/Downloads/comet-demo/' + bigComet);
 //testExternal(smallpic);
 //testExternal(samples.getImagePath(3));
-testGradient('/home/sheep/Downloads/comet-demo/' + bigComet);
+//testGradient('/home/sheep/Downloads/comet-demo/' + smallComet);

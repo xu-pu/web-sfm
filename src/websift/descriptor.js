@@ -6,7 +6,6 @@ var _ = require('underscore'),
     Vector = la.Vector;
 
 var shortcuts = require('../utils/shortcuts.js'),
-    getGradient = require('../math/image-calculus.js').discreteGradient,
     kernels = require('../math/kernels.js'),
     settings = require('./settings.js');
 
@@ -26,11 +25,11 @@ var        WIDTH = settings.DESCRIPTOR_WIDTH,
 
 
 /**
- * @param {Scale} scale
+ * @param {GuassianPyramid} scales
  * @param {OrientedFeature} f
  * @returns {Feature}
  */
-module.exports.getDescriptor = function(scale, f){
+module.exports.getDescriptor = function(scales, f){
 
     console.log('Enter descriptor');
 
@@ -38,8 +37,8 @@ module.exports.getDescriptor = function(scale, f){
               col = f.col,
                 r = Math.round(row),
                 c = Math.round(col),
+            layer = f.layer,
          referOri = f.orientation,
-              img = scale.img,
            factor = INIT_SIGMA * Math.pow(2, f.layer/INTERVALS),
         histWidth = factor * SCALE_FACTOR,
            weight = kernels.getGuassian2d(WIDTH),
@@ -50,7 +49,7 @@ module.exports.getDescriptor = function(scale, f){
     for (dx=-radius; dx<=radius; dx++) {
         for (dy=-radius; dy<=radius; dy++) {
             (function(){
-                var gra = getGradient(img, c+dx, r+dy);
+                var gra = scales.getGradient(c+dx, r+dy, layer);
                 if (gra) {
                     var cor = toLocalCord(dx, dy);
                     var mag = gra.mag * weight(cor.x, cor.y);
