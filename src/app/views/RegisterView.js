@@ -34,7 +34,7 @@ module.exports = Ember.View.extend({
         var camera = new THREE.PerspectiveCamera(45, width/height, 0.1, 10000);
         var scene = new THREE.Scene();
         var light = new THREE.PointLight(0xffffff);
-        var control = new OrbitControls(camera);
+        var control = new OrbitControls(camera, renderer.domElement);
 
         light.position.set(0, 300, 200);
 
