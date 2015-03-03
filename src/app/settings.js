@@ -1,5 +1,28 @@
 'use strict';
 
+//==========================================
+// Resource
+//==========================================
+
+module.exports.RESOURCE = {
+    FEATURES: '/sift.json',
+    FULLIMAGES: '/images',
+    IMAGES: '/images.json',
+    MATCHES: '/matches',
+//    TRACKS: 'tracks',
+//    VIEWS: 'views',
+    SPARSE: '/calibration/sparse.json',
+    CAMERAS: '/calibration/cameras.json',
+//    MVS: 'mvs',
+    SPARSE_POINTS: '/calibration/sparse.points',
+    SPARSE_COLORS: '/calibration/sparse.colors',
+    MVS_POINTS: '/mvs/surfels.points',
+    MVS_COLORS: '/mvs/surfels.colors'
+};
+
+//==========================================
+// Enums
+//==========================================
 
 module.exports.STAGES = {
     BEFORE: 0,

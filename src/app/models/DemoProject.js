@@ -11,6 +11,10 @@ module.exports = Project.extend({
 
     // entries in the description
 
+    isDemo: true,
+
+    availableResources: [],
+
     root: null,
 
     entries: [],

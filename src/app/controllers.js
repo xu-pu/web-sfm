@@ -26,6 +26,7 @@ module.exports = function(App){
 
     App.MatchesController = require('./ResourceControllers/MatchesController.js');
 
+    App.ProjectResourceController = require('./ResourceControllers/ProjectResourceController.js');
 
     //=======================
     // Welcome Screen

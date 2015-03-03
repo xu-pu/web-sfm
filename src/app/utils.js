@@ -6,6 +6,27 @@ var _ = require('underscore');
 
 
 /**
+ * @param {string} url
+ * @param {string} datatype
+ * @returns Promise
+ */
+module.exports.promiseDownload = function(url, datatype){
+    return new Promise(function(resolve, reject){
+        var request = new XMLHttpRequest();
+        request.open('GET', url);
+        request.onload = function(){
+            resolve(request.response);
+        };
+        request.onerror = reject;
+        request.ontimeout = reject;
+        request.onabort = reject;
+        request.responseType = datatype;
+        request.send();
+    });
+};
+
+
+/**
  *
  * @returns {number}
  */

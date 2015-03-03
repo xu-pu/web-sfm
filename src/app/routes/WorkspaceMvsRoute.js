@@ -2,15 +2,18 @@
 
 var ndarray = require('ndarray');
 
-var STORES = require('../settings.js').STORES;
+var settings = require('../settings.js'),
+    STORES = settings.STORES,
+    RESOURCES = settings.RESOURCE;
 
 module.exports = Ember.Route.extend({
 
     model: function(){
+        var resources = this.controllerFor('projectResource');
         var adapter = this.controllerFor('workspace').get('adapter');
         return Promise.all([
-            adapter.promiseData(STORES.SINGLETONS, STORES.MVS_POINTS),
-            adapter.promiseData(STORES.SINGLETONS, STORES.MVS_COLORS)
+            resources.promiseResource(RESOURCES.MVS_POINTS),
+            resources.promiseResource(RESOURCES.MVS_COLORS)
         ]).then(function(results){
             var pointsArray = new Float32Array(results[0]),
                 colorsArray = new Uint8Array(results[1]),
