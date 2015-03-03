@@ -10,7 +10,6 @@ module.exports = Ember.Route.extend({
 
     model: function(){
         var resources = this.controllerFor('projectResource');
-        var adapter = this.controllerFor('workspace').get('adapter');
         return Promise.all([
             resources.promiseResource(RESOURCES.MVS_POINTS),
             resources.promiseResource(RESOURCES.MVS_COLORS)

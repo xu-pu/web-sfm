@@ -64,22 +64,40 @@ module.exports = Ember.View.extend({
     }.on('didInsertElement'),
 
     getPointCloud: function(){
-        var pointsGeo = new THREE.Geometry();
-        this.get('controller.points').forEach(function(p){
-            pointsGeo.vertices.push(new THREE.Vector3(p.point[0], p.point[1], p.point[2]));
-            pointsGeo.colors.push(new THREE.Color(p.color.R/255, p.color.G/255, p.color.B/255));
-        });
+
+        var size = this.get('controller.model.size'),
+            points = this.get('controller.model.points'),
+            colors = this.get('controller.model.colors');
+
+        var surfelsGeometry = new THREE.Geometry();
+
+        var cursor;
+        for (cursor=0; cursor<size; cursor++) {
+            surfelsGeometry.vertices.push(new THREE.Vector3(
+                points.get(cursor, 0),
+                points.get(cursor, 1),
+                points.get(cursor, 2)
+            ));
+            surfelsGeometry.colors.push(new THREE.Color(
+                colors.get(cursor, 0) / 255,
+                colors.get(cursor, 1) / 255,
+                colors.get(cursor, 2) / 255
+            ));
+        }
+
         var pointsMaterial = new THREE.PointCloudMaterial({
             size: 3,
             vertexColors: true,
             blending: THREE.AdditiveBlending
         });
-        return new THREE.PointCloud(pointsGeo, pointsMaterial);
+
+        return new THREE.PointCloud(surfelsGeometry, pointsMaterial);
+
     },
 
     getCameras: function(){
         var cameras = new THREE.Object3D();
-        this.get('controller.cameras').forEach(function(cam){
+        this.get('controller.model.cameras').forEach(function(cam){
             cameras.add(getBundlerCamera(cam));
         });
         return cameras;
