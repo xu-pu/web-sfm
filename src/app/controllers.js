@@ -102,7 +102,7 @@ module.exports = function(App){
     // Workspace.Register
     //=======================
 
-    App.WorkspaceRegisterController = Ember.ObjectController.extend({
+    App.WorkspaceRegisterController = Ember.Controller.extend({
 
         focus: null,
 
@@ -118,6 +118,6 @@ module.exports = function(App){
     // Workspace.Stereo
     //=======================
 
-    App.WorkspaceMvsController = Ember.ObjectController.extend();
+    App.WorkspaceMvsController = Ember.Controller.extend();
 
 };
