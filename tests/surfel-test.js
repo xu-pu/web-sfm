@@ -197,4 +197,33 @@ function convertSurfels(){
 
 }
 
-convertSurfels();
+function convertSpase(){
+
+    var surfels = halldemo.sparse;
+    var length = surfels.length;
+    var vertextArray = new Float32Array(length*3);
+    var vertexBuffer = ndarray(vertextArray, [length, 3]);
+    var colorArray = new Uint8Array(length*3);
+    var colorBuffer = ndarray(colorArray, [length, 3]);
+
+
+    surfels.forEach(function(patch, i){
+        var point = patch.point;
+        var color = patch.color;
+        vertexBuffer.set(i, 0, point[0]);
+        vertexBuffer.set(i, 1, point[1]);
+        vertexBuffer.set(i, 2, point[2]);
+        colorBuffer.set(i, 0, color.R);
+        colorBuffer.set(i, 1, color.G);
+        colorBuffer.set(i, 2, color.B);
+    });
+
+    var buffer = ArrayBufferToBuffer(vertexBuffer.data.buffer);
+
+    testUtils.promiseWriteFile('/home/sheep/Code/gltest/data/surfels-array', buffer);
+    testUtils.promiseWriteFile('/home/sheep/Code/gltest/data/surfels-color-array', ArrayBufferToBuffer(colorBuffer.data.buffer));
+
+}
+
+//convertSpase();
+//convertSurfels();
