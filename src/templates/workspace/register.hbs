@@ -1,4 +1,5 @@
-{{view "register" controller=controller}}
+{{sparse-reconstruction sparse=model.sparse cameras=model.cameras}}
+
 <div class="floating-window__register">
     <div class="floating-window__register__view-list">
         {{#each cam in cameras}}

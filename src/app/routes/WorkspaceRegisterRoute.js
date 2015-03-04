@@ -19,9 +19,11 @@ module.exports = Ember.Route.extend({
                 colorsArray = new Uint8Array(results[1]),
                 size = pointsArray.length/3;
             return {
-                points: ndarray(pointsArray, [size, 3]),
-                colors: ndarray(colorsArray, [size, 3]),
-                size: size,
+                sparse: {
+                    points: ndarray(pointsArray, [size, 3]),
+                    colors: ndarray(colorsArray, [size, 3]),
+                    size: size
+                },
                 cameras: results[2]
             };
         });

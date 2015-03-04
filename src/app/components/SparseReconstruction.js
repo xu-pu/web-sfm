@@ -11,15 +11,13 @@ var _ = require('underscore'),
 var getBundlerCamera = require('../../visualization/getBundlerCamera.js'),
     cord = require('../../utils/cord.js');
 
-module.exports = Ember.View.extend({
+module.exports = Ember.Component.extend({
 
     geometry: null,
 
     camera: null,
 
     scene: null,
-
-    light: null,
 
     prepareRendering: function(){
 
@@ -40,7 +38,6 @@ module.exports = Ember.View.extend({
 
         this.set('scene', scene);
         this.set('camera', camera);
-        this.set('light', light);
 
         scene.add(light);
         scene.add(camera);
@@ -65,9 +62,9 @@ module.exports = Ember.View.extend({
 
     getPointCloud: function(){
 
-        var size = this.get('controller.model.size'),
-            points = this.get('controller.model.points'),
-            colors = this.get('controller.model.colors');
+        var size = this.get('sparse.size'),
+            points = this.get('sparse.points'),
+            colors = this.get('sparse.colors');
 
         var surfelsGeometry = new THREE.Geometry();
 
@@ -97,7 +94,7 @@ module.exports = Ember.View.extend({
 
     getCameras: function(){
         var cameras = new THREE.Object3D();
-        this.get('controller.model.cameras').forEach(function(cam){
+        this.get('cameras').forEach(function(cam){
             cameras.add(getBundlerCamera(cam));
         });
         return cameras;
@@ -124,11 +121,7 @@ module.exports = Ember.View.extend({
         );
 
         camera.rotation.setFromRotationMatrix(rot, 'XYZ');
-        //camera.lookAt(array2glvector(focal.elements));
+
     }.observes('controller.focus')
 
 });
-
-function array2glvector(elements){
-    return new THREE.Vector3(elements[0], elements[1], elements[2]);
-}

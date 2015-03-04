@@ -4,8 +4,6 @@ module.exports = function(App) {
 
     App.WelcomeDemoView = require('./RouteViews/WelcomeDemoView.js');
     App.WorkspaceMatcherView = require('./RouteViews/WorkspaceMatcherView.js');
-
-    App.RegisterView = require('./views/RegisterView.js');
     App.ProjectThumbnailView = require('./views/ProjectThumbnailView.js');
     App.DemoThumbnailView = require('./views/DemoThumbnailView.js');
     App.ImageLoaderView = require('./views/ImageLoaderView.js');

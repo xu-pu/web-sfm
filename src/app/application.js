@@ -13,8 +13,11 @@ var App = window.App = Ember.Application.create({
 
 
 //============================================
+// Components
+//============================================
 
 App.MultiViewStereoComponent = require('./components/MultiViewStereo.js');
+App.SparseReconstructionComponent = require('./components/SparseReconstruction.js');
 
 
 setupRoutes(App);
