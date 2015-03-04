@@ -32,8 +32,8 @@ module.exports = Ember.Controller.extend({
                 return utils.promiseDownload(root+name, 'json');
                 break;
             case RESOURCE.FULLIMAGES:
-                // metadata is the image object in demo description
-                return utils.promiseDownload(root+name+metadata.name+metadata.extension, 'arraybuffer');
+                // metadata is the Image object
+                return utils.promiseDownload(root+'/images/'+metadata.get('name')+metadata.get('extension'), 'arraybuffer');
                 break;
             case RESOURCE.MVS_POINTS:
                 return utils.promiseDownload(root+name, 'arraybuffer');
