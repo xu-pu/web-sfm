@@ -3,7 +3,7 @@
 var THREE = require('three'),
     OrbitControls = require('three-orbit-controls')(THREE);
 
-module.exports = Ember.View.extend({
+module.exports = Ember.Component.extend({
 
     tagName: 'div',
 
@@ -33,10 +33,6 @@ module.exports = Ember.View.extend({
         var light = new THREE.PointLight(0xffffff);
         var control = new OrbitControls(camera, renderer.domElement);
 
-        this.set('scene', scene);
-        this.set('camera', camera);
-        this.set('light', light);
-
         scene.add(light);
         scene.add(camera);
         scene.add(this.getPointCloud());
@@ -57,9 +53,9 @@ module.exports = Ember.View.extend({
 
     getPointCloud: function(){
 
-        var size = this.get('controller.size'),
-            points = this.get('controller.points'),
-            colors = this.get('controller.colors');
+        var size = this.get('surfels.size'),
+            points = this.get('surfels.points'),
+            colors = this.get('surfels.colors');
 
         var SCALE = 40;
         var surfelsGeometry = new THREE.Geometry();

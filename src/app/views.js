@@ -12,7 +12,6 @@ module.exports = function(App) {
     App.CpuSettingView = require('./views/CpuSettingView.js');
     App.SiftView = require('./views/SiftView.js');
     App.StateBarView = require('./views/StateBarView.js');
-    App.StereoView = require('./views/StereoView.js');
     App.TwoViewMatchingView = require('./views/TwoViewMatchingView.js');
     App.ProjectCreatorView = require('./views/ProjectCreatorView.js');
 

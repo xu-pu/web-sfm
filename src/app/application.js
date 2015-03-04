@@ -11,6 +11,12 @@ var App = window.App = Ember.Application.create({
     LOG_TRANSITIONS: true
 });
 
+
+//============================================
+
+App.MultiViewStereoComponent = require('./components/MultiViewStereo.js');
+
+
 setupRoutes(App);
 setupControllers(App);
 setupViews(App);
