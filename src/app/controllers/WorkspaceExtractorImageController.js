@@ -1,11 +1,15 @@
 'use strict';
 
 var utils = require('../utils.js'),
-    STORES = require('../settings.js').STORES;
+    settings = require('../settings.js'),
+    RESOURCE = settings.RESOURCE;
+
 
 module.exports = Ember.ObjectController.extend({
 
-    needs: ['workspace'],
+    needs: ['workspace', 'projectResource'],
+
+    resource: Ember.computed.alias('controllers.projectResource'),
 
     adapter: Ember.computed.alias('controllers.workspace.adapter'),
 
@@ -26,12 +30,13 @@ module.exports = Ember.ObjectController.extend({
         this.set('isLoading', true);
 
         var _self = this,
-            adapter = this.get('adapter');
+            resource = this.get('resource');
 
         return Promise.all([
-            adapter.promiseData(STORES.FULLIMAGES, _self.get('_id')).then(utils.promiseBufferImage),
-            adapter.promiseData(STORES.FEATURES, _self.get('_id'))
+            resource.promiseResource(RESOURCE.FULLIMAGES, _self.get('model')).then(utils.promiseBufferImage),
+            resource.promiseResource(RESOURCE.FEATURES, _self.get('model'))
         ]).then(function(results){
+            console.log(results[1]);
             _self.setProperties({
                 img: results[0],
                 features: results[1],

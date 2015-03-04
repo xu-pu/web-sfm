@@ -228,5 +228,13 @@ function convertSpase(){
 
 //convertSpase();
 //convertSurfels();
+function convertSIFT(){
+    var root = '/home/sheep/Code/Project/web-sfm/demo/Hall-Demo/sift.json/';
 
-externalUtils.genImagesJson(require('/home/sheep/Code/Project/web-sfm/demo/Hall-Demo/description.json'));
+    var i, features, path;
+    for (i=0; i<=60; i++) {
+        path = root+halldemo.getFullname(i)+'.json';
+        features = require(path);
+        testUtils.promiseSaveJson(path, features.features);
+    }
+}

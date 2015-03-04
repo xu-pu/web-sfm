@@ -70,6 +70,7 @@ module.exports = Ember.ObjectController.extend({
             .promiseResource(RESOURCE.IMAGES)
             .then(function(images){
                 return images.map(function(image){
+                    image._id = image.id;
                     return Image.create(image);
                 })
             });
