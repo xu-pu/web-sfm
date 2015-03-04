@@ -5,11 +5,14 @@ var _ = require('underscore');
 var Image = require('../models/Image.js'),
     utils = require('../utils.js'),
     settings = require('../settings.js'),
-    STORES = settings.STORES;
+    STORES = settings.STORES,
+    RESOURCE = settings.RESOURCE;
 
 module.exports = Ember.ObjectController.extend({
 
-    needs: ['context'],
+    needs: ['context', 'projectResource'],
+
+    resource: Ember.computed.alias('controllers.projectResource'),
 
     adapter: Ember.computed.alias('controllers.context.adapter'),
 
@@ -59,18 +62,18 @@ module.exports = Ember.ObjectController.extend({
     },
 
     /**
-     * Return all images stored in IDB
      * @returns {Promise}
      */
     promiseImages: function(){
-        return this.get('adapter')
-            .promiseAll(STORES.IMAGES)
-            .then(function(results){
-                return results.map(function(res){
-                    res.value._id = res.key;
-                    return Image.create(res.value);
-                });
+
+        return this.get('resource')
+            .promiseResource(RESOURCE.IMAGES)
+            .then(function(images){
+                return images.map(function(image){
+                    return Image.create(image);
+                })
             });
+
     },
 
 

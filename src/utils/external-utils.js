@@ -3,13 +3,48 @@
 var _ = require('underscore'),
     Promise = require('promise'),
     Lazy = require("lazy"),
-    fs  = require("fs");
+    fs  = require("fs"),
+    Canvas = require('canvas');
+
+var testing = require('./testing.js'),
+    testUtils = require('./test-utils.js');
 
 require('shelljs/global');
 
-var testUtils = require('./testing.js');
+var SIFT_PROGRRAM_PATH = '/home/sheep/Downloads/siftDemoV4/sift',
+    PROJECT_ROOT = '/home/sheep/Code/Project/web-sfm';
 
-var SIFT_PROGRRAM_PATH = '/home/sheep/Downloads/siftDemoV4/sift';
+exports.genImagesJson = function(desc){
+
+    var IMAGES_PATH = PROJECT_ROOT+desc.root+'/images/';
+
+    return Promise.all(desc.images.map(function(image){
+        var path = IMAGES_PATH+image.name+image.extension;
+        return testUtils.promiseCanvasImage(path)
+            .then(function(img){
+                image.thumbnail = getThumbnail(img);
+                image.height = img.height;
+                image.width = img.width;
+                return image;
+            });
+    })).then(function(images){
+        return testUtils.promiseSaveJson('/home/sheep/Code/Project/web-sfm' + desc.root + '/images.json', images);
+    });
+
+    function getThumbnail(img){
+        var canvas = new Canvas(200, 200);
+        var ctx = canvas.getContext('2d');
+        var aspectRatio = img.width/img.height;
+        if (aspectRatio > 1) {
+            ctx.drawImage(img, 0, 0, 200*aspectRatio, 200);
+        }
+        else {
+            ctx.drawImage(img, 0, 0, 200, 200*aspectRatio);
+        }
+        return canvas.toDataURL();
+    }
+
+};
 
 
 exports.promiseCMD = function(cmd){

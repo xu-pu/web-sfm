@@ -11,6 +11,7 @@ var _ = require('underscore'),
 
 var halldemo = require('../src/utils/samples.js'),
     testUtils = require('../src/utils/test-utils.js'),
+    externalUtils = require('../src/utils/external-utils.js'),
     cord = require('../src/utils/cord.js');
 
 var cloud= require('../demo/Hall-Demo/mvs/patches.json');
@@ -227,3 +228,5 @@ function convertSpase(){
 
 //convertSpase();
 //convertSurfels();
+
+externalUtils.genImagesJson(require('/home/sheep/Code/Project/web-sfm/demo/Hall-Demo/description.json'));
