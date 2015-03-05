@@ -18,10 +18,6 @@ module.exports = function(App){
 
     App.DemosController = require('./ResourceControllers/DemosController.js');
 
-    App.ProjectController = require('./ResourceControllers/ProjectController.js');
-
-    App.ProjectsController = require('./ResourceControllers/ProjectsController.js');
-
     App.ImagesController = require('./ResourceControllers/ImagesController.js');
 
     App.MatchesController = require('./ResourceControllers/MatchesController.js');

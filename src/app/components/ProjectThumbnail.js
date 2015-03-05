@@ -1,10 +1,12 @@
 'use strict';
 
-module.exports = Ember.View.extend({
+module.exports = Ember.Component.extend({
+
+    project: null, // need
+
+    ctx: null, // need
 
     tagName: 'div',
-
-    templateName: 'widgets/project-thumbnail',
 
     classNames: [
         'welcome-screen__projects__thumbnail'
@@ -16,7 +18,7 @@ module.exports = Ember.View.extend({
 
         'delete': function(){
             this.set('isConfirmDelete', false);
-            this.promiseDelete();
+            this.get('ctx').promiseDeleteProject(this.get('project'));
         },
 
         confirmDelete: function(){
@@ -28,5 +30,5 @@ module.exports = Ember.View.extend({
         }
 
     }
-    
+
 });

@@ -17,7 +17,8 @@ var App = window.App = Ember.Application.create({
 
 App.MultiViewStereoComponent = require('./components/MultiViewStereo.js');
 App.SparseReconstructionComponent = require('./components/SparseReconstruction.js');
-
+App.ProjectThumbnailComponent = require('./components/ProjectThumbnail.js');
+App.ProjectCreatorComponent = require('./components/ProjectCreator.js');
 
 //============================================
 // Views
@@ -25,14 +26,12 @@ App.SparseReconstructionComponent = require('./components/SparseReconstruction.j
 
 App.WelcomeDemoView = require('./RouteViews/WelcomeDemoView.js');
 App.WorkspaceMatcherView = require('./RouteViews/WorkspaceMatcherView.js');
-App.ProjectThumbnailView = require('./views/ProjectThumbnailView.js');
 App.DemoThumbnailView = require('./views/DemoThumbnailView.js');
 App.ImageLoaderView = require('./views/ImageLoaderView.js');
 App.CpuSettingView = require('./views/CpuSettingView.js');
 App.SiftView = require('./views/SiftView.js');
 App.StateBarView = require('./views/StateBarView.js');
 App.TwoViewMatchingView = require('./views/TwoViewMatchingView.js');
-App.ProjectCreatorView = require('./views/ProjectCreatorView.js');
 
 
 setupRoutes(App);

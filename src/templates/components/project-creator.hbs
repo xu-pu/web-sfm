@@ -1,0 +1,11 @@
+<div class="project-creator__input">
+
+    {{input valueBinding="newProjectName" placeholder="Project Name"}}
+
+    {{#unless isInvalid}}
+        <div class="project-creator__submit" {{action "createProject"}}>
+            <h1>Create</h1>
+        </div>
+    {{/unless}}
+
+</div>

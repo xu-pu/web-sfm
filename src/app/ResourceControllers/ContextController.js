@@ -2,7 +2,8 @@
 
 var _ = require('underscore');
 
-var IDBAdapter = require('../store/StorageAdapter.js'),
+var Project = require('../models/Project.js'),
+    IDBAdapter = require('../store/StorageAdapter.js'),
     utils = require('../utils.js'),
     settings = require('../settings.js'),
     LOCAL_STORES = settings.LOCAL_STORE;
@@ -10,9 +11,9 @@ var IDBAdapter = require('../store/StorageAdapter.js'),
 
 module.exports = Ember.Controller.extend({
 
-    needs: ['projects', 'demos'],
+    needs: ['demos'],
 
-    projects: Ember.computed.alias('controllers.projects'),
+    projects: [],
 
     demos: Ember.computed.alias('controllers.demos'),
 
@@ -67,6 +68,27 @@ module.exports = Ember.Controller.extend({
     },
 
 
+    promiseDeleteProject: function(project){
+
+        var _self = this,
+            currentProject = this.get('currentProject');
+
+        if (currentProject && currentProject.get('name') === project.get('name')) {
+            this.set('currentProject', null);
+        }
+
+        return new Promise(function(resolve, reject){
+            _self.set('isDeleting', true);
+            var request = indexedDB.deleteDatabase(project.get('name'));
+            request.onsuccess = function(){
+                _self.get('projects').removeObject(project);
+                resolve(project);
+            };
+        });
+
+    },
+
+
     /**
      * check is name avaliable or not
      * @param {string} name
@@ -85,10 +107,50 @@ module.exports = Ember.Controller.extend({
             project = localStorage.getItem(LOCAL_STORES.PROJECT);
 
         if (_.isString(project)) {
-            currentProject = this.get('projects.model').findBy('name', project) || this.get('demos.model').findBy('name', project) || null;
+            currentProject = this.get('projects').findBy('name', project) || this.get('demos.model').findBy('name', project) || null;
             this.set('currentProject', currentProject);
         }
 
-    }.on('init')
+    }.on('init'),
+
+    recoverProjects: function(){
+
+        var data = utils.getLocalStorage(LOCAL_STORES.PROJECTS),
+            content = [];
+
+        if (_.isArray(data)) {
+            content = data.map(function(p){
+                return Project.create(p);
+            });
+        }
+
+        this.set('projects', content);
+
+    }.on('init'),
+
+
+    /**
+     * sync projects to localstrorage when new ones added
+     */
+    syncProjects: function(){
+        utils.setLocalStorage(LOCAL_STORES.PROJECTS, this.get('projects')
+            .map(function(model){
+                return model.getProperties(model.get('storedProperties'));
+            }));
+    }.observes('projects.length'),
+
+    actions: {
+
+        enter: function(project){
+            var context = this.get('context');
+            context.set('currentProject', project);
+            this.transitionToRoute('workspace');
+        },
+
+        createProject: function(project){
+            this.get('projects').pushObject(project);
+        }
+
+    }
 
 });
