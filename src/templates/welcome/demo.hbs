@@ -4,26 +4,20 @@
 
     <ul class="welcome-screen__detail__download-selections">
 
-        <li {{bind-attr class="selectedImage:is-selected imagesFinished:is-loaded"}}
-            {{action "toggleSelection" "image"}}>
+        <li {{bind-attr class="imagesFinished:is-loaded"}}>
 
             <h1>
                 Images {{loadedImages.length}}/{{images.length}}
                 {{#if imagesFinished}}
                     loaded
                 {{else}}
-                    {{#if selectedImage}}
-                        selected
-                    {{else}}
-                        avaliable
-                    {{/if}}
+                    avaliable
                 {{/if}}
             </h1>
 
         </li>
 
-        <li {{bind-attr class="selectedFeature:is-selected hasFeature::not-avaliable featuresFinished:is-loaded"}}
-            {{action "toggleSelection" "feature"}}>
+        <li {{bind-attr class="hasFeature::not-avaliable featuresFinished:is-loaded"}}>
 
             <h1>
                 Features {{loadedFeatures.length}}/{{images.length}}
@@ -32,11 +26,7 @@
                     loaded
                 {{else}}
                     {{#if hasFeature}}
-                        {{#if selectedFeature}}
-                            selected
-                        {{else}}
-                            avaliable
-                        {{/if}}
+                        avaliable
                     {{else}}
                         not avaliable
                     {{/if}}
@@ -45,8 +35,7 @@
 
         </li>
 
-        <li {{bind-attr class="selectedMatch:is-selected hasMatch::not-avaliable matchesLoaded:is-loaded"}}
-            {{action "toggleSelection" "match"}}>
+        <li {{bind-attr class="hasMatch::not-avaliable matchesLoaded:is-loaded"}}>
 
             <h1>
                 Matches
@@ -54,11 +43,7 @@
                     loaded
                 {{else}}
                     {{#if hasMatch}}
-                        {{#if selectedMatch}}
-                            selected
-                        {{else}}
-                            avaliable
-                        {{/if}}
+                        avaliable
                     {{else}}
                         not avaliable
                     {{/if}}
@@ -67,8 +52,7 @@
 
         </li>
 
-        <li {{bind-attr class="selectedCalibration:is-selected hasCalibration::not-avaliable calibrationLoaded:is-loaded"}}
-            {{action "toggleSelection" "calibration"}}>
+        <li {{bind-attr class="hasCalibration::not-avaliable calibrationLoaded:is-loaded"}}>
 
             <h1>
                 Calibration
@@ -76,11 +60,7 @@
                     loaded
                 {{else}}
                     {{#if hasCalibration}}
-                        {{#if selectedCalibration}}
-                            selected
-                        {{else}}
-                            avaliable
-                        {{/if}}
+                        avaliable
                     {{else}}
                         not avaliable
                     {{/if}}
@@ -89,8 +69,7 @@
 
         </li>
 
-        <li {{bind-attr class="selectedMVS:is-selected hasMVS::not-avaliable mvsLoaded:is-loaded"}}
-            {{action "toggleSelection" "mvs"}}>
+        <li {{bind-attr class="hasMVS::not-avaliable mvsLoaded:is-loaded"}}>
 
             <h1>
                 MVS
@@ -98,11 +77,7 @@
                     loaded
                 {{else}}
                     {{#if hasMVS}}
-                        {{#if selectedMVS}}
-                            selected
-                        {{else}}
-                            avaliable
-                        {{/if}}
+                        avaliable
                     {{else}}
                         not avaliable
                     {{/if}}
@@ -114,18 +89,8 @@
     </ul>
 
     <div {{bind-attr class=":welcome-screen__detail__download isInprogress:is-downloading isReady:is-ready"}}
-        {{action "progress"}}>
-
-        {{#if isInprogress}}
-            <h1>Loading</h1>
-        {{else}}
-            {{#if isReady}}
-                <h1>Enter</h1>
-            {{else}}
-                <h1>Load</h1>
-            {{/if}}
-        {{/if}}
-
+        {{action "enter"}}>
+        <h1>Enter</h1>
     </div>
 
 </div>
