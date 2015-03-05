@@ -52,11 +52,11 @@ module.exports = Ember.Component.extend({
 
         camera.lookAt(new V3(0,0,0));
 
-        function render(){
+        control.addEventListener('change', function(){
             renderer.render(scene, camera);
-            requestAnimationFrame(render);
-        }
-        render();
+        });
+
+        renderer.render(scene, camera);
 
     }.on('didInsertElement'),
 
