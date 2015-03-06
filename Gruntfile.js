@@ -36,25 +36,14 @@ module.exports = function (grunt) {
 
         },
 
-        neuter :{
-
-            options: {
-                template: '{%= src %}'
-            },
-
-            'build/scripts/application.js':'app/scripts/application.js',
-
-            'build/scripts/worker.js':'app/scripts/worker.js',
-
-            'build/scripts/sfm.js':'app/scripts/sfm.js'
-
-        },
-
         emberTemplates: {
             options: {
                 templateName: function (tName) {
                     return tName.replace('src/templates/', '');
-                }
+                },
+                precompile: false,
+                templateCompilerPath: 'venders/ember/ember-template-compiler.js',
+                templateNamespace: 'HTMLBars'
             },
 
             build: {
