@@ -36,6 +36,7 @@ module.exports = Ember.Component.extend({
                     name = getNextDefaultName();
                 }
                 var project = Project.create({ name: name });
+                this.set('newProjectName', '');
                 ctx.send('createProject', project);
             }
 

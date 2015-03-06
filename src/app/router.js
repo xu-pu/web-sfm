@@ -69,7 +69,13 @@ module.exports = function(App){
     // Welcome
     //=============================
 
-    App.WelcomeRoute = Ember.Route.extend();
+    App.WelcomeRoute = Ember.Route.extend({
+
+        setupController: function(){
+            this.controllerFor('context').set('currentProject', null);
+        }
+
+    });
 
     App.WelcomeIndexRoute = Ember.Route.extend({
 
