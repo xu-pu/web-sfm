@@ -38,30 +38,6 @@ module.exports = Project.extend({
     images: null,
 
 
-    // Selection
-
-    selectedEntries: [],
-
-    selectedImage: function(){
-        return this.get('selectedEntries').contains(ENTRIES.IMAGE);
-    }.property('selectedEntries.length'),
-
-    selectedFeature: function(){
-        return this.get('selectedEntries').contains(ENTRIES.FEATURE);
-    }.property('selectedEntries.length'),
-
-    selectedMatch: function(){
-        return this.get('selectedEntries').contains(ENTRIES.MATCH);
-    }.property('selectedEntries.length'),
-
-    selectedCalibration: function(){
-        return this.get('selectedEntries').contains(ENTRIES.CALIBRATION);
-    }.property('selectedEntries.length'),
-
-    selectedMVS: function(){
-        return this.get('selectedEntries').contains(ENTRIES.MVS);
-    }.property('selectedEntries.length'),
-
     // Loaded
 
     loadedEntries: [],
@@ -137,7 +113,6 @@ module.exports = Project.extend({
         'images',
         'entries',
 
-        'selectedEntries',
         'loadedEntries',
 
         'loadedImages',
