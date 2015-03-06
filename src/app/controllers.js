@@ -37,7 +37,7 @@ module.exports = function(App){
     // Workspace
     //=======================
 
-    App.WorkspaceController = require('./controllers/WorkspaceController.js');
+    App.WorkspaceController = require('./ResourceControllers/WorkspaceController.js');
 
 
     //=======================

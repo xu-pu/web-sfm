@@ -86,7 +86,7 @@
             </li>
             {{#each demo in demos}}
                 <li class="welcome-screen__demos__item">
-                    {{view "demoThumbnail" controller=demo}}
+                    {{demo-thumbnail project=demo ctx=ctx}}
                 </li>
             {{/each}}
         </ul>

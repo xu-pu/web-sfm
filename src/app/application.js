@@ -20,6 +20,8 @@ App.SparseReconstructionComponent = require('./components/SparseReconstruction.j
 App.ProjectThumbnailComponent = require('./components/ProjectThumbnail.js');
 App.ProjectCreatorComponent = require('./components/ProjectCreator.js');
 App.WorkspaceProgressBarComponent = require('./components/WorkspaceProgressBar.js');
+App.DemoThumbnailComponent = require('./components/DemoThumbnail.js');
+
 
 //============================================
 // Views
@@ -27,7 +29,7 @@ App.WorkspaceProgressBarComponent = require('./components/WorkspaceProgressBar.j
 
 App.WelcomeDemoView = require('./RouteViews/WelcomeDemoView.js');
 App.WorkspaceMatcherView = require('./RouteViews/WorkspaceMatcherView.js');
-App.DemoThumbnailView = require('./views/DemoThumbnailView.js');
+
 App.ImageLoaderView = require('./views/ImageLoaderView.js');
 App.CpuSettingView = require('./views/CpuSettingView.js');
 App.SiftView = require('./views/SiftView.js');

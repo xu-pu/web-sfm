@@ -1,13 +1,16 @@
 'use strict';
 
+module.exports = Ember.Component.extend({
 
-module.exports = Ember.View.extend({
+    project: null, // need
+
+    ctx: null, // need
+
+    isExpanded: Ember.computed.alias('project.isExpanded'),
 
     tagName: 'div',
 
-    templateName: 'widgets/demo-thumbnail',
-
-    classNameBindings: ['controller.isExpanded'],
+    classNameBindings: ['isExpanded'],
 
     classNames: [
         'welcome-screen__demos__thumbnail'
@@ -16,11 +19,6 @@ module.exports = Ember.View.extend({
     isConfirmDelete: false,
 
     actions: {
-
-        enter: function(){
-            this.get('controllers.sfmStore').set('currentProject', this.get('model'));
-            this.transitionToRoute('workspace');
-        },
 
         'delete': function(){
             this.set('isConfirmDelete', false);

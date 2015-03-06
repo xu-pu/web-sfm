@@ -1,5 +1,5 @@
 <div class="demo-thumbnail__header">
-    <span>{{name}}</span>
+    <span>{{project.name}}</span>
     <div class="exit-icon" {{action "delete"}}></div>
 </div>
 
@@ -22,7 +22,7 @@
         </div>
     {{/if}}
 
-    {{#link-to "welcome.demo" model}}
+    {{#link-to "welcome.demo" project.model}}
         <div class="demo-thumbnail__detail">
             <h1>Detail</h1>
         </div>
