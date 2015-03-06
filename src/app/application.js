@@ -19,6 +19,7 @@ App.MultiViewStereoComponent = require('./components/MultiViewStereo.js');
 App.SparseReconstructionComponent = require('./components/SparseReconstruction.js');
 App.ProjectThumbnailComponent = require('./components/ProjectThumbnail.js');
 App.ProjectCreatorComponent = require('./components/ProjectCreator.js');
+App.WorkspaceProgressBarComponent = require('./components/WorkspaceProgressBar.js');
 
 //============================================
 // Views
@@ -30,7 +31,6 @@ App.DemoThumbnailView = require('./views/DemoThumbnailView.js');
 App.ImageLoaderView = require('./views/ImageLoaderView.js');
 App.CpuSettingView = require('./views/CpuSettingView.js');
 App.SiftView = require('./views/SiftView.js');
-App.StateBarView = require('./views/StateBarView.js');
 App.TwoViewMatchingView = require('./views/TwoViewMatchingView.js');
 
 

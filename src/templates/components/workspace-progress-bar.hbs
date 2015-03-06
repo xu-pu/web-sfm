@@ -1,9 +1,9 @@
-{{#if view.expand}}
+{{#if expand}}
 
 <div class="controll-panel__state-body__container">
     <div class="controll-panel__state-body">
-        <div>{{threadPoolSize}} cores can be used</div>
-        {{#each thread in threads}}
+        <div>{{workspace.threadPoolSize}} cores can be used</div>
+        {{#each thread in workspace.threads}}
             <div class="controll-panel__state-body__thread">
                 thread
                 {{#if thread.isActive}}
@@ -30,7 +30,9 @@
             </div>
         {{/if}}
     </div>
-    {{#view view.InfoView controller=controller}}
-        {{view.description}}
-    {{/view}}
+
+    <div class="controll-panel__state-bar__body" {{action "toggleExpand"}}>
+        {{description}}
+    </div>
+
 </div>
