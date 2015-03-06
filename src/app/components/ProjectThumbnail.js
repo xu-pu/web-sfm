@@ -16,6 +16,10 @@ module.exports = Ember.Component.extend({
 
     actions: {
 
+        enter: function(){
+            this.get('ctx').send('enter', this.get('project'));
+        },
+
         'delete': function(){
             this.set('isConfirmDelete', false);
             this.get('ctx').promiseDeleteProject(this.get('project'));

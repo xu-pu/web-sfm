@@ -142,8 +142,7 @@ module.exports = Ember.Controller.extend({
     actions: {
 
         enter: function(project){
-            var context = this.get('context');
-            context.set('currentProject', project);
+            this.set('currentProject', project);
             this.transitionToRoute('workspace');
         },
 
