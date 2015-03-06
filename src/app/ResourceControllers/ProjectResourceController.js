@@ -8,11 +8,15 @@ module.exports = Ember.Controller.extend({
 
     needs: ['context'],
 
-    context: Ember.computed.alias('controllers.context'),
+    ctx: Ember.computed.alias('controllers.context'),
 
-    model: Ember.computed.alias('context.currentProject'),
+    model: Ember.computed.alias('ctx.currentProject'),
 
     root: Ember.computed.alias('model.root'),
+
+    adpater: Ember.computed.alias('ctx.adapter'),
+
+    isDemo: Ember.computed.alias('model.isDemo'),
 
     promiseResource: function(name, metadata){
         //!!todo
