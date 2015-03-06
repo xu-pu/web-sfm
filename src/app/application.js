@@ -21,19 +21,18 @@ App.ProjectThumbnailComponent = require('./components/ProjectThumbnail.js');
 App.ProjectCreatorComponent = require('./components/ProjectCreator.js');
 App.WorkspaceProgressBarComponent = require('./components/WorkspaceProgressBar.js');
 App.DemoThumbnailComponent = require('./components/DemoThumbnail.js');
-
+App.MatchGridComponent = require('./components/MatchGrid.js');
+App.MatchGridNodeComponent = require('./components/MatchGridNode.js');
 
 //============================================
 // Views
 //============================================
 
 App.WelcomeDemoView = require('./RouteViews/WelcomeDemoView.js');
-App.WorkspaceMatcherView = require('./RouteViews/WorkspaceMatcherView.js');
 
 App.ImageLoaderView = require('./views/ImageLoaderView.js');
 App.CpuSettingView = require('./views/CpuSettingView.js');
 App.SiftView = require('./views/SiftView.js');
-App.TwoViewMatchingView = require('./views/TwoViewMatchingView.js');
 
 
 setupRoutes(App);

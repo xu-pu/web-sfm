@@ -1,0 +1,43 @@
+<div class="match-grid__body">
+
+    <div class="match-grid__row">
+
+        <div class="match-grid__cell">
+            <div class="match-grid__anchor"></div>
+        </div>
+
+        {{! ===================================================== }}
+        {{!                   Top Thumbnails                      }}
+        {{! ===================================================== }}
+
+        {{#each imgTo in images}}
+            <div class="match-grid__cell">
+                <img class="match-grid__thumbnail" {{bind-attr src=imgTo.thumbnail}}>
+            </div>
+        {{/each}}
+
+    </div>
+
+    {{#each iFrom in images}}
+
+    {{! ===================================================== }}
+    {{!                     Each Row                          }}
+    {{! ===================================================== }}
+
+        <div class="match-grid__row">
+
+            <div class="match-grid__cell">
+                <img class="match-grid__thumbnail" {{bind-attr src=iFrom.thumbnail}}>
+            </div>
+
+            {{#each iTo in images}}
+                <div class="match-grid__cell">
+                    {{match-grid-node from=iFrom to=iTo grid=this}}
+                </div>
+            {{/each}}
+
+        </div>
+
+    {{/each}}
+
+</div>
