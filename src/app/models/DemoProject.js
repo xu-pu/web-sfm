@@ -83,27 +83,6 @@ module.exports = Project.extend({
     }.observes('imagesFinished', 'featuresFinished'),
 
 
-    isReady: function(){
-        var _self = this;
-        return this.get('selectedEntries').every(function(entry){
-            switch (entry) {
-                case ENTRIES.IMAGE:
-                    return _self.get('imagesFinished');
-                case ENTRIES.FEATURE:
-                    return _self.get('featuresFinished');
-                case ENTRIES.MATCH:
-                    return _self.get('matchLoaded');
-                case ENTRIES.CALIBRATION:
-                    return _self.get('calibrationLoaded');
-                case ENTRIES.MVS:
-                    return _self.get('mvsLoaded');
-                default:
-                    throw 'Invalid Entry';
-            }
-        });
-    }.property('selectedEntries.length', 'loadedEntries.length', 'imagesFinished', 'featuresFinished'),
-
-
     // config of Demo Class
 
     storedProperties: [

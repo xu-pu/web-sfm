@@ -18,6 +18,10 @@ module.exports = Ember.Component.extend({
 
     isConfirmDelete: false,
 
+    backgroundStyle: function(){
+        return 'background-image:url('+ this.get('project.root') +'/thumbnail.jpg)';
+    }.property('project.root'),
+
     actions: {
 
         'delete': function(){

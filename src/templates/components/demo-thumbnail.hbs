@@ -3,7 +3,7 @@
     <div class="exit-icon" {{action "delete"}}></div>
 </div>
 
-<div class="demo-thumbnail__body">
+<div class="demo-thumbnail__body" {{bind-attr style=backgroundStyle}}>
 
     {{#if isConfirmDelete}}
         <div class="demo-thumbnail__delete-confirm">
