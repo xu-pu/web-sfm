@@ -41,13 +41,13 @@ html, body {
 
 .floating-window__input-image {
   @extend %floating-window;
-  width: 70%;
+  width: 60%;
   right: $floating-window-offset;
 }
 
 .floating-window__extractor-image {
   @extend %floating-window;
-  width: 70%;
+  width: 60%;
   right: $floating-window-offset;
 }
 

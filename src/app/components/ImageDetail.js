@@ -33,6 +33,23 @@ module.exports = Ember.Component.extend({
 
     makeDrag: function(){
         jQuery('.image-detail__image-container').draggable();
-    }.on('didInsertElement')
+    }.on('didInsertElement'),
+
+    registerWheel: function(){
+        var _self = this;
+        jQuery(this.get('element')).on('wheel', function(e){
+            _self.wheel(e.originalEvent);
+        });
+    }.on('didInsertElement'),
+
+    wheel: function(e){
+        var $img = jQuery('.image-detail__image-container'),
+            currentSize = $img.width(),
+            speed = 0.04,
+            nextSize = currentSize * (e.deltaY < 0 ? 1+speed : 1-speed);
+        if (nextSize > 500 && nextSize < 5000) {
+            $img.css('width', nextSize);
+        }
+    }
 
 });
