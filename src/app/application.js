@@ -24,6 +24,7 @@ App.DemoThumbnailComponent = require('./components/DemoThumbnail.js');
 App.MatchGridComponent = require('./components/MatchGrid.js');
 App.MatchGridNodeComponent = require('./components/MatchGridNode.js');
 App.ImageDetailComponent = require('./components/ImageDetail.js');
+App.DynamicImageComponent = require('./components/DynamicImage.js');
 
 
 //============================================

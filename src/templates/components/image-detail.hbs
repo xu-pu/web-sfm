@@ -1,7 +1,5 @@
-<div class="image-detail__image-container">
-    {{#if dataurl}}
-        <img {{bind-attr src=dataurl}}>
-    {{else}}
-        <div>Loading...</div>
-    {{/if}}
-</div>
+{{#if dataurl}}
+    {{dynamic-image src=dataurl}}
+{{else}}
+    <div>Loading...</div>
+{{/if}}
