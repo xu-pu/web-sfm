@@ -1,0 +1,9 @@
+{{#if isActive}}
+    <h1>Drop</h1>
+{{else}}
+    <h1>Drag</h1>
+{{/if}}
+
+{{#if inProgress}}
+    <span>Processing {{queue.length}} images.</span>
+{{/if}}

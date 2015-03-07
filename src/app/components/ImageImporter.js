@@ -1,8 +1,10 @@
+'use strict';
+
 var _ = require('underscore');
 
 var Image = require('../models/Image.js');
 
-module.exports = Ember.View.extend({
+module.exports = Ember.Component.extend({
 
     isActive: false,
 

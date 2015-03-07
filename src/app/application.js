@@ -25,15 +25,13 @@ App.MatchGridComponent = require('./components/MatchGrid.js');
 App.MatchGridNodeComponent = require('./components/MatchGridNode.js');
 App.ImageDetailComponent = require('./components/ImageDetail.js');
 App.DynamicImageComponent = require('./components/DynamicImage.js');
-
+App.ImageImporterComponent = require('./components/ImageImporter.js');
 
 //============================================
 // Views
 //============================================
 
 App.WelcomeDemoView = require('./RouteViews/WelcomeDemoView.js');
-
-App.ImageLoaderView = require('./views/ImageLoaderView.js');
 App.CpuSettingView = require('./views/CpuSettingView.js');
 App.SiftView = require('./views/SiftView.js');
 

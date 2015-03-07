@@ -3,18 +3,7 @@
     <ul id="main-container__input-gallery">
 
         <div class="main-container__input-gallery__item">
-            {{#view "imageLoader" controller=controller}}
-
-                {{#if view.isActive}}
-                    <h1>Drop</h1>
-                {{else}}
-                    <h1>Drag</h1>
-                {{/if}}
-
-                {{#if controller.inProgress}}
-                    <span>Processing {{controller.queue.length}} images.</span>
-                {{/if}}
-            {{/view}}
+            {{image-importer}}
         </div>
 
         {{#each tile in images}}
