@@ -33,7 +33,10 @@ module.exports = Ember.Component.extend({
             speed = 0.04,
             nextWidth = currentWidth * (e.deltaY < 0 ? 1+speed : 1-speed),
             nextHeight = currentHeight * (e.deltaY < 0 ? 1+speed : 1-speed);
-        if (nextWidth > 500 && nextWidth < 5000) {
+        if (nextWidth >= img.naturalWidth) {
+            jQuery(img).css('width', img.naturalWidth).css('height', img.naturalHeight);
+        }
+        else if (nextWidth > 500) {
             jQuery(img).css('width', nextWidth).css('height', nextHeight);
         }
     }
