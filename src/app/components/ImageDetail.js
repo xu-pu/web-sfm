@@ -44,11 +44,13 @@ module.exports = Ember.Component.extend({
 
     wheel: function(e){
         var $img = jQuery('.image-detail__image-container'),
-            currentSize = $img.width(),
+            currentWidth = $img.width(),
+            currentHeight = $img.height(),
             speed = 0.04,
-            nextSize = currentSize * (e.deltaY < 0 ? 1+speed : 1-speed);
-        if (nextSize > 500 && nextSize < 5000) {
-            $img.css('width', nextSize);
+            nextWidth = currentWidth * (e.deltaY < 0 ? 1+speed : 1-speed),
+            nextHeight = currentHeight * (e.deltaY < 0 ? 1+speed : 1-speed);
+        if (nextWidth > 500 && nextWidth < 5000) {
+            $img.css('width', nextWidth).css('height', nextHeight);
         }
     }
 
