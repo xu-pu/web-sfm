@@ -27,14 +27,15 @@ App.ImageDetailComponent = require('./components/ImageDetail.js');
 App.DynamicImageComponent = require('./components/DynamicImage.js');
 App.ImageImporterComponent = require('./components/ImageImporter.js');
 App.DemoDetailComponent = require('./components/DemoDetail.js');
-
+App.CpuSettingComponent = require('./components/CpuSetting.js');
+App.CpuSettingNodeComponent = require('./components/CpuSettingNode.js');
 
 //============================================
 // Views
 //============================================
 
 
-App.CpuSettingView = require('./views/CpuSettingView.js');
+
 App.SiftView = require('./views/SiftView.js');
 
 
