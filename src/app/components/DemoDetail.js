@@ -4,7 +4,11 @@ var _ = require('underscore');
 
 var utils = require('../utils.js');
 
-module.exports = Ember.View.extend({
+module.exports = Ember.Component.extend({
+
+    project: null, // need
+
+    ctx: null, // need
 
     attributeBindings: ['style'],
 
@@ -15,8 +19,8 @@ module.exports = Ember.View.extend({
     isExpanded: false,
 
     style: function(){
-        return 'background-image: url(' + this.get('controller.root') + '/profile.png)';
-    }.property('controller.root'),
+        return 'background-image: url(' + this.get('project.root') + '/profile.png)';
+    }.property('project.root'),
 
     inflate: function(){
         var _self = this;
@@ -33,8 +37,12 @@ module.exports = Ember.View.extend({
             var _self = this;
             this.set('isExpanded', false);
             utils.promiseDelay(500).then(function(){
-                _self.get('controller').transitionToRoute('welcome');
+                _self.get('ctx').transitionToRoute('welcome');
             });
+        },
+
+        enter: function(){
+            this.get('ctx').send('enter', this.get('project'));
         }
 
     }
