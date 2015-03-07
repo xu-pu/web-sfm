@@ -12,6 +12,8 @@
 @import "partials/register";
 @import "partials/floating-window";
 
+@import "components/image-detail";
+
 img {
   @include user-select(none);
 }
