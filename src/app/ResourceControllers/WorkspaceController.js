@@ -20,15 +20,9 @@ module.exports = Ember.ObjectController.extend({
 
     threadPoolSize: 4,
 
-    expandInput: true,
-    expandProgress: true,
-    expandRegister: true,
-    expandStereo: true,
-
     onSwitchProject: function(){
         this.set('imageModels', null);
     }.observes('model'),
-
 
     actions: {
 
@@ -38,25 +32,6 @@ module.exports = Ember.ObjectController.extend({
 
         back: function(){
             this.transitionToRoute('welcome');
-        },
-
-        toggleMenu: function(name){
-            switch (name) {
-                case 'input':
-                    this.set('expandInput', !this.get('expandInput'));
-                    break;
-                case 'progress':
-                    this.set('expandProgress', !this.get('expandProgress'));
-                    break;
-                case 'register':
-                    this.set('expandRegister', !this.get('expandRegister'));
-                    break;
-                case 'stereo':
-                    this.set('expandStereo', !this.get('expandStereo'));
-                    break;
-                default:
-                    throw "invalid menu toggle";
-            }
         }
 
     },

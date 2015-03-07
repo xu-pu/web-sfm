@@ -1,6 +1,6 @@
 <div id="controll-panel__header" class="floating-window__header">
     <span>WebSFM</span>
-    <div class="exit-icon" {{action "back"}}></div>
+    <div class="exit-icon" {{action "close"}}></div>
 </div>
 <div id="controll-panel__body">
 
@@ -15,8 +15,8 @@
             </div>
             <div id="controll-panel__parameters" class="controll-panel__l2">
                 <div class="controll-panel__l2-tab">
-                    <div>Use {{threadPoolSize}} CPU Cores</div>
-                    {{cpu-setting workspace=controller}}
+                    <div>Use {{workspace.threadPoolSize}} CPU Cores</div>
+                    {{cpu-setting workspace=workspace}}
                 </div>
             </div>
         </div>
@@ -68,5 +68,5 @@
 
 
 <div id="controll-panel__footer">
-    {{workspace-progress-bar workspace=controller}}
+    {{workspace-progress-bar workspace=workspace}}
 </div>
