@@ -6,8 +6,6 @@ module.exports = Ember.Object.extend({
 
     _id: null,
 
-    filename: null,
-
     thumbnail: null,
 
     isReady: true,
@@ -15,6 +13,10 @@ module.exports = Ember.Object.extend({
     width: null,
 
     height: null,
+
+    filename: function(){
+        return this.get('name') + this.get('extension');
+    }.property('name', 'extension'),
 
     isHorizontal: function(){
         return this.get('width') > this.get('height');

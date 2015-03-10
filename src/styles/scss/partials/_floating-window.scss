@@ -37,6 +37,7 @@ $exit-icon-radius: $floating-window-height - $floating-window-header-padding - $
   bottom: 0;
   left: 0;
   right: 0;
+  overflow: hidden;
 }
 
 .floating-window__header__h1 {

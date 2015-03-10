@@ -6,8 +6,10 @@
         <div class="exit-icon" {{action "back"}}></div>
     </div>
 
-    {{#unless isLoading}}
-        {{visual-features img=img features=features}}
-    {{/unless}}
+    <div class="floating-window__inner-container">
+        {{#unless isLoading}}
+            {{visual-features img=img features=features}}
+        {{/unless}}
+    </div>
 
 </div>

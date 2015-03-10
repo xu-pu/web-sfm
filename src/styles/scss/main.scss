@@ -13,6 +13,7 @@
 @import "partials/floating-window";
 
 @import "components/image-detail";
+@import "components/visual-features";
 
 img {
   @include user-select(none);
