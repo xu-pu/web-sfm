@@ -18,8 +18,6 @@ module.exports = function(App){
 
     App.DemosController = require('./ResourceControllers/DemosController.js');
 
-    App.ImagesController = require('./ResourceControllers/ImagesController.js');
-
     App.MatchesController = require('./ResourceControllers/MatchesController.js');
 
     App.ProjectResourceController = require('./ResourceControllers/ProjectResourceController.js');
@@ -55,9 +53,7 @@ module.exports = function(App){
 
     App.WorkspaceExtractorController = Ember.ArrayController.extend({
 
-        needs: ['images'],
-
-        images: Ember.computed.alias('controllers.images'),
+        images: Ember.computed.alias('model'),
 
         actions: {
             expand: function(model){

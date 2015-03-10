@@ -15,7 +15,7 @@ module.exports = Ember.Component.extend({
     },
 
     description: function(){
-        switch (this.get('workspace.stage')) {
+        switch (this.get('workspace.model.stage')) {
             case STAGES.BEFORE:
                 return 'Sturcture from Motion';
             case STAGES.EXTRACTOR:

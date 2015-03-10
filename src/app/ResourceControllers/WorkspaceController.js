@@ -8,21 +8,19 @@ var Image = require('../models/Image.js'),
     STORES = settings.STORES,
     RESOURCE = settings.RESOURCE;
 
-module.exports = Ember.ObjectController.extend({
+module.exports = Ember.Controller.extend({
 
     needs: ['context', 'projectResource'],
 
     resource: Ember.computed.alias('controllers.projectResource'),
 
-    adapter: Ember.computed.alias('controllers.context.adapter'),
+    ctx: Ember.computed.alias('controllers.context'),
+
+    adapter: Ember.computed.alias('ctx.adapter'),
 
     isRunning: false,
 
     threadPoolSize: 4,
-
-    onSwitchProject: function(){
-        this.set('imageModels', null);
-    }.observes('model'),
 
     actions: {
 
@@ -36,11 +34,7 @@ module.exports = Ember.ObjectController.extend({
 
     },
 
-    /**
-     * @returns {Promise}
-     */
-    promiseImages: function(){
-
+    images: function(){
         return this.get('resource')
             .promiseResource(RESOURCE.IMAGES)
             .then(function(images){
@@ -49,9 +43,7 @@ module.exports = Ember.ObjectController.extend({
                     return Image.create(image);
                 })
             });
-
-    },
-
+    }.property('model'),
 
     /**
      * Return all tracks stored in IDB
@@ -60,7 +52,7 @@ module.exports = Ember.ObjectController.extend({
     promiseTracks: function(){
         var adapter = this.get('adapter');
         return Promise.all([
-            this.promiseImages(),
+            this.get('images'),
             adapter.promiseData(STORES.SINGLETONS, STORES.TRACKS),
             adapter.promiseData(STORES.SINGLETONS, STORES.VIEWS)
         ]).then(function(values){

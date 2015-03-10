@@ -4,11 +4,11 @@ var Image = require('../models/Image.js');
 
 module.exports = Ember.Controller.extend({
 
-    needs: ['workspace', 'images'],
+    needs: ['workspace'],
 
     adapter: Ember.computed.alias('controllers.workspace.adapter'),
 
-    images: Ember.computed.alias('controllers.images'),
+    images: Ember.computed.alias('model'),
 
     queue: [],
 
