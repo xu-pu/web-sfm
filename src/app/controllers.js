@@ -72,9 +72,9 @@ module.exports = function(App){
 
     App.WorkspaceMatcherController = Ember.ObjectController.extend({
 
-        needs: ['workspace', 'matches', 'images'],
+        needs: ['workspace', 'matches'],
 
-        images: Ember.computed.alias('controllers.images'),
+        images: Ember.computed.alias('model.images'),
 
         matches: Ember.computed.alias('controllers.matches')
 

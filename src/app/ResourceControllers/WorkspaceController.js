@@ -45,6 +45,10 @@ module.exports = Ember.Controller.extend({
             });
     }.property('model'),
 
+    matches: function(){
+        return Promise.resolve([]);
+    }.property('model'),
+
     /**
      * Return all tracks stored in IDB
      * @returns {Promise}
@@ -62,25 +66,6 @@ module.exports = Ember.Controller.extend({
                 views: values[2]
             });
         });
-    },
-
-
-    /**
-     * Return all matches stored in IDB
-     * @returns {Promise}
-     */
-    promiseMatches: function(){
-
-        return this.get('adapter')
-            .promiseAll(STORES.MATCHES)
-            .then(function(results){
-                return results.map(function(entry){
-                    var value = entry.value;
-                    value._id = entry.key;
-                    return value;
-                });
-            });
-
     }
 
 });
