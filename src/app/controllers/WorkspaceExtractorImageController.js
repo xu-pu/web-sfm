@@ -11,8 +11,6 @@ module.exports = Ember.ObjectController.extend({
 
     resource: Ember.computed.alias('controllers.projectResource'),
 
-    adapter: Ember.computed.alias('controllers.workspace.adapter'),
-
     img: null,
 
     features: null,
@@ -36,7 +34,6 @@ module.exports = Ember.ObjectController.extend({
             resource.promiseResource(RESOURCE.FULLIMAGES, _self.get('model')).then(utils.promiseBufferImage),
             resource.promiseResource(RESOURCE.FEATURES, _self.get('model'))
         ]).then(function(results){
-            console.log(results[1]);
             _self.setProperties({
                 img: results[0],
                 features: results[1],

@@ -30,16 +30,7 @@ App.DemoDetailComponent = require('./components/DemoDetail.js');
 App.CpuSettingComponent = require('./components/CpuSetting.js');
 App.CpuSettingNodeComponent = require('./components/CpuSettingNode.js');
 App.WorkspaceControlPanelComponent = require('./components/WorkspaceControlPanel.js');
-
-
-//============================================
-// Views
-//============================================
-
-
-
-App.SiftView = require('./views/SiftView.js');
-
+App.VisualFeaturesComponent = require('./components/VisualFeatures.js');
 
 setupRoutes(App);
 setupControllers(App);
