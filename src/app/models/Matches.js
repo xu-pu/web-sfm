@@ -1,10 +1,6 @@
 'use strict';
 
-/**
- * @typedef {{ from: int, to: int, matches: int[][], isRobust: boolean }} TwoViewMatch
- */
-
-module.exports = Ember.ArrayController.extend({
+module.exports = Ember.Object.extend({
 
     connectedGroups: function(){
 
@@ -39,7 +35,7 @@ module.exports = Ember.ArrayController.extend({
                     groups.push([match.from, match.to]);
                 }
 
-        });
+            });
 
         return groups;
 

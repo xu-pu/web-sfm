@@ -18,8 +18,6 @@ module.exports = function(App){
 
     App.DemosController = require('./ResourceControllers/DemosController.js');
 
-    App.MatchesController = require('./ResourceControllers/MatchesController.js');
-
     App.ProjectResourceController = require('./ResourceControllers/ProjectResourceController.js');
 
     //=======================
@@ -72,11 +70,9 @@ module.exports = function(App){
 
     App.WorkspaceMatcherController = Ember.ObjectController.extend({
 
-        needs: ['workspace', 'matches'],
+        needs: ['workspace'],
 
-        images: Ember.computed.alias('model.images'),
-
-        matches: Ember.computed.alias('controllers.matches')
+        images: Ember.computed.alias('model.images')
 
     });
 
