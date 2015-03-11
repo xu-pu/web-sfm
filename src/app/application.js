@@ -1,7 +1,5 @@
 'use strict';
 
-var setupControllers = require('./controllers.js');
-
 window.Promise = Promise || Ember.RSVP.Promise;
 jQuery.event.props.push( "dataTransfer" );
 
@@ -91,4 +89,31 @@ App.WorkspaceControlPanelComponent = require('./components/WorkspaceControlPanel
 App.VisualFeaturesComponent = require('./components/VisualFeatures.js');
 
 
-setupControllers(App);
+//=======================
+// Resource Controllers
+//=======================
+
+App.ContextController = require('./ResourceControllers/ContextController.js');
+App.WorkerController = require('./ResourceControllers/WorkerController.js');
+App.SchedulerController = require('./ResourceControllers/SchedulerController.js');
+App.DownloaderController = require('./ResourceControllers/DownloaderController.js');
+App.DemoController = require('./ResourceControllers/DemoController.js');
+App.DemosController = require('./ResourceControllers/DemosController.js');
+App.ProjectResourceController = require('./ResourceControllers/ProjectResourceController.js');
+
+//=======================
+// Welcome Screen
+//=======================
+
+App.WelcomeController = require('./controllers/Welcome.js');
+App.WelcomeDemoController = require('./controllers/WelcomeDemo.js');
+App.WorkspaceController = require('./ResourceControllers/WorkspaceController.js');
+App.WorkspaceImagesController = require('./controllers/WorkspaceImages.js');
+App.WorkspaceImagesDetailController = require('./controllers/WorkspaceImagesDetail.js');
+App.WorkspaceExtractorController = require('./controllers/WorkspaceExtractor.js');
+App.WorkspaceExtractorImageController = require('./controllers/WorkspaceExtractorImage.js');
+App.WorkspaceMatcherController = require('./controllers/WorkspaceMatcher.js');
+App.WorkspaceMatcherPairController = require('./controllers/WorkspaceMatcherPair.js');
+App.TracksController = Ember.ObjectController.extend();
+App.WorkspaceRegisterController = require('./controllers/WorkspaceRegister.js');
+App.WorkspaceMvsController = Ember.Controller.extend();
