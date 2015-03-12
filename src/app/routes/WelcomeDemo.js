@@ -3,13 +3,7 @@
 module.exports = Ember.Route.extend({
 
     model: function(params){
-        var demo = this.controllerFor('demos').get('model').findBy('name', params.name);
-        if (demo) {
-            return demo;
-        }
-        else {
-            return Promise.reject();
-        }
+        return this.controllerFor('context').get('demos').findBy('name', params.name) || Promise.reject();
     },
 
     serialize: function(model){
@@ -19,7 +13,7 @@ module.exports = Ember.Route.extend({
     actions: {
 
         error: function(){
-            this.transitionToRoute('welcome');
+            this.transitionTo('welcome');
         },
 
         didTransition: function(){
