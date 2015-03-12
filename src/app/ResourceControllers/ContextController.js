@@ -6,16 +6,16 @@ var Project = require('../models/Project.js'),
     IDBAdapter = require('../store/StorageAdapter.js'),
     utils = require('../utils.js'),
     settings = require('../settings.js'),
-    LOCAL_STORES = settings.LOCAL_STORE;
+    LOCAL_STORES = settings.LOCAL_STORE,
+    demos = require('../../../demo/demos.js'),
+    DemoProject = require('../models/DemoProject.js');
 
 
 module.exports = Ember.Controller.extend({
 
-    needs: ['demos'],
-
     projects: [],
 
-    demos: Ember.computed.alias('controllers.demos'),
+    demos: [],
 
     currentProject: null,
 
@@ -101,30 +101,51 @@ module.exports = Ember.Controller.extend({
     },
 
 
-    recover: function(){
+    initRecover: function(){
 
-        var currentProject,
-            project = localStorage.getItem(LOCAL_STORES.PROJECT);
+        // Recover Projects
 
-        if (_.isString(project)) {
-            currentProject = this.get('projects').findBy('name', project) || this.get('demos.model').findBy('name', project) || null;
-            this.set('currentProject', currentProject);
+        var storedProjects = utils.getLocalStorage(LOCAL_STORES.PROJECTS);
+
+        if (_.isArray(storedProjects)) {
+            this.set('projects', storedProjects.map(function(p){
+                return Project.create(p);
+            }));
         }
 
-    }.on('init'),
+        // Recover Demos
 
-    recoverProjects: function(){
+        var storedDemos = utils.getLocalStorage(LOCAL_STORES.DEMOS),
+            recoveredDemos = [];
 
-        var data = utils.getLocalStorage(LOCAL_STORES.PROJECTS),
-            content = [];
-
-        if (_.isArray(data)) {
-            content = data.map(function(p){
-                return Project.create(p);
+        if (_.isArray(storedDemos)) {
+            recoveredDemos = storedDemos.map(function(p){
+                return DemoProject.create(p);
             });
         }
 
-        this.set('projects', content);
+        var additionalDemos = demos
+            .filter(function(d){
+                return !recoveredDemos.findBy('name', d.name);
+            })
+            .map(function(config){
+                return DemoProject.create(config.description)
+            });
+
+        this.set('demos', recoveredDemos.concat(additionalDemos));
+
+        this.send('syncDemos');
+
+        // Recover Current Project
+
+        var currentProject,
+            projectName = localStorage.getItem(LOCAL_STORES.PROJECT);
+
+        if (_.isString(projectName)) {
+            currentProject = this.get('projects').findBy('name', projectName) || this.get('demos').findBy('name', projectName) || null;
+            this.set('currentProject', currentProject);
+        }
+
 
     }.on('init'),
 
@@ -132,11 +153,8 @@ module.exports = Ember.Controller.extend({
     /**
      * sync projects to localstrorage when new ones added
      */
-    syncProjects: function(){
-        utils.setLocalStorage(LOCAL_STORES.PROJECTS, this.get('projects')
-            .map(function(model){
-                return model.getProperties(model.get('storedProperties'));
-            }));
+    watchProjects: function(){
+        this.send('syncProjects');
     }.observes('projects.length'),
 
     actions: {
@@ -148,6 +166,20 @@ module.exports = Ember.Controller.extend({
 
         createProject: function(project){
             this.get('projects').pushObject(project);
+        },
+
+        syncDemos: function(){
+            utils.setLocalStorage(LOCAL_STORES.DEMOS, this.get('demos')
+                .map(function(model){
+                    return model.getProperties(model.get('storedProperties'));
+                }));
+        },
+
+        syncProjects: function(){
+            utils.setLocalStorage(LOCAL_STORES.PROJECTS, this.get('projects')
+                .map(function(model){
+                    return model.getProperties(model.get('storedProperties'));
+                }));
         }
 
     }

@@ -97,8 +97,7 @@ App.ContextController = require('./ResourceControllers/ContextController.js');
 App.WorkerController = require('./ResourceControllers/WorkerController.js');
 App.SchedulerController = require('./ResourceControllers/SchedulerController.js');
 App.DownloaderController = require('./ResourceControllers/DownloaderController.js');
-App.DemoController = require('./ResourceControllers/DemoController.js');
-App.DemosController = require('./ResourceControllers/DemosController.js');
+//App.DemoController = require('./ResourceControllers/DemoController.js');
 App.ProjectResourceController = require('./ResourceControllers/ProjectResourceController.js');
 
 //=======================

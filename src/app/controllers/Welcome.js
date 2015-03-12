@@ -2,11 +2,11 @@
 
 module.exports = Ember.ObjectController.extend({
 
-    needs: ['scheduler', 'demos', 'context'],
+    needs: ['scheduler', 'context'],
 
     ctx: Ember.computed.alias('controllers.context'),
 
-    demos: Ember.computed.alias('controllers.demos'),
+    demos: Ember.computed.alias('ctx.demos'),
 
     projects: Ember.computed.alias('ctx.projects'),
 
