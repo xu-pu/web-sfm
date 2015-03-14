@@ -9,25 +9,6 @@ var connectivity = require('./connectivity.js'),
 
 //======================================================
 
-
-/**
- * @typedef {{ cam: number, point: number }} TrackView
- */
-
-
-/**
- * @typedef {TrackView[]} Track
- */
-
-
-/**
- * @typedef {{ cam1: number, cam2: number, matches: number[][] }} TwoViewMatches
- */
-
-
-//======================================================
-
-
 /**
  * @param {TwoViewMatches[]} dataset
  * @returns {{ tracks:Track[], views: Track[][] }} - views[cam]=>Track[]

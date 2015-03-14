@@ -95,3 +95,23 @@
 /**
  * @typedef {{ row: number, col: number, scale: number }} Subpixel
  */
+
+
+//=================================================
+// Matching and Tracking related
+//=================================================
+
+
+/**
+ * @typedef {{ cam: number, point: number }} TrackView
+ */
+
+
+/**
+ * @typedef {TrackView[]} Track
+ */
+
+
+/**
+ * @typedef {{ from: number, to: number, matches: number[][] }} TwoViewMatches
+ */

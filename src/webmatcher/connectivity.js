@@ -29,10 +29,10 @@ function ConnectivityGraph(lists){
     this.nodes = [];
     this.tracks = [];
 
-    lists.forEach(function(matches){
-        var cam1 = matches.cam1,
-            cam2 = matches.cam2;
-        matches.matches.forEach(function(match){
+    lists.forEach(function(entry){
+        var cam1 = entry.from,
+            cam2 = entry.to;
+        entry.matches.forEach(function(match){
             var i1 = match[0], i2 = match[1];
             var node1 = _self.requireNode(cam1, i1);
             var node2 = _self.requireNode(cam2, i2);
