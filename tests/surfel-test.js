@@ -3,6 +3,7 @@
 var _ = require('underscore'),
     Promise = require('promise'),
     ndarray = require('ndarray'),
+    pool = require('ndarray-scratch'),
     la = require('sylvester'),
     Matrix = la.Matrix,
     Vector = la.Vector,
@@ -238,3 +239,33 @@ function convertSIFT(){
         testUtils.promiseSaveJson(path, features.features);
     }
 }
+
+//externalUtils.genImagesJson(require('/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/description.json'));
+
+_.range(61).forEach(function(index){
+
+    var features = halldemo.getFeatures(index);
+    var amount = features.length;
+    var pointBuffer = pool.malloc([amount,4], 'float32'), vectorBuffer = pool.malloc([amount, 128], 'uint8');
+    features.forEach(function(f, index){
+
+        pointBuffer.set(index, 0, f.row);
+        pointBuffer.set(index, 1, f.col);
+        pointBuffer.set(index, 2, f.direction);
+        pointBuffer.set(index, 3, f.scale);
+
+        f.vector.forEach(function(v, i){
+            vectorBuffer.set(index, i, v);
+        });
+
+    });
+
+    Promise.all([
+        testUtils.promiseWriteFile('/home/sheep/Code/Project/web-sfm/demo/Hall-Demo/feature.point/'  + halldemo.getFullname(index) + '.point' , ArrayBufferToBuffer(pointBuffer.data.buffer)),
+        testUtils.promiseWriteFile('/home/sheep/Code/Project/web-sfm/demo/Hall-Demo/feature.vector/' + halldemo.getFullname(index) + '.vector', ArrayBufferToBuffer(vectorBuffer.data.buffer))
+    ]).then(function(){
+        pool.free(pointBuffer);
+        pool.free(vectorBuffer);
+    });
+
+});

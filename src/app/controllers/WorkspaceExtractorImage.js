@@ -32,7 +32,7 @@ module.exports = Ember.ObjectController.extend({
 
         return Promise.all([
             resource.promiseResource(RESOURCE.FULLIMAGES, _self.get('model')).then(utils.promiseBufferImage),
-            resource.promiseResource(RESOURCE.FEATURES, _self.get('model'))
+            resource.promiseResource(RESOURCE.FEATURE_POINTS, _self.get('model'))
         ]).then(function(results){
             _self.setProperties({
                 img: results[0],

@@ -1,6 +1,8 @@
 "use strict";
 
-var drawFeatures = require('../../visualization/drawFeatures.js');
+var ndarray = require('ndarray');
+
+var drawFeatures = require('../../visualization/features.js');
 
 module.exports = Ember.Component.extend({
 
@@ -24,12 +26,15 @@ module.exports = Ember.Component.extend({
             width = img.width,
             height = img.height,
             canvas = this.get('element'),
-            markSize = Math.max(3, Math.round(Math.max(width,height)/400));
+            markSize = Math.max(3, Math.round(Math.max(width,height)/400)),
+            typed = new Float32Array(this.get('features')),
+            amount = typed.length/ 4,
+            ndbuffer = ndarray(typed, [amount, 4]);
         canvas.width = width;
         canvas.height = height;
         var ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0, width, height);
-        drawFeatures(ctx, this.get('features'), 0, 0, 1, { markSize: markSize });
+        drawFeatures.fromBuffer(ctx, ndbuffer, 0, 0, 1, { markSize: markSize });
     },
 
     makeDrag: function(){
