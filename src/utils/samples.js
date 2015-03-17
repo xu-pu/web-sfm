@@ -192,7 +192,7 @@ module.exports.getViewDense = function(i){
  */
 module.exports.getFeatures = function(index){
     var siftPath = DEMO_BASE + '/sift.json/' + exports.getFullname(index) + '.json';
-    return require(siftPath).features;
+    return require(siftPath);
 };
 
 

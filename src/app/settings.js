@@ -6,6 +6,8 @@
 
 module.exports.RESOURCE = {
     FEATURES: '/sift.json',
+    FEATURE_POINTS: '/feature.point',
+    FEATURE_VECTORS: '/feature.vector',
     FULLIMAGES: '/images',
     IMAGES: '/images.json',
     MATCHES: '/matches',
