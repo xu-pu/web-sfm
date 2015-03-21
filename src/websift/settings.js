@@ -1,5 +1,7 @@
 'use strict';
 
+exports.EPSILON = 2.220446049250313e-16;
+
 module.exports.OCTAVES = 5;
 module.exports.INTERVALS = 3;
 module.exports.SCALES = exports.INTERVALS + 3;

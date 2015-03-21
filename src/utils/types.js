@@ -73,7 +73,7 @@
 
 
 /**
- * @typedef {{row: number, col: number, octave: int, layer: int, orientation: number}} OrientedFeature
+ * @typedef {{row: number, col: number, scale: number, octave: int, layer: int, orientation: number}} OrientedFeature
  */
 
 

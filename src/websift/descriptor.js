@@ -9,17 +9,22 @@ var shortcuts = require('../utils/shortcuts.js'),
     kernels = require('../math/kernels.js'),
     settings = require('./settings.js');
 
-var        WIDTH = settings.DESCRIPTOR_WIDTH,
+var EPSILON = settings.EPSILON,
+    NBP = settings.DESCRIPTOR_WIDTH,
+             NBO = settings.DESCRIPTOR_BINS,
           LENGTH = settings.DESCRIPTOR_LENGTH,
       INIT_SIGMA = settings.SIGMA_0,
        INTERVALS = settings.INTERVALS,
-    SCALE_FACTOR = settings.DESCRIPTOR_SCALE_FACTOR,
-            BINS = settings.DESCRIPTOR_BINS,
+    MAGNIF = settings.DESCRIPTOR_SCALE_FACTOR,
          MAG_CAP = settings.DESCRIPTOR_MAG_CAP,
       INT_FACTOR = settings.DESCRIPTOR_INT_FACTOR,
-       ENTRY_CAP = settings.DESCRIPTOR_ENTRY_CAP,
-              PI = Math.PI,
-             PI2 = PI * 2;
+       ENTRY_CAP = settings.DESCRIPTOR_ENTRY_CAP;
+
+var PI = Math.PI,
+    PI2 = PI * 2,
+    round = Math.round,
+    sqrt = Math.sqrt;
+
 
 //===============================================================
 
@@ -39,27 +44,30 @@ module.exports.getDescriptor = function(scales, f){
                 c = Math.round(col),
             layer = f.layer,
          referOri = f.orientation,
-           factor = INIT_SIGMA * Math.pow(2, f.layer/INTERVALS),
-        histWidth = factor * SCALE_FACTOR,
-           weight = kernels.getGuassian2d(WIDTH),
-           radius = Math.round(histWidth * (WIDTH+1) * Math.sqrt(2) / 2 + 0.5),
-             hist = shortcuts.zeros(LENGTH);
+        sigma = INIT_SIGMA * Math.pow(2, f.scale/INTERVALS),
+//           factor = INIT_SIGMA * Math.pow(2, f.layer/INTERVALS),
+//        histWidth = factor * MAGNIF,
+//           radius = Math.round(histWidth * (NBP+1) * Math.sqrt(2) / 2 + 0.5),
+             hist = shortcuts.zeros(LENGTH),
+        SBP = MAGNIF * sigma,
+        radius = round( sqrt(2) * SBP * (NBP+1) / 2),
+        weight = kernels.getGuassian2d(NBP);
 
-    var dx, dy;
-    for (dx=-radius; dx<=radius; dx++) {
-        for (dy=-radius; dy<=radius; dy++) {
+    var colCursor, rowCursor;
+    for (colCursor=-radius; colCursor<=radius; colCursor++) {
+        for (rowCursor=-radius; rowCursor<=radius; rowCursor++) {
             (function(){
-                var gra = scales.getGradient(c+dx, r+dy, layer);
+                var gra = scales.getGradient(c+colCursor, r+rowCursor, layer);
                 if (gra) {
-                    var cor = toLocalCord(dx, dy);
+                    var cor = toLocalCord(colCursor, rowCursor);
                     var mag = gra.mag * weight(cor.x, cor.y);
                     var ori = gra.ori - referOri;
                     ori = ori < 0 ? ori+PI2 : ori;
                     ori = ori >= PI2 ? ori-PI2 : ori;
 
-                    var binRow = cor.y + WIDTH/2 - 0.5,
-                        binCol = cor.x + WIDTH/2 - 0.5,
-                        bin = BINS*ori/PI2;
+                    var binRow = cor.y + NBP/2 - 0.5,
+                        binCol = cor.x + NBP/2 - 0.5,
+                        bin = NBO*ori/PI2;
 
                     interpHist(hist, mag, binRow, binCol, bin);
                 }
@@ -106,7 +114,7 @@ function interpHist(hist, mag, binRow, binCol, binOri){
         var row = intR + offsetR,
             weighted = mag;
 
-        if (row < 0 || row >= WIDTH) {
+        if (row < 0 || row >= NBP) {
             return;
         }
 
@@ -116,7 +124,7 @@ function interpHist(hist, mag, binRow, binCol, binOri){
 
             var col = intC + offsetC;
 
-            if (col < 0 || col >= WIDTH) {
+            if (col < 0 || col >= NBP) {
                 return;
             }
 
@@ -124,11 +132,11 @@ function interpHist(hist, mag, binRow, binCol, binOri){
 
             [0,1].forEach(function(offsetO){
 
-                var ori = (intO + offsetO) % BINS;
+                var ori = (intO + offsetO) % NBO;
 
                 weighted *= ( offsetO === 0 ? 1-fraO : fraO );
 
-                hist[(WIDTH*row+col)*BINS+ori] += weighted;
+                hist[(NBP*row+col)*NBO+ori] += weighted;
 
             });
 
