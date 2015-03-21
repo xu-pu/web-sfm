@@ -10,7 +10,9 @@ var _ = require('underscore'),
     saveimage = require('save-pixels'),
     getPixels = require('get-pixels'),
     grayscale = require('luminance'),
-    Image = require('canvas').Image;
+    Image = require('canvas').Image,
+    toArrayBuffer = require('buffer-to-arraybuffer'),
+    toBuffer = require('arraybuffer-to-buffer');
 
 var samples = require('./samples.js'),
     randomUtils = require('./random.js'),
@@ -18,9 +20,6 @@ var samples = require('./samples.js'),
     projections = require('../math/projections.js'),
     drawFeatures = require('../visualization/drawFeatures.js'),
     drawImagePair = require('../visualization/drawImagePair.js'),
-    drawMatches = require('../visualization/drawMatches.js'),
-    drawEpipolarLines = require('../visualization/drawEpipolarLines.js'),
-    drawHomography = require('../visualization/drawHomography.js'),
     drawDetailedMatch = require('../visualization/drawDetailedMatch.js');
 
 
@@ -194,4 +193,34 @@ module.exports.promiseDetailedMatches = function(path, img1, img2, features1, fe
 
     });
 
+};
+
+
+/**
+ *
+ * @param path
+ * @returns Promise
+ */
+exports.promiseArrayBuffer = function(path){
+    return new Promise(function(resolve, reject){
+        fs.readFile(path, function(err, data){
+            if (err) {
+                reject();
+            }
+            else {
+                resolve(toArrayBuffer(data));
+            }
+        });
+    });
+};
+
+
+/**
+ *
+ * @param {String} path
+ * @param {ArrayBuffer} buffer
+ * @returns Promise
+ */
+exports.promiseSaveArrayBuffer = function(path, buffer){
+    return exports.promiseWriteFile(path, toBuffer(buffer));
 };

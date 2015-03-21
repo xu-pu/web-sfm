@@ -246,7 +246,10 @@ _.range(61).forEach(function(index){
 
     var features = halldemo.getFeatures(index);
     var amount = features.length;
-    var pointBuffer = pool.malloc([amount,4], 'float32'), vectorBuffer = pool.malloc([amount, 128], 'uint8');
+    var pointArray = new Float32Array(amount*4);
+    var vectorArray = new Uint8Array(amount*128);
+    var pointBuffer = ndarray(pointArray, [amount,4]),
+        vectorBuffer = ndarray(vectorArray, [amount, 128]);
     features.forEach(function(f, index){
 
         pointBuffer.set(index, 0, f.row);
@@ -260,9 +263,11 @@ _.range(61).forEach(function(index){
 
     });
 
+    //console.log(vectorBuffer.data.length/128 + ',' + features.length);
+
     Promise.all([
-        testUtils.promiseWriteFile('/home/sheep/Code/Project/web-sfm/demo/Hall-Demo/feature.point/'  + halldemo.getFullname(index) + '.point' , ArrayBufferToBuffer(pointBuffer.data.buffer)),
-        testUtils.promiseWriteFile('/home/sheep/Code/Project/web-sfm/demo/Hall-Demo/feature.vector/' + halldemo.getFullname(index) + '.vector', ArrayBufferToBuffer(vectorBuffer.data.buffer))
+        testUtils.promiseWriteFile('/home/sheep/Code/Project/web-sfm/demo/Hall-Demo/feature.point/'  + halldemo.getFullname(index) + '.point' , ArrayBufferToBuffer(pointArray.buffer)),
+        testUtils.promiseWriteFile('/home/sheep/Code/Project/web-sfm/demo/Hall-Demo/feature.vector/' + halldemo.getFullname(index) + '.vector', ArrayBufferToBuffer(vectorArray.buffer))
     ]).then(function(){
         pool.free(pointBuffer);
         pool.free(vectorBuffer);
