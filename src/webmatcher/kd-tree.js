@@ -5,16 +5,17 @@ var _ = require('underscore');
 //====================================================================
 
 
-module.exports.Node = KdtreeNode;
+exports.KdtreeNode = KdtreeNode;
 
 
 /**
  * Create root node from features
- * @param {Feature[]} features
+ * @param buffer - ndarray buffer of vectors
  * @returns {KdtreeNode}
  */
-module.exports.initTree = function(features){
-    return new KdtreeNode(0, features.length-1, null, features.slice());
+exports.initTree = function(buffer){
+    var length = buffer.shape[0];
+    return new KdtreeNode(0, length-1, null, buffer);
 };
 
 
@@ -26,12 +27,12 @@ module.exports.initTree = function(features){
  * @param {int} head
  * @param {int} tail
  * @param {KdtreeNode} parent
- * @param {Feature[]} features
+ * @param [buffer]
  *
  * @property {int} head
  * @property {int} tail
  * @property {KdtreeNode} parent
- * @property {Feature[]} features
+ * @property {KdtreeNode} root
  *
  * @property {boolean} isLeaf
  * @property {KdtreeNode} [left]
@@ -39,89 +40,59 @@ module.exports.initTree = function(features){
  * @property {int} [leaf]
  *
  * @property {number} [kv]
- * @property {number} [kvmin]
- * @property {number} [kvmax]
+ * @property {int} [ki]
  *
  * @constructor
  */
-function KdtreeNode(head, tail, parent, features){
+function KdtreeNode(head, tail, parent, buffer){
 
-    _.extend(this, {
-        head: head,
-        tail: tail,
-        parent: parent,
-        features: features
-    });
+    this.head = head;
+    this.tail = tail;
+    this.parent = parent;
+    this.length = tail-head+1;
+
+    if (buffer) {
+        this.vectorBuffer = buffer;
+        this.width = buffer.shape[1];
+        this.features = _.range(this.length);
+        this.root = this;
+    }
+    else {
+        this.root = parent.root;
+    }
 
     this.isLeaf = (tail - head) === 0;
     if (this.isLeaf) {
         // console.log('Leaf at ' + head);
-        this.leaf = head;
+        this.leaf = this.root.features[head];
     }
     else {
         // console.log('Node between ' + head + ' ~ ' + tail);
-        this.findSplit();
         this.partition();
     }
 }
 
-
-KdtreeNode.prototype.partition = function(){
-
-    var head = this.head,
-        tail = this.tail,
-        features = this.features,
-        ki = this.ki,
-        kv = this.kv,
-        n = tail-head+1;
-
-    // console.log('split index ' + ki + ' at ' + kv);
-
-    var cursor, counter = 0;
-    for (cursor = head; cursor<=tail; cursor++) {
-        if (features[cursor].vector[ki] <= kv) {
-            swap(cursor, head+counter);
-            counter += 1;
-        }
-    }
-
-    if (counter === 0) {
-        this.kv = this.kvmax;
-        this.partition();
-    }
-    else if (counter === n) {
-        this.kv = this.kvmin;
-        this.partition();
-    }
-    else {
-        this.left = new KdtreeNode(head, head+counter-1, this, features);
-        this.right = new KdtreeNode(head+counter, tail, this, features);
-    }
-
-    function swap(i1, i2){
-        var tmp = features[i1];
-        features[i1] = features[i2];
-        features[i2] = tmp;
-    }
-
+KdtreeNode.prototype.get = function(i, iv){
+    return this.root.vectorBuffer.get(i, iv);
 };
 
 
-KdtreeNode.prototype.findSplit = function(){
+KdtreeNode.prototype.findMaxVariance = function(){
 
     var head = this.head,
         tail = this.tail,
-        features = this.features,
-        n = tail-head+1;
+        features = this.root.features,
+        n = tail-head+ 1,
+        width = this.root.width;
 
     var vecIndex, cursor, dimSlice, mean, variance,
         maxVariance = -Infinity, maxVarianceIndex;
 
-    for (vecIndex=0; vecIndex<128; vecIndex++) {
+    for (vecIndex=0; vecIndex<width; vecIndex++) {
 
         dimSlice = [];
         for (cursor=0; cursor<n; cursor++) {
-            dimSlice[cursor] = features[head+cursor].vector[vecIndex];
+            dimSlice[cursor] = this.get(features[head+cursor], vecIndex);
         }
 
         mean = dimSlice.reduce(function(memo, val){
@@ -139,36 +110,91 @@ KdtreeNode.prototype.findSplit = function(){
         }
     }
 
+    return maxVarianceIndex;
 
-    dimSlice = [];
-    for (cursor=0; cursor<n; cursor++) {
-        dimSlice[cursor] = features[head+cursor].vector[maxVarianceIndex];
-    }
+};
 
-    dimSlice.sort(function(a,b){ return a-b; });
 
-    this.kv = n % 2 === 0 ? (dimSlice[n/2] + dimSlice[(n/2)-1]) / 2 : dimSlice[(n-1)/2];
-    this.ki = maxVarianceIndex;
-    this.kvmin = dimSlice[0];
-    this.kvmax = dimSlice[dimSlice.length-1];
+KdtreeNode.prototype.partition = function(){
+
+    var node = this,
+        head = this.head,
+        tail = this.tail,
+        features = this.root.features,
+        length = this.length,
+        width = this.root.width,
+        maxVarianceIndex = this.findMaxVariance(),
+        dimSlice = _.range(length)
+            .map(function(cursor){
+                return node.get(features[head+cursor], maxVarianceIndex);
+            })
+            .sort(function(a,b){
+                return a-b;
+            }),
+        kv = this.kv = median(dimSlice),
+        ki = this.ki = maxVarianceIndex;
 
     //console.log('median ' + this.kv + ' from ' + dimSlice[0] + ' to ' + dimSlice[dimSlice.length-1]);
+
+    //=================
+    // Partition
+    //=================
+
+    //console.log('split index ' + ki + ' at ' + kv);
+
+    var cursor, counter = 0;
+    for (cursor = head; cursor<=tail; cursor++) {
+        if (this.get(features[cursor], ki) < kv) {
+            swap(cursor, head+counter);
+            counter += 1;
+        }
+    }
+
+    if (counter === 0 || counter === length) {
+        console.log('Coincide vector ' + dimSlice.join(',') + 'at ' + kv);
+        this.isLeaf = true;
+        this.leaf = head;
+        return;
+    }
+
+    this.left = new KdtreeNode(head, head+counter-1, this);
+    this.right = new KdtreeNode(head+counter, tail, this);
+
+    function swap(i1, i2){
+        var tmp = features[i1];
+        features[i1] = features[i2];
+        features[i2] = tmp;
+    }
+
+    function median(a){
+        var arr = _.uniq(a, true),
+            len = arr.length,
+            midpoint;
+        if (len % 2 === 0) {
+            midpoint = len/2;
+            return 0.5 * (arr[midpoint] + arr[midpoint-1]);
+        }
+        else {
+            midpoint = (len-1)/2;
+            return arr[midpoint];
+        }
+    }
 
 };
 
 
 /**
  * Find nearest leaf node
- * @param {Feature} f
+ * @param v - ndarray
  * @returns {KdtreeNode}
  */
-KdtreeNode.prototype.findLeaf = function(f){
+KdtreeNode.prototype.findLeaf = function(v){
 
     if (this.isLeaf) {
         return this;
     }
     else {
-        return (f.vector[this.ki] <= this.kv) ? this.left.findLeaf(f) : this.right.findLeaf(f);
+        return (v.get(this.ki) < this.kv) ? this.left.findLeaf(v) : this.right.findLeaf(v);
     }
 
 };
