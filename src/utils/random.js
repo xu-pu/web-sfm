@@ -3,7 +3,8 @@
 var _ = require('underscore'),
     la = require('sylvester'),
     Matrix = la.Matrix,
-    Vector = la.Vector;
+    Vector = la.Vector,
+    ndarray = require('ndarray');
 
 //=====================================================
 
@@ -149,4 +150,16 @@ module.exports.getRandomOrthogonalVector = function(v){
 
     return result;
 
+};
+
+exports.genRandomVectorBuffer = function(length, width){
+    var tarr = new Uint8Array(length*width);
+    var buffer = ndarray(tarr, [length, width]);
+    var i, vi;
+    for (i=0; i<length; i++) {
+        for (vi=0; vi<width; vi++) {
+            buffer.set(i, vi, Math.round(255*Math.random()));
+        }
+    }
+    return buffer;
 };

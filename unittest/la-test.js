@@ -31,9 +31,6 @@ describe('Linear Algebra Utilities', function(){
             assert(error < ZERO);
             assert(errorExp < ZERO);
 
-            console.log(errorExp, 'Equation itself might have problem');
-            console.log(error, 'SVD solve incorrect');
-
         });
 
     });

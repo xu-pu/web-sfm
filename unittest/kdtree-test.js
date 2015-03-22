@@ -1,7 +1,8 @@
 'use strict';
 
 var _ = require('underscore'),
-    assert = require('assert');
+    assert = require('assert'),
+    pool = require('ndarray-scratch');
 
 var kdtree = require('../src/webmatcher/kd-tree.js'),
     ann = require('../src/webmatcher/search-ann.js'),
@@ -9,30 +10,27 @@ var kdtree = require('../src/webmatcher/kd-tree.js'),
     genRamdom = require('../src/utils/random.js'),
     laUtils = require('../src/math/la-utils.js');
 
-var SAMPLE_SIZE = 100;
+var SAMPLE_SIZE = 50;
 
 describe('Kd-Tree', function(){
 
     var tree,
-        target = genRamdom.getRandomFeature(),
-        targetNN,
-        minDist = Infinity;
+        vectors = genRamdom.genRandomVectorBuffer(SAMPLE_SIZE, 128),
+        targets = pool.clone(vectors);
 
-    var dataset = _.range(SAMPLE_SIZE).map(function(){
-        var sample = genRamdom.getRandomFeature(),
-            dist = laUtils.getFeatureDistance(target, sample);
-        if (dist < minDist) {
-            minDist = dist;
-            targetNN = sample;
-        }
-        return sample;
+    _.range(SAMPLE_SIZE).forEach(function(i){
+        var cursor1 = vectors.get(i, 10);
+        var cursor2 = vectors.get(i, 50);
+        var cursor3 = vectors.get(i, 80);
+        targets.set(i, 10, cursor1 === 0 ? 1 : cursor1-1);
+        targets.set(i, 50, cursor2 === 0 ? 1 : cursor2-1);
+        targets.set(i, 80, cursor3 === 0 ? 1 : cursor3-1);
     });
-
 
     describe('#initTree', function(){
 
         it('should create kdtree from features', function(){
-            tree = kdtree.initTree(dataset);
+            tree = kdtree.initTree(vectors);
         });
 
     });
@@ -41,10 +39,8 @@ describe('Kd-Tree', function(){
     describe('#findLeaf', function(){
 
         it('should find the exact leaf which contain the feature if it exists in the kd-tree', function(){
-            _.range(100).forEach(function(){
-                var features = tree.features;
-                var index = Math.floor(features.length * Math.random());
-                var feature = features[index];
+            _.range(SAMPLE_SIZE).forEach(function(index){
+                var feature = vectors.pick(index, null);
                 var found = tree.findLeaf(feature).leaf;
                 assert.strictEqual(found, index);
             });
@@ -56,9 +52,12 @@ describe('Kd-Tree', function(){
     describe('#searchNN', function(){
 
         it('should found the exact NN of target (a.k.a targetNN)', function(){
-            var nnResult = ann.searchNN(tree, target);
-            var match = tree.features[nnResult.optimal.feature];
-            assert.strictEqual(targetNN, match);
+            _.range(SAMPLE_SIZE).forEach(function(index){
+                var v = targets.pick(index, null);
+                var nnResult = ann.searchNN(tree, v);
+                var match = nnResult.optimal.feature;
+                assert.strictEqual(index, match);
+            });
         });
 
     });
@@ -67,13 +66,12 @@ describe('Kd-Tree', function(){
     describe('#searchANN', function(){
 
         it('should find a NN within the tolerated error range', function(){
-            var ANN_THRESHOLD = 0.05;
-            var TOLERATED_ERROR = minDist * ( 1 + ANN_THRESHOLD );
-            var annResult = ann.searchANN(tree, target, ANN_THRESHOLD);
-            assert(
-                annResult.optimal.dist < TOLERATED_ERROR,
-                'min: ' + minDist + ', ANN: '+ annResult.optimal.dist
-            );
+            _.range(SAMPLE_SIZE).forEach(function(index){
+                var v = targets.pick(index, null);
+                var ANN_THRESHOLD = 0.05;
+                var annResult = ann.searchANN(tree, v, ANN_THRESHOLD);
+                assert.strictEqual(index, annResult.optimal.feature);
+            });
         });
 
     });
