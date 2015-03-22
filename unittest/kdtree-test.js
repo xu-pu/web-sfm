@@ -5,7 +5,7 @@ var _ = require('underscore'),
     pool = require('ndarray-scratch');
 
 var kdtree = require('../src/webmatcher/kd-tree.js'),
-    ann = require('../src/webmatcher/search-ann.js'),
+    matcher = require('../src/webmatcher/matcher.js'),
     samples = require('../src/utils/samples.js'),
     genRamdom = require('../src/utils/random.js'),
     laUtils = require('../src/math/la-utils.js');
@@ -54,7 +54,7 @@ describe('Kd-Tree', function(){
         it('should found the exact NN of target (a.k.a targetNN)', function(){
             _.range(SAMPLE_SIZE).forEach(function(index){
                 var v = targets.pick(index, null);
-                var nnResult = ann.searchNN(tree, v);
+                var nnResult = matcher.searchNN(tree, v);
                 var match = nnResult.optimal.feature;
                 assert.strictEqual(index, match);
             });
@@ -69,9 +69,33 @@ describe('Kd-Tree', function(){
             _.range(SAMPLE_SIZE).forEach(function(index){
                 var v = targets.pick(index, null);
                 var ANN_THRESHOLD = 0.05;
-                var annResult = ann.searchANN(tree, v, ANN_THRESHOLD);
+                var annResult = matcher.searchANN(tree, v, ANN_THRESHOLD);
                 assert.strictEqual(index, annResult.optimal.feature);
             });
+        });
+
+    });
+
+    describe('#match', function(){
+
+        it('match the exact features without delta', function(){
+
+            var matches = matcher.match(vectors, vectors);
+
+            assert(matches.every(function(pair){
+                return pair[0] === pair[1];
+            }));
+
+        });
+
+        it('match the exact features with delta', function(){
+
+            var matches = matcher.match(vectors, targets);
+
+            assert(matches.every(function(pair){
+                return pair[0] === pair[1];
+            }));
+
         });
 
     });

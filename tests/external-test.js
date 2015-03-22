@@ -10,7 +10,6 @@ var projections = require('../src/math/projections.js'),
     visualUtils = require('../src/utils/testing.js'),
     testUtils = require('../src/utils/test-utils.js'),
     externalUtils = require('../src/utils/external-utils.js'),
-    matcher = require('../src/webmatcher/match-feature.js'),
     estFmatrix = require('../src/webregister/estimate-fmatrix.js');
 
 var cometRoot = '/home/sheep/Downloads/comet-demo/',

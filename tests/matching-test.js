@@ -7,7 +7,6 @@ var _ = require('underscore'),
     Promise = require('promise');
 
 var halldemo = require('../src/utils/demo-loader.js').halldemo,
-    matcher = require('../src/webmatcher/match-feature.js'),
     samples = require('../src/utils/samples.js'),
     testUtils = require('../src/utils/testing.js'),
     cord = require('../src/utils/cord.js');
