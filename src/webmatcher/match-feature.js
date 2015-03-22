@@ -18,71 +18,64 @@ var ANN_ERROR_THRESHOLD = 0.1,
 
 /**
  * Approximate Nearest Neighbor matching for SIFT features
- * @param {Feature[]} features1
- * @param {Feature[]} features2
+ * @param vectors1
+ * @param vectors2
  * @returns {number[][]}
  */
-module.exports = function(features1, features2){
+module.exports = function(vectors1, vectors2){
 
-    var ff1 = features1,
-        ff2 = features2,
-        tree1 = kdtree.initTree(ff1),
-        tree2 = kdtree.initTree(ff2);
+    var length1 = vectors1.shape[0],
+        length2 = vectors2.shape[1],
+        tree1 = kdtree.initTree(vectors1),
+        tree2 = kdtree.initTree(vectors2);
 
     var matches = [],
         backMatches = []; // fi2 -> fi1
 
-    tree1.features.forEach(function(f, i){
+    var i;
+    for (i = 0; i<length1; i++) {
+        (function(){
 
-        var fi1, queue1,
-            fi2, queue2;
+            var fi1, queue1,
+                fi2, queue2,
+                f = vectors1.pick(i, null);
 
-        queue2 = searcher.searchANN(tree2, f, ANN_ERROR_THRESHOLD);
+            queue2 = searcher.searchANN(tree2, f, ANN_ERROR_THRESHOLD);
 
-        if (isMatchValid(queue2)) {
+            if (isMatchValid(queue2)) {
 
-            fi2 = queue2.optimal.feature;
+                fi2 = queue2.optimal.feature;
 
-            if (backMatches[fi2] === -1) {
-                return;
-            }
-            else if (_.isNumber(backMatches[fi2])) {
-                fi1 = backMatches[fi2];
-            }
-            else {
-                queue1 = searcher.searchANN(tree1, tree2.features[fi2], ANN_ERROR_THRESHOLD);
-                if (isMatchValid(queue1)) {
-                    fi1 = queue1.optimal.feature;
-                    backMatches[fi2] = fi1;
-                }
-                else {
-                    backMatches[fi2] = -1;
+                if (backMatches[fi2] === -1) {
                     return;
                 }
+                else if (_.isNumber(backMatches[fi2])) {
+                    fi1 = backMatches[fi2];
+                }
+                else {
+                    queue1 = searcher.searchANN(tree1, vectors2.pick(fi2), ANN_ERROR_THRESHOLD);
+                    if (isMatchValid(queue1)) {
+                        fi1 = queue1.optimal.feature;
+                        backMatches[fi2] = fi1;
+                    }
+                    else {
+                        backMatches[fi2] = -1;
+                        return;
+                    }
+                }
+
+                if (fi1 === i) {
+                    matches.push([fi1, fi2]);
+                    console.log(matches.length + 'th found at ' + i + '/'+ length1);
+                }
+
             }
 
-            if (fi1 === i) {
-                matches.push([fi1, fi2]);
-                console.log(matches.length + 'th found at ' + i + '/'+ features1.length);
-            }
+        })();
 
-        }
+    }
 
-    });
-
-    return matches.map(function(pair){
-
-        var fi1 = pair[0],
-            fi2 = pair[1],
-            f1 = tree1.features[fi1],
-            f2 = tree2.features[fi2];
-
-        return [
-            features1.indexOf(f1),
-            features2.indexOf(f2)
-        ];
-
-    });
+    return matches;
 
 };
 

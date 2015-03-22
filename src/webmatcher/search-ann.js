@@ -11,13 +11,13 @@ var laUtils = require('../math/la-utils.js'),
 /**
  * Approximate Nearest Neighbor (ANN) search on Kd-tree
  * @param {KdtreeNode} root
- * @param {Feature} feature
+ * @param vector
  * @param {number} error - acceptable error ratio
  * @returns {BinaryMinimumQueue}
  */
-module.exports.searchANN = function(root, feature, error){
+exports.searchANN = function(root, vector, error){
     var mins = new BinaryMinimumQueue();
-    searchTree(root, feature, mins, error);
+    searchTree(root, vector, mins, error);
     return mins;
 };
 
@@ -28,7 +28,7 @@ module.exports.searchANN = function(root, feature, error){
  * @param {Feature} feature
  * @returns {BinaryMinimumQueue}
  */
-module.exports.searchNN = function(root, feature){
+exports.searchNN = function(root, feature){
     return exports.searchANN(root, feature, 0);
 };
 
@@ -39,7 +39,7 @@ module.exports.searchNN = function(root, feature){
  * @param {Feature[]} features
  * @returns {BinaryMinimumQueue}
  */
-module.exports.searchBruteforce = function(f, features){
+exports.searchBruteforce = function(f, features){
     var mins = new BinaryMinimumQueue();
     features.forEach(function(f2, index2){
         mins.checkMin(index2, laUtils.getFeatureDistance(f, f2));
@@ -53,39 +53,51 @@ module.exports.searchBruteforce = function(f, features){
 
 /**
  * Recursive search for ANN on a Kd-tree
- * @param {KdtreeNode} root
- * @param {Feature} feature
+ * @param {KdtreeNode} tree
+ * @param vector
  * @param {MinimumQueue|BinaryMinimumQueue} mins
  * @param {number} error
  */
-function searchTree(root, feature, mins, error){
+function searchTree(tree, vector, mins, error){
 
-    if (root.isLeaf) {
-        mins.checkMin(root.leaf, laUtils.getFeatureDistance(feature, root.features[root.leaf]));
+    var treebuffer = tree.root.vectorBuffer;
+    var width = tree.root.width;
+
+    if (tree.isLeaf) {
+        mins.checkMin(tree.leaf, vectorDistSquare(vector, treebuffer.pick(tree.leaf, null)));
     }
     else {
 
-        var cursor = root.findLeaf(feature), parent, kd, sibling;
-        mins.checkMin(cursor.leaf, laUtils.getFeatureDistance(feature, root.features[cursor.leaf]));
+        var cursor = tree.findLeaf(vector), parent, kd, sibling;
+        mins.checkMin(cursor.leaf, vectorDistSquare(vector, treebuffer.pick(cursor.leaf, null)));
 
         //console.log(cursor.leaf);
 
         do {
 
             parent = cursor.parent;
-            kd = feature.vector[parent.ki] - parent.kv;
+            kd = vector.get(parent.ki) - parent.kv;
             kd = kd*kd;
-            sibling = cursor === parent.left ? parent.right : parent.left;
+            sibling = (cursor === parent.left) ? parent.right : parent.left;
 
             // this is where different from nn
-            if (mins.getMin()*(1-error) > kd) {
-                searchTree(sibling, feature, mins, error);
+            if (mins.getMin()*(1-error)*(1-error) > kd) {
+                searchTree(sibling, vector, mins, error);
             }
 
             cursor = parent;
 
-        } while (cursor !== root);
+        } while (cursor !== tree);
 
+    }
+
+    function vectorDistSquare(v1, v2){
+        var i, cur, acc=0;
+        for (i=0; i<width; i++) {
+            cur = v1.get(i) - v2.get(i);
+            acc += cur*cur;
+        }
+        return acc;
     }
 
 }
