@@ -1,6 +1,9 @@
 'use strict';
 
-var numeric = require('numeric');
+var numeric = require('numeric'),
+    toFull = numeric.ccsFull,
+    toSparse = numeric.ccsSparse,
+    transpose = numeric.transpose;
 
 exports.SparseMatrix = SparseMatrix;
 exports.SparseMatrixBuilder = SparseMatrixBuilder;
@@ -19,6 +22,15 @@ function SparseMatrix(sparse, rows, cols){
     this.rows = rows;
     this.cols = cols;
 }
+
+
+/**
+ *
+ * @returns {SparseMatrix}
+ */
+SparseMatrix.prototype.transpose = function(){
+    return SparseMatrix.fromDense(transpose(toFull(this.sparse)));
+};
 
 
 SparseMatrix.prototype.slice = function(top, left, bottom, right){
