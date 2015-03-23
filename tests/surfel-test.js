@@ -11,8 +11,10 @@ var _ = require('underscore'),
     interp = require("ndarray-linear-interpolate").d3;
 
 var halldemo = require('../src/utils/samples.js'),
+    hallsample = require('../src/utils/demo-loader.js').halldemo,
     testUtils = require('../src/utils/test-utils.js'),
     externalUtils = require('../src/utils/external-utils.js'),
+    tracking = require('../src/webmatcher/tracking.js'),
     cord = require('../src/utils/cord.js');
 
 var cloud= require('../demo/Hall-Demo/mvs/patches.json');
@@ -242,6 +244,7 @@ function convertSIFT(){
 
 //externalUtils.genImagesJson(require('/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/description.json'));
 
+/*
 _.range(61).forEach(function(index){
 
     var features = halldemo.getFeatures(index);
@@ -274,3 +277,28 @@ _.range(61).forEach(function(index){
     });
 
 });
+*/
+
+
+//var g = new tracking.ConnectivityGraph(matchtable);
+//var ts = g.getTracks();
+//var tracks = tracking.track(matchtable);
+
+//console.log(ts.length);
+//console.log(ts[30]);
+
+hallsample
+    .promisePointTable([2,3,4,5,6])
+    .then(function(pointTable){
+        var matchtable = [[2,3],[3,4],[4,5],[5,6]].map(function(pair){
+            var from = pair[0], to = pair[1];
+            return {
+                from: from,
+                to: to,
+                matches: halldemo.getRawMatches(from, to)
+            };
+        });
+        var tracks = tracking.track(matchtable, pointTable);
+        console.log(tracks.length);
+        console.log(tracks[30]);
+    });

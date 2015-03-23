@@ -2,32 +2,32 @@
 
 var _ = require('underscore');
 
-//======================================================
+//========================================================
 
-var connectivity = require('./connectivity.js'),
-    ConnectivityGraph = connectivity.ConnectivityGraph;
+exports.ConnectivityGraph = ConnectivityGraph;
+exports.ConnectivityNode = ConnectivityNode;
 
-//======================================================
+//========================================================
 
 /**
- * @param {TwoViewMatches[]} dataset
- * @returns {{ tracks:Track[], views: Track[][] }} - views[cam]=>Track[]
+ * @param {TwoViewMatches[]} matchTable
+ * @param pointTable
+ * @returns Track[]
  */
-module.exports = function(dataset) {
+exports.track = function(matchTable, pointTable) {
 
-    var graph = new ConnectivityGraph(dataset),
-        closures = graph.getTracks(),
-        tracks = [],
-        views = [];
+    var graph = new ConnectivityGraph(matchTable),
+        nodeTracks = graph.getTracks(),
+        tracks = [];
 
-    closures.forEach(function(nodes){
+    nodeTracks.forEach(function(nodes){
 
-        var cams = [], track = [];
+        var camSet = [];
 
+        // Enforce unique feature for each cam
         var trackValid = nodes.every(function(node){
-            if (cams.indexOf(node.cam) === -1) {
-                cams.push(node.cam);
-                track.push({ cam: node.cam, point: node.feature });
+            if (camSet.indexOf(node.cam) === -1) {
+                camSet.push(node.cam);
                 return true;
             }
             else {
@@ -36,20 +36,163 @@ module.exports = function(dataset) {
         });
 
         if (trackValid) {
-            tracks.push(track);
-            cams.forEach(function(cam){
-                var view = views[cam];
-                if (view) {
-                    view.push(track);
-                }
-                else {
-                    views[cam] = [track];
-                }
-            });
+            tracks.push(nodes.map(function(n){
+                var cam= n.cam,
+                    feature = n.feature;
+                return {
+                    cam: cam,
+                    point: {
+                        row: pointTable[cam].get(feature, 0),
+                        col: pointTable[cam].get(feature, 1)
+                    }
+                };
+            }));
         }
 
     });
 
-    return { tracks: tracks, views: views };
+    return tracks;
 
+};
+
+//========================================================
+// Connectivity Graph
+//========================================================
+
+
+/**
+ * @param {TwoViewMatches[]} lists
+ * @property nodes
+ * @consturctor
+ */
+function ConnectivityGraph(lists){
+
+    var _self = this;
+    this.nodes = {};
+
+    lists.forEach(function(entry){
+        var cam1 = entry.from,
+            cam2 = entry.to;
+        entry.matches.forEach(function(match){
+            var i1 = match[0], i2 = match[1];
+            var node1 = _self.requireNode(cam1, i1);
+            var node2 = _self.requireNode(cam2, i2);
+            node1.connect(node2);
+        });
+    });
+
+}
+
+
+/**
+ * Get or create Node
+ * @param {int} cam
+ * @param {int} feature
+ * @returns {ConnectivityNode}
+ */
+ConnectivityGraph.prototype.requireNode = function(cam, feature){
+
+    var nodes = this.nodes,
+        node = nodes[[cam, feature]];
+
+    if (node) {
+        return node;
+    }
+    else {
+        node = new ConnectivityNode(cam, feature);
+        nodes[[cam, feature]] = node;
+        return node;
+    }
+
+};
+
+
+/**
+ * Convert Graph into tracks
+ * @returns {ConnectivityNode[][]}
+ */
+ConnectivityGraph.prototype.getTracks = function(){
+
+    var nodes = _.values(this.nodes),
+        tracks = [], seed, track;
+
+    while (nodes.length > 0) {
+        seed = nodes[0];
+        track = this.traverseNode(seed);
+        tracks.push(track);
+        nodes = _.difference(nodes, track);
+    }
+
+    return tracks;
+
+};
+
+
+/**
+ * @param {ConnectivityNode} source
+ * @returns {ConnectivityNode[]}
+ */
+ConnectivityGraph.prototype.traverseNode = function(source){
+
+    var traversed = [source], cursor = 0;
+
+    while (cursor < traversed.length) {
+        traversed[cursor].connected.forEach(function(node){
+            if (traversed.indexOf(node) === -1) {
+                traversed.push(node);
+            }
+        });
+        cursor++;
+    }
+
+    return traversed;
+
+};
+
+
+//========================================================
+// Connectivity Node
+//========================================================
+
+
+/**
+ * Node
+ * @property {int} cam
+ * @property {int} feature
+ * @constructor
+ */
+function ConnectivityNode(cam, feature){
+    this.cam = cam;
+    this.feature = feature;
+    this.connected = [];
+}
+
+
+/**
+ * Connect tow nodes
+ * @param {ConnectivityNode} node
+ */
+ConnectivityNode.prototype.connect = function(node){
+    if (this.connected.indexOf(node) === -1) {
+        this.connected.push(node);
+    }
+    if (node.connected.indexOf(this) === -1) {
+        node.connected.push(this);
+    }
+};
+
+
+/**
+ * Disconnect two nodes
+ * @param {ConnectivityNode} node
+ */
+ConnectivityNode.prototype.disconnect = function(node){
+    var outro = this.connected.indexOf(node),
+        intro = node.connected.indexOf(this);
+    if (intro != -1) {
+        node.connected.splice(intro, 1);
+    }
+    if (outro != -1) {
+        this.connected.splice(outro, 1);
+    }
 };

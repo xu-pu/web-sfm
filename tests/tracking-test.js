@@ -6,8 +6,8 @@ var _ = require('underscore'),
     Vector = la.Vector;
 
 
-var connectivity = require('../src/webmatcher/connectivity.js'),
-    ConnectivityGraph = connectivity.ConnectivityGraph,
+var connectivity = require('../src/webmatcher/tracking.js'),
+    ConnectivityGraph = tracking.ConnectivityGraph,
     samples = require('../src/utils/samples.js'),
     genRamdom = require('../src/utils/random.js'),
     laUtils = require('../src/math/la-utils.js');
