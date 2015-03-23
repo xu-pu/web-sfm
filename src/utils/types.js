@@ -103,7 +103,7 @@
 
 
 /**
- * @typedef {{ cam: number, point: number }} TrackView
+ * @typedef {{ cam: number, point: RowCol }} TrackView
  */
 
 

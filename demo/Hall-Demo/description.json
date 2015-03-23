@@ -6,8 +6,11 @@
 
   "images": [
     { "id": 0, "name": "00000000", "extension": ".jpg" },
+    { "id": 1, "name": "00000001", "extension": ".jpg" },
     { "id": 2, "name": "00000002", "extension": ".jpg" },
+    { "id": 3, "name": "00000003", "extension": ".jpg" },
     { "id": 4, "name": "00000004", "extension": ".jpg" },
+    { "id": 5, "name": "00000005", "extension": ".jpg" },
     { "id": 6, "name": "00000006", "extension": ".jpg" },
     { "id": 8, "name": "00000008", "extension": ".jpg" },
     { "id": 10, "name": "00000010", "extension": ".jpg" },
