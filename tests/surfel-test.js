@@ -287,6 +287,7 @@ _.range(61).forEach(function(index){
 //console.log(ts.length);
 //console.log(ts[30]);
 
+/*
 hallsample
     .promisePointTable([2,3,4,5,6])
     .then(function(pointTable){
@@ -302,3 +303,16 @@ hallsample
         console.log(tracks.length);
         console.log(tracks[30]);
     });
+    */
+
+function saveMatch(i1, i2){
+    var matches = halldemo.getRawMatches(i1, i2);
+    return hallsample.promiseSaveRawMatches({
+        from: i1, to: i2,
+        matches: matches
+    });
+}
+
+//saveMatch(1,2);
+
+console.log(hallsample.getRawMatches(1,2));
