@@ -7,6 +7,7 @@ var _ = require('underscore'),
     Vector = la.Vector;
 
 var sample = require('../src/utils/samples.js'),
+    halldemo = require('../src/utils/demo-loader.js').halldemo,
     projections = require('../src/math/projections.js'),
     testUtils = require('../src/utils/testing.js'),
     cord = require('../src/utils/cord.js'),
@@ -15,7 +16,7 @@ var sample = require('../src/utils/samples.js'),
 
 function testCam(i1, i2){
 
-    var matches = sample.getRawMatches(i1, i2),
+    var matches = halldemo.getRawMatches(i1, i2).matches,
         data = sample.getTwoView(i1, i2),
         F = projections.getFundamentalMatrix(data.R1, data.t1, data.f1, data.cam1, data.R2, data.t2, data.f2, data.cam2),
         features1 = sample.getFeatures(i1),
