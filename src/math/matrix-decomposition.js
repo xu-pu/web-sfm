@@ -10,7 +10,7 @@ var _ = require('underscore'),
  * @param {Matrix} m
  * @returns {{ Q: Matrix, R: Matrix }}
  */
-exports.qrDecomposition3d = function(m){
+exports.QR3d = function(m){
 
     var a1 = m.col(1), a2 = m.col(2), a3 = m.col(3);
 
@@ -48,7 +48,7 @@ exports.qrDecomposition3d = function(m){
  * @param {Matrix} m
  * @returns {{ Q: Matrix, R: Matrix }}
  */
-exports.rqDecomposition3d = function(m){
+exports.RQ3d = function(m){
 
     var a1 = m.row(3), a2 = m.row(2), a3 = m.row(1);
 
@@ -78,5 +78,23 @@ exports.rqDecomposition3d = function(m){
     }
 
     return { Q: Q, R: R };
+
+};
+
+
+/**
+ *
+ * @param {Matrix} P
+ * @returns {{ K: Matrix, R: Matrix, t: Vector }}
+ */
+exports.KRt = function(P){
+
+    var M = Matrix.create(numeric.getBlock(P.elements, [0,0], [2,2])),
+        results = exports.RQ3d(M),
+        K = results.R,
+        R = results.Q,
+        t = K.inverse().x(P.col(4));
+
+    return { K: K, R: R, t: t };
 
 };
