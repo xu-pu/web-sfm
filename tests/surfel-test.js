@@ -305,14 +305,4 @@ hallsample
     });
     */
 
-function saveMatch(i1, i2){
-    var matches = halldemo.getRawMatches(i1, i2);
-    return hallsample.promiseSaveRawMatches({
-        from: i1, to: i2,
-        matches: matches
-    });
-}
-
-//saveMatch(1,2);
-
-console.log(hallsample.getRawMatches(1,2));
+console.log(hallsample.getRawMatches(9,10));

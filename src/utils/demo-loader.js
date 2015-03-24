@@ -106,6 +106,31 @@ DemoLoader.prototype.promiseSaveRawMatches = function(matches){
     return testUtils.promiseSaveJson(path, raw);
 };
 
+
+/**
+ *
+ * @param {TwoViewMatches[]} matchtable
+ * @returns {Promise}
+ */
+DemoLoader.prototype.promiseSaveRawMatchTable = function(matchtable){
+    var path = PROJECT_ROOT + this.root + '/matches/matches.raw.json';
+    var raw = this.loadRawMatches();
+    matchtable.forEach(function(matches){
+        var ind = _.findIndex(raw, function(entry){
+            return entry.from === matches.from && entry.to === matches.to;
+        });
+        if (ind === -1) {
+            raw.push(matches);
+        }
+        else {
+            raw[ind] = matches;
+        }
+    });
+    return testUtils.promiseSaveJson(path, raw);
+};
+
+
+
 //======================================================
 
 function tryjson(path) {
