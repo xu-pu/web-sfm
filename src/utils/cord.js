@@ -81,6 +81,15 @@ module.exports.feature2img = function (f) {
 
 
 /**
+ * @param {RowCol} f
+ * @returns {Vector}
+ */
+module.exports.rc2x = function (f) {
+    return Vector.create(exports.rc2img(f.row, f.col));
+};
+
+
+/**
  *
  * @param line
  * @param {Camera} cam

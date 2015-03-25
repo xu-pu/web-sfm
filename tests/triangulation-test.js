@@ -6,8 +6,7 @@ var _ = require('underscore'),
     Matrix = la.Matrix,
     Vector = la.Vector;
 
-var bundler = require('../src/math/bundler.js'),
-    sample = require('../src/utils/samples.js'),
+var sample = require('../src/utils/samples.js'),
     testUtils = require('../src/utils/testing.js'),
     cord = require('../src/utils/cord.js'),
     triangulation = require('../src/webregister/triangulation.js');

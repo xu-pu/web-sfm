@@ -21,6 +21,7 @@ var PROJECTION_MINIMUM = 10;
 /**
  *
  * @param {{ X: HomoPoint3D, x: HomoPoint2D }[]} tracks
+ * @returns Matrix
  */
 module.exports = function(tracks){
 
@@ -28,20 +29,26 @@ module.exports = function(tracks){
         throw 'More matches needed';
     }
 
+/*
     var results = ransac({
         dataset: tracks,
         metadata: null,
         subset: PROJECTION_MINIMUM,
         relGenerator: module.exports.estimateProjection,
         errorGenerator: module.exports.projectionError,
-        outlierThreshold: 0.05,
-        errorThreshold: 0.004,
+//        outlierThreshold: 0.05,
+        outlierThreshold: 0.2,
+//        errorThreshold: 0.004,
+        errorThreshold: 1,
         trials: 2000
     });
 
     var P = results.rel;
+*/
 
-    return module.exports.refineProjection(P, results.dataset);
+    var P = module.exports.estimateProjection(tracks);
+
+    return module.exports.refineProjection(P, tracks);
 
 };
 
