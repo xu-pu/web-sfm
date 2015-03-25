@@ -132,6 +132,52 @@ DemoLoader.prototype.promiseSaveRawMatchTable = function(matchtable){
 
 
 //======================================================
+// Robust Matches
+//======================================================
+
+
+DemoLoader.prototype.loadRobustMatches = function(){
+    var path = PROJECT_ROOT + this.root + '/matches/matches.robust.json';
+    this.robustMatches = this.robustMatches || tryjson(path) || [];
+    return this.robustMatches;
+};
+
+/**
+ *
+ * @param {int} from
+ * @param {int} to
+ * @returns {TwoViewMatches|null|undefined}
+ */
+DemoLoader.prototype.getRobustMatches = function(from, to){
+    return _.find(this.loadRobustMatches(), function(entry){
+        return entry.from === from && entry.to === to;
+    });
+};
+
+
+/**
+ *
+ * @param {TwoViewMatches} matches
+ * @returns {Promise}
+ */
+DemoLoader.prototype.promiseSaveRobustMatches = function(matches){
+    var path = PROJECT_ROOT + this.root + '/matches/matches.robust.json';
+    var robust = this.loadRobustMatches();
+    var ind = _.findIndex(robust, function(entry){
+        return entry.from === matches.from && entry.to === matches.to;
+    });
+    if (ind === -1) {
+        robust.push(matches);
+    }
+    else {
+        robust[ind] = matches;
+    }
+    return testUtils.promiseSaveJson(path, robust);
+};
+
+
+//======================================================
+
 
 function tryjson(path) {
     try {

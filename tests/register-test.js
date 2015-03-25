@@ -6,6 +6,8 @@ var _ = require('underscore'),
     numeric = require('numeric');
 
 var sample = require('../src/utils/samples.js'),
+    halldemo = require('../src/utils/demo-loader.js').halldemo,
+    tracking = require('../src/webmatcher/tracking.js'),
     testUtils = require('../src/utils/testing.js'),
     projections = require('../src/math/projections.js'),
     cord = require('../src/utils/cord.js'),
@@ -34,4 +36,20 @@ function decView(i){
     console.log(t.subtract(ttt).max());
 
 }
-decView(30);
+//decView(30);
+
+halldemo
+    .promisePointTable([1,3,5,7,9])
+    .then(function(pointTable){
+        var matchtable = [
+            [1,3],
+            [3,5],
+            [5,7],
+            [7,9]]
+            .map(function(pair){
+                return halldemo.getRobustMatches(pair[0], pair[1]);
+            });
+        var tracks = tracking.track(matchtable, pointTable);
+        console.log(tracks.length);
+        console.log(tracks[30]);
+    });
