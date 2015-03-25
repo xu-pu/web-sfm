@@ -6,6 +6,7 @@ var _ = require('underscore');
 
 exports.ConnectivityGraph = ConnectivityGraph;
 exports.ConnectivityNode = ConnectivityNode;
+exports.VisibilityGraph = VisibilityGraph;
 
 //========================================================
 
@@ -54,6 +55,32 @@ exports.track = function(matchTable, pointTable) {
     return tracks;
 
 };
+
+//========================================================
+// Visibility Graph
+//========================================================
+
+/**
+ *
+ * @param {Track[]} tracks
+ *
+ * @property {Track[]} tracks
+ * @property cams
+ *
+ * @constructor
+ */
+function VisibilityGraph(tracks){
+    this.tracks = tracks;
+    var cams = this.cams = {};
+    tracks.forEach(function(track, trackIndex){
+        track.forEach(function(view){
+            var cam = view.cam;
+            var visiables = cams[cam] = (cams[cam] || []);
+            visiables.push(trackIndex);
+        });
+    });
+}
+
 
 //========================================================
 // Connectivity Graph

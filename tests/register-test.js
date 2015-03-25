@@ -8,6 +8,7 @@ var _ = require('underscore'),
 var sample = require('../src/utils/samples.js'),
     halldemo = require('../src/utils/demo-loader.js').halldemo,
     tracking = require('../src/webmatcher/tracking.js'),
+    VisibilityGraph = require('../src/webmatcher/tracking.js').VisibilityGraph,
     testUtils = require('../src/utils/testing.js'),
     projections = require('../src/math/projections.js'),
     cord = require('../src/utils/cord.js'),
@@ -50,6 +51,8 @@ halldemo
                 return halldemo.getRobustMatches(pair[0], pair[1]);
             });
         var tracks = tracking.track(matchtable, pointTable);
+        var visibility = new VisibilityGraph(tracks);
         console.log(tracks.length);
-        console.log(tracks[30]);
+        console.log(_.keys(visibility.cams));
+        console.log(_.intersection(visibility.cams[1], visibility.cams[3]).length);
     });
