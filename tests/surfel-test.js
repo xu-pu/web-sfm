@@ -286,23 +286,3 @@ _.range(61).forEach(function(index){
 
 //console.log(ts.length);
 //console.log(ts[30]);
-
-/*
-hallsample
-    .promisePointTable([2,3,4,5,6])
-    .then(function(pointTable){
-        var matchtable = [[2,3],[3,4],[4,5],[5,6]].map(function(pair){
-            var from = pair[0], to = pair[1];
-            return {
-                from: from,
-                to: to,
-                matches: halldemo.getRawMatches(from, to)
-            };
-        });
-        var tracks = tracking.track(matchtable, pointTable);
-        console.log(tracks.length);
-        console.log(tracks[30]);
-    });
-    */
-
-console.log(hallsample.getRawMatches(9,10));
