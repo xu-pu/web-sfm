@@ -1,9 +1,6 @@
 'use strict';
 
-var ndarray = require('ndarray');
-
 var settings = require('../settings.js'),
-    STORES = settings.STORES,
     RESOURCES = settings.RESOURCE;
 
 module.exports = Ember.Route.extend({
@@ -20,8 +17,8 @@ module.exports = Ember.Route.extend({
                 size = pointsArray.length/3;
             return {
                 sparse: {
-                    points: ndarray(pointsArray, [size, 3]),
-                    colors: ndarray(colorsArray, [size, 3]),
+                    points: pointsArray,
+                    colors: colorsArray,
                     size: size
                 },
                 cameras: results[2]
