@@ -10,8 +10,12 @@ var sampleM = [
 ];
 
 var sps = SparseMatrix.fromDense(sampleM);
+/*
 var splited = sps.split(2,2);
 console.log(splited.A.toDense());
 console.log(splited.B.toDense());
 console.log(splited.C.toDense());
 console.log(splited.D.toDense());
+    */
+
+console.log(sps.getBlock(2,1,3,3).toDense());

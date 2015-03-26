@@ -32,8 +32,37 @@ SparseMatrix.prototype.transpose = function(){
     return SparseMatrix.fromDense(transpose(toFull(this.sparse)));
 };
 
+/**
+ *
+ * @param {int} top
+ * @param {int} left
+ * @param {int} bottom
+ * @param {int} right
+ * @returns {SparseMatrix}
+ */
+SparseMatrix.prototype.getBlock = function(top, left, bottom, right){
 
-SparseMatrix.prototype.slice = function(top, left, bottom, right){
+    var bulder = new SparseMatrixBuilder(bottom-top+1, right-left+1),
+        bounds = this.sparse[0],
+        cords = this.sparse[1],
+        elements = this.sparse[2],
+        offsetR = top,
+        offsetC = left;
+
+    var curC, curR, curEle,
+        colHead, colTail;
+    for (curC=left; curC<=right; curC++) {
+        colHead = bounds[curC];
+        colTail = bounds[curC+1];
+        for (curEle=colHead; curEle<colTail; curEle++) {
+            curR = cords[curEle];
+            if (curR>=top && curR<=bottom) {
+                bulder.append(curR-offsetR, curC-offsetC, elements[curEle])
+            }
+        }
+    }
+
+    return bulder.evaluate();
 
 };
 
@@ -118,7 +147,7 @@ SparseMatrix.prototype.x = function(m){
  * @returns number[][]
  */
 SparseMatrix.prototype.toDense = function(){
-    return numeric.ccsFull(this.sparse);
+    return toFull(this.sparse);
 };
 
 
@@ -128,7 +157,7 @@ SparseMatrix.prototype.toDense = function(){
  * @returns {SparseMatrix}
  */
 SparseMatrix.fromDense = function(m){
-    return new SparseMatrix(numeric.ccsSparse(m), m.length, m[0].length)
+    return new SparseMatrix(toSparse(m), m.length, m[0].length)
 };
 
 //=====================================
@@ -170,6 +199,9 @@ SparseMatrixBuilder.prototype.evaluate = function(){
         bounds = this.bounds,
         cords = this.cords,
         elements = this.elements;
-    bounds.push(elements.length);
+    var currentCols = bounds.length;
+    for (currentCols; currentCols<=cols; currentCols++) {
+        bounds.push(elements.length);
+    }
     return new SparseMatrix([bounds, cords, elements], rows, cols);
 };
