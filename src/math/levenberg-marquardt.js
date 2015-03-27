@@ -6,9 +6,7 @@ var _ = require('underscore'),
     Vector = la.Vector;
 
 var getJacobian = require('./jacobian.js'),
-    laUtils = require('../math/la-utils.js'),
-    sparse = require('../math/sparse-matrix.js'),
-    SparseMatrix = sparse.SparseMatrix;
+    laUtils = require('../math/la-utils.js');
 
 //==========================================
 
@@ -66,7 +64,7 @@ module.exports = function(func, x0, target){
 
             N = A.add(Matrix.I(xs).x(damp));
 
-            deltaX = solveEquationSet(N, g);
+            deltaX = N.inverse().x(g);
 
             if (deltaX.modulus() < ZERO_THRESHOLD * p.modulus()) {
                 // end if step is too small
@@ -130,19 +128,3 @@ module.exports = function(func, x0, target){
     return p;
 
 };
-
-
-/**
- *
- * @param {Matrix|SparseMatrix} N
- * @param {Vector} g
- * @returns Vector
- */
-function solveEquationSet(N, g){
-    if (N.isSparse) {
-
-    }
-    else {
-        return N.inverse().x(g);
-    }
-}
