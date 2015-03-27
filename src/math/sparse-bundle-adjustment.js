@@ -9,24 +9,53 @@ var sparse = require('./sparse-matrix'),
 
 
 //var ZERO_THRESHOLD = Math.pow(10, -10);
+var DELTA = Math.pow(10, -6);
 var ZERO_THRESHOLD = 0;
 var CAM_PARAMS = 9; // 3*R, 3*t, f, 2*p
 
-function SBAContext(){
-
-}
-
-
 exports.sba = function(){};
 
-exports.sparseJacobian = function(){};
+
+/**
+ *
+ * @param {Function} func - number[]=>number[]
+ * @param {number[]} x
+ * @returns SparseMatrixa
+ */
+exports.sparseJacobian = function(func, x){
+
+    var y = func(x),
+        xx = x.slice(),
+        xs = x.length,
+        ys = y.length;
+
+    var builder = new SparseMatrixBuilder(ys, xs);
+
+    var curY, curC, curR, curV;
+
+    for (curC=0; curC<xs; curC++) {
+        xx[curC] = xx[curC] + DELTA;
+        curY = func(xx);
+        xx[curC] = xx[curC] - DELTA;
+        for (curR=0; curR<ys; curR++) {
+            curV = (curY[curR] - y[curR]) / DELTA;
+            if (curV !== 0) {
+                builder.append(curR, curC, curV);
+            }
+        }
+    }
+
+    return builder.evaluate();
+
+};
+
 
 /**
  *
  * @param {SparseMatrix} H
- * @param sigma
- * @param cams
- * @param sizes
+ * @param {number[]} sigma
+ * @param {int} cams
+ * @param {int[]} sizes
  */
 exports.solveHessian = function(H, sigma, cams, sizes){
 
