@@ -160,6 +160,18 @@ SparseMatrix.fromDense = function(m){
     return new SparseMatrix(toSparse(m), m.length, m[0].length)
 };
 
+
+/**
+ *
+ * @param {number[]} V
+ * @returns {SparseMatrix}
+ */
+SparseMatrix.fromDenseVector = function(V){
+    var dense = numeric.transpose([V]);
+    return new SparseMatrix(dense, V.length, 1);
+};
+
+
 //=====================================
 
 function SparseMatrixBuilder(rows, cols){
