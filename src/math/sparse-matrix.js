@@ -1,6 +1,7 @@
 'use strict';
 
-var numeric = require('numeric'),
+var _ = require('underscore'),
+    numeric = require('numeric'),
     toFull = numeric.ccsFull,
     toSparse = numeric.ccsSparse,
     transpose = numeric.transpose;
@@ -29,7 +30,30 @@ function SparseMatrix(sparse, rows, cols){
  * @returns {SparseMatrix}
  */
 SparseMatrix.prototype.transpose = function(){
-    return SparseMatrix.fromDense(transpose(toFull(this.sparse)));
+    var gathered = numeric.ccsGather(this.sparse);
+    var transposed = _.zip(gathered[0],gathered[1], gathered[2])
+        .map(function(entry){
+            return [entry[1], entry[0], entry[2]];
+        })
+        .sort(function(a, b){
+            if (a[1] < b[1]) {
+                return -1;
+            }
+            else if (a[1] > b[1]) {
+                return 1;
+            }
+            else if (a[0] < b[0]) {
+                return -1;
+            }
+            else if (a[0] > b[0]) {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        });
+    var regather = _.zip.apply(null, transposed);
+    return new SparseMatrix(numeric.ccsScatter(regather), this.cols, this.rows);
 };
 
 /**

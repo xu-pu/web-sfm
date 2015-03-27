@@ -18,4 +18,4 @@ console.log(splited.C.toDense());
 console.log(splited.D.toDense());
     */
 
-console.log(sps.getBlock(2,1,3,3).toDense());
+console.log(sps.transpose().toDense());
