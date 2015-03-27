@@ -25,6 +25,23 @@ function SparseMatrix(sparse, rows, cols){
 }
 
 
+SparseMatrix.prototype.add = function(){};
+
+SparseMatrix.prototype.subtract = function(m){
+    return this.add(m.negate());
+};
+
+SparseMatrix.prototype.negative = function(){
+    var sparse = [
+        this.sparse[0].slice(),
+        this.sparse[1].slice(),
+        this.sparse[2].map(function(v){
+            return -v;
+        })
+    ];
+    return new SparseMatrix(sparse, this.rows, this.cols);
+};
+
 /**
  *
  * @returns {SparseMatrix}
