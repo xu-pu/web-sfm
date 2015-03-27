@@ -25,21 +25,16 @@ function SparseMatrix(sparse, rows, cols){
 }
 
 
-SparseMatrix.prototype.add = function(){};
-
-SparseMatrix.prototype.subtract = function(m){
-    return this.add(m.negate());
+SparseMatrix.prototype.add = function(m){
+    return new SparseMatrix(numeric.ccsadd(this.sparse, m.sparse), this.rows, this.cols);
 };
 
-SparseMatrix.prototype.negative = function(){
-    var sparse = [
-        this.sparse[0].slice(),
-        this.sparse[1].slice(),
-        this.sparse[2].map(function(v){
-            return -v;
-        })
-    ];
-    return new SparseMatrix(sparse, this.rows, this.cols);
+SparseMatrix.prototype.subtract = function(m){
+    return new SparseMatrix(numeric.ccssub(this.sparse, m.sparse), this.rows, this.cols);
+};
+
+SparseMatrix.prototype.times = function(a){
+    return new SparseMatrix(numeric.ccsmul(this.sparse, a), this.rows, this.cols);
 };
 
 /**
