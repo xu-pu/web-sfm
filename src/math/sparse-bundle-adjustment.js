@@ -1,4 +1,7 @@
-var numeric = require('numeric');
+var numeric = require('numeric'),
+    sub = numeric.sub,
+    dot = numeric.dot,
+    transpose = numeric.transpose;
 
 var sparse = require('./sparse-matrix'),
     SparseMatrix = sparse.SparseMatrix,
@@ -18,11 +21,34 @@ exports.sba = function(){};
 
 exports.sparseJacobian = function(){};
 
-exports.solveHessian = function(H, metadata){
-    var records, tracksX;
+/**
+ *
+ * @param {SparseMatrix} H
+ * @param sigma
+ * @param cams
+ * @param sizes
+ */
+exports.solveHessian = function(H, sigma, cams, sizes){
 
-    var A, V, W, transW;
-    var invV;
+    var offset = cams*CAM_PARAMS,
+        sigmaA = sigma.slice(0, offset),
+        sigmaB = sigma.slice(offset),
+        splited = H.split(offset, offset),
+        U = splited.A.toDense(),
+        V = splited.C,
+        W = splited.B,
+        transW = splited.C,
+        invV = exports.inverseV(V, sizes);
+
+    var param1 = sub(U, W.x(invV).x(transW)), // U - W * V-1 * Wt
+        param2 = sub(sigmaA, dot(W.x(invV).toDense(), sigmaB)), // sigmaA - W * V-1 * sigmaB
+        deltaA = dot(numeric.inv(param1), param2),
+        sparseDeltaA = SparseMatrix.fromDenseVector(deltaA),
+        sparseSigmaB = SparseMatrix.fromDenseVector(sigmaB),
+        deltaB = invV.x(sparseSigmaB.subtract(transW.x(sparseDeltaA))).toDense();
+
+    return transpose(deltaA.concat(deltaB));
+
 };
 
 
