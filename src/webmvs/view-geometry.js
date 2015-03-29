@@ -11,27 +11,31 @@ var cord = require('../utils/cord.js'),
 
 /**
  *
- * @param {Patch} patch
+ * @param {Vector} c - in-homo
+ * @param {Vector} n - in-homo
  * @param {CalibratedCamera} cam
  * @returns {Vector[]}
  */
-exports.getPatchAxis = function(patch, cam){
+exports.getPatchAxis = function(c, n, cam){
 
-    var P = cam.P;
-    var c = patch.c;
-    var X = cord.toHomo3D(c);
-    var n = patch.n;
-    var pln = Plane.create(c, n);
+    var P = cam.P,
+        X = cord.toHomo3D(c),
+        T = projections.getT(cam.R, cam.t),
+        pln = Plane.create(c, n),
+        offsetR = cam.cam.height/2, offsetC = cam.cam.width/2;
+
+    // backtrace x-axis
     var rc = cord.img2RC(P.x(X));
-    var T = projections.getT(cam.R, cam.t);
-    var back = Vector.create([rc.col+1, rc.row, cam.f, 1]);
+    var back = Vector.create([rc.col+1-offsetC, rc.row-offsetR, cam.f, 1]);
     var perspective = projections.getPerspective(cam.R, cam.t);
-    var backtrackDir = cord.toInhomo3D(perspective.inverse().x(back)).subtract(T);
+    var backX = perspective.inverse().x(back);
+    var backtrackDir = cord.toInhomo3D(backX).subtract(T);
     var backtrack = Line.create(T, backtrackDir);
 
-    var anchorX = pln.intersectionWith(backtrack);
-    var anchorY = anchorX.cross(n);
-    var ratioY = anchorX.modulus()/anchorY.modulus();
+    // build patch local x-y axis
+    var anchorX = pln.intersectionWith(backtrack).subtract(c),
+        anchorY = anchorX.cross(n),
+        ratioY = anchorX.modulus()/anchorY.modulus();
 
     return [anchorX, anchorY.x(ratioY)];
 
