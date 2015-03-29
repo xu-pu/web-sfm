@@ -67,7 +67,7 @@ module.exports.getTwoView = function(i1, i2){
 /**
  * Get calibrated camera
  * @param {int} i
- * @returns {{ P: Matrix, R: Matrix, t: Vector, f: number, cam: Camera }}
+ * @returns {CalibratedCamera}
  */
 module.exports.getView = function(i){
     var camera = exports.getCamera(i),
@@ -76,24 +76,6 @@ module.exports.getView = function(i){
         R = rt.R, t = rt.t, f = camera.focal,
         P = projections.getProjectionMatrix(R, t, f, cam.width, cam.height);
     return { P: P, R: R, t: t, f: f, cam: cam };
-};
-
-
-/**
- * Get a sample calibrated camera
- * @param {int} i
- * @returns {CalibratedCamera}
- */
-module.exports.getCalibratedCamera = function(i){
-    var data = exports.getView(i);
-    return {
-        R: data.R,
-        t: data.t,
-        focal: data.f,
-        P: data.P,
-        width: data.cam.width,
-        height: data.cam.height
-    };
 };
 
 
