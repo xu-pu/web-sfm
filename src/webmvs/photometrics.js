@@ -31,8 +31,8 @@ exports.sampleRGB = function(center, x, y, P, img){
     var rMemo = 0, gMemo = 0, bMemo = 0,
         curX, curRC, offsetX, offsetY;
 
-    for (offsetX=0; offsetX<PATCH_RADIUS; offsetX++) {
-        for (offsetY=0; offsetY<PATCH_RADIUS; offsetY++) {
+    for (offsetX=-PATCH_RADIUS; offsetX<=PATCH_RADIUS; offsetX++) {
+        for (offsetY=-PATCH_RADIUS; offsetY<=PATCH_RADIUS; offsetY++) {
             curX = cord.toHomo3D(center.add(x.x(offsetX)).add(y.x(offsetY)));
             curRC = cord.img2RC(P.x(curX));
             rMemo += WEIGHT*interp3d(img, curRC.col, curRC.row, 0);
