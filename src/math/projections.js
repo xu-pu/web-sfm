@@ -34,6 +34,17 @@ module.exports.getPerspective = function(R, t){
 
 
 /**
+ *
+ * @param {Matrix} R
+ * @param {Vector} t
+ * @returns Vector
+ */
+exports.getT = function(R, t){
+    return R.transpose().x(t).x(-1);
+};
+
+
+/**
  * Essential Matrix
  * @param R1
  * @param t1
