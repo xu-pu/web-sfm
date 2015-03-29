@@ -176,6 +176,13 @@ DemoLoader.prototype.promiseSaveRobustMatches = function(matches){
 };
 
 
+DemoLoader.prototype.requireDense = function(){
+    if (!this.dense) {
+        this.dense = require(PROJECT_ROOT + this.root + '/mvs/patches.json');
+    }
+    return this.dense;
+};
+
 //======================================================
 
 
