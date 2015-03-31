@@ -208,6 +208,21 @@ SparseMatrix.fromDenseVector = function(V){
 };
 
 
+/**
+ * @returns {number[]}
+ */
+SparseMatrix.toDenseVector = function(){
+    if (this.cols === 1) {
+        return Vector.create(
+            toFull(this.transpose().sparse)[0]
+        );
+    }
+    else {
+        throw 'not a vector';
+    }
+};
+
+
 //=====================================
 
 function SparseMatrixBuilder(rows, cols){
