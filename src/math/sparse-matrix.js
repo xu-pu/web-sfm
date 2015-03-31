@@ -24,6 +24,18 @@ function SparseMatrix(sparse, rows, cols){
     this.cols = cols;
 }
 
+/**
+ *
+ * @param {int} n
+ * @returns SparseMatrix
+ */
+SparseMatrix.I = function(n){
+    var builder = new SparseMatrixBuilder(n, n);
+    for (var i=0; i<n; i++) {
+        builder.append(i, i, 1);
+    }
+    return builder.evaluate();
+};
 
 SparseMatrix.prototype.add = function(m){
     return new SparseMatrix(numeric.ccsadd(this.sparse, m.sparse), this.rows, this.cols);
