@@ -133,6 +133,36 @@ module.exports.getFundamentalMatrix = function(R1, t1, f1, cam1, R2, t2, f2, cam
     return normalizeMatrix(F);
 };
 
+
+/**
+ *
+ * @param {Matrix} R
+ * @param {Vector} t
+ * @param {Matrix} K
+ * @param {number} k1
+ * @param {number} k2
+ * @returns {Function}
+ */
+exports.getDistortedProjection = function(R, t, K, k1, k2){
+
+    /**
+     * @param {Vector} X
+     * @returns Vector
+     */
+    return function(X){
+        var P = R.x(X).add(t);
+        var p = P.x(P.e(3));
+        var x = p.e(1);
+        var y = p.e(2);
+        var norm2 = x*x+y*y;
+        var factor = 1 + k1*norm2 + k2*norm2*norm2;
+        var distorted = Vector.create([x*factor,y*factor,1]);
+        return K.x(distorted);
+    };
+
+};
+
+
 //===================================
 
 function normalizeMatrix(m){
