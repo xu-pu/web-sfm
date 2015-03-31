@@ -7,6 +7,10 @@
  * @typedef {{ R: Matrix, t: Vector, focal: number, P: Matrix, cam: Camera }} CalibratedCamera
  */
 
+/**
+ * @typedef {{ r: number[], t: number[], f: number, px: number, py: number, k1: number, k2: number }} CameraParams
+ */
+
 
 /**
  * @typedef {number[][]} PatchSample
