@@ -15,12 +15,12 @@ var cord = require('../utils/cord.js'),
     geoUtils = require('./geometry-utils.js'),
     laUtils = require('./la-utils.js');
 
-
-
 var DELTA = Math.pow(10, -6);
 var ZERO_THRESHOLD = 0;
 //var ZERO_THRESHOLD = Math.pow(10, -10);
 var CAM_PARAMS = 11; // 3*r, 3*t, f,px,py, k1,k2
+
+//===================================================================
 
 /**
  *
@@ -30,7 +30,7 @@ var CAM_PARAMS = 11; // 3*r, 3*t, f,px,py, k1,k2
  */
 exports.sba = function(cams, Xs, visList){
 
-    var sizeList = ???;
+    var sizeList = getSizeList(visList);
 
     var MAX_STEPS = 200,
         DAMP_BASE = Math.pow(10, -3),
@@ -76,7 +76,7 @@ exports.sba = function(cams, Xs, visList){
 
             //console.log('try to find step ' + stepCounter + ' with damping ' + damp);
 
-            N = A.add(Matrix.I(xs).x(damp));
+            N = A.add(SparseMatrix.I(xs).times(damp));
 
             //deltaX = N.inverse().x(g);
             deltaX = exports.solveHessian(N, g, cams.length, sizeList);
@@ -142,6 +142,26 @@ exports.sba = function(cams, Xs, visList){
 
     return p;
 
+
+    function getSizeList(vis){
+        var result = [], curCam, curCounter=0;
+        vis.forEach(function(entry){
+            if (!curCam) {
+                curCam = entry.cam;
+                curCounter = 1;
+            }
+            else if (curCam === entry.cam) {
+                curCounter+=1;
+            }
+            else {
+                result.push(curCounter);
+                curCam = entry.cam;
+                curCounter = 1;
+            }
+        });
+        result.push(curCounter);
+        return result;
+    }
 
     /**
      * @param {Vector} x
