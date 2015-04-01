@@ -39,11 +39,13 @@ module.exports = function(matches, metadata){
     ]);
 
     var normalizedMatches = matches.map(function(match){
-        var f1 = features1[match[0]],
-            f2 = features2[match[1]],
-            p1 = Vector.create(cord.featureToImg(f1)),
-            p2 = Vector.create(cord.featureToImg(f2));
-        return { x1: T1.x(p1), x2: T2.x(p2) };
+        var i1 = match[0],
+            i2 = match[1],
+            f1 = { row: features1.get(i1, 0), col: features1.get(i1, 1) },
+            f2 = { row: features2.get(i2, 0), col: features2.get(i2, 1) },
+            x1 = Vector.create(cord.rc2x(f1)),
+            x2 = Vector.create(cord.rc2x(f2));
+        return { x1: T1.x(x1), x2: T2.x(x2) };
     });
 
     var results = ransac({
