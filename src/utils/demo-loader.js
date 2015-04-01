@@ -10,12 +10,17 @@ var testUtils = require('./test-utils.js'),
 exports.DemoLoader = DemoLoader;
 exports.halldemo = new DemoLoader(require('/home/sheep/Code/Project/web-sfm/demo/Hall-Demo/description.json'));
 exports.cityhalldemo = new DemoLoader(require('/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/description.json'));
+exports.cometdemo = new DemoLoader(require('/home/sheep/Code/Project/web-sfm/demo/Rosetta-Spacecraft/description.json'));
 
 var PROJECT_ROOT = '/home/sheep/Code/Project/web-sfm';
 
 function DemoLoader(config){
     _.extend(this, config);
 }
+
+DemoLoader.prototype.genImageJson = function(){
+    extUtils.genImagesJson(this);
+};
 
 DemoLoader.prototype.genLoweSift = function(i){
     var img = _.find(this.images, function(entry){ return entry.id === i; });
