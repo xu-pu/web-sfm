@@ -4,16 +4,47 @@ var _ = require('underscore'),
     ndarray = require('ndarray'),
     Promise = require('promise');
 
-var testUtils = require('./test-utils.js');
+var testUtils = require('./test-utils.js'),
+    extUtils = require('./external-utils.js');
 
 exports.DemoLoader = DemoLoader;
 exports.halldemo = new DemoLoader(require('/home/sheep/Code/Project/web-sfm/demo/Hall-Demo/description.json'));
+exports.cityhalldemo = new DemoLoader(require('/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/description.json'));
 
 var PROJECT_ROOT = '/home/sheep/Code/Project/web-sfm';
 
 function DemoLoader(config){
     _.extend(this, config);
 }
+
+DemoLoader.prototype.genLoweSift = function(i){
+    var img = _.find(this.images, function(entry){ return entry.id === i; });
+    var imgPath = PROJECT_ROOT + this.root + '/images/' + img.name + img.extension;
+    var pointPath = PROJECT_ROOT + this.root + '/feature.point/' + img.name + '.point';
+    var vectorPath = PROJECT_ROOT + this.root + '/feature.vector/' + img.name + '.vector';
+    return extUtils
+        .loweSIFT(imgPath)
+        .then(function(data){
+            var len = data.length,
+                vectorArr = new Uint8Array(len*128),
+                pointArr = new Float32Array(len*4),
+                vectors = ndarray(vectorArr, [len, 128]),
+                points = ndarray(pointArr, [len, 4]);
+            data.forEach(function(f, i){
+                points.set(i, 0, f.row);
+                points.set(i, 1, f.col);
+                points.set(i, 2, f.orientation);
+                points.set(i, 3, f.scale);
+                f.vector.forEach(function(v, vi){
+                    vectors.set(i, vi, v);
+                });
+            });
+            return Promise.all([
+                testUtils.promiseSaveArrayBuffer(pointPath, pointArr.buffer),
+                testUtils.promiseSaveArrayBuffer(vectorPath, vectorArr.buffer)
+            ]);
+        });
+};
 
 
 /**
@@ -35,7 +66,7 @@ DemoLoader.prototype.promiseVectorBuffer = function(id){
 
 
 /**
- *
+ * row, col, ori, scale
  * @param {int} id
  * @returns {Promise}
  */

@@ -7,6 +7,7 @@ var _ = require('underscore'),
 
 var sample = require('../src/utils/samples.js'),
     halldemo = require('../src/utils/demo-loader.js').halldemo,
+    cityhalldemo = require('../src/utils/demo-loader.js').cityhalldemo,
     tracking = require('../src/webmatcher/tracking.js'),
     VisibilityGraph = require('../src/webmatcher/tracking.js').VisibilityGraph,
     testUtils = require('../src/utils/testing.js'),
@@ -16,6 +17,7 @@ var sample = require('../src/utils/samples.js'),
     lma = require('../src/math/levenberg-marquardt.js'),
     laUtils = require('../src/math/la-utils.js'),
     geoUtils = require('../src/math/geometry-utils.js'),
+    extUtils = require('../src/utils/external-utils.js'),
     decomposition = require('../src/math/matrix-decomposition.js'),
     triangulation = require('../src/webregister/triangulation.js');
 
@@ -40,7 +42,9 @@ function decView(i){
 }
 //decView(30);
 
+cityhalldemo.genLoweSift(6);
 
+/*
 halldemo
     .promisePointTable([1,3,5,7,9])
     .then(function(pointTable){
@@ -132,3 +136,4 @@ halldemo
 
 
     });
+    */
