@@ -166,8 +166,8 @@ module.exports.promiseVisualPoints = function(resultPath, sourcePath, points, op
  * @param {string} path
  * @param {string} img1
  * @param {string} img2
- * @param {Feature[]} features1
- * @param {Feature[]} features2
+ * @param features1
+ * @param features2
  * @param {int[][]} matches
  * @param {Matrix} F
  * @returns {Promise}
@@ -182,11 +182,16 @@ module.exports.promiseDetailedMatches = function(path, img1, img2, features1, fe
         var cam1 = results[0],
             cam2 = results[1],
             canv = new Canvas(),
-            config = drawImagePair(cam1, cam2, canv, 800),
+            config = drawImagePair(cam1, cam2, canv, 1000),
             ctx = canv.getContext('2d');
 
         matches.forEach(function(match){
-            drawDetailedMatch(ctx, config, F, match, randomUtils.genRGBString(), features1, features2, cam1, cam2);
+            var i1 = match[0], i2 = match[1];
+            var pair = [
+                { row: features1.get(i1, 0), col: features1.get(i1, 1) },
+                { row: features2.get(i2, 0), col: features2.get(i2, 1) }
+            ];
+            drawDetailedMatch(ctx, config, F, pair, randomUtils.genRGBString(), cam1, cam2);
         });
 
         return exports.promiseWriteCanvas(path, canv);
