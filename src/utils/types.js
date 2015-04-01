@@ -48,7 +48,7 @@
 
 
 /**
- * @typedef {{ features1: Feature[], features2: Feature[], cam2: Camera, cam2: Camera }} TwoViewMetadata
+ * @typedef {{ features1, features2, cam2: Camera, cam2: Camera }} TwoViewMetadata
  */
 
 

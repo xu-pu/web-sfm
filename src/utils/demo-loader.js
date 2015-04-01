@@ -18,6 +18,24 @@ function DemoLoader(config){
     _.extend(this, config);
 }
 
+
+//======================================================
+// Image Utils
+//======================================================
+
+DemoLoader.prototype.getImagePath = function(i){
+    var img = _.find(this.images, function(entry){ return entry.id === i; });
+    return PROJECT_ROOT + this.root + '/images/' + img.name + img.extension;
+};
+
+DemoLoader.prototype.getCam = function(i){
+    var path = PROJECT_ROOT + this.root + '/images.json';
+    var img = _.find(require(path), function(entry){ return entry.id === i; });
+    return { width: img.width, height: img.height };
+};
+
+//======================================================
+
 DemoLoader.prototype.genImageJson = function(){
     extUtils.genImagesJson(this);
 };
