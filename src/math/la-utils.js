@@ -80,6 +80,27 @@ module.exports.matrixInfiniteNorm = function(m){
 
 
 /**
+ *
+ * @param {SparseMatrix} m
+ * @returns number
+ */
+exports.sparseInfiniteNorm = function(m){
+
+    var max = -Infinity;
+
+    m.sparse[2].each(function(x){
+        var cursor = Math.abs(x);
+        if (cursor > max) {
+            max = cursor;
+        }
+    });
+
+    return max;
+
+};
+
+
+/**
  * max of abs
  * @param {Vector} v
  * @returns number
