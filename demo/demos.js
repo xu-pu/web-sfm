@@ -16,6 +16,14 @@ module.exports = [
 
         description: require('./Leuven-City-Hall-Demo/description.json')
 
+    },
+
+    {
+
+        name: 'Rosetta-Spacecraft',
+
+        description: require('./Rosetta-Spacecraft/description.json')
+
     }
 
 ];
