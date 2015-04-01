@@ -5,8 +5,7 @@ var sampleM = [
     [1,2,3,4,5],
     [1,2,0,4,5],
     [1,2,0,0,5],
-    [1,2,3,0,5],
-    [1,2,3,4,5]
+    [1,2,3,0,5]
 ];
 
 var sps = SparseMatrix.fromDense(sampleM);

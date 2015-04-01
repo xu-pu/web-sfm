@@ -278,11 +278,3 @@ _.range(61).forEach(function(index){
 
 });
 */
-
-
-//var g = new tracking.ConnectivityGraph(matchtable);
-//var ts = g.getTracks();
-//var tracks = tracking.track(matchtable);
-
-//console.log(ts.length);
-//console.log(ts[30]);

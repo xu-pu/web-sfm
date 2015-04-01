@@ -20,6 +20,7 @@ var sample = require('../src/utils/samples.js'),
     cord = require('../src/utils/cord.js'),
     dlt = require('../src/webregister/estimate-projection.js'),
     lma = require('../src/math/levenberg-marquardt.js'),
+    estF = require('../src/webregister/estimate-fmatrix.js'),
     laUtils = require('../src/math/la-utils.js'),
     geoUtils = require('../src/math/geometry-utils.js'),
     extUtils = require('../src/utils/external-utils.js'),
@@ -46,13 +47,35 @@ function decView(i){
 
 }
 
-Promise.all([
-    cityhalldemo.promiseVectorBuffer(0),
-    cityhalldemo.promiseVectorBuffer(1)
-]).then(function(results){
-    var ms = matcher.match(results[0], results[1]);
-    return testUtils.promiseSaveJson('/home/sheep/Code/cityhall.json', ms);
-});
+function robustPair(i1,i2){
+    Promise.all([
+        cityhalldemo.promisePointsBuffer(i1),
+        cityhalldemo.promisePointsBuffer(i2)
+    ]).then(function(res){
+        var features1 = res[0],
+            features2 = res[1],
+            path1 = cityhalldemo.getImagePath(i1),
+            path2 = cityhalldemo.getImagePath(i2),
+            cam1 = cityhalldemo.getCam(i1),
+            cam2 = cityhalldemo.getCam(i2),
+            matches = cityhalldemo.getRawMatches(i1, i2).matches;
+        var results = estF(matches, {
+            features1: features1,
+            features2: features2,
+            cam1: cam1,
+            cam2: cam2
+        });
+
+        var F = laUtils.normalizedMatrix(results.F);
+
+        return Promise.all([
+            cityhalldemo.promiseSaveRobustMatches({ from: i1, to: i2, matches: results.dataset, F: F.elements }),
+            testUtils.promiseDetailedMatches('/home/sheep/Code/cityhall.png', path1, path2, features1, features2, _.sample(results.dataset, 50), F)
+        ]);
+    });
+}
+
+//robustPair(5,6);
 
 //decView(30);
 
