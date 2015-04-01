@@ -18,6 +18,10 @@
         "luminance": "latest",
         "promise": "latest",
         "get-pixels": "latest",
+        "save-pixels": "latest",
+        "lazy": "latest",
+        "shelljs": "latest",
+        "ndarray-downsample2x": "latest",
         "buffer-to-arraybuffer": "latest",
         "arraybuffer-to-buffer": "latest",
         "canvas": "latest"
