@@ -3,14 +3,19 @@ var _ = require('underscore'),
     la = require('sylvester'),
     Matrix = la.Matrix,
     Vector = la.Vector,
-    numeric = require('numeric');
+    numeric = require('numeric'),
+    pool = require('ndarray-scratch');
 
 var sample = require('../src/utils/samples.js'),
+    matcher = require('../src/webmatcher/matcher.js'),
     halldemo = require('../src/utils/demo-loader.js').halldemo,
     cityhalldemo = require('../src/utils/demo-loader.js').cityhalldemo,
+    cometdemo = require('../src/utils/demo-loader.js').cometdemo,
     tracking = require('../src/webmatcher/tracking.js'),
     VisibilityGraph = require('../src/webmatcher/tracking.js').VisibilityGraph,
-    testUtils = require('../src/utils/testing.js'),
+    testing = require('../src/utils/testing.js'),
+    testUtils = require('../src/utils/test-utils.js'),
+    imgUtils = require('../src/utils/image-conversion.js'),
     projections = require('../src/math/projections.js'),
     cord = require('../src/utils/cord.js'),
     dlt = require('../src/webregister/estimate-projection.js'),
@@ -40,10 +45,26 @@ function decView(i){
     console.log(t.subtract(ttt).max());
 
 }
+
+Promise.all([
+    cityhalldemo.promiseVectorBuffer(0),
+    cityhalldemo.promiseVectorBuffer(1)
+]).then(function(results){
+    var ms = matcher.match(results[0], results[1]);
+    return testUtils.promiseSaveJson('/home/sheep/Code/cityhall.json', ms);
+});
+
 //decView(30);
 
-cityhalldemo.genLoweSift(6);
+//cometdemo.genLoweSift(9);
 
+/*
+testUtils
+    .promiseImage('/home/sheep/Code/Project/web-sfm/demo/Rosetta-Spacecraft/images/Comet_on_19_September_2014_NavCam.jpg')
+    .then(function(img){
+        testUtils.promiseSaveNdarray('/home/sheep/Code/Project/web-sfm/demo/Rosetta-Spacecraft/images/Comet_on_19_September_2014_NavCam.half.png', imgUtils.getDownsample(img));
+    });
+*/
 /*
 halldemo
     .promisePointTable([1,3,5,7,9])
@@ -129,11 +150,11 @@ halldemo
         console.log(geoUtils.getEulerAngles(ref.R));
 
         return Promise.all([
-            testUtils.promiseVisualPoints('/home/sheep/Code/triangulation-1.png', ci1, points1),
-            testUtils.promiseVisualPoints('/home/sheep/Code/triangulation-2.png', ci2, points2),
-            testUtils.promiseVisualPoints('/home/sheep/Code/triangulation-3.png', thirdCam, points3)
+            testing.promiseVisualPoints('/home/sheep/Code/triangulation-1.png', ci1, points1),
+            testing.promiseVisualPoints('/home/sheep/Code/triangulation-2.png', ci2, points2),
+            testing.promiseVisualPoints('/home/sheep/Code/triangulation-3.png', thirdCam, points3)
         ]);
 
 
     });
-    */
+*/

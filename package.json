@@ -18,6 +18,8 @@
         "luminance": "latest",
         "promise": "latest",
         "get-pixels": "latest",
+        "buffer-to-arraybuffer": "latest",
+        "arraybuffer-to-buffer": "latest",
         "canvas": "latest"
     },
 
