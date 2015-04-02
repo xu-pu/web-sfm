@@ -1,6 +1,8 @@
 'use strict';
 
-module.exports = Ember.Component.extend({
+var DragZoomMixin = require('../mixins/DragZoom.js');
+
+module.exports = Ember.Component.extend(DragZoomMixin, {
 
     tagName: 'img',
 
@@ -9,22 +11,6 @@ module.exports = Ember.Component.extend({
     attributeBindings: ['src'],
 
     src: null, //need
-
-    makeDrag: function(){
-        var img = this.get('element'),
-            $img = jQuery(img);
-        $img.on('load', function(){
-            $img.css('width', img.naturalWidth).css('height', img.naturalHeight);
-            $img.draggable();
-        });
-    }.on('didInsertElement'),
-
-    registerWheel: function(){
-        var _self = this;
-        jQuery(this.get('element')).on('wheel', function(e){
-            _self.wheel(e.originalEvent);
-        });
-    }.on('didInsertElement'),
 
     wheel: function(e){
         var img = this.get('element'),

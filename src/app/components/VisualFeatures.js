@@ -2,9 +2,10 @@
 
 var ndarray = require('ndarray');
 
-var drawFeatures = require('../../visualization/features.js');
+var drawFeatures = require('../../visualization/features.js'),
+    DragZoomMixin = require('../mixins/DragZoom.js');
 
-module.exports = Ember.Component.extend({
+module.exports = Ember.Component.extend(DragZoomMixin, {
 
     img: null, // need
 
@@ -36,17 +37,6 @@ module.exports = Ember.Component.extend({
         ctx.drawImage(img, 0, 0, width, height);
         drawFeatures.fromBuffer(ctx, ndbuffer, 0, 0, 1, { markSize: markSize });
     },
-
-    makeDrag: function(){
-        this.$().draggable();
-    }.on('didInsertElement'),
-
-    registerWheel: function(){
-        var _self = this;
-        jQuery(this.get('element')).on('wheel', function(e){
-            _self.wheel(e.originalEvent);
-        });
-    }.on('didInsertElement'),
 
     wheel: function(e){
         var canvas = this.get('element'),
