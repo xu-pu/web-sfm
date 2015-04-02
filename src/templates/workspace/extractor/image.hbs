@@ -1,15 +1,7 @@
-<div class="floating-window__extractor-image">
-    <div class="floating-window__header">
-        <span class="floating-window__header__h1">FEATURES&nbsp;</span>
-        <span class="floating-window__header__h2">{{model.filename}}</span>
-        <div {{bind-attr class=":load-indicator isLoading"}}></div>
-        <div class="exit-icon" {{action "back"}}></div>
-    </div>
+{{#floating-window mainTitle="FEATURES" subTitle=model.filename close="back" isLoading=isLoading}}
 
-    <div class="floating-window__inner-container">
-        {{#unless isLoading}}
-            {{visual-features img=img features=features}}
-        {{/unless}}
-    </div>
+    {{#unless isLoading}}
+        {{visual-features img=img features=features}}
+    {{/unless}}
 
-</div>
+{{/floating-window}}

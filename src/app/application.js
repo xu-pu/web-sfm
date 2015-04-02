@@ -87,7 +87,7 @@ App.CpuSettingComponent = require('./components/CpuSetting.js');
 App.CpuSettingNodeComponent = require('./components/CpuSettingNode.js');
 App.WorkspaceControlPanelComponent = require('./components/WorkspaceControlPanel.js');
 App.VisualFeaturesComponent = require('./components/VisualFeatures.js');
-
+App.FloatingWindowComponent = require('./components/FloatingWindow.js');
 
 //=======================
 // Resource Controllers
@@ -101,7 +101,7 @@ App.DownloaderController = require('./ResourceControllers/DownloaderController.j
 App.ProjectResourceController = require('./ResourceControllers/ProjectResourceController.js');
 
 //=======================
-// Welcome Screen
+// Route Controllers
 //=======================
 
 App.WelcomeController = require('./controllers/Welcome.js');

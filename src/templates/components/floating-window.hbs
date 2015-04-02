@@ -1,0 +1,13 @@
+<div class="floating-window__input-image">
+    <div class="floating-window__header">
+        <span class="floating-window__header__h1">{{mainTitle}}&nbsp;</span>
+        <span class="floating-window__header__h2">{{subTitle}}</span>
+        <div {{bind-attr class=":load-indicator isLoading"}}></div>
+        <div class="exit-icon" {{action "close"}}></div>
+    </div>
+
+    <div class="floating-window__inner-container">
+        {{yield}}
+    </div>
+
+</div>
