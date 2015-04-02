@@ -1,6 +1,7 @@
 'use strict';
 
-var settings = require('../settings.js'),
+var Matches = require('../models/Matches.js'),
+    settings = require('../settings.js'),
     RESOURCES = settings.RESOURCE;
 
 module.exports = Ember.Route.extend({
@@ -16,11 +17,11 @@ module.exports = Ember.Route.extend({
             resource.promiseResource(RESOURCES.RAW_MATCHES),
             resource.promiseResource(RESOURCES.ROBUST_MATCHES)
         ]).then(function(results){
-            return {
+            return Matches.create({
                 images: results[0],
                 raw: results[1],
                 robust: results[2]
-            };
+            });
         });
     }
 

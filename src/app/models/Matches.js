@@ -2,27 +2,29 @@
 
 module.exports = Ember.Object.extend({
 
+    images: [],
+
+    raw: [],
+
+    robust: [],
+
     connectedGroups: function(){
 
-        var _self = this,
-            groups = [];
+        var groups = [];
 
-        this.get('model')
-            .filter(function(match){
-                return match.isRobust;
-            })
+        this.get('robust')
             .forEach(function(match){
 
                 var foundFrom = groups.find(function(e){
                     return e.contains(match.from);
-                }, _self);
+                });
 
                 var foundTo = groups.find(function(e){
                     return e.contains(match.to);
-                }, _self);
+                });
 
                 if (foundFrom && foundTo) {
-                    if (foundFrom != foundTo) {
+                    if (foundFrom !== foundTo) {
                         foundFrom.addObjects(foundTo);
                         groups.removeObject(foundTo);
                     }
@@ -37,9 +39,11 @@ module.exports = Ember.Object.extend({
 
             });
 
+        console.log(groups);
+
         return groups;
 
-    }.property('model.length'),
+    }.property('robust.length'),
 
     isMatched: function(from, to){
         return this.get('model').some(function(match){
@@ -48,8 +52,8 @@ module.exports = Ember.Object.extend({
     },
 
     isRobust: function(from, to){
-        return this.get('model').some(function(match){
-            return match.from === from && match.to === to && match.isRobust;
+        return this.get('robust').some(function(entry){
+            return (entry.from === from && entry.to === to) || (entry.from === to && entry.to === from);
         });
     },
 

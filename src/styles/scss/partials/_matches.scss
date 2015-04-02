@@ -35,14 +35,22 @@ $matching-trace-color: orange;
 
 .match-grid__node {
 
-  background-color: greenyellow;
+  background-color: #ffffff;
 
-  &.is-hover {
+  &:hover {
     border: 5px solid rgb(92, 181, 21);
   }
 
   &.is-trace, &.is-trace.is-diag {
     border: 5px solid rgb(0, 203, 64);
+  }
+
+  &.is-connected {
+    background-color: greenyellow;
+  }
+
+  &.is-robust {
+    background-color: rgb(107, 192, 107);
   }
 
 }

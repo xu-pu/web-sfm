@@ -4,18 +4,35 @@ module.exports = Ember.Component.extend({
 
     grid: null, // need
 
+    matches: null, // need
+
     hover: Ember.computed.alias('grid.hover'),
 
     tagName: 'div',
 
     classNames: ['match-grid__node'],
 
-    classNameBindings: ['isDiag', 'isTrace', 'isHover'],
+//    classNameBindings: ['isDiag', 'isTrace', 'isHover', 'isConnected', 'isRobust'],
+
+    classNameBindings: ['isDiag', 'isConnected', 'isRobust'],
 
     from: null,
 
     to: null,
 
+    isConnected: function(){
+        return this.get('matches').isConnected(this.get('from.id'), this.get('to.id'));
+    }.property('matches', 'from', 'to'),
+
+    isRobust: function(){
+        return this.get('matches').isRobust(this.get('from.id'), this.get('to.id'));
+    }.property('matches', 'from', 'to'),
+
+    isDiag: function(){
+        return this.get('from') === this.get('to');
+    }.property('from', 'to')
+
+    /*
     mouseEnter: function(){
         if (this.get('isDiag')) {
             this.get('grid').set('hover', null);
@@ -35,18 +52,12 @@ module.exports = Ember.Component.extend({
         }
     }.property('hover'),
 
-    /*
     isFinished: function(){
         return !this.get('isDiag') && this.get('controller.finished').indexOf(this.get('key')) !== -1;
     }.property('controller.matches.length', 'from', 'to'),
-*/
-
-    isDiag: function(){
-        return this.get('from') === this.get('to');
-    }.property('from', 'to'),
 
     isHover: function(){
         return this === this.get('hover');
     }.property('hover')
-
+*/
 });

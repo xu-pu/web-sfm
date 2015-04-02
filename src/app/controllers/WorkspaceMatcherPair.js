@@ -1,7 +1,23 @@
 'use strict';
 
-module.exports = Ember.ObjectController.extend({
+module.exports = Ember.Controller.extend({
 
-    queryParams: ['from', 'to']
+    needs: ['projectResource'],
+
+    resource: Ember.computed.alias('controllers.projectResource'),
+
+    queryParams: ['from', 'to', 'mode'],
+
+    mode: 'robust',
+
+    title: function(){
+        return this.get('model.from.filename') + ' to ' + this.get('model.to.filename');
+    }.property('from', 'to'),
+
+    actions: {
+        back: function(){
+            this.transitionTo('workspace.matcher');
+        }
+    }
 
 });

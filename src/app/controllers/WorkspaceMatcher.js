@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = Ember.ObjectController.extend({
+module.exports = Ember.Controller.extend({
 
     images: Ember.computed.alias('model.images'),
 
