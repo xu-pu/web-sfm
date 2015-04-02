@@ -1,5 +1,8 @@
 'use strict';
 
+var settings = require('../settings.js'),
+    RESOURCES = settings.RESOURCE;
+
 module.exports = Ember.Route.extend({
 
     /**
@@ -7,14 +10,16 @@ module.exports = Ember.Route.extend({
      * @returns {Promise}
      */
     model: function() {
-        var workspace = this.controllerFor('workspace');
+        var resource = this.controllerFor('projectResource');
         return Promise.all([
-            workspace.get('images'),
-            workspace.get('matches')
+            this.controllerFor('workspace').get('images'),
+            resource.promiseResource(RESOURCES.RAW_MATCHES),
+            resource.promiseResource(RESOURCES.ROBUST_MATCHES)
         ]).then(function(results){
             return {
                 images: results[0],
-                matches: results[1]
+                raw: results[1],
+                robust: results[2]
             };
         });
     }

@@ -51,6 +51,13 @@ module.exports = Ember.Controller.extend({
                 // metadata is the Image object
                 return utils.promiseDownload(root+name+'/'+metadata.get('name')+'.vector', 'arraybuffer');
                 break;
+            case RESOURCE.RAW_MATCHES:
+                return utils.promiseDownload(root+name, 'json');
+                break;
+            case RESOURCE.ROBUST_MATCHES:
+                // metadata is the Image object
+                return utils.promiseDownload(root+name, 'json');
+                break;
             case RESOURCE.MVS_POINTS:
                 return utils.promiseDownload(root+name, 'arraybuffer');
                 break;

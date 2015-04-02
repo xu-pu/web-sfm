@@ -2,8 +2,10 @@
 
 module.exports = Ember.ObjectController.extend({
 
-    needs: ['workspace'],
+    images: Ember.computed.alias('model.images'),
 
-    images: Ember.computed.alias('model.images')
+    raw: Ember.computed.alias('model.raw'),
+
+    robust: Ember.computed.alias('model.robust')
 
 });
