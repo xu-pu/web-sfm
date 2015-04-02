@@ -39,8 +39,6 @@ module.exports = Ember.Object.extend({
 
             });
 
-        console.log(groups);
-
         return groups;
 
     }.property('robust.length'),
@@ -61,6 +59,25 @@ module.exports = Ember.Object.extend({
         return this.get('connectedGroups').some(function(group){
             return group.contains(from) && group.contains(to);
         });
+    },
+
+    getMatches: function(from, to){
+        from = parseInt(from, 10);
+        to = parseInt(to, 10);
+        var images = this.get('images'),
+            raw = this.get('raw'),
+            robust = this.get('robust');
+        var img1 = images.findBy('id', from);
+        var img2 = images.findBy('id', to);
+        var r = raw.find(function(entry){
+            return entry.from === from && entry.to === to;
+        });
+        var b = robust.find(function(entry){
+            return entry.from === from && entry.to === to;
+        });
+        if (img1 && img2 && r && b) {
+            return { from: img1, to: img2, raw: r.matches, robust: b.matches, F: robust.F };
+        }
     }
 
 });

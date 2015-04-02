@@ -15,19 +15,12 @@ module.exports =  Ember.Route.extend({
     },
 
     model: function(params){
-
-        var match = this.controllerFor('matches')
-            .get('model')
-            .find(function(match){
-                return match.from === params.from && match.to === params.to;
-            }, this);
-
+        var match = this.modelFor('workspace.matcher').getMatches(params.from, params.to);
         return match || Promise.reject();
-
     },
 
     serialize: function(model){
-        return { from: model.get('from'), to: model.get('to') };
+        return { from: model.get('from.id'), to: model.get('to.id') };
     }
 
 });
