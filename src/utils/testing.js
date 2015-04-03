@@ -13,12 +13,12 @@ var samples = require('./samples.js'),
     randomUtils = require('./random.js'),
     laUtils = require('../math/la-utils.js'),
     projections = require('../math/projections.js'),
-    drawFeatures = require('../visualization/drawFeatures.js'),
-    drawImagePair = require('../visualization/drawImagePair.js'),
-    drawMatches = require('../visualization/drawMatches.js'),
+    drawFeatures = require('../visualization/features.js').fromRC,
+    drawImagePair = require('../visualization/matches.js').drawImagePair,
+    drawMatches = require('../visualization/matches.js').drawMatches,
     drawEpipolarLines = require('../visualization/drawEpipolarLines.js'),
     drawHomography = require('../visualization/drawHomography.js'),
-    drawDetailedMatch = require('../visualization/drawDetailedMatch.js');
+    drawDetailedMatch = require('../visualization/matches.js').drawDetailedMatches;
 
 //==================================================
 

@@ -8,7 +8,7 @@ module.exports = Ember.Controller.extend({
 
     queryParams: ['from', 'to', 'mode'],
 
-    mode: 'robust',
+    mode: 'epipolar',
 
     title: function(){
         return this.get('model.from.filename') + ' to ' + this.get('model.to.filename');

@@ -40,13 +40,25 @@ module.exports = Ember.Component.extend(DragZoomMixin, {
             _self.set('points2', ndarray(points2, [points2.length/4, 4]));
             _self.drawContent();
         });
-        console.log(this.get('element'));
     }.on('didInsertElement').observes('data.from', 'data.to'),
 
-    //onChange: function(){}.observes(),
-
     drawContent: function(){
+        switch (this.get('mode')) {
+            case 'epipolar':
+                this.drawRobust();
+                break;
+            case 'robust':
+                this.drawMatches(this.get('data.robust'));
+                break;
+            case 'raw':
+                this.drawMatches(this.get('data.raw'));
+                break;
+            default :
+                throw 'Invalid visual matches mode!';
+        }
+    },
 
+    drawRobust: function(){
         var robust = this.get('data.robust'),
             F = Matrix.create(this.get('data.F')),
             img1 = this.get('img1'),
@@ -66,6 +78,18 @@ module.exports = Ember.Component.extend(DragZoomMixin, {
             ];
             visualMatches.drawDetailedMatches(ctx, config, F, pair, randomUtils.genRGBString(), img1, img2);
         });
+    },
+
+    drawMatches: function(matches){
+        var img1 = this.get('img1'),
+            img2 = this.get('img2'),
+            points1 = this.get('points1'),
+            points2 = this.get('points2'),
+            canv = this.get('element'),
+            ctx = canv.getContext('2d');
+
+        var config = visualMatches.drawImagePair(img1, img2, canv, 1500);
+        visualMatches.drawMatches(config, ctx, matches, points1, points2);
     },
 
     wheel: function(e){

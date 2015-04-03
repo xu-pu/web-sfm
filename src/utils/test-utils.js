@@ -18,9 +18,9 @@ var samples = require('./samples.js'),
     randomUtils = require('./random.js'),
     laUtils = require('../math/la-utils.js'),
     projections = require('../math/projections.js'),
-    drawFeatures = require('../visualization/drawFeatures.js'),
-    drawImagePair = require('../visualization/drawImagePair.js'),
-    drawDetailedMatch = require('../visualization/drawDetailedMatch.js');
+    drawFeatures = require('../visualization/features.js').fromRC,
+    drawImagePair = require('../visualization/matches.js').drawImagePair,
+    drawDetailedMatch = require('../visualization/matches.js').drawDetailedMatches;
 
 
 //=====================================================
