@@ -76,7 +76,7 @@ module.exports = Ember.Object.extend({
             return entry.from === from && entry.to === to;
         });
         if (img1 && img2 && r && b) {
-            return { from: img1, to: img2, raw: r.matches, robust: b.matches, F: robust.F };
+            return { from: img1, to: img2, raw: r.matches, robust: b.matches, F: b.F };
         }
     }
 

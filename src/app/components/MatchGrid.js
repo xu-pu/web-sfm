@@ -30,7 +30,12 @@ module.exports = Ember.Component.extend({
         if (nextSize > GRID_SIZE_MIN && nextSize < GRID_SIZE_MAX) {
             $grid.css('width', nextSize).css('height', nextSize);
         }
-    }
+    },
 
+    actions: {
+        enter: function(param){
+            this.sendAction('enter', param);
+        }
+    }
 
 });

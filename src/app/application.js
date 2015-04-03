@@ -88,6 +88,7 @@ App.CpuSettingNodeComponent = require('./components/CpuSettingNode.js');
 App.WorkspaceControlPanelComponent = require('./components/WorkspaceControlPanel.js');
 App.VisualFeaturesComponent = require('./components/VisualFeatures.js');
 App.FloatingWindowComponent = require('./components/FloatingWindow.js');
+App.VisualMatchingComponent = require('./components/VisualMatching.js');
 
 //=======================
 // Resource Controllers

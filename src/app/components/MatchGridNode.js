@@ -30,7 +30,13 @@ module.exports = Ember.Component.extend({
 
     isDiag: function(){
         return this.get('from') === this.get('to');
-    }.property('from', 'to')
+    }.property('from', 'to'),
+
+    click: function(){
+        if (this.get('isRobust')) {
+            this.sendAction('action', { from: this.get('from.id'), to: this.get('to.id') });
+        }
+    }
 
     /*
     mouseEnter: function(){
