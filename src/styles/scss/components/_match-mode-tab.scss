@@ -1,0 +1,16 @@
+.match-mode-tab {
+  font-size: 1em;
+  padding: 10px;
+  cursor: pointer;
+  text-transform: uppercase;
+
+  &.is-current {
+    border-left: 10px solid #5E94B2;
+    background-color: white;
+  }
+
+  &:hover {
+    background-color: #ffffff;
+  }
+
+}

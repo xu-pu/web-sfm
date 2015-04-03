@@ -1,3 +1,8 @@
 {{#floating-window mainTitle="MATCHES" subTitle=title close="back"}}
+    <ul class="match-pair__visual-modes">
+        <li>{{match-mode-tab mode="raw" current=mode}}</li>
+        <li>{{match-mode-tab mode="robust" current=mode}}</li>
+        <li>{{match-mode-tab mode="epipolar" current=mode}}</li>
+    </ul>
     {{visual-matching resource=resource data=model mode=mode}}
 {{/floating-window}}

@@ -14,6 +14,7 @@
 
 @import "components/image-detail";
 @import "components/visual-features";
+@import "components/match-mode-tab";
 
 img {
   @include user-select(none);

@@ -89,6 +89,7 @@ App.WorkspaceControlPanelComponent = require('./components/WorkspaceControlPanel
 App.VisualFeaturesComponent = require('./components/VisualFeatures.js');
 App.FloatingWindowComponent = require('./components/FloatingWindow.js');
 App.VisualMatchingComponent = require('./components/VisualMatching.js');
+App.MatchModeTabComponent = require('./components/MatchModeTab.js');
 
 //=======================
 // Resource Controllers

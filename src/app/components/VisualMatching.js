@@ -56,7 +56,7 @@ module.exports = Ember.Component.extend(DragZoomMixin, {
             default :
                 throw 'Invalid visual matches mode!';
         }
-    },
+    }.observes('mode'),
 
     drawRobust: function(){
         var robust = this.get('data.robust'),
