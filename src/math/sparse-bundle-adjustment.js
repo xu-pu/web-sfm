@@ -164,10 +164,10 @@ exports.sparseLMA = function(func, x0, target, cams, points){
 
     //console.log('begin initializing');
 
-    var     p = x0.dup(),
+    var p = x0.dup(),
         y = y0,
         sigma = target.subtract(y0),
-        J = getJacobian(func, x0),
+        J = exports.sparseJacobian(func, x0),
         A = J.transpose().x(J),
         g = J.transpose().x(sigma),
         damp = DAMP_BASE*laUtils.matrixInfiniteNorm(A);
@@ -267,26 +267,30 @@ exports.sparseLMA = function(func, x0, target, cams, points){
 /**
  *
  * @param {Function} func - number[]=>number[]
- * @param {number[]} x
+ * @param {Vector} x
  * @returns SparseMatrixa
  */
 exports.sparseJacobian = function(func, x){
 
-    var y = func(x),
-        xx = x.slice(),
-        xs = x.length,
-        ys = y.length;
+    var xx = x.dup(),
+        y = func(x),
+        xArr = x.elements,
+        yArr = y.elements,
+        xxArr = xx.elements,
+        xs = xArr.length,
+        ys = yArr.length;
 
     var builder = new SparseMatrixBuilder(ys, xs);
 
-    var curY, curC, curR, curV;
+    var curY, curYArr, curC, curR, curV;
 
     for (curC=0; curC<xs; curC++) {
-        xx[curC] = xx[curC] + DELTA;
+        xxArr[curC] = xxArr[curC] + DELTA;
         curY = func(xx);
-        xx[curC] = xx[curC] - DELTA;
+        curYArr = curY.elements;
+        xxArr[curC] = xxArr[curC] - DELTA;
         for (curR=0; curR<ys; curR++) {
-            curV = (curY[curR] - y[curR]) / DELTA;
+            curV = (curYArr[curR] - yArr[curR]) / DELTA;
             if (curV !== 0) {
                 builder.append(curR, curC, curV);
             }
