@@ -22,36 +22,154 @@ var CAM_PARAMS = 11; // 3*r, 3*t, f,px,py, k1,k2
 
 //===================================================================
 
+
 /**
  *
- * @param {CameraParams[]} cams
- * @param {Vector[]} Xs
- * @param {{ rc: RowCol, cam: int, Xi: int }[]} visList -- should in order of X1inCam1 X1inCam2 ...
+ * @param {CameraParams} cam
+ * @returns number[]
  */
-exports.sba = function(cams, Xs, visList){
+exports.flattenCamera = function(cam){
+    var r = cam.r, t = cam.t;
+    return r.concat(t).concat([cam.f, cam.px, cam.py, cam.k1, cam.k2]);
+};
 
-    var sizeList = getSizeList(visList);
+
+/**
+ * @param {number[]} params
+ * @returns CameraParams
+ */
+exports.inflateCamera = function(params){
+    return {
+        r: params.slice(0,3),
+        t: params.slice(3,6),
+        f: params[6], px: params[7], py: params[8],
+        k1: params[9], k2: params[10]
+    };
+};
+
+
+/**
+ *
+ * @param {CameraParams} cam
+ * @returns function
+ */
+exports.getProjection = function(cam){
+    var r = cam.r,
+        R = geoUtils.getRotationFromEuler(r[0], r[1], r[2]),
+        t = laUtils.toVector(cam.t),
+        K = projection.getK(cam.f, cam.px, cam.py);
+    return projection.getDistortedProjection(R, t, K, cam.k1, cam.k2);
+};
+
+//===================================================================
+
+
+/**
+ *
+ * @param camsDict - camID=>Cam
+ * @param xDict - trackID=>Vector
+ * @param {{ rc: RowCol, ci: int, xi: int }[]} visList -- should in order of X1inCam1 X1inCam2 ...
+ * @param {int[]} varCamInd
+ * @param {int[]} varPointInd
+ */
+exports.sba = function(camsDict, xDict, visList, varCamInd, varPointInd){
+
+    var projectionDict = _.mapObject(camsDict, function(val, key){
+        return exports.getProjection(val);
+    });
+
+    var flattenCams = varCamInd.reduce(function(memo, camInd){
+        return memo.concat(exports.flattenCamera(camsDict[camInd]));
+    }, []);
+    var flatten = varPointInd.reduce(function(memo, pointInd){
+        return memo.concat(xDict[pointInd].elements);
+    }, flattenCams);
+
+    var result = exports.sparseLMA(func, laUtils.toVector(flatten), Vector.Zero(visList.length), varCamInd.length, varPointInd.length);
+
+    inflateParams(result, camsDict, xDict);
+
+
+    /**
+     * @param {Vector} x
+     * @returns Vector
+     */
+    function func(x){
+        var varCamsDict = {},
+            varPointsDict = {};
+
+        inflateParams(x, varCamsDict, varPointsDict);
+
+        var varProjectionDict = _.mapObject(varCamsDict, function(val, key){
+            return exports.getProjection(val);
+        });
+
+        var yArr = visList.map(function(entry){
+            var xi = entry.xi, ci = entry.ci, rc = entry.rc;
+            var proj = projectionDict[ci] || varProjectionDict[ci];
+            var X = varPointsDict[xi] || xDict[xi];
+            var x = proj(X);
+            return geoUtils.getDistanceRC(rc, cord.img2RC(x));
+        });
+
+        return laUtils.toVector(yArr);
+
+    }
+
+    /**
+     *
+     * @param {Vector} x
+     * @param cDict
+     * @param pDict
+     */
+    function inflateParams(x, cDict, pDict){
+        var flat = x.elements;
+        var offset = 0;
+        varCamInd.forEach(function(camInd){
+            cDict[camInd] = exports.inflateCamera(flat.slice(offset, offset+CAM_PARAMS));
+            offset += CAM_PARAMS;
+        });
+        varPointInd.forEach(function(pointInd){
+            pDict[pointInd] = laUtils.toVector(flat.slice(offset, offset+3));
+            offset += 3;
+        });
+    }
+
+};
+
+
+//===================================================================
+
+
+/**
+ * Sparse Levenberg-Marqurdt Algorithm, tylered to sba
+ *
+ * @param {function(Vector):Vector} func - f(vx) => vy
+ * @param {Vector} x0 - start point x0[]
+ * @param {Vector} target - target
+ * @param {int} cams - amount of cameras
+ * @param {int} points
+ * @return {Vector}
+ */
+exports.sparseLMA = function(func, x0, target, cams, points){
 
     var MAX_STEPS = 200,
         DAMP_BASE = Math.pow(10, -3),
         ZERO_THRESHOLD = Math.pow(10, -30),
         DEFAULT_STEP_BASE = 2;
 
-    var target = Vector.Zero(visList.length),
-        x0 = Vector.create(flattenParams(cams, Xs)),
-        y0 = func(x0),
+    var y0 = func(x0),
         xs = x0.elements.length,
         ys = y0.elements.length;
 
     //console.log('begin initializing');
 
-    var p = x0.dup(),
+    var     p = x0.dup(),
         y = y0,
         sigma = target.subtract(y0),
-        J = exports.sparseJacobian(func, x0),
-        transJ = J.transpose(),
-        A = transJ.x(J),
-        g = transJ.x(sigma),
+        J = getJacobian(func, x0),
+        A = J.transpose().x(J),
+        g = J.transpose().x(sigma),
         damp = DAMP_BASE*laUtils.matrixInfiniteNorm(A);
 
     var N, deltaX, newSigma, newX, newY,
@@ -76,10 +194,9 @@ exports.sba = function(cams, Xs, visList){
 
             //console.log('try to find step ' + stepCounter + ' with damping ' + damp);
 
-            N = A.add(SparseMatrix.I(xs).times(damp));
+            N = A.add(Matrix.I(xs).x(damp));
 
-            //deltaX = N.inverse().x(g);
-            deltaX = exports.solveHessian(N, g, cams.length, sizeList);
+            deltaX = N.inverse().x(g);
 
             if (deltaX.modulus() < ZERO_THRESHOLD * p.modulus()) {
                 // end if step is too small
@@ -118,7 +235,7 @@ exports.sba = function(cams, Xs, visList){
             //console.log('step accepted, refresh the equation');
 
             // refresh the equation
-            J = exports.sparseJacobian(func, p);
+            J = getJacobian(func, p);
             A = J.transpose().x(J);
             g = J.transpose().x(sigma);
 
@@ -142,87 +259,10 @@ exports.sba = function(cams, Xs, visList){
 
     return p;
 
-
-    function getSizeList(vis){
-        var result = [], curCam, curCounter=0;
-        vis.forEach(function(entry){
-            if (!curCam) {
-                curCam = entry.cam;
-                curCounter = 1;
-            }
-            else if (curCam === entry.cam) {
-                curCounter+=1;
-            }
-            else {
-                result.push(curCounter);
-                curCam = entry.cam;
-                curCounter = 1;
-            }
-        });
-        result.push(curCounter);
-        return result;
-    }
-
-    /**
-     * @param {Vector} x
-     * @returns Vector
-     */
-    function func(x){
-        var params = x.elements;
-        var cursor = 0;
-        var projections = cams.map(function(){
-            cursor += CAM_PARAMS;
-            return inflateCamera(params.slice(cursor-CAM_PARAMS, cursor))
-        });
-        var currentXs = Xs.map(function(){
-            cursor += 3;
-            return Vector.create(params.slice(cursor-3, cursor));
-        });
-
-        return Vector.create(
-            visList.map(function(entry){
-                var rc = entry.rc;
-                var proj = projections[entry.cam];
-                var X = currentXs[entry.Xi];
-                var x = proj(X);
-                return geoUtils.getDistanceRC(rc, cord.img2RC(x));
-            }));
-    }
-
-
-    /**
-     *
-     * @param {CameraParams[]} cams
-     * @param {Vector[]} points
-     * @returns number[]
-     */
-    function flattenParams(cams, points){
-        var c = cams.reduce(function(memo, cam){
-            var r = cam.r, t = cam.t;
-            return memo.concat(r.concat(t).concat([cam.f, cam.px, cam.py, cam.k1, cam.k2]));
-        }, []);
-        return points.reduce(function(memo, p){
-            return memo.concat(p.elements);
-        }, c);
-    }
-
-
-    function inflateCamera(params){
-        var R = geoUtils.getRotationFromEuler(params[0], params[1], params[2]),
-            t = Vector.create(params.slice(3, 6)),
-            K = projection.getK(params[6],params[7],params[8]),
-            k1 = params[9],
-            k2 = params[10];
-        return projection.getDistortedProjection(R, t, K, k1, k2);
-    }
-
 };
 
 
-exports.sparseLMA = function(){
-
-};
-
+//===================================================================
 
 /**
  *
@@ -258,12 +298,15 @@ exports.sparseJacobian = function(func, x){
 };
 
 
+//===================================================================
+
 /**
  *
  * @param {SparseMatrix} H
  * @param {number[]} sigma
  * @param {int} cams
  * @param {int[]} sizes
+ * @returns number[]
  */
 exports.solveHessian = function(H, sigma, cams, sizes){
 
@@ -284,29 +327,35 @@ exports.solveHessian = function(H, sigma, cams, sizes){
         sparseSigmaB = SparseMatrix.fromDenseVector(sigmaB),
         deltaB = invV.x(sparseSigmaB.subtract(transW.x(sparseDeltaA))).toDense();
 
-    return transpose(deltaA.concat(deltaB));
+    return deltaA.concat(deltaB);
 
 };
 
 
+//===================================================================
+
 /**
  * V is block diagnal
  * @param {SparseMatrix} V
- * @param {int[]} sizes
+ * @param {int} points
  */
-exports.inverseV = function(V, sizes){
+exports.inverseV = function(V, points){
     var builder = new SparseMatrixBuilder(V.rows, V.cols);
-    var offset = 0;
-    sizes.forEach(function(size){
-        var block = V.getBlock(offset, offset, offset+size, offset+size).toDense();
-        var invBlock = numeric.inv(block);
-        var r, c;
-        for (c=0; c<size; c++) {
-            for (r=0; r<size; r++) {
-                builder.append(r+offset, c+offset, invBlock[r][c]);
+    var size = 3;
+    var offset = 0, cursor;
+    for (cursor=0; cursor<points; cursor++) {
+        (function(){
+            var block = V.getBlock(offset, offset, offset+size, offset+size).toDense();
+            var invBlock = numeric.inv(block);
+            var r, c;
+            for (c=0; c<size; c++) {
+                for (r=0; r<size; r++) {
+                    builder.append(r+offset, c+offset, invBlock[r][c]);
+                }
             }
-        }
-        offset += size;
-    });
+            offset += size;
+        })();
+    }
+
     return builder.evaluate();
 };
