@@ -119,3 +119,13 @@
 /**
  * @typedef {{ from: number, to: number, matches: number[][] }} TwoViewMatches
  */
+
+
+/**
+ * @typedef {VisView[]} VisList
+ */
+
+
+/**
+ * @typedef {{ rc: RowCol, ci: int, xi: int }} VisView
+ */

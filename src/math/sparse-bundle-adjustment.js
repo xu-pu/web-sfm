@@ -68,7 +68,7 @@ exports.getProjection = function(cam){
  *
  * @param camsDict - camID=>Cam
  * @param xDict - trackID=>Vector
- * @param {{ rc: RowCol, ci: int, xi: int }[]} visList -- should in order of X1inCam1 X1inCam2 ...
+ * @param {VisList} visList
  * @param {int[]} varCamInd
  * @param {int[]} varPointInd
  */
