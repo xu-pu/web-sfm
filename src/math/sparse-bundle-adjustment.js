@@ -309,10 +309,10 @@ exports.sparseJacobian = function(func, x){
  * @param {SparseMatrix} H
  * @param {number[]} sigma
  * @param {int} cams
- * @param {int[]} sizes
- * @returns number[]
+ * @param {int} points
+ * @returns Vector
  */
-exports.solveHessian = function(H, sigma, cams, sizes){
+exports.solveHessian = function(H, sigma, cams, points){
 
     var offset = cams*CAM_PARAMS,
         sigmaA = sigma.slice(0, offset),
@@ -322,7 +322,7 @@ exports.solveHessian = function(H, sigma, cams, sizes){
         V = splited.C,
         W = splited.B,
         transW = splited.C,
-        invV = exports.inverseV(V, sizes);
+        invV = exports.inverseV(V, points);
 
     var param1 = sub(U, W.x(invV).x(transW)), // U - W * V-1 * Wt
         param2 = sub(sigmaA, dot(W.x(invV).toDense(), sigmaB)), // sigmaA - W * V-1 * sigmaB
@@ -331,7 +331,7 @@ exports.solveHessian = function(H, sigma, cams, sizes){
         sparseSigmaB = SparseMatrix.fromDenseVector(sigmaB),
         deltaB = invV.x(sparseSigmaB.subtract(transW.x(sparseDeltaA))).toDense();
 
-    return deltaA.concat(deltaB);
+    return laUtils.toVector(deltaA.concat(deltaB));
 
 };
 
