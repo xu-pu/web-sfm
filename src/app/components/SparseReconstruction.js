@@ -91,30 +91,6 @@ module.exports = Ember.Component.extend({
             cameras.add(getBundlerCamera(cam));
         });
         return cameras;
-    },
-
-    onFocus: function(){
-        var cam = this.get('controller.focus'),
-            camera = this.get('camera');
-        var Rt = cord.getStandardRt(Matrix.create(cam.R), Vector.create(cam.t)),
-            R = Rt.R,
-            t = Rt.t,
-            Ri = R.transpose(),
-            T = Ri.x(t).x(-1),
-            focal = Ri.x(Vector.create([0,0,1]).subtract(t));
-        camera.position.set(T.elements[0], T.elements[1], T.elements[2]);
-
-        R = Matrix.create(cam.R).transpose();
-
-        var rot = new THREE.Matrix4(
-            R.e(1,1), R.e(1,2), R.e(1,3), 0,
-            R.e(2,1), R.e(2,2), R.e(2,3), 0,
-            R.e(3,1), R.e(3,2), R.e(3,3), 0,
-            0       , 0       , 0       , 1
-        );
-
-        camera.rotation.setFromRotationMatrix(rot, 'XYZ');
-
-    }.observes('controller.focus')
+    }
 
 });
