@@ -65,7 +65,7 @@
 {{! ===================================================== }}
 
 
-<div {{bind-attr class=":welcome-screen__detail-container isDetailClosed"}}>
+<div class="welcome-screen__detail-container {{if isDetailClosed 'is-detail-closed'}}">
     {{outlet}}
 </div>
 

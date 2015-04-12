@@ -1,11 +1,1 @@
 {{sparse-reconstruction sparse=model.sparse cameras=model.cameras}}
-
-<div class="floating-window__register">
-    <div class="floating-window__register__view-list">
-        {{#each cam in model.cameras}}
-            <div class="floating-window__register__view-list__item" {{action "focus" cam}}>
-                <span>Camera</span>
-            </div>
-        {{/each}}
-    </div>
-</div>
