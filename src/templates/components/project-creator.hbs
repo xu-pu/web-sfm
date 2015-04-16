@@ -1,6 +1,6 @@
 <div class="project-creator__input">
 
-    {{input valueBinding="newProjectName" placeholder="Enter Name"}}
+    {{input value=newProjectName placeholder="Enter Name"}}
 
     {{#unless isInvalid}}
         <div class="project-creator__submit" {{action "createProject"}}>
