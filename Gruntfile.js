@@ -41,9 +41,8 @@ module.exports = function (grunt) {
                 templateName: function (tName) {
                     return tName.replace('src/templates/', '');
                 },
-                precompile: false,
-                templateCompilerPath: 'venders/ember/ember-template-compiler.js',
-                templateNamespace: 'HTMLBars'
+                handlebarsPath: 'venders/handlebars/handlebars.js',
+                templateCompilerPath: 'venders/ember/ember-template-compiler.js'
             },
 
             build: {
