@@ -25,7 +25,217 @@ var sample = require('../src/utils/samples.js'),
     geoUtils = require('../src/math/geometry-utils.js'),
     extUtils = require('../src/utils/external-utils.js'),
     decomposition = require('../src/math/matrix-decomposition.js'),
-    triangulation = require('../src/webregister/triangulation.js');
+    triangulation = require('../src/webregister/triangulation.js'),
+    register = require('../src/webregister/register.js'),
+    sba = require('../src/math/sparse-bundle-adjustment.js'),
+    RegisterContext = register.RegisterContext;
+
+
+
+var CAM_PARAMS = 11; // 3*r, 3*t, f,px,py, k1,k2
+
+var TRACKS_PATH = '/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/tracks.json';
+
+/*
+var focal0 = 3950,
+    px0 = 1619.9232700857789951,
+    py0 = 1151.4558912976590364,
+    R0 = [
+        [ 0.20375937643691741097, -0.69053558615975718649, -0.69400484202996670646 ],
+        [ 0.96826741623780387958,  0.24691758860300769274,  0.038599418268196600268],
+        [ 0.14470773015359589264, -0.67984726864603672869,  0.71893488171622177418 ]
+    ],
+    t0 = [60.918680827294920732, -11.639521657550879752, -35.710742416854976966];
+
+var focal1 = 3950,
+    px1 = 1619.9232700857789951,
+    py1 = 1151.4558912976590364,
+    R1 = [
+        [0.080785727185740188738, -0.70814018777099718704, -0.70143505811067630162],
+        [0.9726649564893224964, 0.20972021320435788039, -0.099701126328357494999],
+        [0.21770748425512520541, -0.67420687228563269677, 0.70572554485588023798]
+    ],
+    t1 = [ 63.828350514082373479, 17.013558100248708627, -29.739881418380420541];
+*/
+
+var R0 = [
+        [ 0.20375937643691741097, -0.69053558615975718649, -0.69400484202996670646 ],
+        [ 0.96826741623780387958,  0.24691758860300769274,  0.038599418268196600268],
+        [ 0.14470773015359589264, -0.67984726864603672869,  0.71893488171622177418 ]
+    ],
+    R1 = [
+        [0.080785727185740188738, -0.70814018777099718704, -0.70143505811067630162],
+        [0.9726649564893224964, 0.20972021320435788039, -0.099701126328357494999],
+        [0.21770748425512520541, -0.67420687228563269677, 0.70572554485588023798]
+    ];
+
+var camParam0 = {
+    r: geoUtils.getEulerAngles(Matrix.create(R0)),
+    t: [60.918680827294920732, -11.639521657550879752, -35.710742416854976966],
+    f: 3950,
+//    px: 1619.9232700857789951,
+//    py: 1151.4558912976590364,
+    px: 1536,
+    py: 1024,
+    k1: 0, k2: 0
+};
+var camParam1 = {
+    r: geoUtils.getEulerAngles(Matrix.create(R1)),
+    t: [ 63.828350514082373479, 17.013558100248708627, -29.739881418380420541],
+    f: 3950,
+//    px: 1619.9232700857789951,
+//    py: 1151.4558912976590364,
+    px: 1536,
+    py: 1024,
+    k1: 0, k2: 0
+};
+
+
+function hallvari(i1, i2){
+
+    var cam1 = sample.getView(i1),
+        cam2 = sample.getView(i2);
+    var sparse = sample.getTwoViewSparse(i1, i2);
+    var cp1 = {
+//            r, t, f, px, py, k1: 0, k2: 0
+        },
+        cp2 = {
+//            r, t, f, px, py, k1, k2
+        };
+
+}
+
+
+function registerTest(){
+
+    var tracks = require(TRACKS_PATH);
+    var visibles = register.getCommonTracks([0,1], tracks);
+
+    //====================================
+
+    var params0 = sba.flattenCamera(camParam0).concat(sba.flattenCamera(camParam1));
+
+    var selected = _.sample(visibles, 50), // id
+        vislist = sba.getVisList(tracks, [0,1], selected);
+
+    var factor = 0.00001;
+
+    var results = lma(function(x){
+
+        var params = x.x(1/factor).elements,
+            cp0 = sba.inflateCamera(params.slice(0, CAM_PARAMS)),
+            cp1 = sba.inflateCamera(params.slice(CAM_PARAMS)),
+            P0 = projections.getP(cp0),
+            P1 = projections.getP(cp1);
+
+        var proDict = {
+            0: sba.getProjection(cp0),
+            1: sba.getProjection(cp1)
+        };
+
+        var xDict = {};
+
+        selected.forEach(function(trackID){
+            var track = tracks[trackID];
+            var x0 = cord.rc2x(_.find(track, function(view){
+                return view.cam === 0;
+            }).point);
+            var x1 = cord.rc2x(_.find(track, function(view){
+                return view.cam === 1;
+            }).point);
+            xDict[trackID] = cord.toInhomo3D(triangulation(P0, P1, x0, x1));
+        });
+
+        var errorArr = vislist.map(function(vis){
+            var ci = vis.ci,
+                xi = vis.xi,
+                rc = vis.rc,
+                proj = proDict[ci],
+                X = xDict[xi],
+                x = proj(X);
+            return geoUtils.getDistanceRC(rc, cord.img2RC(x));
+        });
+
+        console.log('one round');
+
+        return laUtils.toVector(errorArr);
+
+    }, laUtils.toVector(params0).x(factor), Vector.Zero(vislist.length)).x(1/factor);
+
+    var params = results.elements,
+        cp0 = sba.inflateCamera(params.slice(0, CAM_PARAMS)),
+        cp1 = sba.inflateCamera(params.slice(CAM_PARAMS)),
+        P0 = projections.getP(cp0),
+        P1 = projections.getP(cp1);
+
+    var proDict = {
+        0: sba.getProjection(cp0),
+        1: sba.getProjection(cp1)
+    };
+
+    var xDict = {};
+
+    visibles.forEach(function(trackID){
+        var track = tracks[trackID];
+        var x0 = cord.rc2x(_.find(track, function(view){
+            return view.cam === 0;
+        }).point);
+        var x1 = cord.rc2x(_.find(track, function(view){
+            return view.cam === 1;
+        }).point);
+        xDict[trackID] = cord.toInhomo3D(triangulation(P0, P1, x0, x1));
+    });
+
+    var Xs = _.values(xDict);
+
+    var rc0 = Xs.map(function(X){
+        return cord.img2RC(proDict[0](X));
+    });
+
+    var rc1 = Xs.map(function(X){
+        return cord.img2RC(proDict[1](X));
+    });
+
+    var rc00 = visibles.map(function(trackID){
+        var track = tracks[trackID];
+        return _.find(track, function(view){
+            return view.cam === 0;
+        }).point;
+    });
+
+    var rc11 = visibles.map(function(trackID){
+        var track = tracks[trackID];
+        return _.find(track, function(view){
+            return view.cam === 1;
+        }).point;
+    });
+
+
+
+    return Promise.all([
+        testUtils.promiseVisualPoints('/home/sheep/Code/tri-test-0.png', cityhalldemo.getImagePath(0), rc0),
+        testUtils.promiseVisualPoints('/home/sheep/Code/tri-test-1.png', cityhalldemo.getImagePath(1), rc1),
+        testUtils.promiseVisualPoints('/home/sheep/Code/tri-test-00.png', cityhalldemo.getImagePath(0), rc00),
+        testUtils.promiseVisualPoints('/home/sheep/Code/tri-test-11.png', cityhalldemo.getImagePath(1), rc11)
+    ]);
+
+}
+registerTest();
+
+function tracksTest(){
+    var matchTable = cityhalldemo.loadRobustMatches();
+    cityhalldemo
+        .promiseFullPointTable()
+        .then(function(pointTable){
+            var tracks = tracking.track(matchTable, pointTable);
+            console.log(tracks.length);
+            console.log(tracks[50]);
+            return testUtils.promiseSaveJson(TRACKS_PATH, tracks);
+        });
+
+}
+
+//tracksTest();
 
 function decView(i){
     var view = sample.getView(i),
@@ -74,6 +284,8 @@ function robustPair(i1,i2){
         ]);
     });
 }
+
+//halldemo.genImageJson();
 
 //robustPair(5,6);
 
@@ -181,3 +393,6 @@ halldemo
 
     });
 */
+
+
+

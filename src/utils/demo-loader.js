@@ -121,6 +121,22 @@ DemoLoader.prototype.promisePointTable = function(cams){
 };
 
 
+/**
+ *
+ * @returns {Promise}
+ */
+DemoLoader.prototype.promiseFullPointTable = function(){
+    var _self = this;
+    var ids = this.images.map(function(img){
+        return img.id;
+    });
+    return Promise.all(ids.map(function(id){
+        return _self.promisePointsBuffer(id);
+    })).then(function(results){
+        return _.object(ids, results);
+    });
+};
+
 DemoLoader.prototype.loadRawMatches = function(){
     var path = PROJECT_ROOT + this.root + '/matches/matches.raw.json';
     this.rawMatches = this.rawMatches || tryjson(path) || [];

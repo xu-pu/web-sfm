@@ -5,6 +5,9 @@ var _ = require('underscore'),
     Matrix = la.Matrix,
     Vector = la.Vector;
 
+var geoUtils = require('./geometry-utils.js'),
+    laUtils = require('./la-utils.js');
+
 //===================================
 
 /**
@@ -151,15 +154,29 @@ exports.getDistortedProjection = function(R, t, K, k1, k2){
      */
     return function(X){
         var P = R.x(X).add(t);
-        var p = P.x(P.e(3));
-        var x = p.e(1);
-        var y = p.e(2);
-        var norm2 = x*x+y*y;
-        var factor = 1 + k1*norm2 + k2*norm2*norm2;
-        var distorted = Vector.create([x*factor,y*factor,1]);
-        return K.x(distorted);
+//        var p = P.x(P.e(3));
+//        var x = p.e(1);
+//        var y = p.e(2);
+//        var norm2 = (x/f)*(x/f)+(y/f)*(y/f);
+//        var factor = 1 + k1*norm2 + k2*norm2*norm2;
+//        var distorted = Vector.create([x*factor,y*factor,1]);
+        return K.x(P);
     };
 
+};
+
+
+/**
+ *
+ * @param {CameraParams} cam
+ * @returns Matrix
+ */
+exports.getP = function(cam){
+    var r = cam.r,
+        R = geoUtils.getRotationFromEuler(r[0], r[1], r[2]),
+        t = laUtils.toVector(cam.t);
+    var K = exports.getK(cam.f, cam.px, cam.py);
+    return K.x(R.augment(t));
 };
 
 

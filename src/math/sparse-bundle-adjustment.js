@@ -22,6 +22,24 @@ var CAM_PARAMS = 11; // 3*r, 3*t, f,px,py, k1,k2
 
 //===================================================================
 
+/**
+ *
+ * @param {Track[]} tracks
+ * @param {int[]} visCamInds
+ * @param {int[]} visTrackInds
+ * @returns VisList
+ */
+exports.getVisList = function(tracks, visCamInds, visTrackInds){
+    return visTrackInds.reduce(function(memo, trackID){
+        var track = tracks[trackID];
+        track.forEach(function(view){
+            if (visCamInds.indexOf(view.cam) !== -1) {
+                memo.push({ ci: view.cam, xi: trackID, rc: view.point });
+            }
+        });
+        return memo;
+    }, []);
+};
 
 /**
  *

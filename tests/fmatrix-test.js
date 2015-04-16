@@ -10,10 +10,8 @@ var _ = require('underscore'),
 var projections = require('../src/math/projections.js'),
     samples = require('../src/utils/samples.js'),
     testUtils = require('../src/utils/testing.js'),
-    eightpoint = require('../src/webregister/eightpoint.js'),
-    fmatrixError = eightpoint.fundamentalMatrixError,
-    drawImagePair = require('../src/visualization/drawImagePair.js'),
-    drawDetailedMatch = require('../src/visualization/drawDetailedMatch.js');
+    drawImagePair = require('../src/visualization/matches.js').drawImagePair,
+    drawDetailedMatch = require('../src/visualization/matches.js').drawDetailedMatches;
 
 function filterMatches(i1,i2){
     var THRESHOLD = 1;

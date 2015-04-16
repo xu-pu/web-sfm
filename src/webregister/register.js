@@ -16,7 +16,7 @@ exports.register = function(tracks, Fs){
  * @returns int[] - track ids
  */
 exports.getCommonTracks = function(camInds, tracks){
-    tracks.reduce(function(memo, track, ind){
+    return tracks.reduce(function(memo, track, ind){
         var isVisAll = camInds.every(function(camInd){
             return track.some(function(view){
                 return view.cam === camInd;
@@ -54,24 +54,4 @@ RegisterContext.prototype.getRecoveredTrackInds = function(){
         .map(function(keyStr){
             return parseInt(keyStr, 10);
         });
-};
-
-
-/**
- *
- * @param {int[]} visCamInds
- * @param {int[]} visTrackInds
- * @returns VisList
- */
-RegisterContext.prototype.getVisList = function(visCamInds, visTrackInds){
-    var tracks = this.tracks;
-    return visTrackInds.reduce(function(memo, trackID){
-        var track = tracks[trackID];
-        track.forEach(function(view){
-            if (visCamInds.indexOf(view.cam) !== -1) {
-                memo.push({ ci: view.cam, xi: trackID, rc: view.rc });
-            }
-        });
-        return memo;
-    }, []);
 };
