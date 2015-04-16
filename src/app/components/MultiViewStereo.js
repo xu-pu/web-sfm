@@ -29,19 +29,20 @@ module.exports = Ember.Component.extend({
         this.get('element').appendChild(renderer.domElement);
 
         var camera = new THREE.PerspectiveCamera(45, width/height, 0.1, 10000);
+        camera.position.x = 500;
+        camera.position.y = 500;
+        camera.position.z = 500;
+
         var scene = new THREE.Scene();
+
         var light = new THREE.PointLight(0xffffff);
+        light.position.set(0, 300, 200);
+
         var control = new OrbitControls(camera, renderer.domElement);
 
         scene.add(light);
         scene.add(camera);
         scene.add(this.getPointCloud());
-
-        light.position.set(0, 300, 200);
-
-        camera.position.x = 500;
-        camera.position.y = 500;
-        camera.position.z = 500;
 
         control.addEventListener('change', function(){
             renderer.render(scene, camera);

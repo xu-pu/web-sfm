@@ -275,17 +275,34 @@
   }
 }
 
-#welcome-screen__row1 {
-
+#welcome-screen__data-model {
   @extend %welcome-screen__row;
   background-color: #607091;
   position: relative;
+  display: flex;
+  height: 35em;
+  @include align-items(center);
+  font-family: "Open Sans";
 
-  h1 {
-    @extend %center-element;
-    font-size: 4em;
-    height: 2em;
-    line-height: 2em;
+
+  img {
+    display: block;
+    height: 100%;
+  }
+
+  > div {
+    @include flex(1 0 0);
+    padding: 2em;
+
+    h1 {
+      font-size: 2em;
+    }
+
+    section {
+      font-size: 1.4em;
+      margin-top: 0.5em;
+    }
+
   }
 
 }

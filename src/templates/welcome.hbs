@@ -100,8 +100,34 @@
 {{! ===================================================== }}
 
 
-<div id="welcome-screen__row1" class="welcome-screen__row">
-    <h1>Some Content</h1>
+<div id="welcome-screen__data-model" class="welcome-screen__row">
+    <img src="/assets/images/data.model.png"/>
+    <div>
+
+        <h1>Data Model</h1>
+
+        <section>
+            WebSFM needs to handle large mount of data inside the browser,
+            such as surfels and SIFT features, which has size of 10s or 100s MBs in text or json form.
+            If handle those data in text or json form, storing/parsing/netwoking overhead will be unbearable,
+            that's why WebSFM have a very organized way to handle those large data.
+        </section>
+
+        <section>
+            WebSFM uses ArrayBuffer as the underlying payload.<br/>
+            For networking, it can be directly transfered through XMLHttpRequest as a native response type.<br/>
+            For storage, ArrayBuffer is supported in all implementations of IndexedDB.<br/>
+            For multi-threading, WebWorker can send recieve ArrayBuffer as TransferableObject, which eliminates the copying overhead.<br/>
+        </section>
+
+        <section>
+            Result of this approch is extraodinary, surfel model produced by PMVS in text form is 25MB (whthout color).
+            It became 52MB after color sampling and converted to JSON, it costs several seconds to parse in browser (on an i7 processor).
+            After converted to ArrayBuffer, the points and color has a combined size of 6.8MB, and no parsing required.
+            Result is WebSFM can load and render a point cloud of size 449,505 instantaneously.
+        </section>
+
+    </div>
 </div>
 
 <div id="welcome-screen__row2" class="welcome-screen__row">
