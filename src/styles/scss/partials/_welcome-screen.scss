@@ -64,7 +64,6 @@
 
   width: 100%;
   height: 20em;
-//  background-color: #ECE7E1;
   background-color: #222222;
   position: relative;
 
@@ -124,55 +123,6 @@
     white-space: nowrap;
   }
 }
-
-#welcome-screen__data-model {
-  @extend %welcome-screen__row;
-  background-color: #607091;
-  position: relative;
-  display: flex;
-  height: 35em;
-  @include align-items(center);
-  font-family: "Open Sans";
-
-
-  img {
-    display: block;
-    height: 100%;
-  }
-
-  > div {
-    @include flex(1 0 0);
-    padding: 2em;
-
-    h1 {
-      font-size: 2em;
-    }
-
-    section {
-      font-size: 1.4em;
-      margin-top: 0.5em;
-    }
-
-  }
-
-}
-
-
-#welcome-screen__row2 {
-
-  @extend %welcome-screen__row;
-  background-color: #89B0C1;
-  position: relative;
-
-  h1 {
-    @extend %center-element;
-    font-size: 4em;
-    height: 2em;
-    line-height: 2em;
-  }
-
-}
-
 
 //=====================================
 // Demo and Project

@@ -6,6 +6,7 @@
 @import "dimensions";
 
 @import "partials/welcome-screen";
+@import "partials/application-description";
 @import "partials/controll-panel";
 @import "partials/gallery";
 @import "partials/matches";
@@ -25,7 +26,7 @@ html, body {
   height: 100%;
   width: 100%;
   font-family: Electrolize;
-  min-width: 1300px;
+  min-width: 1366px;
 }
 
 #main-container {
