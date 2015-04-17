@@ -28,6 +28,6 @@
     { "id": 30, "name": "00000030", "extension": ".jpg" }
   ],
 
-  "entries": ["image", "feature", "calibration", "mvs"]
+  "entries": ["image", "match", "feature", "calibration", "mvs"]
 
 }
