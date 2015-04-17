@@ -7,7 +7,7 @@
         <li {{bind-attr class="project.imagesFinished:is-loaded"}}>
 
             <h1>
-                Images {{project.loadedImages.length}}/{{project.images.length}}
+                Images
                 {{#if project.imagesFinished}}
                     loaded
                 {{else}}
@@ -20,7 +20,7 @@
         <li {{bind-attr class="project.hasFeature::not-avaliable project.featuresFinished:is-loaded"}}>
 
             <h1>
-                Features {{project.loadedFeatures.length}}/{{project.images.length}}
+                Features
 
                 {{#if project.featuresFinished}}
                     loaded
