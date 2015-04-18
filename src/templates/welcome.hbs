@@ -125,12 +125,13 @@
         <h1>Framework</h1>
 
         <section>
-            WebSFM uses Ember.js to construct its single page application (application.js).<br/>
+            WebSFM uses Ember.js to construct its single page application (<em>application.js</em>).<br/>
         </section>
 
         <section>
-            All SFM related mathematical routines are encapsulated inside asynchrouous task calls to in a seperate worker.js.
-            It can be instantiated multiple times and communicate with the application through WebWorker messaging.
+            All SFM related mathematical routines are written/tested through node.js, then browserify into a seperate <em>worker.js</em>,
+            which can be instantiated multiple times as multiple WebWorkers.
+            Then they are encapsulated inside asynchronous task requests, can be accessed through WebWorker messaging.
         </section>
 
     </div>
