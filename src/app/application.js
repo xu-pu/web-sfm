@@ -95,12 +95,12 @@ App.MatchModeTabComponent = require('./components/MatchModeTab.js');
 // Resource Controllers
 //=======================
 
-App.ContextController = require('./ResourceControllers/ContextController.js');
+App.ContextController = require('./ResourceControllers/Context.js');
 App.WorkerController = require('./ResourceControllers/WorkerController.js');
-App.SchedulerController = require('./ResourceControllers/SchedulerController.js');
-App.DownloaderController = require('./ResourceControllers/DownloaderController.js');
+App.SchedulerController = require('./ResourceControllers/Scheduler.js');
+App.DownloaderController = require('./ResourceControllers/Downloader.js');
 //App.DemoController = require('./ResourceControllers/DemoController.js');
-App.ProjectResourceController = require('./ResourceControllers/ProjectResourceController.js');
+App.ProjectResourceController = require('./ResourceControllers/ProjectResource.js');
 
 //=======================
 // Route Controllers
@@ -108,7 +108,7 @@ App.ProjectResourceController = require('./ResourceControllers/ProjectResourceCo
 
 App.WelcomeController = require('./controllers/Welcome.js');
 App.WelcomeDemoController = require('./controllers/WelcomeDemo.js');
-App.WorkspaceController = require('./ResourceControllers/WorkspaceController.js');
+App.WorkspaceController = require('./ResourceControllers/Workspace.js');
 App.WorkspaceImagesController = require('./controllers/WorkspaceImages.js');
 App.WorkspaceImagesDetailController = require('./controllers/WorkspaceImagesDetail.js');
 App.WorkspaceExtractorController = require('./controllers/WorkspaceExtractor.js');
