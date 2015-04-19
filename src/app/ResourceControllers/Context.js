@@ -114,7 +114,7 @@ module.exports = Ember.Controller.extend({
         }
 
         // Recover Demos
-
+/*
         var storedDemos = utils.getLocalStorage(LOCAL_STORES.DEMOS),
             recoveredDemos = [];
 
@@ -135,6 +135,9 @@ module.exports = Ember.Controller.extend({
         this.set('demos', recoveredDemos.concat(additionalDemos));
 
         this.send('syncDemos');
+*/
+
+        this.set('demos', demos.map(function(config){ return DemoProject.create(config.description); }));
 
         // Recover Current Project
 
