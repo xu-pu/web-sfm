@@ -12,21 +12,21 @@ module.exports = Ember.Controller.extend({
     running: [],
 
     checkQueue: function(){
-        Ember.run.once(this, 'assign');
+        //Ember.run.once(this, 'assign');
     }.observes('queue.length', 'running.length'),
 
-    assign: function(){
+    /**
+     * This is immediate, high priority
+     */
+    assign: function(task){
         var queue = this.get('queue'),
-            running = this.get('running'),
-            cursor;
-
-        while ( running.length < LIMIT && queue.length > 0 ) {
-            cursor = queue.popObject();
-            running.addObject(cursor);
-            this.startDownloadTask(cursor);
-        }
-
+            running = this.get('running');
+        queue.removeObject(task);
+        running.pushObject(task);
+        this.startDownloadTask(task);
     },
+
+    promiseDemoResource: function(demo, name, metadata){},
 
     startDownloadTask: function(task){
 
@@ -79,5 +79,3 @@ module.exports = Ember.Controller.extend({
     }
 
 });
-
-
