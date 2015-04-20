@@ -1,4 +1,7 @@
 'use strict';
+//============================================
+// View Geometry and Camera Models
+//============================================
 
 var _ = require('underscore'),
     la = require('sylvester'),
@@ -9,6 +12,43 @@ var geoUtils = require('./geometry-utils.js'),
     laUtils = require('./la-utils.js');
 
 //===================================
+// CameraModel
+//===================================
+
+/**
+ *
+ * @param {CameraModel} model
+ * @returns Matrix
+ */
+exports.model2P = function(model){
+    return exports.KRt2P(model.K, model.R, model.t);
+};
+
+
+//===================================
+// CameraParams
+//===================================
+
+/**
+ * @param {CameraParams} params
+ * @returns CameraModel
+ */
+exports.params2model = function(params){
+    return {
+        K: exports.getK(params.f, params.px, params.py),
+        R: geoUtils.getRotationFromEuler.apply(null, params.r),
+        t: laUtils.toVector(params.t)
+    };
+};
+
+
+exports.inflateCameraParams = function(params){
+
+};
+
+exports.flattenCameraParams = function(cam){
+
+};
 
 /**
  * get RT of cam2 relative to cam1
@@ -176,6 +216,18 @@ exports.getP = function(cam){
         R = geoUtils.getRotationFromEuler(r[0], r[1], r[2]),
         t = laUtils.toVector(cam.t);
     var K = exports.getK(cam.f, cam.px, cam.py);
+    return K.x(R.augment(t));
+};
+
+
+/**
+ *
+ * @param {Matrix} K
+ * @param {Matrix} R
+ * @param {Vector} t
+ * @returns Matrix
+ */
+exports.KRt2P = function(K, R, t){
     return K.x(R.augment(t));
 };
 

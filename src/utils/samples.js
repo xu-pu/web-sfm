@@ -13,7 +13,8 @@ var _ = require('underscore'),
 var bundler = require(DEMO_BASE + '/bundler/bundler.json'),
     cord = require('./cord.js'),
     projections = require('../math/projections.js'),
-    testUtils = require('./test-utils.js');
+    testUtils = require('./test-utils.js'),
+    geoUtils = require('../math/geometry-utils.js');
 
 
 //==============================================
@@ -71,11 +72,26 @@ module.exports.getTwoView = function(i1, i2){
  */
 module.exports.getView = function(i){
     var camera = exports.getCamera(i),
-        cam = { width: 3008, height: 2000},
+        cam = { width: 3008, height: 2000 },
         rt = cord.getStandardRt(Matrix.create(camera.R), Vector.create(camera.t)),
         R = rt.R, t = rt.t, f = camera.focal,
         P = projections.getProjectionMatrix(R, t, f, cam.width, cam.height);
     return { P: P, R: R, t: t, f: f, cam: cam };
+};
+
+
+/**
+ * @param {int} i
+ * @returns CameraParams
+ */
+exports.getCameraParams = function(i){
+    var view = exports.getView(i);
+    return {
+        r: geoUtils.getEulerAngles(view.R),
+        t: view.t.elements,
+        f: view.f, px: view.cam.width/2, py: view.cam.height/2,
+        k1: 0, k2: 0
+    };
 };
 
 

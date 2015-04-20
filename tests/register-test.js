@@ -36,6 +36,30 @@ var CAM_PARAMS = 11; // 3*r, 3*t, f,px,py, k1,k2
 
 var TRACKS_PATH = '/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/tracks.json';
 
+function camParamTest(i){
+    var camParam = sample.getCameraParams(i);
+    var sparse = sample.getViewSparse(i);
+
+    var model = projections.params2model(camParam);
+    var P = projections.model2P(model);
+
+    var reprojected = sparse.map(function(pair){
+        return cord.img2RC(P.x(pair.X));
+    });
+
+    var reference = sparse.map(function(pair){
+        return pair.x;
+    });
+
+    return Promise.all([
+        testUtils.promiseVisualPoints('/home/sheep/Code/params-test-0.png', sample.getImagePath(i), reference),
+        testUtils.promiseVisualPoints('/home/sheep/Code/params-test-1.png', sample.getImagePath(i), reprojected)
+    ]);
+
+}
+
+camParamTest(4);
+
 /*
 var focal0 = 3950,
     px0 = 1619.9232700857789951,
@@ -89,21 +113,6 @@ var camParam1 = {
     py: 1024,
     k1: 0, k2: 0
 };
-
-
-function hallvari(i1, i2){
-
-    var cam1 = sample.getView(i1),
-        cam2 = sample.getView(i2);
-    var sparse = sample.getTwoViewSparse(i1, i2);
-    var cp1 = {
-//            r, t, f, px, py, k1: 0, k2: 0
-        },
-        cp2 = {
-//            r, t, f, px, py, k1, k2
-        };
-
-}
 
 
 function registerTest(){

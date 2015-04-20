@@ -11,6 +11,9 @@
  * @typedef {{ r: number[], t: number[], f: number, px: number, py: number, k1: number, k2: number }} CameraParams
  */
 
+/**
+ * @typedef {{ K: Matrix, R: Matrix, t: Vector }} CameraModel
+ */
 
 /**
  * @typedef {number[][]} PatchSample

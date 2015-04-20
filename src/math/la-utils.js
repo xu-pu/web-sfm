@@ -22,6 +22,18 @@ exports.toVector = function(arr){
 };
 
 
+/**
+ *
+ * @param {number[][]|SparseMatrix} arr
+ * @returns Vector
+ */
+exports.toMatrix = function(arr){
+    if (arr.sparse) {
+        arr = arr.toDense();
+    }
+    return Matrix.create(arr);
+};
+
 //===================================================
 
 /**
