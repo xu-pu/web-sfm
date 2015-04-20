@@ -220,7 +220,7 @@ function registerTest(){
     ]);
 
 }
-registerTest();
+//registerTest();
 
 function tracksTest(){
     var matchTable = cityhalldemo.loadRobustMatches();
