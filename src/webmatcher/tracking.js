@@ -8,8 +8,6 @@ exports.ConnectivityGraph = ConnectivityGraph;
 exports.ConnectivityNode = ConnectivityNode;
 exports.VisibilityGraph = VisibilityGraph;
 
-//========================================================
-
 /**
  * @param {TwoViewMatches[]} matchTable
  * @param pointTable
@@ -54,6 +52,41 @@ exports.track = function(matchTable, pointTable) {
 
     return tracks;
 
+};
+
+//========================================================
+// Track Filters
+//========================================================
+
+/**
+ *
+ * @param {Track[]} tracks
+ * @param {int} i
+ * @returns {Track[]}
+ */
+exports.viewedBy1 = function(tracks, i){
+    return tracks.filter(function(track){
+        return track.some(function(view){
+            return view.cam === i;
+        });
+    });
+};
+
+
+/**
+ *
+ * @param {Track[]} tracks
+ * @param {int[]} cams
+ * @returns {Track[]}
+ */
+exports.viewedByN = function(tracks, cams){
+    return tracks.filter(function(track){
+        return cams.every(function(i){
+            return track.some(function(view){
+                return view.cam === i;
+            });
+        });
+    });
 };
 
 //========================================================
