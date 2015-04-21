@@ -42,13 +42,35 @@ exports.params2model = function(params){
 };
 
 
+/**
+ * @param {number[]} params
+ * @returns CameraParams
+ */
 exports.inflateCameraParams = function(params){
-
+    return {
+        r: params.slice(0,3),
+        t: params.slice(3,6),
+        f: params[6], px: params[7], py: params[8],
+        k1: params[9], k2: params[10]
+    };
 };
 
+
+/**
+ *
+ * @param {CameraParams} cam
+ * @returns number[]
+ */
 exports.flattenCameraParams = function(cam){
-
+    var r = cam.r, t = cam.t;
+    return r.concat(t).concat([cam.f, cam.px, cam.py, cam.k1, cam.k2]);
 };
+
+
+//===================================
+// Projection
+//===================================
+
 
 /**
  * get RT of cam2 relative to cam1
