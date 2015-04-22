@@ -8,10 +8,11 @@ var laUtils = require('../math/la-utils.js');
 
 /**
  *
- * @param P1 - projection matrix of camera 1
- * @param P2 - projection matrix of camera 2
- * @param x1 - cord on camera 1
- * @param x2 - cord on camera 2
+ * @param {Matrix} P1 - projection matrix of camera 1
+ * @param {Matrix} P2 - projection matrix of camera 2
+ * @param {Vector} x1 - cord on camera 1
+ * @param {Vector} x2 - cord on camera 2
+ * @returns Vector
  */
 module.exports = function(P1, P2, x1, x2){
 

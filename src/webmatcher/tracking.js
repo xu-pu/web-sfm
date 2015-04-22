@@ -77,7 +77,7 @@ exports.viewedBy1 = function(tracks, i){
  *
  * @param {Track[]} tracks
  * @param {int[]} cams
- * @returns {Track[]}
+ * @returns Track[]
  */
 exports.viewedByN = function(tracks, cams){
     return tracks.filter(function(track){

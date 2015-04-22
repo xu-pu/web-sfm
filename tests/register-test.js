@@ -16,7 +16,7 @@ var sample = require('../src/utils/samples.js'),
     testing = require('../src/utils/testing.js'),
     testUtils = require('../src/utils/test-utils.js'),
     imgUtils = require('../src/utils/image-conversion.js'),
-    projections = require('../src/math/projections.js'),
+    camUtils = require('../src/math/projections.js'),
     cord = require('../src/utils/cord.js'),
     dlt = require('../src/webregister/estimate-projection.js'),
     lma = require('../src/math/levenberg-marquardt.js'),
@@ -36,12 +36,15 @@ var CAM_PARAMS = 11; // 3*r, 3*t, f,px,py, k1,k2
 
 var TRACKS_PATH = '/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/tracks.json';
 
+var HALL_TRACKS_PATH = '/home/sheep/Code/Project/web-sfm/demo/Hall-Demo/tracks.json';
+
 function camParamTest(i){
+
     var camParam = sample.getCameraParams(i);
     var sparse = sample.getViewSparse(i);
 
-    var model = projections.params2model(camParam);
-    var P = projections.model2P(model);
+    var model = camUtils.params2model(camParam);
+    var P = camUtils.model2P(model);
 
     var reprojected = sparse.map(function(pair){
         return cord.img2RC(P.x(pair.X));
@@ -58,7 +61,90 @@ function camParamTest(i){
 
 }
 
-camParamTest(4);
+//camParamTest(4);
+
+function camPairTest(i1, i2){
+
+    var tracks = require(HALL_TRACKS_PATH);
+    var visiableTracks = tracking.viewedByN(tracks, [i1, i2]);
+
+    var cam1 = sample.getCameraParams(i1),
+        cam2 = sample.getCameraParams(i2);
+
+    var params1 = camUtils.flattenCameraParams(cam1),
+        params2 = camUtils.flattenCameraParams(cam2);
+
+    var refinedCam1 = camUtils.inflateCameraParams(params1),
+        refinedCam2 = camUtils.inflateCameraParams(params2);
+
+    var P1 = camUtils.getP(refinedCam1),
+        P2 = camUtils.getP(refinedCam2);
+
+    var sparse = visiableTracks.map(function(track){
+        var x1, x2;
+        track.forEach(function(view){
+            if (view.cam === i1) {
+                x1 = cord.rc2x(view.point);
+            }
+            else if (view.cam === i2) {
+                x2 = cord.rc2x(view.point);
+            }
+        });
+        return triangulation(P1, P2, x1, x2);
+    });
+
+    var reprojected1 = sparse.map(function(X){
+        return cord.img2RC(P1.x(X));
+    });
+
+    var reprojected2 = sparse.map(function(X){
+        return cord.img2RC(P2.x(X));
+    });
+
+    var reference1 = visiableTracks.map(function(track){
+        return _.find(track, function(view){
+            return view.cam === i1;
+        }).point;
+    });
+
+    var reference2 = visiableTracks.map(function(track){
+        return _.find(track, function(view){
+            return view.cam === i2;
+        }).point;
+    });
+
+    return Promise.all([
+        testUtils.promiseVisualPoints('/home/sheep/Code/params-test-0.png', sample.getImagePath(i1), reprojected1),
+        testUtils.promiseVisualPoints('/home/sheep/Code/params-test-0-ref.png', sample.getImagePath(i1), reference1),
+        testUtils.promiseVisualPoints('/home/sheep/Code/params-test-1.png', sample.getImagePath(i2), reprojected2),
+        testUtils.promiseVisualPoints('/home/sheep/Code/params-test-1-ref.png', sample.getImagePath(i2), reference2)
+    ]);
+
+}
+
+
+camPairTest(1,5);
+
+/*
+halldemo
+    .promisePointTable([1,3,5,7,9])
+    .then(function(pointTable){
+        var matchTable = halldemo.loadRobustMatches(),
+            tracks = tracking.track(matchTable, pointTable);
+        console.log(tracks.length);
+        testUtils.promiseSaveJson(HALL_TRACKS_PATH, tracks);
+    });
+*/
+
+/*
+var matchTable = halldemo.loadRobustMatches();
+var l = matchTable.reduce(function(memo, entry){
+    memo.push(entry.from);
+    memo.push(entry.to);
+    return memo
+}, []);
+console.log(_.uniq(l));
+*/
 
 /*
 var focal0 = 3950,
@@ -134,8 +220,8 @@ function registerTest(){
         var params = x.x(1/factor).elements,
             cp0 = sba.inflateCamera(params.slice(0, CAM_PARAMS)),
             cp1 = sba.inflateCamera(params.slice(CAM_PARAMS)),
-            P0 = projections.getP(cp0),
-            P1 = projections.getP(cp1);
+            P0 = camUtils.getP(cp0),
+            P1 = camUtils.getP(cp1);
 
         var proDict = {
             0: sba.getProjection(cp0),
@@ -174,8 +260,8 @@ function registerTest(){
     var params = results.elements,
         cp0 = sba.inflateCamera(params.slice(0, CAM_PARAMS)),
         cp1 = sba.inflateCamera(params.slice(CAM_PARAMS)),
-        P0 = projections.getP(cp0),
-        P1 = projections.getP(cp1);
+        P0 = camUtils.getP(cp0),
+        P1 = camUtils.getP(cp1);
 
     var proDict = {
         0: sba.getProjection(cp0),
@@ -252,7 +338,7 @@ function decView(i){
         R = view.R,
         t = view.t,
         cam = view.cam,
-        K = projections.getCalibrationMatrix(view.f, cam.width, cam.height);
+        K = camUtils.getCalibrationMatrix(view.f, cam.width, cam.height);
 
     var results = decomposition.KRt(P),
         KKK = results.K,
