@@ -25,7 +25,7 @@ exports.toVector = function(arr){
 /**
  *
  * @param {number[][]|SparseMatrix} arr
- * @returns Vector
+ * @returns Matrix
  */
 exports.toMatrix = function(arr){
     if (arr.sparse) {
