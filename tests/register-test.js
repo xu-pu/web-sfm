@@ -42,128 +42,53 @@ var CITYHALL_CAM_PATH = '/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-
 var CITYHALL_RAW_CAM_PATH = '/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/dev/cams.raw.json';
 
 
-function camParamTest(i){
+var getCityCam = (function(){
 
-    var camParam = sample.getCameraParams(i);
-    var sparse = sample.getViewSparse(i);
+    var cameras = require(CITYHALL_CAM_PATH);
 
-    var model = camUtils.params2model(camParam);
-    var P = camUtils.model2P(model);
+    return function(i){
 
-    var reprojected = sparse.map(function(pair){
-        return cord.img2RC(P.x(pair.X));
-    });
+        var cam = _.find(cameras, function(entry){
+            return entry.cam === i;
+        }).camera;
 
-    var reference = sparse.map(function(pair){
-        return pair.x;
-    });
+        return {
+            K: laUtils.toMatrix(cam.K),
+            R: laUtils.toMatrix(cam.R),
+            t: laUtils.toVector(cam.t)
+        };
+    }
 
-    return Promise.all([
-        testUtils.promiseVisualPoints('/home/sheep/Code/params-test-0.png', sample.getImagePath(i), reference),
-        testUtils.promiseVisualPoints('/home/sheep/Code/params-test-1.png', sample.getImagePath(i), reprojected)
-    ]);
+})();
 
+/**
+ *
+ * @param {int} i
+ * @returns CameraParams
+ */
+function getCityCamParams(i){
+    var model = getCityCam(i),
+        K = model.K,
+        R = model.R,
+        t = model.t;
+    return {
+        r: geoUtils.getEulerAngles(R),
+        t: t.elements,
+        f: K.e(1,1), px: K.e(1,3), py: K.e(2,3),
+        k1: 0, k2: 0
+    };
 }
-
-//camParamTest(4);
-
-function camPairTest(i1, i2){
-
-    var tracks = require(HALL_TRACKS_PATH);
-    var visiableTracks = tracking.viewedByN(tracks, [i1, i2]);
-
-    var cam1 = sample.getCameraParams(i1),
-        cam2 = sample.getCameraParams(i2);
-
-    var params1 = camUtils.flattenCameraParams(cam1),
-        params2 = camUtils.flattenCameraParams(cam2);
-
-    var refinedCam1 = camUtils.inflateCameraParams(params1),
-        refinedCam2 = camUtils.inflateCameraParams(params2);
-
-    var P1 = camUtils.getP(refinedCam1),
-        P2 = camUtils.getP(refinedCam2);
-
-    var sparse = visiableTracks.map(function(track){
-        var x1, x2;
-        track.forEach(function(view){
-            if (view.cam === i1) {
-                x1 = cord.rc2x(view.point);
-            }
-            else if (view.cam === i2) {
-                x2 = cord.rc2x(view.point);
-            }
-        });
-        return triangulation(P1, P2, x1, x2);
-    });
-
-    var reprojected1 = sparse.map(function(X){
-        return cord.img2RC(P1.x(X));
-    });
-
-    var reprojected2 = sparse.map(function(X){
-        return cord.img2RC(P2.x(X));
-    });
-
-    var reference1 = visiableTracks.map(function(track){
-        return _.find(track, function(view){
-            return view.cam === i1;
-        }).point;
-    });
-
-    var reference2 = visiableTracks.map(function(track){
-        return _.find(track, function(view){
-            return view.cam === i2;
-        }).point;
-    });
-
-    return Promise.all([
-        testUtils.promiseVisualPoints('/home/sheep/Code/params-test-0.png', sample.getImagePath(i1), reprojected1),
-        testUtils.promiseVisualPoints('/home/sheep/Code/params-test-0-ref.png', sample.getImagePath(i1), reference1),
-        testUtils.promiseVisualPoints('/home/sheep/Code/params-test-1.png', sample.getImagePath(i2), reprojected2),
-        testUtils.promiseVisualPoints('/home/sheep/Code/params-test-1-ref.png', sample.getImagePath(i2), reference2)
-    ]);
-
-}
-
-
-//camPairTest(1,5);
-
-/*
-halldemo
-    .promisePointTable([1,3,5,7,9])
-    .then(function(pointTable){
-        var matchTable = halldemo.loadRobustMatches(),
-            tracks = tracking.track(matchTable, pointTable);
-        console.log(tracks.length);
-        testUtils.promiseSaveJson(HALL_TRACKS_PATH, tracks);
-    });
-*/
-
 
 function cityhalltest(i1, i2){
-    var cameras = require(CITYHALL_CAM_PATH);
-    var cam1 = _.find(cameras, function(entry){
-            return entry.cam === i1;
-        }).camera,
-        cam2 = _.find(cameras, function(entry){
-            return entry.cam === i2;
-        }).camera;
-    var model1 = {
-            K: laUtils.toMatrix(cam1.K),
-            R: laUtils.toMatrix(cam1.R),
-            t: laUtils.toVector(cam1.t)
-        },
-        model2 = {
-            K: laUtils.toMatrix(cam2.K),
-            R: laUtils.toMatrix(cam2.R),
-            t: laUtils.toVector(cam2.t)
-        };
-    var tracks = require(TRACKS_PATH);
-    var visiableTracks = tracking.viewedByN(tracks, [i1,i2]);
+
+    var model1 = getCityCam(i1),
+        model2 = getCityCam(i2),
+        P1 = camUtils.model2P(model1),
+        P2 = camUtils.model2P(model2),
+        tracks = require(TRACKS_PATH),
+        visiableTracks = tracking.viewedByN(tracks, [i1,i2]);
+
     console.log(visiableTracks.length);
-    var P1 = camUtils.model2P(model1);
-    var P2 = camUtils.model2P(model2);
 
     var sparse = visiableTracks.map(function(track){
         var x1, x2;
@@ -207,8 +132,7 @@ function cityhalltest(i1, i2){
 
 }
 
-cityhalltest(0,6);
-
+cityhalltest(1,2);
 
 function registerTest(){
 
@@ -325,35 +249,6 @@ function registerTest(){
 
 }
 //registerTest();
-
-
-function robustPair(i1,i2){
-    Promise.all([
-        cityhalldemo.promisePointsBuffer(i1),
-        cityhalldemo.promisePointsBuffer(i2)
-    ]).then(function(res){
-        var features1 = res[0],
-            features2 = res[1],
-            path1 = cityhalldemo.getImagePath(i1),
-            path2 = cityhalldemo.getImagePath(i2),
-            cam1 = cityhalldemo.getCam(i1),
-            cam2 = cityhalldemo.getCam(i2),
-            matches = cityhalldemo.getRawMatches(i1, i2).matches;
-        var results = estF(matches, {
-            features1: features1,
-            features2: features2,
-            cam1: cam1,
-            cam2: cam2
-        });
-
-        var F = laUtils.normalizedMatrix(results.F);
-
-        return Promise.all([
-            cityhalldemo.promiseSaveRobustMatches({ from: i1, to: i2, matches: results.dataset, F: F.elements }),
-            testUtils.promiseDetailedMatches('/home/sheep/Code/cityhall.png', path1, path2, features1, features2, _.sample(results.dataset, 50), F)
-        ]);
-    });
-}
 
 //halldemo.genImageJson();
 
