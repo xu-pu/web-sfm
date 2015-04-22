@@ -23,6 +23,11 @@ function DemoLoader(config){
 // Image Utils
 //======================================================
 
+/**
+ *
+ * @param {int} i
+ * @returns {string}
+ */
 DemoLoader.prototype.getImagePath = function(i){
     var img = _.find(this.images, function(entry){ return entry.id === i; });
     return PROJECT_ROOT + this.root + '/images/' + img.name + img.extension;
