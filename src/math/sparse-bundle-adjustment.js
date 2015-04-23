@@ -19,8 +19,28 @@ var DELTA = Math.pow(10, -6);
 var ZERO_THRESHOLD = 0;
 //var ZERO_THRESHOLD = Math.pow(10, -10);
 var CAM_PARAMS = 11; // 3*r, 3*t, f,px,py, k1,k2
-
+var POINT_PARAMS = 3;
 //===================================================================
+
+/**
+ *
+ * @param {number[]} params
+ * @param {int} cams
+ * @param {int} [points]
+ * @returns {{ cams: number[][], points: number[][] }}
+ */
+exports.spliteParams = function(params, cams, points){
+    points = points||0;
+    var offset = CAM_PARAMS*cams;
+    var cs = _.range(cams).map(function(i){
+        return params.slice(CAM_PARAMS*i, CAM_PARAMS*(i+1));
+    });
+    var ps = _.range(points).map(function(i){
+        return params.slice(offset+POINT_PARAMS*i, offset+POINT_PARAMS*(i+1));
+    });
+    return { cams: cs, points: ps };
+};
+
 
 /**
  *

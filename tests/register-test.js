@@ -41,7 +41,6 @@ var HALL_TRACKS_PATH = '/home/sheep/Code/Project/web-sfm/demo/Hall-Demo/dev/trac
 var CITYHALL_CAM_PATH = '/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/dev/cams.json';
 var CITYHALL_RAW_CAM_PATH = '/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/dev/cams.raw.json';
 
-
 var getCityCam = (function(){
 
     var cameras = require(CITYHALL_CAM_PATH);
@@ -78,6 +77,105 @@ function getCityCamParams(i){
         k1: 0, k2: 0
     };
 }
+
+
+
+function refineTest(i1, i2){
+
+    var param1 = getCityCamParams(i1),
+        param2 = getCityCamParams(i2),
+        tracks = tracking.viewedByN(require(TRACKS_PATH), [i1,i2]);
+
+    var flat1 = camUtils.flattenCameraParams(param1),
+        flat2 = camUtils.flattenCameraParams(param2),
+        x0 = laUtils.toVector(flat1.concat(flat2)),
+        selectedIndex = _.sample(_.range(tracks.length), 100),
+        vislist = sba.getVisList(tracks, [i1, i2], selectedIndex);
+
+    var refined = lma(function(xn){
+        var cams = sba.spliteParams(xn.elements, 2).cams,
+            inflated1 = camUtils.inflateCameraParams(cams[0]),
+            inflated2 = camUtils.inflateCameraParams(cams[1]),
+            P1 = camUtils.params2P(inflated1),
+            P2 = camUtils.params2P(inflated2),
+            cDict = {};
+
+        cDict[i1] = P1;
+        cDict[i2] = P2;
+
+        var xDict = {};
+        selectedIndex.map(function(ind){
+            var track = tracks[ind];
+            var x1, x2;
+            track.forEach(function(view){
+                if (view.cam === i1) {
+                    x1 = cord.rc2x(view.point);
+                }
+                else if (view.cam === i2) {
+                    x2 = cord.rc2x(view.point);
+                }
+            });
+            xDict[ind] = triangulation(P1, P2, x1, x2);
+        });
+
+        return laUtils.toVector(vislist.map(function(entry){
+            var rc = entry.rc,
+                ci = entry.ci,
+                xi = entry.xi;
+            var P = cDict[ci];
+            var X = xDict[xi];
+            return geoUtils.getDistanceRC(rc, cord.img2RC(P.x(X)));
+        }));
+
+    }, x0, Vector.Zero(vislist.length));
+
+    var cams = sba.spliteParams(refined.elements, 2).cams,
+        inflated1 = camUtils.inflateCameraParams(cams[0]),
+        inflated2 = camUtils.inflateCameraParams(cams[1]),
+        P1 = camUtils.params2P(inflated1),
+        P2 = camUtils.params2P(inflated2);
+
+    var sparse = tracks.map(function(track){
+        var x1, x2;
+        track.forEach(function(view){
+            if (view.cam === i1) {
+                x1 = cord.rc2x(view.point);
+            }
+            else if (view.cam === i2) {
+                x2 = cord.rc2x(view.point);
+            }
+        });
+        return triangulation(P1, P2, x1, x2);
+    });
+
+    var reprojected1 = sparse.map(function(X){
+            return cord.img2RC(P1.x(X));
+        }),
+        reprojected2 = sparse.map(function(X){
+            return cord.img2RC(P2.x(X));
+        }),
+        reference1 = tracks.map(function(track){
+            return _.find(track, function(view){
+                return view.cam === i1;
+            }).point;
+        }),
+        reference2 = tracks.map(function(track){
+            return _.find(track, function(view){
+                return view.cam === i2;
+            }).point;
+        });
+
+    return Promise.all([
+        testUtils.promiseVisualPoints('/home/sheep/Code/params-test-0.png', cityhalldemo.getImagePath(i1), reprojected1),
+        testUtils.promiseVisualPoints('/home/sheep/Code/params-test-0-ref.png', cityhalldemo.getImagePath(i1), reference1),
+        testUtils.promiseVisualPoints('/home/sheep/Code/params-test-1.png', cityhalldemo.getImagePath(i2), reprojected2),
+        testUtils.promiseVisualPoints('/home/sheep/Code/params-test-1-ref.png', cityhalldemo.getImagePath(i2), reference2)
+    ]);
+
+}
+
+refineTest(1,3);
+
 
 function cityhalltest(i1, i2){
 
@@ -132,7 +230,7 @@ function cityhalltest(i1, i2){
 
 }
 
-cityhalltest(1,2);
+//cityhalltest(1,2);
 
 function registerTest(){
 

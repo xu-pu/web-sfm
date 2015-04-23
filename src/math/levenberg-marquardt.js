@@ -17,7 +17,7 @@ var getJacobian = require('./jacobian.js'),
  * @param {function(Vector):Vector} func - f(vx) => vy
  * @param {Vector} x0 - start point x0[]
  * @param {Vector} target - target
- * @return {Vector}
+ * @returns Vector
  */
 module.exports = function(func, x0, target){
 

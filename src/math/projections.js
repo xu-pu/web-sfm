@@ -233,12 +233,12 @@ exports.getDistortedProjection = function(R, t, K, k1, k2){
  * @param {CameraParams} cam
  * @returns Matrix
  */
-exports.getP = function(cam){
+exports.params2P = function(cam){
     var r = cam.r,
         R = geoUtils.getRotationFromEuler(r[0], r[1], r[2]),
-        t = laUtils.toVector(cam.t);
-    var K = exports.getK(cam.f, cam.px, cam.py);
-    return K.x(R.augment(t));
+        t = laUtils.toVector(cam.t),
+        K = exports.getK(cam.f, cam.px, cam.py);
+    return exports.KRt2P(K, R, t);
 };
 
 
