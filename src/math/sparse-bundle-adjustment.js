@@ -61,42 +61,42 @@ exports.getVisList = function(tracks, visCamInds, visTrackInds){
     }, []);
 };
 
-/**
- *
- * @param {CameraParams} cam
- * @returns number[]
- */
-exports.flattenCamera = function(cam){
-    var r = cam.r, t = cam.t;
-    return r.concat(t).concat([cam.f, cam.px, cam.py, cam.k1, cam.k2]);
-};
-
 
 /**
- * @param {number[]} params
- * @returns CameraParams
+ * Generate vislist including cameras and tracks affected by varCam and varTrack
+ * @param {Track[]} tracks
+ * @param {int[]} varCamInd
+ * @param {int[]} varTrackInd
+ * @returns VisList
  */
-exports.inflateCamera = function(params){
-    return {
-        r: params.slice(0,3),
-        t: params.slice(3,6),
-        f: params[6], px: params[7], py: params[8],
-        k1: params[9], k2: params[10]
-    };
-};
+exports.getAffectedVisList = function(tracks, varCamInd, varTrackInd){
 
+    var affectedCamInd = varTrackInd.reduce(function(memo, trackInd){
+            tracks[trackInd].forEach(function(view){
+                var camInd = view.cam;
+                if (memo.indexOf(camInd) === -1) {
+                    memo.push(camInd);
+                }
+            });
+            return memo;
+        }, varCamInd.slice()),
 
-/**
- *
- * @param {CameraParams} cam
- * @returns function
- */
-exports.getProjection = function(cam){
-    var r = cam.r,
-        R = geoUtils.getRotationFromEuler(r[0], r[1], r[2]),
-        t = laUtils.toVector(cam.t),
-        K = projection.getK(cam.f, cam.px, cam.py);
-    return projection.getDistortedProjection(R, t, K, cam.k1, cam.k2);
+        affectedTrackInd = tracks.reduce(function(memo, track, trackInd){
+            if (memo.indexOf(trackInd) === -1) {
+                var isVisiable = track.some(function(view){
+                    return varCamInd.some(function(camInd){
+                        return view.cam === camInd;
+                    });
+                });
+                if (isVisiable) {
+                    memo.push(trackInd);
+                }
+            }
+            return memo;
+        }, varTrackInd.slice());
+
+    return exports.getVisList(tracks, affectedCamInd, affectedTrackInd);
+
 };
 
 //===================================================================
@@ -105,13 +105,14 @@ exports.getProjection = function(cam){
 /**
  *
  * @param camsDict - camID=>Cam
- * @param xDict - trackID=>Vector
- * @param {VisList} visList
+ * @param xDict - trackID=>Vector (in-homo)
+ * @param {Track[]} tracks
  * @param {int[]} varCamInd
- * @param {int[]} varPointInd
+ * @param {int[]} varTrackInd
  */
-exports.sba = function(camsDict, xDict, visList, varCamInd, varPointInd){
+exports.sba = function(camsDict, xDict, tracks, varCamInd, varTrackInd){
 
+    var visList = exports.getAffectedVisList(tracks, varCamInd, varTrackInd);
     var projectionDict = _.mapObject(camsDict, function(val, key){
         return exports.getProjection(val);
     });
@@ -119,11 +120,11 @@ exports.sba = function(camsDict, xDict, visList, varCamInd, varPointInd){
     var flattenCams = varCamInd.reduce(function(memo, camInd){
         return memo.concat(exports.flattenCamera(camsDict[camInd]));
     }, []);
-    var flatten = varPointInd.reduce(function(memo, pointInd){
+    var flatten = varTrackInd.reduce(function(memo, pointInd){
         return memo.concat(xDict[pointInd].elements);
     }, flattenCams);
 
-    var result = exports.sparseLMA(func, laUtils.toVector(flatten), Vector.Zero(visList.length), varCamInd.length, varPointInd.length);
+    var result = exports.sparseLMA(func, laUtils.toVector(flatten), Vector.Zero(visList.length), varCamInd.length, varTrackInd.length);
 
     inflateParams(result, camsDict, xDict);
 
@@ -167,7 +168,7 @@ exports.sba = function(camsDict, xDict, visList, varCamInd, varPointInd){
             cDict[camInd] = exports.inflateCamera(flat.slice(offset, offset+CAM_PARAMS));
             offset += CAM_PARAMS;
         });
-        varPointInd.forEach(function(pointInd){
+        varTrackInd.forEach(function(pointInd){
             pDict[pointInd] = laUtils.toVector(flat.slice(offset, offset+3));
             offset += 3;
         });
@@ -180,14 +181,14 @@ exports.sba = function(camsDict, xDict, visList, varCamInd, varPointInd){
 
 
 /**
- * Sparse Levenberg-Marqurdt Algorithm, tylered to sba
+ * SBA Levenberg-Marqurdt Algorithm
  *
  * @param {function(Vector):Vector} func - f(vx) => vy
  * @param {Vector} x0 - start point x0[]
  * @param {Vector} target - target
  * @param {int} cams - amount of cameras
  * @param {int} points
- * @return {Vector}
+ * @returns Vector
  */
 exports.sparseLMA = function(func, x0, target, cams, points){
 
@@ -380,6 +381,7 @@ exports.solveHessian = function(H, sigma, cams, points){
  * V is block diagnal
  * @param {SparseMatrix} V
  * @param {int} points
+ * @returns SparseMatrix
  */
 exports.inverseV = function(V, points){
     var builder = new SparseMatrixBuilder(V.rows, V.cols);
