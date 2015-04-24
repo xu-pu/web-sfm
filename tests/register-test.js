@@ -40,6 +40,7 @@ var HALL_TRACKS_PATH = '/home/sheep/Code/Project/web-sfm/demo/Hall-Demo/dev/trac
 
 var CITYHALL_CAM_PATH = '/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/dev/cams.json';
 var CITYHALL_RAW_CAM_PATH = '/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/dev/cams.raw.json';
+var SBA_TEST_DATA = '/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/dev/sba.test.json';
 
 var getCityCam = (function(){
 
@@ -78,6 +79,56 @@ function getCityCamParams(i){
     };
 }
 
+function sbaTest(i1, i2){
+
+    var dataset = require(SBA_TEST_DATA),
+        camDict = dataset.cameras,
+        tracks = dataset.tracks,
+        points = dataset.points;
+
+    var params1 = camDict[i1],
+        params2 = camDict[i2],
+        P1 = camUtils.params2P(params1),
+        P2 = camUtils.params2P(params2);
+
+    var xDict = points.reduce(function(memo, arr, i){
+        memo[i] = laUtils.toVector(arr);
+        return memo;
+    }, {});
+
+    sba.sba(camDict, xDict, tracks, [i1, i2], _.range(tracks.length));
+
+    var sparse = points.map(function(X){
+        return laUtils.toVector(X.concat([1]));
+    });
+
+    var reprojected1 = sparse.map(function(X){
+            return cord.img2RC(P1.x(X));
+        }),
+        reprojected2 = sparse.map(function(X){
+            return cord.img2RC(P2.x(X));
+        }),
+        reference1 = tracks.map(function(track){
+            return _.find(track, function(view){
+                return view.cam === i1;
+            }).point;
+        }),
+        reference2 = tracks.map(function(track){
+            return _.find(track, function(view){
+                return view.cam === i2;
+            }).point;
+        });
+
+    return Promise.all([
+        testUtils.promiseVisualPoints('/home/sheep/Code/params-test-0.png', cityhalldemo.getImagePath(i1), reprojected1),
+        testUtils.promiseVisualPoints('/home/sheep/Code/params-test-0-ref.png', cityhalldemo.getImagePath(i1), reference1),
+        testUtils.promiseVisualPoints('/home/sheep/Code/params-test-1.png', cityhalldemo.getImagePath(i2), reprojected2),
+        testUtils.promiseVisualPoints('/home/sheep/Code/params-test-1-ref.png', cityhalldemo.getImagePath(i2), reference2)
+    ]);
+
+}
+
+sbaTest(1,2);
 
 
 function refineTest(i1, i2){
@@ -174,8 +225,7 @@ function refineTest(i1, i2){
 
 }
 
-refineTest(1,3);
-
+//refineTest(1,3);
 
 function cityhalltest(i1, i2){
 
@@ -231,137 +281,3 @@ function cityhalltest(i1, i2){
 }
 
 //cityhalltest(1,2);
-
-function registerTest(){
-
-    var tracks = require(TRACKS_PATH);
-    var visibles = register.getCommonTracks([0,1], tracks);
-
-    //====================================
-
-    var params0 = sba.flattenCamera(camParam0).concat(sba.flattenCamera(camParam1));
-
-    var selected = _.sample(visibles, 50), // id
-        vislist = sba.getVisList(tracks, [0,1], selected);
-
-    var factor = 0.00001;
-
-    var results = lma(function(x){
-
-        var params = x.x(1/factor).elements,
-            cp0 = sba.inflateCamera(params.slice(0, CAM_PARAMS)),
-            cp1 = sba.inflateCamera(params.slice(CAM_PARAMS)),
-            P0 = camUtils.getP(cp0),
-            P1 = camUtils.getP(cp1);
-
-        var proDict = {
-            0: sba.getProjection(cp0),
-            1: sba.getProjection(cp1)
-        };
-
-        var xDict = {};
-
-        selected.forEach(function(trackID){
-            var track = tracks[trackID];
-            var x0 = cord.rc2x(_.find(track, function(view){
-                return view.cam === 0;
-            }).point);
-            var x1 = cord.rc2x(_.find(track, function(view){
-                return view.cam === 1;
-            }).point);
-            xDict[trackID] = cord.toInhomo3D(triangulation(P0, P1, x0, x1));
-        });
-
-        var errorArr = vislist.map(function(vis){
-            var ci = vis.ci,
-                xi = vis.xi,
-                rc = vis.rc,
-                proj = proDict[ci],
-                X = xDict[xi],
-                x = proj(X);
-            return geoUtils.getDistanceRC(rc, cord.img2RC(x));
-        });
-
-        console.log('one round');
-
-        return laUtils.toVector(errorArr);
-
-    }, laUtils.toVector(params0).x(factor), Vector.Zero(vislist.length)).x(1/factor);
-
-    var params = results.elements,
-        cp0 = sba.inflateCamera(params.slice(0, CAM_PARAMS)),
-        cp1 = sba.inflateCamera(params.slice(CAM_PARAMS)),
-        P0 = camUtils.getP(cp0),
-        P1 = camUtils.getP(cp1);
-
-    var proDict = {
-        0: sba.getProjection(cp0),
-        1: sba.getProjection(cp1)
-    };
-
-    var xDict = {};
-
-    visibles.forEach(function(trackID){
-        var track = tracks[trackID];
-        var x0 = cord.rc2x(_.find(track, function(view){
-            return view.cam === 0;
-        }).point);
-        var x1 = cord.rc2x(_.find(track, function(view){
-            return view.cam === 1;
-        }).point);
-        xDict[trackID] = cord.toInhomo3D(triangulation(P0, P1, x0, x1));
-    });
-
-    var Xs = _.values(xDict);
-
-    var rc0 = Xs.map(function(X){
-        return cord.img2RC(proDict[0](X));
-    });
-
-    var rc1 = Xs.map(function(X){
-        return cord.img2RC(proDict[1](X));
-    });
-
-    var rc00 = visibles.map(function(trackID){
-        var track = tracks[trackID];
-        return _.find(track, function(view){
-            return view.cam === 0;
-        }).point;
-    });
-
-    var rc11 = visibles.map(function(trackID){
-        var track = tracks[trackID];
-        return _.find(track, function(view){
-            return view.cam === 1;
-        }).point;
-    });
-
-
-
-    return Promise.all([
-        testUtils.promiseVisualPoints('/home/sheep/Code/tri-test-0.png', cityhalldemo.getImagePath(0), rc0),
-        testUtils.promiseVisualPoints('/home/sheep/Code/tri-test-1.png', cityhalldemo.getImagePath(1), rc1),
-        testUtils.promiseVisualPoints('/home/sheep/Code/tri-test-00.png', cityhalldemo.getImagePath(0), rc00),
-        testUtils.promiseVisualPoints('/home/sheep/Code/tri-test-11.png', cityhalldemo.getImagePath(1), rc11)
-    ]);
-
-}
-//registerTest();
-
-//halldemo.genImageJson();
-
-//robustPair(5,6);
-
-//decView(30);
-
-//cometdemo.genLoweSift(9);
-
-/*
-testUtils
-    .promiseImage('/home/sheep/Code/Project/web-sfm/demo/Rosetta-Spacecraft/images/Comet_on_19_September_2014_NavCam.jpg')
-    .then(function(img){
-        testUtils.promiseSaveNdarray('/home/sheep/Code/Project/web-sfm/demo/Rosetta-Spacecraft/images/Comet_on_19_September_2014_NavCam.half.png', imgUtils.getDownsample(img));
-    });
-*/
-
-
