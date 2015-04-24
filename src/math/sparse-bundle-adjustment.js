@@ -11,101 +11,22 @@ var cord = require('../utils/cord.js'),
     sparse = require('./sparse-matrix'),
     SparseMatrix = sparse.SparseMatrix,
     SparseMatrixBuilder = sparse.SparseMatrixBuilder,
-    projection = require('./projections.js'),
+    camUtils = require('./projections.js'),
     geoUtils = require('./geometry-utils.js'),
     laUtils = require('./la-utils.js');
 
 var DELTA = Math.pow(10, -6);
-var ZERO_THRESHOLD = 0;
-//var ZERO_THRESHOLD = Math.pow(10, -10);
 var CAM_PARAMS = 11; // 3*r, 3*t, f,px,py, k1,k2
 var POINT_PARAMS = 3;
-//===================================================================
-
-/**
- *
- * @param {number[]} params
- * @param {int} cams
- * @param {int} [points]
- * @returns {{ cams: number[][], points: number[][] }}
- */
-exports.spliteParams = function(params, cams, points){
-    points = points||0;
-    var offset = CAM_PARAMS*cams;
-    var cs = _.range(cams).map(function(i){
-        return params.slice(CAM_PARAMS*i, CAM_PARAMS*(i+1));
-    });
-    var ps = _.range(points).map(function(i){
-        return params.slice(offset+POINT_PARAMS*i, offset+POINT_PARAMS*(i+1));
-    });
-    return { cams: cs, points: ps };
-};
-
-
-/**
- *
- * @param {Track[]} tracks
- * @param {int[]} visCamInds
- * @param {int[]} visTrackInds
- * @returns VisList
- */
-exports.getVisList = function(tracks, visCamInds, visTrackInds){
-    return visTrackInds.reduce(function(memo, trackID){
-        var track = tracks[trackID];
-        track.forEach(function(view){
-            if (visCamInds.indexOf(view.cam) !== -1) {
-                memo.push({ ci: view.cam, xi: trackID, rc: view.point });
-            }
-        });
-        return memo;
-    }, []);
-};
-
-
-/**
- * Generate vislist including cameras and tracks affected by varCam and varTrack
- * @param {Track[]} tracks
- * @param {int[]} varCamInd
- * @param {int[]} varTrackInd
- * @returns VisList
- */
-exports.getAffectedVisList = function(tracks, varCamInd, varTrackInd){
-
-    var affectedCamInd = varTrackInd.reduce(function(memo, trackInd){
-            tracks[trackInd].forEach(function(view){
-                var camInd = view.cam;
-                if (memo.indexOf(camInd) === -1) {
-                    memo.push(camInd);
-                }
-            });
-            return memo;
-        }, varCamInd.slice()),
-
-        affectedTrackInd = tracks.reduce(function(memo, track, trackInd){
-            if (memo.indexOf(trackInd) === -1) {
-                var isVisiable = track.some(function(view){
-                    return varCamInd.some(function(camInd){
-                        return view.cam === camInd;
-                    });
-                });
-                if (isVisiable) {
-                    memo.push(trackInd);
-                }
-            }
-            return memo;
-        }, varTrackInd.slice());
-
-    return exports.getVisList(tracks, affectedCamInd, affectedTrackInd);
-
-};
+var ZERO_THRESHOLD = 0;
+//var ZERO_THRESHOLD = Math.pow(10, -10);
 
 //===================================================================
 
-
 /**
  *
- * @param camsDict - camID=>Cam
- * @param xDict - trackID=>Vector (in-homo)
+ * @param camsDict - camID=>CamParams
+ * @param xDict - trackID=>Vector (Homogenous)
  * @param {Track[]} tracks
  * @param {int[]} varCamInd
  * @param {int[]} varTrackInd
@@ -113,41 +34,47 @@ exports.getAffectedVisList = function(tracks, varCamInd, varTrackInd){
 exports.sba = function(camsDict, xDict, tracks, varCamInd, varTrackInd){
 
     var visList = exports.getAffectedVisList(tracks, varCamInd, varTrackInd);
-    var projectionDict = _.mapObject(camsDict, function(val, key){
-        return exports.getProjection(val);
+
+    var projectionDict = _.mapObject(camsDict, function(val){
+        return camUtils.params2P(val);
     });
 
     var flattenCams = varCamInd.reduce(function(memo, camInd){
-        return memo.concat(exports.flattenCamera(camsDict[camInd]));
+        return memo.concat(camUtils.flattenCameraParams(camsDict[camInd]));
     }, []);
+
     var flatten = varTrackInd.reduce(function(memo, pointInd){
         return memo.concat(xDict[pointInd].elements);
     }, flattenCams);
 
-    var result = exports.sparseLMA(func, laUtils.toVector(flatten), Vector.Zero(visList.length), varCamInd.length, varTrackInd.length);
+    var result = exports.sparseLMA(errorFunc, laUtils.toVector(flatten), Vector.Zero(visList.length), varCamInd.length, varTrackInd.length);
 
-    inflateParams(result, camsDict, xDict);
+    assignParams(result, camsDict, xDict);
 
 
     /**
+     * Params => Error
      * @param {Vector} x
      * @returns Vector
      */
-    function func(x){
+    function errorFunc(x){
+
         var varCamsDict = {},
             varPointsDict = {};
 
-        inflateParams(x, varCamsDict, varPointsDict);
+        assignParams(x, varCamsDict, varPointsDict);
 
-        var varProjectionDict = _.mapObject(varCamsDict, function(val, key){
-            return exports.getProjection(val);
+        var varProjectionDict = _.mapObject(varCamsDict, function(val){
+            return camUtils.params2P(val);
         });
 
         var yArr = visList.map(function(entry){
-            var xi = entry.xi, ci = entry.ci, rc = entry.rc;
-            var proj = projectionDict[ci] || varProjectionDict[ci];
-            var X = varPointsDict[xi] || xDict[xi];
-            var x = proj(X);
+            var xi = entry.xi,
+                ci = entry.ci,
+                rc = entry.rc,
+                P = varProjectionDict[ci] || projectionDict[ci],
+                X = varPointsDict[xi] || xDict[xi],
+                x = P.x(X);
             return geoUtils.getDistanceRC(rc, cord.img2RC(x));
         });
 
@@ -161,23 +88,21 @@ exports.sba = function(camsDict, xDict, tracks, varCamInd, varTrackInd){
      * @param cDict
      * @param pDict
      */
-    function inflateParams(x, cDict, pDict){
+    function assignParams(x, cDict, pDict){
         var flat = x.elements;
         var offset = 0;
         varCamInd.forEach(function(camInd){
-            cDict[camInd] = exports.inflateCamera(flat.slice(offset, offset+CAM_PARAMS));
+            cDict[camInd] = camUtils.inflateCameraParams(flat.slice(offset, offset+CAM_PARAMS));
             offset += CAM_PARAMS;
         });
         varTrackInd.forEach(function(pointInd){
-            pDict[pointInd] = laUtils.toVector(flat.slice(offset, offset+3));
+            pDict[pointInd] = laUtils.toVector(flat.slice(offset, offset+3).concat([1]));
             offset += 3;
         });
     }
 
 };
 
-
-//===================================================================
 
 
 /**
@@ -302,6 +227,8 @@ exports.sparseLMA = function(func, x0, target, cams, points){
 
 
 //===================================================================
+// Sparse Matrix Utils
+//===================================================================
 
 /**
  *
@@ -375,8 +302,6 @@ exports.solveHessian = function(H, sigma, cams, points){
 };
 
 
-//===================================================================
-
 /**
  * V is block diagnal
  * @param {SparseMatrix} V
@@ -402,4 +327,87 @@ exports.inverseV = function(V, points){
     }
 
     return builder.evaluate();
+};
+
+
+//===================================================================
+// View Geometry Utils
+//===================================================================
+
+
+/**
+ *
+ * @param {number[]} params
+ * @param {int} cams
+ * @param {int} [points]
+ * @returns {{ cams: number[][], points: number[][] }}
+ */
+exports.spliteParams = function(params, cams, points){
+    points = points||0;
+    var offset = CAM_PARAMS*cams;
+    var cs = _.range(cams).map(function(i){
+        return params.slice(CAM_PARAMS*i, CAM_PARAMS*(i+1));
+    });
+    var ps = _.range(points).map(function(i){
+        return params.slice(offset+POINT_PARAMS*i, offset+POINT_PARAMS*(i+1));
+    });
+    return { cams: cs, points: ps };
+};
+
+
+/**
+ *
+ * @param {Track[]} tracks
+ * @param {int[]} visCamInds
+ * @param {int[]} visTrackInds
+ * @returns VisList
+ */
+exports.getVisList = function(tracks, visCamInds, visTrackInds){
+    return visTrackInds.reduce(function(memo, trackID){
+        var track = tracks[trackID];
+        track.forEach(function(view){
+            if (visCamInds.indexOf(view.cam) !== -1) {
+                memo.push({ ci: view.cam, xi: trackID, rc: view.point });
+            }
+        });
+        return memo;
+    }, []);
+};
+
+
+/**
+ * Generate vislist including cameras and tracks affected by varCam and varTrack
+ * @param {Track[]} tracks
+ * @param {int[]} varCamInd
+ * @param {int[]} varTrackInd
+ * @returns VisList
+ */
+exports.getAffectedVisList = function(tracks, varCamInd, varTrackInd){
+
+    var affectedCamInd = varTrackInd.reduce(function(memo, trackInd){
+            tracks[trackInd].forEach(function(view){
+                var camInd = view.cam;
+                if (memo.indexOf(camInd) === -1) {
+                    memo.push(camInd);
+                }
+            });
+            return memo;
+        }, varCamInd.slice()),
+
+        affectedTrackInd = tracks.reduce(function(memo, track, trackInd){
+            if (memo.indexOf(trackInd) === -1) {
+                var isVisiable = track.some(function(view){
+                    return varCamInd.some(function(camInd){
+                        return view.cam === camInd;
+                    });
+                });
+                if (isVisiable) {
+                    memo.push(trackInd);
+                }
+            }
+            return memo;
+        }, varTrackInd.slice());
+
+    return exports.getVisList(tracks, affectedCamInd, affectedTrackInd);
+
 };
