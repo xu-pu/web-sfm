@@ -41,6 +41,41 @@ SparseMatrix.I = function(n){
     return builder.evaluate();
 };
 
+/**
+ * @param {number[][][]} diag
+ * @returns SparseMatrix
+ */
+SparseMatrix.fromBlockDiag = function(diag){
+    var rows = diag.reduce(function(memo, block){
+            return memo + block.length
+        }, 0),
+        cols = diag.reduce(function(memo, block){
+            return memo + block[0].length;
+        }, 0);
+
+    var builder = new SparseMatrixBuilder(rows, cols),
+        rowOffset = 0, colOffset = 0;
+
+    diag.forEach(function(block){
+
+        var rs = block.length,
+            cs = block[0].length;
+
+        var r, c;
+        for (c=0; c<cs; c++) {
+            for (r=0; r<rs; r++) {
+                builder.append(rowOffset+r, colOffset+c, block[r][c]);
+            }
+        }
+
+        rowOffset += rs;
+        colOffset += cs;
+
+    });
+
+    return builder.evaluate();
+
+};
 
 /**
  *
