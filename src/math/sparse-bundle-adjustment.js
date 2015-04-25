@@ -132,9 +132,11 @@ exports.sparseLMA = function(func, x0, target, cams, points){
         y = y0,
         sigma = target.subtract(y0),
         J = exports.sparseJacobian(func, x0),
-        A = J.transpose().x(J),
-        g = J.transpose().x(sigma),
-        damp = DAMP_BASE*laUtils.matrixInfiniteNorm(A);
+        Jtrans = J.transpose(),
+        A = Jtrans.x(J),
+        gSparse = Jtrans.x(sigma),
+        g = laUtils.toVector(gSparse),
+        damp = DAMP_BASE*laUtils.sparseInfiniteNorm(A);
 
     var N, deltaX, newSigma, newX, newY,
         improvement = 0,
@@ -158,9 +160,10 @@ exports.sparseLMA = function(func, x0, target, cams, points){
 
             //console.log('try to find step ' + stepCounter + ' with damping ' + damp);
 
-            N = A.add(Matrix.I(xs).x(damp));
+            N = A.add(SparseMatrix.I(xs).times(damp));
 
-            deltaX = N.inverse().x(g);
+            deltaX = exports.solveHessian(N, g, cams, points);
+            //deltaX = N.inverse().x(g);
 
             if (deltaX.modulus() < ZERO_THRESHOLD * p.modulus()) {
                 // end if step is too small
@@ -199,9 +202,11 @@ exports.sparseLMA = function(func, x0, target, cams, points){
             //console.log('step accepted, refresh the equation');
 
             // refresh the equation
-            J = getJacobian(func, p);
-            A = J.transpose().x(J);
-            g = J.transpose().x(sigma);
+            J = exports.sparseJacobian(func, p);
+            Jtrans = J.transpose();
+            A = Jtrans.x(J);
+            gSparse = Jtrans.x(sigma);
+            g = laUtils.toVector(gSparse);
 
             // reset iteration variables
             damp *= Math.max(1/3, 1-Math.pow(2*improvementRatio-1, 3));
@@ -232,9 +237,9 @@ exports.sparseLMA = function(func, x0, target, cams, points){
 
 /**
  *
- * @param {Function} func - number[]=>number[]
+ * @param {Function} func - Vector=>Vector
  * @param {Vector} x
- * @returns SparseMatrixa
+ * @returns SparseMatrix
  */
 exports.sparseJacobian = function(func, x){
 
@@ -272,30 +277,31 @@ exports.sparseJacobian = function(func, x){
 
 /**
  *
- * @param {SparseMatrix} H
- * @param {number[]} sigma
+ * @param {SparseMatrix} N
+ * @param {Vector} g
  * @param {int} cams
  * @param {int} points
  * @returns Vector
  */
-exports.solveHessian = function(H, sigma, cams, points){
+exports.solveHessian = function(N, g, cams, points){
 
-    var offset = cams*CAM_PARAMS,
-        sigmaA = sigma.slice(0, offset),
-        sigmaB = sigma.slice(offset),
-        splited = H.split(offset, offset),
+    var gArr = g.elements,
+        offset = cams*CAM_PARAMS,
+        sigmaA = gArr.slice(0, offset),
+        sigmaB = gArr.slice(offset),
+        splited = N.split(offset, offset),
         U = splited.A.toDense(),
         V = splited.C,
         W = splited.B,
         transW = splited.C,
         invV = exports.inverseV(V, points);
 
-    var param1 = sub(U, W.x(invV).x(transW)), // U - W * V-1 * Wt
+    var param1 = sub(U, W.x(invV).x(transW).toDense()), // U - W * V-1 * Wt
         param2 = sub(sigmaA, dot(W.x(invV).toDense(), sigmaB)), // sigmaA - W * V-1 * sigmaB
         deltaA = dot(numeric.inv(param1), param2),
         sparseDeltaA = SparseMatrix.fromDenseVector(deltaA),
         sparseSigmaB = SparseMatrix.fromDenseVector(sigmaB),
-        deltaB = invV.x(sparseSigmaB.subtract(transW.x(sparseDeltaA))).toDense();
+        deltaB = invV.x(sparseSigmaB.subtract(transW.x(sparseDeltaA))).toDenseVector();
 
     return laUtils.toVector(deltaA.concat(deltaB));
 
