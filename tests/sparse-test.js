@@ -1,5 +1,17 @@
-var sparse = require('../src/math/sparse-matrix.js'),
+var _ = require('underscore'),
+    la = require('sylvester'),
+    Matrix = la.Matrix,
+    Vector = la.Vector;
+
+
+var laUtils = require('../src/math/la-utils.js'),
+    genUtils = require('../src/utils/random-test-utils.js'),
+    sba = require('../src/math/sparse-bundle-adjustment.js'),
+    sparse = require('../src/math/sparse-matrix.js'),
     SparseMatrix = sparse.SparseMatrix;
+
+var CAM_PARAMS = 11;
+var POINT_PARAMS = 3;
 
 var sampleM = [
     [1,2,3,4,5],
@@ -7,14 +19,3 @@ var sampleM = [
     [1,2,0,0,5],
     [1,2,3,0,5]
 ];
-
-var sps = SparseMatrix.fromDense(sampleM);
-/*
-var splited = sps.split(2,2);
-console.log(splited.A.toDense());
-console.log(splited.B.toDense());
-console.log(splited.C.toDense());
-console.log(splited.D.toDense());
-    */
-
-console.log(sps.transpose().toDense());
