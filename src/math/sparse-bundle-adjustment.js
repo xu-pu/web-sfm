@@ -235,9 +235,6 @@ exports.sparseLMA = function(func, x0, target, cams, points){
 // Sparse Matrix Utils
 //===================================================================
 
-
-//===================================================================
-
 /**
  *
  * @param {SparseMatrix} N
@@ -254,7 +251,7 @@ exports.solveHessian = function(N, g, cams, points){
         sigmaB = gArr.slice(offset),
         splited = N.split(offset, offset),
         U = splited.A.toDense(),
-        V = splited.C,
+        V = splited.D,
         W = splited.B,
         transW = splited.C,
         invV = exports.inverseV(V, points);
@@ -278,24 +275,26 @@ exports.solveHessian = function(N, g, cams, points){
  * @returns SparseMatrix
  */
 exports.inverseV = function(V, points){
+
     var builder = new SparseMatrixBuilder(V.rows, V.cols);
-    var size = 3;
-    var offset = 0, cursor;
+
+    var step=POINT_PARAMS-1, offset=0, cursor;
     for (cursor=0; cursor<points; cursor++) {
         (function(){
-            var block = V.getBlock(offset, offset, offset+size, offset+size).toDense();
+            var block = V.getBlock(offset, offset, offset+step, offset+step).toDense();
             var invBlock = numeric.inv(block);
             var r, c;
-            for (c=0; c<size; c++) {
-                for (r=0; r<size; r++) {
+            for (c=0; c<POINT_PARAMS; c++) {
+                for (r=0; r<POINT_PARAMS; r++) {
                     builder.append(r+offset, c+offset, invBlock[r][c]);
                 }
             }
-            offset += size;
+            offset += POINT_PARAMS;
         })();
     }
 
     return builder.evaluate();
+
 };
 
 

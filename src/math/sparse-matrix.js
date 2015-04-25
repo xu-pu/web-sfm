@@ -305,11 +305,9 @@ SparseMatrix.prototype.toDense = function(){
 /**
  * @returns {number[]}
  */
-SparseMatrix.toDenseVector = function(){
+SparseMatrix.prototype.toDenseVector = function(){
     if (this.cols === 1) {
-        return Vector.create(
-            toFull(this.transpose().sparse)[0]
-        );
+        return toFull(this.transpose().sparse)[0];
     }
     else {
         throw 'not a vector';
