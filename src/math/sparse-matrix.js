@@ -42,6 +42,30 @@ SparseMatrix.I = function(n){
 };
 
 /**
+ *
+ * @param {int} rows
+ * @param {int} cols
+ * @param {number} [ratio] - 0 to 1
+ */
+SparseMatrix.Random = function(rows, cols, ratio){
+
+    ratio = ratio || 0.5;
+    var builder = new SparseMatrixBuilder(rows, cols);
+
+    var r, c;
+    for (c=0; c<cols; c++) {
+        for (r=0; r<rows; r++) {
+            if (Math.random() < ratio) {
+                builder.append(r, c, Math.random());
+            }
+        }
+    }
+
+    return builder.evaluate();
+
+};
+
+/**
  * @param {number[][][]} diag
  * @returns SparseMatrix
  */
