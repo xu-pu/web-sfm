@@ -24,6 +24,10 @@ function SparseMatrix(sparse, rows, cols){
     this.cols = cols;
 }
 
+//============================
+// Special Constructors
+//============================
+
 /**
  *
  * @param {int} n
@@ -37,14 +41,54 @@ SparseMatrix.I = function(n){
     return builder.evaluate();
 };
 
+
+/**
+ *
+ * @param {number[][]} m
+ * @returns {SparseMatrix}
+ */
+SparseMatrix.fromDense = function(m){
+    return new SparseMatrix(toSparse(m), m.length, m[0].length)
+};
+
+
+/**
+ *
+ * @param {number[]} V
+ * @returns {SparseMatrix}
+ */
+SparseMatrix.fromDenseVector = function(V){
+    var dense = numeric.transpose([V]);
+    return new SparseMatrix(toSparse(dense), V.length, 1);
+};
+
+//============================
+// Matrix Operations
+//============================
+
+/**
+ *
+ * @param {SparseMatrix} m
+ * @returns {SparseMatrix}
+ */
 SparseMatrix.prototype.add = function(m){
     return new SparseMatrix(numeric.ccsadd(this.sparse, m.sparse), this.rows, this.cols);
 };
 
+/**
+ *
+ * @param {SparseMatrix} m
+ * @returns {SparseMatrix}
+ */
 SparseMatrix.prototype.subtract = function(m){
     return new SparseMatrix(numeric.ccssub(this.sparse, m.sparse), this.rows, this.cols);
 };
 
+/**
+ *
+ * @param {SparseMatrix} a
+ * @returns {SparseMatrix}
+ */
 SparseMatrix.prototype.times = function(a){
     return new SparseMatrix(numeric.ccsmul(this.sparse, a), this.rows, this.cols);
 };
@@ -200,27 +244,6 @@ SparseMatrix.prototype.toDense = function(){
 
 
 /**
- *
- * @param {number[][]} m
- * @returns {SparseMatrix}
- */
-SparseMatrix.fromDense = function(m){
-    return new SparseMatrix(toSparse(m), m.length, m[0].length)
-};
-
-
-/**
- *
- * @param {number[]} V
- * @returns {SparseMatrix}
- */
-SparseMatrix.fromDenseVector = function(V){
-    var dense = numeric.transpose([V]);
-    return new SparseMatrix(dense, V.length, 1);
-};
-
-
-/**
  * @returns {number[]}
  */
 SparseMatrix.toDenseVector = function(){
@@ -237,6 +260,12 @@ SparseMatrix.toDenseVector = function(){
 
 //=====================================
 
+/**
+ *
+ * @param {int} rows
+ * @param {int} cols
+ * @constructor
+ */
 function SparseMatrixBuilder(rows, cols){
     this.bounds = [0];
     this.cords = [];
@@ -246,6 +275,13 @@ function SparseMatrixBuilder(rows, cols){
     this.curC = 0
 }
 
+
+/**
+ *
+ * @param {int} row
+ * @param {int} col
+ * @param {number} v
+ */
 SparseMatrixBuilder.prototype.append = function(row,col,v){
 
     var _self = this,
@@ -268,6 +304,11 @@ SparseMatrixBuilder.prototype.append = function(row,col,v){
 
 };
 
+
+/**
+ *
+ * @returns {SparseMatrix}
+ */
 SparseMatrixBuilder.prototype.evaluate = function(){
     var rows = this.rows,
         cols = this.cols,
