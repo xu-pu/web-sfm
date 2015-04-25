@@ -1,7 +1,7 @@
 'use strict';
-//============================================
-// View Geometry and Camera Models
-//============================================
+/************************************************
+ * View Geometry and Camera Models
+ ************************************************/
 
 var _ = require('underscore'),
     la = require('sylvester'),
@@ -74,13 +74,13 @@ exports.flattenCameraParams = function(cam){
 
 /**
  * get RT of cam2 relative to cam1
- * @param R1
- * @param t1
- * @param R2
- * @param t2
- * @returns {{R, t}}
+ * @param {Matrix} R1
+ * @param {Vector} t1
+ * @param {Matrix} R2
+ * @param {Vector} t2
+ * @returns {{ R: Matrix, t: Vector }}
  */
-module.exports.getRelativePose = function(R1, t1, R2, t2){
+exports.getRelativePose = function(R1, t1, R2, t2){
     var R = R2.x(R1.transpose()),
         t = R.x(t1).x(-1).add(t2);
     return { R: R, t: t };
@@ -93,7 +93,7 @@ module.exports.getRelativePose = function(R1, t1, R2, t2){
  * @param {Vector} t
  * @returns {Matrix}
  */
-module.exports.getPerspective = function(R, t){
+exports.getPerspective = function(R, t){
     return R.augment(t).transpose().augment(Vector.create([0,0,0,1])).transpose();
 };
 
@@ -111,12 +111,13 @@ exports.getT = function(R, t){
 
 /**
  * Essential Matrix
- * @param R1
- * @param t1
- * @param R2
- * @param t2
+ * @param {Matrix} R1
+ * @param {Vector} t1
+ * @param {Matrix} R2
+ * @param {Vector} t2
+ * @returns Matrix
  */
-module.exports.getEssentialMatrix = function (R1, t1, R2, t2){
+exports.getEssentialMatrix = function (R1, t1, R2, t2){
     var pos = exports.getRelativePose(R1, t1, R2, t2),
         R = pos.R,
         t = pos.t,
@@ -137,10 +138,11 @@ module.exports.getEssentialMatrix = function (R1, t1, R2, t2){
  * @param {number} focal
  * @param {number} width
  * @param {number} height
+ * @returns Matrix
  */
-module.exports.getCalibrationMatrix = function(focal, width, height){
+exports.getCalibrationMatrix = function(focal, width, height){
 
-    return Matrix.create([
+    return laUtils.toMatrix([
         [focal, 0    , width/2 ],
         [0    , focal, height/2],
         [0    , 0    , 1       ]
@@ -156,8 +158,8 @@ module.exports.getCalibrationMatrix = function(focal, width, height){
  * @param {number} py - principal point y
  * @returns Matrix
  */
-module.exports.getK = function(focal, px, py){
-    return Matrix.create([
+exports.getK = function(focal, px, py){
+    return laUtils.toMatrix([
         [ focal, 0    , px ],
         [ 0    , focal, py ],
         [ 0    , 0    , 1  ]
@@ -166,13 +168,14 @@ module.exports.getK = function(focal, px, py){
 
 /**
  *
- * @param R
- * @param t
+ * @param {Matrix} R
+ * @param {Vector} t
  * @param {number} focal
  * @param {number} width
  * @param {number} height
+ * @returns Matrix
  */
-module.exports.getProjectionMatrix = function(R, t, focal, width, height){
+exports.getProjectionMatrix = function(R, t, focal, width, height){
     var K = exports.getCalibrationMatrix(focal, width, height).augment(Vector.create([0,0,0]));
     var P = R.augment(t).transpose().augment(Vector.create([0,0,0,1])).transpose();
     return K.x(P);
@@ -181,16 +184,17 @@ module.exports.getProjectionMatrix = function(R, t, focal, width, height){
 
 /**
  *
- * @param R1
- * @param t1
+ * @param {Matrix} R1
+ * @param {Vector} t1
  * @param {number} f1
  * @param {Camera} cam1
- * @param R2
- * @param t2
+ * @param {Matrix} R2
+ * @param {Matrix} t2
  * @param {number} f2
  * @param {Camera} cam2
+ * @returns Matrix
  */
-module.exports.getFundamentalMatrix = function(R1, t1, f1, cam1, R2, t2, f2, cam2){
+exports.getFundamentalMatrix = function(R1, t1, f1, cam1, R2, t2, f2, cam2){
     var E = exports.getEssentialMatrix(R1, t1, R2, t2),
         K1 = exports.getCalibrationMatrix(f1, cam1.width, cam1.height),
         K2 = exports.getCalibrationMatrix(f2, cam2.width, cam2.height),
