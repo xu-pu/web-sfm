@@ -11,7 +11,7 @@ var sample = require('../src/utils/samples.js'),
     projections = require('../src/math/projections.js'),
     cord = require('../src/utils/cord.js'),
     dlt = require('../src/webregister/estimate-projection.js'),
-    lma = require('../src/math/levenberg-marquardt.js'),
+    lma = require('../src/math/nonlinear.js').lma,
     laUtils = require('../src/math/la-utils.js'),
     geoUtils = require('../src/math/geometry-utils.js');
 

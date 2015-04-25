@@ -5,8 +5,7 @@ var _ = require('underscore'),
     Matrix = la.Matrix,
     Vector = la.Vector;
 
-var lma = require('../math/levenberg-marquardt.js'),
-    geoUtils = require('../math/geometry-utils.js'),
+var geoUtils = require('../math/geometry-utils.js'),
     triangulation = require('../webregister/triangulation.js'),
     Patch = require('./patch.js'),
     photometrics = require('./photometrics.js');

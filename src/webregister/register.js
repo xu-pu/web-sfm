@@ -1,6 +1,6 @@
 var _ = require('underscore');
 
-var lma = require('../math/levenberg-marquardt.js'),
+var lma = require('../math/nonlinear.js').lma,
     estP = require('./estimate-projection');
 
 //============================================
