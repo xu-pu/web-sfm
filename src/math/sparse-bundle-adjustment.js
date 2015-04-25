@@ -9,13 +9,13 @@ var _ = require('underscore'),
 
 var cord = require('../utils/cord.js'),
     sparse = require('./sparse-matrix'),
+    nonlinear = require('./nonlinear.js'),
     SparseMatrix = sparse.SparseMatrix,
     SparseMatrixBuilder = sparse.SparseMatrixBuilder,
     camUtils = require('./projections.js'),
     geoUtils = require('./geometry-utils.js'),
     laUtils = require('./la-utils.js');
 
-var DELTA = Math.pow(10, -6);
 var CAM_PARAMS = 11; // 3*r, 3*t, f,px,py, k1,k2
 var POINT_PARAMS = 3;
 var ZERO_THRESHOLD = 0;
@@ -131,7 +131,7 @@ exports.sparseLMA = function(func, x0, target, cams, points){
     var p = x0.dup(),
         y = y0,
         sigma = target.subtract(y0),
-        J = exports.sparseJacobian(func, x0),
+        J = nonlinear.sparseJacobian(func, x0),
         Jtrans = J.transpose(),
         A = Jtrans.x(J),
         gSparse = Jtrans.x(sigma),
@@ -202,7 +202,7 @@ exports.sparseLMA = function(func, x0, target, cams, points){
             //console.log('step accepted, refresh the equation');
 
             // refresh the equation
-            J = exports.sparseJacobian(func, p);
+            J = nonlinear.sparseJacobian(func, p);
             Jtrans = J.transpose();
             A = Jtrans.x(J);
             gSparse = Jtrans.x(sigma);
@@ -234,43 +234,6 @@ exports.sparseLMA = function(func, x0, target, cams, points){
 //===================================================================
 // Sparse Matrix Utils
 //===================================================================
-
-/**
- *
- * @param {Function} func - Vector=>Vector
- * @param {Vector} x
- * @returns SparseMatrix
- */
-exports.sparseJacobian = function(func, x){
-
-    var xx = x.dup(),
-        y = func(x),
-        xArr = x.elements,
-        yArr = y.elements,
-        xxArr = xx.elements,
-        xs = xArr.length,
-        ys = yArr.length;
-
-    var builder = new SparseMatrixBuilder(ys, xs);
-
-    var curY, curYArr, curC, curR, curV;
-
-    for (curC=0; curC<xs; curC++) {
-        xxArr[curC] = xxArr[curC] + DELTA;
-        curY = func(xx);
-        curYArr = curY.elements;
-        xxArr[curC] = xxArr[curC] - DELTA;
-        for (curR=0; curR<ys; curR++) {
-            curV = (curYArr[curR] - yArr[curR]) / DELTA;
-            if (curV !== 0) {
-                builder.append(curR, curC, curV);
-            }
-        }
-    }
-
-    return builder.evaluate();
-
-};
 
 
 //===================================================================
