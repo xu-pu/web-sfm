@@ -396,3 +396,42 @@ exports.getAffectedVisList = function(tracks, cams, points, varCamInd, varTrackI
     return exports.getVisList(tracks, affectedCamInd, affectedTrackInd);
 
 };
+
+/**
+ * Generate vislist including cameras and tracks affected by varCam and varTrack
+ * @param {Track[]} tracks
+ * @param {int[]} cams
+ * @param {int[]} points
+ * @param {int[]} varCamInd
+ * @param {int[]} varTrackInd
+ * @returns {VisFold}
+ */
+exports.getAffectedVisFold = function(tracks, cams, points, varCamInd, varTrackInd){
+
+    var affectedCamInd = varTrackInd.reduce(function(memo, trackInd){
+            tracks[trackInd].forEach(function(view){
+                var camInd = view.cam;
+                if (memo.indexOf(camInd) === -1 && cams.indexOf(camInd) != -1) {
+                    memo.push(camInd);
+                }
+            });
+            return memo;
+        }, varCamInd.slice()),
+
+        affectedTrackInd = points.reduce(function(memo, trackInd){
+            if (memo.indexOf(trackInd) === -1) {
+                var isVisiable = tracks[trackInd].some(function(view){
+                    return varCamInd.some(function(camInd){
+                        return view.cam === camInd;
+                    });
+                });
+                if (isVisiable) {
+                    memo.push(trackInd);
+                }
+            }
+            return memo;
+        }, varTrackInd.slice());
+
+    return exports.getVisFold(tracks, affectedCamInd, affectedTrackInd);
+
+};
