@@ -120,7 +120,7 @@ exports.sba = function(camsDict, xDict, tracks, varCamInd, varTrackInd){
  */
 exports.sparseLMA = function(func, x0, target, cams, points){
 
-    var MAX_STEPS = 200,
+    var MAX_STEPS = 20,
         DAMP_BASE = Math.pow(10, -3),
         ZERO_THRESHOLD = Math.pow(10, -30),
         DEFAULT_STEP_BASE = 2;
