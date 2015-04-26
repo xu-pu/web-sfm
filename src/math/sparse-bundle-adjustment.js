@@ -332,18 +332,29 @@ exports.spliteParams = function(params, cams, points){
  * @param {Track[]} tracks
  * @param {int[]} visCamInds
  * @param {int[]} visTrackInds
- * @returns VisList
+ * @returns {VisFold}
  */
-exports.getVisList = function(tracks, visCamInds, visTrackInds){
-    return visTrackInds.reduce(function(memo, trackID){
-        var track = tracks[trackID];
-        track.forEach(function(view){
+exports.getVisFold = function(tracks, visCamInds, visTrackInds){
+    return visTrackInds.map(function(trackID){
+        return tracks[trackID].reduce(function(memo, view){
             if (visCamInds.indexOf(view.cam) !== -1) {
                 memo.push({ ci: view.cam, xi: trackID, rc: view.point });
             }
-        });
-        return memo;
-    }, []);
+            return memo;
+        }, []);
+    });
+};
+
+
+/**
+ *
+ * @param {Track[]} tracks
+ * @param {int[]} visCamInds
+ * @param {int[]} visTrackInds
+ * @returns {VisList}
+ */
+exports.getVisList = function(tracks, visCamInds, visTrackInds){
+    return _.flatten(exports.getVisFold(tracks, visCamInds, visTrackInds));
 };
 
 

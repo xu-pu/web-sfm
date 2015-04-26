@@ -128,6 +128,9 @@
  * @typedef {VisView[]} VisList
  */
 
+/**
+ * @typedef {VisList[]} VisFold
+ */
 
 /**
  * @typedef {{ rc: RowCol, ci: int, xi: int }} VisView
