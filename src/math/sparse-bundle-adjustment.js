@@ -33,7 +33,10 @@ var ZERO_THRESHOLD = 0;
  */
 exports.sba = function(camsDict, xDict, tracks, varCamInd, varTrackInd){
 
-    var visList = exports.getAffectedVisList(tracks, varCamInd, varTrackInd);
+    var cams = _.keys(camsDict).map(function(key){ return parseInt(key, 10); });
+    var points = _.keys(xDict).map(function(key){ return parseInt(key, 10); });
+
+    var visList = exports.getAffectedVisList(tracks, cams, points, varCamInd, varTrackInd);
 
     var projectionDict = _.mapObject(camsDict, function(val){
         return camUtils.params2P(val);
@@ -131,10 +134,11 @@ exports.sparseLMA = function(func, x0, target, cams, points){
     var p = x0.dup(),
         y = y0,
         sigma = target.subtract(y0),
+        sigmaSparse = SparseMatrix.fromDenseVector(sigma.elements),
         J = nonlinear.sparseJacobian(func, x0),
         Jtrans = J.transpose(),
         A = Jtrans.x(J),
-        gSparse = Jtrans.x(sigma),
+        gSparse = Jtrans.x(sigmaSparse),
         g = laUtils.toVector(gSparse),
         damp = DAMP_BASE*laUtils.sparseInfiniteNorm(A);
 
@@ -148,7 +152,7 @@ exports.sparseLMA = function(func, x0, target, cams, points){
 
     var initError = sigma.modulus(), finalError = initError;
 
-    //console.log('enter main lma loop with error ' + sigma.modulus());
+    console.log('enter main lma loop with error ' + sigma.modulus());
 
     while (!done && stepCounter < MAX_STEPS) {
 
@@ -158,9 +162,13 @@ exports.sparseLMA = function(func, x0, target, cams, points){
 
             // from p, try to find next step, if rejected, change damping and try again
 
-            //console.log('try to find step ' + stepCounter + ' with damping ' + damp);
+            console.log('try to find step ' + stepCounter + ' with damping ' + damp);
 
             N = A.add(SparseMatrix.I(xs).times(damp));
+
+            console.log(N.rows);
+            console.log(N.cols);
+            console.log(g.elements.length);
 
             deltaX = exports.solveHessian(N, g, cams, points);
             //deltaX = N.inverse().x(g);
@@ -179,11 +187,11 @@ exports.sparseLMA = function(func, x0, target, cams, points){
             improvement = sigma.modulus()-newSigma.modulus();
             improvementRatio = improvement/(deltaX.x(damp).add(g).dot(deltaX));
 
-            //console.log('new step calculated, new error ' + newSigma.modulus() + ', improved ' + improvement);
+            console.log('new step calculated, new error ' + newSigma.modulus() + ', improved ' + improvement);
 
             if (improvement <= 0) {
 
-                //console.log('no improvement, change damp and try again');
+                console.log('no improvement, change damp and try again');
 
                 damp *= dampStep;
                 dampStep *= DEFAULT_STEP_BASE;
@@ -195,6 +203,7 @@ exports.sparseLMA = function(func, x0, target, cams, points){
         p = newX;
         y = func(p);
         sigma = target.subtract(y);
+        sigmaSparse = SparseMatrix.fromDenseVector(sigma.elements);
         finalError = sigma.modulus();
 
         if (!done){
@@ -205,7 +214,7 @@ exports.sparseLMA = function(func, x0, target, cams, points){
             J = nonlinear.sparseJacobian(func, p);
             Jtrans = J.transpose();
             A = Jtrans.x(J);
-            gSparse = Jtrans.x(sigma);
+            gSparse = Jtrans.x(sigmaSparse);
             g = laUtils.toVector(gSparse);
 
             // reset iteration variables
@@ -346,25 +355,27 @@ exports.getVisList = function(tracks, visCamInds, visTrackInds){
 /**
  * Generate vislist including cameras and tracks affected by varCam and varTrack
  * @param {Track[]} tracks
+ * @param {int[]} cams
+ * @param {int[]} points
  * @param {int[]} varCamInd
  * @param {int[]} varTrackInd
  * @returns VisList
  */
-exports.getAffectedVisList = function(tracks, varCamInd, varTrackInd){
+exports.getAffectedVisList = function(tracks, cams, points, varCamInd, varTrackInd){
 
     var affectedCamInd = varTrackInd.reduce(function(memo, trackInd){
             tracks[trackInd].forEach(function(view){
                 var camInd = view.cam;
-                if (memo.indexOf(camInd) === -1) {
+                if (memo.indexOf(camInd) === -1 && cams.indexOf(camInd) != -1) {
                     memo.push(camInd);
                 }
             });
             return memo;
         }, varCamInd.slice()),
 
-        affectedTrackInd = tracks.reduce(function(memo, track, trackInd){
+        affectedTrackInd = points.reduce(function(memo, trackInd){
             if (memo.indexOf(trackInd) === -1) {
-                var isVisiable = track.some(function(view){
+                var isVisiable = tracks[trackInd].some(function(view){
                     return varCamInd.some(function(camInd){
                         return view.cam === camInd;
                     });

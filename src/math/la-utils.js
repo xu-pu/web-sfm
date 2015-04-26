@@ -84,7 +84,7 @@ exports.sparseInfiniteNorm = function(m){
 
     var max = -Infinity;
 
-    m.sparse[2].each(function(x){
+    m.sparse[2].forEach(function(x){
         var cursor = Math.abs(x);
         if (cursor > max) {
             max = cursor;
