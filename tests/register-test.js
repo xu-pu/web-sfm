@@ -91,29 +91,32 @@ function sbaTest(i1, i2){
         P1 = camUtils.params2P(params1),
         P2 = camUtils.params2P(params2);
 
-    var xDict = points.reduce(function(memo, arr, i){
-        memo[i] = laUtils.toVector(arr);
+    var selectedInd = _.sample(_.range(points.length), 300);
+
+    var xDict = selectedInd.reduce(function(memo, i){
+        memo[i] = laUtils.toVector(points[i].concat([1]));
         return memo;
     }, {});
 
-    sba.sba(camDict, xDict, tracks, [i1, i2], _.range(tracks.length));
+    sba.sba(camDict, xDict, tracks, [i1, i2], selectedInd);
 
-    var sparse = points.map(function(X){
-        return laUtils.toVector(X.concat([1]));
-    });
+    var PP1 = camUtils.params2P(camDict[i1]);
+    var PP2 = camUtils.params2P(camDict[i2]);
 
-    var reprojected1 = sparse.map(function(X){
-            return cord.img2RC(P1.x(X));
+    var reprojected1 = _.map(xDict, function(X){
+            return cord.img2RC(PP1.x(X));
         }),
-        reprojected2 = sparse.map(function(X){
-            return cord.img2RC(P2.x(X));
+        reprojected2 = _.map(xDict, function(X){
+            return cord.img2RC(PP2.x(X));
         }),
-        reference1 = tracks.map(function(track){
+        reference1 = selectedInd.map(function(i){
+            var track = tracks[i];
             return _.find(track, function(view){
                 return view.cam === i1;
             }).point;
         }),
-        reference2 = tracks.map(function(track){
+        reference2 = selectedInd.map(function(i){
+            var track = tracks[i];
             return _.find(track, function(view){
                 return view.cam === i2;
             }).point;
