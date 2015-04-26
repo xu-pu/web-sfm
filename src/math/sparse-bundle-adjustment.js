@@ -165,11 +165,6 @@ exports.sparseLMA = function(func, x0, target, cams, points){
             console.log('try to find step ' + stepCounter + ' with damping ' + damp);
 
             N = A.add(SparseMatrix.I(xs).times(damp));
-
-            console.log(N.rows);
-            console.log(N.cols);
-            console.log(g.elements.length);
-
             deltaX = exports.solveHessian(N, g, cams, points);
             //deltaX = N.inverse().x(g);
 

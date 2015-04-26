@@ -43,4 +43,33 @@ describe('SparseMatrix', function(){
 
     });
 
+    describe('#toDense', function(){
+
+        it('dense and sparse have same dimensions (vector)', function(){
+
+            var arr = [1,1,1,0,0,0];
+            var sparse = SparseMatrix.fromDenseVector(arr);
+            var dense = sparse.toDenseVector();
+            assert(dense.length === arr.length);
+
+        });
+
+        it('dense and sparse have same dimensions (matrix)', function(){
+
+            var arr = [
+                [1,2,0],
+                [3,4,0],
+                [0,0,0],
+                [0,0,0]
+            ];
+            var sparse = SparseMatrix.fromDense(arr);
+            var dense = sparse.toDense();
+            assert(arr.length === dense.length);
+            assert(arr[0].length === dense[0].length);
+        });
+
+
+    });
+
+
 });

@@ -6,6 +6,8 @@ var _ = require('underscore'),
     toSparse = numeric.ccsSparse,
     transpose = numeric.transpose;
 
+var shortcuts = require('../utils/shortcuts.js');
+
 exports.SparseMatrix = SparseMatrix;
 exports.SparseMatrixBuilder = SparseMatrixBuilder;
 
@@ -298,7 +300,29 @@ SparseMatrix.prototype.x = function(m){
  * @returns number[][]
  */
 SparseMatrix.prototype.toDense = function(){
-    return toFull(this.sparse);
+
+    var full = toFull(this.sparse),
+        rows = this.rows,
+        cols = this.cols,
+        rs = full.length,
+        cs = full[0].length,
+        deltaR = rows-rs,
+        deltaC = cols-cs;
+
+    if (deltaC>0) {
+        full = full.map(function(row){
+            return row.concat(shortcuts.zeros(deltaC));
+        });
+    }
+
+    if (deltaR>0) {
+        _.range(deltaR).forEach(function(){
+            full.push(shortcuts.zeros(cols));
+        });
+    }
+
+    return full;
+
 };
 
 
@@ -307,7 +331,7 @@ SparseMatrix.prototype.toDense = function(){
  */
 SparseMatrix.prototype.toDenseVector = function(){
     if (this.cols === 1) {
-        return toFull(this.transpose().sparse)[0];
+        return this.transpose().toDense()[0];
     }
     else {
         throw 'not a vector';
