@@ -123,15 +123,15 @@
  * @typedef {{ from: number, to: number, matches: number[][] }} TwoViewMatches
  */
 
-
 /**
  * @typedef {VisView[]} VisList
  */
 
 /**
- * @typedef {VisList[]} VisFold
+ * @typedef {{ rc: RowCol, ci: int, xi: int }} VisView
  */
 
+
 /**
- * @typedef {{ rc: RowCol, ci: int, xi: int }} VisView
+ * @typedef {{ vislist: VisView[], visfold: VisView[][], varcams: int[], vartracks: int[] }} BundleMetadata
  */
