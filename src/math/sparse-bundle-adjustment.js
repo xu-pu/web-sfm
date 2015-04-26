@@ -47,7 +47,7 @@ exports.sba = function(camsDict, xDict, tracks, varCamInd, varTrackInd){
     }, []);
 
     var flatten = varTrackInd.reduce(function(memo, pointInd){
-        return memo.concat(xDict[pointInd].elements);
+        return memo.concat(cord.toInhomo3D(xDict[pointInd]).elements);
     }, flattenCams);
 
     var result = exports.sparseLMA(errorFunc, laUtils.toVector(flatten), Vector.Zero(visList.length), varCamInd.length, varTrackInd.length);
