@@ -295,6 +295,17 @@ SparseMatrix.prototype.x = function(m){
     return new SparseMatrix(numeric.ccsDot(this.sparse, m.sparse), this.rows, m.cols);
 };
 
+SparseMatrix.prototype.iter = function(callback){
+    var gathered = numeric.ccsGather(this.sparse),
+        rows = gathered[0],
+        cols = gathered[1],
+        vs = gathered[2];
+    var length = gathered[0].length;
+    for (var i=0; i<length; i++) {
+        callback(rows[i], cols[i], vs[i]);
+    }
+};
+
 
 /**
  * @returns number[][]

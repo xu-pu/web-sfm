@@ -12,7 +12,8 @@ var _ = require('underscore'),
     grayscale = require('luminance'),
     Image = require('canvas').Image,
     toArrayBuffer = require('buffer-to-arraybuffer'),
-    toBuffer = require('arraybuffer-to-buffer');
+    toBuffer = require('arraybuffer-to-buffer'),
+    pool = require('ndarray-scratch');
 
 var samples = require('./samples.js'),
     randomUtils = require('./random.js'),
@@ -228,4 +229,19 @@ exports.promiseArrayBuffer = function(path){
  */
 exports.promiseSaveArrayBuffer = function(path, buffer){
     return exports.promiseWriteFile(path, toBuffer(buffer));
+};
+
+
+/**
+ *
+ * @param {string} path
+ * @param {SparseMatrix} sparse
+ * @returns {Promise}
+ */
+exports.promiseSaveSparse = function(path, sparse){
+    var buffer = pool.malloc([sparse.rows, sparse.cols]);
+    sparse.iter(function(r,c,v){
+        buffer.set(r, c, 255);
+    });
+    return exports.promiseSaveNdarray(path, buffer);
 };
