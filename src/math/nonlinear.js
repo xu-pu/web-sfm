@@ -59,14 +59,13 @@ exports.lma = function(func, x0, target){
 
         stepCounter++;
 
-        while( !done && !(improvement>0) ) {
+        while( !done && improvement<=0 ) {
 
             // from p, try to find next step, if rejected, change damping and try again
 
             //console.log('try to find step ' + stepCounter + ' with damping ' + damp);
 
             N = A.add(Matrix.I(xs).x(damp));
-
             deltaX = N.inverse().x(g);
 
             if (deltaX.modulus() < ZERO_THRESHOLD * p.modulus()) {
@@ -79,32 +78,29 @@ exports.lma = function(func, x0, target){
             newX = p.add(deltaX);
             newY = func(newX);
             newSigma = target.subtract(newY);
-
             normBefore = sigma.modulus();
             normAfter = newSigma.modulus();
-            improvement = normBefore-normAfter;
-            rho = (normBefore*normBefore - normAfter*normAfter)/(deltaX.x(damp).add(g).dot(deltaX));
+            improvement = normBefore*normBefore - normAfter*normAfter;
+            rho = improvement/(deltaX.x(damp).add(g).dot(deltaX));
 
             //console.log('new step calculated, new error ' + newSigma.modulus() + ', improved ' + improvement);
 
             if (improvement <= 0) {
-
                 //console.log('no improvement, change damp and try again');
-
                 damp *= dampStep;
                 dampStep *= DEFAULT_STEP_BASE;
+            }
+            else {
+                // the newX is accepted
+                p = newX;
+                y = newY;
+                sigma = newSigma;
+                finalError = sigma.modulus();
             }
 
         }
 
-        // the newX is accepted
-        p = newX;
-        y = func(p);
-        sigma = target.subtract(y);
-        finalError = sigma.modulus();
-
         if (!done){
-
             //console.log('step accepted, refresh the equation');
 
             // refresh the equation

@@ -155,7 +155,7 @@ exports.sparseLMA = function(func, x0, target, metadata){
         g = laUtils.toVector(gSparse),
         damp = DAMP_BASE*laUtils.sparseInfiniteNorm(A);
 
-    var N, deltaX, newSigma, newX, newY,
+    var N, deltaX, newSigma, newX, newY, normBefore, normAfter,
         improvement = 0,
         improvementRatio = 0,
         dampStep = DEFAULT_STEP_BASE,
@@ -163,15 +163,15 @@ exports.sparseLMA = function(func, x0, target, metadata){
         stepCounter = 0;
 
 
-    var initError = sigma.modulus(), finalError = initError;
+    var initError = Math.pow(sigma.modulus(), 2), finalError = initError;
 
-    console.log('enter main lma loop with error ' + sigma.modulus());
+    console.log('enter main lma loop with error ' + initError);
 
     while (!done && stepCounter < MAX_STEPS) {
 
         stepCounter++;
 
-        while( !done && !(improvement>0) ) {
+        while( !done && improvement<=0 ) {
 
             // from p, try to find next step, if rejected, change damping and try again
 
@@ -192,10 +192,13 @@ exports.sparseLMA = function(func, x0, target, metadata){
             newY = func(newX);
             newSigma = target.subtract(newY);
 
-            improvement = sigma.modulus()-newSigma.modulus();
+
+            normBefore = sigma.modulus();
+            normAfter = newSigma.modulus();
+            improvement = normBefore*normBefore - normAfter*normAfter;
             improvementRatio = improvement/(deltaX.x(damp).add(g).dot(deltaX));
 
-            console.log('new step calculated, new error ' + newSigma.modulus() + ', improved ' + improvement);
+            console.log('new step calculated, new error ' + normAfter*normAfter + ', improved ' + improvement);
 
             if (improvement <= 0) {
 
@@ -204,15 +207,17 @@ exports.sparseLMA = function(func, x0, target, metadata){
                 damp *= dampStep;
                 dampStep *= DEFAULT_STEP_BASE;
             }
+            else {
+                // the newX is accepted
+                p = newX;
+                y = newY;
+                sigma = newSigma;
+                sigmaSparse = SparseMatrix.fromDenseVector(sigma.elements);
+                finalError = Math.pow(sigma.modulus(), 2);
+            }
 
         }
 
-        // the newX is accepted
-        p = newX;
-        y = func(p);
-        sigma = target.subtract(y);
-        sigmaSparse = SparseMatrix.fromDenseVector(sigma.elements);
-        finalError = sigma.modulus();
 
         if (!done){
 
