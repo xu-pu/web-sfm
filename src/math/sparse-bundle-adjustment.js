@@ -315,9 +315,10 @@ exports.inverseV = function(V, points){
 
 /**
  *
- * @param func
- * @param p
+ * @param {function} func
+ * @param {Vector} p
  * @param {BundleMetadata} metadata
+ * @returns {SparseMatrix}
  */
 exports.sbaJacobian = function(func, p, metadata){
 
@@ -418,6 +419,8 @@ exports.sbaJacobian = function(func, p, metadata){
 
         });
     });
+
+    return builder.evaluate();
 
 };
 
