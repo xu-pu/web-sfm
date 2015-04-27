@@ -147,7 +147,8 @@ exports.sparseLMA = function(func, x0, target, metadata){
         y = y0,
         sigma = target.subtract(y0),
         sigmaSparse = SparseMatrix.fromDenseVector(sigma.elements),
-        J = nonlinear.sparseJacobian(func, x0),
+//        J = nonlinear.sparseJacobian(func, x0),
+        J = exports.sbaJacobian(func, x0, metadata),
         Jtrans = J.transpose(),
         A = Jtrans.x(J),
         gSparse = Jtrans.x(sigmaSparse),
@@ -218,7 +219,8 @@ exports.sparseLMA = function(func, x0, target, metadata){
             //console.log('step accepted, refresh the equation');
 
             // refresh the equation
-            J = nonlinear.sparseJacobian(func, p);
+            //J = nonlinear.sparseJacobian(func, p);
+            J = exports.sbaJacobian(func, p, metadata);
             Jtrans = J.transpose();
             A = Jtrans.x(J);
             gSparse = Jtrans.x(sigmaSparse);
@@ -332,12 +334,19 @@ exports.sbaJacobian = function(func, p, metadata){
         y0 = func(p),
         y0Arr = y0.elements;
 
-    var varProjectionDict,
-        varPointDict;
-
     var parsed = exports.spliteParams(pArr, varCamInd.length, varPointInd.length),
         parsedCams = parsed.cams,
         parsedPoints = parsed.points;
+
+    var varProjectionDict = varCamInd.reduce(function(memo, camID, i){
+            memo[camID] = camUtils.params2P(camUtils.inflateCameraParams(parsedCams[i]));
+            return memo;
+        }, {}),
+        varPointDict = varPointInd.reduce(function(memo, trackID, i){
+            memo[trackID] = laUtils.toVector(parsedPoints[i].concat([1]));
+            return memo;
+        }, {});
+
 
     /**
      *

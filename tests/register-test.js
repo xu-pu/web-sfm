@@ -91,7 +91,8 @@ function sbaTest(i1, i2){
         P1 = camUtils.params2P(params1),
         P2 = camUtils.params2P(params2);
 
-    var selectedInd = _.sample(_.range(points.length), 300);
+    //var selectedInd = _.sample(_.range(points.length), 1000);
+    var selectedInd = _.range(points.length);
 
     var xDict = selectedInd.reduce(function(memo, i){
         memo[i] = laUtils.toVector(points[i].concat([1]));
