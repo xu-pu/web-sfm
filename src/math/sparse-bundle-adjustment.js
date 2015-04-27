@@ -36,13 +36,11 @@ exports.sba = function(camsDict, xDict, tracks, varCamInd, varTrackInd){
     var cams = _.keys(camsDict).map(function(key){ return parseInt(key, 10); });
     var points = _.keys(xDict).map(function(key){ return parseInt(key, 10); });
 
-    var visFold = exports.getAffectedVisFold(tracks, cams, points, varCamInd, varTrackInd);
-    var visList = _.flatten(visFold);
+    var visList = exports.getAffectedVisList(tracks, cams, points, varCamInd, varTrackInd);
 
     /** @type BundleMetadata */
     var metadata = {
         vislist: visList,
-        visfold: visFold,
         varcams: varCamInd,
         vartracks: varTrackInd
     };
@@ -122,7 +120,7 @@ exports.sba = function(camsDict, xDict, tracks, varCamInd, varTrackInd){
  * @param {function(Vector):Vector} func - f(vx) => vy
  * @param {Vector} x0 - start point x0[]
  * @param {Vector} target - target
- * @param metadata
+ * @param {BundleMetadata} metadata
  * @returns {Vector}
  */
 exports.sparseLMA = function(func, x0, target, metadata){
@@ -336,24 +334,25 @@ exports.spliteParams = function(params, cams, points){
     return { cams: cs, points: ps };
 };
 
-
 /**
  *
  * @param {Track[]} tracks
  * @param {int[]} visCamInds
  * @param {int[]} visTrackInds
- * @returns {VisView[][]}
+ * @returns {VisView[]}
  */
-exports.getVisFold = function(tracks, visCamInds, visTrackInds){
-    return visTrackInds.map(function(trackID){
-        return tracks[trackID].reduce(function(memo, view){
+exports.getVisList = function(tracks, visCamInds, visTrackInds){
+    return visTrackInds.reduce(function(memo, trackID){
+        var track = tracks[trackID];
+        track.forEach(function(view){
             if (visCamInds.indexOf(view.cam) !== -1) {
                 memo.push({ ci: view.cam, xi: trackID, rc: view.point });
             }
-            return memo;
-        }, []);
-    });
+        });
+        return memo;
+    }, []);
 };
+
 
 
 /**
@@ -363,9 +362,9 @@ exports.getVisFold = function(tracks, visCamInds, visTrackInds){
  * @param {int[]} points
  * @param {int[]} varCamInd
  * @param {int[]} varTrackInd
- * @returns {VisView[][]}
+ * @returns {VisList}
  */
-exports.getAffectedVisFold = function(tracks, cams, points, varCamInd, varTrackInd){
+exports.getAffectedVisList = function(tracks, cams, points, varCamInd, varTrackInd){
 
     var affectedCamInd = varTrackInd.reduce(function(memo, trackInd){
             tracks[trackInd].forEach(function(view){
@@ -391,32 +390,6 @@ exports.getAffectedVisFold = function(tracks, cams, points, varCamInd, varTrackI
             return memo;
         }, varTrackInd.slice());
 
-    return exports.getVisFold(tracks, affectedCamInd, affectedTrackInd);
+    return exports.getVisList(tracks, affectedCamInd, affectedTrackInd);
 
-};
-
-
-/**
- *
- * @param {Track[]} tracks
- * @param {int[]} visCamInds
- * @param {int[]} visTrackInds
- * @returns {VisView[]}
- */
-exports.getVisList = function(tracks, visCamInds, visTrackInds){
-    return _.flatten(exports.getVisFold(tracks, visCamInds, visTrackInds));
-};
-
-
-/**
- * Generate vislist including cameras and tracks affected by varCam and varTrack
- * @param {Track[]} tracks
- * @param {int[]} cams
- * @param {int[]} points
- * @param {int[]} varCamInd
- * @param {int[]} varTrackInd
- * @returns {VisView[]}
- */
-exports.getAffectedVisList = function(tracks, cams, points, varCamInd, varTrackInd){
-    return _.flatten(exports.getAffectedVisFold(tracks, cams, points, varCamInd, varTrackInd));
 };
