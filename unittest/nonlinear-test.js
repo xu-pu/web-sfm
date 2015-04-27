@@ -72,6 +72,7 @@ describe('nonlinear', function(){
 
         it('|| targetY - refinedY || == 0', function(){
             var error = laUtils.vectorInfiniteNorm(targetY.subtract(refinedY));
+            console.log(error);
             assert(error<ZERO);
         });
 

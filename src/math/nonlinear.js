@@ -44,13 +44,12 @@ exports.lma = function(func, x0, target){
             g = J.transpose().x(sigma),
          damp = DAMP_BASE*laUtils.matrixInfiniteNorm(A);
 
-    var N, deltaX, newSigma, newX, newY,
+    var N, deltaX, newSigma, newX, newY, normBefore, normAfter,
         improvement = 0,
-        improvementRatio = 0,
+        rho = 0,
         dampStep = DEFAULT_STEP_BASE,
         done = false,
         stepCounter = 0;
-
 
     var initError = sigma.modulus(), finalError = initError;
 
@@ -81,8 +80,10 @@ exports.lma = function(func, x0, target){
             newY = func(newX);
             newSigma = target.subtract(newY);
 
-            improvement = sigma.modulus()-newSigma.modulus();
-            improvementRatio = improvement/(deltaX.x(damp).add(g).dot(deltaX));
+            normBefore = sigma.modulus();
+            normAfter = newSigma.modulus();
+            improvement = normBefore-normAfter;
+            rho = (normBefore*normBefore - normAfter*normAfter)/(deltaX.x(damp).add(g).dot(deltaX));
 
             //console.log('new step calculated, new error ' + newSigma.modulus() + ', improved ' + improvement);
 
@@ -112,10 +113,10 @@ exports.lma = function(func, x0, target){
             g = J.transpose().x(sigma);
 
             // reset iteration variables
-            damp *= Math.max(1/3, 1-Math.pow(2*improvementRatio-1, 3));
+            damp *= Math.max(1/3, 1-Math.pow(2*rho-1, 3));
             dampStep = DEFAULT_STEP_BASE;
             improvement = 0;
-            improvementRatio = 0;
+            rho = 0;
         }
 
         if (laUtils.vectorInfiniteNorm(g) < ZERO_THRESHOLD) {
