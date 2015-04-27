@@ -16,6 +16,7 @@ var cord = require('../utils/cord.js'),
     geoUtils = require('./geometry-utils.js'),
     laUtils = require('./la-utils.js');
 
+var JACOBIAN_DELTA = Math.pow(10, -6);
 var CAM_PARAMS = 11; // 3*r, 3*t, f,px,py, k1,k2
 var POINT_PARAMS = 3;
 var ZERO_THRESHOLD = 0;
@@ -36,18 +37,21 @@ exports.sba = function(camsDict, xDict, tracks, varCamInd, varTrackInd){
     var cams = _.keys(camsDict).map(function(key){ return parseInt(key, 10); });
     var points = _.keys(xDict).map(function(key){ return parseInt(key, 10); });
 
+    var projectionDict = _.mapObject(camsDict, function(val){
+        return camUtils.params2P(val);
+    });
+
     var visList = exports.getAffectedVisList(tracks, cams, points, varCamInd, varTrackInd);
 
     /** @type BundleMetadata */
     var metadata = {
         vislist: visList,
         varcams: varCamInd,
-        vartracks: varTrackInd
+        vartracks: varTrackInd,
+        xDict: xDict,
+        pDict: projectionDict
     };
 
-    var projectionDict = _.mapObject(camsDict, function(val){
-        return camUtils.params2P(val);
-    });
 
     var flattenCams = varCamInd.reduce(function(memo, camInd){
         return memo.concat(camUtils.flattenCameraParams(camsDict[camInd]));
@@ -306,6 +310,114 @@ exports.inverseV = function(V, points){
     }
 
     return builder.evaluate();
+
+};
+
+/**
+ *
+ * @param func
+ * @param p
+ * @param {BundleMetadata} metadata
+ */
+exports.sbaJacobian = function(func, p, metadata){
+
+    var varCamInd = metadata.varcams,
+        varPointInd = metadata.vartracks,
+        vislist = metadata.vislist,
+        xDict = metadata.xDict,
+        pDict = metadata.pDict;
+
+    var pArr = p.elements,
+        y0 = func(p),
+        y0Arr = y0.elements;
+
+    var varProjectionDict,
+        varPointDict;
+
+    var parsed = exports.spliteParams(pArr, varCamInd.length, varPointInd.length),
+        parsedCams = parsed.cams,
+        parsedPoints = parsed.points;
+
+    /**
+     *
+     * @param {int} i
+     * @reutrns {Matrix}
+     */
+    function getP(i){
+        return varProjectionDict[i] || pDict[i];
+    }
+
+    /**
+     *
+     * @param {int} i
+     * @returns {Vector}
+     */
+    function getX(i){
+        return varPointDict[i] || xDict[i];
+    }
+
+    //=======================
+    // Build Sparse Jacobian
+    //=======================
+
+    var builder = new SparseMatrixBuilder(y0Arr.length, pArr.length);
+
+    varCamInd.forEach(function(camID, i){
+        var params = parsedCams[i];
+        _.range(POINT_PARAMS).forEach(function(offset){
+            var paramIndex = CAM_PARAMS*i + offset;
+            var paramArr = params.slice();
+            paramArr[offset] += JACOBIAN_DELTA;
+            var camparam = camUtils.inflateCameraParams(paramArr);
+            var P = camUtils.params2P(camparam);
+
+            vislist.forEach(function(entry, curY){
+
+                var xi = entry.xi,
+                    ci = entry.ci,
+                    rc = entry.rc;
+
+                if (ci !== camID) { return; }
+
+                var X = getX(xi),
+                    x = P.x(X),
+                    dist = geoUtils.getDistanceRC(rc, cord.img2RC(x)),
+                    yi = y0Arr[curY];
+
+                builder.append(curY, paramIndex, (dist-yi)/JACOBIAN_DELTA);
+
+            });
+
+        });
+    });
+
+    varPointInd.forEach(function(trackID, i){
+        var params = parsedPoints[i];
+        _.range(POINT_PARAMS).forEach(function(offset){
+            var paramIndex = CAM_PARAMS*varCamInd.length + POINT_PARAMS*i + offset;
+            var paramArr = params.slice();
+            paramArr[offset] += JACOBIAN_DELTA;
+            var X = laUtils.toVector(paramArr.concat([1]));
+
+            vislist.forEach(function(entry, curY){
+
+                var xi = entry.xi,
+                    ci = entry.ci,
+                    rc = entry.rc;
+
+                if (xi !== trackID) { return; }
+
+                var P = getP(ci),
+                    x = P.x(X),
+                    dist = geoUtils.getDistanceRC(rc, cord.img2RC(x)),
+                    yi = y0Arr[curY];
+
+                builder.append(curY, paramIndex, (dist-yi)/JACOBIAN_DELTA);
+
+            });
+
+        });
+    });
 
 };
 
