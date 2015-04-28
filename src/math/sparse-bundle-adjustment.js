@@ -16,6 +16,8 @@ var cord = require('../utils/cord.js'),
     geoUtils = require('./geometry-utils.js'),
     laUtils = require('./la-utils.js');
 
+//var testUtils = require('../utils/test-utils.js');
+
 var JACOBIAN_DELTA = Math.pow(10, -6);
 var CAM_PARAMS = 11; // 3*r, 3*t, f,px,py, k1,k2
 var POINT_PARAMS = 3;
@@ -49,7 +51,8 @@ exports.sba = function(camsDict, xDict, tracks, varCamInd, varTrackInd){
         varcams: varCamInd,
         vartracks: varTrackInd,
         xDict: xDict,
-        pDict: projectionDict
+        pDict: projectionDict,
+        pVisDict: exports.getPointVisDict(visList, varTrackInd)
     };
 
 
@@ -132,7 +135,7 @@ exports.sparseLMA = function(func, x0, target, metadata){
     var cams = metadata.varcams.length,
         points = metadata.vartracks.length;
 
-    var MAX_STEPS = 20,
+    var MAX_STEPS = 10,
         DAMP_BASE = Math.pow(10, -3),
         ZERO_THRESHOLD = Math.pow(10, -30),
         DEFAULT_STEP_BASE = 2;
@@ -162,7 +165,8 @@ exports.sparseLMA = function(func, x0, target, metadata){
         done = false,
         stepCounter = 0;
 
-
+//    testUtils.promiseSaveSparse('/home/sheep/Code/sparse-graph.hessian.png', A);
+//    testUtils.promiseSaveSparse('/home/sheep/Code/sparse-graph.jacobian.png', J);
     var initError = Math.pow(sigma.modulus(), 2), finalError = initError;
 
     console.log('enter main lma loop with error ' + initError);
@@ -482,6 +486,25 @@ exports.getVisList = function(tracks, visCamInds, visTrackInds){
     }, []);
 };
 
+
+/**
+ *
+ * @param {VisList} vislist
+ * @param {int[]} points
+ * @returns {Object}
+ */
+exports.getPointVisDict = function(vislist, points){
+    return vislist.reduce(function(memo, entry, i){
+        var xi = entry.xi;
+        if (points.indexOf(xi) !== -1) {
+            memo[xi].push(i);
+        }
+        return memo;
+    }, points.reduce(function(memo, xi){
+        memo[xi] = [];
+        return memo;
+    }, {}));
+};
 
 
 /**
