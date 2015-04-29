@@ -146,9 +146,9 @@ exports.sparseLMA = function(func, x0, target, metadata){
          sigma = target.subtract(y0),
         sigmaS = SparseMatrix.fromDenseVector(sigma.elements);
 
-    var J, Jtrans, A, gSparse, g, N,
+    var J, Jt, A, gS, g, N,
         deltaX, newSigma, newX, newY, normBefore, normAfter,
-        improvement, rho, damp, dampStep,
+        improvement=0, rho=0, damp=0, dampStep = STEP_BASE,
         done = false,
         stepCounter = 0;
 
@@ -163,11 +163,11 @@ exports.sparseLMA = function(func, x0, target, metadata){
         stepCounter++;
 
         // refresh the equation
-        J = exports.sbaJacobian(func, p, metadata);
-        Jtrans = J.transpose();
-        A = Jtrans.x(J);
-        gSparse = Jtrans.x(sigmaS);
-        g = laUtils.toVector(gSparse);
+         J = exports.sbaJacobian(func, p, metadata);
+        Jt = J.transpose();
+         A = Jt.x(J);
+        gS = Jt.x(sigmaS);
+         g = laUtils.toVector(gS);
 
         if (stepCounter === 1) {
             // init round
@@ -200,6 +200,7 @@ exports.sparseLMA = function(func, x0, target, metadata){
             newX = p.add(deltaX);
             newY = func(newX);
             newSigma = target.subtract(newY);
+
             normBefore = sigma.modulus();
             normAfter = newSigma.modulus();
             improvement = normBefore*normBefore - normAfter*normAfter;
