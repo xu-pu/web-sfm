@@ -21,8 +21,6 @@ var cord = require('../utils/cord.js'),
 var JACOBIAN_DELTA = Math.pow(10, -6);
 var CAM_PARAMS = 11; // 3*r, 3*t, f,px,py, k1,k2
 var POINT_PARAMS = 3;
-var ZERO_THRESHOLD = 0;
-//var ZERO_THRESHOLD = Math.pow(10, -10);
 
 //===================================================================
 
@@ -337,7 +335,8 @@ exports.sbaJacobian = function(func, p, metadata){
         varPointInd = metadata.vartracks,
         vislist = metadata.vislist,
         xDict = metadata.xDict,
-        pDict = metadata.pDict;
+        pDict = metadata.pDict,
+        pVisDict = metadata.pVisDict;
 
     var pArr = p.elements,
         y0 = func(p),
@@ -412,13 +411,16 @@ exports.sbaJacobian = function(func, p, metadata){
 
     varPointInd.forEach(function(trackID, i){
         var params = parsedPoints[i];
+        var trackVis = pVisDict[trackID];
         _.range(POINT_PARAMS).forEach(function(offset){
             var paramIndex = CAM_PARAMS*varCamInd.length + POINT_PARAMS*i + offset;
             var paramArr = params.slice();
             paramArr[offset] += JACOBIAN_DELTA;
             var X = laUtils.toVector(paramArr.concat([1]));
 
-            vislist.forEach(function(entry, curY){
+            trackVis.forEach(function(curY){
+
+                var entry = vislist[curY];
 
                 var xi = entry.xi,
                     ci = entry.ci,

@@ -133,5 +133,5 @@
 
 
 /**
- * @typedef {{ vislist: VisList, varcams: int[], vartracks: int[], xDict, pDict }} BundleMetadata
+ * @typedef {{ vislist: VisList, varcams: int[], vartracks: int[], xDict, pDict, pVisDict }} BundleMetadata
  */
