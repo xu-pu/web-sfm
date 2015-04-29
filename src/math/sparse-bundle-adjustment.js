@@ -133,38 +133,27 @@ exports.sparseLMA = function(func, x0, target, metadata){
     var cams = metadata.varcams.length,
         points = metadata.vartracks.length;
 
-    var MAX_STEPS = 10,
+    var MAX_STEPS = 20,
         DAMP_BASE = Math.pow(10, -3),
-        ZERO_THRESHOLD = Math.pow(10, -30),
-        DEFAULT_STEP_BASE = 2;
+             ZERO = Math.pow(10, -30),
+        STEP_BASE = 2;
 
-    var y0 = func(x0),
-        xs = x0.elements.length,
-        ys = y0.elements.length;
+    var     y0 = func(x0),
+            xs = x0.elements.length,
+            ys = y0.elements.length,
+             p = x0.dup(),
+             y = y0,
+         sigma = target.subtract(y0),
+        sigmaS = SparseMatrix.fromDenseVector(sigma.elements);
 
-    //console.log('begin initializing');
-
-    var p = x0.dup(),
-        y = y0,
-        sigma = target.subtract(y0),
-        sigmaSparse = SparseMatrix.fromDenseVector(sigma.elements),
-//        J = nonlinear.sparseJacobian(func, x0),
-        J = exports.sbaJacobian(func, x0, metadata),
-        Jtrans = J.transpose(),
-        A = Jtrans.x(J),
-        gSparse = Jtrans.x(sigmaSparse),
-        g = laUtils.toVector(gSparse),
-        damp = DAMP_BASE*laUtils.sparseInfiniteNorm(A);
-
-    var N, deltaX, newSigma, newX, newY, normBefore, normAfter,
-        improvement = 0,
-        improvementRatio = 0,
-        dampStep = DEFAULT_STEP_BASE,
+    var J, Jtrans, A, gSparse, g, N,
+        deltaX, newSigma, newX, newY, normBefore, normAfter,
+        improvement, rho, damp, dampStep,
         done = false,
         stepCounter = 0;
 
-//    testUtils.promiseSaveSparse('/home/sheep/Code/sparse-graph.hessian.png', A);
-//    testUtils.promiseSaveSparse('/home/sheep/Code/sparse-graph.jacobian.png', J);
+    //testUtils.promiseSaveSparse('/home/sheep/Code/sparse-graph.hessian.png', A);
+    //testUtils.promiseSaveSparse('/home/sheep/Code/sparse-graph.jacobian.png', J);
     var initError = Math.pow(sigma.modulus(), 2), finalError = initError;
 
     console.log('enter main lma loop with error ' + initError);
@@ -172,6 +161,25 @@ exports.sparseLMA = function(func, x0, target, metadata){
     while (!done && stepCounter < MAX_STEPS) {
 
         stepCounter++;
+
+        // refresh the equation
+        J = exports.sbaJacobian(func, p, metadata);
+        Jtrans = J.transpose();
+        A = Jtrans.x(J);
+        gSparse = Jtrans.x(sigmaS);
+        g = laUtils.toVector(gSparse);
+
+        if (stepCounter === 1) {
+            // init round
+            damp = DAMP_BASE*laUtils.sparseInfiniteNorm(A);
+        }
+        else {
+            damp *= Math.max(1/3, 1-Math.pow(2*rho-1, 3));
+        }
+
+        improvement = 0;
+        rho = 0;
+        dampStep = STEP_BASE;
 
         while( !done && improvement<=0 ) {
 
@@ -181,9 +189,8 @@ exports.sparseLMA = function(func, x0, target, metadata){
 
             N = A.add(SparseMatrix.I(xs).times(damp));
             deltaX = exports.solveHessian(N, g, cams, points);
-            //deltaX = N.inverse().x(g);
 
-            if (deltaX.modulus() < ZERO_THRESHOLD * p.modulus()) {
+            if (deltaX.modulus() < ZERO * p.modulus()) {
                 // end if step is too small
                 console.log('step too small, end lma');
                 done = true;
@@ -193,57 +200,31 @@ exports.sparseLMA = function(func, x0, target, metadata){
             newX = p.add(deltaX);
             newY = func(newX);
             newSigma = target.subtract(newY);
-
-
             normBefore = sigma.modulus();
             normAfter = newSigma.modulus();
             improvement = normBefore*normBefore - normAfter*normAfter;
-            improvementRatio = improvement/(deltaX.x(damp).add(g).dot(deltaX));
+            rho = improvement/(deltaX.x(damp).add(g).dot(deltaX));
 
             console.log('new step calculated, new error ' + normAfter*normAfter + ', improved ' + improvement);
 
             if (improvement <= 0) {
-
                 console.log('no improvement, change damp and try again');
-
                 damp *= dampStep;
-                dampStep *= DEFAULT_STEP_BASE;
+                dampStep *= STEP_BASE;
             }
             else {
                 // the newX is accepted
                 p = newX;
                 y = newY;
                 sigma = newSigma;
-                sigmaSparse = SparseMatrix.fromDenseVector(sigma.elements);
+                sigmaS = SparseMatrix.fromDenseVector(sigma.elements);
                 finalError = Math.pow(sigma.modulus(), 2);
             }
 
         }
 
-
-        if (!done){
-
-            //console.log('step accepted, refresh the equation');
-
-            // refresh the equation
-            //J = nonlinear.sparseJacobian(func, p);
-            J = exports.sbaJacobian(func, p, metadata);
-            Jtrans = J.transpose();
-            A = Jtrans.x(J);
-            gSparse = Jtrans.x(sigmaSparse);
-            g = laUtils.toVector(gSparse);
-
-            // reset iteration variables
-            damp *= Math.max(1/3, 1-Math.pow(2*improvementRatio-1, 3));
-            dampStep = DEFAULT_STEP_BASE;
-            improvement = 0;
-            improvementRatio = 0;
-        }
-
-        if (laUtils.vectorInfiniteNorm(g) < ZERO_THRESHOLD) {
-
+        if (laUtils.vectorInfiniteNorm(g) < ZERO) {
             //console.log('g too small, end lma');
-
             done = true;
         }
 
