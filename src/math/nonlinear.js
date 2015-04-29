@@ -30,24 +30,18 @@ exports.lma = function(func, x0, target){
         ZERO_THRESHOLD = Math.pow(10, -30),
         DEFAULT_STEP_BASE = 2;
 
-    var y0 = func(x0),
-        xs = x0.elements.length,
-        ys = y0.elements.length;
-
     //console.log('begin initializing');
 
-    var     p = x0.dup(),
+    var    y0 = func(x0),
+           xs = x0.elements.length,
+           ys = y0.elements.length,
+            p = x0.dup(),
             y = y0,
-        sigma = target.subtract(y0),
-            J = exports.jacobian(func, x0),
-            A = J.transpose().x(J),
-            g = J.transpose().x(sigma),
-         damp = DAMP_BASE*laUtils.matrixInfiniteNorm(A);
+        sigma = target.subtract(y0);
 
-    var N, deltaX, newSigma, newX, newY, normBefore, normAfter,
-        improvement = 0,
-        rho = 0,
-        dampStep = DEFAULT_STEP_BASE,
+    var J, A, g, N,
+        damp, improvement, rho, dampStep,
+        deltaX, newSigma, newX, newY, normBefore, normAfter,
         done = false,
         stepCounter = 0;
 
@@ -58,6 +52,23 @@ exports.lma = function(func, x0, target){
     while (!done && stepCounter < MAX_STEPS) {
 
         stepCounter++;
+
+        // refresh the equation
+        J = exports.jacobian(func, p);
+        A = J.transpose().x(J);
+        g = J.transpose().x(sigma);
+
+        if (stepCounter === 1) {
+            // init round
+            damp = DAMP_BASE*laUtils.matrixInfiniteNorm(A);
+        }
+        else {
+            damp *= Math.max(1/3, 1-Math.pow(2*rho-1, 3));
+        }
+
+        dampStep = DEFAULT_STEP_BASE;
+        improvement = 0;
+        rho = 0;
 
         while( !done && improvement<=0 ) {
 
@@ -100,25 +111,8 @@ exports.lma = function(func, x0, target){
 
         }
 
-        if (!done){
-            //console.log('step accepted, refresh the equation');
-
-            // refresh the equation
-            J = exports.jacobian(func, p);
-            A = J.transpose().x(J);
-            g = J.transpose().x(sigma);
-
-            // reset iteration variables
-            damp *= Math.max(1/3, 1-Math.pow(2*rho-1, 3));
-            dampStep = DEFAULT_STEP_BASE;
-            improvement = 0;
-            rho = 0;
-        }
-
         if (laUtils.vectorInfiniteNorm(g) < ZERO_THRESHOLD) {
-
             //console.log('g too small, end lma');
-
             done = true;
         }
 
