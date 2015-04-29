@@ -39,7 +39,7 @@ module.exports = function (grunt) {
         emberTemplates: {
             options: {
                 templateName: function (tName) {
-                    return tName.replace('src/templates/', '');
+                    return tName.replace('src/app/templates/', '');
                 },
                 handlebarsPath: 'venders/handlebars/handlebars.js',
                 templateCompilerPath: 'venders/ember/ember-template-compiler.js'
@@ -47,7 +47,7 @@ module.exports = function (grunt) {
 
             build: {
                 files: {
-                    'build/scripts/templates.js': 'src/templates/**/*.hbs'
+                    'build/scripts/templates.js': 'src/app/templates/**/*.hbs'
                 }
             }
 
@@ -56,7 +56,7 @@ module.exports = function (grunt) {
         compass: {
 
             options: {
-                sassDir: 'src/styles/scss'
+                sassDir: 'src/app/styles/scss'
             },
 
             build: {
