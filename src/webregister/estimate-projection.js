@@ -6,7 +6,7 @@ var _ = require('underscore'),
     Vector = la.Vector;
 
 var lma      = require('../math/nonlinear.js').lma,
-    ransac   = require('./ransac.js'),
+    ransac   = require('./../math/ransac.js'),
     cord     = require('../utils/cord.js'),
     laUtils  = require('../math/la-utils.js'),
     geoUtils = require('../math/geometry-utils.js');

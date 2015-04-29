@@ -7,7 +7,7 @@ var _ = require('underscore'),
     numeric = require('numeric');
 
 var cord     = require('../utils/cord.js'),
-    ransac   = require('./ransac.js'),
+    ransac   = require('./../math/ransac.js'),
     lma      = require('../math/nonlinear.js').lma,
     laUtils  = require('../math/la-utils.js'),
     geoUtils = require('../math/geometry-utils.js');
