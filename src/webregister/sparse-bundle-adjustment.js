@@ -8,13 +8,13 @@ var _ = require('underscore'),
     transpose = numeric.transpose;
 
 var cord = require('../utils/cord.js'),
-    sparse = require('./sparse-matrix'),
-    nonlinear = require('./nonlinear.js'),
+    sparse = require('./../math/sparse-matrix'),
+    nonlinear = require('./../math/nonlinear.js'),
     SparseMatrix = sparse.SparseMatrix,
     SparseMatrixBuilder = sparse.SparseMatrixBuilder,
-    camUtils = require('./projections.js'),
-    geoUtils = require('./geometry-utils.js'),
-    laUtils = require('./la-utils.js');
+    camUtils = require('./../math/projections.js'),
+    geoUtils = require('./../math/geometry-utils.js'),
+    laUtils = require('./../math/la-utils.js');
 
 //var testUtils = require('../utils/test-utils.js');
 

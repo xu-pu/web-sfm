@@ -6,7 +6,7 @@ var _ = require('underscore'),
 
 var laUtils = require('../src/math/la-utils.js'),
     genUtils = require('../src/utils/random-test-utils.js'),
-    sba = require('../src/math/sparse-bundle-adjustment.js'),
+    sba = require('../src/webregister/sparse-bundle-adjustment.js'),
     sparse = require('../src/math/sparse-matrix.js'),
     SparseMatrix = sparse.SparseMatrix;
 

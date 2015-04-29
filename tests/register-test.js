@@ -27,7 +27,7 @@ var sample = require('../src/utils/samples.js'),
     decomposition = require('../src/math/matrix-decomposition.js'),
     triangulation = require('../src/webregister/triangulation.js'),
     register = require('../src/webregister/register.js'),
-    sba = require('../src/math/sparse-bundle-adjustment.js'),
+    sba = require('../src/webregister/sparse-bundle-adjustment.js'),
     RegisterContext = register.RegisterContext;
 
 
