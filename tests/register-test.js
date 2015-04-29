@@ -80,6 +80,8 @@ function getCityCamParams(i){
 }
 
 
+var VISUAL_BASE = '/home/sheep/Code';
+
 function registerContextTest(cams){
     var dataset = require(SBA_TEST_DATA),
         tracks = dataset.tracks,
@@ -94,6 +96,38 @@ function registerContextTest(cams){
         ctx.addPoint(xi, X);
     });
     ctx.adjust();
+
+    var xDict = ctx.xDict,
+        camDict = ctx.camDict;
+
+    return Promise.all(cams.map(function(ci){
+        var P = camUtils.params2P(camDict[ci]);
+        var reprojected = [], refer = [];
+        tracks.forEach(function(track, xi){
+            var X = xDict[xi];
+            if (X) {
+                var visiable = track.some(function(view){
+                    if (view.cam === ci) {
+                        refer.push(view.point);
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+                });
+                if (visiable) {
+                    reprojected.push(cord.img2RC(P.x(X)));
+                }
+            }
+        });
+
+        return Promise.all([
+            testUtils.promiseVisualPoints(VISUAL_BASE + '/register.' + ci + '.refer.png', cityhalldemo.getImagePath(ci), refer),
+            testUtils.promiseVisualPoints(VISUAL_BASE + '/register.' + ci + '.after.png', cityhalldemo.getImagePath(ci), reprojected)
+        ]);
+
+    }));
+
 }
 
 registerContextTest([0,1,2,3]);
