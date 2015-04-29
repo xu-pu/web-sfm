@@ -11,7 +11,7 @@
         {{#if expandInput}}
         <div class="controll-panel__l1-body">
             <div id="controll-panel__images" class="controll-panel__l2">
-                <div class="controll-panel__l2-tab" {{action "enter" "workspace.images"}}>Images</div>
+                <div class="controll-panel__l2-tab  enter-point" {{action "enter" "workspace.images"}}>Images</div>
             </div>
             <div id="controll-panel__parameters" class="controll-panel__l2">
                 <div class="controll-panel__l2-tab">
@@ -31,21 +31,21 @@
         <div class="controll-panel__l1-body">
 
             <div id="controll-panel__extractor" class="controll-panel__l2">
-                <div class="controll-panel__l2-tab" {{action "enter" "workspace.extractor"}}>Feature Extraction</div>
+                <div class="controll-panel__l2-tab  enter-point" {{action "enter" "workspace.extractor"}}>Feature Extraction</div>
             </div>
 
             <div id="controll-panel__register" class="controll-panel__l2">
                 <div class="controll-panel__l2-tab" {{action "toggleMenu" "register"}}>Camera Registration</div>
                 {{#if expandRegister}}
                 <div class="controll-panel__l2-body">
-                    <div id="controll-panel__matching" class="controll-panel__l3-tab" {{action "enter" "workspace.matcher"}}>Feature Matching</div>
-                    <div id="controll-panel__recovery" class="controll-panel__l3-tab" {{action "enter" "workspace.register"}}>Sparse Reconstruction</div>
+                    <div id="controll-panel__matching" class="controll-panel__l3-tab  enter-point" {{action "enter" "workspace.matcher"}}>Feature Matching</div>
+                    <div id="controll-panel__recovery" class="controll-panel__l3-tab  enter-point" {{action "enter" "workspace.register"}}>Sparse Reconstruction</div>
                 </div>
                 {{/if}}
             </div>
 
             <div id="controll-panel__stereo" class="controll-panel__l2">
-                <div class="controll-panel__l2-tab" {{action "enter" "workspace.mvs"}}>Stereopsis</div>
+                <div class="controll-panel__l2-tab  enter-point" {{action "enter" "workspace.mvs"}}>Stereopsis</div>
             </div>
 
         </div>

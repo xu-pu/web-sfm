@@ -1,6 +1,19 @@
+@import "compass";
+
 //===========================================
 
 $controll-panel-delta: 8px;
+
+.controll-panel__l2-tab, .controll-panel__l3-tab {
+  &.enter-point {
+    @include transition(0.25s);
+    &:hover {
+      color: #000000;
+      background-color: whitesmoke;
+    }
+  }
+}
+
 
 #controll-panel__body {
   padding: $controll-panel-delta;
@@ -139,6 +152,13 @@ $state-bar-height: 5em;
 
 .controll-panel__cpu-setting {
 
+  $gap: 0.5em;
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  padding-right: $gap;
+  padding-bottom: $gap;
+
   &:hover {
 
     .will-enable {
@@ -156,9 +176,10 @@ $state-bar-height: 5em;
 $cpu-node-size: 1.9em;
 
 .controll-panel__cpu-setting__node {
-  display: inline-block;
+
   height: $cpu-node-size;
-  width: $cpu-node-size;
+  border: solid 1px rgb(73, 72, 72);
+  @include flex(1 1 0);
 
   &:hover div {
     border: 3px solid white;
@@ -174,7 +195,6 @@ $cpu-node-size: 1.9em;
 
   .is-enabled {
     background-color: rgb(34, 34, 34);
-    //background-color: rgb(170, 170, 170);
   }
 
 }
