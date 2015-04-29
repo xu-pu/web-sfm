@@ -23,11 +23,11 @@ var matcher = require('../src/webmatcher/matcher.js'),
 
 function mytestfunc(x){
     var v1 = x.e(1), v2 = x.e(2), v3 = x.e(3);
-    return laUtils.toVector([3*v1*v1*v2, -5*v2*v3+5, v3*v3*v1/2]);
+    return laUtils.toVector([3*v1*v1*v2, -5*v1*v2*v3+5, v3*v3*v1/2]);
 }
 
 var xx = laUtils.toVector([3,4,5]),
-    x0 = xx.add(laUtils.toVector([2,-1,-1])),
+    x0 = xx.add(Vector.Random(3).x(2)),
     y0 = mytestfunc(xx);
 
 var result = lma(mytestfunc, x0, y0);

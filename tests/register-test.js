@@ -79,60 +79,29 @@ function getCityCamParams(i){
     };
 }
 
-function sbaTest(i1, i2){
+function sbaTest(cams){
 
     var dataset = require(SBA_TEST_DATA),
-        camDict = dataset.cameras,
         tracks = dataset.tracks,
         points = dataset.points;
 
-    var params1 = camDict[i1],
-        params2 = camDict[i2],
-        P1 = camUtils.params2P(params1),
-        P2 = camUtils.params2P(params2);
+    var camDict = cams.reduce(function(memo, camID){
+        memo[camID] = getCityCamParams(camID);
+        return memo;
+    }, {});
 
-    //var selectedInd = _.sample(_.range(points.length), 1000);
+    //var selectedInd = _.sample(_.range(points.length),1500);
     var selectedInd = _.range(points.length);
 
     var xDict = selectedInd.reduce(function(memo, i){
         memo[i] = laUtils.toVector(points[i].concat([1]));
         return memo;
     }, {});
-
-    sba.sba(camDict, xDict, tracks, [i1, i2], selectedInd);
-
-    var PP1 = camUtils.params2P(camDict[i1]);
-    var PP2 = camUtils.params2P(camDict[i2]);
-
-    var reprojected1 = _.map(xDict, function(X){
-            return cord.img2RC(PP1.x(X));
-        }),
-        reprojected2 = _.map(xDict, function(X){
-            return cord.img2RC(PP2.x(X));
-        }),
-        reference1 = selectedInd.map(function(i){
-            var track = tracks[i];
-            return _.find(track, function(view){
-                return view.cam === i1;
-            }).point;
-        }),
-        reference2 = selectedInd.map(function(i){
-            var track = tracks[i];
-            return _.find(track, function(view){
-                return view.cam === i2;
-            }).point;
-        });
-
-    return Promise.all([
-        testUtils.promiseVisualPoints('/home/sheep/Code/params-test-0.png', cityhalldemo.getImagePath(i1), reprojected1),
-        testUtils.promiseVisualPoints('/home/sheep/Code/params-test-0-ref.png', cityhalldemo.getImagePath(i1), reference1),
-        testUtils.promiseVisualPoints('/home/sheep/Code/params-test-1.png', cityhalldemo.getImagePath(i2), reprojected2),
-        testUtils.promiseVisualPoints('/home/sheep/Code/params-test-1-ref.png', cityhalldemo.getImagePath(i2), reference2)
-    ]);
+    sba.sba(camDict, xDict, tracks, cams, selectedInd);
 
 }
 
-sbaTest(1,2);
+sbaTest([0,1,2,3]);
 
 
 function refineTest(i1, i2){
