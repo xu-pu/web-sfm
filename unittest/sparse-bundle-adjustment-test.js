@@ -21,18 +21,31 @@ describe('sparse-bundle-adjustment', function(){
 
     describe('#solveHessian', function(){
 
-        it('N dot delta == g', function(){
-
-            var cams = 3, points = 10;
+        function getError(cams, points){
             var N = genUtils.genSBAMatrix(cams,points);
             var g = Vector.Random(CAM_PARAMS*cams+POINT_PARAMS*points);
             var delta = sba.solveHessian(N, g, cams, points);
             var sparseG = N.x(SparseMatrix.fromDenseVector(delta.elements));
             var gg = laUtils.toVector(sparseG);
-            var error = laUtils.vectorInfiniteNorm(gg.subtract(g));
+            return laUtils.vectorInfiniteNorm(gg.subtract(g));
+        }
+
+        it('N dot delta == g', function(){
+            var error = getError(3, 10);
             console.log(error);
             assert(error < Math.pow(10, -10));
+        });
 
+        it('Works when only have points, no camera', function(){
+            var error = getError(0, 20);
+            console.log(error);
+            assert(error < Math.pow(10, -10));
+        });
+
+        it('Works when only have cameras, no points', function(){
+            var error = getError(3, 0);
+            console.log(error);
+            assert(error < Math.pow(10, -10));
         });
 
     });

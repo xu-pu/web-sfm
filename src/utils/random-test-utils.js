@@ -27,19 +27,24 @@ exports.genSBAMatrix = function(cams, points){
     var sizeB = POINT_PARAMS*points;
     var size = sizeA + sizeB;
 
-    var sparseA = SparseMatrix.fromBlockDiag(_.range(cams).map(function(){
-        return Matrix.Random(CAM_PARAMS, CAM_PARAMS).elements;
-    }));
+    if (cams>0) {
+        var sparseA = SparseMatrix.fromBlockDiag(_.range(cams).map(function(){
+            return Matrix.Random(CAM_PARAMS, CAM_PARAMS).elements;
+        }));
+        var denseA = sparseA.toDense();
+    }
 
-    var sparseB = SparseMatrix.fromBlockDiag(_.range(points).map(function(){
-        return Matrix.Random(POINT_PARAMS, POINT_PARAMS).elements;
-    }));
+    if (points>0) {
+        var sparseB = SparseMatrix.fromBlockDiag(_.range(points).map(function(){
+            return Matrix.Random(POINT_PARAMS, POINT_PARAMS).elements;
+        }));
+        var denseB = sparseB.toDense();
+    }
 
-    var sparseC = SparseMatrix.Random(sizeA, sizeB, 0.3);
-
-    var denseC = sparseC.toDense();
-    var denseA = sparseA.toDense();
-    var denseB = sparseB.toDense();
+    if (cams>0 && points>0) {
+        var sparseC = SparseMatrix.Random(sizeA, sizeB, 0.3);
+        var denseC = sparseC.toDense();
+    }
 
     var r, c, buffer = Matrix.Zero(size, size).elements;
     for (r=0; r<size; r++) {

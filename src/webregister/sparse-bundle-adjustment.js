@@ -252,6 +252,19 @@ exports.sparseLMA = function(func, x0, target, metadata){
  */
 exports.solveHessian = function(N, g, cams, points){
 
+    if (cams===0 && points===0) {
+        throw "No parameter";
+    }
+
+    if (cams===0) {
+        var gS = SparseMatrix.fromDenseVector(g.elements);
+        return laUtils.toVector(exports.inverseV(N, points).x(gS));
+    }
+
+    if (points===0) {
+        return laUtils.toMatrix(N).inverse().x(g);
+    }
+
     var gArr = g.elements,
         offset = cams*CAM_PARAMS,
         sigmaA = gArr.slice(0, offset),
