@@ -24,6 +24,14 @@ exports.model2P = function(model){
     return exports.KRt2P(model.K, model.R, model.t);
 };
 
+/**
+ *
+ * @param {CameraModel} model
+ * @returns {Vector}
+ */
+exports.model2T = function(model){
+    return model.R.transpose().x(model.t).x(-1);
+};
 
 //===================================
 // CameraParams
