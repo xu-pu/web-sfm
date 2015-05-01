@@ -46,6 +46,56 @@ var SBA_TEST_DATA = '/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo
 var SAVES_SPARSE = '/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/dev/optimized-sparse.json';
 var SAVES_CAMS = '/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/dev/optimized-cams.json';
 
+/*
+cityhalldemo.promiseFullPointTable().then(function(table){
+    var matchtable = cityhalldemo.loadRobustMatches();
+    var tracks = tracking.track(matchtable, table);
+    console.log(tracks.length);
+    testUtils.promiseSaveJson(TRACKS_PATH, tracks);
+});
+*/
+//var matchtable = cityhalldemo.loadRawMatches();
+//console.log(matchtable.map(function(entry){
+//    return entry.from + 'to' + entry.to;
+//}));
+
+//cityhalldemo.promiseSaveRawMatches({
+//    from: 4,
+//    to: 6,
+//    matches: require('/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/dev/4to6.json')
+//});
+
+/*
+function robustPair(i1, i2){
+    var camshape = { height: 2048, width: 3072 };
+    var ms = cityhalldemo.getRawMatches(i1,i2);
+    cityhalldemo
+        .promisePointTable([i1,i2])
+        .then(function(table){
+            var result = estF(ms.matches, {
+                features1: table[i1],
+                features2: table[i2],
+                cam1: camshape, cam2: camshape
+            });
+
+            var entry = {
+                from: i1,
+                to: i2,
+                matches: result.dataset,
+                F: result.F.elements
+            };
+
+            console.log(entry);
+
+            return cityhalldemo.promiseSaveRobustMatches(entry);
+
+        });
+}
+
+robustPair(4,6);
+*/
+
+
 var getCityCam = (function(){
 
     var cameras = require(CITYHALL_CAM_PATH);
@@ -143,7 +193,7 @@ function registerContextTest(cams){
 
 }
 
-//registerContextTest([0,1,2,3,4,6]);
+//registerContextTest([0,1,2,3,4,5,6]);
 
 function genSparse(){
     var sparse = require(SAVES_SPARSE);
