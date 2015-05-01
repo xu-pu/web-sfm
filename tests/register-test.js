@@ -44,6 +44,7 @@ var CITYHALL_RAW_CAM_PATH = '/home/sheep/Code/Project/web-sfm/demo/Leuven-City-H
 var SBA_TEST_DATA = '/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/dev/sba.test.json';
 
 var SAVES_SPARSE = '/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/dev/optimized-sparse.json';
+var SAVES_CAMS = '/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/dev/optimized-cams.json';
 
 var getCityCam = (function(){
 
@@ -109,6 +110,8 @@ function registerContextTest(cams){
         memo.push(cord.toInhomo3D(X).elements);
         return memo;
     }, []));
+
+    testUtils.promiseSaveJson(SAVES_CAMS, camDict);
 
     return Promise.all(cams.map(function(ci){
         var P = camUtils.params2P(camDict[ci]);
