@@ -19,6 +19,6 @@
     { "id": 11, "name": "Comet_on_24_September_NavCam", "extension": ".jpg" }
   ],
 
-  "entries": ["image"]
+  "entries": ["image", "feature", "match"]
 
 }
