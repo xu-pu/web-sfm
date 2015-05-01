@@ -4,7 +4,8 @@ var _ = require('underscore'),
     Matrix = la.Matrix,
     Vector = la.Vector,
     numeric = require('numeric'),
-    pool = require('ndarray-scratch');
+    pool = require('ndarray-scratch'),
+    ndarray = require('ndarray');
 
 var sample = require('../src/utils/samples.js'),
     matcher = require('../src/webmatcher/matcher.js'),
@@ -41,6 +42,8 @@ var HALL_TRACKS_PATH = '/home/sheep/Code/Project/web-sfm/demo/Hall-Demo/dev/trac
 var CITYHALL_CAM_PATH = '/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/dev/cams.json';
 var CITYHALL_RAW_CAM_PATH = '/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/dev/cams.raw.json';
 var SBA_TEST_DATA = '/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/dev/sba.test.json';
+
+var SAVES_SPARSE = '/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/dev/optimized-sparse.json';
 
 var getCityCam = (function(){
 
@@ -82,23 +85,30 @@ function getCityCamParams(i){
 
 var VISUAL_BASE = '/home/sheep/Code';
 
+//console.log(require(HALL_TRACKS_PATH));
+
 function registerContextTest(cams){
-    var dataset = require(SBA_TEST_DATA),
-        tracks = dataset.tracks,
-        points = dataset.points;
+
+    var tracks = require(TRACKS_PATH);
 
     var ctx = new RegisterContext(tracks);
     cams.forEach(function(ci){
         ctx.addCamera(ci, getCityCamParams(ci));
     });
-    points.forEach(function(arr, xi){
-        var X = laUtils.toVector(arr.concat([1]));
-        ctx.addPoint(xi, X);
-    });
-    ctx.adjust();
+
+    ctx.attemptTriangulation(_.range(tracks.length));
+
+    //ctx.adjust();
+
+    ctx.robustAdjust();
 
     var xDict = ctx.xDict,
         camDict = ctx.camDict;
+
+    testUtils.promiseSaveJson(SAVES_SPARSE, _.reduce(xDict, function(memo, X, xi){
+        memo.push(cord.toInhomo3D(X).elements);
+        return memo;
+    }, []));
 
     return Promise.all(cams.map(function(ci){
         var P = camUtils.params2P(camDict[ci]);
@@ -130,4 +140,24 @@ function registerContextTest(cams){
 
 }
 
-registerContextTest([0,1,2,3]);
+//registerContextTest([0,1,2,3,4,6]);
+
+function genSparse(){
+    var sparse = require(SAVES_SPARSE);
+    var length = sparse.length;
+    var vbuffer = new Float32Array(length*3);
+    var cbuffer = new Uint8Array(length*3);
+    var nd = ndarray(vbuffer, [length, 3]);
+    sparse.forEach(function(p, i){
+        nd.set(i, 0, p[0]/10);
+        nd.set(i, 1, p[1]/10);
+        nd.set(i, 2, p[2]/10);
+    });
+    return Promise.all([
+        testUtils.promiseSaveJson('/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/calibration/cameras.json', []),
+        testUtils.promiseSaveArrayBuffer('/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/calibration/sparse.points', vbuffer.buffer),
+        testUtils.promiseSaveArrayBuffer('/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/calibration/sparse.colors', cbuffer.buffer)
+    ]);
+}
+
+genSparse();
