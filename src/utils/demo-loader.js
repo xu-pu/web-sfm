@@ -2,7 +2,8 @@
 
 var _ = require('underscore'),
     ndarray = require('ndarray'),
-    Promise = require('promise');
+    Promise = require('promise'),
+    Canvas = require('canvas');
 
 var testUtils = require('./test-utils.js'),
     extUtils = require('./external-utils.js');
@@ -267,6 +268,32 @@ DemoLoader.prototype.requireDense = function(){
         this.dense = require(PROJECT_ROOT + this.root + '/mvs/patches.json');
     }
     return this.dense;
+};
+
+//======================================================
+
+var THUMBNAIL_SIZE = 400;
+
+DemoLoader.prototype.genThumbnails = function(){
+    var DEMO_ROOT = PROJECT_ROOT + this.root;
+    var IMAGES_PATH = DEMO_ROOT + '/images/';
+    var THUMBNAIL_PATH = DEMO_ROOT + '/thumbnails/';
+    return Promise.all(this.images.map(function(image){
+        var path = IMAGES_PATH+image.name+image.extension;
+        return testUtils.promiseCanvasImage(path)
+            .then(function(img){
+                var width = img.width,
+                    height = img.height;
+                var ratio = 400/Math.max(width, height);
+                var ww = ratio*width, hh = ratio*height;
+                var canvas = new Canvas(ww, hh);
+                var ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, ww, hh);
+                return testUtils.promiseWriteCanvas(THUMBNAIL_PATH + image.name + '.png', canvas);
+            });
+
+    }));
+
 };
 
 //======================================================
