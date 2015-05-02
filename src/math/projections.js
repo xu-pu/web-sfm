@@ -12,6 +12,24 @@ var geoUtils = require('./geometry-utils.js'),
     laUtils = require('./la-utils.js');
 
 //===================================
+// Stored Camera
+//===================================
+
+/**
+ *
+ * @param {StoredCamera} stored
+ * @return {CalibratedCamera}
+ */
+exports.stored2calibrated = function(stored){
+    var R = laUtils.toMatrix(stored.R),
+        t = laUtils.toVector(stored.t),
+        T = exports.Rt2T(R, t),
+        K = exports.getK(stored.f, stored.px, stored.py),
+        P = exports.KRt2P(K, R, t);
+    return { K: K, R: R, t: t, T: T, P: P, focal: stored.f, px: stored.px, py: stored.py, cam: stored.shape };
+};
+
+//===================================
 // CameraModel
 //===================================
 
@@ -30,7 +48,18 @@ exports.model2P = function(model){
  * @returns {Vector}
  */
 exports.model2T = function(model){
-    return model.R.transpose().x(model.t).x(-1);
+    return exports.Rt2T(model.R, model.t);
+};
+
+
+/**
+ *
+ * @param {Matrix} R
+ * @param {Vector} t
+ * returns {Vector}
+ */
+exports.Rt2T = function(R, t){
+    return R.transpose().x(t).x(-1);
 };
 
 //===================================

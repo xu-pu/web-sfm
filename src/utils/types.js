@@ -4,11 +4,15 @@
 
 
 /**
- * @typedef {{ R: Matrix, T: Vector, t: Vector, focal: number, px: number, py: number, P: Matrix, cam: Camera }} CalibratedCamera
+ * @typedef {{ K: Matrix, R: Matrix, T: Vector, t: Vector, focal: number, px: number, py: number, P: Matrix, cam: Camera }} CalibratedCamera
  */
 
 /**
  * @typedef {{ r: number[], t: number[], f: number, px: number, py: number, k1: number, k2: number }} CameraParams
+ */
+
+/**
+ * @typedef {{ r: number[], t:number[], f: number, px: number, py: number, k1: number, k2: number, shape: Camera }} StoredCamera
  */
 
 /**
