@@ -5,6 +5,8 @@ var THREE = require('three'),
     Matrix = la.Matrix,
     Vector = la.Vector;
 
+var laUtils = require('../math/la-utils.js');
+
 
 /**
  * @param {CalibratedCamera} camera
@@ -15,8 +17,10 @@ exports.getCameraFrame = function(camera){
     var R = camera.R,
         t = camera.t,
         focal = camera.focal,
-        imgHeight = camera.cam.height,
-        imgWidth = camera.cam.width;
+        height = camera.cam.height,
+        width = camera.cam.width,
+        px = camera.px,
+        py = camera.py;
 
     var camMaterial = new THREE.LineBasicMaterial({
         color: 0xFF0000
@@ -24,13 +28,16 @@ exports.getCameraFrame = function(camera){
 
     var Ri = R.transpose(),
         T = Ri.x(t).x(-1),
-        ratio = focal*2,
-        camWidth = imgWidth/ratio,
-        camHeight = imgHeight/ratio,
-        corner1 = Ri.x(Vector.create([camWidth/2, camHeight/2, 1]).subtract(t)),
-        corner2 = Ri.x(Vector.create([camWidth/2, -camHeight/2, 1]).subtract(t)),
-        corner3 = Ri.x(Vector.create([-camWidth/2, -camHeight/2, 1]).subtract(t)),
-        corner4 = Ri.x(Vector.create([-camWidth/2, camHeight/2, 1]).subtract(t));
+        ratio = 1/focal,
+        offset = laUtils.toVector([px, py, 0]),
+        c1 = laUtils.toVector([ width, height, focal]).subtract(offset).x(ratio),
+        c2 = laUtils.toVector([ width, 0     , focal]).subtract(offset).x(ratio),
+        c3 = laUtils.toVector([ 0    , 0     , focal]).subtract(offset).x(ratio),
+        c4 = laUtils.toVector([ 0    , height, focal]).subtract(offset).x(ratio),
+        corner1 = Ri.x(c1.subtract(t)),
+        corner2 = Ri.x(c2.subtract(t)),
+        corner3 = Ri.x(c3.subtract(t)),
+        corner4 = Ri.x(c4.subtract(t));
 
     var camPosition = array2glvector(T.elements),
         corner1Position = array2glvector(corner1.elements),
