@@ -264,4 +264,39 @@ function genDense(){
 
 }
 
-genDense();
+//genDense();
+
+var hallshape = { height: 2000, width: 3000 };
+
+function convertBundler(){
+
+    var cams = sample.cameras;
+
+    var cDict = cams.reduce(function(memo, cam, ci){
+
+        var RR = laUtils.toMatrix(cam.R),
+            tt = laUtils.toVector(cam.t),
+            after = cord.getStandardRt(RR, tt),
+            R = after.R,
+            t = after.t;
+
+        /** @type {StoredCamera} */
+        memo[ci] = {
+            r: geoUtils.getEulerAngles(R),
+            t: t.elements,
+            f: cam.focal,
+            px: hallshape.width/2,
+            py: hallshape.height/2,
+            k1: 0, k2: 0,
+            shape: hallshape
+        };
+
+        return memo;
+
+    }, {});
+
+    testUtils.promiseSaveJson('/home/sheep/Code/Project/web-sfm/demo/Hall-Demo/cameras.json', cDict);
+
+}
+
+convertBundler();
