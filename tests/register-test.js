@@ -299,4 +299,42 @@ function convertBundler(){
 
 }
 
-convertBundler();
+//convertBundler();
+
+
+function convertCityhallCam(ratio){
+
+    var camshape = { height: 2048, width: 3072 };
+
+    var paramDict = require(SAVES_CAMS);
+
+    var cDict = _.mapObject(paramDict, function(cam, ci){
+
+        var model = camUtils.params2model(cam);
+
+        var R = model.R,
+            t = model.t;
+
+        var T = camUtils.Rt2T(R, t);
+        var TT = T.x(ratio);
+        var tt = camUtils.RT2t(R, TT);
+
+
+        /** @type {StoredCamera} */
+        return {
+            r: geoUtils.getEulerAngles(R),
+            t: tt.elements,
+            f: cam.f,
+            px: cam.px,
+            py: cam.py,
+            k1: 0, k2: 0,
+            shape: camshape
+        };
+
+    });
+
+    testUtils.promiseSaveJson('/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/cameras.json', cDict);
+
+}
+
+convertCityhallCam(1/15);

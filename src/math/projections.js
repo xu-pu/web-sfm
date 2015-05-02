@@ -62,6 +62,18 @@ exports.Rt2T = function(R, t){
     return R.transpose().x(t).x(-1);
 };
 
+
+/**
+ *
+ * @param {Matrix} R
+ * @param {Vector} T
+ * returns {Vector}
+ */
+exports.RT2t = function(R, T){
+    return R.x(T).x(-1);
+};
+
+
 //===================================
 // CameraParams
 //===================================
