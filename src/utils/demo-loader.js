@@ -39,6 +39,17 @@ DemoLoader.prototype.getCam = function(i){
     return { width: img.width, height: img.height };
 };
 
+/**
+ *
+ * @param {int} index
+ * @param {boolean} [isRGB]
+ * @returns {Promise}
+ */
+DemoLoader.prototype.promiseImage = function(index, isRGB){
+    return testUtils.promiseImage(this.getImagePath(index), isRGB);
+};
+
+
 //======================================================
 
 DemoLoader.prototype.genImageJson = function(){

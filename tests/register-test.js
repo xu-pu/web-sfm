@@ -7,6 +7,8 @@ var _ = require('underscore'),
     pool = require('ndarray-scratch'),
     ndarray = require('ndarray');
 
+var os = require('os');
+
 var sample = require('../src/utils/samples.js'),
     matcher = require('../src/webmatcher/matcher.js'),
     halldemo = require('../src/utils/demo-loader.js').halldemo,
@@ -67,7 +69,7 @@ cityhalldemo.promiseFullPointTable().then(function(table){
 
 /*
 function robustPair(i1, i2){
-    var camshape = { height: 2048, width: 3072 };
+ var camshape = { height: 2048, width: 3072 };
     var ms = cityhalldemo.getRawMatches(i1,i2);
     cityhalldemo
         .promisePointTable([i1,i2])
@@ -213,4 +215,53 @@ function genSparse(){
     ]);
 }
 
-genSparse();
+//genSparse();
+
+function convertCam(i){
+
+    var cams = require(SAVES_CAMS);
+
+    var params = cams[i];
+    var P = camUtils.params2P(params);
+    var strr = getPString(P);
+    console.log(strr);
+
+    testUtils.promiseWriteFile('/home/sheep/Downloads/pmvs-2/data/cityhall/txt/0000000'+ i +'.txt', strr);
+
+}
+
+//_.range(7).forEach(function(i){
+//    convertCam(i);
+//});
+
+
+function getPString(P){
+    var arr = P.elements;
+    return ['CONTOUR', arr[0].join(' '), arr[1].join(' '), arr[2].join(' ')].join(os.EOL) + os.EOL;
+
+    function format(num){
+        return num.toString().slice(0, 7);
+    }
+}
+
+var PATCHES_PATH = '/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/dev/patches.json';
+function genDense(){
+    var dense = require(PATCHES_PATH);
+    var length = dense.length;
+    console.log(length);
+    var varr = new Float32Array(length*3), carr = new Uint8Array(length*3);
+    var nd = ndarray(varr, [length, 3]);
+    dense.forEach(function(patch, i){
+        var p = patch.point;
+        nd.set(i, 0, p[0]/15);
+        nd.set(i, 1, p[1]/15);
+        nd.set(i, 2, p[2]/15);
+    });
+
+    return Promise.all([
+        testUtils.promiseSaveArrayBuffer('/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/mvs/surfels.points', varr.buffer)
+    ]);
+
+}
+
+genDense();

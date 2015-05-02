@@ -19,14 +19,14 @@ var cord = require('../utils/cord.js'),
 exports.getPatchAxis = function(c, n, cam){
 
     var P = cam.P,
+        T = cam.T,
         X = cord.toHomo3D(c),
-        T = projections.getT(cam.R, cam.t),
         pln = Plane.create(c, n),
-        offsetR = cam.cam.height/2, offsetC = cam.cam.width/2;
+        py = cam.py, px = cam.px;
 
     // backtrace x-axis
     var rc = cord.img2RC(P.x(X));
-    var back = Vector.create([rc.col+1-offsetC, rc.row-offsetR, cam.f, 1]);
+    var back = Vector.create([rc.col+1-px, rc.row-py, cam.focal, 1]);
     var perspective = projections.getPerspective(cam.R, cam.t);
     var backX = perspective.inverse().x(back);
     var backtrackDir = cord.toInhomo3D(backX).subtract(T);

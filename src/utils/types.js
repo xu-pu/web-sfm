@@ -4,7 +4,7 @@
 
 
 /**
- * @typedef {{ R: Matrix, t: Vector, focal: number, P: Matrix, cam: Camera }} CalibratedCamera
+ * @typedef {{ R: Matrix, T: Vector, t: Vector, focal: number, px: number, py: number, P: Matrix, cam: Camera }} CalibratedCamera
  */
 
 /**

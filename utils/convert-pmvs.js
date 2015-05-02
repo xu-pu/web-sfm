@@ -3,8 +3,8 @@
 var lazy = require("lazy"),
     fs  = require("fs");
 
-var FROM = '/home/sheep/Downloads/pmvs-2/data/hall/models.you.should.get.similar.results/option.txt.patch',
-    TO = '/home/sheep/Code/Project/web-sfm/demo/Hall-Demo/mvs/patches.json';
+var FROM = '/home/sheep/Downloads/pmvs-2/data/cityhall/models/option.txt.patch',
+    TO = '/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/dev/patches.json';
 
 var testUtils = require('../src/utils/testing.js');
 
