@@ -8,8 +8,9 @@ var _ = require('underscore'),
     OrbitControls = require('three-orbit-controls')(THREE),
     V3 = THREE.Vector3;
 
-var getBundlerCamera = require('../../visualization/getBundlerCamera.js'),
-    cord = require('../../utils/cord.js');
+var camUtils = require('../../math/projections.js'),
+    cord = require('../../utils/cord.js'),
+    vis3d = require('../../visualization/vis3d.js');
 
 module.exports = Ember.Component.extend({
 
@@ -87,8 +88,10 @@ module.exports = Ember.Component.extend({
 
     getCameras: function(){
         var cameras = new THREE.Object3D();
-        this.get('cameras').forEach(function(cam){
-            cameras.add(getBundlerCamera(cam));
+        var cDict = this.get('cameras');
+        _.each(cDict, function(cam){
+            var calibrated = camUtils.stored2calibrated(cam);
+            cameras.add(vis3d.getCameraFrame(calibrated));
         });
         return cameras;
     }

@@ -14,7 +14,7 @@ module.exports.RESOURCE = {
     ROBUST_MATCHES: '/matches/matches.robust.json',
 //    TRACKS: 'tracks',
     SPARSE: '/calibration/sparse.json',
-    CAMERAS: '/calibration/cameras.json',
+    CAMERAS: '/cameras.json',
 //    MVS: 'mvs',
     SPARSE_POINTS: '/calibration/sparse.points',
     SPARSE_COLORS: '/calibration/sparse.colors',

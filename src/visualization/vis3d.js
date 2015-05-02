@@ -6,7 +6,17 @@ var THREE = require('three'),
     Vector = la.Vector;
 
 
-module.exports = function(R, t, focal, imgHeight, imgWidth){
+/**
+ * @param {CalibratedCamera} camera
+ * @returns {THREE.Line}
+ */
+exports.getCameraFrame = function(camera){
+
+    var R = camera.R,
+        t = camera.t,
+        focal = camera.focal,
+        imgHeight = camera.cam.height,
+        imgWidth = camera.cam.width;
 
     var camMaterial = new THREE.LineBasicMaterial({
         color: 0xFF0000

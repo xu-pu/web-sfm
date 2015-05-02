@@ -21,7 +21,7 @@ var geoUtils = require('./geometry-utils.js'),
  * @return {CalibratedCamera}
  */
 exports.stored2calibrated = function(stored){
-    var R = laUtils.toMatrix(stored.R),
+    var R = geoUtils.getRotationFromEuler.apply(null, stored.r),
         t = laUtils.toVector(stored.t),
         T = exports.Rt2T(R, t),
         K = exports.getK(stored.f, stored.px, stored.py),
