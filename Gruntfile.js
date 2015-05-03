@@ -18,8 +18,8 @@ module.exports = function (grunt) {
             all: {
                 files: [
                     'src/**/*.js',
-                    'src/templates/**/*.hbs',
-                    'src/styles/scss/**/*.scss'
+                    'src/app/templates/**/*.hbs',
+                    'src/app/styles/scss/**/*.scss'
                 ],
                 tasks: ['build']
             }
