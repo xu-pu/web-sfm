@@ -99,7 +99,6 @@ App.ContextController = require('./ResourceControllers/context.js');
 App.WorkerController = require('./ResourceControllers/WorkerController.js');
 App.SchedulerController = require('./ResourceControllers/scheduler.js');
 App.DownloaderController = require('./ResourceControllers/downloader.js');
-//App.DemoController = require('./ResourceControllers/DemoController.js');
 App.ProjectResourceController = require('./ResourceControllers/project-resource.js');
 App.MessageController = require('./ResourceControllers/message.js');
 
