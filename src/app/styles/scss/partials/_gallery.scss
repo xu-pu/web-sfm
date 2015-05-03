@@ -1,4 +1,4 @@
-@import "../../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.1/stylesheets/compass";
+@import "compass";
 
 #main-container__input-gallery-container {
   overflow-y: scroll;
@@ -42,19 +42,20 @@
 $hover-delta: -1.5em;
 .main-container__input-gallery__image {
   @include transition(box-shadow 0.25s);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
   overflow: hidden;
   background: grey;
   z-index: 1;
-
-  img {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
+  background-size: cover;
+  background-position: 50%;
 
   &:hover {
     @include box-shadow(0 0 20px 10px rgba(0, 0, 0, 0.75));
-    position: absolute;
     top: $hover-delta;
     bottom: $hover-delta;
     left: $hover-delta;

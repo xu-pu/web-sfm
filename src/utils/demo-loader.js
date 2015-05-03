@@ -275,24 +275,35 @@ DemoLoader.prototype.requireDense = function(){
 var THUMBNAIL_SIZE = 400;
 
 DemoLoader.prototype.genThumbnails = function(){
+    var demo = this;
     var DEMO_ROOT = PROJECT_ROOT + this.root;
     var IMAGES_PATH = DEMO_ROOT + '/images/';
-    var THUMBNAIL_PATH = DEMO_ROOT + '/thumbnails/';
+    var stored = [];
     return Promise.all(this.images.map(function(image){
         var path = IMAGES_PATH+image.name+image.extension;
         return testUtils.promiseCanvasImage(path)
             .then(function(img){
                 var width = img.width,
                     height = img.height;
+                var thumbpath = demo.root + '/thumbnails/' + image.name + '.png';
+                var entry = {};
+                _.extend(entry, image);
+                _.extend(entry, {
+                    width: width,
+                    height: height,
+                    thumbnail: thumbpath
+                });
+                stored.push(entry);
                 var ratio = 400/Math.max(width, height);
                 var ww = ratio*width, hh = ratio*height;
                 var canvas = new Canvas(ww, hh);
                 var ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0, ww, hh);
-                return testUtils.promiseWriteCanvas(THUMBNAIL_PATH + image.name + '.png', canvas);
+                return testUtils.promiseWriteCanvas(PROJECT_ROOT + thumbpath, canvas);
             });
-
-    }));
+    })).then(function(){
+        return testUtils.promiseSaveJson(DEMO_ROOT + '/images.json', stored);
+    });
 
 };
 
