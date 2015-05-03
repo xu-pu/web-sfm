@@ -90,6 +90,7 @@ App.VisualFeaturesComponent = require('./components/VisualFeatures.js');
 App.FloatingWindowComponent = require('./components/FloatingWindow.js');
 App.VisualMatchingComponent = require('./components/VisualMatching.js');
 App.MatchModeTabComponent = require('./components/MatchModeTab.js');
+App.ImageGalleryComponent = require('./components/image-gallery.js');
 
 //=======================
 // Resource Controllers

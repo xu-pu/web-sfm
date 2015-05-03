@@ -1,7 +1,7 @@
 /* Main Style Sheet of WebSFM */
 
 @import "reset";
-@import "../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.1/stylesheets/compass";
+@import "compass";
 @import "utils";
 @import "dimensions";
 
@@ -17,6 +17,8 @@
 @import "components/visual-features";
 @import "components/match-mode-tab";
 @import "components/demo-detail";
+@import "components/image-gallery";
+
 
 img {
   @include user-select(none);
