@@ -5,7 +5,6 @@ var _ = require('underscore');
 var Image = require('../models/Image.js'),
     utils = require('../utils.js'),
     settings = require('../settings.js'),
-    STORES = settings.STORES,
     RESOURCE = settings.RESOURCE;
 
 module.exports = Ember.Controller.extend({
@@ -41,31 +40,8 @@ module.exports = Ember.Controller.extend({
                 return images.map(function(image){
                     image._id = image.id;
                     return Image.create(image);
-                })
+                }).sortBy('id');
             });
-    }.property('model'),
-
-    matches: function(){
-        return Promise.resolve([]);
-    }.property('model'),
-
-    /**
-     * Return all tracks stored in IDB
-     * @returns {Promise}
-     */
-    promiseTracks: function(){
-        var adapter = this.get('adapter');
-        return Promise.all([
-            this.get('images'),
-            adapter.promiseData(STORES.SINGLETONS, STORES.TRACKS),
-            adapter.promiseData(STORES.SINGLETONS, STORES.VIEWS)
-        ]).then(function(values){
-            return Promise.resolve({
-                images: values[0],
-                tracks: values[1],
-                views: values[2]
-            });
-        });
-    }
+    }.property('model')
 
 });
