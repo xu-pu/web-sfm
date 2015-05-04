@@ -8,15 +8,30 @@ var _ = require('underscore'),
 var testUtils = require('./test-utils.js'),
     extUtils = require('./external-utils.js');
 
+var PROJECT_ROOT = '/home/sheep/Code/Project/web-sfm';
+
 exports.DemoLoader = DemoLoader;
 exports.halldemo = new DemoLoader(require('/home/sheep/Code/Project/web-sfm/demo/Hall-Demo/description.json'));
 exports.cityhalldemo = new DemoLoader(require('/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/description.json'));
 exports.cometdemo = new DemoLoader(require('/home/sheep/Code/Project/web-sfm/demo/Rosetta-Spacecraft/description.json'));
 
-var PROJECT_ROOT = '/home/sheep/Code/Project/web-sfm';
+
 
 function DemoLoader(config){
+
     _.extend(this, config);
+
+    this.images = require(PROJECT_ROOT + this.root + '/images.json');
+
+    this.sDict = this.images.reduce(function(memo, image){
+        memo[image.id] = {
+            width: image.width,
+            height: image.height
+        };
+        return memo;
+    }, {});
+
+
 }
 
 

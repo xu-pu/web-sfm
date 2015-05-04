@@ -104,19 +104,22 @@ exports.RegisterContext = RegisterContext;
 /**
  *
  * @param {Track[]} tracks
+ * @param sDict
  *
  * @property {Track[]} tracks
  * @property {int[]} cams
  * @property {int[]} tracksLeft
  * @property visDict - ci -> int[]
+ * @property sDict - ci -> Shape
  * @property xDict - xi -> Homogenous 3D Vector
  * @property camDict - ci -> CameraParams
  *
  * @constructor
  */
-function RegisterContext(tracks){
+function RegisterContext(tracks, sDict){
 
     this.tracks = tracks;
+    this.sDict = sDict;
 
     var visDict = {};
 
@@ -133,8 +136,15 @@ function RegisterContext(tracks){
         });
     });
 
+    var camsFromVis = _.keys(visDict).map(key2int);
+    var camsFromShape = _.keys(sDict).map(key2int);
+
+    if (_.difference(camsFromVis, camsFromShape).length >0 ) {
+        throw 'some camera shapes (width/height) not avaliable, inable to register!';
+    }
+
+    this.cams = camsFromVis;
     this.visDict = visDict;
-    this.cams = _.keys(visDict).map(key2int);
     this.xDict = {};
     this.camDict = {};
     this.tracksLeft = _.range(tracks.length);
