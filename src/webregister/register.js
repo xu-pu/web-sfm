@@ -11,12 +11,91 @@ var camUtils = require('../math/projections.js'),
 
 var TRIANGULATION_CUTOFF = 0.2;
 var TRACK_OUTLIER_CUTOFF = 0.8;
+var CAM_VIS_THRESHOLD = 0.75;
+var LEAST_TRACK_THRESHOLD = 20;
 
 //============================================
 
-exports.register = function(tracks, Fs){
+
+exports.register = function(tracks){
 
 };
+
+exports.incrementalRegistration = function(ctx, initCamDict){
+
+    var cams = ctx.cams,
+        xDict = ctx.xDict,
+        cDict = ctx.camDict,
+        vDict = ctx.visDict;
+
+    var isDone = false;
+
+    ctx.addCameraDict(initCamDict);
+
+    while (!isDone) {
+        (function(){
+
+            var xs = recoveredTracks();
+            var cs = recoveredCams();
+            var camsLeft = _.difference(cams, cs);
+
+            if (camsLeft.length === 0) {
+                isDone = true;
+                return;
+            }
+
+            var dict = {};
+            var maxci, maxcount = 0;
+            camsLeft.forEach(function(ci){
+                var visiables = _.intersection(xs, vDict[ci]);
+                var count = visiables.length;
+                if (count>maxcount) {
+                    maxcount = count;
+                    maxci = ci;
+                }
+                dict[ci] = visiables;
+            });
+
+            if (maxcount < LEAST_TRACK_THRESHOLD) {
+                isDone = true;
+                return;
+            }
+
+            camsLeft.forEach(function(ci){
+                if (dict[ci].length < CAM_VIS_THRESHOLD*maxcount) {
+                    delete dict[ci];
+                }
+            });
+
+            _.each(dict, function(value, key){
+                var ci = key2int(key);
+
+            });
+
+            var newcams = _.keys(dict).map(key2int);
+
+            ctx.robustAdjust(newcams, []);
+
+            var newxs = ctx.attemptTriangulation();
+
+            ctx.robustAdjust(newcams, newxs);
+
+            ctx.robustAdjust();
+
+        })();
+    }
+
+
+    function recoveredCams(){
+        return _.keys(cDict).map(key2int);
+    }
+
+    function recoveredTracks(){
+        return _.keys(xDict).map(key2int);
+    }
+
+};
+
 
 //============================================
 
@@ -70,6 +149,15 @@ function RegisterContext(tracks){
  */
 RegisterContext.prototype.addCamera = function(i, c){
     this.camDict[i] = c;
+};
+
+
+/**
+ *
+ * @param dict
+ */
+RegisterContext.prototype.addCameraDict = function(dict){
+    _.extend(this.camDict, dict);
 };
 
 
