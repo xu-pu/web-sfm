@@ -114,7 +114,7 @@
 
 
 /**
- * @typedef {{ cam: number, point: RowCol }} TrackView
+ * @typedef {{ cam: int, point: RowCol }} TrackView
  */
 
 

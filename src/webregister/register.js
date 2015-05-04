@@ -25,13 +25,41 @@ exports.RegisterContext = RegisterContext;
 /**
  *
  * @param {Track[]} tracks
+ *
+ * @property {Track[]} tracks
+ * @property {int[]} cams
+ * @property {int[]} tracksLeft
+ * @property visDict - ci -> int[]
+ * @property xDict - xi -> Homogenous 3D Vector
+ * @property camDict - ci -> CameraParams
+ *
  * @constructor
  */
 function RegisterContext(tracks){
+
     this.tracks = tracks;
+
+    var visDict = {};
+
+    tracks.forEach(function(track, xi){
+        track.forEach(function(view){
+            var ci = view.cam;
+            var visiables = visDict[ci];
+            if (!visiables) {
+                visiables = visDict[ci] = [];
+            }
+            if (visiables.indexOf(xi) === -1) {
+                visiables.push(xi);
+            }
+        });
+    });
+
+    this.visDict = visDict;
+    this.cams = _.keys(visDict).map(key2int);
     this.xDict = {};
     this.camDict = {};
-    this.excluded = [];
+    this.tracksLeft = _.range(tracks.length);
+
 }
 
 
@@ -82,10 +110,6 @@ RegisterContext.prototype.addPointDict = function(dict){
  */
 RegisterContext.prototype.excludeTrack = function(i){
     delete this.xDict[i];
-    var excluded = this.excluded;
-    if (excluded.indexOf(i) === -1) {
-        excluded.push(i);
-    }
 };
 
 
@@ -261,6 +285,8 @@ RegisterContext.prototype.attemptTriangulation = function(inds){
 
     console.log('triangulated ' + triangulated.length);
 
+    this.tracksLeft = _.difference(this.tracksLeft, triangulated);
+
     return triangulated;
 
     /**
@@ -278,14 +304,6 @@ RegisterContext.prototype.attemptTriangulation = function(inds){
     }
 
 
-};
-
-
-/**
- * @returns int[]
- */
-RegisterContext.prototype.getRecoveredTrackInds = function(){
-    return _.keys(this.xDict).map(key2int);
 };
 
 function key2int(key){ return parseInt(key, 10); }
