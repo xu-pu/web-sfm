@@ -9,7 +9,8 @@ var lma      = require('../math/nonlinear.js').lma,
     ransac   = require('./../math/ransac.js'),
     cord     = require('../utils/cord.js'),
     laUtils  = require('../math/la-utils.js'),
-    geoUtils = require('../math/geometry-utils.js');
+    geoUtils = require('../math/geometry-utils.js'),
+    camUtils = require('../math/projections.js');
 
 //==========================================================
 
@@ -28,23 +29,6 @@ exports.estP = function(tracks){
     if (tracks.length < PROJECTION_MINIMUM){
         throw 'More matches needed';
     }
-
-/*
-    var results = ransac({
-        dataset: tracks,
-        metadata: null,
-        subset: PROJECTION_MINIMUM,
-        relGenerator: module.exports.estimateProjection,
-        errorGenerator: module.exports.projectionError,
-//        outlierThreshold: 0.05,
-        outlierThreshold: 0.2,
-//        errorThreshold: 0.004,
-        errorThreshold: 1,
-        trials: 2000
-    });
-
-    var P = results.rel;
-*/
 
     var P = module.exports.estimateProjection(tracks);
 
@@ -112,6 +96,32 @@ exports.estimateProjection = function(dataset){
     return laUtils.inflateVector(solve, 3, 4);
 
 };
+
+
+/**
+ *
+ * @param {CameraParams} params
+ * @param {{ X: HomoPoint3D, x: HomoPoint2D }[]} tracks
+ * @returns {CameraParams}
+ */
+exports.refineParams = function(params, tracks){
+
+    var refined = lma(
+        function(x){
+            var para = camUtils.inflateCameraParams(x.elements);
+            var P = camUtils.params2P(para);
+            return Vector.create(tracks.map(function(track){
+                return exports.projectionError(P, track);
+            }))
+        },
+        camUtils.flattenCameraParams(params),
+        Vector.Zero(tracks.length)
+    );
+
+    return camUtils.inflateCameraParams(refined.elements);
+
+};
+
 
 
 /**
