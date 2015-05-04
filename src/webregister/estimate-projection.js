@@ -23,7 +23,7 @@ var PROJECTION_MINIMUM = 10;
  * @param {{ X: HomoPoint3D, x: HomoPoint2D }[]} tracks
  * @returns Matrix
  */
-module.exports = function(tracks){
+exports.estP = function(tracks){
 
     if (tracks.length < PROJECTION_MINIMUM){
         throw 'More matches needed';
@@ -54,11 +54,41 @@ module.exports = function(tracks){
 
 
 /**
+ *
+ * @param {{ X: Vector, x: Vector }[]} tracks
+ * @param {Camera} shape
+ * @returns {Matrix}
+ */
+exports.getRobustCameraParams = function(tracks, shape){
+
+    if (tracks.length < PROJECTION_MINIMUM){
+        throw 'More matches needed';
+    }
+
+    var results = ransac({
+        dataset: tracks,
+        metadata: null,
+        subset: PROJECTION_MINIMUM,
+        relGenerator: exports.estimateProjection,
+        errorGenerator: exports.projectionError,
+        outlierThreshold: 0.05,
+        errorThreshold: 0.004*Math.max(shape.width, shape.height),
+        trials: 1000
+    });
+
+    var P = results.rel;
+
+    return exports.refineProjection(P, results.dataset);
+
+};
+
+
+/**
  * Estimate projection matrix from imgCord/3dCord pairs
  * @param {{ X: HomoPoint3D, x: HomoPoint2D }[]} dataset
  * @returns {Matrix}
  */
-module.exports.estimateProjection = function(dataset){
+exports.estimateProjection = function(dataset){
 
     var A = [];
 
@@ -90,16 +120,16 @@ module.exports.estimateProjection = function(dataset){
  * @param {{ X: HomoPoint3D, x: HomoPoint2D }[]} tracks
  * @returns {Matrix}
  */
-module.exports.refineProjection = function(P, tracks){
+exports.refineProjection = function(P, tracks){
 
     var refined = lma(
         function(parameter){
             var pro = laUtils.inflateVector(parameter, 3, 4);
             return Vector.create(tracks.map(function(track){
-                return module.exports.projectionError(pro, track);
+                return exports.projectionError(pro, track);
             }))
         },
-        laUtils.flattenMatrix(P).x(10000),
+        laUtils.flattenMatrix(P).x(10000), // Projection matrix is up to scale. this fator seems to affect the out come significantly
         Vector.Zero(tracks.length)
     );
 
@@ -113,6 +143,6 @@ module.exports.refineProjection = function(P, tracks){
  * @param {{ X: HomoPoint3D, x: HomoPoint2D }} pair
  * @returns {number}
  */
-module.exports.projectionError = function(P, pair){
+exports.projectionError = function(P, pair){
     return geoUtils.distHomo2D(P.x(pair.X), pair.x);
 };
