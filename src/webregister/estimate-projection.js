@@ -10,7 +10,8 @@ var lma      = require('../math/nonlinear.js').lma,
     cord     = require('../utils/cord.js'),
     laUtils  = require('../math/la-utils.js'),
     geoUtils = require('../math/geometry-utils.js'),
-    camUtils = require('../math/projections.js');
+    camUtils = require('../math/projections.js'),
+    decomp   = require('../math/matrix-decomposition.js');
 
 //==========================================================
 
@@ -41,7 +42,7 @@ exports.estP = function(tracks){
  *
  * @param {{ X: Vector, x: Vector }[]} tracks
  * @param {Camera} shape
- * @returns {Matrix}
+ * @returns {CameraParams}
  */
 exports.getRobustCameraParams = function(tracks, shape){
 
@@ -61,11 +62,28 @@ exports.getRobustCameraParams = function(tracks, shape){
     });
 
     var P = results.rel;
-
-    return exports.refineProjection(P, results.dataset);
+    return exports.paramsFromP(P);
+    //return exports.refineParams(params, results.dataset);
 
 };
 
+/**
+ * @param {Matrix} P
+ * @return {CameraParams}
+ */
+exports.paramsFromP = function(P){
+    var model = decomp.KRt(P),
+        K = model.K,
+        R = model.R,
+        t = model.t;
+    return {
+        r: geoUtils.getEulerAngles(R),
+        t: t.elements,
+        f: K.e(1,1),
+        px: K.e(1,3), py: K.e(2,3),
+        k1: 0, k2: 0
+    };
+};
 
 /**
  * Estimate projection matrix from imgCord/3dCord pairs
@@ -112,9 +130,9 @@ exports.refineParams = function(params, tracks){
             var P = camUtils.params2P(para);
             return Vector.create(tracks.map(function(track){
                 return exports.projectionError(P, track);
-            }))
+            }));
         },
-        camUtils.flattenCameraParams(params),
+        laUtils.toVector(camUtils.flattenCameraParams(params)),
         Vector.Zero(tracks.length)
     );
 

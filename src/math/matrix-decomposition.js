@@ -91,9 +91,11 @@ exports.KRt = function(P){
 
     var M = Matrix.create(numeric.getBlock(P.elements, [0,0], [2,2])),
         results = exports.RQ3d(M),
-        K = results.R,
+        tri = results.R,
+        ratio = 1/tri.e(3,3),
+        K = tri.x(ratio),
         R = results.Q,
-        t = K.inverse().x(P.col(4));
+        t = K.inverse().x(P.col(4).x(ratio));
 
     return { K: K, R: R, t: t };
 
