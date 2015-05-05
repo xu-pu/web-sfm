@@ -21,6 +21,11 @@ exports.register = function(tracks){
 
 };
 
+
+/**
+ * Incrementally recover the sparse structure (after init two-frame recovery)
+ * @param {RegisterContext} ctx
+ */
 exports.incremental = function(ctx){
 
     var cams = ctx.cams,
@@ -103,7 +108,12 @@ exports.incremental = function(ctx){
                 return memo;
             }, []));
             console.log('triangulate from ' + visByNewCams.length + ' candidates');
-            ctx.attemptTriangulation(_.intersection(ctx.tracksLeft, visByNewCams));
+            var newxs = ctx.attemptTriangulation(_.intersection(ctx.tracksLeft, visByNewCams));
+            ctx.adjust(newcams, newxs);
+
+            //====================
+            // Global Robust SBA
+            //====================
             ctx.robustAdjust();
 
         })();
@@ -272,6 +282,9 @@ RegisterContext.prototype.robustAdjust = function(cams, points){
         ctx.adjust(cams, inliers);
         filtered = findOutliers();
         inliers = _.difference(inliers, filtered);
+        if (inliers.length === 0) {
+            throw 'All tracks are removed as ouliers, something is wrong';
+        }
         outliers = outliers.concat(filtered);
         filtered.forEach(function(xi){ ctx.excludeTrack(xi); });
         console.log(filtered.length + ' outliers removed, ' + (inliers.length) + ' inliers left');
