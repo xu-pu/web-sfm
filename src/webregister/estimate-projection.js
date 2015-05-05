@@ -56,14 +56,14 @@ exports.getRobustCameraParams = function(tracks, shape){
         subset: PROJECTION_MINIMUM,
         relGenerator: exports.estimateProjection,
         errorGenerator: exports.projectionError,
-        outlierThreshold: 0.05,
+        outlierThreshold: 0.01,
         errorThreshold: 0.004*Math.max(shape.width, shape.height),
         trials: 1000
     });
 
-    var P = results.rel;
+    var inliers = results.dataset;
+    var P = exports.estimateProjection(inliers);
     return exports.paramsFromP(P);
-    //return exports.refineParams(params, results.dataset);
 
 };
 
