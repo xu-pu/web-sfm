@@ -156,7 +156,7 @@ exports.sparseLMA = function(func, x0, target, metadata){
     //testUtils.promiseSaveSparse('/home/sheep/Code/sparse-graph.jacobian.png', J);
     var initError = Math.pow(sigma.modulus(), 2), finalError = initError;
 
-    console.log('enter main lma loop with error ' + initError);
+    //console.log('enter main lma loop with error ' + initError);
 
     while (!done && stepCounter < MAX_STEPS) {
 
@@ -185,7 +185,7 @@ exports.sparseLMA = function(func, x0, target, metadata){
 
             // from p, try to find next step, if rejected, change damping and try again
 
-            console.log('try to find step ' + stepCounter + ' with damping ' + damp);
+            //console.log('try to find step ' + stepCounter + ' with damping ' + damp);
 
             N = A.add(SparseMatrix.I(xs).times(damp));
             deltaX = exports.solveHessian(N, g, cams, points);
@@ -206,10 +206,10 @@ exports.sparseLMA = function(func, x0, target, metadata){
             improvement = normBefore*normBefore - normAfter*normAfter;
             rho = improvement/(deltaX.x(damp).add(g).dot(deltaX));
 
-            console.log('new step calculated, new error ' + normAfter*normAfter + ', improved ' + improvement);
+            //console.log('new step calculated, new error ' + normAfter*normAfter + ', improved ' + improvement);
 
             if (improvement <= 0) {
-                console.log('no improvement, change damp and try again');
+                //console.log('no improvement, change damp and try again');
                 damp *= dampStep;
                 dampStep *= STEP_BASE;
             }
