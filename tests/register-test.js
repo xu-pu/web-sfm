@@ -350,90 +350,27 @@ console.log(_.values(ctx.visDict).map(function(l){ return l.length; }));
 
 var CAM_VIS_THRESHOLD = 0.75;
 
-function tryIncreamental(ci1, ci2){
+function tryIncreamental(cams){
 
     var sDict = cityhalldemo.sDict;
 
     var ctx = new RegisterContext(require(TRACKS_PATH), sDict);
 
-    ctx.addCamera(ci1, getCityCamParams(ci1));
-    ctx.addCamera(ci2, getCityCamParams(ci2));
-    ctx.attemptTriangulation(_.union(ctx.visDict[ci1], ctx.visDict[ci2]));
-    console.log(_.keys(ctx.xDict).length);
+    cams.forEach(function(ci){
+        ctx.addCamera(ci, getCityCamParams(ci));
+    });
+    ctx.attemptTriangulation(_.union.apply(null, cams.map(function(ci){
+        return ctx.visDict[ci];
+    })));
+
+    console.log(_.keys(ctx.xDict).length + ' tracks triangulated initially');
     ctx.robustAdjust();
-    console.log(_.keys(ctx.xDict).length);
+    console.log(_.keys(ctx.xDict).length + ' robust point left after initial robust sba');
 
-    var camsLeft = _.difference(ctx.cams, _.keys(ctx.camDict).map(key2int));
-    var xs = _.keys(ctx.xDict).map(key2int);
-
-    var maxci, maxcount = -Infinity;
-    var resssdict = {};
-    camsLeft.forEach(function(ci){
-        var vislist = ctx.visDict[ci];
-        var visiables = _.intersection(xs, vislist);
-        var count = visiables.length;
-        if (count > maxcount) {
-            maxci = ci;
-            maxcount = count;
-        }
-        resssdict[ci] = visiables;
-    });
-
-    camsLeft.forEach(function(ci){
-        if (resssdict[ci].length < CAM_VIS_THRESHOLD*maxcount) {
-            delete resssdict[ci];
-        }
-    });
-
-    _.each(resssdict, function(value, key){
-        var ci  = key2int(key);
-        var shape = sDict[ci];
-        var cors = value.map(function(xi){
-            var X = ctx.xDict[xi];
-            var view = _.find(ctx.tracks[xi], function(view){
-                return view.cam === ci;
-            });
-            var x = cord.rc2x(view.point);
-            return { X: X, x: x };
-        });
-        var param = dlt.getRobustCameraParams(cors, shape);
-        console.log(param);
-        ctx.addCamera(ci, param);
-    });
-
-    var newcams = _.keys(resssdict).map(key2int);
-
-//    ctx.adjust(_.keys(resssdict).map(key2int), []);
-
-
-//    _.each(resssdict, function(value, key){
-//        var ci  = key2int(key);
-//        console.log(ctx.camDict[ci]);
-//    });
-
-    var visvis = _.union.apply(null, _.values(resssdict));
-    console.log(_.keys(resssdict));
-    console.log(visvis.length);
-
-    ctx.adjust(newcams, visvis);
-
-    _.each(resssdict, function(value, key){
-        var ci  = key2int(key);
-        console.log(ctx.camDict[ci]);
-    });
-
-    /*
-
-     ctx.robustAdjust();
-
-    _.each(resssdict, function(value, key){
-        var ci  = key2int(key);
-        console.log(ctx.camDict[ci]);
-    });
-*/
+    register.incremental(ctx);
 
 }
 
 function key2int(key){ return parseInt(key, 10); }
 
-tryIncreamental(0,1);
+tryIncreamental([0,1,2,3,4,5,6]);
