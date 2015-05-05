@@ -6,7 +6,7 @@ var camUtils = require('../math/projections.js'),
     shortcuts = require('../utils/shortcuts.js'),
     cord = require('../utils/cord.js'),
     triangulation = require('./triangulation.js'),
-    estP = require('./estimate-projection'),
+    dlt = require('./estimate-projection'),
     sba = require('./sparse-bundle-adjustment.js');
 
 var TRIANGULATION_CUTOFF = 0.2;
@@ -21,16 +21,16 @@ exports.register = function(tracks){
 
 };
 
-exports.incrementalRegistration = function(ctx, initCamDict){
+exports.incremental = function(ctx){
 
     var cams = ctx.cams,
+        tracks = ctx.tracks,
         xDict = ctx.xDict,
         cDict = ctx.camDict,
-        vDict = ctx.visDict;
+        vDict = ctx.visDict,
+        sDict = ctx.sDict;
 
     var isDone = false;
-
-    ctx.addCameraDict(initCamDict);
 
     while (!isDone) {
         (function(){
@@ -44,7 +44,11 @@ exports.incrementalRegistration = function(ctx, initCamDict){
                 return;
             }
 
-            var dict = {};
+
+            //========================
+            // Find Camera Candidates
+            //========================
+            var candidateVisDict = {};
             var maxci, maxcount = 0;
             camsLeft.forEach(function(ci){
                 var visiables = _.intersection(xs, vDict[ci]);
@@ -53,7 +57,7 @@ exports.incrementalRegistration = function(ctx, initCamDict){
                     maxcount = count;
                     maxci = ci;
                 }
-                dict[ci] = visiables;
+                candidateVisDict[ci] = visiables;
             });
 
             if (maxcount < LEAST_TRACK_THRESHOLD) {
@@ -62,24 +66,44 @@ exports.incrementalRegistration = function(ctx, initCamDict){
             }
 
             camsLeft.forEach(function(ci){
-                if (dict[ci].length < CAM_VIS_THRESHOLD*maxcount) {
-                    delete dict[ci];
+                if (candidateVisDict[ci].length < CAM_VIS_THRESHOLD*maxcount) {
+                    delete candidateVisDict[ci];
                 }
             });
 
-            _.each(dict, function(value, key){
-                var ci = key2int(key);
 
+            //====================
+            // Recover Next Cams
+            //====================
+            _.each(candidateVisDict, function(value, key){
+                var ci = key2int(key);
+                var shape = sDict[ci];
+                var cors = value.map(function(xi){
+                    var X = ctx.xDict[xi];
+                    var view = _.find(tracks[xi], function(view){
+                        return view.cam === ci;
+                    });
+                    var x = cord.rc2x(view.point);
+                    return { X: X, x: x };
+                });
+                var param = dlt.getRobustCameraParams(cors, shape);
+                ctx.addCamera(ci, param);
             });
 
-            var newcams = _.keys(dict).map(key2int);
+            var newcams = _.keys(candidateVisDict).map(key2int);
+            var visiables = _.union.apply(null, _.values(candidateVisDict));
+            ctx.adjust(newcams, visiables);
 
-            ctx.robustAdjust(newcams, []);
 
-            var newxs = ctx.attemptTriangulation();
-
-            ctx.robustAdjust(newcams, newxs);
-
+            //====================
+            // Add new points
+            //====================
+            var visByNewCams = _.union.apply(null, newcams.reduce(function(memo, ci){
+                memo.push(vDict[ci]);
+                return memo;
+            }, []));
+            console.log('triangulate from ' + visByNewCams.length + ' candidates');
+            ctx.attemptTriangulation(_.intersection(ctx.tracksLeft, visByNewCams));
             ctx.robustAdjust();
 
         })();
@@ -250,8 +274,7 @@ RegisterContext.prototype.robustAdjust = function(cams, points){
         inliers = _.difference(inliers, filtered);
         outliers = outliers.concat(filtered);
         filtered.forEach(function(xi){ ctx.excludeTrack(xi); });
-        console.log(filtered);
-        console.log(filtered.length);
+        console.log(filtered.length + ' outliers removed, ' + (inliers.length) + ' inliers left');
 
     } while (filtered.length>0);
 
@@ -302,8 +325,8 @@ RegisterContext.prototype.robustAdjust = function(cams, points){
 
             var threshold = clamp(2.4*d80, 4, 16);
 
-            console.log('d80: ' + d80);
-            console.log('thresh: ' + threshold);
+            //console.log('d80: ' + d80);
+            //console.log('thresh: ' + threshold);
 
             return errorl.reduce(function(memo, entry){
                 if (entry.error >= threshold) {
