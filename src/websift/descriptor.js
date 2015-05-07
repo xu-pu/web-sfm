@@ -10,20 +10,23 @@ var shortcuts = require('../utils/shortcuts.js'),
     settings = require('./settings.js');
 
 var EPSILON = settings.EPSILON,
-    NBP = settings.DESCRIPTOR_WIDTH,
-             NBO = settings.DESCRIPTOR_BINS,
-          LENGTH = settings.DESCRIPTOR_LENGTH,
-      INIT_SIGMA = settings.SIGMA_0,
-       INTERVALS = settings.INTERVALS,
+        NBP = settings.DESCRIPTOR_WIDTH,
+        NBO = settings.DESCRIPTOR_BINS,
+       HNBP = NBP/2,
+    W_SIGMA = NBP/2,
+     LENGTH = settings.DESCRIPTOR_LENGTH,
+    INIT_SIGMA = settings.SIGMA_0,
+    INTERVALS = settings.INTERVALS,
     MAGNIF = settings.DESCRIPTOR_SCALE_FACTOR,
-         MAG_CAP = settings.DESCRIPTOR_MAG_CAP,
-      INT_FACTOR = settings.DESCRIPTOR_INT_FACTOR,
-       ENTRY_CAP = settings.DESCRIPTOR_ENTRY_CAP;
+    MAG_CAP = settings.DESCRIPTOR_MAG_CAP,
+    INT_FACTOR = settings.DESCRIPTOR_INT_FACTOR,
+    ENTRY_CAP = settings.DESCRIPTOR_ENTRY_CAP;
 
 var PI = Math.PI,
     PI2 = PI * 2,
     round = Math.round,
-    sqrt = Math.sqrt;
+    sqrt = Math.sqrt,
+    abs = Math.abs;
 
 
 //===============================================================
@@ -34,44 +37,92 @@ var PI = Math.PI,
  * @param {OrientedFeature} f
  * @returns {Feature}
  */
-module.exports.getDescriptor = function(scales, f){
+exports.descriptor = function(scales, f){
 
     console.log('Enter descriptor');
 
     var       row = f.row,
               col = f.col,
-                r = Math.round(row),
-                c = Math.round(col),
-            layer = f.layer,
-         referOri = f.orientation,
-        sigma = INIT_SIGMA * Math.pow(2, f.scale/INTERVALS),
-//           factor = INIT_SIGMA * Math.pow(2, f.layer/INTERVALS),
-//        histWidth = factor * MAGNIF,
-//           radius = Math.round(histWidth * (NBP+1) * Math.sqrt(2) / 2 + 0.5),
+             rint = Math.round(row),
+             cint = Math.round(col),
+              ori = f.orientation,
+            sigma = INIT_SIGMA * Math.pow(2, f.scale/INTERVALS),
              hist = shortcuts.zeros(LENGTH),
-        SBP = MAGNIF * sigma,
-        radius = round( sqrt(2) * SBP * (NBP+1) / 2),
-        weight = kernels.getGuassian2d(NBP);
+              SBP = MAGNIF * sigma,
+           radius = round(SBP*(NBP+1)*sqrt(2)/2);
 
-    var colCursor, rowCursor;
-    for (colCursor=-radius; colCursor<=radius; colCursor++) {
-        for (rowCursor=-radius; rowCursor<=radius; rowCursor++) {
-            (function(){
-                var gra = scales.getGradient(c+colCursor, r+rowCursor, layer);
-                if (gra) {
-                    var cor = toLocalCord(colCursor, rowCursor);
-                    var mag = gra.mag * weight(cor.x, cor.y);
-                    var ori = gra.ori - referOri;
-                    ori = ori < 0 ? ori+PI2 : ori;
-                    ori = ori >= PI2 ? ori-PI2 : ori;
+    var width, height;
 
-                    var binRow = cor.y + NBP/2 - 0.5,
-                        binCol = cor.x + NBP/2 - 0.5,
-                        bin = NBO*ori/PI2;
+    function addToHist(bx, by, bo, v){
+        var offset = (bx * NBP + by) * NBO + bo;
+        hist[offset] += v;
+    }
 
-                    interpHist(hist, mag, binRow, binCol, bin);
+    var st0 = Math.sin(ori),
+        ct0 = Math.cos(ori);
+
+    var pixRowLB = Math.max(-radius, -rint),       // >=
+        pixRowUB = Math.min( radius, height-rint), // <
+        pixColLB = Math.max(-radius, -cint),       // >=
+        pixColRB = Math.min( radius, width-cint);  // <
+
+    var iterpixMag, iterpixOri, iterpixW,
+        iterpixRow, iterpixCol,
+        iterpixBX, iterpixBY, iterpixBO,
+        iterpixBXint, iterpixBYint, iterpixBOint,
+        iterpixBXfloat, iterpixBYfloat, iterpixBOfloat;
+
+    var iterblockDX, iterblockDY, iterblockDO,
+        iterblockX, iterblockY, iterblockO, iterblockV;
+
+    var dc, dr, dx, dy;
+    for (dc=pixColLB; dc<pixColRB; dc++) {
+        for (dr=pixRowLB; dr<pixRowUB; dr++) {
+
+            dx = cint+dc-col;
+            dy = rint+dr-row;
+            iterpixW = Math.exp((dx*dx+dy*dy)/(2*W_SIGMA*W_SIGMA));
+            iterpixRow = rint + dr;
+            iterpixCol = cint + dc;
+            iterpixMag = gradient.get(iterpixCol, iterpixRow, 0) * iterpixW;
+            iterpixOri = gradient.get(iterpixCol, iterpixRow, 1) - ori;
+
+
+            iterpixBX = ( ct0*dx + st0*dy)/SBP - 0.5; // blockX [-1.5, -0.5, 0.5, 1.5] -> [-2 -1 0 1]
+            iterpixBY = (-st0*dx + ct0*dy)/SBP - 0.5; // blockY [-1.5, -0.5, 0.5, 1.5] -> [-2 -1 0 1]
+            iterpixBO = NBO*iterpixOri/PI2;
+
+            iterpixBXint = Math.floor(iterpixBX);
+            iterpixBYint = Math.floor(iterpixBY);
+            iterpixBOint = Math.floor(iterpixBO);
+
+            iterpixBXfloat = iterpixBX-iterpixBXint;
+            iterpixBYfloat = iterpixBY-iterpixBYint;
+            iterpixBOfloat = iterpixBO-iterpixBOint;
+
+            for (iterblockDX=0; iterblockDX<2; iterblockDX++) {
+                for (iterblockDY=0; iterblockDY<2; iterblockDY++) {
+                    for (iterblockDO=0; iterblockDO<2; iterblockDO++) {
+
+                        iterblockX = iterpixBXint+iterblockDX;
+                        iterblockY = iterpixBYint+iterblockDY;
+                        iterblockO = (iterpixBOint+iterblockDO)%NBO;
+
+                        if (iterblockX >= -HNBP && iterblockX < HNBP && iterblockY >= -HNBP && iterblockY < HNBP) {
+
+                            iterblockV = iterpixMag *
+                            abs(1-iterblockDX-iterpixBXfloat) *
+                            abs(1-iterblockDY-iterpixBYfloat) *
+                            abs(1-iterblockDO-iterpixBOfloat);
+
+                            addToHist(iterblockX, iterblockY, iterblockO, iterblockV);
+
+                        }
+
+                    }
                 }
-            })();
+            }
+
         }
     }
 
@@ -80,22 +131,6 @@ module.exports.getDescriptor = function(scales, f){
         col: col,
         vector: hist2vector(hist)
     };
-
-
-    /**
-     *
-     * @param x
-     * @param y
-     * @returns {XY}
-     */
-    function toLocalCord(x, y){
-        var cost = Math.cos(referOri),
-            sint = Math.sin(referOri);
-        return {
-            x: (cost * x - sint * y) / histWidth,
-            y: (sint * x + cost * y) / histWidth
-        };
-    }
 
 };
 
