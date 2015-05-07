@@ -34,9 +34,9 @@ var PI = Math.PI,
 /**
  * @param  buffer - ndarray[width,height,2] of gradient
  * @param {OrientedFeature} f
- * @returns {Feature}
+ * @returns {int[]}
  */
-exports.descriptor = function(buffer, f){
+exports.getVector = function(buffer, f){
 
     console.log('Enter descriptor');
 
@@ -46,7 +46,7 @@ exports.descriptor = function(buffer, f){
         cint = round(col),
         ori = f.orientation,
         sigma = INIT_SIGMA * Math.pow(2, f.scale/INTERVALS),
-        SBP = MAGNIF*sigma*EPSILON,
+        SBP = MAGNIF * sigma + EPSILON,
         radius = round(SBP*(NBP+1)*sqrt(2)/2),
         shape = buffer.shape,
         width = shape[0],
@@ -61,6 +61,8 @@ exports.descriptor = function(buffer, f){
      * @param {number} v
      */
     function addToHist(bx, by, bo, v){
+        bx = bx+2;
+        by = by+2;
         var offset = (bx * NBP + by) * NBO + bo;
         hist[offset] += v;
     }
@@ -81,13 +83,15 @@ exports.descriptor = function(buffer, f){
     var iterblockDX, iterblockDY, iterblockDO,
         iterblockX, iterblockY, iterblockO, iterblockV;
 
+    var WEIGHT_FACTOR = 2*W_SIGMA*W_SIGMA*SBP*SBP;
+
     var dc, dr, dx, dy;
     for (dc=pixColLB; dc<pixColRB; dc++) {
         for (dr=pixRowLB; dr<pixRowUB; dr++) {
 
             dx = cint+dc-col;
             dy = rint+dr-row;
-            iterpixWei = Math.exp((dx*dx+dy*dy)/(2*W_SIGMA*W_SIGMA));
+            iterpixWei = Math.exp((dx*dx+dy*dy)/WEIGHT_FACTOR);
             iterpixRow = rint + dr;
             iterpixCol = cint + dc;
             iterpixMag = buffer.get(iterpixCol, iterpixRow, 0) * iterpixWei;
@@ -131,11 +135,7 @@ exports.descriptor = function(buffer, f){
         }
     }
 
-    return {
-        row: row,
-        col: col,
-        vector: exports.hist2vector(hist)
-    };
+    return exports.hist2vector(hist);
 
 };
 
