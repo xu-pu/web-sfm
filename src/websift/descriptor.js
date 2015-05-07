@@ -135,83 +135,29 @@ exports.descriptor = function(scales, f){
     return {
         row: row,
         col: col,
-        vector: hist2vector(hist)
+        vector: exports.hist2vector(hist)
     };
 
 };
-
-
-function interpHist(hist, mag, binRow, binCol, binOri){
-
-    var intR = Math.floor(binRow),
-        intC = Math.floor(binCol),
-        intO = Math.floor(binOri),
-        fraR = binRow - intR,
-        fraC = binCol - intC,
-        fraO = binOri - intO;
-
-    [0,1].forEach(function(offsetR){
-
-        var row = intR + offsetR,
-            weighted = mag;
-
-        if (row < 0 || row >= NBP) {
-            return;
-        }
-
-        weighted *= ( offsetR === 0 ? 1-fraR : fraR );
-
-        [0,1].forEach(function(offsetC){
-
-            var col = intC + offsetC;
-
-            if (col < 0 || col >= NBP) {
-                return;
-            }
-
-            weighted *= ( offsetC === 0 ? 1-fraC : fraC );
-
-            [0,1].forEach(function(offsetO){
-
-                var ori = (intO + offsetO) % NBO;
-
-                weighted *= ( offsetO === 0 ? 1-fraO : fraO );
-
-                hist[(NBP*row+col)*NBO+ori] += weighted;
-
-            });
-
-        });
-
-    });
-
-
-}
 
 
 /**
  * @param {number[]} hist
  * @returns {int[]}
  */
-function hist2vector(hist){
+exports.hist2vector = function(hist){
 
-//    console.log(hist);
+    var normed1 = normalize(hist);
 
-    hist = normalize(hist);
-
-//    console.log(hist);
-
-    hist = hist.map(function(entry){
+    var clamped = normed1.map(function(entry){
         return Math.min(MAG_CAP, entry);
     });
 
-    hist = normalize(hist);
+    var normed2 = normalize(clamped);
 
-    hist = hist.map(function(entry){
+    return normed2.map(function(entry){
         return Math.min(ENTRY_CAP, round(entry*INT_FACTOR));
     });
-
-    return hist;
 
     function normalize(a){
         var ind, cursor, memo = 0;
@@ -225,4 +171,4 @@ function hist2vector(hist){
         });
     }
 
-}
+};
