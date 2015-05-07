@@ -13,7 +13,7 @@ var EPSILON = settings.EPSILON,
     NBO = settings.DESCRIPTOR_BINS,
     HNBP = NBP/2,
     W_SIGMA = NBP/2,
-     LENGTH = settings.DESCRIPTOR_LENGTH,
+    LENGTH = settings.DESCRIPTOR_LENGTH,
     INIT_SIGMA = settings.SIGMA_0,
     INTERVALS = settings.INTERVALS,
     MAGNIF = settings.DESCRIPTOR_SCALE_FACTOR,
@@ -46,11 +46,14 @@ exports.descriptor = function(scales, f){
         cint = round(col),
         ori = f.orientation,
         sigma = INIT_SIGMA * Math.pow(2, f.scale/INTERVALS),
-        hist = shortcuts.zeros(LENGTH),
         SBP = MAGNIF * sigma,
-        radius = round(SBP*(NBP+1)*sqrt(2)/2);
+        radius = round(SBP*(NBP+1)*sqrt(2)/2),
+        gradient = scales.gradientCache[f.layer-1],
+        shape = gradient.shape,
+        width = shape[0],
+        height = shape[1];
 
-    var width, height;
+    var hist = shortcuts.zeros(LENGTH);
 
     /**
      * @param {int} bx
