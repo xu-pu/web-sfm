@@ -32,11 +32,11 @@ var PI = Math.PI,
 
 
 /**
- * @param {GuassianPyramid} scales
+ * @param  buffer - ndarray[width,height,2] of gradient
  * @param {OrientedFeature} f
  * @returns {Feature}
  */
-exports.descriptor = function(scales, f){
+exports.descriptor = function(buffer, f){
 
     console.log('Enter descriptor');
 
@@ -46,10 +46,9 @@ exports.descriptor = function(scales, f){
         cint = round(col),
         ori = f.orientation,
         sigma = INIT_SIGMA * Math.pow(2, f.scale/INTERVALS),
-        SBP = MAGNIF * sigma,
+        SBP = MAGNIF*sigma*EPSILON,
         radius = round(SBP*(NBP+1)*sqrt(2)/2),
-        gradient = scales.gradientCache[f.layer-1],
-        shape = gradient.shape,
+        shape = buffer.shape,
         width = shape[0],
         height = shape[1];
 
@@ -91,8 +90,8 @@ exports.descriptor = function(scales, f){
             iterpixWei = Math.exp((dx*dx+dy*dy)/(2*W_SIGMA*W_SIGMA));
             iterpixRow = rint + dr;
             iterpixCol = cint + dc;
-            iterpixMag = gradient.get(iterpixCol, iterpixRow, 0) * iterpixWei;
-            iterpixOri = gradient.get(iterpixCol, iterpixRow, 1) - ori;
+            iterpixMag = buffer.get(iterpixCol, iterpixRow, 0) * iterpixWei;
+            iterpixOri = buffer.get(iterpixCol, iterpixRow, 1) - ori;
 
             iterpixBX = ( ct0*dx + st0*dy)/SBP - 0.5; // blockX [-1.5, -0.5, 0.5, 1.5] -> [-2 -1 0 1]
             iterpixBY = (-st0*dx + ct0*dy)/SBP - 0.5; // blockY [-1.5, -0.5, 0.5, 1.5] -> [-2 -1 0 1]
