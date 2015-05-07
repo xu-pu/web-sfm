@@ -159,14 +159,16 @@ exports.hist2vector = function(hist){
         return Math.min(ENTRY_CAP, round(entry*INT_FACTOR));
     });
 
-    function normalize(a){
-        var ind, cursor, memo = 0;
-        for(ind=0; ind<a.length; ind++){
-            cursor = a[ind];
-            memo += cursor*cursor;
-        }
-        var norm = Math.sqrt(memo);
-        return a.map(function(e){
+    /**
+     *
+     * @param {number[]} arr
+     * @returns {number[]}
+     */
+    function normalize(arr){
+        var norm = sqrt(arr.reduce(function(memo, v){
+            return memo + v*v;
+        }, 0));
+        return arr.map(function(e){
             return e/norm;
         });
     }
