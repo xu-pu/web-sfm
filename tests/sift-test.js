@@ -23,6 +23,31 @@ var smallComet = 'Colour_image_of_comet.jpg',
     smallpic = '/home/sheep/Code/Project/web-sfm/tests/images/ibzi0xiqN0on8v.jpg';
 
 
+function vectorTest(){
+
+    var lena = imgUtils.rgb2gray(require('lena'));
+    var lenaG = siftUtils.cacheGradient(lena);
+    var width = lena.shape[0];
+    var height = lena.shape[1];
+    /** @type OrientedFeature */
+    var f = {
+        row: height*Math.random(),
+        col: width*Math.random(),
+        octave: 0,
+        scale: 3,
+        layer: 1,
+        orientation: 1
+    };
+
+    var v = descriptor.getVector(lenaG, f);
+
+    console.log(v.join(','));
+
+
+}
+
+vectorTest();
+
 function orientationTest(){
     var lena = imgUtils.rgb2gray(require('lena'));
     var gradient = siftUtils.cacheGradient(lena);
@@ -31,7 +56,7 @@ function orientationTest(){
     console.log(directions);
 }
 
-orientationTest();
+//orientationTest();
 
 function descroptorTest(){
     var lena = imgUtils.rgb2gray(require('lena'));
