@@ -6,13 +6,12 @@ var _ = require('underscore'),
     Vector = la.Vector;
 
 var shortcuts = require('../utils/shortcuts.js'),
-    kernels = require('../math/kernels.js'),
     settings = require('./settings.js');
 
 var EPSILON = settings.EPSILON,
-        NBP = settings.DESCRIPTOR_WIDTH,
-        NBO = settings.DESCRIPTOR_BINS,
-       HNBP = NBP/2,
+    NBP = settings.DESCRIPTOR_WIDTH,
+    NBO = settings.DESCRIPTOR_BINS,
+    HNBP = NBP/2,
     W_SIGMA = NBP/2,
      LENGTH = settings.DESCRIPTOR_LENGTH,
     INIT_SIGMA = settings.SIGMA_0,
@@ -41,18 +40,24 @@ exports.descriptor = function(scales, f){
 
     console.log('Enter descriptor');
 
-    var       row = f.row,
-              col = f.col,
-             rint = Math.round(row),
-             cint = Math.round(col),
-              ori = f.orientation,
-            sigma = INIT_SIGMA * Math.pow(2, f.scale/INTERVALS),
-             hist = shortcuts.zeros(LENGTH),
-              SBP = MAGNIF * sigma,
-           radius = round(SBP*(NBP+1)*sqrt(2)/2);
+    var row = f.row,
+        col = f.col,
+        rint = round(row),
+        cint = round(col),
+        ori = f.orientation,
+        sigma = INIT_SIGMA * Math.pow(2, f.scale/INTERVALS),
+        hist = shortcuts.zeros(LENGTH),
+        SBP = MAGNIF * sigma,
+        radius = round(SBP*(NBP+1)*sqrt(2)/2);
 
     var width, height;
 
+    /**
+     * @param {int} bx
+     * @param {int} by
+     * @param {int} bo
+     * @param {number} v
+     */
     function addToHist(bx, by, bo, v){
         var offset = (bx * NBP + by) * NBO + bo;
         hist[offset] += v;
@@ -66,8 +71,7 @@ exports.descriptor = function(scales, f){
         pixColLB = Math.max(-radius, -cint),       // >=
         pixColRB = Math.min( radius, width-cint);  // <
 
-    var iterpixMag, iterpixOri, iterpixW,
-        iterpixRow, iterpixCol,
+    var iterpixMag, iterpixOri, iterpixWei, iterpixRow, iterpixCol,
         iterpixBX, iterpixBY, iterpixBO,
         iterpixBXint, iterpixBYint, iterpixBOint,
         iterpixBXfloat, iterpixBYfloat, iterpixBOfloat;
@@ -81,12 +85,11 @@ exports.descriptor = function(scales, f){
 
             dx = cint+dc-col;
             dy = rint+dr-row;
-            iterpixW = Math.exp((dx*dx+dy*dy)/(2*W_SIGMA*W_SIGMA));
+            iterpixWei = Math.exp((dx*dx+dy*dy)/(2*W_SIGMA*W_SIGMA));
             iterpixRow = rint + dr;
             iterpixCol = cint + dc;
-            iterpixMag = gradient.get(iterpixCol, iterpixRow, 0) * iterpixW;
+            iterpixMag = gradient.get(iterpixCol, iterpixRow, 0) * iterpixWei;
             iterpixOri = gradient.get(iterpixCol, iterpixRow, 1) - ori;
-
 
             iterpixBX = ( ct0*dx + st0*dy)/SBP - 0.5; // blockX [-1.5, -0.5, 0.5, 1.5] -> [-2 -1 0 1]
             iterpixBY = (-st0*dx + ct0*dy)/SBP - 0.5; // blockY [-1.5, -0.5, 0.5, 1.5] -> [-2 -1 0 1]
@@ -202,7 +205,7 @@ function hist2vector(hist){
     hist = normalize(hist);
 
     hist = hist.map(function(entry){
-        return Math.min(ENTRY_CAP, Math.round(entry*INT_FACTOR));
+        return Math.min(ENTRY_CAP, round(entry*INT_FACTOR));
     });
 
     return hist;
