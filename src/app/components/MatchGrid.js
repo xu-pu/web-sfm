@@ -1,9 +1,10 @@
 'use strict';
 
-var GRID_SIZE_MAX = 2500,
-    GRID_SIZE_MIN = 500;
-
 module.exports = Ember.Component.extend({
+
+    images: null, // need
+
+    matches: null, // need
 
     tagName: 'div',
 
@@ -22,7 +23,21 @@ module.exports = Ember.Component.extend({
         });
     }.on('didInsertElement'),
 
+    gridsizeInit: function(){
+        return 2 * this.get('gridsizeMin');
+    }.property('gridsizeMin'),
+
+    gridsizeMax: function(){
+        return 100 * this.get('images.length');
+    }.property('images.length'),
+
+    gridsizeMin: function(){
+        return 30 * this.get('images.length');
+    }.property('images.length'),
+
     wheel: function(e){
+        var GRID_SIZE_MAX = this.get('gridsizeMax'),
+            GRID_SIZE_MIN = this.get('gridsizeMin');
         var $grid = jQuery('.match-grid__body'),
             currentSize = $grid.height(),
             speed = 0.02,

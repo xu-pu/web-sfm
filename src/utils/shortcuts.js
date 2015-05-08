@@ -36,3 +36,25 @@ exports.iterPairs = function(arr, callback){
     }
 
 };
+
+/**
+ *
+ * @param {int} s1
+ * @param {int} s2
+ * @param v - init value
+ */
+exports.array2d = function(s1, s2, v){
+
+    var arr = new Array(s1);
+
+    var cur1, cur2, curArr;
+    for (cur1=0; cur1<s1; cur1++) {
+        curArr = arr[cur1] = new Array(s2);
+        for (cur2=0; cur2<s2; cur2++) {
+            curArr[cur2] = v;
+        }
+    }
+
+    return arr;
+
+};

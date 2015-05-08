@@ -1,5 +1,9 @@
 'use strict';
 
+var _ = require('underscore');
+
+var shortcuts = require('../../utils/shortcuts.js');
+
 module.exports = Ember.Object.extend({
 
     images: [],
@@ -42,6 +46,44 @@ module.exports = Ember.Object.extend({
         return groups;
 
     }.property('robust.length'),
+
+    table: function(){
+
+        var connected = _.flatten(this.get('connectedGroups'));
+        var images = this.get('images');
+        var size = images.length;
+
+        var raw = this.get('raw');
+        var robust = this.get('robust');
+
+        var table = shortcuts.array2d(size, size, false);
+
+        shortcuts.iterPairs(connected, function(from, to){
+            table[from][to] = table[to][from] = true;
+        });
+
+        raw.forEach(function(entry){
+            var from = entry.from;
+            var to = entry.to;
+            var matches = entry.matches;
+            var node = {
+                raw: matches
+            };
+            table[from][to] = table[to][from] = node;
+        });
+
+        robust.forEach(function(entry){
+            var from = entry.from;
+            var to = entry.to;
+            var matches = entry.matches;
+            var fmatrix = entry.F;
+            table[from][to]['robust'] = table[to][from]['robust'] = matches;
+            table[from][to]['F'] = table[to][from]['F'] = fmatrix;
+        });
+
+        return table;
+
+    }.property('robust.length', 'raw.length', 'connectedGroups', 'images.length'),
 
     isMatched: function(from, to){
         return this.get('model').some(function(match){

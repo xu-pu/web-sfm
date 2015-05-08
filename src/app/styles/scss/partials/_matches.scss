@@ -1,6 +1,5 @@
-@import "../../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.1/stylesheets/compass";
+@import "compass";
 
-$default-grid-size: 55em;
 $grid-border-size: 10px;
 $grid-border-color: green;
 $matching-trace-color: orange;
@@ -15,8 +14,6 @@ $matching-trace-color: orange;
   margin: 1em;
   display: flex;
   @include flex-direction(column);
-  height: $default-grid-size;
-  width:  $default-grid-size;
   border: solid $grid-border-size/2 $grid-border-color;
 }
 

@@ -2,17 +2,11 @@
 
 module.exports = Ember.Component.extend({
 
-    grid: null, // need
-
-    matches: null, // need
-
-    hover: Ember.computed.alias('grid.hover'),
+    table: null, // need
 
     tagName: 'div',
 
-    classNames: ['match-grid__node'],
-
-//    classNameBindings: ['isDiag', 'isTrace', 'isHover', 'isConnected', 'isRobust'],
+    classNames: 'match-grid__node',
 
     classNameBindings: ['isDiag', 'isConnected', 'isRobust'],
 
@@ -20,13 +14,20 @@ module.exports = Ember.Component.extend({
 
     to: null,
 
+    data: function(){
+        var table = this.get('table');
+        var fromid = this.get('from.id');
+        var toid = this.get('to.id');
+        return table[fromid][toid];
+    }.property('table', 'from', 'to'),
+
     isConnected: function(){
-        return this.get('matches').isConnected(this.get('from.id'), this.get('to.id'));
-    }.property('matches', 'from', 'to'),
+        return !!this.get('data');
+    }.property('data'),
 
     isRobust: function(){
-        return this.get('matches').isRobust(this.get('from.id'), this.get('to.id'));
-    }.property('matches', 'from', 'to'),
+        return !!this.get('data.robust');
+    }.property('data'),
 
     isDiag: function(){
         return this.get('from') === this.get('to');
@@ -38,32 +39,4 @@ module.exports = Ember.Component.extend({
         }
     }
 
-    /*
-    mouseEnter: function(){
-        if (this.get('isDiag')) {
-            this.get('grid').set('hover', null);
-        }
-        else {
-            this.get('grid').set('hover', this);
-        }
-    },
-
-    isTrace: function(){
-        var hover = this.get('hover');
-        if (!!hover && !hover.get('isDiag') && this!=hover) {
-            return this.get('from') === hover.get('from') || this.get('to') === hover.get('to');
-        }
-        else {
-            return false;
-        }
-    }.property('hover'),
-
-    isFinished: function(){
-        return !this.get('isDiag') && this.get('controller.finished').indexOf(this.get('key')) !== -1;
-    }.property('controller.matches.length', 'from', 'to'),
-
-    isHover: function(){
-        return this === this.get('hover');
-    }.property('hover')
-*/
 });

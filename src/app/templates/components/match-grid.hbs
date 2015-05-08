@@ -1,4 +1,4 @@
-<div class="match-grid__body">
+<div class="match-grid__body" style="height: {{gridsizeInit}}px; width: {{gridsizeInit}}px;">
 
     <div class="match-grid__row">
 
@@ -32,7 +32,7 @@
 
             {{#each iTo in images}}
                 <div class="match-grid__cell">
-                    {{match-grid-node from=iFrom to=iTo grid=this matches=matches action="enter"}}
+                    {{match-grid-node from=iFrom to=iTo grid=this table=matches.table action="enter"}}
                 </div>
             {{/each}}
 
