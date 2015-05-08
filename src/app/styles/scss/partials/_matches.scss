@@ -5,9 +5,10 @@ $grid-border-color: green;
 $matching-trace-color: orange;
 
 
-.main-container__match-grid {
+.match-grid {
   width: 100%;
   height: 100%;
+  overflow: auto;
 }
 
 .match-grid__body {
@@ -81,10 +82,9 @@ $matching-trace-color: orange;
 
 }
 
-
-img.match-grid__thumbnail {
-  height: 100%;
-  width: 100%;
+.match-grid__cell.thumbnail {
+  background-size: cover;
+  background-position: 50%;
 }
 
 .floating-window__matching-pair__canvas-container {

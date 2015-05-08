@@ -11,9 +11,7 @@
         {{! ===================================================== }}
 
         {{#each imgTo in images}}
-            <div class="match-grid__cell">
-                <img class="match-grid__thumbnail" {{bind-attr src=imgTo.thumbnail}}>
-            </div>
+            <div class="match-grid__cell thumbnail" style="background-image: url('{{imgTo.thumbnail}}');"></div>
         {{/each}}
 
     </div>
@@ -26,9 +24,7 @@
 
         <div class="match-grid__row">
 
-            <div class="match-grid__cell">
-                <img class="match-grid__thumbnail" {{bind-attr src=iFrom.thumbnail}}>
-            </div>
+            <div class="match-grid__cell thumbnail" style="background-image: url('{{iFrom.thumbnail}}');"></div>
 
             {{#each iTo in images}}
                 <div class="match-grid__cell">

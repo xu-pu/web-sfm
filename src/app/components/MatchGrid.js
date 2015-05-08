@@ -8,7 +8,7 @@ module.exports = Ember.Component.extend({
 
     tagName: 'div',
 
-    classNames: ['main-container__match-grid'],
+    classNames: ['match-grid'],
 
     hover: null,
 
