@@ -2,7 +2,7 @@
 
 module.exports = Ember.Component.extend({
 
-    table: null, // need
+    data: null, // need
 
     tagName: 'div',
 
@@ -13,13 +13,6 @@ module.exports = Ember.Component.extend({
     from: null,
 
     to: null,
-
-    data: function(){
-        var table = this.get('table');
-        var fromid = this.get('from.id');
-        var toid = this.get('to.id');
-        return table[fromid][toid];
-    }.property('table', 'from', 'to'),
 
     isConnected: function(){
         return !!this.get('data');
@@ -35,7 +28,7 @@ module.exports = Ember.Component.extend({
 
     click: function(){
         if (this.get('isRobust')) {
-            this.sendAction('action', { from: this.get('from.id'), to: this.get('to.id') });
+            this.sendAction('action', { from: this.get('from'), to: this.get('to') });
         }
     }
 

@@ -62,11 +62,18 @@ module.exports = Ember.Object.extend({
             table[from][to] = table[to][from] = true;
         });
 
+        images.forEach(function(img){
+            var i = img.get('id');
+            table[i][i] = { isDiag: true, image: img };
+        });
+
         raw.forEach(function(entry){
             var from = entry.from;
             var to = entry.to;
             var matches = entry.matches;
             var node = {
+                from: from,
+                to: to,
                 raw: matches
             };
             table[from][to] = table[to][from] = node;

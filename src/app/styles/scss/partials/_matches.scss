@@ -85,6 +85,12 @@ $matching-trace-color: orange;
 .match-grid__cell.thumbnail {
   background-size: cover;
   background-position: 50%;
+
+  display: flex;
+  @include align-items(center);
+  @include justify-content(center);
+  color: white;
+
 }
 
 .floating-window__matching-pair__canvas-container {

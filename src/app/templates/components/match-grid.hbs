@@ -1,35 +1,31 @@
 <div class="match-grid__body" style="height: {{gridsizeInit}}px; width: {{gridsizeInit}}px;">
 
-    <div class="match-grid__row">
-
-        <div class="match-grid__cell">
-            <div class="match-grid__anchor"></div>
-        </div>
-
-        {{! ===================================================== }}
-        {{!                   Top Thumbnails                      }}
-        {{! ===================================================== }}
-
-        {{#each imgTo in images}}
-            <div class="match-grid__cell thumbnail" style="background-image: url('{{imgTo.thumbnail}}');"></div>
-        {{/each}}
-
-    </div>
-
-    {{#each iFrom in images}}
-
-    {{! ===================================================== }}
-    {{!                     Each Row                          }}
-    {{! ===================================================== }}
+    {{#each row in matches.table}}
 
         <div class="match-grid__row">
 
-            <div class="match-grid__cell thumbnail" style="background-image: url('{{iFrom.thumbnail}}');"></div>
+            {{#each node in row}}
 
-            {{#each iTo in images}}
-                <div class="match-grid__cell">
-                    {{match-grid-node from=iFrom to=iTo grid=this table=matches.table action="enter"}}
-                </div>
+                {{#if node}}
+
+                    {{#if node.isDiag}}
+                        <div class="match-grid__cell thumbnail" style="background-image: url('{{node.image.thumbnail}}')"></div>
+                    {{else if node.robust}}
+                        <div class="match-grid__cell">
+                            {{match-grid-node from=node.from to=node.to data=node action="enter"}}
+                        </div>
+                    {{else}}
+                        <div class="match-grid__cell">
+                            <div class="match-grid__node is-connected"></div>
+                        </div>
+                    {{/if}}
+
+                {{else}}
+                    <div class="match-grid__cell">
+                        <div class="match-grid__node"></div>
+                    </div>
+                {{/if}}
+
             {{/each}}
 
         </div>

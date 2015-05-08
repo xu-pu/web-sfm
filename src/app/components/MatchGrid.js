@@ -32,10 +32,11 @@ module.exports = Ember.Component.extend({
     }.property('images.length'),
 
     gridsizeMin: function(){
-        return 30 * this.get('images.length');
+        return 40 * this.get('images.length');
     }.property('images.length'),
 
     wheel: function(e){
+        e.preventDefault();
         var GRID_SIZE_MAX = this.get('gridsizeMax'),
             GRID_SIZE_MIN = this.get('gridsizeMin');
         var $grid = jQuery('.match-grid__body'),
