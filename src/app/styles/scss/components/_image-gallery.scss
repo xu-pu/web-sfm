@@ -27,6 +27,7 @@
   z-index: 1;
   background-size: cover;
   background-position: 50%;
+  cursor: pointer;
 
   display: flex;
   @include align-items(center);

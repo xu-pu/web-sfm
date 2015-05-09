@@ -1,0 +1,70 @@
+@import "compass";
+
+$grid-border-size: 10px;
+$grid-border-color: green;
+$matching-trace-color: orange;
+
+.match-grid {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.match-grid__body {
+  margin: 1em;
+  display: flex;
+  @include flex-direction(column);
+  border: solid $grid-border-size/2 $grid-border-color;
+}
+
+.match-grid__row {
+  @include flex(1 1 0);
+  display: flex;
+  @include flex-direction(row);
+}
+
+.match-grid__cell {
+  @include flex(1 1 0);
+  border: solid $grid-border-size/2 $grid-border-color;
+  position: relative;
+}
+
+
+.match-grid__node {
+
+  background-color: #ffffff;
+
+  &:hover {
+    border: 5px solid rgb(92, 181, 21);
+  }
+
+  &.is-trace, &.is-trace.is-diag {
+    border: 5px solid rgb(0, 203, 64);
+  }
+
+  &.is-connected {
+    background-color: greenyellow;
+  }
+
+  &.is-robust {
+    background-color: rgb(107, 192, 107);
+  }
+
+}
+
+.match-grid__node {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0; bottom: 0; left: 0; right: 0;
+}
+
+.match-grid__cell.thumbnail {
+  background-size: cover;
+  background-position: 50%;
+
+  display: flex;
+  @include align-items(center);
+  @include justify-content(center);
+  color: white;
+
+}
