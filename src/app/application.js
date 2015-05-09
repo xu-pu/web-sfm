@@ -92,6 +92,16 @@ App.VisualMatchingComponent = require('./components/VisualMatching.js');
 App.MatchModeTabComponent = require('./components/MatchModeTab.js');
 App.ImageGalleryComponent = require('./components/image-gallery.js');
 
+App.MessageTrayComponent = require('./components/message-tray.js');
+App.BasicMessageComponent = require('./components/basic-message.js');
+
+
+//=======================
+// Services
+//=======================
+
+App.MessagesService = require('./services/messgaes.js');
+
 //=======================
 // Resource Controllers
 //=======================

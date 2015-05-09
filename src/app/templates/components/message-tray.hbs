@@ -1,0 +1,10 @@
+<div class="message-tray__body">
+    <div class="message-tray__header">
+        {{queue.length}} notifications
+    </div>
+    <ul class="message-tray__queue">
+        {{#each message in queue}}
+            {{basic-message message=message}}
+        {{/each}}
+    </ul>
+</div>

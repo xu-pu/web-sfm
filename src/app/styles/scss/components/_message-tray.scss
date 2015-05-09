@@ -1,0 +1,61 @@
+@import "compass";
+
+.message-tray {
+  $gap: 1em;
+  position: fixed;
+  bottom: $gap;
+  left: $gap;
+  z-index: 100;
+}
+
+$message-min-size: 4em;
+$message-width: 20em;
+
+.message-tray__body {
+  @include box-shadow(0 0 5px 2px rgb(65, 65, 65));
+  background-color: rgb(218, 218, 218);
+}
+
+.message-tray__header {
+  height: 2em;
+  padding: 0.5em 1em;
+  display: flex;
+  @include align-items(center);
+}
+
+.message-tray__queue {
+
+  $half-gap: 0.5em/2;
+  padding: $half-gap;
+
+  > li {
+    margin: $half-gap;
+    width: $message-width;
+    min-height: $message-min-size;
+  }
+
+}
+
+
+.basic-message {
+
+  display: flex;
+
+}
+
+.basic-message__body {
+  @include flex(1 1 0);
+  background-color: white;
+  padding: 0.5em;
+}
+
+.basic-message__dismiss {
+
+  width: $message-min-size;
+  background-color: rgb(142, 142, 142);
+
+  &:hover {
+    background-color: wheat;
+  }
+
+}
