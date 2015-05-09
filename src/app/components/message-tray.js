@@ -6,6 +6,22 @@ module.exports = Ember.Component.extend({
 
     tagName: 'div',
 
-    classNames: 'message-tray'
+    classNames: 'message-tray',
+
+    expanded: true,
+
+    actions: {
+
+        expand: function(){
+            if (this.get('queue.length') > 0) {
+                this.set('expanded', true);
+            }
+        },
+
+        close: function(){
+            this.set('expanded', false);
+        }
+
+    }
 
 });

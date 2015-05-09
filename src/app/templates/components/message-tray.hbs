@@ -1,10 +1,19 @@
-<div class="message-tray__body">
-    <div class="message-tray__header">
-        {{queue.length}} notifications
-    </div>
-    <ul class="message-tray__queue">
-        {{#each message in queue}}
-            {{basic-message message=message}}
-        {{/each}}
-    </ul>
-</div>
+{{#if queue}}
+    {{#if expanded}}
+        <div class="message-tray__body">
+            <div class="message-tray__header">
+                <div class="message-tray__status">{{queue.length}} notifications</div>
+                <div class="message-tray__close"{{action "close"}}>&#x2715;</div>
+            </div>
+            <ul class="message-tray__queue">
+                {{#each message in queue}}
+                    {{basic-message message=message}}
+                {{/each}}
+            </ul>
+        </div>
+    {{else}}
+        <div class="message-tray__icon" {{action "expand"}}>
+            <span>!</span>
+        </div>
+    {{/if}}
+{{/if}}

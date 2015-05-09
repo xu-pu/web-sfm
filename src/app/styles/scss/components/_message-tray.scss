@@ -11,6 +11,33 @@
 $message-min-size: 4em;
 $message-width: 20em;
 
+.message-tray__icon {
+  @include transition(0.5s);
+  $radius: 2em;
+  width: $radius*2;
+  height: $radius*2;
+  @include border-radius($radius);
+  background-color: #000000;
+  display: flex;
+  @include align-items(center);
+  @include justify-content(center);
+  color: white;
+  cursor: pointer;
+
+  span {
+    font-family: "sans-serif";
+    font-size: 2em;
+    color: white;
+  }
+
+  &:hover {
+    @include box-shadow(0 0 10px 3px rgb(65, 65, 65));
+    background-color: white;
+    span { color: black; }
+  }
+
+}
+
 .message-tray__body {
   @include box-shadow(0 0 5px 2px rgb(65, 65, 65));
   background-color: rgb(218, 218, 218);
@@ -21,6 +48,14 @@ $message-width: 20em;
   padding: 0.5em 1em;
   display: flex;
   @include align-items(center);
+}
+
+.message-tray__status {
+  @include flex(1 0 0);
+}
+
+.message-tray__close {
+  cursor: pointer;
 }
 
 .message-tray__queue {
@@ -38,24 +73,25 @@ $message-width: 20em;
 
 
 .basic-message {
-
   display: flex;
-
+  background-color: white;
 }
 
 .basic-message__body {
   @include flex(1 1 0);
-  background-color: white;
   padding: 0.5em;
 }
 
 .basic-message__dismiss {
-
+  cursor: pointer;
+  @include transition(0.5s);
   width: $message-min-size;
-  background-color: rgb(142, 142, 142);
+  display: flex;
+  @include align-items(center);
+  @include justify-content(center);
 
   &:hover {
-    background-color: wheat;
+    background-color: rgb(142, 142, 142);
   }
 
 }
