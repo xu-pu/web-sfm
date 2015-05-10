@@ -2,7 +2,9 @@
 
 var _ = require('underscore');
 
-var STORES = require('../settings.js').STORES,
+var settings = require('../settings.js'),
+    STORES = settings.STORES,
+    RESOURCE = settings.RESOURCE,
     utils = require('../utils.js');
 
 module.exports = StorageAdapter;
@@ -38,7 +40,7 @@ StorageAdapter.prototype = {
         }
         else {
             return new Promise(function(resolve, reject){
-                var request = indexedDB.open(_self.project, 5);
+                var request = indexedDB.open(_self.project, 30);
                 request.onupgradeneeded = function(e){
                     console.log('upgrade');
                     _self.connection = e.target.result;
@@ -63,16 +65,29 @@ StorageAdapter.prototype = {
      */
     createStores: function(db){
         console.log('create');
-        if (!db.objectStoreNames.contains(STORES.IMAGES)) {
-            db.createObjectStore(STORES.IMAGES, { autoIncrement: true }) // image information
-                .createIndex('filename', 'filename', { unique: true });
+        if (!db.objectStoreNames.contains(RESOURCE.IMAGES)) {
+            db.createObjectStore(RESOURCE.IMAGES, { autoIncrement: true }) // image information
+                .createIndex('name', 'name', { unique: true });
 
         }
-        [   STORES.FEATURES,
-            STORES.FULLIMAGES,
-            STORES.THUMBNAILS,
-            STORES.MATCHES,
-            STORES.SINGLETONS
+        [
+//            STORES.FEATURES,
+//            STORES.FULLIMAGES,
+//            STORES.THUMBNAILS,
+//            STORES.MATCHES,
+//            STORES.SINGLETONS
+            RESOURCE.FEATURE_POINTS,
+            RESOURCE.FEATURE_VECTORS,
+            RESOURCE.SINGLETONS,
+//            RESOURCE.IMAGES,
+            RESOURCE.FULLIMAGES,
+            RESOURCE.ROBUST_MATCHES,
+            RESOURCE.RAW_MATCHES
+//            STORES.FULLIMAGES,
+//            STORES.THUMBNAILS,
+//            STORES.MATCHES,
+//            STORES.SINGLETONS
+
         ].forEach(function(name){
                 if (!db.objectStoreNames.contains(name)) {
                     db.createObjectStore(name);
@@ -105,20 +120,16 @@ StorageAdapter.prototype = {
                     height: img.height,
                     thumbnail: utils.getImageThumbnail(domimg)
                 };
-                return _self.promiseAddData(STORES.IMAGES, image);
+                return _self.promiseAddData(RESOURCE.IMAGES, image);
             })
             .then(function(newid){
                 //Ember.Logger.debug('id aquired');
                 image.id = newid;
-                return _self.promiseSetData(STORES.THUMBNAILS, image.id, image.thumbnail);
-            })
-            .then(function(){
-                //Ember.Logger.debug('thumbnail stored');
                 return utils.promiseFileBuffer(file);
             })
             .then(function(buffer){
                 //Ember.Logger.debug('ArrayBuffer Loaded');
-                return _self.promiseSetData(STORES.FULLIMAGES, image.id, buffer);
+                return _self.promiseSetData(RESOURCE.FULLIMAGES, image.id, buffer);
             })
             .then(function(){
                 //Ember.Logger.debug('One image imported');

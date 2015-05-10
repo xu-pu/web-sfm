@@ -6,6 +6,10 @@ var Image = require('../models/Image.js');
 
 module.exports = Ember.Component.extend({
 
+    adapter: null, //need
+
+    images: null, //need
+
     isActive: false,
 
     tagName: 'div',
@@ -31,12 +35,23 @@ module.exports = Ember.Component.extend({
     },
 
     drop: function(e){
-        this.set('isActive', false);
-        e.preventDefault();
         var files = e.dataTransfer.files,
-            _self = this;
+            adapter = this.get('adapter'),
+            images = this.get('images');
+
+        e.preventDefault();
+        this.set('isActive', false);
+
+        // files is array like, not an array,
         _.range(files.length).forEach(function(i){
-            _self.get('controller').importImageFile(files[i]);
+            var file = files[i];
+            console.log(file);
+            adapter
+                .processImageFile(file)
+                .then(function(data){
+                    var image = Image.create(data);
+                    images.pushObject(image);
+                });
         });
     }
 

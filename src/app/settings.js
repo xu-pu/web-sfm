@@ -19,7 +19,8 @@ module.exports.RESOURCE = {
     SPARSE_POINTS: '/calibration/sparse.points',
     SPARSE_COLORS: '/calibration/sparse.colors',
     MVS_POINTS: '/mvs/surfels.points',
-    MVS_COLORS: '/mvs/surfels.colors'
+    MVS_COLORS: '/mvs/surfels.colors',
+    SINGLETONS: 'singletons'
 };
 
 //==========================================
