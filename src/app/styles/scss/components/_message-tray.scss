@@ -3,7 +3,7 @@
 .message-tray {
   $gap: 1em;
   position: fixed;
-  bottom: $gap;
+  top: $gap;
   left: $gap;
   z-index: 100;
 }
@@ -17,7 +17,7 @@ $message-width: 20em;
   width: $radius*2;
   height: $radius*2;
   @include border-radius($radius);
-  background-color: #000000;
+  background-color: rgba(0,0,0,0.5);
   display: flex;
   @include align-items(center);
   @include justify-content(center);
@@ -58,6 +58,9 @@ $message-width: 20em;
 
 .message-tray__status {
   @include flex(1 0 0);
+  text-transform: uppercase;
+  font-weight: bold;
+  color: rgb(66, 66, 66);
 }
 
 .message-tray__close {
