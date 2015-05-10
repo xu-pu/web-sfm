@@ -114,14 +114,14 @@ StorageAdapter.prototype = {
                 }
             })
             .then(function(newid){
-                //Ember.Logger.debug('_id aquired');
+                //Ember.Logger.debug('id aquired');
                 if (id) {
-                    image._id = id;
+                    image.id = id;
                 }
                 else {
-                    image._id = newid;
+                    image.id = newid;
                 }
-                return _self.promiseSetData(STORES.THUMBNAILS, image._id, image.thumbnail);
+                return _self.promiseSetData(STORES.THUMBNAILS, image.id, image.thumbnail);
             })
             .then(function(){
                 //Ember.Logger.debug('thumbnail stored');
@@ -129,7 +129,7 @@ StorageAdapter.prototype = {
             })
             .then(function(buffer){
                 //Ember.Logger.debug('ArrayBuffer Loaded');
-                return _self.promiseSetData(STORES.FULLIMAGES, image._id, buffer);
+                return _self.promiseSetData(STORES.FULLIMAGES, image.id, buffer);
             })
             .then(function(){
                 //Ember.Logger.debug('One image imported');

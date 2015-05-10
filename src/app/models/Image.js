@@ -2,9 +2,9 @@
 
 module.exports = Ember.Object.extend({
 
-    file: null,
+    id: null,
 
-    _id: null,
+    file: null,
 
     thumbnail: null,
 
@@ -23,4 +23,3 @@ module.exports = Ember.Object.extend({
     }.property('width', 'height')
 
 });
-
