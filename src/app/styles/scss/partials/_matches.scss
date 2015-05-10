@@ -1,0 +1,20 @@
+@import "compass";
+
+.floating-window__matching-pair__canvas-container {
+  padding: 10px;
+}
+
+//===========================
+// Visual Mode Tabs
+//===========================
+
+.match-pair__visual-modes {
+  $margin: 1em;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.8);
+  position: absolute;
+  right: $margin;
+  top: $margin;
+  width: 10em;
+  @include box-shadow(0 0 10px 1px black);
+}

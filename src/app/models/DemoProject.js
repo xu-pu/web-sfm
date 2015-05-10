@@ -2,46 +2,39 @@
 
 var _ = require('underscore');
 
-var Project = require('./Project.js'),
-    sfmstore = require('../store/sfmstore.js');
+var settings = require('../settings.js'),
+    ENTRIES = settings.DEMO_ENTRY,
+    Project = require('./Project.js');
+
 
 module.exports = Project.extend({
 
-    storedProperties: [
-        'name',
-        'root',
-        'images',
+    // entries in the description
 
-        'hasSIFT',
-        'hasBundler',
-        'hasMVS',
+    isDemo: true,
 
-        'finishedImages',
-        'finishedSIFT',
-        'bundlerFinished',
-        'mvsFinished'
-    ],
+    availableResources: [],
 
     root: null,
 
-    finishedImages: [],
-    imagesFinished: function(){
-        return this.get('finishedImages.length') === this.get('images.length');
-    }.property('finishedImages.length'),
+    entries: [],
 
-    hasSIFT: false,
-    hasBundler: false,
-    hasMVS: false,
+    hasFeature: function(){
+        return this.get('entries').contains(ENTRIES.FEATURE);
+    }.property('entries'),
 
-    isDownloaded: function(){
-        return this.get('imagesFinished') &&
-            (!this.get('hasSIFT') || this.get('siftFinished')) &&
-            (!this.get('hasBundler') || this.get('bundlerFinished')) &&
-            (!this.get('hasMVS') || this.get('mvsFinished'));
-    }.property('imagesFinished', 'siftFinished','bundlerFinished','mvsFinished', 'hasSIFT','hasBundler','hasMVS'),
+    hasMatch: function(){
+        return this.get('entries').contains(ENTRIES.MATCH);
+    }.property('entries'),
 
-    syncLocalStorage: function(){
-        sfmstore.syncDemos();
-    }.observes('finishedImages.length','finishedSIFT.length','bundlerFinished','mvsFinished')
+    hasCalibration: function(){
+        return this.get('entries').contains(ENTRIES.CALIBRATION);
+    }.property('entries'),
+
+    hasMVS: function(){
+        return this.get('entries').contains(ENTRIES.MVS);
+    }.property('entries'),
+
+    images: null
 
 });

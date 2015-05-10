@@ -1,0 +1,27 @@
+@import "compass";
+
+#main-container__input-gallery-container {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 100%;
+  padding: 5px;
+}
+
+
+.main-container__input-gallery__input {
+  @include transition(background-color 0.25s);
+  background-color: rgb(228, 228, 228);
+  cursor: copy;
+
+  &:hover, &.is-active {
+    background-color: grey;
+  }
+
+  h1 {
+    line-height: 200px;
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+  }
+
+}

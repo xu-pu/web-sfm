@@ -4,8 +4,7 @@
     "proxy":"http://localhost:8087",
     "https-proxy":"http://localhost:8087",
     "dependencies": {
-        "ember": "latest",
-        "exifreader": "latest"
+        "ember": "1.11"
     },
     "devDependencies": {}
 }

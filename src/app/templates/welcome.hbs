@@ -1,0 +1,190 @@
+{{! ===================================================== }}
+{{!                    Indicator                          }}
+{{! ===================================================== }}
+
+
+<div class="welcome-screen__download-indicator">
+
+    {{#each task in scheduler.queue}}
+        <div class="welcome-screen__download-indicator__task">
+            <h1>{{task.name}}</h1>
+            {{#if task.hasProgress}}
+                <h2>{{task.fileSize}} {{task.progress}}%</h2>
+            {{/if}}
+        </div>
+    {{/each}}
+
+</div>
+
+
+{{! ===================================================== }}
+{{!                      Welcome                          }}
+{{! ===================================================== }}
+
+
+<div class="welcome-screen__header">
+    <div>
+        <h1>Welcome to WebSFM</h1>
+        <span>preview</span>
+    </div>
+</div>
+
+
+{{! ===================================================== }}
+{{!                      Projects                         }}
+{{! ===================================================== }}
+
+
+<div class="welcome-screen__projects-container">
+
+    <div class="welcome-screen__projects">
+        <ul>
+
+            <li class="welcome-screen__projects__item">
+                <div class="welcome-screen__projects__header">
+                    <h1>Projects</h1>
+                </div>
+            </li>
+
+            {{#each project in projects}}
+                <li class="welcome-screen__projects__item">
+                    {{project-thumbnail project=project ctx=ctx}}
+                </li>
+            {{/each}}
+
+            <li class="welcome-screen__projects__item">
+                {{project-creator ctx=ctx}}
+            </li>
+
+        </ul>
+
+    </div>
+
+</div>
+
+
+{{! ===================================================== }}
+{{!                   Demo Detail                         }}
+{{! ===================================================== }}
+
+
+<div class="welcome-screen__detail-container {{if isDetailClosed 'is-detail-closed'}}">
+    {{outlet}}
+</div>
+
+
+{{! ===================================================== }}
+{{!                        Demos                          }}
+{{! ===================================================== }}
+
+
+<div class="welcome-screen__demos-container">
+
+    <div class="welcome-screen__demos">
+        <ul>
+            <li class="welcome-screen__demos__item">
+                <div class="welcome-screen__demos__header">
+                    <h1>DEMOS</h1>
+                </div>
+            </li>
+            {{#each demo in demos}}
+                <li class="welcome-screen__demos__item">
+                    {{demo-thumbnail project=demo ctx=ctx}}
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+
+</div>
+
+
+{{! ===================================================== }}
+{{!                    Description                        }}
+{{! ===================================================== }}
+
+<div id="welcome-screen__sfm" class="welcome-screen__app-desc-row">
+
+    <img src="/assets/images/websfm.png"/>
+
+    <div>
+        <h1>Structure from Motion</h1>
+
+        <section>
+            TL;DR, Structure from Motion means turn a set of images into 3D model, WebSFM is an SFM system inside modern browser.
+        </section>
+
+        <section>
+            WebSFM is still under construction, mostly PMVS part.<br/>
+            I already implemented SIFT, balanced kd-tree, ANN search, eight-point algorithm, DLT, RANSAC, Levenberg-Marquardt algorithm, sparse bundle adjustment .etc in javascript.
+        </section>
+
+    </div>
+
+</div>
+
+<div id="welcome-screen__framework" class="welcome-screen__app-desc-row">
+
+    <div>
+        <h1>Framework</h1>
+
+        <section>
+            WebSFM uses Ember.js to construct its single page application (<em>application.js</em>).<br/>
+        </section>
+
+        <section>
+            All SFM related mathematical routines are written/tested through node.js, then browserify into a seperate <em>worker.js</em>,
+            which can be instantiated multiple times as multiple WebWorkers.
+            Then they are encapsulated inside asynchronous task requests, can be accessed through WebWorker messaging.
+        </section>
+
+    </div>
+
+    <img src="/assets/images/framework.png"/>
+
+</div>
+
+<div id="welcome-screen__data-model" class="welcome-screen__app-desc-row">
+    <img src="/assets/images/data.model.png"/>
+    <div>
+
+        <h1>Data Model</h1>
+
+        <section>
+            WebSFM needs to handle large mount of data inside the browser,
+            such as surfels and SIFT features. They can cost up to 10+ even 100+ MB in text or JSON form.<br/>
+            That's why WebSFM have a very organized way to handle those large data.
+        </section>
+
+        <section>
+            WebSFM uses ArrayBuffer as the underlying payload.<br/>
+            &nbsp; - For networking, it can be directly transfered through XMLHttpRequest as a native response type.<br/>
+            &nbsp; - For storage, ArrayBuffer is supported in all implementations of IndexedDB.<br/>
+            &nbsp; - For multi-threading, ArrayBuffer is a TransferableObject for WebWorkers.<br/>
+            Colors(Uint8) and Cordinates(Float32) are stored in its minimum form through TypedArray. No JSON or text involved, which also means no parsing required.
+        </section>
+
+        <section>
+            <em>With this approch, a point cloud of size 450,000 can be loaded and rendered instantaneously inside a browser, and only cost 6.8MB.</em>
+        </section>
+
+    </div>
+</div>
+
+<div id="welcome-screen__ptx" class="welcome-screen__app-desc-row">
+
+    <div>
+        <h1>I am PTX, hire me!</h1>
+
+        <section>
+            I am PTX, author of WebSFM, recent college graduate, Computer Science major, Applied Mathematics minor, looking for job.
+        </section>
+
+        <section>
+            More information about me on my <a href="http://ptx.localhost" target="_blank">homepage</a>.
+        </section>
+
+    </div>
+
+    <img src="/assets/images/ptx.png"/>
+
+</div>

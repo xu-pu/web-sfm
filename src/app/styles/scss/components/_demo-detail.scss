@@ -1,0 +1,132 @@
+@import "../../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.1/stylesheets/compass";
+@import "../utils";
+
+.welcome-screen__detail-container {
+  position: relative;
+  background-color: #ECE7E1;
+  overflow: hidden;
+
+  &.is-detail-closed {
+    height: 0;
+  }
+
+}
+
+.welcome-screen__detail-body {
+
+  @include transition(height 0.5s);
+  @include box-shadow(inset 0 0 20px 5px rgba(0, 0, 0, 0.49));
+  height: 0;
+  background-color: rgb(157, 157, 157);
+  overflow: hidden;
+  background-size: cover;
+  background-position: 50%;
+
+  &.is-expanded {
+    height: 30em;
+  }
+
+}
+
+
+.welcome-screen__detail__progress {
+  position: absolute;
+  box-sizing: border-box;
+  width: 25em;
+  right: 2em;
+  top: 0;
+  height: 30em;
+  padding: 2em;
+  background-color: rgba(29, 29, 29, 0.76);
+}
+
+
+.welcome-screen__detail__download-selections > li {
+  @include transition(background-color 0.5s);
+  display: block;
+  position: relative;
+  background-color: rgba(109, 109, 109, 0.72);
+  color: lightgray;
+  height: 3em;
+  margin-top: 10px;
+
+  h1 {
+    @extend %center-element-y;
+    font-family: Arvo;
+    left: 0.6em;
+    font-size: 1.5em;
+    height: 1em;
+    line-height: 1em;
+    vertical-align: middle;
+  }
+
+  &.not-avaliable {
+    cursor: not-allowed;
+    background-color: rgba(100, 29, 29, 0.76) !important;
+  }
+
+  &.is-selected {
+    border-left: solid 0.8em #9ddd9d;
+    background-color: rgba(151, 194, 151, 0.5);
+  }
+
+  &:hover {
+    background-color: rgba(151, 194, 151, 0.5);
+  }
+
+  &.is-selected.is-loaded {
+    background-color: rgba(73, 160, 73, 0.76);
+  }
+
+}
+
+
+.welcome-screen__detail__toggle {
+  @include border-radius(1em);
+  display: block;
+  position: absolute;
+  right: 1em;
+  top: 1em;
+  width: 2em;
+  height: 2em;
+  background-color: rgb(255, 118, 118);
+  z-index: 10;
+
+  &:hover {
+    @include box-shadow(0 0 6px 2px rgba(0, 0, 0, 0.49));
+  }
+
+}
+
+
+.welcome-screen__detail__download {
+  @include transition(background-color 0.5s);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2em;
+  height: 5em;
+  background-color: rgba(109, 109, 109, 0.72);
+  color: lightgray;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(73, 160, 73, 0.76) !important;
+  }
+
+  h1 {
+    @extend %center-element;
+    font-size: 2.5em;
+    height: 1em;
+    line-height: 1em;
+    vertical-align: middle;
+    font-family: Monoton;
+    color: rgb(157, 221, 157);
+    text-transform: uppercase;
+  }
+
+  &.is-ready {
+    background-color: rgba(151, 194, 151, 0.5);
+  }
+
+}

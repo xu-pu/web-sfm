@@ -1,0 +1,52 @@
+@import "compass";
+
+.image-gallery {
+  list-style: none;
+}
+
+.image-gallery__item {
+  display: inline-block;
+  vertical-align: top;
+  width: 200px;
+  height: 200px;
+  position: relative;
+  border: solid 0.4em rgb(187,187,187);
+  margin-bottom: 5px;
+}
+
+.image-gallery__thumbnail {
+  $hover-delta: -1.5em;
+  @include transition(box-shadow 0.25s);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  background: grey;
+  z-index: 1;
+  background-size: cover;
+  background-position: 50%;
+  cursor: pointer;
+
+  display: flex;
+  @include align-items(center);
+  @include justify-content(center);
+
+  span {
+    font-size: 5em;
+    font-family: Monoton;
+    color: white;
+    @include text-shadow(0 0 10px black);
+  }
+
+  &:hover {
+    @include box-shadow(0 0 20px 10px rgba(0, 0, 0, 0.75));
+    top: $hover-delta;
+    bottom: $hover-delta;
+    left: $hover-delta;
+    right: $hover-delta;
+    z-index: 2;
+  }
+
+}

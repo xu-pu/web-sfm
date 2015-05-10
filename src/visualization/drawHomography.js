@@ -6,26 +6,23 @@ var la = require('sylvester'),
     interp = require("ndarray-linear-interpolate").d2;
 
 
-var cord = require('../utils/cord.js'),
-    canvasUtils = require('../utils/canvas.js'),
-    testUtils = require('../utils/testing.js');
+var cord = require('../utils/cord.js');
 
 
 module.exports = function(image, H, ctx, offsetX, offsetY, ratio){
 
-    var width = image.shape[1],
-        height = image.shape[0],
+    var height = image.shape[1],
+        width = image.shape[0],
         rows = Math.floor(height*ratio),
         cols = Math.floor(width*ratio),
-        cam = { width: width, height: height },
         canvCam = { width: cols, height: rows },
         buffer = ctx.createImageData(cols, rows),
-        HH = H.inverse(),
         ratioTransform = Matrix.create([
             [1/ratio, 0      , 0],
             [0      , 1/ratio, 0],
             [0      , 0      , 1]
-        ]);
+        ]),
+        HH = H.inverse().x(ratioTransform);
 
     var row, col, color, cursor;
     for (row=0; row<rows; row++) {
@@ -42,12 +39,11 @@ module.exports = function(image, H, ctx, offsetX, offsetY, ratio){
     ctx.putImageData(buffer, offsetX, offsetY);
 
     function getPointColor(){
-        var p = Vector.create(cord.RCtoImg(row, col, canvCam)),
-            P = ratioTransform.x(p),
-            PP = HH.x(P),
-            sample = cord.img2RT(PP, height);
+        var p = Vector.create(cord.rc2img(row, col)),
+            P = HH.x(p),
+            sample = cord.img2RC(P);
         if (sample.row >=0 && sample.col >=0 && sample.row < height && sample.col < width) {
-            return interp(image, sample.row, sample.col);
+            return interp(image, sample.col, sample.row);
         }
         else {
             return 0;

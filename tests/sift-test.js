@@ -3,142 +3,154 @@
 var _ = require('underscore'),
     Promise = require('promise'),
     blur = require('ndarray-gaussian-filter'),
-    ops = require('ndarray-ops'),
-    pool = require('ndarray-scratch'),
-    convolve = require('ndarray-convolve'),
-    pack = require('ndarray-pack');
+    pool = require('ndarray-scratch');
 
-
-var samples = require('../src/utils/samples.js'),
+var imgUtils = require('../src/utils/image-conversion.js'),
+    samples = require('../src/utils/samples.js'),
+    visualUtils = require('../src/utils/testing.js'),
+    testUtils = require('../src/utils/test-utils.js'),
+    GuassianPyramid = require('../src/websift/guassian-pyramid.js'),
+    OctaveSpace = require('../src/websift/octave-space'),
+    detector = require('../src/websift/detector.js'),
+    orientation = require('../src/websift/orientation.js'),
+    descriptor = require('../src/websift/descriptor.js'),
     sift = require('../src/websift/websift.js'),
-    iterScales = require('../src/websift/dogspace.js'),
-    getGradient = require('../src/math/gradient.js'),
-    getOrientation = require('../src/websift/orientation.js'),
-    getGuassianKernel = require('../src/math/kernels.js').getGuassianKernel,
-    testUtils = require('../src/utils/testing.js'),
-    detect = require('../src/websift/detector.js'),
-    isNotEdge = require('../src/websift/edge-filter.js'),
-    kernels = require('../src/math/kernels.js');
+    siftUtils = require('../src/websift/utils.js');
 
 
-function testDetector(index, octave){
-    return samples
-        .promiseImage(index)
-        .then(function(img){
+var smallComet = 'Colour_image_of_comet.jpg',
+    bigComet = 'Comet_on_5_September_2014.jpg',
+    smallpic = '/home/sheep/Code/Project/web-sfm/tests/images/ibzi0xiqN0on8v.jpg';
 
-            var step = Math.pow(2, octave);
 
-            var layers = _.range(4).map(function(layer){
-                var k = Math.pow(2, 1/5),
-                    sigma = Math.pow(2, octave) * Math.pow(k, layer),
-                    buffer = pool.clone(img);
-                console.log('convoluting image with sigma ' + sigma);
-                var view = blur(buffer, sigma).step(step, step);
-                console.log('convoluting complete, resolution ' + view.shape[0] + '*' + view.shape[1]);
-//                testUtils.promiseSaveNdarray(buffer, '/home/sheep/Code/blur' + layer+ '.png');
-                return view;
-            });
+function vectorTest(){
 
-            console.log('gussians generated');
+    var lena = imgUtils.rgb2gray(require('lena'));
+    var lenaG = siftUtils.cacheGradient(lena);
+    var width = lena.shape[0];
+    var height = lena.shape[1];
+    /** @type OrientedFeature */
+    var f = {
+        row: height*Math.random(),
+        col: width*Math.random(),
+        octave: 0,
+        scale: 3,
+        layer: 1,
+        orientation: 1
+    };
 
-            var dogs = _.range(3).map(function(index){
-                var k = Math.pow(2, 1/5),
-                    sigma = Math.pow(k, index),
-                    buffer = pool.malloc(layers[0].shape);
-                ops.sub(buffer, layers[index+1], layers[index]);
-                return { img: buffer, sigma: sigma };
-            });
+    var v = descriptor.getVector(lenaG, f);
 
-            console.log('dogs generated');
+    console.log(v.join(','));
 
-            layers.forEach(function(buffer){
-                pool.free(buffer);
-            });
 
-            console.log('guassians released');
-
-            var filter = new PointFilter();
-
-            var contrast = 255 * 0.5 * 0.04 / 3;
-
-            var detected = [];
-
-            detect(dogs, contrast, function(space, row, col) {
-                var point = { row: row*step, col: col*step };
-                detected.push(point);
-                filter.check(space, row, col, step);
-            });
-
-            console.log('detection finished');
-
-            dogs.forEach(function(dog){
-                pool.free(dog.img);
-            });
-
-            console.log('dogs released');
-
-            Promise.all([
-                testUtils.promiseVisualPoints('/home/sheep/Code/sift-detected.png', index, detected),
-                testUtils.promiseVisualPoints('/home/sheep/Code/sift-filtered.png', index, filter.results),
-                testUtils.promiseVisualPoints('/home/sheep/Code/sift-edge.png', index, filter.edge)
-            ]);
-
-        });
 }
 
+vectorTest();
+
+function orientationTest(){
+    var lena = imgUtils.rgb2gray(require('lena'));
+    var gradient = siftUtils.cacheGradient(lena);
+    var f = { row: 400.6, col: 417.3, scale: 1, octave: 0, layer: 1 };
+    var directions = orientation.getOrientations(gradient, f);
+    console.log(directions);
+}
+
+//orientationTest();
+
+function descroptorTest(){
+    var lena = imgUtils.rgb2gray(require('lena'));
+    var scale = { img: lena, sigma: 1.6 };
+    var f = { row: 150.6, col: 301.3, octave: 0, layer: 1, orientation: 1 };
+    var des = descriptor.getDescriptor(scale, f);
+    console.log(des.vector);
+}
+
+//descroptorTest();
+
+
+function fulltest(img) {
+
+    sift.forEachDetected(img, function(scale, detectedF){
+        if (isNotEdge(scale, detectedF)) {
+            console.log('detected');
+        }
+    });
+
+}
+
+//fulltest(imgUtils.rgb2gray(require('lena')));
 
 function pyramidTest(index){
 
-    var filter = new PointFilter(),
-        contrast = 255 * 0.5 * 0.04 / 3,
-        detected = [];
+    var features = [],
+        all = [];
 
     samples
         .promiseImage(index)
         .then(function(img){
 
-            _.range(4).forEach(function(octave){
-                var step = Math.pow(2, octave);
-                iterScales(img, octave, function(dogs, o){
-                    detect(dogs, contrast, function(space, row, col) {
-                        var point = { row: row*step, col: col*step };
-                        detected.push(point);
-                        filter.check(space, row, col, step);
-                    });
-                });
+            sift.forEachDetected(img, function(scale, detectedF){
+                var factor = Math.pow(2, detectedF.octave);
+                var f = { row: factor*detectedF.row, col: factor*detectedF.col };
+                all.push(f);
+                if (isNotEdge(scale, detectedF)) {
+                    features.push(f);
+                    console.log('detected');
+                }
             });
 
             return Promise.all([
-                testUtils.promiseVisualPoints('/home/sheep/Code/sift-detected.png', index, detected),
-                testUtils.promiseVisualPoints('/home/sheep/Code/sift-filtered.png', index, filter.results),
-                testUtils.promiseVisualPoints('/home/sheep/Code/sift-edge.png', index, filter.edge)
+                visualUtils.promiseVisualPoints('/home/sheep/Code/sift.png', index, features),
+                visualUtils.promiseVisualPoints('/home/sheep/Code/sift-all.png', index, all)
             ]);
 
         });
 }
 
 
-/**
- * @constructor
- */
-function PointFilter(){
 
-    this.edge = [];
-    this.results = [];
+function testExternal(filePath){
 
-    this.check = function(space, row, col, step) {
-        var point = { row: row * step, col: col * step };
-        if (isNotEdge(space[1], row, col)) {
-            this.results.push(point);
-            console.log('Found one!');
-        }
-        else {
-            this.edge.push(point);
-            console.log('Did not pass edge filter');
-        }
-    };
+    var features = [];
+
+    testUtils.promiseImage(filePath)
+        .then(function(img){
+            sift.forEachDetected(img, function(scales, detectedF){
+                console.log('detected');
+                var factor = Math.pow(2, detectedF.octave),
+                    f = { row: factor*detectedF.row, col: factor*detectedF.col };
+                features.push(f);
+            });
+            return testUtils.promiseVisualPoints('/home/sheep/Code/sift.png', filePath, features);
+        });
 }
 
-testDetector(1, 1);
+function testGradient(path){
+    return testUtils.promiseImage(path)
+        .then(function(img){
+            var cache = siftUtils.cacheGradient(img),
+                width = img.shape[0],
+                height = img.shape[1],
+                buffer = pool.malloc([width, height]),
+                ratio = 1;
+            var r, c;
+            for (r=0; r<height; r++) {
+                for (c=0; c<width; c++) {
+                    buffer.set(c, r, ratio*cache.get(c, r, 0));
+                }
+            }
+            testUtils.promiseSaveNdarray('/home/sheep/Code/gradient.png', buffer);
+        });
+}
 
-//pyramidTest(1,0);
+
+//pyramidTest(10);
+//pyramidtest();
+//testExternal(samples.getImagePath(1));
+//testExternal('/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/images/000.png');
+//testExternal('/home/sheep/Downloads/comet-demo/' + smallComet);
+//testExternal('/home/sheep/Downloads/comet-demo/' + bigComet);
+//testExternal(smallpic);
+//testExternal(samples.getImagePath(3));
+//testGradient('/home/sheep/Downloads/comet-demo/' + smallComet);

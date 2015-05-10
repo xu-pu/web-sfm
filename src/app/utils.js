@@ -1,31 +1,61 @@
-//==================================================
+'use strict';
 
-module.exports.getLocalStorage = getLocalStorage;
-module.exports.setLocalStorage = setLocalStorage;
-module.exports.requireImageFile = requireImageFile;
-module.exports.requireJSON = requireJSON;
-module.exports.promiseJSON = promiseJSON;
-module.exports.promiseLoadImage = promiseLoadImage;
-module.exports.getImageThumbnail = getImageThumbnail;
-module.exports.promiseFileDataUrl = promiseFileDataUrl;
-module.exports.promiseFileBuffer = promiseFileBuffer;
-module.exports.promiseBufferImage = promiseBufferImage;
+var _ = require('underscore');
 
 //==================================================
 
-module.exports.promiseBlobJson = function(blob){
+
+/**
+ * @param {string} url
+ * @param {string} datatype
+ * @returns Promise
+ */
+module.exports.promiseDownload = function(url, datatype){
+    return new Promise(function(resolve, reject){
+        var request = new XMLHttpRequest();
+        request.open('GET', url);
+        request.onload = function(){
+            resolve(request.response);
+        };
+        request.onerror = reject;
+        request.ontimeout = reject;
+        request.onabort = reject;
+        request.responseType = datatype;
+        request.send();
+    });
+};
+
+
+/**
+ *
+ * @returns {number}
+ */
+module.exports.getUUID = function(){
+    return (new Date()).getTime();
+};
+
+
+/**
+ *
+ * @param {Blob} blob
+ * @returns {Promise}
+ */
+module.exports.promiseBlob = function(blob){
     return new Promise(function(resolve, reject){
         var reader = new FileReader();
         reader.onload = function(){
-            resolve(JSON.parse(reader.result));
+            resolve(reader.result);
         };
         reader.readAsText(blob);
     });
 };
 
-//==================================================
 
-function getLocalStorage(key){
+/**
+ *
+ * @param key
+ */
+module.exports.getLocalStorage = function(key){
     var result = localStorage.getItem(key);
     if (result === null || result === undefined) {
         return null;
@@ -33,15 +63,25 @@ function getLocalStorage(key){
     else {
         return JSON.parse(result);
     }
-}
+};
 
 
-function setLocalStorage(key, value){
+/**
+ *
+ * @param key
+ * @param {Object} value
+ */
+module.exports.setLocalStorage = function(key, value){
     localStorage.setItem(key, JSON.stringify(value));
-}
+};
 
 
-function promiseFileBuffer(file){
+/**
+ *
+ * @param {File|Blob} file
+ * @returns {Promise}
+ */
+module.exports.promiseFileBuffer = function(file){
     return new Promise(function(resolve, reject){
         var reader = new FileReader();
         reader.onload = function(){
@@ -49,7 +89,7 @@ function promiseFileBuffer(file){
         };
         reader.readAsArrayBuffer(file);
     });
-}
+};
 
 
 /**
@@ -57,7 +97,7 @@ function promiseFileBuffer(file){
  * @param url
  * @returns {Promise}
  */
-function promiseLoadImage(url){
+module.exports.promiseLoadImage = function(url){
     return new Promise(function(resolve, reject){
         var img = document.createElement('img');
         img.onload = function(){
@@ -68,18 +108,19 @@ function promiseLoadImage(url){
         img.onabort = reject;
         img.src = url;
     });
-}
+};
+
 
 /**
  *
- * @param buffer
- * @returns Promise
+ * @param {ArrayBuffer} buffer
+ * @returns {Promise}
  */
-function promiseBufferImage(buffer){
+module.exports.promiseBufferImage = function(buffer){
     var blob = new Blob([buffer]);
     var domstring = URL.createObjectURL(blob);
-    return promiseLoadImage(domstring);
-}
+    return exports.promiseLoadImage(domstring);
+};
 
 
 /**
@@ -87,7 +128,7 @@ function promiseBufferImage(buffer){
  * @param {File} file
  * @returns {Promise}
  */
-function promiseFileDataUrl(file){
+module.exports.promiseFileDataUrl = function(file){
     return new Promise(function(resolve, reject){
         var reader = new FileReader();
         reader.onload = function(){
@@ -95,15 +136,15 @@ function promiseFileDataUrl(file){
         };
         reader.readAsDataURL(file);
     });
-}
+};
 
 
 /**
  *
  * @param {Image} img
- * @returns {String}
+ * @returns {string}
  */
-function getImageThumbnail(img){
+module.exports.getImageThumbnail = function(img){
     var canvas = document.createElement('canvas');
     var ctx = canvas.getContext('2d');
     var aspectRatio = img.width/img.height;
@@ -116,31 +157,62 @@ function getImageThumbnail(img){
         ctx.drawImage(img, 0, 0, 200, 200*aspectRatio);
     }
     return canvas.toDataURL();
-}
+};
 
 
-function promiseJSON(url){
+/**
+ *
+ * @param {string} url
+ * @returns {Promise}
+ */
+module.exports.promiseJSON = function(url){
     return new Promise(function(resolve, reject){
         jQuery.ajax({
             url: url,
             dataType: 'json'
         }).done(resolve).fail(reject);
     });
-}
+};
 
 
-function requireJSON(url){
+/**
+ *
+ * @param {string} url
+ * @returns {Promise}
+ */
+module.exports.requireJSON = function(url){
 
     return promiseRetry();
 
     function promiseRetry(){
-        return promiseJSON(url).catch(promiseRetry);
+        return exports.promiseJSON(url).catch(promiseRetry);
     }
 
-}
+};
 
 
-function promiseImageFile(url){
+/**
+ *
+ * @param {string} url
+ * @returns {Promise}
+ */
+module.exports.requireImageFile = function(url){
+
+    return promiseRetry();
+
+    function promiseRetry(){
+        return exports.promiseImageFile(url).catch(promiseRetry);
+    }
+
+};
+
+
+/**
+ *
+ * @param {string} url
+ * @returns {Promise}
+ */
+module.exports.promiseImageFile = function(url){
     return new Promise(function(resolve, reject){
         var request = new XMLHttpRequest();
         request.open('GET', url);
@@ -153,15 +225,25 @@ function promiseImageFile(url){
         request.responseType = 'blob';
         request.send();
     });
-}
+};
 
 
-function requireImageFile(url){
+/**
+ * Load the script and return a dataurl of the loaded file
+ * @param {string} path
+ */
+module.exports.promiseScript = function(path){};
 
-    return promiseRetry();
 
-    function promiseRetry(){
-        return promiseImageFile(url).catch(promiseRetry);
-    }
-
-}
+/**
+ *
+ * @param {int} t
+ * @returns {Promise}
+ */
+module.exports.promiseDelay = function(t){
+    return new Promise(function(resolve, reject){
+        _.delay(function(){
+            resolve();
+        }, t)
+    });
+};

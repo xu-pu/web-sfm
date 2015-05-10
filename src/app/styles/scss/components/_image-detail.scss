@@ -1,0 +1,12 @@
+@import "../../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.1/stylesheets/compass";
+
+.image-detail__container {
+  height: 100%;
+  width: 100%;
+
+  img {
+    display: block;
+    @include box-shadow(0px 0px 5px 2px gray);
+  }
+
+}

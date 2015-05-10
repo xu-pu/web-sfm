@@ -1,0 +1,59 @@
+@import "../../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.1/stylesheets/compass";
+
+.welcome-screen__app-desc-row {
+  font-family: "Open Sans";
+  width: 100%;
+  height: 25em;
+  overflow-x: hidden;
+  @include align-items(center);
+  position: relative;
+  display: flex;
+
+  img {
+    display: block;
+    height: 100%;
+  }
+
+  > div {
+    @include flex(1 0 0);
+    padding: 2em;
+
+    h1 {
+      font-size: 2em;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    section {
+      font-size: 1.2em;
+      margin-top: 0.5em;
+      line-height: 1.2em;
+    }
+
+    em {
+      font-weight: bold;
+    }
+
+  }
+
+}
+
+#welcome-screen__sfm {
+  background-color: #607091;
+  height: 32em;
+}
+
+#welcome-screen__framework {
+  background-color: #89B0C1;
+  height: 27em;
+}
+
+#welcome-screen__data-model {
+  background-color: #C2ECFF;
+  height: 30em;
+}
+
+#welcome-screen__ptx {
+  background-color: #ECFFFA;
+  height: 32em;
+}

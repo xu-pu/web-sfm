@@ -1,0 +1,8 @@
+<div class="demo-thumbnail__header">
+    <span>{{project.name}}</span>
+</div>
+
+{{#link-to "welcome.demo" project}}
+    <div class="demo-thumbnail__body" {{bind-attr style=backgroundStyle}}></div>
+{{/link-to}}
+

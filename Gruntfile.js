@@ -18,8 +18,8 @@ module.exports = function (grunt) {
             all: {
                 files: [
                     'src/**/*.js',
-                    'src/templates/**/*.hbs',
-                    'src/styles/scss/**/*.scss'
+                    'src/app/templates/**/*.hbs',
+                    'src/app/styles/scss/**/*.scss'
                 ],
                 tasks: ['build']
             }
@@ -36,30 +36,18 @@ module.exports = function (grunt) {
 
         },
 
-        neuter :{
-
-            options: {
-                template: '{%= src %}'
-            },
-
-            'build/scripts/application.js':'app/scripts/application.js',
-
-            'build/scripts/worker.js':'app/scripts/worker.js',
-
-            'build/scripts/sfm.js':'app/scripts/sfm.js'
-
-        },
-
         emberTemplates: {
             options: {
                 templateName: function (tName) {
-                    return tName.replace('src/templates/', '');
-                }
+                    return tName.replace('src/app/templates/', '');
+                },
+                handlebarsPath: 'venders/handlebars/handlebars.js',
+                templateCompilerPath: 'venders/ember/ember-template-compiler.js'
             },
 
             build: {
                 files: {
-                    'build/scripts/templates.js': 'src/templates/**/*.hbs'
+                    'build/scripts/templates.js': 'src/app/templates/**/*.hbs'
                 }
             }
 
@@ -68,7 +56,7 @@ module.exports = function (grunt) {
         compass: {
 
             options: {
-                sassDir: 'src/styles/scss'
+                sassDir: 'src/app/styles/scss'
             },
 
             build: {

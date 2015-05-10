@@ -1,0 +1,481 @@
+@import "compass";
+@import "../utils";
+
+//=====================================
+// Download Indicator
+//=====================================
+
+.welcome-screen__download-indicator {
+  position: fixed;
+  width: 10em;
+  top: 1em;
+  right: 1em;
+}
+
+.welcome-screen__download-indicator__task {
+  @include box-shadow(0 0 6px 2px rgba(0, 0, 0, 0.49));
+  width: 100%;
+  height: 3em;
+  margin-bottom: 0.5em;
+  overflow: hidden;
+  background-color: ghostwhite;
+}
+
+
+//=====================================
+// Main Header
+//=====================================
+
+
+@font-face {
+  font-family: 'Monoton';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Monoton'), local('Monoton-Regular'), url(http://themes.googleusercontent.com/static/fonts/monoton/v4/AKI-lyzyNHXByGHeOcds_w.woff) format('woff');
+}
+
+
+/*glow for webkit*/
+@include keyframes(neon1) {
+  from {
+    text-shadow: 0 0 10px #fff,
+    0 0 20px  #fff,
+    0 0 30px  #fff,
+    0 0 40px  #FF1177,
+    0 0 70px  #FF1177,
+    0 0 80px  #FF1177,
+    0 0 100px #FF1177
+//    0 0 150px #FF1177;
+  }
+  to {
+    text-shadow: 0 0 5px #fff,
+    0 0 10px #fff,
+    0 0 15px #fff,
+    0 0 20px #FF1177,
+    0 0 35px #FF1177,
+    0 0 40px #FF1177,
+    0 0 50px #FF1177,
+    0 0 75px #FF1177;
+  }
+}
+
+
+.welcome-screen__header {
+
+  width: 100%;
+  height: 20em;
+  background-color: #222222;
+  position: relative;
+
+  display: flex;
+  @include align-items(center);
+  @include justify-content(center);
+
+  > div {
+    position: relative;
+  }
+
+  span {
+    position: absolute;
+    font-size: 2em;
+    text-transform: uppercase;
+    color: rgb(163, 163, 163);
+    right: -2.5em;
+    bottom: -1em;
+    font-weight: bold;
+  }
+
+  h1 {
+    @include transition(all 0.5s);
+    font-size: 6em;
+    font-family: Monoton;
+    text-transform: uppercase;
+    cursor: default;
+    color: #FF1177;
+    font-weight: 400;
+
+    &:hover {
+      color:#ffffff;
+      @include animation(neon1 1.5s ease-in-out infinite alternate);
+    }
+
+  }
+
+}
+
+
+//=====================================
+// Rows
+//=====================================
+
+
+%welcome-screen__row {
+  width: 100%;
+  height: 300px;
+  overflow-x: hidden;
+}
+
+
+.welcome-screen__projects-container {
+  @extend %welcome-screen__row;
+  background-color: #2F1231;
+}
+
+
+.welcome-screen__demos-container {
+  @extend %welcome-screen__row;
+  background-color: #4B4261;
+}
+
+
+.welcome-screen__demos, .welcome-screen__projects {
+  height: 100%;
+
+  ul {
+    height: 100%;
+    box-sizing: border-box;
+    padding: 15px;
+    white-space: nowrap;
+  }
+}
+
+//=====================================
+// Demo and Project
+//=====================================
+
+
+%welcome-screen__thumbnail-hero {
+  @include border-radius(1em);
+  background-color: rgba(0, 0, 0, 0.11);
+  width: 15em;
+  height: 100%;
+  position: relative;
+
+  h1 {
+    @extend %center-element;
+    font-size: 3em;
+    height: 1em;
+    line-height: 1em;
+    font-weight: bolder;
+  }
+
+}
+
+
+%welcome-screen__item-tile {
+  display: inline-block;
+  vertical-align: top;
+  height: 100%;
+  margin-right: 1.5em;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+
+%welcome-screen__thumbnail {
+  @include transition(box-shadow 0.5s);
+  @include box-shadow(0 0 8px 1px rgba(0, 0, 0, 0.8));
+  width: 15em;
+  height: 100%;
+  background: #CECECE;
+  position: relative;
+  overflow: hidden;
+
+  &.is-expanded {
+
+    .demo-thumbnail__detail {
+      background-color: rgba(255,255,255, 0.8);
+      color: black;
+    }
+
+  }
+
+}
+
+$project-thumbnail-header-height: 2em;
+
+%welcome-screen__thumbnail-tile__header {
+  position: relative;
+  background-color: #333333;
+  color: white;
+  height: $project-thumbnail-header-height;
+  line-height: $project-thumbnail-header-height;
+  font-weight: bolder;
+  padding-left: 10px;
+}
+
+%welcome-screen__thumbnail-tile__body {
+  padding: 10px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: $project-thumbnail-header-height;
+}
+
+%project-delete-confirm {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 10;
+}
+
+%project-delete-confirm__option {
+  height: 50%;
+  position: relative;
+  cursor: pointer;
+
+  h1 {
+    @extend %center-element;
+    font-size: 3em;
+    height: 1em;
+    line-height: 1em;
+  }
+
+}
+
+%project-deleting {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background-color: darkred;
+
+  h1 {
+    @extend %center-element;
+    font-size: 3em;
+    height: 1em;
+    line-height: 1em;
+  }
+
+}
+
+//=====================================
+// Project Creator
+//=====================================
+
+.welcome-screen__projects__new {
+  @include transition(border-color 0.5s);
+  @include border-radius(1em);
+  height: 100%;
+  width: 15em;
+  padding: 1em;
+  box-sizing: border-box;
+  border: 2px dotted gray;
+  position: relative;
+
+  &.is-invalid {
+
+    border-color: red;
+
+    .project-creator__input {
+      border-color: red;
+      input { color: red; }
+    }
+
+    .project-creator__submit {
+      background-color: red;
+      cursor: not-allowed;
+    }
+
+  }
+
+}
+
+.project-creator__input {
+  @include transition(border-color 0.5s);
+  @extend %center-element;
+  $padding: 10px;
+  width: 90%;
+  height: 6em;
+  padding-right: $padding;
+  padding-left: $padding;
+  box-sizing: border-box;
+  border-bottom: solid green 0.3em;
+  border-top: solid green 0.3em;
+
+  input {
+    color: greenyellow;
+    text-align: center;
+    font-size: 2em;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    outline: none;
+    border: 0;
+  }
+
+}
+
+.project-creator__submit {
+
+  $size: 2em;
+
+  position: absolute;
+  right: 0;
+  bottom: -($size+0.8em);
+  width: 6em;
+  height: $size;
+  cursor: pointer;
+  background-color: greenyellow;
+
+  h1 {
+    @extend %center-element;
+    font-size: 1.5em;
+    height: 1em;
+    color: green;
+  }
+
+}
+
+//=====================================
+// Projects
+//=====================================
+
+.welcome-screen__projects__item {
+  @extend %welcome-screen__item-tile;
+}
+
+.welcome-screen__projects__header {
+  @extend %welcome-screen__thumbnail-hero;
+
+  @include box-shadow(inset 0 0 10px 3px rgba(0, 0, 0, 1));
+
+  h1 {
+    color: white;
+  }
+}
+
+//=====================================
+// Project Thumbnail
+//=====================================
+
+.welcome-screen__projects__thumbnail {
+  @extend %welcome-screen__thumbnail;
+}
+
+.project-thumbnail__delete-confirm {
+  @extend %project-delete-confirm;
+}
+
+.project-thumbnail__delete-confirm__delete {
+  @extend %project-delete-confirm__option;
+  background-color: indianred;
+}
+
+.project-thumbnail__delete-confirm__cancel {
+  @extend %project-delete-confirm__option;
+  background-color: greenyellow;
+}
+
+.project-thumbnail__deleting {
+  @extend %project-deleting;
+}
+
+.project-thumbnail__header {
+  @extend %welcome-screen__thumbnail-tile__header;
+}
+
+.project-thumbnail__body {
+  @extend %welcome-screen__thumbnail-tile__body;
+}
+
+//=====================================
+// Demos
+//=====================================
+
+.welcome-screen__demos__item {
+  @extend %welcome-screen__item-tile;
+}
+
+.welcome-screen__demos__header {
+  @extend %welcome-screen__thumbnail-hero;
+
+  @include box-shadow(inset 0 0 10px 3px rgba(0, 0, 0, 0.49));
+
+  h1 {
+    color: white;
+  }
+}
+
+//=====================================
+// Demo Thumbnail
+//=====================================
+
+.welcome-screen__demos__thumbnail {
+  @extend %welcome-screen__thumbnail;
+}
+
+.demo-thumbnail__delete-confirm {
+  @extend %project-delete-confirm;
+}
+
+.demo-thumbnail__delete-confirm__delete {
+  @extend %project-delete-confirm__option;
+  background-color: indianred;
+}
+
+.demo-thumbnail__delete-confirm__cancel {
+  @extend %project-delete-confirm__option;
+  background-color: greenyellow;
+}
+
+.demo-thumbnail__deleting {
+  @extend %project-deleting;
+}
+
+.demo-thumbnail__header {
+  @extend %welcome-screen__thumbnail-tile__header;
+}
+
+.demo-thumbnail__body {
+  @extend %welcome-screen__thumbnail-tile__body;
+  background-size: cover;
+  background-position: 50%;
+  cursor: pointer;
+}
+
+%demo-thumbnail__tab {
+  @include transition(background-color 0.5s);
+  width: 100%;
+  height: 4em;
+  cursor: pointer;
+  position: relative;
+  margin-bottom: 1em;
+  margin-top: 1em;
+
+  h1 {
+    @extend %center-element-y;
+    width: 100%;
+    height: 1em;
+    font-size: 2em;
+    font-weight: bolder;
+    text-align: center;
+  }
+
+}
+
+.demo-thumbnail__state-bar {
+  @extend %demo-thumbnail__tab;
+  color: rgb(48, 23, 23);
+  background-color: rgba(255, 0, 0, 0.85);
+
+  &:hover {
+    background-color: rgb(207, 54, 54);
+  }
+
+  &.is-downloaded {
+    background-color: rgba(175, 255, 52, 0.85);
+    &:hover {
+      background-color: rgb(146, 185, 86);
+    }
+  }
+
+  &.is-inprogress {
+    background-color: green;
+  }
+
+}

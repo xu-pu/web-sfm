@@ -5,98 +5,144 @@ var _ = require('underscore'),
     Matrix = la.Matrix,
     Vector = la.Vector;
 
-var derivatives = require('../math/derivatives.js'),
-    getGradient = derivatives.gradient,
-    getGuassianKernel = require('../math/kernels.js').getGuassianKernel;
+var shortcuts = require('../utils/shortcuts.js'),
+    kernels = require('../math/kernels.js'),
+    settings = require('./settings.js');
 
-var RADIUS = 8,
-    WINDOW_SIZE = 2 * RADIUS + 1,
-    BINS = 36,
-    BIN_SIZE = 2*Math.PI/BINS,
-    ACCEPT_THRESHOLD = 0.8;
+var ACCEPT_THRESHOLD = 0.8,
+       WINDOW_FACTOR = settings.ORIENTATION_WINDOW_FACTOR,
+       RADIUS_FACTOR = settings.ORIENTATION_RADIUS_FACTOR,
+                BINS = settings.ORIENTATION_BINS,
+             SIGMA_0 = settings.SIGMA_0,
+           INTERVALS = settings.INTERVALS,
+                  PI = Math.PI,
+                 PI2 = PI * 2;
+
+//==========================================================
 
 
-module.exports = getPointOrientation;
+/**
+ * DetectedFeature => OrientedFeature[]
+ * @param {GuassianPyramid} scales
+ * @param {DetectedFeature} f
+ * @returns {OrientedFeature[]}
+ */
+exports.orient = function(scales, f){
+
+    console.log('Enter orientation assignment');
+
+    var gradient = scales.gradientCache[f.layer-1];
+
+    return exports.getOrientations(gradient, f)
+        .map(function(ori){
+            var p = _.clone(f);
+            p.orientation = ori;
+            return p;
+        });
+
+};
 
 
 /**
  *
- * @param {DoG} dog
- * @param {number} row
- * @param {number} col
- * @param {Object} [options]
- * @return {number[]}
- */
-function getPointOrientation(dog, row, col, options){
-    console.log('orienting feature points');
-    var hist = generateHist(dog, row, col);
-    smoothHist(hist);
-    var maxIndex = getMaxIndex(hist);
-    return getOrientations(hist, maxIndex);
-}
-
-
-/**
- * @param {DoG} dog
- * @param {number} row
- * @param {number} col
- */
-function generateHist(dog, row, col){
-
-    var img = dog.img,
-        sigma = dog.sigma,
-        orientations = new Float32Array(BINS),
-        weightFunction = getGuassianKernel(WINDOW_SIZE, sigma*1.5);
-
-    var x, y, gradient, bin;
-    for (x=-RADIUS; x<=RADIUS; x++) {
-        for(y=-RADIUS; y<=RADIUS; y++){
-            gradient = getGradient(img, row+y, col+x);
-            bin = Math.round(gradient.dir/BIN_SIZE) % BINS;
-            if(bin < 0) {
-                bin = bin+BINS;
-            }
-            orientations[bin] += gradient.mag * weightFunction(x,y);
-        }
-    }
-
-}
-
-
-function smoothHist(hist){
-    return hist;
-}
-
-
-/**
- * @param {number[]} hist
- * @returns {number}
- */
-function getMaxIndex(hist){
-    var maximum=-Infinity, maxIndex, iterOrien;
-    for (iterOrien=0; iterOrien<BINS; iterOrien++) {
-        if (hist[iterOrien]>maximum) {
-            maximum = hist[iterOrien];
-            maxIndex = iterOrien;
-        }
-    }
-    return maxIndex;
-}
-
-
-/**
- * @param {number[]} hist
- * @param {number} maxIndex
+ * @param gradient
+ * @param {DetectedFeature} f
  * @returns {number[]}
  */
-function getOrientations(hist, maxIndex){
-    var maximum = hist[maxIndex],
-        directions = [],
-        iterBin;
-    for (iterBin=0; iterBin<BINS; iterBin++) {
-        if (hist[iterBin]/maximum >= ACCEPT_THRESHOLD) {
-            directions.push(BIN_SIZE * iterBin);
+exports.getOrientations = function(gradient, f){
+
+    var hist = exports.generateHist(gradient, f);
+    var smoothedHist = smoothHist(hist);
+    var thresh = getThreshold(smoothedHist);
+    var directions =  exports.interpOrientations(smoothedHist, thresh);
+    return directions.length > 4 ? directions.slice(0,4) : directions;
+
+    /**
+     * @param {number[]} hist
+     * @returns {number[]}
+     */
+    function smoothHist(hist){
+        return hist.map(function(mag, index){
+            var pre = index === 0 ? BINS-1 : index-1,
+                nex = index === BINS-1 ? 0 : index+1;
+            //return 0.25*hist[pre] + 0.5*hist[index] + 0.25*hist[nex];
+            return (hist[pre]+hist[index]+hist[nex]) / 3;
+        });
+    }
+
+
+    /**
+     * @param {number[]} hist
+     * @returns {number}
+     */
+    function getThreshold(hist){
+        var maximum=-Infinity, iterOrien;
+        for (iterOrien=0; iterOrien<BINS; iterOrien++) {
+            if (hist[iterOrien]>maximum) {
+                maximum = hist[iterOrien];
+            }
+        }
+        return maximum * ACCEPT_THRESHOLD;
+    }
+
+};
+
+
+/**
+ * @param gradient
+ * @param {DetectedFeature} f
+ * @returns {number[]}
+ */
+exports.generateHist = function(gradient, f){
+
+    var    row = Math.round(f.row),
+           col = Math.round(f.col),
+         sigma = SIGMA_0 * Math.pow(2, f.scale/INTERVALS),
+        sigmaw = sigma * WINDOW_FACTOR,
+        radius = Math.floor(sigmaw * RADIUS_FACTOR),
+          hist = shortcuts.zeros(BINS),
+        weight = kernels.getGuassian2d(sigmaw);
+
+    var x, y, bin, mag, ori;
+    for (x=-radius; x<=radius; x++) {
+        for(y=-radius; y<=radius; y++){
+            mag = gradient.get(col+x, row+y, 0);
+            ori = gradient.get(col+x, row+y, 1);
+            if (mag) {
+                bin = Math.floor(ori*BINS/PI2) % BINS;
+                hist[bin] += mag * weight(x,y);
+            }
         }
     }
+
+    return hist;
+
+};
+
+
+/**
+ * @param {number[]} hist
+ * @param {number} thresh
+ * @returns {number[]}
+ */
+exports.interpOrientations = function(hist, thresh){
+
+    var directions = [];
+
+    _.range(BINS).forEach(function(bin){
+        var mag = hist[bin],
+            pre = bin === 0 ? BINS-1 : bin-1,
+            nex = bin === BINS-1 ? 0 : bin+1;
+        if (mag > hist[pre] && mag > hist[nex] && mag >= thresh) {
+            var offset = histInterp(hist[pre], mag, hist[nex]);
+            directions.push( (bin+offset+0.5)*PI2/BINS );
+        }
+    });
+
     return directions;
-}
+
+    function histInterp(l,c,r){
+        return ((l-r)/2)/(l-2*c+r);
+    }
+
+};

@@ -1,0 +1,13 @@
+{{#if canImport}}
+    <li class="image-gallery__item">
+        {{image-importer adapter=adapter images=images}}
+    </li>
+{{/if}}
+
+{{#each img in images}}
+    <li class="image-gallery__item">
+        <div class="image-gallery__thumbnail" style="background-image: url('{{img.thumbnail}}')" {{action "expand" img}}>
+            <span>{{img.id}}</span>
+        </div>
+    </li>
+{{/each}}

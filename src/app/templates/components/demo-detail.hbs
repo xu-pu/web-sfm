@@ -1,0 +1,95 @@
+<div class="welcome-screen__detail__toggle" {{action "close"}}></div>
+
+<div class="welcome-screen__detail__progress">
+
+    <ul class="welcome-screen__detail__download-selections">
+
+        <li {{bind-attr class="project.imagesFinished:is-loaded"}}>
+
+            <h1>
+                Images
+                {{#if project.imagesFinished}}
+                    loaded
+                {{else}}
+                    avaliable
+                {{/if}}
+            </h1>
+
+        </li>
+
+        <li {{bind-attr class="project.hasFeature::not-avaliable project.featuresFinished:is-loaded"}}>
+
+            <h1>
+                Features
+
+                {{#if project.featuresFinished}}
+                    loaded
+                {{else}}
+                    {{#if project.hasFeature}}
+                        avaliable
+                    {{else}}
+                        not avaliable
+                    {{/if}}
+                {{/if}}
+            </h1>
+
+        </li>
+
+        <li {{bind-attr class="project.hasMatch::not-avaliable project.matchesLoaded:is-loaded"}}>
+
+            <h1>
+                Matches
+                {{#if project.matchLoaded}}
+                    loaded
+                {{else}}
+                    {{#if project.hasMatch}}
+                        avaliable
+                    {{else}}
+                        not avaliable
+                    {{/if}}
+                {{/if}}
+            </h1>
+
+        </li>
+
+        <li {{bind-attr class="project.hasCalibration::not-avaliable project.calibrationLoaded:is-loaded"}}>
+
+            <h1>
+                Calibration
+                {{#if project.calibrationLoaded}}
+                    loaded
+                {{else}}
+                    {{#if project.hasCalibration}}
+                        avaliable
+                    {{else}}
+                        not avaliable
+                    {{/if}}
+                {{/if}}
+            </h1>
+
+        </li>
+
+        <li {{bind-attr class="project.hasMVS::not-avaliable project.mvsLoaded:is-loaded"}}>
+
+            <h1>
+                MVS
+                {{#if project.mvsLoaded}}
+                    loaded
+                {{else}}
+                    {{#if project.hasMVS}}
+                        avaliable
+                    {{else}}
+                        not avaliable
+                    {{/if}}
+                {{/if}}
+            </h1>
+
+        </li>
+
+    </ul>
+
+    <div class="welcome-screen__detail__download" {{action "enter"}}>
+        <h1>Enter</h1>
+    </div>
+
+</div>

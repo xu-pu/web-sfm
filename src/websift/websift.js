@@ -1,17 +1,14 @@
 'use strict';
 
-/**
- * @typedef {{row: number, col: number, vector: number[]}} Feature
- */
-
 var _ = require('underscore');
 
-var detector = require('./detector.js'),
-    iterScales = require('./dogspace.js'),
-    isNotEdge = require('./edge-filter.js'),
-    siftOrientation = require('./orientation.js');
+var OctaveSpace = require('./octave-space'),
+    detector = require('./detector.js'),
+    orientation = require('./orientation.js'),
+    descriptor = require('./descriptor.js');
 
-module.exports = sift;
+//=================================================================
+
 
 /**
  * the main function of this file, calculate SIFT of the image
@@ -21,30 +18,67 @@ module.exports = sift;
  * @param {int} [options.octaves]
  * @param {int} [options.scales]
  * @param {int} [options.kernelSize]
- * @returns {object[]}
+ * @returns {Feature[]}
  */
-function sift(img, options) {
+module.exports.sift = function(img, options) {
 
-    options = options || {};
+    var octaves = new OctaveSpace(img),
+        oct, scales, dogs, oi = octaves.nextOctave,
+        features = [];
 
-    _.defaults(options, {
-        octaves: 4,
-        scales: 5,
-        kernelSize: 3,
-        contractThreshold: 0,
-        orientationWindow: 17
-    });
+    while (octaves.hasNext()) {
 
-    var features = [];
-    _.range(options.octaves).forEach(function(octave){
-        iterScales(img, octave, function(dogs, o){
-            detector(dogs, octave, function(space, row, col){
-                if (isNotEdge(space, row, col)) {
-                    features.push({ row: row, col: col });
+        oct    = octaves.next();
+        scales = oct.scales;
+        dogs   = oct.dogs;
+
+        detector(
+
+            dogs, scales,
+
+            /**
+             * SIFT detector callback
+             * @param {Scale} scale
+             * @param {DetectedFeature} detectedF
+             */
+            function(scale, detectedF){
+                if (isNotEdge(scale, detectedF.row, detectedF.col)) {
+                    orientation.orient(scale, detectedF)
+                        .forEach(function(orientedF){
+                            features.push(descriptor.getDescriptor(scale, orientedF));
+                        });
                 }
-            });
-        });
-    });
+            }
+
+        );
+
+        oi = octaves.nextOctave;
+
+    }
 
     return features;
-}
+
+};
+
+
+
+module.exports.forEachDetected = function(img, callback){
+
+    var octaves = new OctaveSpace(img),
+        oct, scales, dogs, oi = octaves.nextOctave;
+
+    while (octaves.hasNext()) {
+
+        oct    = octaves.next();
+        scales = oct.scales;
+        dogs   = oct.dogs;
+
+        detector.detect(dogs, scales, function(f){
+            callback(scales, f);
+        });
+
+        oi = octaves.nextOctave;
+
+    }
+
+};

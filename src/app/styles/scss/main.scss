@@ -1,0 +1,76 @@
+/* Main Style Sheet of WebSFM */
+
+@import "reset";
+@import "compass";
+@import "utils";
+@import "dimensions";
+
+@import "partials/welcome-screen";
+@import "partials/application-description";
+@import "partials/controll-panel";
+@import "partials/gallery";
+@import "partials/matches";
+@import "partials/register";
+@import "partials/floating-window";
+
+@import "components/image-detail";
+@import "components/visual-features";
+@import "components/match-mode-tab";
+@import "components/demo-detail";
+@import "components/image-gallery";
+@import "components/match-grid";
+@import "components/message-tray";
+
+
+img {
+  @include user-select(none);
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: Electrolize;
+  min-width: 1366px;
+}
+
+#main-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  overflow: hidden;
+}
+
+#controll-panel {
+  @extend %floating-window;
+  width: $controll-panel-width;
+  right: 3em;
+  overflow-y: hidden;
+}
+
+.floating-window__input-image {
+  @extend %floating-window;
+  width: 60%;
+  right: $floating-window-offset;
+}
+
+.floating-window__extractor-image {
+  @extend %floating-window;
+  width: 60%;
+  right: $floating-window-offset;
+}
+
+$matching-table-width: 20em;
+
+.floating-window__matching-table {
+  @extend %floating-window;
+  width: $matching-table-width;
+  right: $floating-window-offset;
+}
+
+
+.floating-window__matching-pair {
+  @extend %floating-window;
+  width: 500px;
+  right: $floating-window-offset + $matching-table-width + 1em;
+}

@@ -1,0 +1,38 @@
+{{#if expand}}
+
+<div class="controll-panel__state-body__container">
+    <div class="controll-panel__state-body">
+        <div>{{workspace.threadPoolSize}} cores can be used</div>
+        {{#each worker in workspace.workers}}
+            <div class="controll-panel__state-body__thread">
+                thread
+                {{#if worker.isActive}}
+                    is active
+                {{else}}
+                    is not active
+                {{/if}}
+            </div>
+        {{/each}}
+    </div>
+</div>
+
+{{/if}}
+
+<div class="controll-panel__state-bar">
+    <div class="controll-panel__state-bar__toggle">
+        {{#if isRunning}}
+            <div class="is_running" {{action "stop"}}>
+                <span class="icon-pause"></span>
+            </div>
+        {{else}}
+            <div class="is_stopped" {{action "run"}}>
+                <span class="icon-play"></span>
+            </div>
+        {{/if}}
+    </div>
+
+    <div class="controll-panel__state-bar__body" {{action "toggleExpand"}}>
+        {{description}}
+    </div>
+
+</div>

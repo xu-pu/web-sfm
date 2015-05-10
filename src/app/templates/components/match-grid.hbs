@@ -1,0 +1,35 @@
+<div class="match-grid__body" style="height: {{gridsizeInit}}px; width: {{gridsizeInit}}px;">
+
+    {{#each row in matches.table}}
+
+        <div class="match-grid__row">
+
+            {{#each node in row}}
+
+                {{#if node}}
+
+                    {{#if node.isDiag}}
+                        <div class="match-grid__cell thumbnail" style="background-image: url('{{node.image.thumbnail}}')"></div>
+                    {{else if node.robust}}
+                        <div class="match-grid__cell">
+                            {{match-grid-node from=node.from to=node.to data=node action="enter"}}
+                        </div>
+                    {{else}}
+                        <div class="match-grid__cell">
+                            <div class="match-grid__node is-connected"></div>
+                        </div>
+                    {{/if}}
+
+                {{else}}
+                    <div class="match-grid__cell">
+                        <div class="match-grid__node"></div>
+                    </div>
+                {{/if}}
+
+            {{/each}}
+
+        </div>
+
+    {{/each}}
+
+</div>

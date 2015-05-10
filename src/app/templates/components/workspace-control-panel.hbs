@@ -1,0 +1,66 @@
+<div id="controll-panel__header" class="floating-window__header">
+    <span>WebSFM</span>
+    <div class="exit-icon" {{action "close"}}></div>
+</div>
+<div id="controll-panel__body">
+
+    <div id="controll-panel__input" class="controll-panel__l1">
+        <div class="controll-panel__l1-tab" {{action "toggleMenu" "input"}}>
+            <span>INPUTS</span>
+        </div>
+        {{#if expandInput}}
+        <div class="controll-panel__l1-body">
+            <div id="controll-panel__images" class="controll-panel__l2">
+                <div class="controll-panel__l2-tab  enter-point" {{action "enter" "workspace.images"}}>Images</div>
+            </div>
+            <div id="controll-panel__parameters" class="controll-panel__l2">
+                <div class="controll-panel__l2-tab">
+                    <div>Use {{workspace.threadPoolSize}} CPU Cores</div>
+                    {{cpu-setting workspace=workspace}}
+                </div>
+            </div>
+        </div>
+        {{/if}}
+    </div>
+
+    <div id="controll-panel__progress" class="controll-panel__l1">
+        <div class="controll-panel__l1-tab" {{action "toggleMenu" "progress"}}>
+            <span>PROGRESS</span>
+        </div>
+        {{#if expandProgress}}
+        <div class="controll-panel__l1-body">
+
+            <div id="controll-panel__extractor" class="controll-panel__l2">
+                <div class="controll-panel__l2-tab  enter-point" {{action "enter" "workspace.extractor"}}>Feature Extraction</div>
+            </div>
+
+            <div id="controll-panel__register" class="controll-panel__l2">
+                <div class="controll-panel__l2-tab" {{action "toggleMenu" "register"}}>Camera Registration</div>
+                {{#if expandRegister}}
+                <div class="controll-panel__l2-body">
+                    <div id="controll-panel__matching" class="controll-panel__l3-tab  enter-point" {{action "enter" "workspace.matcher"}}>Feature Matching</div>
+                    <div id="controll-panel__recovery" class="controll-panel__l3-tab  enter-point" {{action "enter" "workspace.register"}}>Sparse Reconstruction</div>
+                </div>
+                {{/if}}
+            </div>
+
+            <div id="controll-panel__stereo" class="controll-panel__l2">
+                <div class="controll-panel__l2-tab  enter-point" {{action "enter" "workspace.mvs"}}>Stereopsis</div>
+            </div>
+
+        </div>
+        {{/if}}
+    </div>
+
+    <div id="controll-panel__output" class="controll-panel__l1">
+        <div class="controll-panel__l1-tab">
+            <span>Output</span>
+        </div>
+    </div>
+
+</div>
+
+
+<div id="controll-panel__footer">
+    {{workspace-progress-bar workspace=workspace}}
+</div>

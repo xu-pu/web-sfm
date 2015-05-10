@@ -1,106 +1,131 @@
 'use strict';
 
-var sfmstore = require('../store/sfmstore.js'),
-    STORES = require('../settings.js').STORES;
+var _ = require('underscore');
 
+var shortcuts = require('../../utils/shortcuts.js');
 
 module.exports = Ember.Object.extend({
 
-    images: null,
+    images: [],
 
-    finished: [],
+    raw: [],
 
-    scheduler: null,
+    robust: [],
 
-    getQueueIterator: function(){
-        var finished = this.get('finished'),
-            images = this.get('images'),
-            ended = false,
-            bound = images.length,
-            offset1 = 0,
-            offset2 = 0;
+    connectedGroups: function(){
 
-        findNext();
+        var groups = [];
 
-        function isEnded(){
-            return ended;
-        }
+        this.get('robust')
+            .forEach(function(match){
 
-        function getKey(i1, i2){
-            var id1 = images[i1].get('_id');
-            var id2 = images[i2].get('_id');
-            if (id1>id2) {
-                return id2+'&'+id1;
-            }
-            else if (id1<id2) {
-                return id1+'&'+id2;
-            }
-            else {
-                throw 'same image can not match';
-            }
-        }
+                var foundFrom = groups.find(function(e){
+                    return e.contains(match.from);
+                });
 
-        function findNext(){
-            var found = false;
-            while (!ended && !found) {
-                if (offset2 < bound-1) {
-                    offset2++;
+                var foundTo = groups.find(function(e){
+                    return e.contains(match.to);
+                });
+
+                if (foundFrom && foundTo) {
+                    if (foundFrom !== foundTo) {
+                        foundFrom.addObjects(foundTo);
+                        groups.removeObject(foundTo);
+                    }
+                }
+                else if (foundFrom || foundTo) {
+                    var found = foundFrom || foundTo;
+                    found.addObjects([match.from, match.to]);
                 }
                 else {
-                    if (offset1 < bound-2) {
-                        offset1++;
-                        offset2 = offset1 + 1;
-                    }
-                    else {
-                        ended = true;
-                        break;
-                    }
+                    groups.push([match.from, match.to]);
                 }
-                if (finished.indexOf(getKey(offset1, offset2)) === -1) {
-                    found = true;
-                }
-            }
-        }
 
-        function next(callback){
-            var key = getKey(offset1, offset2);
-            sfmstore
-                .promiseAdapter()
-                .then(function(adapter){
-                    return Promise.all([
-                        adapter.promiseData(STORES.FEATURES, images[offset1].get('_id')),
-                        adapter.promiseData(STORES.FEATURES, images[offset2].get('_id')),
-                        adapter.promiseData(STORES.IMAGES, images[offset1].get('_id')),
-                        adapter.promiseData(STORES.IMAGES, images[offset2].get('_id'))
-                    ])
-                })
-                .then(function(values){
-                    callback({
-                        key: key,
-                        features1: values[0],
-                        features2: values[1],
-                        cam1: { width: values[2].width, height: values[2].height },
-                        cam2: { width: values[3].width, height: values[3].height }
-                    }, key);
-                });
-            findNext();
-        }
+            });
 
-        return {
-            isEnded: isEnded,
-            next: next
-        }
+        return groups;
+
+    }.property('robust.length'),
+
+    table: function(){
+
+        var connected = _.flatten(this.get('connectedGroups'));
+        var images = this.get('images');
+        var size = images.length;
+
+        var raw = this.get('raw');
+        var robust = this.get('robust');
+
+        var table = shortcuts.array2d(size, size, false);
+
+        shortcuts.iterPairs(connected, function(from, to){
+            table[from][to] = table[to][from] = true;
+        });
+
+        images.forEach(function(img){
+            var i = img.get('id');
+            table[i][i] = { isDiag: true, image: img };
+        });
+
+        raw.forEach(function(entry){
+            var from = entry.from;
+            var to = entry.to;
+            var matches = entry.matches;
+            var node = {
+                from: from,
+                to: to,
+                raw: matches
+            };
+            table[from][to] = table[to][from] = node;
+        });
+
+        robust.forEach(function(entry){
+            var from = entry.from;
+            var to = entry.to;
+            var matches = entry.matches;
+            var fmatrix = entry.F;
+            table[from][to]['robust'] = table[to][from]['robust'] = matches;
+            table[from][to]['F'] = table[to][from]['F'] = fmatrix;
+        });
+
+        return table;
+
+    }.property('robust.length', 'raw.length', 'connectedGroups', 'images.length'),
+
+    isMatched: function(from, to){
+        return this.get('model').some(function(match){
+            return match.from === from && match.to === to;
+        });
     },
 
-    scheduleMatching: function(callback){
-        if (this.get('scheduler') === null) {
-            sfmstore
-                .promiseProject()
-                .then(function(projectModel){
-                    var iterator = this.getQueueIterator();
-                    var scheduler = App.schedule(projectModel, SFM.TASK_MATCHING, iterator, this.get('finished'), callback);
-                    this.set('scheduler', scheduler);
-                }.bind(this));
+    isRobust: function(from, to){
+        return this.get('robust').some(function(entry){
+            return (entry.from === from && entry.to === to) || (entry.from === to && entry.to === from);
+        });
+    },
+
+    isConnected: function(from, to){
+        return this.get('connectedGroups').some(function(group){
+            return group.contains(from) && group.contains(to);
+        });
+    },
+
+    getMatches: function(from, to){
+        from = parseInt(from, 10);
+        to = parseInt(to, 10);
+        var images = this.get('images'),
+            raw = this.get('raw'),
+            robust = this.get('robust');
+        var img1 = images.findBy('id', from);
+        var img2 = images.findBy('id', to);
+        var r = raw.find(function(entry){
+            return entry.from === from && entry.to === to;
+        });
+        var b = robust.find(function(entry){
+            return entry.from === from && entry.to === to;
+        });
+        if (img1 && img2 && r && b) {
+            return { from: img1, to: img2, raw: r.matches, robust: b.matches, F: b.F };
         }
     }
 

@@ -2,7 +2,9 @@
 
 var _ = require('underscore');
 
-var STORES = require('../settings.js').STORES,
+var settings = require('../settings.js'),
+    STORES = settings.STORES,
+    RESOURCE = settings.RESOURCE,
     utils = require('../utils.js');
 
 module.exports = StorageAdapter;
@@ -23,6 +25,13 @@ function StorageAdapter(projectName){
 
 StorageAdapter.prototype = {
 
+    close: function(){
+        if (this.connection) {
+            this.connection.close();
+            delete this.connection;
+        }
+    },
+
     promiseDB: function(){
         var _self = this;
 
@@ -31,7 +40,7 @@ StorageAdapter.prototype = {
         }
         else {
             return new Promise(function(resolve, reject){
-                var request = indexedDB.open(_self.project, 5);
+                var request = indexedDB.open(_self.project, 30);
                 request.onupgradeneeded = function(e){
                     console.log('upgrade');
                     _self.connection = e.target.result;
@@ -56,16 +65,29 @@ StorageAdapter.prototype = {
      */
     createStores: function(db){
         console.log('create');
-        if (!db.objectStoreNames.contains(STORES.IMAGES)) {
-            db.createObjectStore(STORES.IMAGES, { autoIncrement: true }) // image information
-                .createIndex('filename', 'filename', { unique: true });
+        if (!db.objectStoreNames.contains(RESOURCE.IMAGES)) {
+            db.createObjectStore(RESOURCE.IMAGES, { autoIncrement: true }) // image information
+                .createIndex('name', 'name', { unique: true });
 
         }
-        [   STORES.FEATURES,
-            STORES.FULLIMAGES,
-            STORES.THUMBNAILS,
-            STORES.MATCHES,
-            STORES.SINGLETONS
+        [
+//            STORES.FEATURES,
+//            STORES.FULLIMAGES,
+//            STORES.THUMBNAILS,
+//            STORES.MATCHES,
+//            STORES.SINGLETONS
+            RESOURCE.FEATURE_POINTS,
+            RESOURCE.FEATURE_VECTORS,
+            RESOURCE.SINGLETONS,
+//            RESOURCE.IMAGES,
+            RESOURCE.FULLIMAGES,
+            RESOURCE.ROBUST_MATCHES,
+            RESOURCE.RAW_MATCHES
+//            STORES.FULLIMAGES,
+//            STORES.THUMBNAILS,
+//            STORES.MATCHES,
+//            STORES.SINGLETONS
+
         ].forEach(function(name){
                 if (!db.objectStoreNames.contains(name)) {
                     db.createObjectStore(name);
@@ -92,22 +114,22 @@ StorageAdapter.prototype = {
             .then(function(img){
                 //Ember.Logger.debug('img object required');
                 domimg = img;
-                image = { filename: file.name, width: img.width, height: img.height };
-                return _self.promiseAddData(STORES.IMAGES, image);
+                image = {
+                    filename: file.name,
+                    width: img.width,
+                    height: img.height,
+                    thumbnail: utils.getImageThumbnail(domimg)
+                };
+                return _self.promiseAddData(RESOURCE.IMAGES, image);
             })
             .then(function(newid){
-                //Ember.Logger.debug('_id required');
-                image._id = newid;
-                image.thumbnail = utils.getImageThumbnail(domimg);
-                return _self.promiseSetData(STORES.THUMBNAILS, image._id, image.thumbnail);
-            })
-            .then(function(){
-                //Ember.Logger.debug('thumbnail stored');
+                //Ember.Logger.debug('id aquired');
+                image.id = newid;
                 return utils.promiseFileBuffer(file);
             })
             .then(function(buffer){
                 //Ember.Logger.debug('ArrayBuffer Loaded');
-                return _self.promiseSetData(STORES.FULLIMAGES, image._id, buffer);
+                return _self.promiseSetData(RESOURCE.FULLIMAGES, image.id, buffer);
             })
             .then(function(){
                 //Ember.Logger.debug('One image imported');
@@ -173,6 +195,28 @@ StorageAdapter.prototype = {
             _self.promiseDB().then(function(db){
                 db.transaction(store, 'readwrite').objectStore(store).add(data).onsuccess = function(e){
                     resolve(e.target.result);
+                }
+            });
+        });
+    },
+
+    promiseRemoveData: function(store, key){
+        var _self = this;
+        return new Promise(function(resolve){
+            _self.promiseDB().then(function(db){
+                db.transaction(store, 'readwrite').objectStore(store).delete(key).onsuccess = function(){
+                    resolve(true);
+                }
+            });
+        });
+    },
+
+    promiseClear: function(store){
+        var _self = this;
+        return new Promise(function(resolve){
+            _self.promiseDB().then(function(db){
+                db.transaction(store, 'readwrite').objectStore(store).clear().onsuccess = function(){
+                    resolve(true);
                 }
             });
         });
