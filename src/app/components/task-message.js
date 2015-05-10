@@ -12,6 +12,8 @@ module.exports = Ember.Component.extend({
 
     tagName: 'li',
 
+    classNames: 'task-message',
+
     onFinish: function(){
         console.log('called');
         if (this.get('task.isDone')) {

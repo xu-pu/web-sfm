@@ -54,19 +54,19 @@ module.exports = Ember.Controller.extend({
                 // metadata is the Image object
                 url = root+'/images/'+metadata.get('name')+metadata.get('extension');
                 datatype = 'arraybuffer';
-                desc = 'Loading fullsize image '+metadata.get('name')+metadata.get('extension');
+                desc = metadata.get('name')+metadata.get('extension');
                 break;
             case RESOURCE.FEATURE_POINTS:
                 // metadata is the Image object
                 url = root+name+'/'+metadata.get('name')+'.point';
                 datatype = 'arraybuffer';
-                desc = 'Loading feature points of '+metadata.get('name')+metadata.get('extension');
+                desc = metadata.get('name')+'.points';
                 break;
             case RESOURCE.FEATURE_VECTORS:
                 // metadata is the Image object
                 url = root+name+'/'+metadata.get('name')+'.vector';
                 datatype = 'arraybuffer';
-                desc = 'Download feature vectors of '+metadata.get('name')+metadata.get('extension');
+                desc = metadata.get('name')+'.vector';
                 break;
             case RESOURCE.RAW_MATCHES:
                 url = root+name;
@@ -82,22 +82,22 @@ module.exports = Ember.Controller.extend({
             case RESOURCE.MVS_POINTS:
                 url = root+name;
                 datatype = 'arraybuffer';
-                desc = 'Loading dense stereo point cloud';
+                desc = 'Dense point cloud';
                 break;
             case RESOURCE.MVS_COLORS:
                 url = root+name;
                 datatype = 'arraybuffer';
-                desc = 'Loading dense stereo point cloud texture';
+                desc = 'Dense point cloud texture';
                 break;
             case RESOURCE.SPARSE_POINTS:
                 url = root+name;
                 datatype = 'arraybuffer';
-                desc = 'Loading sparse stereo point cloud';
+                desc = 'Sparse point cloud';
                 break;
             case RESOURCE.SPARSE_COLORS:
                 url = root+name;
                 datatype = 'arraybuffer';
-                desc = 'Loading sparse stereo point cloud texture';
+                desc = 'Sparse point cloud texture';
                 break;
             case RESOURCE.CAMERAS:
                 url = root+name;

@@ -81,6 +81,33 @@ $message-width: 20em;
 
 }
 
+//=================
+//
+//=================
+
+.task-message {
+  display: flex;
+}
+
+
+.task-message__body {
+  @include flex(1 1 0);
+  padding: 0.5em;
+}
+
+.task-message__progress {
+  @include transition(0.5s);
+  width: $message-min-size;
+  display: flex;
+  @include align-items(center);
+  @include justify-content(center);
+  background-color: rgb(142, 142, 142);
+  font-weight: bold;
+}
+
+//=================
+//
+//=================
 
 .basic-message {
   display: flex;
