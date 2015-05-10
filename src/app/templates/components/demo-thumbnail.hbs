@@ -1,31 +1,8 @@
 <div class="demo-thumbnail__header">
     <span>{{project.name}}</span>
-    <div class="exit-icon" {{action "delete"}}></div>
 </div>
 
-<div class="demo-thumbnail__body" {{bind-attr style=backgroundStyle}}>
+{{#link-to "welcome.demo" project}}
+    <div class="demo-thumbnail__body" {{bind-attr style=backgroundStyle}}></div>
+{{/link-to}}
 
-    {{#if isConfirmDelete}}
-        <div class="demo-thumbnail__delete-confirm">
-            <div {{action "cancelDelete"}} class="demo-thumbnail__delete-confirm__cancel">
-                <h1>Cancel</h1>
-            </div>
-            <div {{action "delete"}} class="demo-thumbnail__delete-confirm__delete">
-                <h1>Delete</h1>
-            </div>
-        </div>
-    {{/if}}
-
-    {{#if isDeleting}}
-        <div class="demo-thumbnail__deleting">
-            <h1>Deleting</h1>
-        </div>
-    {{/if}}
-
-    {{#link-to "welcome.demo" project}}
-        <div class="demo-thumbnail__detail">
-            <h1>Detail</h1>
-        </div>
-    {{/link-to}}
-
-</div>

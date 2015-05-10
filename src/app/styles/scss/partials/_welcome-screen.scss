@@ -1,4 +1,4 @@
-@import "../../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.1/stylesheets/compass";
+@import "compass";
 @import "../utils";
 
 //=====================================
@@ -420,7 +420,7 @@ $project-thumbnail-header-height: 2em;
   @extend %welcome-screen__thumbnail-tile__body;
   background-size: cover;
   background-position: 50%;
-
+  cursor: pointer;
 }
 
 %demo-thumbnail__tab {
@@ -461,17 +461,6 @@ $project-thumbnail-header-height: 2em;
 
   &.is-inprogress {
     background-color: green;
-  }
-
-}
-
-.demo-thumbnail__detail {
-  @extend %demo-thumbnail__tab;
-  background-color: rgba(29, 29, 29, 0.76);
-  color: lightgray;
-
-  &:hover {
-    background-color: rgb(61, 61, 61);
   }
 
 }
