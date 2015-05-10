@@ -1,6 +1,155 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+module.exports={
 
+  "name": "Hall-Demo",
+
+  "root": "/demo/Hall-Demo",
+
+  "images": [
+    { "id": 0,  "name": "00000000", "extension": ".jpg" },
+    { "id": 1,  "name": "00000001", "extension": ".jpg" },
+    { "id": 2,  "name": "00000002", "extension": ".jpg" },
+    { "id": 3,  "name": "00000003", "extension": ".jpg" },
+    { "id": 4,  "name": "00000004", "extension": ".jpg" },
+    { "id": 5,  "name": "00000005", "extension": ".jpg" },
+    { "id": 6,  "name": "00000006", "extension": ".jpg" },
+    { "id": 7,  "name": "00000007", "extension": ".jpg" },
+    { "id": 8,  "name": "00000008", "extension": ".jpg" },
+    { "id": 9,  "name": "00000009", "extension": ".jpg" },
+    { "id": 10, "name": "00000010", "extension": ".jpg" },
+    { "id": 11, "name": "00000011", "extension": ".jpg" },
+    { "id": 12, "name": "00000012", "extension": ".jpg" },
+    { "id": 13, "name": "00000013", "extension": ".jpg" },
+    { "id": 14, "name": "00000014", "extension": ".jpg" },
+    { "id": 15, "name": "00000015", "extension": ".jpg" },
+    { "id": 16, "name": "00000016", "extension": ".jpg" },
+    { "id": 17, "name": "00000017", "extension": ".jpg" },
+    { "id": 18, "name": "00000018", "extension": ".jpg" },
+    { "id": 19, "name": "00000019", "extension": ".jpg" },
+    { "id": 20, "name": "00000020", "extension": ".jpg" },
+    { "id": 21, "name": "00000021", "extension": ".jpg" },
+    { "id": 22, "name": "00000022", "extension": ".jpg" },
+    { "id": 23, "name": "00000023", "extension": ".jpg" },
+    { "id": 24, "name": "00000024", "extension": ".jpg" },
+    { "id": 25, "name": "00000025", "extension": ".jpg" },
+    { "id": 26, "name": "00000026", "extension": ".jpg" },
+    { "id": 27, "name": "00000027", "extension": ".jpg" },
+    { "id": 28, "name": "00000028", "extension": ".jpg" },
+    { "id": 29, "name": "00000029", "extension": ".jpg" },
+    { "id": 30, "name": "00000030", "extension": ".jpg" },
+    { "id": 31, "name": "00000031", "extension": ".jpg" },
+    { "id": 32, "name": "00000032", "extension": ".jpg" },
+    { "id": 33, "name": "00000033", "extension": ".jpg" },
+    { "id": 34, "name": "00000034", "extension": ".jpg" },
+    { "id": 35, "name": "00000035", "extension": ".jpg" },
+    { "id": 36, "name": "00000036", "extension": ".jpg" },
+    { "id": 37, "name": "00000037", "extension": ".jpg" },
+    { "id": 38, "name": "00000038", "extension": ".jpg" },
+    { "id": 39, "name": "00000039", "extension": ".jpg" },
+    { "id": 40, "name": "00000040", "extension": ".jpg" },
+    { "id": 41, "name": "00000041", "extension": ".jpg" },
+    { "id": 42, "name": "00000042", "extension": ".jpg" },
+    { "id": 43, "name": "00000043", "extension": ".jpg" },
+    { "id": 44, "name": "00000044", "extension": ".jpg" },
+    { "id": 45, "name": "00000045", "extension": ".jpg" },
+    { "id": 46, "name": "00000046", "extension": ".jpg" },
+    { "id": 47, "name": "00000047", "extension": ".jpg" },
+    { "id": 48, "name": "00000048", "extension": ".jpg" },
+    { "id": 49, "name": "00000049", "extension": ".jpg" },
+    { "id": 50, "name": "00000050", "extension": ".jpg" },
+    { "id": 51, "name": "00000051", "extension": ".jpg" },
+    { "id": 52, "name": "00000052", "extension": ".jpg" },
+    { "id": 53, "name": "00000053", "extension": ".jpg" },
+    { "id": 54, "name": "00000054", "extension": ".jpg" },
+    { "id": 55, "name": "00000055", "extension": ".jpg" },
+    { "id": 56, "name": "00000056", "extension": ".jpg" },
+    { "id": 57, "name": "00000057", "extension": ".jpg" },
+    { "id": 58, "name": "00000058", "extension": ".jpg" },
+    { "id": 59, "name": "00000059", "extension": ".jpg" },
+    { "id": 60, "name": "00000060", "extension": ".jpg" }
+  ],
+
+  "entries": ["image", "match", "feature", "calibration", "mvs"]
+
+}
 },{}],2:[function(require,module,exports){
+module.exports={
+
+  "name": "Leuven-City-Hall-Demo",
+
+  "root": "/demo/Leuven-City-Hall-Demo",
+
+  "images": [
+    { "id": 0, "name": "000", "extension": ".png" },
+    { "id": 1, "name": "001", "extension": ".png" },
+    { "id": 2, "name": "002", "extension": ".png" },
+    { "id": 3, "name": "003", "extension": ".png" },
+    { "id": 4, "name": "004", "extension": ".png" },
+    { "id": 5, "name": "005", "extension": ".png" },
+    { "id": 6, "name": "006", "extension": ".png" }
+  ],
+
+  "entries": ["image", "feature", "match", "calibration", "mvs"]
+
+}
+},{}],3:[function(require,module,exports){
+module.exports={
+
+  "name": "Rosetta-Spacecraft",
+
+  "root": "/demo/Rosetta-Spacecraft",
+
+  "images": [
+    { "id": 0, "name": "Colour_image_of_comet", "extension": ".jpg" },
+    { "id": 1, "name": "Comet_on_5_September_2014", "extension": ".jpg" },
+    { "id": 2, "name": "Comet_on_7_August_a", "extension": ".jpg" },
+    { "id": 3, "name": "Comet_on_7_August_b", "extension": ".jpg" },
+    { "id": 4, "name": "Comet_on_7_December_2014_NavCam", "extension": ".jpg" },
+    { "id": 5, "name": "Comet_on_9_December_2014_NavCam", "extension": ".jpg" },
+    { "id": 6, "name": "Comet_on_10_December_2014_NavCam", "extension": ".jpg" },
+    { "id": 7, "name": "Comet_on_14_September_2014_-_NavCam.half", "extension": ".png" },
+    { "id": 8, "name": "Comet_on_17_November_NavCam", "extension": ".jpg" },
+    { "id": 9, "name": "Comet_on_19_September_2014_NavCam.half", "extension": ".png" },
+    { "id": 10, "name": "Comet_on_22_August_2014_-_NavCam", "extension": ".jpg" },
+    { "id": 11, "name": "Comet_on_24_September_NavCam", "extension": ".jpg" }
+  ],
+
+  "entries": ["image", "feature", "match"]
+
+}
+},{}],4:[function(require,module,exports){
+'use strict';
+
+module.exports = [
+
+    {
+
+        name: 'Hall-Demo',
+
+        description: require('./Hall-Demo/description.json')
+
+    },
+
+    {
+
+        name: 'Leuven-City-Hall-Demo',
+
+        description: require('./Leuven-City-Hall-Demo/description.json')
+
+    },
+
+    {
+
+        name: 'Rosetta-Spacecraft',
+
+        description: require('./Rosetta-Spacecraft/description.json')
+
+    }
+
+];
+},{"./Hall-Demo/description.json":1,"./Leuven-City-Hall-Demo/description.json":2,"./Rosetta-Spacecraft/description.json":3}],5:[function(require,module,exports){
+
+},{}],6:[function(require,module,exports){
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -10,14 +159,18 @@
 
 var base64 = require('base64-js')
 var ieee754 = require('ieee754')
+var isArray = require('is-array')
 
 exports.Buffer = Buffer
-exports.SlowBuffer = Buffer
+exports.SlowBuffer = SlowBuffer
 exports.INSPECT_MAX_BYTES = 50
-Buffer.poolSize = 8192
+Buffer.poolSize = 8192 // not used by this implementation
+
+var kMaxLength = 0x3fffffff
+var rootParent = {}
 
 /**
- * If `TYPED_ARRAY_SUPPORT`:
+ * If `Buffer.TYPED_ARRAY_SUPPORT`:
  *   === true    Use Uint8Array implementation (fastest)
  *   === false   Use Object implementation (most compatible, even IE6)
  *
@@ -35,15 +188,15 @@ Buffer.poolSize = 8192
  *  - IE10 has a broken `TypedArray.prototype.subarray` function which returns arrays of
  *    incorrect length in some situations.
  *
- * We detect these buggy browsers and set `TYPED_ARRAY_SUPPORT` to `false` so they will
+ * We detect these buggy browsers and set `Buffer.TYPED_ARRAY_SUPPORT` to `false` so they will
  * get the Object implementation, which is slower but will work correctly.
  */
-var TYPED_ARRAY_SUPPORT = (function () {
+Buffer.TYPED_ARRAY_SUPPORT = (function () {
   try {
     var buf = new ArrayBuffer(0)
     var arr = new Uint8Array(buf)
     arr.foo = function () { return 42 }
-    return 42 === arr.foo() && // typed array instances can be augmented
+    return arr.foo() === 42 && // typed array instances can be augmented
         typeof arr.subarray === 'function' && // chrome 9-10 lack `subarray`
         new Uint8Array(1).subarray(1, 1).byteLength === 0 // ie10 has broken `subarray`
   } catch (e) {
@@ -71,56 +224,96 @@ function Buffer (subject, encoding, noZero) {
 
   // Find the length
   var length
-  if (type === 'number')
-    length = subject > 0 ? subject >>> 0 : 0
-  else if (type === 'string') {
-    if (encoding === 'base64')
-      subject = base64clean(subject)
+  if (type === 'number') {
+    length = +subject
+  } else if (type === 'string') {
     length = Buffer.byteLength(subject, encoding)
   } else if (type === 'object' && subject !== null) { // assume object is array-like
     if (subject.type === 'Buffer' && isArray(subject.data))
       subject = subject.data
-    length = +subject.length > 0 ? Math.floor(+subject.length) : 0
-  } else
-    throw new Error('First argument needs to be a number, array or string.')
+    length = +subject.length
+  } else {
+    throw new TypeError('must start with number, buffer, array or string')
+  }
 
-  var buf
-  if (TYPED_ARRAY_SUPPORT) {
+  if (length > kMaxLength)
+    throw new RangeError('Attempt to allocate Buffer larger than maximum ' +
+      'size: 0x' + kMaxLength.toString(16) + ' bytes')
+
+  if (length < 0)
+    length = 0
+  else
+    length >>>= 0 // Coerce to uint32.
+
+  var self = this
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
     // Preferred: Return an augmented `Uint8Array` instance for best performance
-    buf = Buffer._augment(new Uint8Array(length))
+    /*eslint-disable consistent-this */
+    self = Buffer._augment(new Uint8Array(length))
+    /*eslint-enable consistent-this */
   } else {
     // Fallback: Return THIS instance of Buffer (created by `new`)
-    buf = this
-    buf.length = length
-    buf._isBuffer = true
+    self.length = length
+    self._isBuffer = true
   }
 
   var i
-  if (TYPED_ARRAY_SUPPORT && typeof subject.byteLength === 'number') {
+  if (Buffer.TYPED_ARRAY_SUPPORT && typeof subject.byteLength === 'number') {
     // Speed optimization -- use set if we're copying from a typed array
-    buf._set(subject)
+    self._set(subject)
   } else if (isArrayish(subject)) {
     // Treat array-ish objects as a byte array
     if (Buffer.isBuffer(subject)) {
       for (i = 0; i < length; i++)
-        buf[i] = subject.readUInt8(i)
+        self[i] = subject.readUInt8(i)
     } else {
       for (i = 0; i < length; i++)
-        buf[i] = ((subject[i] % 256) + 256) % 256
+        self[i] = ((subject[i] % 256) + 256) % 256
     }
   } else if (type === 'string') {
-    buf.write(subject, 0, encoding)
-  } else if (type === 'number' && !TYPED_ARRAY_SUPPORT && !noZero) {
+    self.write(subject, 0, encoding)
+  } else if (type === 'number' && !Buffer.TYPED_ARRAY_SUPPORT && !noZero) {
     for (i = 0; i < length; i++) {
-      buf[i] = 0
+      self[i] = 0
     }
   }
 
+  if (length > 0 && length <= Buffer.poolSize)
+    self.parent = rootParent
+
+  return self
+}
+
+function SlowBuffer (subject, encoding, noZero) {
+  if (!(this instanceof SlowBuffer))
+    return new SlowBuffer(subject, encoding, noZero)
+
+  var buf = new Buffer(subject, encoding, noZero)
+  delete buf.parent
   return buf
 }
 
-// STATIC METHODS
-// ==============
+Buffer.isBuffer = function (b) {
+  return !!(b != null && b._isBuffer)
+}
+
+Buffer.compare = function (a, b) {
+  if (!Buffer.isBuffer(a) || !Buffer.isBuffer(b))
+    throw new TypeError('Arguments must be Buffers')
+
+  if (a === b) return 0
+
+  var x = a.length
+  var y = b.length
+  for (var i = 0, len = Math.min(x, y); i < len && a[i] === b[i]; i++) {}
+  if (i !== len) {
+    x = a[i]
+    y = b[i]
+  }
+  if (x < y) return -1
+  if (y < x) return 1
+  return 0
+}
 
 Buffer.isEncoding = function (encoding) {
   switch (String(encoding).toLowerCase()) {
@@ -141,43 +334,8 @@ Buffer.isEncoding = function (encoding) {
   }
 }
 
-Buffer.isBuffer = function (b) {
-  return !!(b != null && b._isBuffer)
-}
-
-Buffer.byteLength = function (str, encoding) {
-  var ret
-  str = str.toString()
-  switch (encoding || 'utf8') {
-    case 'hex':
-      ret = str.length / 2
-      break
-    case 'utf8':
-    case 'utf-8':
-      ret = utf8ToBytes(str).length
-      break
-    case 'ascii':
-    case 'binary':
-    case 'raw':
-      ret = str.length
-      break
-    case 'base64':
-      ret = base64ToBytes(str).length
-      break
-    case 'ucs2':
-    case 'ucs-2':
-    case 'utf16le':
-    case 'utf-16le':
-      ret = str.length * 2
-      break
-    default:
-      throw new Error('Unknown encoding')
-  }
-  return ret
-}
-
 Buffer.concat = function (list, totalLength) {
-  assert(isArray(list), 'Usage: Buffer.concat(list[, length])')
+  if (!isArray(list)) throw new TypeError('Usage: Buffer.concat(list[, length])')
 
   if (list.length === 0) {
     return new Buffer(0)
@@ -203,26 +361,120 @@ Buffer.concat = function (list, totalLength) {
   return buf
 }
 
-Buffer.compare = function (a, b) {
-  assert(Buffer.isBuffer(a) && Buffer.isBuffer(b), 'Arguments must be Buffers')
-  var x = a.length
-  var y = b.length
-  for (var i = 0, len = Math.min(x, y); i < len && a[i] === b[i]; i++) {}
-  if (i !== len) {
-    x = a[i]
-    y = b[i]
+Buffer.byteLength = function (str, encoding) {
+  var ret
+  str = str + ''
+  switch (encoding || 'utf8') {
+    case 'ascii':
+    case 'binary':
+    case 'raw':
+      ret = str.length
+      break
+    case 'ucs2':
+    case 'ucs-2':
+    case 'utf16le':
+    case 'utf-16le':
+      ret = str.length * 2
+      break
+    case 'hex':
+      ret = str.length >>> 1
+      break
+    case 'utf8':
+    case 'utf-8':
+      ret = utf8ToBytes(str).length
+      break
+    case 'base64':
+      ret = base64ToBytes(str).length
+      break
+    default:
+      ret = str.length
   }
-  if (x < y) {
-    return -1
-  }
-  if (y < x) {
-    return 1
-  }
-  return 0
+  return ret
 }
 
-// BUFFER INSTANCE METHODS
-// =======================
+// pre-set for values that may exist in the future
+Buffer.prototype.length = undefined
+Buffer.prototype.parent = undefined
+
+// toString(encoding, start=0, end=buffer.length)
+Buffer.prototype.toString = function (encoding, start, end) {
+  var loweredCase = false
+
+  start = start >>> 0
+  end = end === undefined || end === Infinity ? this.length : end >>> 0
+
+  if (!encoding) encoding = 'utf8'
+  if (start < 0) start = 0
+  if (end > this.length) end = this.length
+  if (end <= start) return ''
+
+  while (true) {
+    switch (encoding) {
+      case 'hex':
+        return hexSlice(this, start, end)
+
+      case 'utf8':
+      case 'utf-8':
+        return utf8Slice(this, start, end)
+
+      case 'ascii':
+        return asciiSlice(this, start, end)
+
+      case 'binary':
+        return binarySlice(this, start, end)
+
+      case 'base64':
+        return base64Slice(this, start, end)
+
+      case 'ucs2':
+      case 'ucs-2':
+      case 'utf16le':
+      case 'utf-16le':
+        return utf16leSlice(this, start, end)
+
+      default:
+        if (loweredCase)
+          throw new TypeError('Unknown encoding: ' + encoding)
+        encoding = (encoding + '').toLowerCase()
+        loweredCase = true
+    }
+  }
+}
+
+Buffer.prototype.equals = function (b) {
+  if (!Buffer.isBuffer(b)) throw new TypeError('Argument must be a Buffer')
+  if (this === b) return true
+  return Buffer.compare(this, b) === 0
+}
+
+Buffer.prototype.inspect = function () {
+  var str = ''
+  var max = exports.INSPECT_MAX_BYTES
+  if (this.length > 0) {
+    str = this.toString('hex', 0, max).match(/.{2}/g).join(' ')
+    if (this.length > max)
+      str += ' ... '
+  }
+  return '<Buffer ' + str + '>'
+}
+
+Buffer.prototype.compare = function (b) {
+  if (!Buffer.isBuffer(b)) throw new TypeError('Argument must be a Buffer')
+  if (this === b) return 0
+  return Buffer.compare(this, b)
+}
+
+// `get` will be removed in Node 0.13+
+Buffer.prototype.get = function (offset) {
+  console.log('.get() is deprecated. Access using array indexes instead.')
+  return this.readUInt8(offset)
+}
+
+// `set` will be removed in Node 0.13+
+Buffer.prototype.set = function (v, offset) {
+  console.log('.set() is deprecated. Access using array indexes instead.')
+  return this.writeUInt8(v, offset)
+}
 
 function hexWrite (buf, string, offset, length) {
   offset = Number(offset) || 0
@@ -238,21 +490,21 @@ function hexWrite (buf, string, offset, length) {
 
   // must be an even number of digits
   var strLen = string.length
-  assert(strLen % 2 === 0, 'Invalid hex string')
+  if (strLen % 2 !== 0) throw new Error('Invalid hex string')
 
   if (length > strLen / 2) {
     length = strLen / 2
   }
   for (var i = 0; i < length; i++) {
     var byte = parseInt(string.substr(i * 2, 2), 16)
-    assert(!isNaN(byte), 'Invalid hex string')
+    if (isNaN(byte)) throw new Error('Invalid hex string')
     buf[offset + i] = byte
   }
   return i
 }
 
 function utf8Write (buf, string, offset, length) {
-  var charsWritten = blitBuffer(utf8ToBytes(string), buf, offset, length)
+  var charsWritten = blitBuffer(utf8ToBytes(string, buf.length - offset), buf, offset, length)
   return charsWritten
 }
 
@@ -271,7 +523,7 @@ function base64Write (buf, string, offset, length) {
 }
 
 function utf16leWrite (buf, string, offset, length) {
-  var charsWritten = blitBuffer(utf16leToBytes(string), buf, offset, length)
+  var charsWritten = blitBuffer(utf16leToBytes(string, buf.length - offset), buf, offset, length)
   return charsWritten
 }
 
@@ -291,6 +543,10 @@ Buffer.prototype.write = function (string, offset, length, encoding) {
   }
 
   offset = Number(offset) || 0
+
+  if (length < 0 || offset < 0 || offset > this.length)
+    throw new RangeError('attempt to write outside buffer bounds')
+
   var remaining = this.length - offset
   if (!length) {
     length = remaining
@@ -327,48 +583,7 @@ Buffer.prototype.write = function (string, offset, length, encoding) {
       ret = utf16leWrite(this, string, offset, length)
       break
     default:
-      throw new Error('Unknown encoding')
-  }
-  return ret
-}
-
-Buffer.prototype.toString = function (encoding, start, end) {
-  var self = this
-
-  encoding = String(encoding || 'utf8').toLowerCase()
-  start = Number(start) || 0
-  end = (end === undefined) ? self.length : Number(end)
-
-  // Fastpath empty strings
-  if (end === start)
-    return ''
-
-  var ret
-  switch (encoding) {
-    case 'hex':
-      ret = hexSlice(self, start, end)
-      break
-    case 'utf8':
-    case 'utf-8':
-      ret = utf8Slice(self, start, end)
-      break
-    case 'ascii':
-      ret = asciiSlice(self, start, end)
-      break
-    case 'binary':
-      ret = binarySlice(self, start, end)
-      break
-    case 'base64':
-      ret = base64Slice(self, start, end)
-      break
-    case 'ucs2':
-    case 'ucs-2':
-    case 'utf16le':
-    case 'utf-16le':
-      ret = utf16leSlice(self, start, end)
-      break
-    default:
-      throw new Error('Unknown encoding')
+      throw new TypeError('Unknown encoding: ' + encoding)
   }
   return ret
 }
@@ -377,52 +592,6 @@ Buffer.prototype.toJSON = function () {
   return {
     type: 'Buffer',
     data: Array.prototype.slice.call(this._arr || this, 0)
-  }
-}
-
-Buffer.prototype.equals = function (b) {
-  assert(Buffer.isBuffer(b), 'Argument must be a Buffer')
-  return Buffer.compare(this, b) === 0
-}
-
-Buffer.prototype.compare = function (b) {
-  assert(Buffer.isBuffer(b), 'Argument must be a Buffer')
-  return Buffer.compare(this, b)
-}
-
-// copy(targetBuffer, targetStart=0, sourceStart=0, sourceEnd=buffer.length)
-Buffer.prototype.copy = function (target, target_start, start, end) {
-  var source = this
-
-  if (!start) start = 0
-  if (!end && end !== 0) end = this.length
-  if (!target_start) target_start = 0
-
-  // Copy 0 bytes; we're done
-  if (end === start) return
-  if (target.length === 0 || source.length === 0) return
-
-  // Fatal error conditions
-  assert(end >= start, 'sourceEnd < sourceStart')
-  assert(target_start >= 0 && target_start < target.length,
-      'targetStart out of bounds')
-  assert(start >= 0 && start < source.length, 'sourceStart out of bounds')
-  assert(end >= 0 && end <= source.length, 'sourceEnd out of bounds')
-
-  // Are we oob?
-  if (end > this.length)
-    end = this.length
-  if (target.length - target_start < end - start)
-    end = target.length - target_start + start
-
-  var len = end - start
-
-  if (len < 100 || !TYPED_ARRAY_SUPPORT) {
-    for (var i = 0; i < len; i++) {
-      target[i + target_start] = this[i + start]
-    }
-  } else {
-    target._set(this.subarray(start, start + len), target_start)
   }
 }
 
@@ -456,13 +625,19 @@ function asciiSlice (buf, start, end) {
   end = Math.min(buf.length, end)
 
   for (var i = start; i < end; i++) {
-    ret += String.fromCharCode(buf[i])
+    ret += String.fromCharCode(buf[i] & 0x7F)
   }
   return ret
 }
 
 function binarySlice (buf, start, end) {
-  return asciiSlice(buf, start, end)
+  var ret = ''
+  end = Math.min(buf.length, end)
+
+  for (var i = start; i < end; i++) {
+    ret += String.fromCharCode(buf[i])
+  }
+  return ret
 }
 
 function hexSlice (buf, start, end) {
@@ -493,7 +668,7 @@ Buffer.prototype.slice = function (start, end) {
   end = end === undefined ? len : ~~end
 
   if (start < 0) {
-    start += len;
+    start += len
     if (start < 0)
       start = 0
   } else if (start > len) {
@@ -511,377 +686,436 @@ Buffer.prototype.slice = function (start, end) {
   if (end < start)
     end = start
 
-  if (TYPED_ARRAY_SUPPORT) {
-    return Buffer._augment(this.subarray(start, end))
+  var newBuf
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    newBuf = Buffer._augment(this.subarray(start, end))
   } else {
     var sliceLen = end - start
-    var newBuf = new Buffer(sliceLen, undefined, true)
+    newBuf = new Buffer(sliceLen, undefined, true)
     for (var i = 0; i < sliceLen; i++) {
       newBuf[i] = this[i + start]
     }
-    return newBuf
   }
+
+  if (newBuf.length)
+    newBuf.parent = this.parent || this
+
+  return newBuf
 }
 
-// `get` will be removed in Node 0.13+
-Buffer.prototype.get = function (offset) {
-  console.log('.get() is deprecated. Access using array indexes instead.')
-  return this.readUInt8(offset)
+/*
+ * Need to make sure that buffer isn't trying to write out of bounds.
+ */
+function checkOffset (offset, ext, length) {
+  if ((offset % 1) !== 0 || offset < 0)
+    throw new RangeError('offset is not uint')
+  if (offset + ext > length)
+    throw new RangeError('Trying to access beyond buffer length')
 }
 
-// `set` will be removed in Node 0.13+
-Buffer.prototype.set = function (v, offset) {
-  console.log('.set() is deprecated. Access using array indexes instead.')
-  return this.writeUInt8(v, offset)
+Buffer.prototype.readUIntLE = function (offset, byteLength, noAssert) {
+  offset = offset >>> 0
+  byteLength = byteLength >>> 0
+  if (!noAssert)
+    checkOffset(offset, byteLength, this.length)
+
+  var val = this[offset]
+  var mul = 1
+  var i = 0
+  while (++i < byteLength && (mul *= 0x100))
+    val += this[offset + i] * mul
+
+  return val
+}
+
+Buffer.prototype.readUIntBE = function (offset, byteLength, noAssert) {
+  offset = offset >>> 0
+  byteLength = byteLength >>> 0
+  if (!noAssert)
+    checkOffset(offset, byteLength, this.length)
+
+  var val = this[offset + --byteLength]
+  var mul = 1
+  while (byteLength > 0 && (mul *= 0x100))
+    val += this[offset + --byteLength] * mul
+
+  return val
 }
 
 Buffer.prototype.readUInt8 = function (offset, noAssert) {
-  if (!noAssert) {
-    assert(offset !== undefined && offset !== null, 'missing offset')
-    assert(offset < this.length, 'Trying to read beyond buffer length')
-  }
-
-  if (offset >= this.length)
-    return
-
+  if (!noAssert)
+    checkOffset(offset, 1, this.length)
   return this[offset]
 }
 
-function readUInt16 (buf, offset, littleEndian, noAssert) {
-  if (!noAssert) {
-    assert(typeof littleEndian === 'boolean', 'missing or invalid endian')
-    assert(offset !== undefined && offset !== null, 'missing offset')
-    assert(offset + 1 < buf.length, 'Trying to read beyond buffer length')
-  }
-
-  var len = buf.length
-  if (offset >= len)
-    return
-
-  var val
-  if (littleEndian) {
-    val = buf[offset]
-    if (offset + 1 < len)
-      val |= buf[offset + 1] << 8
-  } else {
-    val = buf[offset] << 8
-    if (offset + 1 < len)
-      val |= buf[offset + 1]
-  }
-  return val
-}
-
 Buffer.prototype.readUInt16LE = function (offset, noAssert) {
-  return readUInt16(this, offset, true, noAssert)
+  if (!noAssert)
+    checkOffset(offset, 2, this.length)
+  return this[offset] | (this[offset + 1] << 8)
 }
 
 Buffer.prototype.readUInt16BE = function (offset, noAssert) {
-  return readUInt16(this, offset, false, noAssert)
-}
-
-function readUInt32 (buf, offset, littleEndian, noAssert) {
-  if (!noAssert) {
-    assert(typeof littleEndian === 'boolean', 'missing or invalid endian')
-    assert(offset !== undefined && offset !== null, 'missing offset')
-    assert(offset + 3 < buf.length, 'Trying to read beyond buffer length')
-  }
-
-  var len = buf.length
-  if (offset >= len)
-    return
-
-  var val
-  if (littleEndian) {
-    if (offset + 2 < len)
-      val = buf[offset + 2] << 16
-    if (offset + 1 < len)
-      val |= buf[offset + 1] << 8
-    val |= buf[offset]
-    if (offset + 3 < len)
-      val = val + (buf[offset + 3] << 24 >>> 0)
-  } else {
-    if (offset + 1 < len)
-      val = buf[offset + 1] << 16
-    if (offset + 2 < len)
-      val |= buf[offset + 2] << 8
-    if (offset + 3 < len)
-      val |= buf[offset + 3]
-    val = val + (buf[offset] << 24 >>> 0)
-  }
-  return val
+  if (!noAssert)
+    checkOffset(offset, 2, this.length)
+  return (this[offset] << 8) | this[offset + 1]
 }
 
 Buffer.prototype.readUInt32LE = function (offset, noAssert) {
-  return readUInt32(this, offset, true, noAssert)
+  if (!noAssert)
+    checkOffset(offset, 4, this.length)
+
+  return ((this[offset]) |
+      (this[offset + 1] << 8) |
+      (this[offset + 2] << 16)) +
+      (this[offset + 3] * 0x1000000)
 }
 
 Buffer.prototype.readUInt32BE = function (offset, noAssert) {
-  return readUInt32(this, offset, false, noAssert)
+  if (!noAssert)
+    checkOffset(offset, 4, this.length)
+
+  return (this[offset] * 0x1000000) +
+      ((this[offset + 1] << 16) |
+      (this[offset + 2] << 8) |
+      this[offset + 3])
+}
+
+Buffer.prototype.readIntLE = function (offset, byteLength, noAssert) {
+  offset = offset >>> 0
+  byteLength = byteLength >>> 0
+  if (!noAssert)
+    checkOffset(offset, byteLength, this.length)
+
+  var val = this[offset]
+  var mul = 1
+  var i = 0
+  while (++i < byteLength && (mul *= 0x100))
+    val += this[offset + i] * mul
+  mul *= 0x80
+
+  if (val >= mul)
+    val -= Math.pow(2, 8 * byteLength)
+
+  return val
+}
+
+Buffer.prototype.readIntBE = function (offset, byteLength, noAssert) {
+  offset = offset >>> 0
+  byteLength = byteLength >>> 0
+  if (!noAssert)
+    checkOffset(offset, byteLength, this.length)
+
+  var i = byteLength
+  var mul = 1
+  var val = this[offset + --i]
+  while (i > 0 && (mul *= 0x100))
+    val += this[offset + --i] * mul
+  mul *= 0x80
+
+  if (val >= mul)
+    val -= Math.pow(2, 8 * byteLength)
+
+  return val
 }
 
 Buffer.prototype.readInt8 = function (offset, noAssert) {
-  if (!noAssert) {
-    assert(offset !== undefined && offset !== null,
-        'missing offset')
-    assert(offset < this.length, 'Trying to read beyond buffer length')
-  }
-
-  if (offset >= this.length)
-    return
-
-  var neg = this[offset] & 0x80
-  if (neg)
-    return (0xff - this[offset] + 1) * -1
-  else
-    return this[offset]
-}
-
-function readInt16 (buf, offset, littleEndian, noAssert) {
-  if (!noAssert) {
-    assert(typeof littleEndian === 'boolean', 'missing or invalid endian')
-    assert(offset !== undefined && offset !== null, 'missing offset')
-    assert(offset + 1 < buf.length, 'Trying to read beyond buffer length')
-  }
-
-  var len = buf.length
-  if (offset >= len)
-    return
-
-  var val = readUInt16(buf, offset, littleEndian, true)
-  var neg = val & 0x8000
-  if (neg)
-    return (0xffff - val + 1) * -1
-  else
-    return val
+  if (!noAssert)
+    checkOffset(offset, 1, this.length)
+  if (!(this[offset] & 0x80))
+    return (this[offset])
+  return ((0xff - this[offset] + 1) * -1)
 }
 
 Buffer.prototype.readInt16LE = function (offset, noAssert) {
-  return readInt16(this, offset, true, noAssert)
+  if (!noAssert)
+    checkOffset(offset, 2, this.length)
+  var val = this[offset] | (this[offset + 1] << 8)
+  return (val & 0x8000) ? val | 0xFFFF0000 : val
 }
 
 Buffer.prototype.readInt16BE = function (offset, noAssert) {
-  return readInt16(this, offset, false, noAssert)
-}
-
-function readInt32 (buf, offset, littleEndian, noAssert) {
-  if (!noAssert) {
-    assert(typeof littleEndian === 'boolean', 'missing or invalid endian')
-    assert(offset !== undefined && offset !== null, 'missing offset')
-    assert(offset + 3 < buf.length, 'Trying to read beyond buffer length')
-  }
-
-  var len = buf.length
-  if (offset >= len)
-    return
-
-  var val = readUInt32(buf, offset, littleEndian, true)
-  var neg = val & 0x80000000
-  if (neg)
-    return (0xffffffff - val + 1) * -1
-  else
-    return val
+  if (!noAssert)
+    checkOffset(offset, 2, this.length)
+  var val = this[offset + 1] | (this[offset] << 8)
+  return (val & 0x8000) ? val | 0xFFFF0000 : val
 }
 
 Buffer.prototype.readInt32LE = function (offset, noAssert) {
-  return readInt32(this, offset, true, noAssert)
+  if (!noAssert)
+    checkOffset(offset, 4, this.length)
+
+  return (this[offset]) |
+      (this[offset + 1] << 8) |
+      (this[offset + 2] << 16) |
+      (this[offset + 3] << 24)
 }
 
 Buffer.prototype.readInt32BE = function (offset, noAssert) {
-  return readInt32(this, offset, false, noAssert)
-}
+  if (!noAssert)
+    checkOffset(offset, 4, this.length)
 
-function readFloat (buf, offset, littleEndian, noAssert) {
-  if (!noAssert) {
-    assert(typeof littleEndian === 'boolean', 'missing or invalid endian')
-    assert(offset + 3 < buf.length, 'Trying to read beyond buffer length')
-  }
-
-  return ieee754.read(buf, offset, littleEndian, 23, 4)
+  return (this[offset] << 24) |
+      (this[offset + 1] << 16) |
+      (this[offset + 2] << 8) |
+      (this[offset + 3])
 }
 
 Buffer.prototype.readFloatLE = function (offset, noAssert) {
-  return readFloat(this, offset, true, noAssert)
+  if (!noAssert)
+    checkOffset(offset, 4, this.length)
+  return ieee754.read(this, offset, true, 23, 4)
 }
 
 Buffer.prototype.readFloatBE = function (offset, noAssert) {
-  return readFloat(this, offset, false, noAssert)
-}
-
-function readDouble (buf, offset, littleEndian, noAssert) {
-  if (!noAssert) {
-    assert(typeof littleEndian === 'boolean', 'missing or invalid endian')
-    assert(offset + 7 < buf.length, 'Trying to read beyond buffer length')
-  }
-
-  return ieee754.read(buf, offset, littleEndian, 52, 8)
+  if (!noAssert)
+    checkOffset(offset, 4, this.length)
+  return ieee754.read(this, offset, false, 23, 4)
 }
 
 Buffer.prototype.readDoubleLE = function (offset, noAssert) {
-  return readDouble(this, offset, true, noAssert)
+  if (!noAssert)
+    checkOffset(offset, 8, this.length)
+  return ieee754.read(this, offset, true, 52, 8)
 }
 
 Buffer.prototype.readDoubleBE = function (offset, noAssert) {
-  return readDouble(this, offset, false, noAssert)
+  if (!noAssert)
+    checkOffset(offset, 8, this.length)
+  return ieee754.read(this, offset, false, 52, 8)
+}
+
+function checkInt (buf, value, offset, ext, max, min) {
+  if (!Buffer.isBuffer(buf)) throw new TypeError('buffer must be a Buffer instance')
+  if (value > max || value < min) throw new RangeError('value is out of bounds')
+  if (offset + ext > buf.length) throw new RangeError('index out of range')
+}
+
+Buffer.prototype.writeUIntLE = function (value, offset, byteLength, noAssert) {
+  value = +value
+  offset = offset >>> 0
+  byteLength = byteLength >>> 0
+  if (!noAssert)
+    checkInt(this, value, offset, byteLength, Math.pow(2, 8 * byteLength), 0)
+
+  var mul = 1
+  var i = 0
+  this[offset] = value & 0xFF
+  while (++i < byteLength && (mul *= 0x100))
+    this[offset + i] = (value / mul) >>> 0 & 0xFF
+
+  return offset + byteLength
+}
+
+Buffer.prototype.writeUIntBE = function (value, offset, byteLength, noAssert) {
+  value = +value
+  offset = offset >>> 0
+  byteLength = byteLength >>> 0
+  if (!noAssert)
+    checkInt(this, value, offset, byteLength, Math.pow(2, 8 * byteLength), 0)
+
+  var i = byteLength - 1
+  var mul = 1
+  this[offset + i] = value & 0xFF
+  while (--i >= 0 && (mul *= 0x100))
+    this[offset + i] = (value / mul) >>> 0 & 0xFF
+
+  return offset + byteLength
 }
 
 Buffer.prototype.writeUInt8 = function (value, offset, noAssert) {
-  if (!noAssert) {
-    assert(value !== undefined && value !== null, 'missing value')
-    assert(offset !== undefined && offset !== null, 'missing offset')
-    assert(offset < this.length, 'trying to write beyond buffer length')
-    verifuint(value, 0xff)
-  }
-
-  if (offset >= this.length) return
-
+  value = +value
+  offset = offset >>> 0
+  if (!noAssert)
+    checkInt(this, value, offset, 1, 0xff, 0)
+  if (!Buffer.TYPED_ARRAY_SUPPORT) value = Math.floor(value)
   this[offset] = value
   return offset + 1
 }
 
-function writeUInt16 (buf, value, offset, littleEndian, noAssert) {
-  if (!noAssert) {
-    assert(value !== undefined && value !== null, 'missing value')
-    assert(typeof littleEndian === 'boolean', 'missing or invalid endian')
-    assert(offset !== undefined && offset !== null, 'missing offset')
-    assert(offset + 1 < buf.length, 'trying to write beyond buffer length')
-    verifuint(value, 0xffff)
+function objectWriteUInt16 (buf, value, offset, littleEndian) {
+  if (value < 0) value = 0xffff + value + 1
+  for (var i = 0, j = Math.min(buf.length - offset, 2); i < j; i++) {
+    buf[offset + i] = (value & (0xff << (8 * (littleEndian ? i : 1 - i)))) >>>
+      (littleEndian ? i : 1 - i) * 8
   }
-
-  var len = buf.length
-  if (offset >= len)
-    return
-
-  for (var i = 0, j = Math.min(len - offset, 2); i < j; i++) {
-    buf[offset + i] =
-        (value & (0xff << (8 * (littleEndian ? i : 1 - i)))) >>>
-            (littleEndian ? i : 1 - i) * 8
-  }
-  return offset + 2
 }
 
 Buffer.prototype.writeUInt16LE = function (value, offset, noAssert) {
-  return writeUInt16(this, value, offset, true, noAssert)
-}
-
-Buffer.prototype.writeUInt16BE = function (value, offset, noAssert) {
-  return writeUInt16(this, value, offset, false, noAssert)
-}
-
-function writeUInt32 (buf, value, offset, littleEndian, noAssert) {
-  if (!noAssert) {
-    assert(value !== undefined && value !== null, 'missing value')
-    assert(typeof littleEndian === 'boolean', 'missing or invalid endian')
-    assert(offset !== undefined && offset !== null, 'missing offset')
-    assert(offset + 3 < buf.length, 'trying to write beyond buffer length')
-    verifuint(value, 0xffffffff)
-  }
-
-  var len = buf.length
-  if (offset >= len)
-    return
-
-  for (var i = 0, j = Math.min(len - offset, 4); i < j; i++) {
-    buf[offset + i] =
-        (value >>> (littleEndian ? i : 3 - i) * 8) & 0xff
-  }
-  return offset + 4
-}
-
-Buffer.prototype.writeUInt32LE = function (value, offset, noAssert) {
-  return writeUInt32(this, value, offset, true, noAssert)
-}
-
-Buffer.prototype.writeUInt32BE = function (value, offset, noAssert) {
-  return writeUInt32(this, value, offset, false, noAssert)
-}
-
-Buffer.prototype.writeInt8 = function (value, offset, noAssert) {
-  if (!noAssert) {
-    assert(value !== undefined && value !== null, 'missing value')
-    assert(offset !== undefined && offset !== null, 'missing offset')
-    assert(offset < this.length, 'Trying to write beyond buffer length')
-    verifsint(value, 0x7f, -0x80)
-  }
-
-  if (offset >= this.length)
-    return
-
-  if (value >= 0)
-    this.writeUInt8(value, offset, noAssert)
-  else
-    this.writeUInt8(0xff + value + 1, offset, noAssert)
-  return offset + 1
-}
-
-function writeInt16 (buf, value, offset, littleEndian, noAssert) {
-  if (!noAssert) {
-    assert(value !== undefined && value !== null, 'missing value')
-    assert(typeof littleEndian === 'boolean', 'missing or invalid endian')
-    assert(offset !== undefined && offset !== null, 'missing offset')
-    assert(offset + 1 < buf.length, 'Trying to write beyond buffer length')
-    verifsint(value, 0x7fff, -0x8000)
-  }
-
-  var len = buf.length
-  if (offset >= len)
-    return
-
-  if (value >= 0)
-    writeUInt16(buf, value, offset, littleEndian, noAssert)
-  else
-    writeUInt16(buf, 0xffff + value + 1, offset, littleEndian, noAssert)
+  value = +value
+  offset = offset >>> 0
+  if (!noAssert)
+    checkInt(this, value, offset, 2, 0xffff, 0)
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = value
+    this[offset + 1] = (value >>> 8)
+  } else objectWriteUInt16(this, value, offset, true)
   return offset + 2
 }
 
-Buffer.prototype.writeInt16LE = function (value, offset, noAssert) {
-  return writeInt16(this, value, offset, true, noAssert)
+Buffer.prototype.writeUInt16BE = function (value, offset, noAssert) {
+  value = +value
+  offset = offset >>> 0
+  if (!noAssert)
+    checkInt(this, value, offset, 2, 0xffff, 0)
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value >>> 8)
+    this[offset + 1] = value
+  } else objectWriteUInt16(this, value, offset, false)
+  return offset + 2
 }
 
-Buffer.prototype.writeInt16BE = function (value, offset, noAssert) {
-  return writeInt16(this, value, offset, false, noAssert)
-}
-
-function writeInt32 (buf, value, offset, littleEndian, noAssert) {
-  if (!noAssert) {
-    assert(value !== undefined && value !== null, 'missing value')
-    assert(typeof littleEndian === 'boolean', 'missing or invalid endian')
-    assert(offset !== undefined && offset !== null, 'missing offset')
-    assert(offset + 3 < buf.length, 'Trying to write beyond buffer length')
-    verifsint(value, 0x7fffffff, -0x80000000)
+function objectWriteUInt32 (buf, value, offset, littleEndian) {
+  if (value < 0) value = 0xffffffff + value + 1
+  for (var i = 0, j = Math.min(buf.length - offset, 4); i < j; i++) {
+    buf[offset + i] = (value >>> (littleEndian ? i : 3 - i) * 8) & 0xff
   }
+}
 
-  var len = buf.length
-  if (offset >= len)
-    return
-
-  if (value >= 0)
-    writeUInt32(buf, value, offset, littleEndian, noAssert)
-  else
-    writeUInt32(buf, 0xffffffff + value + 1, offset, littleEndian, noAssert)
+Buffer.prototype.writeUInt32LE = function (value, offset, noAssert) {
+  value = +value
+  offset = offset >>> 0
+  if (!noAssert)
+    checkInt(this, value, offset, 4, 0xffffffff, 0)
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset + 3] = (value >>> 24)
+    this[offset + 2] = (value >>> 16)
+    this[offset + 1] = (value >>> 8)
+    this[offset] = value
+  } else objectWriteUInt32(this, value, offset, true)
   return offset + 4
 }
 
+Buffer.prototype.writeUInt32BE = function (value, offset, noAssert) {
+  value = +value
+  offset = offset >>> 0
+  if (!noAssert)
+    checkInt(this, value, offset, 4, 0xffffffff, 0)
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value >>> 24)
+    this[offset + 1] = (value >>> 16)
+    this[offset + 2] = (value >>> 8)
+    this[offset + 3] = value
+  } else objectWriteUInt32(this, value, offset, false)
+  return offset + 4
+}
+
+Buffer.prototype.writeIntLE = function (value, offset, byteLength, noAssert) {
+  value = +value
+  offset = offset >>> 0
+  if (!noAssert) {
+    checkInt(this,
+             value,
+             offset,
+             byteLength,
+             Math.pow(2, 8 * byteLength - 1) - 1,
+             -Math.pow(2, 8 * byteLength - 1))
+  }
+
+  var i = 0
+  var mul = 1
+  var sub = value < 0 ? 1 : 0
+  this[offset] = value & 0xFF
+  while (++i < byteLength && (mul *= 0x100))
+    this[offset + i] = ((value / mul) >> 0) - sub & 0xFF
+
+  return offset + byteLength
+}
+
+Buffer.prototype.writeIntBE = function (value, offset, byteLength, noAssert) {
+  value = +value
+  offset = offset >>> 0
+  if (!noAssert) {
+    checkInt(this,
+             value,
+             offset,
+             byteLength,
+             Math.pow(2, 8 * byteLength - 1) - 1,
+             -Math.pow(2, 8 * byteLength - 1))
+  }
+
+  var i = byteLength - 1
+  var mul = 1
+  var sub = value < 0 ? 1 : 0
+  this[offset + i] = value & 0xFF
+  while (--i >= 0 && (mul *= 0x100))
+    this[offset + i] = ((value / mul) >> 0) - sub & 0xFF
+
+  return offset + byteLength
+}
+
+Buffer.prototype.writeInt8 = function (value, offset, noAssert) {
+  value = +value
+  offset = offset >>> 0
+  if (!noAssert)
+    checkInt(this, value, offset, 1, 0x7f, -0x80)
+  if (!Buffer.TYPED_ARRAY_SUPPORT) value = Math.floor(value)
+  if (value < 0) value = 0xff + value + 1
+  this[offset] = value
+  return offset + 1
+}
+
+Buffer.prototype.writeInt16LE = function (value, offset, noAssert) {
+  value = +value
+  offset = offset >>> 0
+  if (!noAssert)
+    checkInt(this, value, offset, 2, 0x7fff, -0x8000)
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = value
+    this[offset + 1] = (value >>> 8)
+  } else objectWriteUInt16(this, value, offset, true)
+  return offset + 2
+}
+
+Buffer.prototype.writeInt16BE = function (value, offset, noAssert) {
+  value = +value
+  offset = offset >>> 0
+  if (!noAssert)
+    checkInt(this, value, offset, 2, 0x7fff, -0x8000)
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value >>> 8)
+    this[offset + 1] = value
+  } else objectWriteUInt16(this, value, offset, false)
+  return offset + 2
+}
+
 Buffer.prototype.writeInt32LE = function (value, offset, noAssert) {
-  return writeInt32(this, value, offset, true, noAssert)
+  value = +value
+  offset = offset >>> 0
+  if (!noAssert)
+    checkInt(this, value, offset, 4, 0x7fffffff, -0x80000000)
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = value
+    this[offset + 1] = (value >>> 8)
+    this[offset + 2] = (value >>> 16)
+    this[offset + 3] = (value >>> 24)
+  } else objectWriteUInt32(this, value, offset, true)
+  return offset + 4
 }
 
 Buffer.prototype.writeInt32BE = function (value, offset, noAssert) {
-  return writeInt32(this, value, offset, false, noAssert)
+  value = +value
+  offset = offset >>> 0
+  if (!noAssert)
+    checkInt(this, value, offset, 4, 0x7fffffff, -0x80000000)
+  if (value < 0) value = 0xffffffff + value + 1
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value >>> 24)
+    this[offset + 1] = (value >>> 16)
+    this[offset + 2] = (value >>> 8)
+    this[offset + 3] = value
+  } else objectWriteUInt32(this, value, offset, false)
+  return offset + 4
+}
+
+function checkIEEE754 (buf, value, offset, ext, max, min) {
+  if (value > max || value < min) throw new RangeError('value is out of bounds')
+  if (offset + ext > buf.length) throw new RangeError('index out of range')
+  if (offset < 0) throw new RangeError('index out of range')
 }
 
 function writeFloat (buf, value, offset, littleEndian, noAssert) {
-  if (!noAssert) {
-    assert(value !== undefined && value !== null, 'missing value')
-    assert(typeof littleEndian === 'boolean', 'missing or invalid endian')
-    assert(offset !== undefined && offset !== null, 'missing offset')
-    assert(offset + 3 < buf.length, 'Trying to write beyond buffer length')
-    verifIEEE754(value, 3.4028234663852886e+38, -3.4028234663852886e+38)
-  }
-
-  var len = buf.length
-  if (offset >= len)
-    return
-
+  if (!noAssert)
+    checkIEEE754(buf, value, offset, 4, 3.4028234663852886e+38, -3.4028234663852886e+38)
   ieee754.write(buf, value, offset, littleEndian, 23, 4)
   return offset + 4
 }
@@ -895,19 +1129,8 @@ Buffer.prototype.writeFloatBE = function (value, offset, noAssert) {
 }
 
 function writeDouble (buf, value, offset, littleEndian, noAssert) {
-  if (!noAssert) {
-    assert(value !== undefined && value !== null, 'missing value')
-    assert(typeof littleEndian === 'boolean', 'missing or invalid endian')
-    assert(offset !== undefined && offset !== null, 'missing offset')
-    assert(offset + 7 < buf.length,
-        'Trying to write beyond buffer length')
-    verifIEEE754(value, 1.7976931348623157E+308, -1.7976931348623157E+308)
-  }
-
-  var len = buf.length
-  if (offset >= len)
-    return
-
+  if (!noAssert)
+    checkIEEE754(buf, value, offset, 8, 1.7976931348623157E+308, -1.7976931348623157E+308)
   ieee754.write(buf, value, offset, littleEndian, 52, 8)
   return offset + 8
 }
@@ -920,20 +1143,59 @@ Buffer.prototype.writeDoubleBE = function (value, offset, noAssert) {
   return writeDouble(this, value, offset, false, noAssert)
 }
 
+// copy(targetBuffer, targetStart=0, sourceStart=0, sourceEnd=buffer.length)
+Buffer.prototype.copy = function (target, target_start, start, end) {
+  var self = this // source
+
+  if (!start) start = 0
+  if (!end && end !== 0) end = this.length
+  if (target_start >= target.length) target_start = target.length
+  if (!target_start) target_start = 0
+  if (end > 0 && end < start) end = start
+
+  // Copy 0 bytes; we're done
+  if (end === start) return 0
+  if (target.length === 0 || self.length === 0) return 0
+
+  // Fatal error conditions
+  if (target_start < 0)
+    throw new RangeError('targetStart out of bounds')
+  if (start < 0 || start >= self.length) throw new RangeError('sourceStart out of bounds')
+  if (end < 0) throw new RangeError('sourceEnd out of bounds')
+
+  // Are we oob?
+  if (end > this.length)
+    end = this.length
+  if (target.length - target_start < end - start)
+    end = target.length - target_start + start
+
+  var len = end - start
+
+  if (len < 1000 || !Buffer.TYPED_ARRAY_SUPPORT) {
+    for (var i = 0; i < len; i++) {
+      target[i + target_start] = this[i + start]
+    }
+  } else {
+    target._set(this.subarray(start, start + len), target_start)
+  }
+
+  return len
+}
+
 // fill(value, start=0, end=buffer.length)
 Buffer.prototype.fill = function (value, start, end) {
   if (!value) value = 0
   if (!start) start = 0
   if (!end) end = this.length
 
-  assert(end >= start, 'end < start')
+  if (end < start) throw new RangeError('end < start')
 
   // Fill 0 bytes; we're done
   if (end === start) return
   if (this.length === 0) return
 
-  assert(start >= 0 && start < this.length, 'start out of bounds')
-  assert(end >= 0 && end <= this.length, 'end out of bounds')
+  if (start < 0 || start >= this.length) throw new RangeError('start out of bounds')
+  if (end < 0 || end > this.length) throw new RangeError('end out of bounds')
 
   var i
   if (typeof value === 'number') {
@@ -951,26 +1213,13 @@ Buffer.prototype.fill = function (value, start, end) {
   return this
 }
 
-Buffer.prototype.inspect = function () {
-  var out = []
-  var len = this.length
-  for (var i = 0; i < len; i++) {
-    out[i] = toHex(this[i])
-    if (i === exports.INSPECT_MAX_BYTES) {
-      out[i + 1] = '...'
-      break
-    }
-  }
-  return '<Buffer ' + out.join(' ') + '>'
-}
-
 /**
  * Creates a new `ArrayBuffer` with the *copied* memory of the buffer instance.
  * Added in Node 0.12. Only available in browsers that support ArrayBuffer.
  */
 Buffer.prototype.toArrayBuffer = function () {
   if (typeof Uint8Array !== 'undefined') {
-    if (TYPED_ARRAY_SUPPORT) {
+    if (Buffer.TYPED_ARRAY_SUPPORT) {
       return (new Buffer(this)).buffer
     } else {
       var buf = new Uint8Array(this.length)
@@ -980,7 +1229,7 @@ Buffer.prototype.toArrayBuffer = function () {
       return buf.buffer
     }
   } else {
-    throw new Error('Buffer.toArrayBuffer not supported in this browser')
+    throw new TypeError('Buffer.toArrayBuffer not supported in this browser')
   }
 }
 
@@ -993,6 +1242,7 @@ var BP = Buffer.prototype
  * Augment a Uint8Array *instance* (not the Uint8Array class!) with Buffer methods
  */
 Buffer._augment = function (arr) {
+  arr.constructor = Buffer
   arr._isBuffer = true
 
   // save reference to original Uint8Array get/set methods before overwriting
@@ -1011,11 +1261,15 @@ Buffer._augment = function (arr) {
   arr.compare = BP.compare
   arr.copy = BP.copy
   arr.slice = BP.slice
+  arr.readUIntLE = BP.readUIntLE
+  arr.readUIntBE = BP.readUIntBE
   arr.readUInt8 = BP.readUInt8
   arr.readUInt16LE = BP.readUInt16LE
   arr.readUInt16BE = BP.readUInt16BE
   arr.readUInt32LE = BP.readUInt32LE
   arr.readUInt32BE = BP.readUInt32BE
+  arr.readIntLE = BP.readIntLE
+  arr.readIntBE = BP.readIntBE
   arr.readInt8 = BP.readInt8
   arr.readInt16LE = BP.readInt16LE
   arr.readInt16BE = BP.readInt16BE
@@ -1026,10 +1280,14 @@ Buffer._augment = function (arr) {
   arr.readDoubleLE = BP.readDoubleLE
   arr.readDoubleBE = BP.readDoubleBE
   arr.writeUInt8 = BP.writeUInt8
+  arr.writeUIntLE = BP.writeUIntLE
+  arr.writeUIntBE = BP.writeUIntBE
   arr.writeUInt16LE = BP.writeUInt16LE
   arr.writeUInt16BE = BP.writeUInt16BE
   arr.writeUInt32LE = BP.writeUInt32LE
   arr.writeUInt32BE = BP.writeUInt32BE
+  arr.writeIntLE = BP.writeIntLE
+  arr.writeIntBE = BP.writeIntBE
   arr.writeInt8 = BP.writeInt8
   arr.writeInt16LE = BP.writeInt16LE
   arr.writeInt16BE = BP.writeInt16BE
@@ -1046,11 +1304,13 @@ Buffer._augment = function (arr) {
   return arr
 }
 
-var INVALID_BASE64_RE = /[^+\/0-9A-z]/g
+var INVALID_BASE64_RE = /[^+\/0-9A-z\-]/g
 
 function base64clean (str) {
   // Node strips out invalid characters like \n and \t from the string, base64-js does not
   str = stringtrim(str).replace(INVALID_BASE64_RE, '')
+  // Node converts strings with length < 2 to ''
+  if (str.length < 2) return ''
   // Node allows for non-padded base64 strings (missing trailing ===), base64-js does not
   while (str.length % 4 !== 0) {
     str = str + '='
@@ -1061,12 +1321,6 @@ function base64clean (str) {
 function stringtrim (str) {
   if (str.trim) return str.trim()
   return str.replace(/^\s+|\s+$/g, '')
-}
-
-function isArray (subject) {
-  return (Array.isArray || function (subject) {
-    return Object.prototype.toString.call(subject) === '[object Array]'
-  })(subject)
 }
 
 function isArrayish (subject) {
@@ -1080,22 +1334,85 @@ function toHex (n) {
   return n.toString(16)
 }
 
-function utf8ToBytes (str) {
-  var byteArray = []
-  for (var i = 0; i < str.length; i++) {
-    var b = str.charCodeAt(i)
-    if (b <= 0x7F) {
-      byteArray.push(b)
-    } else {
-      var start = i
-      if (b >= 0xD800 && b <= 0xDFFF) i++
-      var h = encodeURIComponent(str.slice(start, i+1)).substr(1).split('%')
-      for (var j = 0; j < h.length; j++) {
-        byteArray.push(parseInt(h[j], 16))
+function utf8ToBytes (string, units) {
+  units = units || Infinity
+  var codePoint
+  var length = string.length
+  var leadSurrogate = null
+  var bytes = []
+  var i = 0
+
+  for (; i < length; i++) {
+    codePoint = string.charCodeAt(i)
+
+    // is surrogate component
+    if (codePoint > 0xD7FF && codePoint < 0xE000) {
+      // last char was a lead
+      if (leadSurrogate) {
+        // 2 leads in a row
+        if (codePoint < 0xDC00) {
+          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
+          leadSurrogate = codePoint
+          continue
+        } else {
+          // valid surrogate pair
+          codePoint = leadSurrogate - 0xD800 << 10 | codePoint - 0xDC00 | 0x10000
+          leadSurrogate = null
+        }
+      } else {
+        // no lead yet
+
+        if (codePoint > 0xDBFF) {
+          // unexpected trail
+          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
+          continue
+        } else if (i + 1 === length) {
+          // unpaired lead
+          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
+          continue
+        } else {
+          // valid lead
+          leadSurrogate = codePoint
+          continue
+        }
       }
+    } else if (leadSurrogate) {
+      // valid bmp char, but last char was a lead
+      if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
+      leadSurrogate = null
+    }
+
+    // encode utf8
+    if (codePoint < 0x80) {
+      if ((units -= 1) < 0) break
+      bytes.push(codePoint)
+    } else if (codePoint < 0x800) {
+      if ((units -= 2) < 0) break
+      bytes.push(
+        codePoint >> 0x6 | 0xC0,
+        codePoint & 0x3F | 0x80
+      )
+    } else if (codePoint < 0x10000) {
+      if ((units -= 3) < 0) break
+      bytes.push(
+        codePoint >> 0xC | 0xE0,
+        codePoint >> 0x6 & 0x3F | 0x80,
+        codePoint & 0x3F | 0x80
+      )
+    } else if (codePoint < 0x200000) {
+      if ((units -= 4) < 0) break
+      bytes.push(
+        codePoint >> 0x12 | 0xF0,
+        codePoint >> 0xC & 0x3F | 0x80,
+        codePoint >> 0x6 & 0x3F | 0x80,
+        codePoint & 0x3F | 0x80
+      )
+    } else {
+      throw new Error('Invalid code point')
     }
   }
-  return byteArray
+
+  return bytes
 }
 
 function asciiToBytes (str) {
@@ -1107,10 +1424,12 @@ function asciiToBytes (str) {
   return byteArray
 }
 
-function utf16leToBytes (str) {
+function utf16leToBytes (str, units) {
   var c, hi, lo
   var byteArray = []
   for (var i = 0; i < str.length; i++) {
+    if ((units -= 2) < 0) break
+
     c = str.charCodeAt(i)
     hi = c >> 8
     lo = c % 256
@@ -1122,7 +1441,7 @@ function utf16leToBytes (str) {
 }
 
 function base64ToBytes (str) {
-  return base64.toByteArray(str)
+  return base64.toByteArray(base64clean(str))
 }
 
 function blitBuffer (src, dst, offset, length) {
@@ -1142,36 +1461,7 @@ function decodeUtf8Char (str) {
   }
 }
 
-/*
- * We have to make sure that the value is a valid integer. This means that it
- * is non-negative. It has no fractional component and that it does not
- * exceed the maximum allowed value.
- */
-function verifuint (value, max) {
-  assert(typeof value === 'number', 'cannot write a non-number as a number')
-  assert(value >= 0, 'specified a negative value for writing an unsigned value')
-  assert(value <= max, 'value is larger than maximum value for type')
-  assert(Math.floor(value) === value, 'value has a fractional component')
-}
-
-function verifsint (value, max, min) {
-  assert(typeof value === 'number', 'cannot write a non-number as a number')
-  assert(value <= max, 'value larger than maximum allowed value')
-  assert(value >= min, 'value smaller than minimum allowed value')
-  assert(Math.floor(value) === value, 'value has a fractional component')
-}
-
-function verifIEEE754 (value, max, min) {
-  assert(typeof value === 'number', 'cannot write a non-number as a number')
-  assert(value <= max, 'value larger than maximum allowed value')
-  assert(value >= min, 'value smaller than minimum allowed value')
-}
-
-function assert (test, message) {
-  if (!test) throw new Error(message || 'Failed assertion')
-}
-
-},{"base64-js":3,"ieee754":4}],3:[function(require,module,exports){
+},{"base64-js":7,"ieee754":8,"is-array":9}],7:[function(require,module,exports){
 var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
 ;(function (exports) {
@@ -1186,12 +1476,16 @@ var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 	var NUMBER = '0'.charCodeAt(0)
 	var LOWER  = 'a'.charCodeAt(0)
 	var UPPER  = 'A'.charCodeAt(0)
+	var PLUS_URL_SAFE = '-'.charCodeAt(0)
+	var SLASH_URL_SAFE = '_'.charCodeAt(0)
 
 	function decode (elt) {
 		var code = elt.charCodeAt(0)
-		if (code === PLUS)
+		if (code === PLUS ||
+		    code === PLUS_URL_SAFE)
 			return 62 // '+'
-		if (code === SLASH)
+		if (code === SLASH ||
+		    code === SLASH_URL_SAFE)
 			return 63 // '/'
 		if (code < NUMBER)
 			return -1 //no match
@@ -1293,7 +1587,7 @@ var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 	exports.fromByteArray = uint8ToBase64
 }(typeof exports === 'undefined' ? (this.base64js = {}) : exports))
 
-},{}],4:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 exports.read = function(buffer, offset, isLE, mLen, nBytes) {
   var e, m,
       eLen = nBytes * 8 - mLen - 1,
@@ -1379,7 +1673,42 @@ exports.write = function(buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128;
 };
 
-},{}],5:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
+
+/**
+ * isArray
+ */
+
+var isArray = Array.isArray;
+
+/**
+ * toString
+ */
+
+var str = Object.prototype.toString;
+
+/**
+ * Whether or not the given `val`
+ * is an array.
+ *
+ * example:
+ *
+ *        isArray([]);
+ *        // > true
+ *        isArray(arguments);
+ *        // > false
+ *        isArray('');
+ *        // > false
+ *
+ * @param {mixed} val
+ * @return {bool}
+ */
+
+module.exports = isArray || function (val) {
+  return !! val && '[object Array]' == str.call(val);
+};
+
+},{}],10:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -1439,10 +1768,8 @@ EventEmitter.prototype.emit = function(type) {
       er = arguments[1];
       if (er instanceof Error) {
         throw er; // Unhandled 'error' event
-      } else {
-        throw TypeError('Uncaught, unspecified "error" event.');
       }
-      return false;
+      throw TypeError('Uncaught, unspecified "error" event.');
     }
   }
 
@@ -1684,7 +2011,7 @@ function isUndefined(arg) {
   return arg === void 0;
 }
 
-},{}],6:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -1709,7 +2036,7 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],7:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -1936,51 +2263,44 @@ var substr = 'ab'.substr(-1) === 'b'
     }
 ;
 
-}).call(this,require("JkpR2F"))
-},{"JkpR2F":8}],8:[function(require,module,exports){
+}).call(this,require('_process'))
+},{"_process":13}],13:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
+var queue = [];
+var draining = false;
 
-process.nextTick = (function () {
-    var canSetImmediate = typeof window !== 'undefined'
-    && window.setImmediate;
-    var canPost = typeof window !== 'undefined'
-    && window.postMessage && window.addEventListener
-    ;
-
-    if (canSetImmediate) {
-        return function (f) { return window.setImmediate(f) };
+function drainQueue() {
+    if (draining) {
+        return;
     }
-
-    if (canPost) {
-        var queue = [];
-        window.addEventListener('message', function (ev) {
-            var source = ev.source;
-            if ((source === window || source === null) && ev.data === 'process-tick') {
-                ev.stopPropagation();
-                if (queue.length > 0) {
-                    var fn = queue.shift();
-                    fn();
-                }
-            }
-        }, true);
-
-        return function nextTick(fn) {
-            queue.push(fn);
-            window.postMessage('process-tick', '*');
-        };
+    draining = true;
+    var currentQueue;
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        var i = -1;
+        while (++i < len) {
+            currentQueue[i]();
+        }
+        len = queue.length;
     }
-
-    return function nextTick(fn) {
-        setTimeout(fn, 0);
-    };
-})();
+    draining = false;
+}
+process.nextTick = function (fun) {
+    queue.push(fun);
+    if (!draining) {
+        setTimeout(drainQueue, 0);
+    }
+};
 
 process.title = 'browser';
 process.browser = true;
 process.env = {};
 process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
 
 function noop() {}
 
@@ -1994,22 +2314,23 @@ process.emit = noop;
 
 process.binding = function (name) {
     throw new Error('process.binding is not supported');
-}
+};
 
 // TODO(shtylman)
 process.cwd = function () { return '/' };
 process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
+process.umask = function() { return 0; };
 
-},{}],9:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 module.exports = function isBuffer(arg) {
   return arg && typeof arg === 'object'
     && typeof arg.copy === 'function'
     && typeof arg.fill === 'function'
     && typeof arg.readUInt8 === 'function';
 }
-},{}],10:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -2598,8 +2919,4796 @@ function hasOwnProperty(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }
 
-}).call(this,require("JkpR2F"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./support/isBuffer":9,"JkpR2F":8,"inherits":6}],11:[function(require,module,exports){
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"./support/isBuffer":14,"_process":13,"inherits":11}],16:[function(require,module,exports){
+(function (Buffer){
+var iota = require("iota-array")
+
+var hasTypedArrays  = ((typeof Float64Array) !== "undefined")
+var hasBuffer       = ((typeof Buffer) !== "undefined")
+
+function compare1st(a, b) {
+  return a[0] - b[0]
+}
+
+function order() {
+  var stride = this.stride
+  var terms = new Array(stride.length)
+  var i
+  for(i=0; i<terms.length; ++i) {
+    terms[i] = [Math.abs(stride[i]), i]
+  }
+  terms.sort(compare1st)
+  var result = new Array(terms.length)
+  for(i=0; i<result.length; ++i) {
+    result[i] = terms[i][1]
+  }
+  return result
+}
+
+function compileConstructor(dtype, dimension) {
+  var className = ["View", dimension, "d", dtype].join("")
+  if(dimension < 0) {
+    className = "View_Nil" + dtype
+  }
+  var useGetters = (dtype === "generic")
+  
+  if(dimension === -1) {
+    //Special case for trivial arrays
+    var code = 
+      "function "+className+"(a){this.data=a;};\
+var proto="+className+".prototype;\
+proto.dtype='"+dtype+"';\
+proto.index=function(){return -1};\
+proto.size=0;\
+proto.dimension=-1;\
+proto.shape=proto.stride=proto.order=[];\
+proto.lo=proto.hi=proto.transpose=proto.step=\
+function(){return new "+className+"(this.data);};\
+proto.get=proto.set=function(){};\
+proto.pick=function(){return null};\
+return function construct_"+className+"(a){return new "+className+"(a);}"
+    var procedure = new Function(code)
+    return procedure()
+  } else if(dimension === 0) {
+    //Special case for 0d arrays
+    var code =
+      "function "+className+"(a,d) {\
+this.data = a;\
+this.offset = d\
+};\
+var proto="+className+".prototype;\
+proto.dtype='"+dtype+"';\
+proto.index=function(){return this.offset};\
+proto.dimension=0;\
+proto.size=1;\
+proto.shape=\
+proto.stride=\
+proto.order=[];\
+proto.lo=\
+proto.hi=\
+proto.transpose=\
+proto.step=function "+className+"_copy() {\
+return new "+className+"(this.data,this.offset)\
+};\
+proto.pick=function "+className+"_pick(){\
+return TrivialArray(this.data);\
+};\
+proto.valueOf=proto.get=function "+className+"_get(){\
+return "+(useGetters ? "this.data.get(this.offset)" : "this.data[this.offset]")+
+"};\
+proto.set=function "+className+"_set(v){\
+return "+(useGetters ? "this.data.set(this.offset,v)" : "this.data[this.offset]=v")+"\
+};\
+return function construct_"+className+"(a,b,c,d){return new "+className+"(a,d)}"
+    var procedure = new Function("TrivialArray", code)
+    return procedure(CACHED_CONSTRUCTORS[dtype][0])
+  }
+
+  var code = ["'use strict'"]
+    
+  //Create constructor for view
+  var indices = iota(dimension)
+  var args = indices.map(function(i) { return "i"+i })
+  var index_str = "this.offset+" + indices.map(function(i) {
+        return "this.stride[" + i + "]*i" + i
+      }).join("+")
+  var shapeArg = indices.map(function(i) {
+      return "b"+i
+    }).join(",")
+  var strideArg = indices.map(function(i) {
+      return "c"+i
+    }).join(",")
+  code.push(
+    "function "+className+"(a," + shapeArg + "," + strideArg + ",d){this.data=a",
+      "this.shape=[" + shapeArg + "]",
+      "this.stride=[" + strideArg + "]",
+      "this.offset=d|0}",
+    "var proto="+className+".prototype",
+    "proto.dtype='"+dtype+"'",
+    "proto.dimension="+dimension)
+  
+  //view.size:
+  code.push("Object.defineProperty(proto,'size',{get:function "+className+"_size(){\
+return "+indices.map(function(i) { return "this.shape["+i+"]" }).join("*"),
+"}})")
+
+  //view.order:
+  if(dimension === 1) {
+    code.push("proto.order=[0]")
+  } else {
+    code.push("Object.defineProperty(proto,'order',{get:")
+    if(dimension < 4) {
+      code.push("function "+className+"_order(){")
+      if(dimension === 2) {
+        code.push("return (Math.abs(this.stride[0])>Math.abs(this.stride[1]))?[1,0]:[0,1]}})")
+      } else if(dimension === 3) {
+        code.push(
+"var s0=Math.abs(this.stride[0]),s1=Math.abs(this.stride[1]),s2=Math.abs(this.stride[2]);\
+if(s0>s1){\
+if(s1>s2){\
+return [2,1,0];\
+}else if(s0>s2){\
+return [1,2,0];\
+}else{\
+return [1,0,2];\
+}\
+}else if(s0>s2){\
+return [2,0,1];\
+}else if(s2>s1){\
+return [0,1,2];\
+}else{\
+return [0,2,1];\
+}}})")
+      }
+    } else {
+      code.push("ORDER})")
+    }
+  }
+  
+  //view.set(i0, ..., v):
+  code.push(
+"proto.set=function "+className+"_set("+args.join(",")+",v){")
+  if(useGetters) {
+    code.push("return this.data.set("+index_str+",v)}")
+  } else {
+    code.push("return this.data["+index_str+"]=v}")
+  }
+  
+  //view.get(i0, ...):
+  code.push("proto.get=function "+className+"_get("+args.join(",")+"){")
+  if(useGetters) {
+    code.push("return this.data.get("+index_str+")}")
+  } else {
+    code.push("return this.data["+index_str+"]}")
+  }
+  
+  //view.index:
+  code.push(
+    "proto.index=function "+className+"_index(", args.join(), "){return "+index_str+"}")
+
+  //view.hi():
+  code.push("proto.hi=function "+className+"_hi("+args.join(",")+"){return new "+className+"(this.data,"+
+    indices.map(function(i) {
+      return ["(typeof i",i,"!=='number'||i",i,"<0)?this.shape[", i, "]:i", i,"|0"].join("")
+    }).join(",")+","+
+    indices.map(function(i) {
+      return "this.stride["+i + "]"
+    }).join(",")+",this.offset)}")
+  
+  //view.lo():
+  var a_vars = indices.map(function(i) { return "a"+i+"=this.shape["+i+"]" })
+  var c_vars = indices.map(function(i) { return "c"+i+"=this.stride["+i+"]" })
+  code.push("proto.lo=function "+className+"_lo("+args.join(",")+"){var b=this.offset,d=0,"+a_vars.join(",")+","+c_vars.join(","))
+  for(var i=0; i<dimension; ++i) {
+    code.push(
+"if(typeof i"+i+"==='number'&&i"+i+">=0){\
+d=i"+i+"|0;\
+b+=c"+i+"*d;\
+a"+i+"-=d}")
+  }
+  code.push("return new "+className+"(this.data,"+
+    indices.map(function(i) {
+      return "a"+i
+    }).join(",")+","+
+    indices.map(function(i) {
+      return "c"+i
+    }).join(",")+",b)}")
+  
+  //view.step():
+  code.push("proto.step=function "+className+"_step("+args.join(",")+"){var "+
+    indices.map(function(i) {
+      return "a"+i+"=this.shape["+i+"]"
+    }).join(",")+","+
+    indices.map(function(i) {
+      return "b"+i+"=this.stride["+i+"]"
+    }).join(",")+",c=this.offset,d=0,ceil=Math.ceil")
+  for(var i=0; i<dimension; ++i) {
+    code.push(
+"if(typeof i"+i+"==='number'){\
+d=i"+i+"|0;\
+if(d<0){\
+c+=b"+i+"*(a"+i+"-1);\
+a"+i+"=ceil(-a"+i+"/d)\
+}else{\
+a"+i+"=ceil(a"+i+"/d)\
+}\
+b"+i+"*=d\
+}")
+  }
+  code.push("return new "+className+"(this.data,"+
+    indices.map(function(i) {
+      return "a" + i
+    }).join(",")+","+
+    indices.map(function(i) {
+      return "b" + i
+    }).join(",")+",c)}")
+  
+  //view.transpose():
+  var tShape = new Array(dimension)
+  var tStride = new Array(dimension)
+  for(var i=0; i<dimension; ++i) {
+    tShape[i] = "a[i"+i+"]"
+    tStride[i] = "b[i"+i+"]"
+  }
+  code.push("proto.transpose=function "+className+"_transpose("+args+"){"+
+    args.map(function(n,idx) { return n + "=(" + n + "===undefined?" + idx + ":" + n + "|0)"}).join(";"),
+    "var a=this.shape,b=this.stride;return new "+className+"(this.data,"+tShape.join(",")+","+tStride.join(",")+",this.offset)}")
+  
+  //view.pick():
+  code.push("proto.pick=function "+className+"_pick("+args+"){var a=[],b=[],c=this.offset")
+  for(var i=0; i<dimension; ++i) {
+    code.push("if(typeof i"+i+"==='number'&&i"+i+">=0){c=(c+this.stride["+i+"]*i"+i+")|0}else{a.push(this.shape["+i+"]);b.push(this.stride["+i+"])}")
+  }
+  code.push("var ctor=CTOR_LIST[a.length+1];return ctor(this.data,a,b,c)}")
+    
+  //Add return statement
+  code.push("return function construct_"+className+"(data,shape,stride,offset){return new "+className+"(data,"+
+    indices.map(function(i) {
+      return "shape["+i+"]"
+    }).join(",")+","+
+    indices.map(function(i) {
+      return "stride["+i+"]"
+    }).join(",")+",offset)}")
+
+  //Compile procedure
+  var procedure = new Function("CTOR_LIST", "ORDER", code.join("\n"))
+  return procedure(CACHED_CONSTRUCTORS[dtype], order)
+}
+
+function arrayDType(data) {
+  if(hasBuffer) {
+    if(Buffer.isBuffer(data)) {
+      return "buffer"
+    }
+  }
+  if(hasTypedArrays) {
+    switch(Object.prototype.toString.call(data)) {
+      case "[object Float64Array]":
+        return "float64"
+      case "[object Float32Array]":
+        return "float32"
+      case "[object Int8Array]":
+        return "int8"
+      case "[object Int16Array]":
+        return "int16"
+      case "[object Int32Array]":
+        return "int32"
+      case "[object Uint8Array]":
+        return "uint8"
+      case "[object Uint16Array]":
+        return "uint16"
+      case "[object Uint32Array]":
+        return "uint32"
+      case "[object Uint8ClampedArray]":
+        return "uint8_clamped"
+    }
+  }
+  if(Array.isArray(data)) {
+    return "array"
+  }
+  return "generic"
+}
+
+var CACHED_CONSTRUCTORS = {
+  "float32":[],
+  "float64":[],
+  "int8":[],
+  "int16":[],
+  "int32":[],
+  "uint8":[],
+  "uint16":[],
+  "uint32":[],
+  "array":[],
+  "uint8_clamped":[],
+  "buffer":[],
+  "generic":[]
+}
+
+;(function() {
+  for(var id in CACHED_CONSTRUCTORS) {
+    CACHED_CONSTRUCTORS[id].push(compileConstructor(id, -1))
+  }
+});
+
+function wrappedNDArrayCtor(data, shape, stride, offset) {
+  if(data === undefined) {
+    var ctor = CACHED_CONSTRUCTORS.array[0]
+    return ctor([])
+  } else if(typeof data === "number") {
+    data = [data]
+  }
+  if(shape === undefined) {
+    shape = [ data.length ]
+  }
+  var d = shape.length
+  if(stride === undefined) {
+    stride = new Array(d)
+    for(var i=d-1, sz=1; i>=0; --i) {
+      stride[i] = sz
+      sz *= shape[i]
+    }
+  }
+  if(offset === undefined) {
+    offset = 0
+    for(var i=0; i<d; ++i) {
+      if(stride[i] < 0) {
+        offset -= (shape[i]-1)*stride[i]
+      }
+    }
+  }
+  var dtype = arrayDType(data)
+  var ctor_list = CACHED_CONSTRUCTORS[dtype]
+  while(ctor_list.length <= d+1) {
+    ctor_list.push(compileConstructor(dtype, ctor_list.length-1))
+  }
+  var ctor = ctor_list[d+1]
+  return ctor(data, shape, stride, offset)
+}
+
+module.exports = wrappedNDArrayCtor
+}).call(this,require("buffer").Buffer)
+},{"buffer":6,"iota-array":17}],17:[function(require,module,exports){
+"use strict"
+
+function iota(n) {
+  var result = new Array(n)
+  for(var i=0; i<n; ++i) {
+    result[i] = i
+  }
+  return result
+}
+
+module.exports = iota
+},{}],18:[function(require,module,exports){
+(function (global){
+"use strict";
+
+var numeric = (typeof exports === "undefined")?(function numeric() {}):(exports);
+if(typeof global !== "undefined") { global.numeric = numeric; }
+
+numeric.version = "1.2.6";
+
+// 1. Utility functions
+numeric.bench = function bench (f,interval) {
+    var t1,t2,n,i;
+    if(typeof interval === "undefined") { interval = 15; }
+    n = 0.5;
+    t1 = new Date();
+    while(1) {
+        n*=2;
+        for(i=n;i>3;i-=4) { f(); f(); f(); f(); }
+        while(i>0) { f(); i--; }
+        t2 = new Date();
+        if(t2-t1 > interval) break;
+    }
+    for(i=n;i>3;i-=4) { f(); f(); f(); f(); }
+    while(i>0) { f(); i--; }
+    t2 = new Date();
+    return 1000*(3*n-1)/(t2-t1);
+}
+
+numeric._myIndexOf = (function _myIndexOf(w) {
+    var n = this.length,k;
+    for(k=0;k<n;++k) if(this[k]===w) return k;
+    return -1;
+});
+numeric.myIndexOf = (Array.prototype.indexOf)?Array.prototype.indexOf:numeric._myIndexOf;
+
+numeric.Function = Function;
+numeric.precision = 4;
+numeric.largeArray = 50;
+
+numeric.prettyPrint = function prettyPrint(x) {
+    function fmtnum(x) {
+        if(x === 0) { return '0'; }
+        if(isNaN(x)) { return 'NaN'; }
+        if(x<0) { return '-'+fmtnum(-x); }
+        if(isFinite(x)) {
+            var scale = Math.floor(Math.log(x) / Math.log(10));
+            var normalized = x / Math.pow(10,scale);
+            var basic = normalized.toPrecision(numeric.precision);
+            if(parseFloat(basic) === 10) { scale++; normalized = 1; basic = normalized.toPrecision(numeric.precision); }
+            return parseFloat(basic).toString()+'e'+scale.toString();
+        }
+        return 'Infinity';
+    }
+    var ret = [];
+    function foo(x) {
+        var k;
+        if(typeof x === "undefined") { ret.push(Array(numeric.precision+8).join(' ')); return false; }
+        if(typeof x === "string") { ret.push('"'+x+'"'); return false; }
+        if(typeof x === "boolean") { ret.push(x.toString()); return false; }
+        if(typeof x === "number") {
+            var a = fmtnum(x);
+            var b = x.toPrecision(numeric.precision);
+            var c = parseFloat(x.toString()).toString();
+            var d = [a,b,c,parseFloat(b).toString(),parseFloat(c).toString()];
+            for(k=1;k<d.length;k++) { if(d[k].length < a.length) a = d[k]; }
+            ret.push(Array(numeric.precision+8-a.length).join(' ')+a);
+            return false;
+        }
+        if(x === null) { ret.push("null"); return false; }
+        if(typeof x === "function") { 
+            ret.push(x.toString());
+            var flag = false;
+            for(k in x) { if(x.hasOwnProperty(k)) { 
+                if(flag) ret.push(',\n');
+                else ret.push('\n{');
+                flag = true; 
+                ret.push(k); 
+                ret.push(': \n'); 
+                foo(x[k]); 
+            } }
+            if(flag) ret.push('}\n');
+            return true;
+        }
+        if(x instanceof Array) {
+            if(x.length > numeric.largeArray) { ret.push('...Large Array...'); return true; }
+            var flag = false;
+            ret.push('[');
+            for(k=0;k<x.length;k++) { if(k>0) { ret.push(','); if(flag) ret.push('\n '); } flag = foo(x[k]); }
+            ret.push(']');
+            return true;
+        }
+        ret.push('{');
+        var flag = false;
+        for(k in x) { if(x.hasOwnProperty(k)) { if(flag) ret.push(',\n'); flag = true; ret.push(k); ret.push(': \n'); foo(x[k]); } }
+        ret.push('}');
+        return true;
+    }
+    foo(x);
+    return ret.join('');
+}
+
+numeric.parseDate = function parseDate(d) {
+    function foo(d) {
+        if(typeof d === 'string') { return Date.parse(d.replace(/-/g,'/')); }
+        if(!(d instanceof Array)) { throw new Error("parseDate: parameter must be arrays of strings"); }
+        var ret = [],k;
+        for(k=0;k<d.length;k++) { ret[k] = foo(d[k]); }
+        return ret;
+    }
+    return foo(d);
+}
+
+numeric.parseFloat = function parseFloat_(d) {
+    function foo(d) {
+        if(typeof d === 'string') { return parseFloat(d); }
+        if(!(d instanceof Array)) { throw new Error("parseFloat: parameter must be arrays of strings"); }
+        var ret = [],k;
+        for(k=0;k<d.length;k++) { ret[k] = foo(d[k]); }
+        return ret;
+    }
+    return foo(d);
+}
+
+numeric.parseCSV = function parseCSV(t) {
+    var foo = t.split('\n');
+    var j,k;
+    var ret = [];
+    var pat = /(([^'",]*)|('[^']*')|("[^"]*")),/g;
+    var patnum = /^\s*(([+-]?[0-9]+(\.[0-9]*)?(e[+-]?[0-9]+)?)|([+-]?[0-9]*(\.[0-9]+)?(e[+-]?[0-9]+)?))\s*$/;
+    var stripper = function(n) { return n.substr(0,n.length-1); }
+    var count = 0;
+    for(k=0;k<foo.length;k++) {
+      var bar = (foo[k]+",").match(pat),baz;
+      if(bar.length>0) {
+          ret[count] = [];
+          for(j=0;j<bar.length;j++) {
+              baz = stripper(bar[j]);
+              if(patnum.test(baz)) { ret[count][j] = parseFloat(baz); }
+              else ret[count][j] = baz;
+          }
+          count++;
+      }
+    }
+    return ret;
+}
+
+numeric.toCSV = function toCSV(A) {
+    var s = numeric.dim(A);
+    var i,j,m,n,row,ret;
+    m = s[0];
+    n = s[1];
+    ret = [];
+    for(i=0;i<m;i++) {
+        row = [];
+        for(j=0;j<m;j++) { row[j] = A[i][j].toString(); }
+        ret[i] = row.join(', ');
+    }
+    return ret.join('\n')+'\n';
+}
+
+numeric.getURL = function getURL(url) {
+    var client = new XMLHttpRequest();
+    client.open("GET",url,false);
+    client.send();
+    return client;
+}
+
+numeric.imageURL = function imageURL(img) {
+    function base64(A) {
+        var n = A.length, i,x,y,z,p,q,r,s;
+        var key = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+        var ret = "";
+        for(i=0;i<n;i+=3) {
+            x = A[i];
+            y = A[i+1];
+            z = A[i+2];
+            p = x >> 2;
+            q = ((x & 3) << 4) + (y >> 4);
+            r = ((y & 15) << 2) + (z >> 6);
+            s = z & 63;
+            if(i+1>=n) { r = s = 64; }
+            else if(i+2>=n) { s = 64; }
+            ret += key.charAt(p) + key.charAt(q) + key.charAt(r) + key.charAt(s);
+            }
+        return ret;
+    }
+    function crc32Array (a,from,to) {
+        if(typeof from === "undefined") { from = 0; }
+        if(typeof to === "undefined") { to = a.length; }
+        var table = [0x00000000, 0x77073096, 0xEE0E612C, 0x990951BA, 0x076DC419, 0x706AF48F, 0xE963A535, 0x9E6495A3,
+                     0x0EDB8832, 0x79DCB8A4, 0xE0D5E91E, 0x97D2D988, 0x09B64C2B, 0x7EB17CBD, 0xE7B82D07, 0x90BF1D91, 
+                     0x1DB71064, 0x6AB020F2, 0xF3B97148, 0x84BE41DE, 0x1ADAD47D, 0x6DDDE4EB, 0xF4D4B551, 0x83D385C7,
+                     0x136C9856, 0x646BA8C0, 0xFD62F97A, 0x8A65C9EC, 0x14015C4F, 0x63066CD9, 0xFA0F3D63, 0x8D080DF5, 
+                     0x3B6E20C8, 0x4C69105E, 0xD56041E4, 0xA2677172, 0x3C03E4D1, 0x4B04D447, 0xD20D85FD, 0xA50AB56B, 
+                     0x35B5A8FA, 0x42B2986C, 0xDBBBC9D6, 0xACBCF940, 0x32D86CE3, 0x45DF5C75, 0xDCD60DCF, 0xABD13D59, 
+                     0x26D930AC, 0x51DE003A, 0xC8D75180, 0xBFD06116, 0x21B4F4B5, 0x56B3C423, 0xCFBA9599, 0xB8BDA50F,
+                     0x2802B89E, 0x5F058808, 0xC60CD9B2, 0xB10BE924, 0x2F6F7C87, 0x58684C11, 0xC1611DAB, 0xB6662D3D,
+                     0x76DC4190, 0x01DB7106, 0x98D220BC, 0xEFD5102A, 0x71B18589, 0x06B6B51F, 0x9FBFE4A5, 0xE8B8D433,
+                     0x7807C9A2, 0x0F00F934, 0x9609A88E, 0xE10E9818, 0x7F6A0DBB, 0x086D3D2D, 0x91646C97, 0xE6635C01, 
+                     0x6B6B51F4, 0x1C6C6162, 0x856530D8, 0xF262004E, 0x6C0695ED, 0x1B01A57B, 0x8208F4C1, 0xF50FC457, 
+                     0x65B0D9C6, 0x12B7E950, 0x8BBEB8EA, 0xFCB9887C, 0x62DD1DDF, 0x15DA2D49, 0x8CD37CF3, 0xFBD44C65, 
+                     0x4DB26158, 0x3AB551CE, 0xA3BC0074, 0xD4BB30E2, 0x4ADFA541, 0x3DD895D7, 0xA4D1C46D, 0xD3D6F4FB, 
+                     0x4369E96A, 0x346ED9FC, 0xAD678846, 0xDA60B8D0, 0x44042D73, 0x33031DE5, 0xAA0A4C5F, 0xDD0D7CC9, 
+                     0x5005713C, 0x270241AA, 0xBE0B1010, 0xC90C2086, 0x5768B525, 0x206F85B3, 0xB966D409, 0xCE61E49F, 
+                     0x5EDEF90E, 0x29D9C998, 0xB0D09822, 0xC7D7A8B4, 0x59B33D17, 0x2EB40D81, 0xB7BD5C3B, 0xC0BA6CAD, 
+                     0xEDB88320, 0x9ABFB3B6, 0x03B6E20C, 0x74B1D29A, 0xEAD54739, 0x9DD277AF, 0x04DB2615, 0x73DC1683, 
+                     0xE3630B12, 0x94643B84, 0x0D6D6A3E, 0x7A6A5AA8, 0xE40ECF0B, 0x9309FF9D, 0x0A00AE27, 0x7D079EB1, 
+                     0xF00F9344, 0x8708A3D2, 0x1E01F268, 0x6906C2FE, 0xF762575D, 0x806567CB, 0x196C3671, 0x6E6B06E7, 
+                     0xFED41B76, 0x89D32BE0, 0x10DA7A5A, 0x67DD4ACC, 0xF9B9DF6F, 0x8EBEEFF9, 0x17B7BE43, 0x60B08ED5, 
+                     0xD6D6A3E8, 0xA1D1937E, 0x38D8C2C4, 0x4FDFF252, 0xD1BB67F1, 0xA6BC5767, 0x3FB506DD, 0x48B2364B, 
+                     0xD80D2BDA, 0xAF0A1B4C, 0x36034AF6, 0x41047A60, 0xDF60EFC3, 0xA867DF55, 0x316E8EEF, 0x4669BE79, 
+                     0xCB61B38C, 0xBC66831A, 0x256FD2A0, 0x5268E236, 0xCC0C7795, 0xBB0B4703, 0x220216B9, 0x5505262F, 
+                     0xC5BA3BBE, 0xB2BD0B28, 0x2BB45A92, 0x5CB36A04, 0xC2D7FFA7, 0xB5D0CF31, 0x2CD99E8B, 0x5BDEAE1D, 
+                     0x9B64C2B0, 0xEC63F226, 0x756AA39C, 0x026D930A, 0x9C0906A9, 0xEB0E363F, 0x72076785, 0x05005713, 
+                     0x95BF4A82, 0xE2B87A14, 0x7BB12BAE, 0x0CB61B38, 0x92D28E9B, 0xE5D5BE0D, 0x7CDCEFB7, 0x0BDBDF21, 
+                     0x86D3D2D4, 0xF1D4E242, 0x68DDB3F8, 0x1FDA836E, 0x81BE16CD, 0xF6B9265B, 0x6FB077E1, 0x18B74777, 
+                     0x88085AE6, 0xFF0F6A70, 0x66063BCA, 0x11010B5C, 0x8F659EFF, 0xF862AE69, 0x616BFFD3, 0x166CCF45, 
+                     0xA00AE278, 0xD70DD2EE, 0x4E048354, 0x3903B3C2, 0xA7672661, 0xD06016F7, 0x4969474D, 0x3E6E77DB, 
+                     0xAED16A4A, 0xD9D65ADC, 0x40DF0B66, 0x37D83BF0, 0xA9BCAE53, 0xDEBB9EC5, 0x47B2CF7F, 0x30B5FFE9, 
+                     0xBDBDF21C, 0xCABAC28A, 0x53B39330, 0x24B4A3A6, 0xBAD03605, 0xCDD70693, 0x54DE5729, 0x23D967BF, 
+                     0xB3667A2E, 0xC4614AB8, 0x5D681B02, 0x2A6F2B94, 0xB40BBE37, 0xC30C8EA1, 0x5A05DF1B, 0x2D02EF8D];
+     
+        var crc = -1, y = 0, n = a.length,i;
+
+        for (i = from; i < to; i++) {
+            y = (crc ^ a[i]) & 0xFF;
+            crc = (crc >>> 8) ^ table[y];
+        }
+     
+        return crc ^ (-1);
+    }
+
+    var h = img[0].length, w = img[0][0].length, s1, s2, next,k,length,a,b,i,j,adler32,crc32;
+    var stream = [
+                  137, 80, 78, 71, 13, 10, 26, 10,                           //  0: PNG signature
+                  0,0,0,13,                                                  //  8: IHDR Chunk length
+                  73, 72, 68, 82,                                            // 12: "IHDR" 
+                  (w >> 24) & 255, (w >> 16) & 255, (w >> 8) & 255, w&255,   // 16: Width
+                  (h >> 24) & 255, (h >> 16) & 255, (h >> 8) & 255, h&255,   // 20: Height
+                  8,                                                         // 24: bit depth
+                  2,                                                         // 25: RGB
+                  0,                                                         // 26: deflate
+                  0,                                                         // 27: no filter
+                  0,                                                         // 28: no interlace
+                  -1,-2,-3,-4,                                               // 29: CRC
+                  -5,-6,-7,-8,                                               // 33: IDAT Chunk length
+                  73, 68, 65, 84,                                            // 37: "IDAT"
+                  // RFC 1950 header starts here
+                  8,                                                         // 41: RFC1950 CMF
+                  29                                                         // 42: RFC1950 FLG
+                  ];
+    crc32 = crc32Array(stream,12,29);
+    stream[29] = (crc32>>24)&255;
+    stream[30] = (crc32>>16)&255;
+    stream[31] = (crc32>>8)&255;
+    stream[32] = (crc32)&255;
+    s1 = 1;
+    s2 = 0;
+    for(i=0;i<h;i++) {
+        if(i<h-1) { stream.push(0); }
+        else { stream.push(1); }
+        a = (3*w+1+(i===0))&255; b = ((3*w+1+(i===0))>>8)&255;
+        stream.push(a); stream.push(b);
+        stream.push((~a)&255); stream.push((~b)&255);
+        if(i===0) stream.push(0);
+        for(j=0;j<w;j++) {
+            for(k=0;k<3;k++) {
+                a = img[k][i][j];
+                if(a>255) a = 255;
+                else if(a<0) a=0;
+                else a = Math.round(a);
+                s1 = (s1 + a )%65521;
+                s2 = (s2 + s1)%65521;
+                stream.push(a);
+            }
+        }
+        stream.push(0);
+    }
+    adler32 = (s2<<16)+s1;
+    stream.push((adler32>>24)&255);
+    stream.push((adler32>>16)&255);
+    stream.push((adler32>>8)&255);
+    stream.push((adler32)&255);
+    length = stream.length - 41;
+    stream[33] = (length>>24)&255;
+    stream[34] = (length>>16)&255;
+    stream[35] = (length>>8)&255;
+    stream[36] = (length)&255;
+    crc32 = crc32Array(stream,37);
+    stream.push((crc32>>24)&255);
+    stream.push((crc32>>16)&255);
+    stream.push((crc32>>8)&255);
+    stream.push((crc32)&255);
+    stream.push(0);
+    stream.push(0);
+    stream.push(0);
+    stream.push(0);
+//    a = stream.length;
+    stream.push(73);  // I
+    stream.push(69);  // E
+    stream.push(78);  // N
+    stream.push(68);  // D
+    stream.push(174); // CRC1
+    stream.push(66);  // CRC2
+    stream.push(96);  // CRC3
+    stream.push(130); // CRC4
+    return 'data:image/png;base64,'+base64(stream);
+}
+
+// 2. Linear algebra with Arrays.
+numeric._dim = function _dim(x) {
+    var ret = [];
+    while(typeof x === "object") { ret.push(x.length); x = x[0]; }
+    return ret;
+}
+
+numeric.dim = function dim(x) {
+    var y,z;
+    if(typeof x === "object") {
+        y = x[0];
+        if(typeof y === "object") {
+            z = y[0];
+            if(typeof z === "object") {
+                return numeric._dim(x);
+            }
+            return [x.length,y.length];
+        }
+        return [x.length];
+    }
+    return [];
+}
+
+numeric.mapreduce = function mapreduce(body,init) {
+    return Function('x','accum','_s','_k',
+            'if(typeof accum === "undefined") accum = '+init+';\n'+
+            'if(typeof x === "number") { var xi = x; '+body+'; return accum; }\n'+
+            'if(typeof _s === "undefined") _s = numeric.dim(x);\n'+
+            'if(typeof _k === "undefined") _k = 0;\n'+
+            'var _n = _s[_k];\n'+
+            'var i,xi;\n'+
+            'if(_k < _s.length-1) {\n'+
+            '    for(i=_n-1;i>=0;i--) {\n'+
+            '        accum = arguments.callee(x[i],accum,_s,_k+1);\n'+
+            '    }'+
+            '    return accum;\n'+
+            '}\n'+
+            'for(i=_n-1;i>=1;i-=2) { \n'+
+            '    xi = x[i];\n'+
+            '    '+body+';\n'+
+            '    xi = x[i-1];\n'+
+            '    '+body+';\n'+
+            '}\n'+
+            'if(i === 0) {\n'+
+            '    xi = x[i];\n'+
+            '    '+body+'\n'+
+            '}\n'+
+            'return accum;'
+            );
+}
+numeric.mapreduce2 = function mapreduce2(body,setup) {
+    return Function('x',
+            'var n = x.length;\n'+
+            'var i,xi;\n'+setup+';\n'+
+            'for(i=n-1;i!==-1;--i) { \n'+
+            '    xi = x[i];\n'+
+            '    '+body+';\n'+
+            '}\n'+
+            'return accum;'
+            );
+}
+
+
+numeric.same = function same(x,y) {
+    var i,n;
+    if(!(x instanceof Array) || !(y instanceof Array)) { return false; }
+    n = x.length;
+    if(n !== y.length) { return false; }
+    for(i=0;i<n;i++) {
+        if(x[i] === y[i]) { continue; }
+        if(typeof x[i] === "object") { if(!same(x[i],y[i])) return false; }
+        else { return false; }
+    }
+    return true;
+}
+
+numeric.rep = function rep(s,v,k) {
+    if(typeof k === "undefined") { k=0; }
+    var n = s[k], ret = Array(n), i;
+    if(k === s.length-1) {
+        for(i=n-2;i>=0;i-=2) { ret[i+1] = v; ret[i] = v; }
+        if(i===-1) { ret[0] = v; }
+        return ret;
+    }
+    for(i=n-1;i>=0;i--) { ret[i] = numeric.rep(s,v,k+1); }
+    return ret;
+}
+
+
+numeric.dotMMsmall = function dotMMsmall(x,y) {
+    var i,j,k,p,q,r,ret,foo,bar,woo,i0,k0,p0,r0;
+    p = x.length; q = y.length; r = y[0].length;
+    ret = Array(p);
+    for(i=p-1;i>=0;i--) {
+        foo = Array(r);
+        bar = x[i];
+        for(k=r-1;k>=0;k--) {
+            woo = bar[q-1]*y[q-1][k];
+            for(j=q-2;j>=1;j-=2) {
+                i0 = j-1;
+                woo += bar[j]*y[j][k] + bar[i0]*y[i0][k];
+            }
+            if(j===0) { woo += bar[0]*y[0][k]; }
+            foo[k] = woo;
+        }
+        ret[i] = foo;
+    }
+    return ret;
+}
+numeric._getCol = function _getCol(A,j,x) {
+    var n = A.length, i;
+    for(i=n-1;i>0;--i) {
+        x[i] = A[i][j];
+        --i;
+        x[i] = A[i][j];
+    }
+    if(i===0) x[0] = A[0][j];
+}
+numeric.dotMMbig = function dotMMbig(x,y){
+    var gc = numeric._getCol, p = y.length, v = Array(p);
+    var m = x.length, n = y[0].length, A = new Array(m), xj;
+    var VV = numeric.dotVV;
+    var i,j,k,z;
+    --p;
+    --m;
+    for(i=m;i!==-1;--i) A[i] = Array(n);
+    --n;
+    for(i=n;i!==-1;--i) {
+        gc(y,i,v);
+        for(j=m;j!==-1;--j) {
+            z=0;
+            xj = x[j];
+            A[j][i] = VV(xj,v);
+        }
+    }
+    return A;
+}
+
+numeric.dotMV = function dotMV(x,y) {
+    var p = x.length, q = y.length,i;
+    var ret = Array(p), dotVV = numeric.dotVV;
+    for(i=p-1;i>=0;i--) { ret[i] = dotVV(x[i],y); }
+    return ret;
+}
+
+numeric.dotVM = function dotVM(x,y) {
+    var i,j,k,p,q,r,ret,foo,bar,woo,i0,k0,p0,r0,s1,s2,s3,baz,accum;
+    p = x.length; q = y[0].length;
+    ret = Array(q);
+    for(k=q-1;k>=0;k--) {
+        woo = x[p-1]*y[p-1][k];
+        for(j=p-2;j>=1;j-=2) {
+            i0 = j-1;
+            woo += x[j]*y[j][k] + x[i0]*y[i0][k];
+        }
+        if(j===0) { woo += x[0]*y[0][k]; }
+        ret[k] = woo;
+    }
+    return ret;
+}
+
+numeric.dotVV = function dotVV(x,y) {
+    var i,n=x.length,i1,ret = x[n-1]*y[n-1];
+    for(i=n-2;i>=1;i-=2) {
+        i1 = i-1;
+        ret += x[i]*y[i] + x[i1]*y[i1];
+    }
+    if(i===0) { ret += x[0]*y[0]; }
+    return ret;
+}
+
+numeric.dot = function dot(x,y) {
+    var d = numeric.dim;
+    switch(d(x).length*1000+d(y).length) {
+    case 2002:
+        if(y.length < 10) return numeric.dotMMsmall(x,y);
+        else return numeric.dotMMbig(x,y);
+    case 2001: return numeric.dotMV(x,y);
+    case 1002: return numeric.dotVM(x,y);
+    case 1001: return numeric.dotVV(x,y);
+    case 1000: return numeric.mulVS(x,y);
+    case 1: return numeric.mulSV(x,y);
+    case 0: return x*y;
+    default: throw new Error('numeric.dot only works on vectors and matrices');
+    }
+}
+
+numeric.diag = function diag(d) {
+    var i,i1,j,n = d.length, A = Array(n), Ai;
+    for(i=n-1;i>=0;i--) {
+        Ai = Array(n);
+        i1 = i+2;
+        for(j=n-1;j>=i1;j-=2) {
+            Ai[j] = 0;
+            Ai[j-1] = 0;
+        }
+        if(j>i) { Ai[j] = 0; }
+        Ai[i] = d[i];
+        for(j=i-1;j>=1;j-=2) {
+            Ai[j] = 0;
+            Ai[j-1] = 0;
+        }
+        if(j===0) { Ai[0] = 0; }
+        A[i] = Ai;
+    }
+    return A;
+}
+numeric.getDiag = function(A) {
+    var n = Math.min(A.length,A[0].length),i,ret = Array(n);
+    for(i=n-1;i>=1;--i) {
+        ret[i] = A[i][i];
+        --i;
+        ret[i] = A[i][i];
+    }
+    if(i===0) {
+        ret[0] = A[0][0];
+    }
+    return ret;
+}
+
+numeric.identity = function identity(n) { return numeric.diag(numeric.rep([n],1)); }
+numeric.pointwise = function pointwise(params,body,setup) {
+    if(typeof setup === "undefined") { setup = ""; }
+    var fun = [];
+    var k;
+    var avec = /\[i\]$/,p,thevec = '';
+    var haveret = false;
+    for(k=0;k<params.length;k++) {
+        if(avec.test(params[k])) {
+            p = params[k].substring(0,params[k].length-3);
+            thevec = p;
+        } else { p = params[k]; }
+        if(p==='ret') haveret = true;
+        fun.push(p);
+    }
+    fun[params.length] = '_s';
+    fun[params.length+1] = '_k';
+    fun[params.length+2] = (
+            'if(typeof _s === "undefined") _s = numeric.dim('+thevec+');\n'+
+            'if(typeof _k === "undefined") _k = 0;\n'+
+            'var _n = _s[_k];\n'+
+            'var i'+(haveret?'':', ret = Array(_n)')+';\n'+
+            'if(_k < _s.length-1) {\n'+
+            '    for(i=_n-1;i>=0;i--) ret[i] = arguments.callee('+params.join(',')+',_s,_k+1);\n'+
+            '    return ret;\n'+
+            '}\n'+
+            setup+'\n'+
+            'for(i=_n-1;i!==-1;--i) {\n'+
+            '    '+body+'\n'+
+            '}\n'+
+            'return ret;'
+            );
+    return Function.apply(null,fun);
+}
+numeric.pointwise2 = function pointwise2(params,body,setup) {
+    if(typeof setup === "undefined") { setup = ""; }
+    var fun = [];
+    var k;
+    var avec = /\[i\]$/,p,thevec = '';
+    var haveret = false;
+    for(k=0;k<params.length;k++) {
+        if(avec.test(params[k])) {
+            p = params[k].substring(0,params[k].length-3);
+            thevec = p;
+        } else { p = params[k]; }
+        if(p==='ret') haveret = true;
+        fun.push(p);
+    }
+    fun[params.length] = (
+            'var _n = '+thevec+'.length;\n'+
+            'var i'+(haveret?'':', ret = Array(_n)')+';\n'+
+            setup+'\n'+
+            'for(i=_n-1;i!==-1;--i) {\n'+
+            body+'\n'+
+            '}\n'+
+            'return ret;'
+            );
+    return Function.apply(null,fun);
+}
+numeric._biforeach = (function _biforeach(x,y,s,k,f) {
+    if(k === s.length-1) { f(x,y); return; }
+    var i,n=s[k];
+    for(i=n-1;i>=0;i--) { _biforeach(typeof x==="object"?x[i]:x,typeof y==="object"?y[i]:y,s,k+1,f); }
+});
+numeric._biforeach2 = (function _biforeach2(x,y,s,k,f) {
+    if(k === s.length-1) { return f(x,y); }
+    var i,n=s[k],ret = Array(n);
+    for(i=n-1;i>=0;--i) { ret[i] = _biforeach2(typeof x==="object"?x[i]:x,typeof y==="object"?y[i]:y,s,k+1,f); }
+    return ret;
+});
+numeric._foreach = (function _foreach(x,s,k,f) {
+    if(k === s.length-1) { f(x); return; }
+    var i,n=s[k];
+    for(i=n-1;i>=0;i--) { _foreach(x[i],s,k+1,f); }
+});
+numeric._foreach2 = (function _foreach2(x,s,k,f) {
+    if(k === s.length-1) { return f(x); }
+    var i,n=s[k], ret = Array(n);
+    for(i=n-1;i>=0;i--) { ret[i] = _foreach2(x[i],s,k+1,f); }
+    return ret;
+});
+
+/*numeric.anyV = numeric.mapreduce('if(xi) return true;','false');
+numeric.allV = numeric.mapreduce('if(!xi) return false;','true');
+numeric.any = function(x) { if(typeof x.length === "undefined") return x; return numeric.anyV(x); }
+numeric.all = function(x) { if(typeof x.length === "undefined") return x; return numeric.allV(x); }*/
+
+numeric.ops2 = {
+        add: '+',
+        sub: '-',
+        mul: '*',
+        div: '/',
+        mod: '%',
+        and: '&&',
+        or:  '||',
+        eq:  '===',
+        neq: '!==',
+        lt:  '<',
+        gt:  '>',
+        leq: '<=',
+        geq: '>=',
+        band: '&',
+        bor: '|',
+        bxor: '^',
+        lshift: '<<',
+        rshift: '>>',
+        rrshift: '>>>'
+};
+numeric.opseq = {
+        addeq: '+=',
+        subeq: '-=',
+        muleq: '*=',
+        diveq: '/=',
+        modeq: '%=',
+        lshifteq: '<<=',
+        rshifteq: '>>=',
+        rrshifteq: '>>>=',
+        bandeq: '&=',
+        boreq: '|=',
+        bxoreq: '^='
+};
+numeric.mathfuns = ['abs','acos','asin','atan','ceil','cos',
+                    'exp','floor','log','round','sin','sqrt','tan',
+                    'isNaN','isFinite'];
+numeric.mathfuns2 = ['atan2','pow','max','min'];
+numeric.ops1 = {
+        neg: '-',
+        not: '!',
+        bnot: '~',
+        clone: ''
+};
+numeric.mapreducers = {
+        any: ['if(xi) return true;','var accum = false;'],
+        all: ['if(!xi) return false;','var accum = true;'],
+        sum: ['accum += xi;','var accum = 0;'],
+        prod: ['accum *= xi;','var accum = 1;'],
+        norm2Squared: ['accum += xi*xi;','var accum = 0;'],
+        norminf: ['accum = max(accum,abs(xi));','var accum = 0, max = Math.max, abs = Math.abs;'],
+        norm1: ['accum += abs(xi)','var accum = 0, abs = Math.abs;'],
+        sup: ['accum = max(accum,xi);','var accum = -Infinity, max = Math.max;'],
+        inf: ['accum = min(accum,xi);','var accum = Infinity, min = Math.min;']
+};
+
+(function () {
+    var i,o;
+    for(i=0;i<numeric.mathfuns2.length;++i) {
+        o = numeric.mathfuns2[i];
+        numeric.ops2[o] = o;
+    }
+    for(i in numeric.ops2) {
+        if(numeric.ops2.hasOwnProperty(i)) {
+            o = numeric.ops2[i];
+            var code, codeeq, setup = '';
+            if(numeric.myIndexOf.call(numeric.mathfuns2,i)!==-1) {
+                setup = 'var '+o+' = Math.'+o+';\n';
+                code = function(r,x,y) { return r+' = '+o+'('+x+','+y+')'; };
+                codeeq = function(x,y) { return x+' = '+o+'('+x+','+y+')'; };
+            } else {
+                code = function(r,x,y) { return r+' = '+x+' '+o+' '+y; };
+                if(numeric.opseq.hasOwnProperty(i+'eq')) {
+                    codeeq = function(x,y) { return x+' '+o+'= '+y; };
+                } else {
+                    codeeq = function(x,y) { return x+' = '+x+' '+o+' '+y; };                    
+                }
+            }
+            numeric[i+'VV'] = numeric.pointwise2(['x[i]','y[i]'],code('ret[i]','x[i]','y[i]'),setup);
+            numeric[i+'SV'] = numeric.pointwise2(['x','y[i]'],code('ret[i]','x','y[i]'),setup);
+            numeric[i+'VS'] = numeric.pointwise2(['x[i]','y'],code('ret[i]','x[i]','y'),setup);
+            numeric[i] = Function(
+                    'var n = arguments.length, i, x = arguments[0], y;\n'+
+                    'var VV = numeric.'+i+'VV, VS = numeric.'+i+'VS, SV = numeric.'+i+'SV;\n'+
+                    'var dim = numeric.dim;\n'+
+                    'for(i=1;i!==n;++i) { \n'+
+                    '  y = arguments[i];\n'+
+                    '  if(typeof x === "object") {\n'+
+                    '      if(typeof y === "object") x = numeric._biforeach2(x,y,dim(x),0,VV);\n'+
+                    '      else x = numeric._biforeach2(x,y,dim(x),0,VS);\n'+
+                    '  } else if(typeof y === "object") x = numeric._biforeach2(x,y,dim(y),0,SV);\n'+
+                    '  else '+codeeq('x','y')+'\n'+
+                    '}\nreturn x;\n');
+            numeric[o] = numeric[i];
+            numeric[i+'eqV'] = numeric.pointwise2(['ret[i]','x[i]'], codeeq('ret[i]','x[i]'),setup);
+            numeric[i+'eqS'] = numeric.pointwise2(['ret[i]','x'], codeeq('ret[i]','x'),setup);
+            numeric[i+'eq'] = Function(
+                    'var n = arguments.length, i, x = arguments[0], y;\n'+
+                    'var V = numeric.'+i+'eqV, S = numeric.'+i+'eqS\n'+
+                    'var s = numeric.dim(x);\n'+
+                    'for(i=1;i!==n;++i) { \n'+
+                    '  y = arguments[i];\n'+
+                    '  if(typeof y === "object") numeric._biforeach(x,y,s,0,V);\n'+
+                    '  else numeric._biforeach(x,y,s,0,S);\n'+
+                    '}\nreturn x;\n');
+        }
+    }
+    for(i=0;i<numeric.mathfuns2.length;++i) {
+        o = numeric.mathfuns2[i];
+        delete numeric.ops2[o];
+    }
+    for(i=0;i<numeric.mathfuns.length;++i) {
+        o = numeric.mathfuns[i];
+        numeric.ops1[o] = o;
+    }
+    for(i in numeric.ops1) {
+        if(numeric.ops1.hasOwnProperty(i)) {
+            setup = '';
+            o = numeric.ops1[i];
+            if(numeric.myIndexOf.call(numeric.mathfuns,i)!==-1) {
+                if(Math.hasOwnProperty(o)) setup = 'var '+o+' = Math.'+o+';\n';
+            }
+            numeric[i+'eqV'] = numeric.pointwise2(['ret[i]'],'ret[i] = '+o+'(ret[i]);',setup);
+            numeric[i+'eq'] = Function('x',
+                    'if(typeof x !== "object") return '+o+'x\n'+
+                    'var i;\n'+
+                    'var V = numeric.'+i+'eqV;\n'+
+                    'var s = numeric.dim(x);\n'+
+                    'numeric._foreach(x,s,0,V);\n'+
+                    'return x;\n');
+            numeric[i+'V'] = numeric.pointwise2(['x[i]'],'ret[i] = '+o+'(x[i]);',setup);
+            numeric[i] = Function('x',
+                    'if(typeof x !== "object") return '+o+'(x)\n'+
+                    'var i;\n'+
+                    'var V = numeric.'+i+'V;\n'+
+                    'var s = numeric.dim(x);\n'+
+                    'return numeric._foreach2(x,s,0,V);\n');
+        }
+    }
+    for(i=0;i<numeric.mathfuns.length;++i) {
+        o = numeric.mathfuns[i];
+        delete numeric.ops1[o];
+    }
+    for(i in numeric.mapreducers) {
+        if(numeric.mapreducers.hasOwnProperty(i)) {
+            o = numeric.mapreducers[i];
+            numeric[i+'V'] = numeric.mapreduce2(o[0],o[1]);
+            numeric[i] = Function('x','s','k',
+                    o[1]+
+                    'if(typeof x !== "object") {'+
+                    '    xi = x;\n'+
+                    o[0]+';\n'+
+                    '    return accum;\n'+
+                    '}'+
+                    'if(typeof s === "undefined") s = numeric.dim(x);\n'+
+                    'if(typeof k === "undefined") k = 0;\n'+
+                    'if(k === s.length-1) return numeric.'+i+'V(x);\n'+
+                    'var xi;\n'+
+                    'var n = x.length, i;\n'+
+                    'for(i=n-1;i!==-1;--i) {\n'+
+                    '   xi = arguments.callee(x[i]);\n'+
+                    o[0]+';\n'+
+                    '}\n'+
+                    'return accum;\n');
+        }
+    }
+}());
+
+numeric.truncVV = numeric.pointwise(['x[i]','y[i]'],'ret[i] = round(x[i]/y[i])*y[i];','var round = Math.round;');
+numeric.truncVS = numeric.pointwise(['x[i]','y'],'ret[i] = round(x[i]/y)*y;','var round = Math.round;');
+numeric.truncSV = numeric.pointwise(['x','y[i]'],'ret[i] = round(x/y[i])*y[i];','var round = Math.round;');
+numeric.trunc = function trunc(x,y) {
+    if(typeof x === "object") {
+        if(typeof y === "object") return numeric.truncVV(x,y);
+        return numeric.truncVS(x,y);
+    }
+    if (typeof y === "object") return numeric.truncSV(x,y);
+    return Math.round(x/y)*y;
+}
+
+numeric.inv = function inv(x) {
+    var s = numeric.dim(x), abs = Math.abs, m = s[0], n = s[1];
+    var A = numeric.clone(x), Ai, Aj;
+    var I = numeric.identity(m), Ii, Ij;
+    var i,j,k,x;
+    for(j=0;j<n;++j) {
+        var i0 = -1;
+        var v0 = -1;
+        for(i=j;i!==m;++i) { k = abs(A[i][j]); if(k>v0) { i0 = i; v0 = k; } }
+        Aj = A[i0]; A[i0] = A[j]; A[j] = Aj;
+        Ij = I[i0]; I[i0] = I[j]; I[j] = Ij;
+        x = Aj[j];
+        for(k=j;k!==n;++k)    Aj[k] /= x; 
+        for(k=n-1;k!==-1;--k) Ij[k] /= x;
+        for(i=m-1;i!==-1;--i) {
+            if(i!==j) {
+                Ai = A[i];
+                Ii = I[i];
+                x = Ai[j];
+                for(k=j+1;k!==n;++k)  Ai[k] -= Aj[k]*x;
+                for(k=n-1;k>0;--k) { Ii[k] -= Ij[k]*x; --k; Ii[k] -= Ij[k]*x; }
+                if(k===0) Ii[0] -= Ij[0]*x;
+            }
+        }
+    }
+    return I;
+}
+
+numeric.det = function det(x) {
+    var s = numeric.dim(x);
+    if(s.length !== 2 || s[0] !== s[1]) { throw new Error('numeric: det() only works on square matrices'); }
+    var n = s[0], ret = 1,i,j,k,A = numeric.clone(x),Aj,Ai,alpha,temp,k1,k2,k3;
+    for(j=0;j<n-1;j++) {
+        k=j;
+        for(i=j+1;i<n;i++) { if(Math.abs(A[i][j]) > Math.abs(A[k][j])) { k = i; } }
+        if(k !== j) {
+            temp = A[k]; A[k] = A[j]; A[j] = temp;
+            ret *= -1;
+        }
+        Aj = A[j];
+        for(i=j+1;i<n;i++) {
+            Ai = A[i];
+            alpha = Ai[j]/Aj[j];
+            for(k=j+1;k<n-1;k+=2) {
+                k1 = k+1;
+                Ai[k] -= Aj[k]*alpha;
+                Ai[k1] -= Aj[k1]*alpha;
+            }
+            if(k!==n) { Ai[k] -= Aj[k]*alpha; }
+        }
+        if(Aj[j] === 0) { return 0; }
+        ret *= Aj[j];
+    }
+    return ret*A[j][j];
+}
+
+numeric.transpose = function transpose(x) {
+    var i,j,m = x.length,n = x[0].length, ret=Array(n),A0,A1,Bj;
+    for(j=0;j<n;j++) ret[j] = Array(m);
+    for(i=m-1;i>=1;i-=2) {
+        A1 = x[i];
+        A0 = x[i-1];
+        for(j=n-1;j>=1;--j) {
+            Bj = ret[j]; Bj[i] = A1[j]; Bj[i-1] = A0[j];
+            --j;
+            Bj = ret[j]; Bj[i] = A1[j]; Bj[i-1] = A0[j];
+        }
+        if(j===0) {
+            Bj = ret[0]; Bj[i] = A1[0]; Bj[i-1] = A0[0];
+        }
+    }
+    if(i===0) {
+        A0 = x[0];
+        for(j=n-1;j>=1;--j) {
+            ret[j][0] = A0[j];
+            --j;
+            ret[j][0] = A0[j];
+        }
+        if(j===0) { ret[0][0] = A0[0]; }
+    }
+    return ret;
+}
+numeric.negtranspose = function negtranspose(x) {
+    var i,j,m = x.length,n = x[0].length, ret=Array(n),A0,A1,Bj;
+    for(j=0;j<n;j++) ret[j] = Array(m);
+    for(i=m-1;i>=1;i-=2) {
+        A1 = x[i];
+        A0 = x[i-1];
+        for(j=n-1;j>=1;--j) {
+            Bj = ret[j]; Bj[i] = -A1[j]; Bj[i-1] = -A0[j];
+            --j;
+            Bj = ret[j]; Bj[i] = -A1[j]; Bj[i-1] = -A0[j];
+        }
+        if(j===0) {
+            Bj = ret[0]; Bj[i] = -A1[0]; Bj[i-1] = -A0[0];
+        }
+    }
+    if(i===0) {
+        A0 = x[0];
+        for(j=n-1;j>=1;--j) {
+            ret[j][0] = -A0[j];
+            --j;
+            ret[j][0] = -A0[j];
+        }
+        if(j===0) { ret[0][0] = -A0[0]; }
+    }
+    return ret;
+}
+
+numeric._random = function _random(s,k) {
+    var i,n=s[k],ret=Array(n), rnd;
+    if(k === s.length-1) {
+        rnd = Math.random;
+        for(i=n-1;i>=1;i-=2) {
+            ret[i] = rnd();
+            ret[i-1] = rnd();
+        }
+        if(i===0) { ret[0] = rnd(); }
+        return ret;
+    }
+    for(i=n-1;i>=0;i--) ret[i] = _random(s,k+1);
+    return ret;
+}
+numeric.random = function random(s) { return numeric._random(s,0); }
+
+numeric.norm2 = function norm2(x) { return Math.sqrt(numeric.norm2Squared(x)); }
+
+numeric.linspace = function linspace(a,b,n) {
+    if(typeof n === "undefined") n = Math.max(Math.round(b-a)+1,1);
+    if(n<2) { return n===1?[a]:[]; }
+    var i,ret = Array(n);
+    n--;
+    for(i=n;i>=0;i--) { ret[i] = (i*b+(n-i)*a)/n; }
+    return ret;
+}
+
+numeric.getBlock = function getBlock(x,from,to) {
+    var s = numeric.dim(x);
+    function foo(x,k) {
+        var i,a = from[k], n = to[k]-a, ret = Array(n);
+        if(k === s.length-1) {
+            for(i=n;i>=0;i--) { ret[i] = x[i+a]; }
+            return ret;
+        }
+        for(i=n;i>=0;i--) { ret[i] = foo(x[i+a],k+1); }
+        return ret;
+    }
+    return foo(x,0);
+}
+
+numeric.setBlock = function setBlock(x,from,to,B) {
+    var s = numeric.dim(x);
+    function foo(x,y,k) {
+        var i,a = from[k], n = to[k]-a;
+        if(k === s.length-1) { for(i=n;i>=0;i--) { x[i+a] = y[i]; } }
+        for(i=n;i>=0;i--) { foo(x[i+a],y[i],k+1); }
+    }
+    foo(x,B,0);
+    return x;
+}
+
+numeric.getRange = function getRange(A,I,J) {
+    var m = I.length, n = J.length;
+    var i,j;
+    var B = Array(m), Bi, AI;
+    for(i=m-1;i!==-1;--i) {
+        B[i] = Array(n);
+        Bi = B[i];
+        AI = A[I[i]];
+        for(j=n-1;j!==-1;--j) Bi[j] = AI[J[j]];
+    }
+    return B;
+}
+
+numeric.blockMatrix = function blockMatrix(X) {
+    var s = numeric.dim(X);
+    if(s.length<4) return numeric.blockMatrix([X]);
+    var m=s[0],n=s[1],M,N,i,j,Xij;
+    M = 0; N = 0;
+    for(i=0;i<m;++i) M+=X[i][0].length;
+    for(j=0;j<n;++j) N+=X[0][j][0].length;
+    var Z = Array(M);
+    for(i=0;i<M;++i) Z[i] = Array(N);
+    var I=0,J,ZI,k,l,Xijk;
+    for(i=0;i<m;++i) {
+        J=N;
+        for(j=n-1;j!==-1;--j) {
+            Xij = X[i][j];
+            J -= Xij[0].length;
+            for(k=Xij.length-1;k!==-1;--k) {
+                Xijk = Xij[k];
+                ZI = Z[I+k];
+                for(l = Xijk.length-1;l!==-1;--l) ZI[J+l] = Xijk[l];
+            }
+        }
+        I += X[i][0].length;
+    }
+    return Z;
+}
+
+numeric.tensor = function tensor(x,y) {
+    if(typeof x === "number" || typeof y === "number") return numeric.mul(x,y);
+    var s1 = numeric.dim(x), s2 = numeric.dim(y);
+    if(s1.length !== 1 || s2.length !== 1) {
+        throw new Error('numeric: tensor product is only defined for vectors');
+    }
+    var m = s1[0], n = s2[0], A = Array(m), Ai, i,j,xi;
+    for(i=m-1;i>=0;i--) {
+        Ai = Array(n);
+        xi = x[i];
+        for(j=n-1;j>=3;--j) {
+            Ai[j] = xi * y[j];
+            --j;
+            Ai[j] = xi * y[j];
+            --j;
+            Ai[j] = xi * y[j];
+            --j;
+            Ai[j] = xi * y[j];
+        }
+        while(j>=0) { Ai[j] = xi * y[j]; --j; }
+        A[i] = Ai;
+    }
+    return A;
+}
+
+// 3. The Tensor type T
+numeric.T = function T(x,y) { this.x = x; this.y = y; }
+numeric.t = function t(x,y) { return new numeric.T(x,y); }
+
+numeric.Tbinop = function Tbinop(rr,rc,cr,cc,setup) {
+    var io = numeric.indexOf;
+    if(typeof setup !== "string") {
+        var k;
+        setup = '';
+        for(k in numeric) {
+            if(numeric.hasOwnProperty(k) && (rr.indexOf(k)>=0 || rc.indexOf(k)>=0 || cr.indexOf(k)>=0 || cc.indexOf(k)>=0) && k.length>1) {
+                setup += 'var '+k+' = numeric.'+k+';\n';
+            }
+        }
+    }
+    return Function(['y'],
+            'var x = this;\n'+
+            'if(!(y instanceof numeric.T)) { y = new numeric.T(y); }\n'+
+            setup+'\n'+
+            'if(x.y) {'+
+            '  if(y.y) {'+
+            '    return new numeric.T('+cc+');\n'+
+            '  }\n'+
+            '  return new numeric.T('+cr+');\n'+
+            '}\n'+
+            'if(y.y) {\n'+
+            '  return new numeric.T('+rc+');\n'+
+            '}\n'+
+            'return new numeric.T('+rr+');\n'
+    );
+}
+
+numeric.T.prototype.add = numeric.Tbinop(
+        'add(x.x,y.x)',
+        'add(x.x,y.x),y.y',
+        'add(x.x,y.x),x.y',
+        'add(x.x,y.x),add(x.y,y.y)');
+numeric.T.prototype.sub = numeric.Tbinop(
+        'sub(x.x,y.x)',
+        'sub(x.x,y.x),neg(y.y)',
+        'sub(x.x,y.x),x.y',
+        'sub(x.x,y.x),sub(x.y,y.y)');
+numeric.T.prototype.mul = numeric.Tbinop(
+        'mul(x.x,y.x)',
+        'mul(x.x,y.x),mul(x.x,y.y)',
+        'mul(x.x,y.x),mul(x.y,y.x)',
+        'sub(mul(x.x,y.x),mul(x.y,y.y)),add(mul(x.x,y.y),mul(x.y,y.x))');
+
+numeric.T.prototype.reciprocal = function reciprocal() {
+    var mul = numeric.mul, div = numeric.div;
+    if(this.y) {
+        var d = numeric.add(mul(this.x,this.x),mul(this.y,this.y));
+        return new numeric.T(div(this.x,d),div(numeric.neg(this.y),d));
+    }
+    return new T(div(1,this.x));
+}
+numeric.T.prototype.div = function div(y) {
+    if(!(y instanceof numeric.T)) y = new numeric.T(y);
+    if(y.y) { return this.mul(y.reciprocal()); }
+    var div = numeric.div;
+    if(this.y) { return new numeric.T(div(this.x,y.x),div(this.y,y.x)); }
+    return new numeric.T(div(this.x,y.x));
+}
+numeric.T.prototype.dot = numeric.Tbinop(
+        'dot(x.x,y.x)',
+        'dot(x.x,y.x),dot(x.x,y.y)',
+        'dot(x.x,y.x),dot(x.y,y.x)',
+        'sub(dot(x.x,y.x),dot(x.y,y.y)),add(dot(x.x,y.y),dot(x.y,y.x))'
+        );
+numeric.T.prototype.transpose = function transpose() {
+    var t = numeric.transpose, x = this.x, y = this.y;
+    if(y) { return new numeric.T(t(x),t(y)); }
+    return new numeric.T(t(x));
+}
+numeric.T.prototype.transjugate = function transjugate() {
+    var t = numeric.transpose, x = this.x, y = this.y;
+    if(y) { return new numeric.T(t(x),numeric.negtranspose(y)); }
+    return new numeric.T(t(x));
+}
+numeric.Tunop = function Tunop(r,c,s) {
+    if(typeof s !== "string") { s = ''; }
+    return Function(
+            'var x = this;\n'+
+            s+'\n'+
+            'if(x.y) {'+
+            '  '+c+';\n'+
+            '}\n'+
+            r+';\n'
+    );
+}
+
+numeric.T.prototype.exp = numeric.Tunop(
+        'return new numeric.T(ex)',
+        'return new numeric.T(mul(cos(x.y),ex),mul(sin(x.y),ex))',
+        'var ex = numeric.exp(x.x), cos = numeric.cos, sin = numeric.sin, mul = numeric.mul;');
+numeric.T.prototype.conj = numeric.Tunop(
+        'return new numeric.T(x.x);',
+        'return new numeric.T(x.x,numeric.neg(x.y));');
+numeric.T.prototype.neg = numeric.Tunop(
+        'return new numeric.T(neg(x.x));',
+        'return new numeric.T(neg(x.x),neg(x.y));',
+        'var neg = numeric.neg;');
+numeric.T.prototype.sin = numeric.Tunop(
+        'return new numeric.T(numeric.sin(x.x))',
+        'return x.exp().sub(x.neg().exp()).div(new numeric.T(0,2));');
+numeric.T.prototype.cos = numeric.Tunop(
+        'return new numeric.T(numeric.cos(x.x))',
+        'return x.exp().add(x.neg().exp()).div(2);');
+numeric.T.prototype.abs = numeric.Tunop(
+        'return new numeric.T(numeric.abs(x.x));',
+        'return new numeric.T(numeric.sqrt(numeric.add(mul(x.x,x.x),mul(x.y,x.y))));',
+        'var mul = numeric.mul;');
+numeric.T.prototype.log = numeric.Tunop(
+        'return new numeric.T(numeric.log(x.x));',
+        'var theta = new numeric.T(numeric.atan2(x.y,x.x)), r = x.abs();\n'+
+        'return new numeric.T(numeric.log(r.x),theta.x);');
+numeric.T.prototype.norm2 = numeric.Tunop(
+        'return numeric.norm2(x.x);',
+        'var f = numeric.norm2Squared;\n'+
+        'return Math.sqrt(f(x.x)+f(x.y));');
+numeric.T.prototype.inv = function inv() {
+    var A = this;
+    if(typeof A.y === "undefined") { return new numeric.T(numeric.inv(A.x)); }
+    var n = A.x.length, i, j, k;
+    var Rx = numeric.identity(n),Ry = numeric.rep([n,n],0);
+    var Ax = numeric.clone(A.x), Ay = numeric.clone(A.y);
+    var Aix, Aiy, Ajx, Ajy, Rix, Riy, Rjx, Rjy;
+    var i,j,k,d,d1,ax,ay,bx,by,temp;
+    for(i=0;i<n;i++) {
+        ax = Ax[i][i]; ay = Ay[i][i];
+        d = ax*ax+ay*ay;
+        k = i;
+        for(j=i+1;j<n;j++) {
+            ax = Ax[j][i]; ay = Ay[j][i];
+            d1 = ax*ax+ay*ay;
+            if(d1 > d) { k=j; d = d1; }
+        }
+        if(k!==i) {
+            temp = Ax[i]; Ax[i] = Ax[k]; Ax[k] = temp;
+            temp = Ay[i]; Ay[i] = Ay[k]; Ay[k] = temp;
+            temp = Rx[i]; Rx[i] = Rx[k]; Rx[k] = temp;
+            temp = Ry[i]; Ry[i] = Ry[k]; Ry[k] = temp;
+        }
+        Aix = Ax[i]; Aiy = Ay[i];
+        Rix = Rx[i]; Riy = Ry[i];
+        ax = Aix[i]; ay = Aiy[i];
+        for(j=i+1;j<n;j++) {
+            bx = Aix[j]; by = Aiy[j];
+            Aix[j] = (bx*ax+by*ay)/d;
+            Aiy[j] = (by*ax-bx*ay)/d;
+        }
+        for(j=0;j<n;j++) {
+            bx = Rix[j]; by = Riy[j];
+            Rix[j] = (bx*ax+by*ay)/d;
+            Riy[j] = (by*ax-bx*ay)/d;
+        }
+        for(j=i+1;j<n;j++) {
+            Ajx = Ax[j]; Ajy = Ay[j];
+            Rjx = Rx[j]; Rjy = Ry[j];
+            ax = Ajx[i]; ay = Ajy[i];
+            for(k=i+1;k<n;k++) {
+                bx = Aix[k]; by = Aiy[k];
+                Ajx[k] -= bx*ax-by*ay;
+                Ajy[k] -= by*ax+bx*ay;
+            }
+            for(k=0;k<n;k++) {
+                bx = Rix[k]; by = Riy[k];
+                Rjx[k] -= bx*ax-by*ay;
+                Rjy[k] -= by*ax+bx*ay;
+            }
+        }
+    }
+    for(i=n-1;i>0;i--) {
+        Rix = Rx[i]; Riy = Ry[i];
+        for(j=i-1;j>=0;j--) {
+            Rjx = Rx[j]; Rjy = Ry[j];
+            ax = Ax[j][i]; ay = Ay[j][i];
+            for(k=n-1;k>=0;k--) {
+                bx = Rix[k]; by = Riy[k];
+                Rjx[k] -= ax*bx - ay*by;
+                Rjy[k] -= ax*by + ay*bx;
+            }
+        }
+    }
+    return new numeric.T(Rx,Ry);
+}
+numeric.T.prototype.get = function get(i) {
+    var x = this.x, y = this.y, k = 0, ik, n = i.length;
+    if(y) {
+        while(k<n) {
+            ik = i[k];
+            x = x[ik];
+            y = y[ik];
+            k++;
+        }
+        return new numeric.T(x,y);
+    }
+    while(k<n) {
+        ik = i[k];
+        x = x[ik];
+        k++;
+    }
+    return new numeric.T(x);
+}
+numeric.T.prototype.set = function set(i,v) {
+    var x = this.x, y = this.y, k = 0, ik, n = i.length, vx = v.x, vy = v.y;
+    if(n===0) {
+        if(vy) { this.y = vy; }
+        else if(y) { this.y = undefined; }
+        this.x = x;
+        return this;
+    }
+    if(vy) {
+        if(y) { /* ok */ }
+        else {
+            y = numeric.rep(numeric.dim(x),0);
+            this.y = y;
+        }
+        while(k<n-1) {
+            ik = i[k];
+            x = x[ik];
+            y = y[ik];
+            k++;
+        }
+        ik = i[k];
+        x[ik] = vx;
+        y[ik] = vy;
+        return this;
+    }
+    if(y) {
+        while(k<n-1) {
+            ik = i[k];
+            x = x[ik];
+            y = y[ik];
+            k++;
+        }
+        ik = i[k];
+        x[ik] = vx;
+        if(vx instanceof Array) y[ik] = numeric.rep(numeric.dim(vx),0);
+        else y[ik] = 0;
+        return this;
+    }
+    while(k<n-1) {
+        ik = i[k];
+        x = x[ik];
+        k++;
+    }
+    ik = i[k];
+    x[ik] = vx;
+    return this;
+}
+numeric.T.prototype.getRows = function getRows(i0,i1) {
+    var n = i1-i0+1, j;
+    var rx = Array(n), ry, x = this.x, y = this.y;
+    for(j=i0;j<=i1;j++) { rx[j-i0] = x[j]; }
+    if(y) {
+        ry = Array(n);
+        for(j=i0;j<=i1;j++) { ry[j-i0] = y[j]; }
+        return new numeric.T(rx,ry);
+    }
+    return new numeric.T(rx);
+}
+numeric.T.prototype.setRows = function setRows(i0,i1,A) {
+    var j;
+    var rx = this.x, ry = this.y, x = A.x, y = A.y;
+    for(j=i0;j<=i1;j++) { rx[j] = x[j-i0]; }
+    if(y) {
+        if(!ry) { ry = numeric.rep(numeric.dim(rx),0); this.y = ry; }
+        for(j=i0;j<=i1;j++) { ry[j] = y[j-i0]; }
+    } else if(ry) {
+        for(j=i0;j<=i1;j++) { ry[j] = numeric.rep([x[j-i0].length],0); }
+    }
+    return this;
+}
+numeric.T.prototype.getRow = function getRow(k) {
+    var x = this.x, y = this.y;
+    if(y) { return new numeric.T(x[k],y[k]); }
+    return new numeric.T(x[k]);
+}
+numeric.T.prototype.setRow = function setRow(i,v) {
+    var rx = this.x, ry = this.y, x = v.x, y = v.y;
+    rx[i] = x;
+    if(y) {
+        if(!ry) { ry = numeric.rep(numeric.dim(rx),0); this.y = ry; }
+        ry[i] = y;
+    } else if(ry) {
+        ry = numeric.rep([x.length],0);
+    }
+    return this;
+}
+
+numeric.T.prototype.getBlock = function getBlock(from,to) {
+    var x = this.x, y = this.y, b = numeric.getBlock;
+    if(y) { return new numeric.T(b(x,from,to),b(y,from,to)); }
+    return new numeric.T(b(x,from,to));
+}
+numeric.T.prototype.setBlock = function setBlock(from,to,A) {
+    if(!(A instanceof numeric.T)) A = new numeric.T(A);
+    var x = this.x, y = this.y, b = numeric.setBlock, Ax = A.x, Ay = A.y;
+    if(Ay) {
+        if(!y) { this.y = numeric.rep(numeric.dim(this),0); y = this.y; }
+        b(x,from,to,Ax);
+        b(y,from,to,Ay);
+        return this;
+    }
+    b(x,from,to,Ax);
+    if(y) b(y,from,to,numeric.rep(numeric.dim(Ax),0));
+}
+numeric.T.rep = function rep(s,v) {
+    var T = numeric.T;
+    if(!(v instanceof T)) v = new T(v);
+    var x = v.x, y = v.y, r = numeric.rep;
+    if(y) return new T(r(s,x),r(s,y));
+    return new T(r(s,x));
+}
+numeric.T.diag = function diag(d) {
+    if(!(d instanceof numeric.T)) d = new numeric.T(d);
+    var x = d.x, y = d.y, diag = numeric.diag;
+    if(y) return new numeric.T(diag(x),diag(y));
+    return new numeric.T(diag(x));
+}
+numeric.T.eig = function eig() {
+    if(this.y) { throw new Error('eig: not implemented for complex matrices.'); }
+    return numeric.eig(this.x);
+}
+numeric.T.identity = function identity(n) { return new numeric.T(numeric.identity(n)); }
+numeric.T.prototype.getDiag = function getDiag() {
+    var n = numeric;
+    var x = this.x, y = this.y;
+    if(y) { return new n.T(n.getDiag(x),n.getDiag(y)); }
+    return new n.T(n.getDiag(x));
+}
+
+// 4. Eigenvalues of real matrices
+
+numeric.house = function house(x) {
+    var v = numeric.clone(x);
+    var s = x[0] >= 0 ? 1 : -1;
+    var alpha = s*numeric.norm2(x);
+    v[0] += alpha;
+    var foo = numeric.norm2(v);
+    if(foo === 0) { /* this should not happen */ throw new Error('eig: internal error'); }
+    return numeric.div(v,foo);
+}
+
+numeric.toUpperHessenberg = function toUpperHessenberg(me) {
+    var s = numeric.dim(me);
+    if(s.length !== 2 || s[0] !== s[1]) { throw new Error('numeric: toUpperHessenberg() only works on square matrices'); }
+    var m = s[0], i,j,k,x,v,A = numeric.clone(me),B,C,Ai,Ci,Q = numeric.identity(m),Qi;
+    for(j=0;j<m-2;j++) {
+        x = Array(m-j-1);
+        for(i=j+1;i<m;i++) { x[i-j-1] = A[i][j]; }
+        if(numeric.norm2(x)>0) {
+            v = numeric.house(x);
+            B = numeric.getBlock(A,[j+1,j],[m-1,m-1]);
+            C = numeric.tensor(v,numeric.dot(v,B));
+            for(i=j+1;i<m;i++) { Ai = A[i]; Ci = C[i-j-1]; for(k=j;k<m;k++) Ai[k] -= 2*Ci[k-j]; }
+            B = numeric.getBlock(A,[0,j+1],[m-1,m-1]);
+            C = numeric.tensor(numeric.dot(B,v),v);
+            for(i=0;i<m;i++) { Ai = A[i]; Ci = C[i]; for(k=j+1;k<m;k++) Ai[k] -= 2*Ci[k-j-1]; }
+            B = Array(m-j-1);
+            for(i=j+1;i<m;i++) B[i-j-1] = Q[i];
+            C = numeric.tensor(v,numeric.dot(v,B));
+            for(i=j+1;i<m;i++) { Qi = Q[i]; Ci = C[i-j-1]; for(k=0;k<m;k++) Qi[k] -= 2*Ci[k]; }
+        }
+    }
+    return {H:A, Q:Q};
+}
+
+numeric.epsilon = 2.220446049250313e-16;
+
+numeric.QRFrancis = function(H,maxiter) {
+    if(typeof maxiter === "undefined") { maxiter = 10000; }
+    H = numeric.clone(H);
+    var H0 = numeric.clone(H);
+    var s = numeric.dim(H),m=s[0],x,v,a,b,c,d,det,tr, Hloc, Q = numeric.identity(m), Qi, Hi, B, C, Ci,i,j,k,iter;
+    if(m<3) { return {Q:Q, B:[ [0,m-1] ]}; }
+    var epsilon = numeric.epsilon;
+    for(iter=0;iter<maxiter;iter++) {
+        for(j=0;j<m-1;j++) {
+            if(Math.abs(H[j+1][j]) < epsilon*(Math.abs(H[j][j])+Math.abs(H[j+1][j+1]))) {
+                var QH1 = numeric.QRFrancis(numeric.getBlock(H,[0,0],[j,j]),maxiter);
+                var QH2 = numeric.QRFrancis(numeric.getBlock(H,[j+1,j+1],[m-1,m-1]),maxiter);
+                B = Array(j+1);
+                for(i=0;i<=j;i++) { B[i] = Q[i]; }
+                C = numeric.dot(QH1.Q,B);
+                for(i=0;i<=j;i++) { Q[i] = C[i]; }
+                B = Array(m-j-1);
+                for(i=j+1;i<m;i++) { B[i-j-1] = Q[i]; }
+                C = numeric.dot(QH2.Q,B);
+                for(i=j+1;i<m;i++) { Q[i] = C[i-j-1]; }
+                return {Q:Q,B:QH1.B.concat(numeric.add(QH2.B,j+1))};
+            }
+        }
+        a = H[m-2][m-2]; b = H[m-2][m-1];
+        c = H[m-1][m-2]; d = H[m-1][m-1];
+        tr = a+d;
+        det = (a*d-b*c);
+        Hloc = numeric.getBlock(H, [0,0], [2,2]);
+        if(tr*tr>=4*det) {
+            var s1,s2;
+            s1 = 0.5*(tr+Math.sqrt(tr*tr-4*det));
+            s2 = 0.5*(tr-Math.sqrt(tr*tr-4*det));
+            Hloc = numeric.add(numeric.sub(numeric.dot(Hloc,Hloc),
+                                           numeric.mul(Hloc,s1+s2)),
+                               numeric.diag(numeric.rep([3],s1*s2)));
+        } else {
+            Hloc = numeric.add(numeric.sub(numeric.dot(Hloc,Hloc),
+                                           numeric.mul(Hloc,tr)),
+                               numeric.diag(numeric.rep([3],det)));
+        }
+        x = [Hloc[0][0],Hloc[1][0],Hloc[2][0]];
+        v = numeric.house(x);
+        B = [H[0],H[1],H[2]];
+        C = numeric.tensor(v,numeric.dot(v,B));
+        for(i=0;i<3;i++) { Hi = H[i]; Ci = C[i]; for(k=0;k<m;k++) Hi[k] -= 2*Ci[k]; }
+        B = numeric.getBlock(H, [0,0],[m-1,2]);
+        C = numeric.tensor(numeric.dot(B,v),v);
+        for(i=0;i<m;i++) { Hi = H[i]; Ci = C[i]; for(k=0;k<3;k++) Hi[k] -= 2*Ci[k]; }
+        B = [Q[0],Q[1],Q[2]];
+        C = numeric.tensor(v,numeric.dot(v,B));
+        for(i=0;i<3;i++) { Qi = Q[i]; Ci = C[i]; for(k=0;k<m;k++) Qi[k] -= 2*Ci[k]; }
+        var J;
+        for(j=0;j<m-2;j++) {
+            for(k=j;k<=j+1;k++) {
+                if(Math.abs(H[k+1][k]) < epsilon*(Math.abs(H[k][k])+Math.abs(H[k+1][k+1]))) {
+                    var QH1 = numeric.QRFrancis(numeric.getBlock(H,[0,0],[k,k]),maxiter);
+                    var QH2 = numeric.QRFrancis(numeric.getBlock(H,[k+1,k+1],[m-1,m-1]),maxiter);
+                    B = Array(k+1);
+                    for(i=0;i<=k;i++) { B[i] = Q[i]; }
+                    C = numeric.dot(QH1.Q,B);
+                    for(i=0;i<=k;i++) { Q[i] = C[i]; }
+                    B = Array(m-k-1);
+                    for(i=k+1;i<m;i++) { B[i-k-1] = Q[i]; }
+                    C = numeric.dot(QH2.Q,B);
+                    for(i=k+1;i<m;i++) { Q[i] = C[i-k-1]; }
+                    return {Q:Q,B:QH1.B.concat(numeric.add(QH2.B,k+1))};
+                }
+            }
+            J = Math.min(m-1,j+3);
+            x = Array(J-j);
+            for(i=j+1;i<=J;i++) { x[i-j-1] = H[i][j]; }
+            v = numeric.house(x);
+            B = numeric.getBlock(H, [j+1,j],[J,m-1]);
+            C = numeric.tensor(v,numeric.dot(v,B));
+            for(i=j+1;i<=J;i++) { Hi = H[i]; Ci = C[i-j-1]; for(k=j;k<m;k++) Hi[k] -= 2*Ci[k-j]; }
+            B = numeric.getBlock(H, [0,j+1],[m-1,J]);
+            C = numeric.tensor(numeric.dot(B,v),v);
+            for(i=0;i<m;i++) { Hi = H[i]; Ci = C[i]; for(k=j+1;k<=J;k++) Hi[k] -= 2*Ci[k-j-1]; }
+            B = Array(J-j);
+            for(i=j+1;i<=J;i++) B[i-j-1] = Q[i];
+            C = numeric.tensor(v,numeric.dot(v,B));
+            for(i=j+1;i<=J;i++) { Qi = Q[i]; Ci = C[i-j-1]; for(k=0;k<m;k++) Qi[k] -= 2*Ci[k]; }
+        }
+    }
+    throw new Error('numeric: eigenvalue iteration does not converge -- increase maxiter?');
+}
+
+numeric.eig = function eig(A,maxiter) {
+    var QH = numeric.toUpperHessenberg(A);
+    var QB = numeric.QRFrancis(QH.H,maxiter);
+    var T = numeric.T;
+    var n = A.length,i,k,flag = false,B = QB.B,H = numeric.dot(QB.Q,numeric.dot(QH.H,numeric.transpose(QB.Q)));
+    var Q = new T(numeric.dot(QB.Q,QH.Q)),Q0;
+    var m = B.length,j;
+    var a,b,c,d,p1,p2,disc,x,y,p,q,n1,n2;
+    var sqrt = Math.sqrt;
+    for(k=0;k<m;k++) {
+        i = B[k][0];
+        if(i === B[k][1]) {
+            // nothing
+        } else {
+            j = i+1;
+            a = H[i][i];
+            b = H[i][j];
+            c = H[j][i];
+            d = H[j][j];
+            if(b === 0 && c === 0) continue;
+            p1 = -a-d;
+            p2 = a*d-b*c;
+            disc = p1*p1-4*p2;
+            if(disc>=0) {
+                if(p1<0) x = -0.5*(p1-sqrt(disc));
+                else     x = -0.5*(p1+sqrt(disc));
+                n1 = (a-x)*(a-x)+b*b;
+                n2 = c*c+(d-x)*(d-x);
+                if(n1>n2) {
+                    n1 = sqrt(n1);
+                    p = (a-x)/n1;
+                    q = b/n1;
+                } else {
+                    n2 = sqrt(n2);
+                    p = c/n2;
+                    q = (d-x)/n2;
+                }
+                Q0 = new T([[q,-p],[p,q]]);
+                Q.setRows(i,j,Q0.dot(Q.getRows(i,j)));
+            } else {
+                x = -0.5*p1;
+                y = 0.5*sqrt(-disc);
+                n1 = (a-x)*(a-x)+b*b;
+                n2 = c*c+(d-x)*(d-x);
+                if(n1>n2) {
+                    n1 = sqrt(n1+y*y);
+                    p = (a-x)/n1;
+                    q = b/n1;
+                    x = 0;
+                    y /= n1;
+                } else {
+                    n2 = sqrt(n2+y*y);
+                    p = c/n2;
+                    q = (d-x)/n2;
+                    x = y/n2;
+                    y = 0;
+                }
+                Q0 = new T([[q,-p],[p,q]],[[x,y],[y,-x]]);
+                Q.setRows(i,j,Q0.dot(Q.getRows(i,j)));
+            }
+        }
+    }
+    var R = Q.dot(A).dot(Q.transjugate()), n = A.length, E = numeric.T.identity(n);
+    for(j=0;j<n;j++) {
+        if(j>0) {
+            for(k=j-1;k>=0;k--) {
+                var Rk = R.get([k,k]), Rj = R.get([j,j]);
+                if(numeric.neq(Rk.x,Rj.x) || numeric.neq(Rk.y,Rj.y)) {
+                    x = R.getRow(k).getBlock([k],[j-1]);
+                    y = E.getRow(j).getBlock([k],[j-1]);
+                    E.set([j,k],(R.get([k,j]).neg().sub(x.dot(y))).div(Rk.sub(Rj)));
+                } else {
+                    E.setRow(j,E.getRow(k));
+                    continue;
+                }
+            }
+        }
+    }
+    for(j=0;j<n;j++) {
+        x = E.getRow(j);
+        E.setRow(j,x.div(x.norm2()));
+    }
+    E = E.transpose();
+    E = Q.transjugate().dot(E);
+    return { lambda:R.getDiag(), E:E };
+};
+
+// 5. Compressed Column Storage matrices
+numeric.ccsSparse = function ccsSparse(A) {
+    var m = A.length,n,foo, i,j, counts = [];
+    for(i=m-1;i!==-1;--i) {
+        foo = A[i];
+        for(j in foo) {
+            j = parseInt(j);
+            while(j>=counts.length) counts[counts.length] = 0;
+            if(foo[j]!==0) counts[j]++;
+        }
+    }
+    var n = counts.length;
+    var Ai = Array(n+1);
+    Ai[0] = 0;
+    for(i=0;i<n;++i) Ai[i+1] = Ai[i] + counts[i];
+    var Aj = Array(Ai[n]), Av = Array(Ai[n]);
+    for(i=m-1;i!==-1;--i) {
+        foo = A[i];
+        for(j in foo) {
+            if(foo[j]!==0) {
+                counts[j]--;
+                Aj[Ai[j]+counts[j]] = i;
+                Av[Ai[j]+counts[j]] = foo[j];
+            }
+        }
+    }
+    return [Ai,Aj,Av];
+}
+numeric.ccsFull = function ccsFull(A) {
+    var Ai = A[0], Aj = A[1], Av = A[2], s = numeric.ccsDim(A), m = s[0], n = s[1], i,j,j0,j1,k;
+    var B = numeric.rep([m,n],0);
+    for(i=0;i<n;i++) {
+        j0 = Ai[i];
+        j1 = Ai[i+1];
+        for(j=j0;j<j1;++j) { B[Aj[j]][i] = Av[j]; }
+    }
+    return B;
+}
+numeric.ccsTSolve = function ccsTSolve(A,b,x,bj,xj) {
+    var Ai = A[0], Aj = A[1], Av = A[2],m = Ai.length-1, max = Math.max,n=0;
+    if(typeof bj === "undefined") x = numeric.rep([m],0);
+    if(typeof bj === "undefined") bj = numeric.linspace(0,x.length-1);
+    if(typeof xj === "undefined") xj = [];
+    function dfs(j) {
+        var k;
+        if(x[j] !== 0) return;
+        x[j] = 1;
+        for(k=Ai[j];k<Ai[j+1];++k) dfs(Aj[k]);
+        xj[n] = j;
+        ++n;
+    }
+    var i,j,j0,j1,k,l,l0,l1,a;
+    for(i=bj.length-1;i!==-1;--i) { dfs(bj[i]); }
+    xj.length = n;
+    for(i=xj.length-1;i!==-1;--i) { x[xj[i]] = 0; }
+    for(i=bj.length-1;i!==-1;--i) { j = bj[i]; x[j] = b[j]; }
+    for(i=xj.length-1;i!==-1;--i) {
+        j = xj[i];
+        j0 = Ai[j];
+        j1 = max(Ai[j+1],j0);
+        for(k=j0;k!==j1;++k) { if(Aj[k] === j) { x[j] /= Av[k]; break; } }
+        a = x[j];
+        for(k=j0;k!==j1;++k) {
+            l = Aj[k];
+            if(l !== j) x[l] -= a*Av[k];
+        }
+    }
+    return x;
+}
+numeric.ccsDFS = function ccsDFS(n) {
+    this.k = Array(n);
+    this.k1 = Array(n);
+    this.j = Array(n);
+}
+numeric.ccsDFS.prototype.dfs = function dfs(J,Ai,Aj,x,xj,Pinv) {
+    var m = 0,foo,n=xj.length;
+    var k = this.k, k1 = this.k1, j = this.j,km,k11;
+    if(x[J]!==0) return;
+    x[J] = 1;
+    j[0] = J;
+    k[0] = km = Ai[J];
+    k1[0] = k11 = Ai[J+1];
+    while(1) {
+        if(km >= k11) {
+            xj[n] = j[m];
+            if(m===0) return;
+            ++n;
+            --m;
+            km = k[m];
+            k11 = k1[m];
+        } else {
+            foo = Pinv[Aj[km]];
+            if(x[foo] === 0) {
+                x[foo] = 1;
+                k[m] = km;
+                ++m;
+                j[m] = foo;
+                km = Ai[foo];
+                k1[m] = k11 = Ai[foo+1];
+            } else ++km;
+        }
+    }
+}
+numeric.ccsLPSolve = function ccsLPSolve(A,B,x,xj,I,Pinv,dfs) {
+    var Ai = A[0], Aj = A[1], Av = A[2],m = Ai.length-1, n=0;
+    var Bi = B[0], Bj = B[1], Bv = B[2];
+    
+    var i,i0,i1,j,J,j0,j1,k,l,l0,l1,a;
+    i0 = Bi[I];
+    i1 = Bi[I+1];
+    xj.length = 0;
+    for(i=i0;i<i1;++i) { dfs.dfs(Pinv[Bj[i]],Ai,Aj,x,xj,Pinv); }
+    for(i=xj.length-1;i!==-1;--i) { x[xj[i]] = 0; }
+    for(i=i0;i!==i1;++i) { j = Pinv[Bj[i]]; x[j] = Bv[i]; }
+    for(i=xj.length-1;i!==-1;--i) {
+        j = xj[i];
+        j0 = Ai[j];
+        j1 = Ai[j+1];
+        for(k=j0;k<j1;++k) { if(Pinv[Aj[k]] === j) { x[j] /= Av[k]; break; } }
+        a = x[j];
+        for(k=j0;k<j1;++k) {
+            l = Pinv[Aj[k]];
+            if(l !== j) x[l] -= a*Av[k];
+        }
+    }
+    return x;
+}
+numeric.ccsLUP1 = function ccsLUP1(A,threshold) {
+    var m = A[0].length-1;
+    var L = [numeric.rep([m+1],0),[],[]], U = [numeric.rep([m+1], 0),[],[]];
+    var Li = L[0], Lj = L[1], Lv = L[2], Ui = U[0], Uj = U[1], Uv = U[2];
+    var x = numeric.rep([m],0), xj = numeric.rep([m],0);
+    var i,j,k,j0,j1,a,e,c,d,K;
+    var sol = numeric.ccsLPSolve, max = Math.max, abs = Math.abs;
+    var P = numeric.linspace(0,m-1),Pinv = numeric.linspace(0,m-1);
+    var dfs = new numeric.ccsDFS(m);
+    if(typeof threshold === "undefined") { threshold = 1; }
+    for(i=0;i<m;++i) {
+        sol(L,A,x,xj,i,Pinv,dfs);
+        a = -1;
+        e = -1;
+        for(j=xj.length-1;j!==-1;--j) {
+            k = xj[j];
+            if(k <= i) continue;
+            c = abs(x[k]);
+            if(c > a) { e = k; a = c; }
+        }
+        if(abs(x[i])<threshold*a) {
+            j = P[i];
+            a = P[e];
+            P[i] = a; Pinv[a] = i;
+            P[e] = j; Pinv[j] = e;
+            a = x[i]; x[i] = x[e]; x[e] = a;
+        }
+        a = Li[i];
+        e = Ui[i];
+        d = x[i];
+        Lj[a] = P[i];
+        Lv[a] = 1;
+        ++a;
+        for(j=xj.length-1;j!==-1;--j) {
+            k = xj[j];
+            c = x[k];
+            xj[j] = 0;
+            x[k] = 0;
+            if(k<=i) { Uj[e] = k; Uv[e] = c;   ++e; }
+            else     { Lj[a] = P[k]; Lv[a] = c/d; ++a; }
+        }
+        Li[i+1] = a;
+        Ui[i+1] = e;
+    }
+    for(j=Lj.length-1;j!==-1;--j) { Lj[j] = Pinv[Lj[j]]; }
+    return {L:L, U:U, P:P, Pinv:Pinv};
+}
+numeric.ccsDFS0 = function ccsDFS0(n) {
+    this.k = Array(n);
+    this.k1 = Array(n);
+    this.j = Array(n);
+}
+numeric.ccsDFS0.prototype.dfs = function dfs(J,Ai,Aj,x,xj,Pinv,P) {
+    var m = 0,foo,n=xj.length;
+    var k = this.k, k1 = this.k1, j = this.j,km,k11;
+    if(x[J]!==0) return;
+    x[J] = 1;
+    j[0] = J;
+    k[0] = km = Ai[Pinv[J]];
+    k1[0] = k11 = Ai[Pinv[J]+1];
+    while(1) {
+        if(isNaN(km)) throw new Error("Ow!");
+        if(km >= k11) {
+            xj[n] = Pinv[j[m]];
+            if(m===0) return;
+            ++n;
+            --m;
+            km = k[m];
+            k11 = k1[m];
+        } else {
+            foo = Aj[km];
+            if(x[foo] === 0) {
+                x[foo] = 1;
+                k[m] = km;
+                ++m;
+                j[m] = foo;
+                foo = Pinv[foo];
+                km = Ai[foo];
+                k1[m] = k11 = Ai[foo+1];
+            } else ++km;
+        }
+    }
+}
+numeric.ccsLPSolve0 = function ccsLPSolve0(A,B,y,xj,I,Pinv,P,dfs) {
+    var Ai = A[0], Aj = A[1], Av = A[2],m = Ai.length-1, n=0;
+    var Bi = B[0], Bj = B[1], Bv = B[2];
+    
+    var i,i0,i1,j,J,j0,j1,k,l,l0,l1,a;
+    i0 = Bi[I];
+    i1 = Bi[I+1];
+    xj.length = 0;
+    for(i=i0;i<i1;++i) { dfs.dfs(Bj[i],Ai,Aj,y,xj,Pinv,P); }
+    for(i=xj.length-1;i!==-1;--i) { j = xj[i]; y[P[j]] = 0; }
+    for(i=i0;i!==i1;++i) { j = Bj[i]; y[j] = Bv[i]; }
+    for(i=xj.length-1;i!==-1;--i) {
+        j = xj[i];
+        l = P[j];
+        j0 = Ai[j];
+        j1 = Ai[j+1];
+        for(k=j0;k<j1;++k) { if(Aj[k] === l) { y[l] /= Av[k]; break; } }
+        a = y[l];
+        for(k=j0;k<j1;++k) y[Aj[k]] -= a*Av[k];
+        y[l] = a;
+    }
+}
+numeric.ccsLUP0 = function ccsLUP0(A,threshold) {
+    var m = A[0].length-1;
+    var L = [numeric.rep([m+1],0),[],[]], U = [numeric.rep([m+1], 0),[],[]];
+    var Li = L[0], Lj = L[1], Lv = L[2], Ui = U[0], Uj = U[1], Uv = U[2];
+    var y = numeric.rep([m],0), xj = numeric.rep([m],0);
+    var i,j,k,j0,j1,a,e,c,d,K;
+    var sol = numeric.ccsLPSolve0, max = Math.max, abs = Math.abs;
+    var P = numeric.linspace(0,m-1),Pinv = numeric.linspace(0,m-1);
+    var dfs = new numeric.ccsDFS0(m);
+    if(typeof threshold === "undefined") { threshold = 1; }
+    for(i=0;i<m;++i) {
+        sol(L,A,y,xj,i,Pinv,P,dfs);
+        a = -1;
+        e = -1;
+        for(j=xj.length-1;j!==-1;--j) {
+            k = xj[j];
+            if(k <= i) continue;
+            c = abs(y[P[k]]);
+            if(c > a) { e = k; a = c; }
+        }
+        if(abs(y[P[i]])<threshold*a) {
+            j = P[i];
+            a = P[e];
+            P[i] = a; Pinv[a] = i;
+            P[e] = j; Pinv[j] = e;
+        }
+        a = Li[i];
+        e = Ui[i];
+        d = y[P[i]];
+        Lj[a] = P[i];
+        Lv[a] = 1;
+        ++a;
+        for(j=xj.length-1;j!==-1;--j) {
+            k = xj[j];
+            c = y[P[k]];
+            xj[j] = 0;
+            y[P[k]] = 0;
+            if(k<=i) { Uj[e] = k; Uv[e] = c;   ++e; }
+            else     { Lj[a] = P[k]; Lv[a] = c/d; ++a; }
+        }
+        Li[i+1] = a;
+        Ui[i+1] = e;
+    }
+    for(j=Lj.length-1;j!==-1;--j) { Lj[j] = Pinv[Lj[j]]; }
+    return {L:L, U:U, P:P, Pinv:Pinv};
+}
+numeric.ccsLUP = numeric.ccsLUP0;
+
+numeric.ccsDim = function ccsDim(A) { return [numeric.sup(A[1])+1,A[0].length-1]; }
+numeric.ccsGetBlock = function ccsGetBlock(A,i,j) {
+    var s = numeric.ccsDim(A),m=s[0],n=s[1];
+    if(typeof i === "undefined") { i = numeric.linspace(0,m-1); }
+    else if(typeof i === "number") { i = [i]; }
+    if(typeof j === "undefined") { j = numeric.linspace(0,n-1); }
+    else if(typeof j === "number") { j = [j]; }
+    var p,p0,p1,P = i.length,q,Q = j.length,r,jq,ip;
+    var Bi = numeric.rep([n],0), Bj=[], Bv=[], B = [Bi,Bj,Bv];
+    var Ai = A[0], Aj = A[1], Av = A[2];
+    var x = numeric.rep([m],0),count=0,flags = numeric.rep([m],0);
+    for(q=0;q<Q;++q) {
+        jq = j[q];
+        var q0 = Ai[jq];
+        var q1 = Ai[jq+1];
+        for(p=q0;p<q1;++p) {
+            r = Aj[p];
+            flags[r] = 1;
+            x[r] = Av[p];
+        }
+        for(p=0;p<P;++p) {
+            ip = i[p];
+            if(flags[ip]) {
+                Bj[count] = p;
+                Bv[count] = x[i[p]];
+                ++count;
+            }
+        }
+        for(p=q0;p<q1;++p) {
+            r = Aj[p];
+            flags[r] = 0;
+        }
+        Bi[q+1] = count;
+    }
+    return B;
+}
+
+numeric.ccsDot = function ccsDot(A,B) {
+    var Ai = A[0], Aj = A[1], Av = A[2];
+    var Bi = B[0], Bj = B[1], Bv = B[2];
+    var sA = numeric.ccsDim(A), sB = numeric.ccsDim(B);
+    var m = sA[0], n = sA[1], o = sB[1];
+    var x = numeric.rep([m],0), flags = numeric.rep([m],0), xj = Array(m);
+    var Ci = numeric.rep([o],0), Cj = [], Cv = [], C = [Ci,Cj,Cv];
+    var i,j,k,j0,j1,i0,i1,l,p,a,b;
+    for(k=0;k!==o;++k) {
+        j0 = Bi[k];
+        j1 = Bi[k+1];
+        p = 0;
+        for(j=j0;j<j1;++j) {
+            a = Bj[j];
+            b = Bv[j];
+            i0 = Ai[a];
+            i1 = Ai[a+1];
+            for(i=i0;i<i1;++i) {
+                l = Aj[i];
+                if(flags[l]===0) {
+                    xj[p] = l;
+                    flags[l] = 1;
+                    p = p+1;
+                }
+                x[l] = x[l] + Av[i]*b;
+            }
+        }
+        j0 = Ci[k];
+        j1 = j0+p;
+        Ci[k+1] = j1;
+        for(j=p-1;j!==-1;--j) {
+            b = j0+j;
+            i = xj[j];
+            Cj[b] = i;
+            Cv[b] = x[i];
+            flags[i] = 0;
+            x[i] = 0;
+        }
+        Ci[k+1] = Ci[k]+p;
+    }
+    return C;
+}
+
+numeric.ccsLUPSolve = function ccsLUPSolve(LUP,B) {
+    var L = LUP.L, U = LUP.U, P = LUP.P;
+    var Bi = B[0];
+    var flag = false;
+    if(typeof Bi !== "object") { B = [[0,B.length],numeric.linspace(0,B.length-1),B]; Bi = B[0]; flag = true; }
+    var Bj = B[1], Bv = B[2];
+    var n = L[0].length-1, m = Bi.length-1;
+    var x = numeric.rep([n],0), xj = Array(n);
+    var b = numeric.rep([n],0), bj = Array(n);
+    var Xi = numeric.rep([m+1],0), Xj = [], Xv = [];
+    var sol = numeric.ccsTSolve;
+    var i,j,j0,j1,k,J,N=0;
+    for(i=0;i<m;++i) {
+        k = 0;
+        j0 = Bi[i];
+        j1 = Bi[i+1];
+        for(j=j0;j<j1;++j) { 
+            J = LUP.Pinv[Bj[j]];
+            bj[k] = J;
+            b[J] = Bv[j];
+            ++k;
+        }
+        bj.length = k;
+        sol(L,b,x,bj,xj);
+        for(j=bj.length-1;j!==-1;--j) b[bj[j]] = 0;
+        sol(U,x,b,xj,bj);
+        if(flag) return b;
+        for(j=xj.length-1;j!==-1;--j) x[xj[j]] = 0;
+        for(j=bj.length-1;j!==-1;--j) {
+            J = bj[j];
+            Xj[N] = J;
+            Xv[N] = b[J];
+            b[J] = 0;
+            ++N;
+        }
+        Xi[i+1] = N;
+    }
+    return [Xi,Xj,Xv];
+}
+
+numeric.ccsbinop = function ccsbinop(body,setup) {
+    if(typeof setup === "undefined") setup='';
+    return Function('X','Y',
+            'var Xi = X[0], Xj = X[1], Xv = X[2];\n'+
+            'var Yi = Y[0], Yj = Y[1], Yv = Y[2];\n'+
+            'var n = Xi.length-1,m = Math.max(numeric.sup(Xj),numeric.sup(Yj))+1;\n'+
+            'var Zi = numeric.rep([n+1],0), Zj = [], Zv = [];\n'+
+            'var x = numeric.rep([m],0),y = numeric.rep([m],0);\n'+
+            'var xk,yk,zk;\n'+
+            'var i,j,j0,j1,k,p=0;\n'+
+            setup+
+            'for(i=0;i<n;++i) {\n'+
+            '  j0 = Xi[i]; j1 = Xi[i+1];\n'+
+            '  for(j=j0;j!==j1;++j) {\n'+
+            '    k = Xj[j];\n'+
+            '    x[k] = 1;\n'+
+            '    Zj[p] = k;\n'+
+            '    ++p;\n'+
+            '  }\n'+
+            '  j0 = Yi[i]; j1 = Yi[i+1];\n'+
+            '  for(j=j0;j!==j1;++j) {\n'+
+            '    k = Yj[j];\n'+
+            '    y[k] = Yv[j];\n'+
+            '    if(x[k] === 0) {\n'+
+            '      Zj[p] = k;\n'+
+            '      ++p;\n'+
+            '    }\n'+
+            '  }\n'+
+            '  Zi[i+1] = p;\n'+
+            '  j0 = Xi[i]; j1 = Xi[i+1];\n'+
+            '  for(j=j0;j!==j1;++j) x[Xj[j]] = Xv[j];\n'+
+            '  j0 = Zi[i]; j1 = Zi[i+1];\n'+
+            '  for(j=j0;j!==j1;++j) {\n'+
+            '    k = Zj[j];\n'+
+            '    xk = x[k];\n'+
+            '    yk = y[k];\n'+
+            body+'\n'+
+            '    Zv[j] = zk;\n'+
+            '  }\n'+
+            '  j0 = Xi[i]; j1 = Xi[i+1];\n'+
+            '  for(j=j0;j!==j1;++j) x[Xj[j]] = 0;\n'+
+            '  j0 = Yi[i]; j1 = Yi[i+1];\n'+
+            '  for(j=j0;j!==j1;++j) y[Yj[j]] = 0;\n'+
+            '}\n'+
+            'return [Zi,Zj,Zv];'
+            );
+};
+
+(function() {
+    var k,A,B,C;
+    for(k in numeric.ops2) {
+        if(isFinite(eval('1'+numeric.ops2[k]+'0'))) A = '[Y[0],Y[1],numeric.'+k+'(X,Y[2])]';
+        else A = 'NaN';
+        if(isFinite(eval('0'+numeric.ops2[k]+'1'))) B = '[X[0],X[1],numeric.'+k+'(X[2],Y)]';
+        else B = 'NaN';
+        if(isFinite(eval('1'+numeric.ops2[k]+'0')) && isFinite(eval('0'+numeric.ops2[k]+'1'))) C = 'numeric.ccs'+k+'MM(X,Y)';
+        else C = 'NaN';
+        numeric['ccs'+k+'MM'] = numeric.ccsbinop('zk = xk '+numeric.ops2[k]+'yk;');
+        numeric['ccs'+k] = Function('X','Y',
+                'if(typeof X === "number") return '+A+';\n'+
+                'if(typeof Y === "number") return '+B+';\n'+
+                'return '+C+';\n'
+                );
+    }
+}());
+
+numeric.ccsScatter = function ccsScatter(A) {
+    var Ai = A[0], Aj = A[1], Av = A[2];
+    var n = numeric.sup(Aj)+1,m=Ai.length;
+    var Ri = numeric.rep([n],0),Rj=Array(m), Rv = Array(m);
+    var counts = numeric.rep([n],0),i;
+    for(i=0;i<m;++i) counts[Aj[i]]++;
+    for(i=0;i<n;++i) Ri[i+1] = Ri[i] + counts[i];
+    var ptr = Ri.slice(0),k,Aii;
+    for(i=0;i<m;++i) {
+        Aii = Aj[i];
+        k = ptr[Aii];
+        Rj[k] = Ai[i];
+        Rv[k] = Av[i];
+        ptr[Aii]=ptr[Aii]+1;
+    }
+    return [Ri,Rj,Rv];
+}
+
+numeric.ccsGather = function ccsGather(A) {
+    var Ai = A[0], Aj = A[1], Av = A[2];
+    var n = Ai.length-1,m = Aj.length;
+    var Ri = Array(m), Rj = Array(m), Rv = Array(m);
+    var i,j,j0,j1,p;
+    p=0;
+    for(i=0;i<n;++i) {
+        j0 = Ai[i];
+        j1 = Ai[i+1];
+        for(j=j0;j!==j1;++j) {
+            Rj[p] = i;
+            Ri[p] = Aj[j];
+            Rv[p] = Av[j];
+            ++p;
+        }
+    }
+    return [Ri,Rj,Rv];
+}
+
+// The following sparse linear algebra routines are deprecated.
+
+numeric.sdim = function dim(A,ret,k) {
+    if(typeof ret === "undefined") { ret = []; }
+    if(typeof A !== "object") return ret;
+    if(typeof k === "undefined") { k=0; }
+    if(!(k in ret)) { ret[k] = 0; }
+    if(A.length > ret[k]) ret[k] = A.length;
+    var i;
+    for(i in A) {
+        if(A.hasOwnProperty(i)) dim(A[i],ret,k+1);
+    }
+    return ret;
+};
+
+numeric.sclone = function clone(A,k,n) {
+    if(typeof k === "undefined") { k=0; }
+    if(typeof n === "undefined") { n = numeric.sdim(A).length; }
+    var i,ret = Array(A.length);
+    if(k === n-1) {
+        for(i in A) { if(A.hasOwnProperty(i)) ret[i] = A[i]; }
+        return ret;
+    }
+    for(i in A) {
+        if(A.hasOwnProperty(i)) ret[i] = clone(A[i],k+1,n);
+    }
+    return ret;
+}
+
+numeric.sdiag = function diag(d) {
+    var n = d.length,i,ret = Array(n),i1,i2,i3;
+    for(i=n-1;i>=1;i-=2) {
+        i1 = i-1;
+        ret[i] = []; ret[i][i] = d[i];
+        ret[i1] = []; ret[i1][i1] = d[i1];
+    }
+    if(i===0) { ret[0] = []; ret[0][0] = d[i]; }
+    return ret;
+}
+
+numeric.sidentity = function identity(n) { return numeric.sdiag(numeric.rep([n],1)); }
+
+numeric.stranspose = function transpose(A) {
+    var ret = [], n = A.length, i,j,Ai;
+    for(i in A) {
+        if(!(A.hasOwnProperty(i))) continue;
+        Ai = A[i];
+        for(j in Ai) {
+            if(!(Ai.hasOwnProperty(j))) continue;
+            if(typeof ret[j] !== "object") { ret[j] = []; }
+            ret[j][i] = Ai[j];
+        }
+    }
+    return ret;
+}
+
+numeric.sLUP = function LUP(A,tol) {
+    throw new Error("The function numeric.sLUP had a bug in it and has been removed. Please use the new numeric.ccsLUP function instead.");
+};
+
+numeric.sdotMM = function dotMM(A,B) {
+    var p = A.length, q = B.length, BT = numeric.stranspose(B), r = BT.length, Ai, BTk;
+    var i,j,k,accum;
+    var ret = Array(p),reti;
+    for(i=p-1;i>=0;i--) {
+        reti = [];
+        Ai = A[i];
+        for(k=r-1;k>=0;k--) {
+            accum = 0;
+            BTk = BT[k];
+            for(j in Ai) {
+                if(!(Ai.hasOwnProperty(j))) continue;
+                if(j in BTk) { accum += Ai[j]*BTk[j]; }
+            }
+            if(accum) reti[k] = accum;
+        }
+        ret[i] = reti;
+    }
+    return ret;
+}
+
+numeric.sdotMV = function dotMV(A,x) {
+    var p = A.length, Ai, i,j;
+    var ret = Array(p), accum;
+    for(i=p-1;i>=0;i--) {
+        Ai = A[i];
+        accum = 0;
+        for(j in Ai) {
+            if(!(Ai.hasOwnProperty(j))) continue;
+            if(x[j]) accum += Ai[j]*x[j];
+        }
+        if(accum) ret[i] = accum;
+    }
+    return ret;
+}
+
+numeric.sdotVM = function dotMV(x,A) {
+    var i,j,Ai,alpha;
+    var ret = [], accum;
+    for(i in x) {
+        if(!x.hasOwnProperty(i)) continue;
+        Ai = A[i];
+        alpha = x[i];
+        for(j in Ai) {
+            if(!Ai.hasOwnProperty(j)) continue;
+            if(!ret[j]) { ret[j] = 0; }
+            ret[j] += alpha*Ai[j];
+        }
+    }
+    return ret;
+}
+
+numeric.sdotVV = function dotVV(x,y) {
+    var i,ret=0;
+    for(i in x) { if(x[i] && y[i]) ret+= x[i]*y[i]; }
+    return ret;
+}
+
+numeric.sdot = function dot(A,B) {
+    var m = numeric.sdim(A).length, n = numeric.sdim(B).length;
+    var k = m*1000+n;
+    switch(k) {
+    case 0: return A*B;
+    case 1001: return numeric.sdotVV(A,B);
+    case 2001: return numeric.sdotMV(A,B);
+    case 1002: return numeric.sdotVM(A,B);
+    case 2002: return numeric.sdotMM(A,B);
+    default: throw new Error('numeric.sdot not implemented for tensors of order '+m+' and '+n);
+    }
+}
+
+numeric.sscatter = function scatter(V) {
+    var n = V[0].length, Vij, i, j, m = V.length, A = [], Aj;
+    for(i=n-1;i>=0;--i) {
+        if(!V[m-1][i]) continue;
+        Aj = A;
+        for(j=0;j<m-2;j++) {
+            Vij = V[j][i];
+            if(!Aj[Vij]) Aj[Vij] = [];
+            Aj = Aj[Vij];
+        }
+        Aj[V[j][i]] = V[j+1][i];
+    }
+    return A;
+}
+
+numeric.sgather = function gather(A,ret,k) {
+    if(typeof ret === "undefined") ret = [];
+    if(typeof k === "undefined") k = [];
+    var n,i,Ai;
+    n = k.length;
+    for(i in A) {
+        if(A.hasOwnProperty(i)) {
+            k[n] = parseInt(i);
+            Ai = A[i];
+            if(typeof Ai === "number") {
+                if(Ai) {
+                    if(ret.length === 0) {
+                        for(i=n+1;i>=0;--i) ret[i] = [];
+                    }
+                    for(i=n;i>=0;--i) ret[i].push(k[i]);
+                    ret[n+1].push(Ai);
+                }
+            } else gather(Ai,ret,k);
+        }
+    }
+    if(k.length>n) k.pop();
+    return ret;
+}
+
+// 6. Coordinate matrices
+numeric.cLU = function LU(A) {
+    var I = A[0], J = A[1], V = A[2];
+    var p = I.length, m=0, i,j,k,a,b,c;
+    for(i=0;i<p;i++) if(I[i]>m) m=I[i];
+    m++;
+    var L = Array(m), U = Array(m), left = numeric.rep([m],Infinity), right = numeric.rep([m],-Infinity);
+    var Ui, Uj,alpha;
+    for(k=0;k<p;k++) {
+        i = I[k];
+        j = J[k];
+        if(j<left[i]) left[i] = j;
+        if(j>right[i]) right[i] = j;
+    }
+    for(i=0;i<m-1;i++) { if(right[i] > right[i+1]) right[i+1] = right[i]; }
+    for(i=m-1;i>=1;i--) { if(left[i]<left[i-1]) left[i-1] = left[i]; }
+    var countL = 0, countU = 0;
+    for(i=0;i<m;i++) {
+        U[i] = numeric.rep([right[i]-left[i]+1],0);
+        L[i] = numeric.rep([i-left[i]],0);
+        countL += i-left[i]+1;
+        countU += right[i]-i+1;
+    }
+    for(k=0;k<p;k++) { i = I[k]; U[i][J[k]-left[i]] = V[k]; }
+    for(i=0;i<m-1;i++) {
+        a = i-left[i];
+        Ui = U[i];
+        for(j=i+1;left[j]<=i && j<m;j++) {
+            b = i-left[j];
+            c = right[i]-i;
+            Uj = U[j];
+            alpha = Uj[b]/Ui[a];
+            if(alpha) {
+                for(k=1;k<=c;k++) { Uj[k+b] -= alpha*Ui[k+a]; }
+                L[j][i-left[j]] = alpha;
+            }
+        }
+    }
+    var Ui = [], Uj = [], Uv = [], Li = [], Lj = [], Lv = [];
+    var p,q,foo;
+    p=0; q=0;
+    for(i=0;i<m;i++) {
+        a = left[i];
+        b = right[i];
+        foo = U[i];
+        for(j=i;j<=b;j++) {
+            if(foo[j-a]) {
+                Ui[p] = i;
+                Uj[p] = j;
+                Uv[p] = foo[j-a];
+                p++;
+            }
+        }
+        foo = L[i];
+        for(j=a;j<i;j++) {
+            if(foo[j-a]) {
+                Li[q] = i;
+                Lj[q] = j;
+                Lv[q] = foo[j-a];
+                q++;
+            }
+        }
+        Li[q] = i;
+        Lj[q] = i;
+        Lv[q] = 1;
+        q++;
+    }
+    return {U:[Ui,Uj,Uv], L:[Li,Lj,Lv]};
+};
+
+numeric.cLUsolve = function LUsolve(lu,b) {
+    var L = lu.L, U = lu.U, ret = numeric.clone(b);
+    var Li = L[0], Lj = L[1], Lv = L[2];
+    var Ui = U[0], Uj = U[1], Uv = U[2];
+    var p = Ui.length, q = Li.length;
+    var m = ret.length,i,j,k;
+    k = 0;
+    for(i=0;i<m;i++) {
+        while(Lj[k] < i) {
+            ret[i] -= Lv[k]*ret[Lj[k]];
+            k++;
+        }
+        k++;
+    }
+    k = p-1;
+    for(i=m-1;i>=0;i--) {
+        while(Uj[k] > i) {
+            ret[i] -= Uv[k]*ret[Uj[k]];
+            k--;
+        }
+        ret[i] /= Uv[k];
+        k--;
+    }
+    return ret;
+};
+
+numeric.cgrid = function grid(n,shape) {
+    if(typeof n === "number") n = [n,n];
+    var ret = numeric.rep(n,-1);
+    var i,j,count;
+    if(typeof shape !== "function") {
+        switch(shape) {
+        case 'L':
+            shape = function(i,j) { return (i>=n[0]/2 || j<n[1]/2); }
+            break;
+        default:
+            shape = function(i,j) { return true; };
+            break;
+        }
+    }
+    count=0;
+    for(i=1;i<n[0]-1;i++) for(j=1;j<n[1]-1;j++) 
+        if(shape(i,j)) {
+            ret[i][j] = count;
+            count++;
+        }
+    return ret;
+}
+
+numeric.cdelsq = function delsq(g) {
+    var dir = [[-1,0],[0,-1],[0,1],[1,0]];
+    var s = numeric.dim(g), m = s[0], n = s[1], i,j,k,p,q;
+    var Li = [], Lj = [], Lv = [];
+    for(i=1;i<m-1;i++) for(j=1;j<n-1;j++) {
+        if(g[i][j]<0) continue;
+        for(k=0;k<4;k++) {
+            p = i+dir[k][0];
+            q = j+dir[k][1];
+            if(g[p][q]<0) continue;
+            Li.push(g[i][j]);
+            Lj.push(g[p][q]);
+            Lv.push(-1);
+        }
+        Li.push(g[i][j]);
+        Lj.push(g[i][j]);
+        Lv.push(4);
+    }
+    return [Li,Lj,Lv];
+}
+
+numeric.cdotMV = function dotMV(A,x) {
+    var ret, Ai = A[0], Aj = A[1], Av = A[2],k,p=Ai.length,N;
+    N=0;
+    for(k=0;k<p;k++) { if(Ai[k]>N) N = Ai[k]; }
+    N++;
+    ret = numeric.rep([N],0);
+    for(k=0;k<p;k++) { ret[Ai[k]]+=Av[k]*x[Aj[k]]; }
+    return ret;
+}
+
+// 7. Splines
+
+numeric.Spline = function Spline(x,yl,yr,kl,kr) { this.x = x; this.yl = yl; this.yr = yr; this.kl = kl; this.kr = kr; }
+numeric.Spline.prototype._at = function _at(x1,p) {
+    var x = this.x;
+    var yl = this.yl;
+    var yr = this.yr;
+    var kl = this.kl;
+    var kr = this.kr;
+    var x1,a,b,t;
+    var add = numeric.add, sub = numeric.sub, mul = numeric.mul;
+    a = sub(mul(kl[p],x[p+1]-x[p]),sub(yr[p+1],yl[p]));
+    b = add(mul(kr[p+1],x[p]-x[p+1]),sub(yr[p+1],yl[p]));
+    t = (x1-x[p])/(x[p+1]-x[p]);
+    var s = t*(1-t);
+    return add(add(add(mul(1-t,yl[p]),mul(t,yr[p+1])),mul(a,s*(1-t))),mul(b,s*t));
+}
+numeric.Spline.prototype.at = function at(x0) {
+    if(typeof x0 === "number") {
+        var x = this.x;
+        var n = x.length;
+        var p,q,mid,floor = Math.floor,a,b,t;
+        p = 0;
+        q = n-1;
+        while(q-p>1) {
+            mid = floor((p+q)/2);
+            if(x[mid] <= x0) p = mid;
+            else q = mid;
+        }
+        return this._at(x0,p);
+    }
+    var n = x0.length, i, ret = Array(n);
+    for(i=n-1;i!==-1;--i) ret[i] = this.at(x0[i]);
+    return ret;
+}
+numeric.Spline.prototype.diff = function diff() {
+    var x = this.x;
+    var yl = this.yl;
+    var yr = this.yr;
+    var kl = this.kl;
+    var kr = this.kr;
+    var n = yl.length;
+    var i,dx,dy;
+    var zl = kl, zr = kr, pl = Array(n), pr = Array(n);
+    var add = numeric.add, mul = numeric.mul, div = numeric.div, sub = numeric.sub;
+    for(i=n-1;i!==-1;--i) {
+        dx = x[i+1]-x[i];
+        dy = sub(yr[i+1],yl[i]);
+        pl[i] = div(add(mul(dy, 6),mul(kl[i],-4*dx),mul(kr[i+1],-2*dx)),dx*dx);
+        pr[i+1] = div(add(mul(dy,-6),mul(kl[i], 2*dx),mul(kr[i+1], 4*dx)),dx*dx);
+    }
+    return new numeric.Spline(x,zl,zr,pl,pr);
+}
+numeric.Spline.prototype.roots = function roots() {
+    function sqr(x) { return x*x; }
+    function heval(y0,y1,k0,k1,x) {
+        var A = k0*2-(y1-y0);
+        var B = -k1*2+(y1-y0);
+        var t = (x+1)*0.5;
+        var s = t*(1-t);
+        return (1-t)*y0+t*y1+A*s*(1-t)+B*s*t;
+    }
+    var ret = [];
+    var x = this.x, yl = this.yl, yr = this.yr, kl = this.kl, kr = this.kr;
+    if(typeof yl[0] === "number") {
+        yl = [yl];
+        yr = [yr];
+        kl = [kl];
+        kr = [kr];
+    }
+    var m = yl.length,n=x.length-1,i,j,k,y,s,t;
+    var ai,bi,ci,di, ret = Array(m),ri,k0,k1,y0,y1,A,B,D,dx,cx,stops,z0,z1,zm,t0,t1,tm;
+    var sqrt = Math.sqrt;
+    for(i=0;i!==m;++i) {
+        ai = yl[i];
+        bi = yr[i];
+        ci = kl[i];
+        di = kr[i];
+        ri = [];
+        for(j=0;j!==n;j++) {
+            if(j>0 && bi[j]*ai[j]<0) ri.push(x[j]);
+            dx = (x[j+1]-x[j]);
+            cx = x[j];
+            y0 = ai[j];
+            y1 = bi[j+1];
+            k0 = ci[j]/dx;
+            k1 = di[j+1]/dx;
+            D = sqr(k0-k1+3*(y0-y1)) + 12*k1*y0;
+            A = k1+3*y0+2*k0-3*y1;
+            B = 3*(k1+k0+2*(y0-y1));
+            if(D<=0) {
+                z0 = A/B;
+                if(z0>x[j] && z0<x[j+1]) stops = [x[j],z0,x[j+1]];
+                else stops = [x[j],x[j+1]];
+            } else {
+                z0 = (A-sqrt(D))/B;
+                z1 = (A+sqrt(D))/B;
+                stops = [x[j]];
+                if(z0>x[j] && z0<x[j+1]) stops.push(z0);
+                if(z1>x[j] && z1<x[j+1]) stops.push(z1);
+                stops.push(x[j+1]);
+            }
+            t0 = stops[0];
+            z0 = this._at(t0,j);
+            for(k=0;k<stops.length-1;k++) {
+                t1 = stops[k+1];
+                z1 = this._at(t1,j);
+                if(z0 === 0) {
+                    ri.push(t0); 
+                    t0 = t1;
+                    z0 = z1;
+                    continue;
+                }
+                if(z1 === 0 || z0*z1>0) {
+                    t0 = t1;
+                    z0 = z1;
+                    continue;
+                }
+                var side = 0;
+                while(1) {
+                    tm = (z0*t1-z1*t0)/(z0-z1);
+                    if(tm <= t0 || tm >= t1) { break; }
+                    zm = this._at(tm,j);
+                    if(zm*z1>0) {
+                        t1 = tm;
+                        z1 = zm;
+                        if(side === -1) z0*=0.5;
+                        side = -1;
+                    } else if(zm*z0>0) {
+                        t0 = tm;
+                        z0 = zm;
+                        if(side === 1) z1*=0.5;
+                        side = 1;
+                    } else break;
+                }
+                ri.push(tm);
+                t0 = stops[k+1];
+                z0 = this._at(t0, j);
+            }
+            if(z1 === 0) ri.push(t1);
+        }
+        ret[i] = ri;
+    }
+    if(typeof this.yl[0] === "number") return ret[0];
+    return ret;
+}
+numeric.spline = function spline(x,y,k1,kn) {
+    var n = x.length, b = [], dx = [], dy = [];
+    var i;
+    var sub = numeric.sub,mul = numeric.mul,add = numeric.add;
+    for(i=n-2;i>=0;i--) { dx[i] = x[i+1]-x[i]; dy[i] = sub(y[i+1],y[i]); }
+    if(typeof k1 === "string" || typeof kn === "string") { 
+        k1 = kn = "periodic";
+    }
+    // Build sparse tridiagonal system
+    var T = [[],[],[]];
+    switch(typeof k1) {
+    case "undefined":
+        b[0] = mul(3/(dx[0]*dx[0]),dy[0]);
+        T[0].push(0,0);
+        T[1].push(0,1);
+        T[2].push(2/dx[0],1/dx[0]);
+        break;
+    case "string":
+        b[0] = add(mul(3/(dx[n-2]*dx[n-2]),dy[n-2]),mul(3/(dx[0]*dx[0]),dy[0]));
+        T[0].push(0,0,0);
+        T[1].push(n-2,0,1);
+        T[2].push(1/dx[n-2],2/dx[n-2]+2/dx[0],1/dx[0]);
+        break;
+    default:
+        b[0] = k1;
+        T[0].push(0);
+        T[1].push(0);
+        T[2].push(1);
+        break;
+    }
+    for(i=1;i<n-1;i++) {
+        b[i] = add(mul(3/(dx[i-1]*dx[i-1]),dy[i-1]),mul(3/(dx[i]*dx[i]),dy[i]));
+        T[0].push(i,i,i);
+        T[1].push(i-1,i,i+1);
+        T[2].push(1/dx[i-1],2/dx[i-1]+2/dx[i],1/dx[i]);
+    }
+    switch(typeof kn) {
+    case "undefined":
+        b[n-1] = mul(3/(dx[n-2]*dx[n-2]),dy[n-2]);
+        T[0].push(n-1,n-1);
+        T[1].push(n-2,n-1);
+        T[2].push(1/dx[n-2],2/dx[n-2]);
+        break;
+    case "string":
+        T[1][T[1].length-1] = 0;
+        break;
+    default:
+        b[n-1] = kn;
+        T[0].push(n-1);
+        T[1].push(n-1);
+        T[2].push(1);
+        break;
+    }
+    if(typeof b[0] !== "number") b = numeric.transpose(b);
+    else b = [b];
+    var k = Array(b.length);
+    if(typeof k1 === "string") {
+        for(i=k.length-1;i!==-1;--i) {
+            k[i] = numeric.ccsLUPSolve(numeric.ccsLUP(numeric.ccsScatter(T)),b[i]);
+            k[i][n-1] = k[i][0];
+        }
+    } else {
+        for(i=k.length-1;i!==-1;--i) {
+            k[i] = numeric.cLUsolve(numeric.cLU(T),b[i]);
+        }
+    }
+    if(typeof y[0] === "number") k = k[0];
+    else k = numeric.transpose(k);
+    return new numeric.Spline(x,y,y,k,k);
+}
+
+// 8. FFT
+numeric.fftpow2 = function fftpow2(x,y) {
+    var n = x.length;
+    if(n === 1) return;
+    var cos = Math.cos, sin = Math.sin, i,j;
+    var xe = Array(n/2), ye = Array(n/2), xo = Array(n/2), yo = Array(n/2);
+    j = n/2;
+    for(i=n-1;i!==-1;--i) {
+        --j;
+        xo[j] = x[i];
+        yo[j] = y[i];
+        --i;
+        xe[j] = x[i];
+        ye[j] = y[i];
+    }
+    fftpow2(xe,ye);
+    fftpow2(xo,yo);
+    j = n/2;
+    var t,k = (-6.2831853071795864769252867665590057683943387987502116419/n),ci,si;
+    for(i=n-1;i!==-1;--i) {
+        --j;
+        if(j === -1) j = n/2-1;
+        t = k*i;
+        ci = cos(t);
+        si = sin(t);
+        x[i] = xe[j] + ci*xo[j] - si*yo[j];
+        y[i] = ye[j] + ci*yo[j] + si*xo[j];
+    }
+}
+numeric._ifftpow2 = function _ifftpow2(x,y) {
+    var n = x.length;
+    if(n === 1) return;
+    var cos = Math.cos, sin = Math.sin, i,j;
+    var xe = Array(n/2), ye = Array(n/2), xo = Array(n/2), yo = Array(n/2);
+    j = n/2;
+    for(i=n-1;i!==-1;--i) {
+        --j;
+        xo[j] = x[i];
+        yo[j] = y[i];
+        --i;
+        xe[j] = x[i];
+        ye[j] = y[i];
+    }
+    _ifftpow2(xe,ye);
+    _ifftpow2(xo,yo);
+    j = n/2;
+    var t,k = (6.2831853071795864769252867665590057683943387987502116419/n),ci,si;
+    for(i=n-1;i!==-1;--i) {
+        --j;
+        if(j === -1) j = n/2-1;
+        t = k*i;
+        ci = cos(t);
+        si = sin(t);
+        x[i] = xe[j] + ci*xo[j] - si*yo[j];
+        y[i] = ye[j] + ci*yo[j] + si*xo[j];
+    }
+}
+numeric.ifftpow2 = function ifftpow2(x,y) {
+    numeric._ifftpow2(x,y);
+    numeric.diveq(x,x.length);
+    numeric.diveq(y,y.length);
+}
+numeric.convpow2 = function convpow2(ax,ay,bx,by) {
+    numeric.fftpow2(ax,ay);
+    numeric.fftpow2(bx,by);
+    var i,n = ax.length,axi,bxi,ayi,byi;
+    for(i=n-1;i!==-1;--i) {
+        axi = ax[i]; ayi = ay[i]; bxi = bx[i]; byi = by[i];
+        ax[i] = axi*bxi-ayi*byi;
+        ay[i] = axi*byi+ayi*bxi;
+    }
+    numeric.ifftpow2(ax,ay);
+}
+numeric.T.prototype.fft = function fft() {
+    var x = this.x, y = this.y;
+    var n = x.length, log = Math.log, log2 = log(2),
+        p = Math.ceil(log(2*n-1)/log2), m = Math.pow(2,p);
+    var cx = numeric.rep([m],0), cy = numeric.rep([m],0), cos = Math.cos, sin = Math.sin;
+    var k, c = (-3.141592653589793238462643383279502884197169399375105820/n),t;
+    var a = numeric.rep([m],0), b = numeric.rep([m],0),nhalf = Math.floor(n/2);
+    for(k=0;k<n;k++) a[k] = x[k];
+    if(typeof y !== "undefined") for(k=0;k<n;k++) b[k] = y[k];
+    cx[0] = 1;
+    for(k=1;k<=m/2;k++) {
+        t = c*k*k;
+        cx[k] = cos(t);
+        cy[k] = sin(t);
+        cx[m-k] = cos(t);
+        cy[m-k] = sin(t)
+    }
+    var X = new numeric.T(a,b), Y = new numeric.T(cx,cy);
+    X = X.mul(Y);
+    numeric.convpow2(X.x,X.y,numeric.clone(Y.x),numeric.neg(Y.y));
+    X = X.mul(Y);
+    X.x.length = n;
+    X.y.length = n;
+    return X;
+}
+numeric.T.prototype.ifft = function ifft() {
+    var x = this.x, y = this.y;
+    var n = x.length, log = Math.log, log2 = log(2),
+        p = Math.ceil(log(2*n-1)/log2), m = Math.pow(2,p);
+    var cx = numeric.rep([m],0), cy = numeric.rep([m],0), cos = Math.cos, sin = Math.sin;
+    var k, c = (3.141592653589793238462643383279502884197169399375105820/n),t;
+    var a = numeric.rep([m],0), b = numeric.rep([m],0),nhalf = Math.floor(n/2);
+    for(k=0;k<n;k++) a[k] = x[k];
+    if(typeof y !== "undefined") for(k=0;k<n;k++) b[k] = y[k];
+    cx[0] = 1;
+    for(k=1;k<=m/2;k++) {
+        t = c*k*k;
+        cx[k] = cos(t);
+        cy[k] = sin(t);
+        cx[m-k] = cos(t);
+        cy[m-k] = sin(t)
+    }
+    var X = new numeric.T(a,b), Y = new numeric.T(cx,cy);
+    X = X.mul(Y);
+    numeric.convpow2(X.x,X.y,numeric.clone(Y.x),numeric.neg(Y.y));
+    X = X.mul(Y);
+    X.x.length = n;
+    X.y.length = n;
+    return X.div(n);
+}
+
+//9. Unconstrained optimization
+numeric.gradient = function gradient(f,x) {
+    var n = x.length;
+    var f0 = f(x);
+    if(isNaN(f0)) throw new Error('gradient: f(x) is a NaN!');
+    var max = Math.max;
+    var i,x0 = numeric.clone(x),f1,f2, J = Array(n);
+    var div = numeric.div, sub = numeric.sub,errest,roundoff,max = Math.max,eps = 1e-3,abs = Math.abs, min = Math.min;
+    var t0,t1,t2,it=0,d1,d2,N;
+    for(i=0;i<n;i++) {
+        var h = max(1e-6*f0,1e-8);
+        while(1) {
+            ++it;
+            if(it>20) { throw new Error("Numerical gradient fails"); }
+            x0[i] = x[i]+h;
+            f1 = f(x0);
+            x0[i] = x[i]-h;
+            f2 = f(x0);
+            x0[i] = x[i];
+            if(isNaN(f1) || isNaN(f2)) { h/=16; continue; }
+            J[i] = (f1-f2)/(2*h);
+            t0 = x[i]-h;
+            t1 = x[i];
+            t2 = x[i]+h;
+            d1 = (f1-f0)/h;
+            d2 = (f0-f2)/h;
+            N = max(abs(J[i]),abs(f0),abs(f1),abs(f2),abs(t0),abs(t1),abs(t2),1e-8);
+            errest = min(max(abs(d1-J[i]),abs(d2-J[i]),abs(d1-d2))/N,h/N);
+            if(errest>eps) { h/=16; }
+            else break;
+            }
+    }
+    return J;
+}
+
+numeric.uncmin = function uncmin(f,x0,tol,gradient,maxit,callback,options) {
+    var grad = numeric.gradient;
+    if(typeof options === "undefined") { options = {}; }
+    if(typeof tol === "undefined") { tol = 1e-8; }
+    if(typeof gradient === "undefined") { gradient = function(x) { return grad(f,x); }; }
+    if(typeof maxit === "undefined") maxit = 1000;
+    x0 = numeric.clone(x0);
+    var n = x0.length;
+    var f0 = f(x0),f1,df0;
+    if(isNaN(f0)) throw new Error('uncmin: f(x0) is a NaN!');
+    var max = Math.max, norm2 = numeric.norm2;
+    tol = max(tol,numeric.epsilon);
+    var step,g0,g1,H1 = options.Hinv || numeric.identity(n);
+    var dot = numeric.dot, inv = numeric.inv, sub = numeric.sub, add = numeric.add, ten = numeric.tensor, div = numeric.div, mul = numeric.mul;
+    var all = numeric.all, isfinite = numeric.isFinite, neg = numeric.neg;
+    var it=0,i,s,x1,y,Hy,Hs,ys,i0,t,nstep,t1,t2;
+    var msg = "";
+    g0 = gradient(x0);
+    while(it<maxit) {
+        if(typeof callback === "function") { if(callback(it,x0,f0,g0,H1)) { msg = "Callback returned true"; break; } }
+        if(!all(isfinite(g0))) { msg = "Gradient has Infinity or NaN"; break; }
+        step = neg(dot(H1,g0));
+        if(!all(isfinite(step))) { msg = "Search direction has Infinity or NaN"; break; }
+        nstep = norm2(step);
+        if(nstep < tol) { msg="Newton step smaller than tol"; break; }
+        t = 1;
+        df0 = dot(g0,step);
+        // line search
+        x1 = x0;
+        while(it < maxit) {
+            if(t*nstep < tol) { break; }
+            s = mul(step,t);
+            x1 = add(x0,s);
+            f1 = f(x1);
+            if(f1-f0 >= 0.1*t*df0 || isNaN(f1)) {
+                t *= 0.5;
+                ++it;
+                continue;
+            }
+            break;
+        }
+        if(t*nstep < tol) { msg = "Line search step size smaller than tol"; break; }
+        if(it === maxit) { msg = "maxit reached during line search"; break; }
+        g1 = gradient(x1);
+        y = sub(g1,g0);
+        ys = dot(y,s);
+        Hy = dot(H1,y);
+        H1 = sub(add(H1,
+                mul(
+                        (ys+dot(y,Hy))/(ys*ys),
+                        ten(s,s)    )),
+                div(add(ten(Hy,s),ten(s,Hy)),ys));
+        x0 = x1;
+        f0 = f1;
+        g0 = g1;
+        ++it;
+    }
+    return {solution: x0, f: f0, gradient: g0, invHessian: H1, iterations:it, message: msg};
+}
+
+// 10. Ode solver (Dormand-Prince)
+numeric.Dopri = function Dopri(x,y,f,ymid,iterations,msg,events) {
+    this.x = x;
+    this.y = y;
+    this.f = f;
+    this.ymid = ymid;
+    this.iterations = iterations;
+    this.events = events;
+    this.message = msg;
+}
+numeric.Dopri.prototype._at = function _at(xi,j) {
+    function sqr(x) { return x*x; }
+    var sol = this;
+    var xs = sol.x;
+    var ys = sol.y;
+    var k1 = sol.f;
+    var ymid = sol.ymid;
+    var n = xs.length;
+    var x0,x1,xh,y0,y1,yh,xi;
+    var floor = Math.floor,h;
+    var c = 0.5;
+    var add = numeric.add, mul = numeric.mul,sub = numeric.sub, p,q,w;
+    x0 = xs[j];
+    x1 = xs[j+1];
+    y0 = ys[j];
+    y1 = ys[j+1];
+    h  = x1-x0;
+    xh = x0+c*h;
+    yh = ymid[j];
+    p = sub(k1[j  ],mul(y0,1/(x0-xh)+2/(x0-x1)));
+    q = sub(k1[j+1],mul(y1,1/(x1-xh)+2/(x1-x0)));
+    w = [sqr(xi - x1) * (xi - xh) / sqr(x0 - x1) / (x0 - xh),
+         sqr(xi - x0) * sqr(xi - x1) / sqr(x0 - xh) / sqr(x1 - xh),
+         sqr(xi - x0) * (xi - xh) / sqr(x1 - x0) / (x1 - xh),
+         (xi - x0) * sqr(xi - x1) * (xi - xh) / sqr(x0-x1) / (x0 - xh),
+         (xi - x1) * sqr(xi - x0) * (xi - xh) / sqr(x0-x1) / (x1 - xh)];
+    return add(add(add(add(mul(y0,w[0]),
+                           mul(yh,w[1])),
+                           mul(y1,w[2])),
+                           mul( p,w[3])),
+                           mul( q,w[4]));
+}
+numeric.Dopri.prototype.at = function at(x) {
+    var i,j,k,floor = Math.floor;
+    if(typeof x !== "number") {
+        var n = x.length, ret = Array(n);
+        for(i=n-1;i!==-1;--i) {
+            ret[i] = this.at(x[i]);
+        }
+        return ret;
+    }
+    var x0 = this.x;
+    i = 0; j = x0.length-1;
+    while(j-i>1) {
+        k = floor(0.5*(i+j));
+        if(x0[k] <= x) i = k;
+        else j = k;
+    }
+    return this._at(x,i);
+}
+
+numeric.dopri = function dopri(x0,x1,y0,f,tol,maxit,event) {
+    if(typeof tol === "undefined") { tol = 1e-6; }
+    if(typeof maxit === "undefined") { maxit = 1000; }
+    var xs = [x0], ys = [y0], k1 = [f(x0,y0)], k2,k3,k4,k5,k6,k7, ymid = [];
+    var A2 = 1/5;
+    var A3 = [3/40,9/40];
+    var A4 = [44/45,-56/15,32/9];
+    var A5 = [19372/6561,-25360/2187,64448/6561,-212/729];
+    var A6 = [9017/3168,-355/33,46732/5247,49/176,-5103/18656];
+    var b = [35/384,0,500/1113,125/192,-2187/6784,11/84];
+    var bm = [0.5*6025192743/30085553152,
+              0,
+              0.5*51252292925/65400821598,
+              0.5*-2691868925/45128329728,
+              0.5*187940372067/1594534317056,
+              0.5*-1776094331/19743644256,
+              0.5*11237099/235043384];
+    var c = [1/5,3/10,4/5,8/9,1,1];
+    var e = [-71/57600,0,71/16695,-71/1920,17253/339200,-22/525,1/40];
+    var i = 0,er,j;
+    var h = (x1-x0)/10;
+    var it = 0;
+    var add = numeric.add, mul = numeric.mul, y1,erinf;
+    var max = Math.max, min = Math.min, abs = Math.abs, norminf = numeric.norminf,pow = Math.pow;
+    var any = numeric.any, lt = numeric.lt, and = numeric.and, sub = numeric.sub;
+    var e0, e1, ev;
+    var ret = new numeric.Dopri(xs,ys,k1,ymid,-1,"");
+    if(typeof event === "function") e0 = event(x0,y0);
+    while(x0<x1 && it<maxit) {
+        ++it;
+        if(x0+h>x1) h = x1-x0;
+        k2 = f(x0+c[0]*h,                add(y0,mul(   A2*h,k1[i])));
+        k3 = f(x0+c[1]*h,            add(add(y0,mul(A3[0]*h,k1[i])),mul(A3[1]*h,k2)));
+        k4 = f(x0+c[2]*h,        add(add(add(y0,mul(A4[0]*h,k1[i])),mul(A4[1]*h,k2)),mul(A4[2]*h,k3)));
+        k5 = f(x0+c[3]*h,    add(add(add(add(y0,mul(A5[0]*h,k1[i])),mul(A5[1]*h,k2)),mul(A5[2]*h,k3)),mul(A5[3]*h,k4)));
+        k6 = f(x0+c[4]*h,add(add(add(add(add(y0,mul(A6[0]*h,k1[i])),mul(A6[1]*h,k2)),mul(A6[2]*h,k3)),mul(A6[3]*h,k4)),mul(A6[4]*h,k5)));
+        y1 = add(add(add(add(add(y0,mul(k1[i],h*b[0])),mul(k3,h*b[2])),mul(k4,h*b[3])),mul(k5,h*b[4])),mul(k6,h*b[5]));
+        k7 = f(x0+h,y1);
+        er = add(add(add(add(add(mul(k1[i],h*e[0]),mul(k3,h*e[2])),mul(k4,h*e[3])),mul(k5,h*e[4])),mul(k6,h*e[5])),mul(k7,h*e[6]));
+        if(typeof er === "number") erinf = abs(er);
+        else erinf = norminf(er);
+        if(erinf > tol) { // reject
+            h = 0.2*h*pow(tol/erinf,0.25);
+            if(x0+h === x0) {
+                ret.msg = "Step size became too small";
+                break;
+            }
+            continue;
+        }
+        ymid[i] = add(add(add(add(add(add(y0,
+                mul(k1[i],h*bm[0])),
+                mul(k3   ,h*bm[2])),
+                mul(k4   ,h*bm[3])),
+                mul(k5   ,h*bm[4])),
+                mul(k6   ,h*bm[5])),
+                mul(k7   ,h*bm[6]));
+        ++i;
+        xs[i] = x0+h;
+        ys[i] = y1;
+        k1[i] = k7;
+        if(typeof event === "function") {
+            var yi,xl = x0,xr = x0+0.5*h,xi;
+            e1 = event(xr,ymid[i-1]);
+            ev = and(lt(e0,0),lt(0,e1));
+            if(!any(ev)) { xl = xr; xr = x0+h; e0 = e1; e1 = event(xr,y1); ev = and(lt(e0,0),lt(0,e1)); }
+            if(any(ev)) {
+                var xc, yc, en,ei;
+                var side=0, sl = 1.0, sr = 1.0;
+                while(1) {
+                    if(typeof e0 === "number") xi = (sr*e1*xl-sl*e0*xr)/(sr*e1-sl*e0);
+                    else {
+                        xi = xr;
+                        for(j=e0.length-1;j!==-1;--j) {
+                            if(e0[j]<0 && e1[j]>0) xi = min(xi,(sr*e1[j]*xl-sl*e0[j]*xr)/(sr*e1[j]-sl*e0[j]));
+                        }
+                    }
+                    if(xi <= xl || xi >= xr) break;
+                    yi = ret._at(xi, i-1);
+                    ei = event(xi,yi);
+                    en = and(lt(e0,0),lt(0,ei));
+                    if(any(en)) {
+                        xr = xi;
+                        e1 = ei;
+                        ev = en;
+                        sr = 1.0;
+                        if(side === -1) sl *= 0.5;
+                        else sl = 1.0;
+                        side = -1;
+                    } else {
+                        xl = xi;
+                        e0 = ei;
+                        sl = 1.0;
+                        if(side === 1) sr *= 0.5;
+                        else sr = 1.0;
+                        side = 1;
+                    }
+                }
+                y1 = ret._at(0.5*(x0+xi),i-1);
+                ret.f[i] = f(xi,yi);
+                ret.x[i] = xi;
+                ret.y[i] = yi;
+                ret.ymid[i-1] = y1;
+                ret.events = ev;
+                ret.iterations = it;
+                return ret;
+            }
+        }
+        x0 += h;
+        y0 = y1;
+        e0 = e1;
+        h = min(0.8*h*pow(tol/erinf,0.25),4*h);
+    }
+    ret.iterations = it;
+    return ret;
+}
+
+// 11. Ax = b
+numeric.LU = function(A, fast) {
+  fast = fast || false;
+
+  var abs = Math.abs;
+  var i, j, k, absAjk, Akk, Ak, Pk, Ai;
+  var max;
+  var n = A.length, n1 = n-1;
+  var P = new Array(n);
+  if(!fast) A = numeric.clone(A);
+
+  for (k = 0; k < n; ++k) {
+    Pk = k;
+    Ak = A[k];
+    max = abs(Ak[k]);
+    for (j = k + 1; j < n; ++j) {
+      absAjk = abs(A[j][k]);
+      if (max < absAjk) {
+        max = absAjk;
+        Pk = j;
+      }
+    }
+    P[k] = Pk;
+
+    if (Pk != k) {
+      A[k] = A[Pk];
+      A[Pk] = Ak;
+      Ak = A[k];
+    }
+
+    Akk = Ak[k];
+
+    for (i = k + 1; i < n; ++i) {
+      A[i][k] /= Akk;
+    }
+
+    for (i = k + 1; i < n; ++i) {
+      Ai = A[i];
+      for (j = k + 1; j < n1; ++j) {
+        Ai[j] -= Ai[k] * Ak[j];
+        ++j;
+        Ai[j] -= Ai[k] * Ak[j];
+      }
+      if(j===n1) Ai[j] -= Ai[k] * Ak[j];
+    }
+  }
+
+  return {
+    LU: A,
+    P:  P
+  };
+}
+
+numeric.LUsolve = function LUsolve(LUP, b) {
+  var i, j;
+  var LU = LUP.LU;
+  var n   = LU.length;
+  var x = numeric.clone(b);
+  var P   = LUP.P;
+  var Pi, LUi, LUii, tmp;
+
+  for (i=n-1;i!==-1;--i) x[i] = b[i];
+  for (i = 0; i < n; ++i) {
+    Pi = P[i];
+    if (P[i] !== i) {
+      tmp = x[i];
+      x[i] = x[Pi];
+      x[Pi] = tmp;
+    }
+
+    LUi = LU[i];
+    for (j = 0; j < i; ++j) {
+      x[i] -= x[j] * LUi[j];
+    }
+  }
+
+  for (i = n - 1; i >= 0; --i) {
+    LUi = LU[i];
+    for (j = i + 1; j < n; ++j) {
+      x[i] -= x[j] * LUi[j];
+    }
+
+    x[i] /= LUi[i];
+  }
+
+  return x;
+}
+
+numeric.solve = function solve(A,b,fast) { return numeric.LUsolve(numeric.LU(A,fast), b); }
+
+// 12. Linear programming
+numeric.echelonize = function echelonize(A) {
+    var s = numeric.dim(A), m = s[0], n = s[1];
+    var I = numeric.identity(m);
+    var P = Array(m);
+    var i,j,k,l,Ai,Ii,Z,a;
+    var abs = Math.abs;
+    var diveq = numeric.diveq;
+    A = numeric.clone(A);
+    for(i=0;i<m;++i) {
+        k = 0;
+        Ai = A[i];
+        Ii = I[i];
+        for(j=1;j<n;++j) if(abs(Ai[k])<abs(Ai[j])) k=j;
+        P[i] = k;
+        diveq(Ii,Ai[k]);
+        diveq(Ai,Ai[k]);
+        for(j=0;j<m;++j) if(j!==i) {
+            Z = A[j]; a = Z[k];
+            for(l=n-1;l!==-1;--l) Z[l] -= Ai[l]*a;
+            Z = I[j];
+            for(l=m-1;l!==-1;--l) Z[l] -= Ii[l]*a;
+        }
+    }
+    return {I:I, A:A, P:P};
+}
+
+numeric.__solveLP = function __solveLP(c,A,b,tol,maxit,x,flag) {
+    var sum = numeric.sum, log = numeric.log, mul = numeric.mul, sub = numeric.sub, dot = numeric.dot, div = numeric.div, add = numeric.add;
+    var m = c.length, n = b.length,y;
+    var unbounded = false, cb,i0=0;
+    var alpha = 1.0;
+    var f0,df0,AT = numeric.transpose(A), svd = numeric.svd,transpose = numeric.transpose,leq = numeric.leq, sqrt = Math.sqrt, abs = Math.abs;
+    var muleq = numeric.muleq;
+    var norm = numeric.norminf, any = numeric.any,min = Math.min;
+    var all = numeric.all, gt = numeric.gt;
+    var p = Array(m), A0 = Array(n),e=numeric.rep([n],1), H;
+    var solve = numeric.solve, z = sub(b,dot(A,x)),count;
+    var dotcc = dot(c,c);
+    var g;
+    for(count=i0;count<maxit;++count) {
+        var i,j,d;
+        for(i=n-1;i!==-1;--i) A0[i] = div(A[i],z[i]);
+        var A1 = transpose(A0);
+        for(i=m-1;i!==-1;--i) p[i] = (/*x[i]+*/sum(A1[i]));
+        alpha = 0.25*abs(dotcc/dot(c,p));
+        var a1 = 100*sqrt(dotcc/dot(p,p));
+        if(!isFinite(alpha) || alpha>a1) alpha = a1;
+        g = add(c,mul(alpha,p));
+        H = dot(A1,A0);
+        for(i=m-1;i!==-1;--i) H[i][i] += 1;
+        d = solve(H,div(g,alpha),true);
+        var t0 = div(z,dot(A,d));
+        var t = 1.0;
+        for(i=n-1;i!==-1;--i) if(t0[i]<0) t = min(t,-0.999*t0[i]);
+        y = sub(x,mul(d,t));
+        z = sub(b,dot(A,y));
+        if(!all(gt(z,0))) return { solution: x, message: "", iterations: count };
+        x = y;
+        if(alpha<tol) return { solution: y, message: "", iterations: count };
+        if(flag) {
+            var s = dot(c,g), Ag = dot(A,g);
+            unbounded = true;
+            for(i=n-1;i!==-1;--i) if(s*Ag[i]<0) { unbounded = false; break; }
+        } else {
+            if(x[m-1]>=0) unbounded = false;
+            else unbounded = true;
+        }
+        if(unbounded) return { solution: y, message: "Unbounded", iterations: count };
+    }
+    return { solution: x, message: "maximum iteration count exceeded", iterations:count };
+}
+
+numeric._solveLP = function _solveLP(c,A,b,tol,maxit) {
+    var m = c.length, n = b.length,y;
+    var sum = numeric.sum, log = numeric.log, mul = numeric.mul, sub = numeric.sub, dot = numeric.dot, div = numeric.div, add = numeric.add;
+    var c0 = numeric.rep([m],0).concat([1]);
+    var J = numeric.rep([n,1],-1);
+    var A0 = numeric.blockMatrix([[A                   ,   J  ]]);
+    var b0 = b;
+    var y = numeric.rep([m],0).concat(Math.max(0,numeric.sup(numeric.neg(b)))+1);
+    var x0 = numeric.__solveLP(c0,A0,b0,tol,maxit,y,false);
+    var x = numeric.clone(x0.solution);
+    x.length = m;
+    var foo = numeric.inf(sub(b,dot(A,x)));
+    if(foo<0) { return { solution: NaN, message: "Infeasible", iterations: x0.iterations }; }
+    var ret = numeric.__solveLP(c, A, b, tol, maxit-x0.iterations, x, true);
+    ret.iterations += x0.iterations;
+    return ret;
+};
+
+numeric.solveLP = function solveLP(c,A,b,Aeq,beq,tol,maxit) {
+    if(typeof maxit === "undefined") maxit = 1000;
+    if(typeof tol === "undefined") tol = numeric.epsilon;
+    if(typeof Aeq === "undefined") return numeric._solveLP(c,A,b,tol,maxit);
+    var m = Aeq.length, n = Aeq[0].length, o = A.length;
+    var B = numeric.echelonize(Aeq);
+    var flags = numeric.rep([n],0);
+    var P = B.P;
+    var Q = [];
+    var i;
+    for(i=P.length-1;i!==-1;--i) flags[P[i]] = 1;
+    for(i=n-1;i!==-1;--i) if(flags[i]===0) Q.push(i);
+    var g = numeric.getRange;
+    var I = numeric.linspace(0,m-1), J = numeric.linspace(0,o-1);
+    var Aeq2 = g(Aeq,I,Q), A1 = g(A,J,P), A2 = g(A,J,Q), dot = numeric.dot, sub = numeric.sub;
+    var A3 = dot(A1,B.I);
+    var A4 = sub(A2,dot(A3,Aeq2)), b4 = sub(b,dot(A3,beq));
+    var c1 = Array(P.length), c2 = Array(Q.length);
+    for(i=P.length-1;i!==-1;--i) c1[i] = c[P[i]];
+    for(i=Q.length-1;i!==-1;--i) c2[i] = c[Q[i]];
+    var c4 = sub(c2,dot(c1,dot(B.I,Aeq2)));
+    var S = numeric._solveLP(c4,A4,b4,tol,maxit);
+    var x2 = S.solution;
+    if(x2!==x2) return S;
+    var x1 = dot(B.I,sub(beq,dot(Aeq2,x2)));
+    var x = Array(c.length);
+    for(i=P.length-1;i!==-1;--i) x[P[i]] = x1[i];
+    for(i=Q.length-1;i!==-1;--i) x[Q[i]] = x2[i];
+    return { solution: x, message:S.message, iterations: S.iterations };
+}
+
+numeric.MPStoLP = function MPStoLP(MPS) {
+    if(MPS instanceof String) { MPS.split('\n'); }
+    var state = 0;
+    var states = ['Initial state','NAME','ROWS','COLUMNS','RHS','BOUNDS','ENDATA'];
+    var n = MPS.length;
+    var i,j,z,N=0,rows = {}, sign = [], rl = 0, vars = {}, nv = 0;
+    var name;
+    var c = [], A = [], b = [];
+    function err(e) { throw new Error('MPStoLP: '+e+'\nLine '+i+': '+MPS[i]+'\nCurrent state: '+states[state]+'\n'); }
+    for(i=0;i<n;++i) {
+        z = MPS[i];
+        var w0 = z.match(/\S*/g);
+        var w = [];
+        for(j=0;j<w0.length;++j) if(w0[j]!=="") w.push(w0[j]);
+        if(w.length === 0) continue;
+        for(j=0;j<states.length;++j) if(z.substr(0,states[j].length) === states[j]) break;
+        if(j<states.length) {
+            state = j;
+            if(j===1) { name = w[1]; }
+            if(j===6) return { name:name, c:c, A:numeric.transpose(A), b:b, rows:rows, vars:vars };
+            continue;
+        }
+        switch(state) {
+        case 0: case 1: err('Unexpected line');
+        case 2: 
+            switch(w[0]) {
+            case 'N': if(N===0) N = w[1]; else err('Two or more N rows'); break;
+            case 'L': rows[w[1]] = rl; sign[rl] = 1; b[rl] = 0; ++rl; break;
+            case 'G': rows[w[1]] = rl; sign[rl] = -1;b[rl] = 0; ++rl; break;
+            case 'E': rows[w[1]] = rl; sign[rl] = 0;b[rl] = 0; ++rl; break;
+            default: err('Parse error '+numeric.prettyPrint(w));
+            }
+            break;
+        case 3:
+            if(!vars.hasOwnProperty(w[0])) { vars[w[0]] = nv; c[nv] = 0; A[nv] = numeric.rep([rl],0); ++nv; }
+            var p = vars[w[0]];
+            for(j=1;j<w.length;j+=2) {
+                if(w[j] === N) { c[p] = parseFloat(w[j+1]); continue; }
+                var q = rows[w[j]];
+                A[p][q] = (sign[q]<0?-1:1)*parseFloat(w[j+1]);
+            }
+            break;
+        case 4:
+            for(j=1;j<w.length;j+=2) b[rows[w[j]]] = (sign[rows[w[j]]]<0?-1:1)*parseFloat(w[j+1]);
+            break;
+        case 5: /*FIXME*/ break;
+        case 6: err('Internal error');
+        }
+    }
+    err('Reached end of file without ENDATA');
+}
+// seedrandom.js version 2.0.
+// Author: David Bau 4/2/2011
+//
+// Defines a method Math.seedrandom() that, when called, substitutes
+// an explicitly seeded RC4-based algorithm for Math.random().  Also
+// supports automatic seeding from local or network sources of entropy.
+//
+// Usage:
+//
+//   <script src=http://davidbau.com/encode/seedrandom-min.js></script>
+//
+//   Math.seedrandom('yipee'); Sets Math.random to a function that is
+//                             initialized using the given explicit seed.
+//
+//   Math.seedrandom();        Sets Math.random to a function that is
+//                             seeded using the current time, dom state,
+//                             and other accumulated local entropy.
+//                             The generated seed string is returned.
+//
+//   Math.seedrandom('yowza', true);
+//                             Seeds using the given explicit seed mixed
+//                             together with accumulated entropy.
+//
+//   <script src="http://bit.ly/srandom-512"></script>
+//                             Seeds using physical random bits downloaded
+//                             from random.org.
+//
+//   <script src="https://jsonlib.appspot.com/urandom?callback=Math.seedrandom">
+//   </script>                 Seeds using urandom bits from call.jsonlib.com,
+//                             which is faster than random.org.
+//
+// Examples:
+//
+//   Math.seedrandom("hello");            // Use "hello" as the seed.
+//   document.write(Math.random());       // Always 0.5463663768140734
+//   document.write(Math.random());       // Always 0.43973793770592234
+//   var rng1 = Math.random;              // Remember the current prng.
+//
+//   var autoseed = Math.seedrandom();    // New prng with an automatic seed.
+//   document.write(Math.random());       // Pretty much unpredictable.
+//
+//   Math.random = rng1;                  // Continue "hello" prng sequence.
+//   document.write(Math.random());       // Always 0.554769432473455
+//
+//   Math.seedrandom(autoseed);           // Restart at the previous seed.
+//   document.write(Math.random());       // Repeat the 'unpredictable' value.
+//
+// Notes:
+//
+// Each time seedrandom('arg') is called, entropy from the passed seed
+// is accumulated in a pool to help generate future seeds for the
+// zero-argument form of Math.seedrandom, so entropy can be injected over
+// time by calling seedrandom with explicit data repeatedly.
+//
+// On speed - This javascript implementation of Math.random() is about
+// 3-10x slower than the built-in Math.random() because it is not native
+// code, but this is typically fast enough anyway.  Seeding is more expensive,
+// especially if you use auto-seeding.  Some details (timings on Chrome 4):
+//
+// Our Math.random()            - avg less than 0.002 milliseconds per call
+// seedrandom('explicit')       - avg less than 0.5 milliseconds per call
+// seedrandom('explicit', true) - avg less than 2 milliseconds per call
+// seedrandom()                 - avg about 38 milliseconds per call
+//
+// LICENSE (BSD):
+//
+// Copyright 2010 David Bau, all rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+// 
+//   1. Redistributions of source code must retain the above copyright
+//      notice, this list of conditions and the following disclaimer.
+//
+//   2. Redistributions in binary form must reproduce the above copyright
+//      notice, this list of conditions and the following disclaimer in the
+//      documentation and/or other materials provided with the distribution.
+// 
+//   3. Neither the name of this module nor the names of its contributors may
+//      be used to endorse or promote products derived from this software
+//      without specific prior written permission.
+// 
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+// "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+/**
+ * All code is in an anonymous closure to keep the global namespace clean.
+ *
+ * @param {number=} overflow 
+ * @param {number=} startdenom
+ */
+
+// Patched by Seb so that seedrandom.js does not pollute the Math object.
+// My tests suggest that doing Math.trouble = 1 makes Math lookups about 5%
+// slower.
+numeric.seedrandom = { pow:Math.pow, random:Math.random };
+
+(function (pool, math, width, chunks, significance, overflow, startdenom) {
+
+
+//
+// seedrandom()
+// This is the seedrandom function described above.
+//
+math['seedrandom'] = function seedrandom(seed, use_entropy) {
+  var key = [];
+  var arc4;
+
+  // Flatten the seed string or build one from local entropy if needed.
+  seed = mixkey(flatten(
+    use_entropy ? [seed, pool] :
+    arguments.length ? seed :
+    [new Date().getTime(), pool, window], 3), key);
+
+  // Use the seed to initialize an ARC4 generator.
+  arc4 = new ARC4(key);
+
+  // Mix the randomness into accumulated entropy.
+  mixkey(arc4.S, pool);
+
+  // Override Math.random
+
+  // This function returns a random double in [0, 1) that contains
+  // randomness in every bit of the mantissa of the IEEE 754 value.
+
+  math['random'] = function random() {  // Closure to return a random double:
+    var n = arc4.g(chunks);             // Start with a numerator n < 2 ^ 48
+    var d = startdenom;                 //   and denominator d = 2 ^ 48.
+    var x = 0;                          //   and no 'extra last byte'.
+    while (n < significance) {          // Fill up all significant digits by
+      n = (n + x) * width;              //   shifting numerator and
+      d *= width;                       //   denominator and generating a
+      x = arc4.g(1);                    //   new least-significant-byte.
+    }
+    while (n >= overflow) {             // To avoid rounding up, before adding
+      n /= 2;                           //   last byte, shift everything
+      d /= 2;                           //   right using integer math until
+      x >>>= 1;                         //   we have exactly the desired bits.
+    }
+    return (n + x) / d;                 // Form the number within [0, 1).
+  };
+
+  // Return the seed that was used
+  return seed;
+};
+
+//
+// ARC4
+//
+// An ARC4 implementation.  The constructor takes a key in the form of
+// an array of at most (width) integers that should be 0 <= x < (width).
+//
+// The g(count) method returns a pseudorandom integer that concatenates
+// the next (count) outputs from ARC4.  Its return value is a number x
+// that is in the range 0 <= x < (width ^ count).
+//
+/** @constructor */
+function ARC4(key) {
+  var t, u, me = this, keylen = key.length;
+  var i = 0, j = me.i = me.j = me.m = 0;
+  me.S = [];
+  me.c = [];
+
+  // The empty key [] is treated as [0].
+  if (!keylen) { key = [keylen++]; }
+
+  // Set up S using the standard key scheduling algorithm.
+  while (i < width) { me.S[i] = i++; }
+  for (i = 0; i < width; i++) {
+    t = me.S[i];
+    j = lowbits(j + t + key[i % keylen]);
+    u = me.S[j];
+    me.S[i] = u;
+    me.S[j] = t;
+  }
+
+  // The "g" method returns the next (count) outputs as one number.
+  me.g = function getnext(count) {
+    var s = me.S;
+    var i = lowbits(me.i + 1); var t = s[i];
+    var j = lowbits(me.j + t); var u = s[j];
+    s[i] = u;
+    s[j] = t;
+    var r = s[lowbits(t + u)];
+    while (--count) {
+      i = lowbits(i + 1); t = s[i];
+      j = lowbits(j + t); u = s[j];
+      s[i] = u;
+      s[j] = t;
+      r = r * width + s[lowbits(t + u)];
+    }
+    me.i = i;
+    me.j = j;
+    return r;
+  };
+  // For robust unpredictability discard an initial batch of values.
+  // See http://www.rsa.com/rsalabs/node.asp?id=2009
+  me.g(width);
+}
+
+//
+// flatten()
+// Converts an object tree to nested arrays of strings.
+//
+/** @param {Object=} result 
+  * @param {string=} prop
+  * @param {string=} typ */
+function flatten(obj, depth, result, prop, typ) {
+  result = [];
+  typ = typeof(obj);
+  if (depth && typ == 'object') {
+    for (prop in obj) {
+      if (prop.indexOf('S') < 5) {    // Avoid FF3 bug (local/sessionStorage)
+        try { result.push(flatten(obj[prop], depth - 1)); } catch (e) {}
+      }
+    }
+  }
+  return (result.length ? result : obj + (typ != 'string' ? '\0' : ''));
+}
+
+//
+// mixkey()
+// Mixes a string seed into a key that is an array of integers, and
+// returns a shortened string seed that is equivalent to the result key.
+//
+/** @param {number=} smear 
+  * @param {number=} j */
+function mixkey(seed, key, smear, j) {
+  seed += '';                         // Ensure the seed is a string
+  smear = 0;
+  for (j = 0; j < seed.length; j++) {
+    key[lowbits(j)] =
+      lowbits((smear ^= key[lowbits(j)] * 19) + seed.charCodeAt(j));
+  }
+  seed = '';
+  for (j in key) { seed += String.fromCharCode(key[j]); }
+  return seed;
+}
+
+//
+// lowbits()
+// A quick "n mod width" for width a power of 2.
+//
+function lowbits(n) { return n & (width - 1); }
+
+//
+// The following constants are related to IEEE 754 limits.
+//
+startdenom = math.pow(width, chunks);
+significance = math.pow(2, significance);
+overflow = significance * 2;
+
+//
+// When seedrandom.js is loaded, we immediately mix a few bits
+// from the built-in RNG into the entropy pool.  Because we do
+// not want to intefere with determinstic PRNG state later,
+// seedrandom will not call math.random on its own again after
+// initialization.
+//
+mixkey(math.random(), pool);
+
+// End anonymous scope, and pass initial values.
+}(
+  [],   // pool: entropy pool starts empty
+  numeric.seedrandom, // math: package containing random, pow, and seedrandom
+  256,  // width: each RC4 output is 0 <= x < 256
+  6,    // chunks: at least six RC4 outputs for each double
+  52    // significance: there are 52 significant digits in a double
+  ));
+/* This file is a slightly modified version of quadprog.js from Alberto Santini.
+ * It has been slightly modified by Sébastien Loisel to make sure that it handles
+ * 0-based Arrays instead of 1-based Arrays.
+ * License is in resources/LICENSE.quadprog */
+(function(exports) {
+
+function base0to1(A) {
+    if(typeof A !== "object") { return A; }
+    var ret = [], i,n=A.length;
+    for(i=0;i<n;i++) ret[i+1] = base0to1(A[i]);
+    return ret;
+}
+function base1to0(A) {
+    if(typeof A !== "object") { return A; }
+    var ret = [], i,n=A.length;
+    for(i=1;i<n;i++) ret[i-1] = base1to0(A[i]);
+    return ret;
+}
+
+function dpori(a, lda, n) {
+    var i, j, k, kp1, t;
+
+    for (k = 1; k <= n; k = k + 1) {
+        a[k][k] = 1 / a[k][k];
+        t = -a[k][k];
+        //~ dscal(k - 1, t, a[1][k], 1);
+        for (i = 1; i < k; i = i + 1) {
+            a[i][k] = t * a[i][k];
+        }
+
+        kp1 = k + 1;
+        if (n < kp1) {
+            break;
+        }
+        for (j = kp1; j <= n; j = j + 1) {
+            t = a[k][j];
+            a[k][j] = 0;
+            //~ daxpy(k, t, a[1][k], 1, a[1][j], 1);
+            for (i = 1; i <= k; i = i + 1) {
+                a[i][j] = a[i][j] + (t * a[i][k]);
+            }
+        }
+    }
+
+}
+
+function dposl(a, lda, n, b) {
+    var i, k, kb, t;
+
+    for (k = 1; k <= n; k = k + 1) {
+        //~ t = ddot(k - 1, a[1][k], 1, b[1], 1);
+        t = 0;
+        for (i = 1; i < k; i = i + 1) {
+            t = t + (a[i][k] * b[i]);
+        }
+
+        b[k] = (b[k] - t) / a[k][k];
+    }
+
+    for (kb = 1; kb <= n; kb = kb + 1) {
+        k = n + 1 - kb;
+        b[k] = b[k] / a[k][k];
+        t = -b[k];
+        //~ daxpy(k - 1, t, a[1][k], 1, b[1], 1);
+        for (i = 1; i < k; i = i + 1) {
+            b[i] = b[i] + (t * a[i][k]);
+        }
+    }
+}
+
+function dpofa(a, lda, n, info) {
+    var i, j, jm1, k, t, s;
+
+    for (j = 1; j <= n; j = j + 1) {
+        info[1] = j;
+        s = 0;
+        jm1 = j - 1;
+        if (jm1 < 1) {
+            s = a[j][j] - s;
+            if (s <= 0) {
+                break;
+            }
+            a[j][j] = Math.sqrt(s);
+        } else {
+            for (k = 1; k <= jm1; k = k + 1) {
+                //~ t = a[k][j] - ddot(k - 1, a[1][k], 1, a[1][j], 1);
+                t = a[k][j];
+                for (i = 1; i < k; i = i + 1) {
+                    t = t - (a[i][j] * a[i][k]);
+                }
+                t = t / a[k][k];
+                a[k][j] = t;
+                s = s + t * t;
+            }
+            s = a[j][j] - s;
+            if (s <= 0) {
+                break;
+            }
+            a[j][j] = Math.sqrt(s);
+        }
+        info[1] = 0;
+    }
+}
+
+function qpgen2(dmat, dvec, fddmat, n, sol, crval, amat,
+    bvec, fdamat, q, meq, iact, nact, iter, work, ierr) {
+
+    var i, j, l, l1, info, it1, iwzv, iwrv, iwrm, iwsv, iwuv, nvl, r, iwnbv,
+        temp, sum, t1, tt, gc, gs, nu,
+        t1inf, t2min,
+        vsmall, tmpa, tmpb,
+        go;
+
+    r = Math.min(n, q);
+    l = 2 * n + (r * (r + 5)) / 2 + 2 * q + 1;
+
+    vsmall = 1.0e-60;
+    do {
+        vsmall = vsmall + vsmall;
+        tmpa = 1 + 0.1 * vsmall;
+        tmpb = 1 + 0.2 * vsmall;
+    } while (tmpa <= 1 || tmpb <= 1);
+
+    for (i = 1; i <= n; i = i + 1) {
+        work[i] = dvec[i];
+    }
+    for (i = n + 1; i <= l; i = i + 1) {
+        work[i] = 0;
+    }
+    for (i = 1; i <= q; i = i + 1) {
+        iact[i] = 0;
+    }
+
+    info = [];
+
+    if (ierr[1] === 0) {
+        dpofa(dmat, fddmat, n, info);
+        if (info[1] !== 0) {
+            ierr[1] = 2;
+            return;
+        }
+        dposl(dmat, fddmat, n, dvec);
+        dpori(dmat, fddmat, n);
+    } else {
+        for (j = 1; j <= n; j = j + 1) {
+            sol[j] = 0;
+            for (i = 1; i <= j; i = i + 1) {
+                sol[j] = sol[j] + dmat[i][j] * dvec[i];
+            }
+        }
+        for (j = 1; j <= n; j = j + 1) {
+            dvec[j] = 0;
+            for (i = j; i <= n; i = i + 1) {
+                dvec[j] = dvec[j] + dmat[j][i] * sol[i];
+            }
+        }
+    }
+
+    crval[1] = 0;
+    for (j = 1; j <= n; j = j + 1) {
+        sol[j] = dvec[j];
+        crval[1] = crval[1] + work[j] * sol[j];
+        work[j] = 0;
+        for (i = j + 1; i <= n; i = i + 1) {
+            dmat[i][j] = 0;
+        }
+    }
+    crval[1] = -crval[1] / 2;
+    ierr[1] = 0;
+
+    iwzv = n;
+    iwrv = iwzv + n;
+    iwuv = iwrv + r;
+    iwrm = iwuv + r + 1;
+    iwsv = iwrm + (r * (r + 1)) / 2;
+    iwnbv = iwsv + q;
+
+    for (i = 1; i <= q; i = i + 1) {
+        sum = 0;
+        for (j = 1; j <= n; j = j + 1) {
+            sum = sum + amat[j][i] * amat[j][i];
+        }
+        work[iwnbv + i] = Math.sqrt(sum);
+    }
+    nact = 0;
+    iter[1] = 0;
+    iter[2] = 0;
+
+    function fn_goto_50() {
+        iter[1] = iter[1] + 1;
+
+        l = iwsv;
+        for (i = 1; i <= q; i = i + 1) {
+            l = l + 1;
+            sum = -bvec[i];
+            for (j = 1; j <= n; j = j + 1) {
+                sum = sum + amat[j][i] * sol[j];
+            }
+            if (Math.abs(sum) < vsmall) {
+                sum = 0;
+            }
+            if (i > meq) {
+                work[l] = sum;
+            } else {
+                work[l] = -Math.abs(sum);
+                if (sum > 0) {
+                    for (j = 1; j <= n; j = j + 1) {
+                        amat[j][i] = -amat[j][i];
+                    }
+                    bvec[i] = -bvec[i];
+                }
+            }
+        }
+
+        for (i = 1; i <= nact; i = i + 1) {
+            work[iwsv + iact[i]] = 0;
+        }
+
+        nvl = 0;
+        temp = 0;
+        for (i = 1; i <= q; i = i + 1) {
+            if (work[iwsv + i] < temp * work[iwnbv + i]) {
+                nvl = i;
+                temp = work[iwsv + i] / work[iwnbv + i];
+            }
+        }
+        if (nvl === 0) {
+            return 999;
+        }
+
+        return 0;
+    }
+
+    function fn_goto_55() {
+        for (i = 1; i <= n; i = i + 1) {
+            sum = 0;
+            for (j = 1; j <= n; j = j + 1) {
+                sum = sum + dmat[j][i] * amat[j][nvl];
+            }
+            work[i] = sum;
+        }
+
+        l1 = iwzv;
+        for (i = 1; i <= n; i = i + 1) {
+            work[l1 + i] = 0;
+        }
+        for (j = nact + 1; j <= n; j = j + 1) {
+            for (i = 1; i <= n; i = i + 1) {
+                work[l1 + i] = work[l1 + i] + dmat[i][j] * work[j];
+            }
+        }
+
+        t1inf = true;
+        for (i = nact; i >= 1; i = i - 1) {
+            sum = work[i];
+            l = iwrm + (i * (i + 3)) / 2;
+            l1 = l - i;
+            for (j = i + 1; j <= nact; j = j + 1) {
+                sum = sum - work[l] * work[iwrv + j];
+                l = l + j;
+            }
+            sum = sum / work[l1];
+            work[iwrv + i] = sum;
+            if (iact[i] < meq) {
+                // continue;
+                break;
+            }
+            if (sum < 0) {
+                // continue;
+                break;
+            }
+            t1inf = false;
+            it1 = i;
+        }
+
+        if (!t1inf) {
+            t1 = work[iwuv + it1] / work[iwrv + it1];
+            for (i = 1; i <= nact; i = i + 1) {
+                if (iact[i] < meq) {
+                    // continue;
+                    break;
+                }
+                if (work[iwrv + i] < 0) {
+                    // continue;
+                    break;
+                }
+                temp = work[iwuv + i] / work[iwrv + i];
+                if (temp < t1) {
+                    t1 = temp;
+                    it1 = i;
+                }
+            }
+        }
+
+        sum = 0;
+        for (i = iwzv + 1; i <= iwzv + n; i = i + 1) {
+            sum = sum + work[i] * work[i];
+        }
+        if (Math.abs(sum) <= vsmall) {
+            if (t1inf) {
+                ierr[1] = 1;
+                // GOTO 999
+                return 999;
+            } else {
+                for (i = 1; i <= nact; i = i + 1) {
+                    work[iwuv + i] = work[iwuv + i] - t1 * work[iwrv + i];
+                }
+                work[iwuv + nact + 1] = work[iwuv + nact + 1] + t1;
+                // GOTO 700
+                return 700;
+            }
+        } else {
+            sum = 0;
+            for (i = 1; i <= n; i = i + 1) {
+                sum = sum + work[iwzv + i] * amat[i][nvl];
+            }
+            tt = -work[iwsv + nvl] / sum;
+            t2min = true;
+            if (!t1inf) {
+                if (t1 < tt) {
+                    tt = t1;
+                    t2min = false;
+                }
+            }
+
+            for (i = 1; i <= n; i = i + 1) {
+                sol[i] = sol[i] + tt * work[iwzv + i];
+                if (Math.abs(sol[i]) < vsmall) {
+                    sol[i] = 0;
+                }
+            }
+
+            crval[1] = crval[1] + tt * sum * (tt / 2 + work[iwuv + nact + 1]);
+            for (i = 1; i <= nact; i = i + 1) {
+                work[iwuv + i] = work[iwuv + i] - tt * work[iwrv + i];
+            }
+            work[iwuv + nact + 1] = work[iwuv + nact + 1] + tt;
+
+            if (t2min) {
+                nact = nact + 1;
+                iact[nact] = nvl;
+
+                l = iwrm + ((nact - 1) * nact) / 2 + 1;
+                for (i = 1; i <= nact - 1; i = i + 1) {
+                    work[l] = work[i];
+                    l = l + 1;
+                }
+
+                if (nact === n) {
+                    work[l] = work[n];
+                } else {
+                    for (i = n; i >= nact + 1; i = i - 1) {
+                        if (work[i] === 0) {
+                            // continue;
+                            break;
+                        }
+                        gc = Math.max(Math.abs(work[i - 1]), Math.abs(work[i]));
+                        gs = Math.min(Math.abs(work[i - 1]), Math.abs(work[i]));
+                        if (work[i - 1] >= 0) {
+                            temp = Math.abs(gc * Math.sqrt(1 + gs * gs / (gc * gc)));
+                        } else {
+                            temp = -Math.abs(gc * Math.sqrt(1 + gs * gs / (gc * gc)));
+                        }
+                        gc = work[i - 1] / temp;
+                        gs = work[i] / temp;
+
+                        if (gc === 1) {
+                            // continue;
+                            break;
+                        }
+                        if (gc === 0) {
+                            work[i - 1] = gs * temp;
+                            for (j = 1; j <= n; j = j + 1) {
+                                temp = dmat[j][i - 1];
+                                dmat[j][i - 1] = dmat[j][i];
+                                dmat[j][i] = temp;
+                            }
+                        } else {
+                            work[i - 1] = temp;
+                            nu = gs / (1 + gc);
+                            for (j = 1; j <= n; j = j + 1) {
+                                temp = gc * dmat[j][i - 1] + gs * dmat[j][i];
+                                dmat[j][i] = nu * (dmat[j][i - 1] + temp) - dmat[j][i];
+                                dmat[j][i - 1] = temp;
+
+                            }
+                        }
+                    }
+                    work[l] = work[nact];
+                }
+            } else {
+                sum = -bvec[nvl];
+                for (j = 1; j <= n; j = j + 1) {
+                    sum = sum + sol[j] * amat[j][nvl];
+                }
+                if (nvl > meq) {
+                    work[iwsv + nvl] = sum;
+                } else {
+                    work[iwsv + nvl] = -Math.abs(sum);
+                    if (sum > 0) {
+                        for (j = 1; j <= n; j = j + 1) {
+                            amat[j][nvl] = -amat[j][nvl];
+                        }
+                        bvec[nvl] = -bvec[nvl];
+                    }
+                }
+                // GOTO 700
+                return 700;
+            }
+        }
+
+        return 0;
+    }
+
+    function fn_goto_797() {
+        l = iwrm + (it1 * (it1 + 1)) / 2 + 1;
+        l1 = l + it1;
+        if (work[l1] === 0) {
+            // GOTO 798
+            return 798;
+        }
+        gc = Math.max(Math.abs(work[l1 - 1]), Math.abs(work[l1]));
+        gs = Math.min(Math.abs(work[l1 - 1]), Math.abs(work[l1]));
+        if (work[l1 - 1] >= 0) {
+            temp = Math.abs(gc * Math.sqrt(1 + gs * gs / (gc * gc)));
+        } else {
+            temp = -Math.abs(gc * Math.sqrt(1 + gs * gs / (gc * gc)));
+        }
+        gc = work[l1 - 1] / temp;
+        gs = work[l1] / temp;
+
+        if (gc === 1) {
+            // GOTO 798
+            return 798;
+        }
+        if (gc === 0) {
+            for (i = it1 + 1; i <= nact; i = i + 1) {
+                temp = work[l1 - 1];
+                work[l1 - 1] = work[l1];
+                work[l1] = temp;
+                l1 = l1 + i;
+            }
+            for (i = 1; i <= n; i = i + 1) {
+                temp = dmat[i][it1];
+                dmat[i][it1] = dmat[i][it1 + 1];
+                dmat[i][it1 + 1] = temp;
+            }
+        } else {
+            nu = gs / (1 + gc);
+            for (i = it1 + 1; i <= nact; i = i + 1) {
+                temp = gc * work[l1 - 1] + gs * work[l1];
+                work[l1] = nu * (work[l1 - 1] + temp) - work[l1];
+                work[l1 - 1] = temp;
+                l1 = l1 + i;
+            }
+            for (i = 1; i <= n; i = i + 1) {
+                temp = gc * dmat[i][it1] + gs * dmat[i][it1 + 1];
+                dmat[i][it1 + 1] = nu * (dmat[i][it1] + temp) - dmat[i][it1 + 1];
+                dmat[i][it1] = temp;
+            }
+        }
+
+        return 0;
+    }
+
+    function fn_goto_798() {
+        l1 = l - it1;
+        for (i = 1; i <= it1; i = i + 1) {
+            work[l1] = work[l];
+            l = l + 1;
+            l1 = l1 + 1;
+        }
+
+        work[iwuv + it1] = work[iwuv + it1 + 1];
+        iact[it1] = iact[it1 + 1];
+        it1 = it1 + 1;
+        if (it1 < nact) {
+            // GOTO 797
+            return 797;
+        }
+
+        return 0;
+    }
+
+    function fn_goto_799() {
+        work[iwuv + nact] = work[iwuv + nact + 1];
+        work[iwuv + nact + 1] = 0;
+        iact[nact] = 0;
+        nact = nact - 1;
+        iter[2] = iter[2] + 1;
+
+        return 0;
+    }
+
+    go = 0;
+    while (true) {
+        go = fn_goto_50();
+        if (go === 999) {
+            return;
+        }
+        while (true) {
+            go = fn_goto_55();
+            if (go === 0) {
+                break;
+            }
+            if (go === 999) {
+                return;
+            }
+            if (go === 700) {
+                if (it1 === nact) {
+                    fn_goto_799();
+                } else {
+                    while (true) {
+                        fn_goto_797();
+                        go = fn_goto_798();
+                        if (go !== 797) {
+                            break;
+                        }
+                    }
+                    fn_goto_799();
+                }
+            }
+        }
+    }
+
+}
+
+function solveQP(Dmat, dvec, Amat, bvec, meq, factorized) {
+    Dmat = base0to1(Dmat);
+    dvec = base0to1(dvec);
+    Amat = base0to1(Amat);
+    var i, n, q,
+        nact, r,
+        crval = [], iact = [], sol = [], work = [], iter = [],
+        message;
+
+    meq = meq || 0;
+    factorized = factorized ? base0to1(factorized) : [undefined, 0];
+    bvec = bvec ? base0to1(bvec) : [];
+
+    // In Fortran the array index starts from 1
+    n = Dmat.length - 1;
+    q = Amat[1].length - 1;
+
+    if (!bvec) {
+        for (i = 1; i <= q; i = i + 1) {
+            bvec[i] = 0;
+        }
+    }
+    for (i = 1; i <= q; i = i + 1) {
+        iact[i] = 0;
+    }
+    nact = 0;
+    r = Math.min(n, q);
+    for (i = 1; i <= n; i = i + 1) {
+        sol[i] = 0;
+    }
+    crval[1] = 0;
+    for (i = 1; i <= (2 * n + (r * (r + 5)) / 2 + 2 * q + 1); i = i + 1) {
+        work[i] = 0;
+    }
+    for (i = 1; i <= 2; i = i + 1) {
+        iter[i] = 0;
+    }
+
+    qpgen2(Dmat, dvec, n, n, sol, crval, Amat,
+        bvec, n, q, meq, iact, nact, iter, work, factorized);
+
+    message = "";
+    if (factorized[1] === 1) {
+        message = "constraints are inconsistent, no solution!";
+    }
+    if (factorized[1] === 2) {
+        message = "matrix D in quadratic function is not positive definite!";
+    }
+
+    return {
+        solution: base1to0(sol),
+        value: base1to0(crval),
+        unconstrained_solution: base1to0(dvec),
+        iterations: base1to0(iter),
+        iact: base1to0(iact),
+        message: message
+    };
+}
+exports.solveQP = solveQP;
+}(numeric));
+/*
+Shanti Rao sent me this routine by private email. I had to modify it
+slightly to work on Arrays instead of using a Matrix object.
+It is apparently translated from http://stitchpanorama.sourceforge.net/Python/svd.py
+*/
+
+numeric.svd= function svd(A) {
+    var temp;
+//Compute the thin SVD from G. H. Golub and C. Reinsch, Numer. Math. 14, 403-420 (1970)
+	var prec= numeric.epsilon; //Math.pow(2,-52) // assumes double prec
+	var tolerance= 1.e-64/prec;
+	var itmax= 50;
+	var c=0;
+	var i=0;
+	var j=0;
+	var k=0;
+	var l=0;
+	
+	var u= numeric.clone(A);
+	var m= u.length;
+	
+	var n= u[0].length;
+	
+	if (m < n) throw "Need more rows than columns"
+	
+	var e = new Array(n);
+	var q = new Array(n);
+	for (i=0; i<n; i++) e[i] = q[i] = 0.0;
+	var v = numeric.rep([n,n],0);
+//	v.zero();
+	
+ 	function pythag(a,b)
+ 	{
+		a = Math.abs(a)
+		b = Math.abs(b)
+		if (a > b)
+			return a*Math.sqrt(1.0+(b*b/a/a))
+		else if (b == 0.0) 
+			return a
+		return b*Math.sqrt(1.0+(a*a/b/b))
+	}
+
+	//Householder's reduction to bidiagonal form
+
+	var f= 0.0;
+	var g= 0.0;
+	var h= 0.0;
+	var x= 0.0;
+	var y= 0.0;
+	var z= 0.0;
+	var s= 0.0;
+	
+	for (i=0; i < n; i++)
+	{	
+		e[i]= g;
+		s= 0.0;
+		l= i+1;
+		for (j=i; j < m; j++) 
+			s += (u[j][i]*u[j][i]);
+		if (s <= tolerance)
+			g= 0.0;
+		else
+		{	
+			f= u[i][i];
+			g= Math.sqrt(s);
+			if (f >= 0.0) g= -g;
+			h= f*g-s
+			u[i][i]=f-g;
+			for (j=l; j < n; j++)
+			{
+				s= 0.0
+				for (k=i; k < m; k++) 
+					s += u[k][i]*u[k][j]
+				f= s/h
+				for (k=i; k < m; k++) 
+					u[k][j]+=f*u[k][i]
+			}
+		}
+		q[i]= g
+		s= 0.0
+		for (j=l; j < n; j++) 
+			s= s + u[i][j]*u[i][j]
+		if (s <= tolerance)
+			g= 0.0
+		else
+		{	
+			f= u[i][i+1]
+			g= Math.sqrt(s)
+			if (f >= 0.0) g= -g
+			h= f*g - s
+			u[i][i+1] = f-g;
+			for (j=l; j < n; j++) e[j]= u[i][j]/h
+			for (j=l; j < m; j++)
+			{	
+				s=0.0
+				for (k=l; k < n; k++) 
+					s += (u[j][k]*u[i][k])
+				for (k=l; k < n; k++) 
+					u[j][k]+=s*e[k]
+			}	
+		}
+		y= Math.abs(q[i])+Math.abs(e[i])
+		if (y>x) 
+			x=y
+	}
+	
+	// accumulation of right hand gtransformations
+	for (i=n-1; i != -1; i+= -1)
+	{	
+		if (g != 0.0)
+		{
+		 	h= g*u[i][i+1]
+			for (j=l; j < n; j++) 
+				v[j][i]=u[i][j]/h
+			for (j=l; j < n; j++)
+			{	
+				s=0.0
+				for (k=l; k < n; k++) 
+					s += u[i][k]*v[k][j]
+				for (k=l; k < n; k++) 
+					v[k][j]+=(s*v[k][i])
+			}	
+		}
+		for (j=l; j < n; j++)
+		{
+			v[i][j] = 0;
+			v[j][i] = 0;
+		}
+		v[i][i] = 1;
+		g= e[i]
+		l= i
+	}
+	
+	// accumulation of left hand transformations
+	for (i=n-1; i != -1; i+= -1)
+	{	
+		l= i+1
+		g= q[i]
+		for (j=l; j < n; j++) 
+			u[i][j] = 0;
+		if (g != 0.0)
+		{
+			h= u[i][i]*g
+			for (j=l; j < n; j++)
+			{
+				s=0.0
+				for (k=l; k < m; k++) s += u[k][i]*u[k][j];
+				f= s/h
+				for (k=i; k < m; k++) u[k][j]+=f*u[k][i];
+			}
+			for (j=i; j < m; j++) u[j][i] = u[j][i]/g;
+		}
+		else
+			for (j=i; j < m; j++) u[j][i] = 0;
+		u[i][i] += 1;
+	}
+	
+	// diagonalization of the bidiagonal form
+	prec= prec*x
+	for (k=n-1; k != -1; k+= -1)
+	{
+		for (var iteration=0; iteration < itmax; iteration++)
+		{	// test f splitting
+			var test_convergence = false
+			for (l=k; l != -1; l+= -1)
+			{	
+				if (Math.abs(e[l]) <= prec)
+				{	test_convergence= true
+					break 
+				}
+				if (Math.abs(q[l-1]) <= prec)
+					break 
+			}
+			if (!test_convergence)
+			{	// cancellation of e[l] if l>0
+				c= 0.0
+				s= 1.0
+				var l1= l-1
+				for (i =l; i<k+1; i++)
+				{	
+					f= s*e[i]
+					e[i]= c*e[i]
+					if (Math.abs(f) <= prec)
+						break
+					g= q[i]
+					h= pythag(f,g)
+					q[i]= h
+					c= g/h
+					s= -f/h
+					for (j=0; j < m; j++)
+					{	
+						y= u[j][l1]
+						z= u[j][i]
+						u[j][l1] =  y*c+(z*s)
+						u[j][i] = -y*s+(z*c)
+					} 
+				}	
+			}
+			// test f convergence
+			z= q[k]
+			if (l== k)
+			{	//convergence
+				if (z<0.0)
+				{	//q[k] is made non-negative
+					q[k]= -z
+					for (j=0; j < n; j++)
+						v[j][k] = -v[j][k]
+				}
+				break  //break out of iteration loop and move on to next k value
+			}
+			if (iteration >= itmax-1)
+				throw 'Error: no convergence.'
+			// shift from bottom 2x2 minor
+			x= q[l]
+			y= q[k-1]
+			g= e[k-1]
+			h= e[k]
+			f= ((y-z)*(y+z)+(g-h)*(g+h))/(2.0*h*y)
+			g= pythag(f,1.0)
+			if (f < 0.0)
+				f= ((x-z)*(x+z)+h*(y/(f-g)-h))/x
+			else
+				f= ((x-z)*(x+z)+h*(y/(f+g)-h))/x
+			// next QR transformation
+			c= 1.0
+			s= 1.0
+			for (i=l+1; i< k+1; i++)
+			{	
+				g= e[i]
+				y= q[i]
+				h= s*g
+				g= c*g
+				z= pythag(f,h)
+				e[i-1]= z
+				c= f/z
+				s= h/z
+				f= x*c+g*s
+				g= -x*s+g*c
+				h= y*s
+				y= y*c
+				for (j=0; j < n; j++)
+				{	
+					x= v[j][i-1]
+					z= v[j][i]
+					v[j][i-1] = x*c+z*s
+					v[j][i] = -x*s+z*c
+				}
+				z= pythag(f,h)
+				q[i-1]= z
+				c= f/z
+				s= h/z
+				f= c*g+s*y
+				x= -s*g+c*y
+				for (j=0; j < m; j++)
+				{
+					y= u[j][i-1]
+					z= u[j][i]
+					u[j][i-1] = y*c+z*s
+					u[j][i] = -y*s+z*c
+				}
+			}
+			e[l]= 0.0
+			e[k]= f
+			q[k]= x
+		} 
+	}
+		
+	//vt= transpose(v)
+	//return (u,q,vt)
+	for (i=0;i<q.length; i++) 
+	  if (q[i] < prec) q[i] = 0
+	  
+	//sort eigenvalues	
+	for (i=0; i< n; i++)
+	{	 
+	//writeln(q)
+	 for (j=i-1; j >= 0; j--)
+	 {
+	  if (q[j] < q[i])
+	  {
+	//  writeln(i,'-',j)
+	   c = q[j]
+	   q[j] = q[i]
+	   q[i] = c
+	   for(k=0;k<u.length;k++) { temp = u[k][i]; u[k][i] = u[k][j]; u[k][j] = temp; }
+	   for(k=0;k<v.length;k++) { temp = v[k][i]; v[k][i] = v[k][j]; v[k][j] = temp; }
+//	   u.swapCols(i,j)
+//	   v.swapCols(i,j)
+	   i = j	   
+	  }
+	 }	
+	}
+	
+	return {U:u,S:q,V:v}
+};
+
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}],19:[function(require,module,exports){
 (function (global){
 // Copyright (c) 2011, Chris Umbel
 
@@ -2614,8 +7723,8 @@ global.$P = exports.Plane.create;
 exports.Line.Segment = require('./line.segment');
 exports.Sylvester = require('./sylvester');
 
-}).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./line":12,"./line.segment":13,"./matrix":14,"./plane":15,"./sylvester":16,"./vector":17}],12:[function(require,module,exports){
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"./line":20,"./line.segment":21,"./matrix":22,"./plane":23,"./sylvester":24,"./vector":25}],20:[function(require,module,exports){
 // Copyright (c) 2011, Chris Umbel, James Coglan
 var Vector = require('./vector');
 var Matrix = require('./matrix');
@@ -2848,7 +7957,7 @@ Line.Z = Line.create(Vector.Zero(3), Vector.k);
 
 module.exports = Line;
 
-},{"./matrix":14,"./plane":15,"./sylvester":16,"./vector":17}],13:[function(require,module,exports){
+},{"./matrix":22,"./plane":23,"./sylvester":24,"./vector":25}],21:[function(require,module,exports){
 // Copyright (c) 2011, Chris Umbel, James Coglan
 // Line.Segment class - depends on Line and its dependencies.
 
@@ -2976,7 +8085,7 @@ Line.Segment.create = function(v1, v2) {
 
 module.exports = Line.Segment;
 
-},{"./line":12,"./vector":17}],14:[function(require,module,exports){
+},{"./line":20,"./vector":25}],22:[function(require,module,exports){
 // Copyright (c) 2011, Chris Umbel, James Coglan
 // Matrix class - depends on Vector.
 
@@ -4014,7 +9123,7 @@ Matrix.Ones = function(n, m) {
 
 module.exports = Matrix;
 
-},{"./sylvester":16,"./vector":17,"fs":1,"lapack":61}],15:[function(require,module,exports){
+},{"./sylvester":24,"./vector":25,"fs":5,"lapack":100}],23:[function(require,module,exports){
 // Copyright (c) 2011, Chris Umbel, James Coglan
 // Plane class - depends on Vector. Some methods require Matrix and Line.
 var Vector = require('./vector');
@@ -4290,7 +9399,7 @@ Plane.fromPoints = function(points) {
 
 module.exports = Plane;
 
-},{"./line":12,"./matrix":14,"./sylvester":16,"./vector":17}],16:[function(require,module,exports){
+},{"./line":20,"./matrix":22,"./sylvester":24,"./vector":25}],24:[function(require,module,exports){
 // Copyright (c) 2011, Chris Umbel, James Coglan
 // This file is required in order for any other classes to work. Some Vector methods work with the
 // other Sylvester classes and are useless unless they are included. Other classes such as Line and
@@ -4307,7 +9416,7 @@ var Sylvester = {
 
 module.exports = Sylvester;
 
-},{}],17:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 // Copyright (c) 2011, Chris Umbel, James Coglan
 // This file is required in order for any other classes to work. Some Vector methods work with the
 // other Sylvester classes and are useless unless they are included. Other classes such as Line and
@@ -4747,10 +9856,10 @@ Vector.log = function(v) {
 
 module.exports = Vector;
 
-},{"./matrix":14,"./sylvester":16}],18:[function(require,module,exports){
-//     Underscore.js 1.6.0
+},{"./matrix":22,"./sylvester":24}],26:[function(require,module,exports){
+//     Underscore.js 1.8.2
 //     http://underscorejs.org
-//     (c) 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+//     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 //     Underscore may be freely distributed under the MIT license.
 
 (function() {
@@ -4764,9 +9873,6 @@ module.exports = Vector;
   // Save the previous value of the `_` variable.
   var previousUnderscore = root._;
 
-  // Establish the object that gets returned to break out of a loop iteration.
-  var breaker = {};
-
   // Save bytes in the minified (but not gzipped) version:
   var ArrayProto = Array.prototype, ObjProto = Object.prototype, FuncProto = Function.prototype;
 
@@ -4774,25 +9880,19 @@ module.exports = Vector;
   var
     push             = ArrayProto.push,
     slice            = ArrayProto.slice,
-    concat           = ArrayProto.concat,
     toString         = ObjProto.toString,
     hasOwnProperty   = ObjProto.hasOwnProperty;
 
   // All **ECMAScript 5** native function implementations that we hope to use
   // are declared here.
   var
-    nativeForEach      = ArrayProto.forEach,
-    nativeMap          = ArrayProto.map,
-    nativeReduce       = ArrayProto.reduce,
-    nativeReduceRight  = ArrayProto.reduceRight,
-    nativeFilter       = ArrayProto.filter,
-    nativeEvery        = ArrayProto.every,
-    nativeSome         = ArrayProto.some,
-    nativeIndexOf      = ArrayProto.indexOf,
-    nativeLastIndexOf  = ArrayProto.lastIndexOf,
     nativeIsArray      = Array.isArray,
     nativeKeys         = Object.keys,
-    nativeBind         = FuncProto.bind;
+    nativeBind         = FuncProto.bind,
+    nativeCreate       = Object.create;
+
+  // Naked function reference for surrogate-prototype-swapping.
+  var Ctor = function(){};
 
   // Create a safe reference to the Underscore object for use below.
   var _ = function(obj) {
@@ -4803,8 +9903,7 @@ module.exports = Vector;
 
   // Export the Underscore object for **Node.js**, with
   // backwards-compatibility for the old `require()` API. If we're in
-  // the browser, add `_` as a global object via a string identifier,
-  // for Closure Compiler "advanced" mode.
+  // the browser, add `_` as a global object.
   if (typeof exports !== 'undefined') {
     if (typeof module !== 'undefined' && module.exports) {
       exports = module.exports = _;
@@ -4815,161 +9914,208 @@ module.exports = Vector;
   }
 
   // Current version.
-  _.VERSION = '1.6.0';
+  _.VERSION = '1.8.2';
+
+  // Internal function that returns an efficient (for current engines) version
+  // of the passed-in callback, to be repeatedly applied in other Underscore
+  // functions.
+  var optimizeCb = function(func, context, argCount) {
+    if (context === void 0) return func;
+    switch (argCount == null ? 3 : argCount) {
+      case 1: return function(value) {
+        return func.call(context, value);
+      };
+      case 2: return function(value, other) {
+        return func.call(context, value, other);
+      };
+      case 3: return function(value, index, collection) {
+        return func.call(context, value, index, collection);
+      };
+      case 4: return function(accumulator, value, index, collection) {
+        return func.call(context, accumulator, value, index, collection);
+      };
+    }
+    return function() {
+      return func.apply(context, arguments);
+    };
+  };
+
+  // A mostly-internal function to generate callbacks that can be applied
+  // to each element in a collection, returning the desired result — either
+  // identity, an arbitrary callback, a property matcher, or a property accessor.
+  var cb = function(value, context, argCount) {
+    if (value == null) return _.identity;
+    if (_.isFunction(value)) return optimizeCb(value, context, argCount);
+    if (_.isObject(value)) return _.matcher(value);
+    return _.property(value);
+  };
+  _.iteratee = function(value, context) {
+    return cb(value, context, Infinity);
+  };
+
+  // An internal function for creating assigner functions.
+  var createAssigner = function(keysFunc, undefinedOnly) {
+    return function(obj) {
+      var length = arguments.length;
+      if (length < 2 || obj == null) return obj;
+      for (var index = 1; index < length; index++) {
+        var source = arguments[index],
+            keys = keysFunc(source),
+            l = keys.length;
+        for (var i = 0; i < l; i++) {
+          var key = keys[i];
+          if (!undefinedOnly || obj[key] === void 0) obj[key] = source[key];
+        }
+      }
+      return obj;
+    };
+  };
+
+  // An internal function for creating a new object that inherits from another.
+  var baseCreate = function(prototype) {
+    if (!_.isObject(prototype)) return {};
+    if (nativeCreate) return nativeCreate(prototype);
+    Ctor.prototype = prototype;
+    var result = new Ctor;
+    Ctor.prototype = null;
+    return result;
+  };
+
+  // Helper for collection methods to determine whether a collection
+  // should be iterated as an array or as an object
+  // Related: http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength
+  var MAX_ARRAY_INDEX = Math.pow(2, 53) - 1;
+  var isArrayLike = function(collection) {
+    var length = collection && collection.length;
+    return typeof length == 'number' && length >= 0 && length <= MAX_ARRAY_INDEX;
+  };
 
   // Collection Functions
   // --------------------
 
   // The cornerstone, an `each` implementation, aka `forEach`.
-  // Handles objects with the built-in `forEach`, arrays, and raw objects.
-  // Delegates to **ECMAScript 5**'s native `forEach` if available.
-  var each = _.each = _.forEach = function(obj, iterator, context) {
-    if (obj == null) return obj;
-    if (nativeForEach && obj.forEach === nativeForEach) {
-      obj.forEach(iterator, context);
-    } else if (obj.length === +obj.length) {
-      for (var i = 0, length = obj.length; i < length; i++) {
-        if (iterator.call(context, obj[i], i, obj) === breaker) return;
+  // Handles raw objects in addition to array-likes. Treats all
+  // sparse array-likes as if they were dense.
+  _.each = _.forEach = function(obj, iteratee, context) {
+    iteratee = optimizeCb(iteratee, context);
+    var i, length;
+    if (isArrayLike(obj)) {
+      for (i = 0, length = obj.length; i < length; i++) {
+        iteratee(obj[i], i, obj);
       }
     } else {
       var keys = _.keys(obj);
-      for (var i = 0, length = keys.length; i < length; i++) {
-        if (iterator.call(context, obj[keys[i]], keys[i], obj) === breaker) return;
+      for (i = 0, length = keys.length; i < length; i++) {
+        iteratee(obj[keys[i]], keys[i], obj);
       }
     }
     return obj;
   };
 
-  // Return the results of applying the iterator to each element.
-  // Delegates to **ECMAScript 5**'s native `map` if available.
-  _.map = _.collect = function(obj, iterator, context) {
-    var results = [];
-    if (obj == null) return results;
-    if (nativeMap && obj.map === nativeMap) return obj.map(iterator, context);
-    each(obj, function(value, index, list) {
-      results.push(iterator.call(context, value, index, list));
-    });
+  // Return the results of applying the iteratee to each element.
+  _.map = _.collect = function(obj, iteratee, context) {
+    iteratee = cb(iteratee, context);
+    var keys = !isArrayLike(obj) && _.keys(obj),
+        length = (keys || obj).length,
+        results = Array(length);
+    for (var index = 0; index < length; index++) {
+      var currentKey = keys ? keys[index] : index;
+      results[index] = iteratee(obj[currentKey], currentKey, obj);
+    }
     return results;
   };
 
-  var reduceError = 'Reduce of empty array with no initial value';
+  // Create a reducing function iterating left or right.
+  function createReduce(dir) {
+    // Optimized iterator function as using arguments.length
+    // in the main function will deoptimize the, see #1991.
+    function iterator(obj, iteratee, memo, keys, index, length) {
+      for (; index >= 0 && index < length; index += dir) {
+        var currentKey = keys ? keys[index] : index;
+        memo = iteratee(memo, obj[currentKey], currentKey, obj);
+      }
+      return memo;
+    }
+
+    return function(obj, iteratee, memo, context) {
+      iteratee = optimizeCb(iteratee, context, 4);
+      var keys = !isArrayLike(obj) && _.keys(obj),
+          length = (keys || obj).length,
+          index = dir > 0 ? 0 : length - 1;
+      // Determine the initial value if none is provided.
+      if (arguments.length < 3) {
+        memo = obj[keys ? keys[index] : index];
+        index += dir;
+      }
+      return iterator(obj, iteratee, memo, keys, index, length);
+    };
+  }
 
   // **Reduce** builds up a single result from a list of values, aka `inject`,
-  // or `foldl`. Delegates to **ECMAScript 5**'s native `reduce` if available.
-  _.reduce = _.foldl = _.inject = function(obj, iterator, memo, context) {
-    var initial = arguments.length > 2;
-    if (obj == null) obj = [];
-    if (nativeReduce && obj.reduce === nativeReduce) {
-      if (context) iterator = _.bind(iterator, context);
-      return initial ? obj.reduce(iterator, memo) : obj.reduce(iterator);
-    }
-    each(obj, function(value, index, list) {
-      if (!initial) {
-        memo = value;
-        initial = true;
-      } else {
-        memo = iterator.call(context, memo, value, index, list);
-      }
-    });
-    if (!initial) throw new TypeError(reduceError);
-    return memo;
-  };
+  // or `foldl`.
+  _.reduce = _.foldl = _.inject = createReduce(1);
 
   // The right-associative version of reduce, also known as `foldr`.
-  // Delegates to **ECMAScript 5**'s native `reduceRight` if available.
-  _.reduceRight = _.foldr = function(obj, iterator, memo, context) {
-    var initial = arguments.length > 2;
-    if (obj == null) obj = [];
-    if (nativeReduceRight && obj.reduceRight === nativeReduceRight) {
-      if (context) iterator = _.bind(iterator, context);
-      return initial ? obj.reduceRight(iterator, memo) : obj.reduceRight(iterator);
-    }
-    var length = obj.length;
-    if (length !== +length) {
-      var keys = _.keys(obj);
-      length = keys.length;
-    }
-    each(obj, function(value, index, list) {
-      index = keys ? keys[--length] : --length;
-      if (!initial) {
-        memo = obj[index];
-        initial = true;
-      } else {
-        memo = iterator.call(context, memo, obj[index], index, list);
-      }
-    });
-    if (!initial) throw new TypeError(reduceError);
-    return memo;
-  };
+  _.reduceRight = _.foldr = createReduce(-1);
 
   // Return the first value which passes a truth test. Aliased as `detect`.
   _.find = _.detect = function(obj, predicate, context) {
-    var result;
-    any(obj, function(value, index, list) {
-      if (predicate.call(context, value, index, list)) {
-        result = value;
-        return true;
-      }
-    });
-    return result;
+    var key;
+    if (isArrayLike(obj)) {
+      key = _.findIndex(obj, predicate, context);
+    } else {
+      key = _.findKey(obj, predicate, context);
+    }
+    if (key !== void 0 && key !== -1) return obj[key];
   };
 
   // Return all the elements that pass a truth test.
-  // Delegates to **ECMAScript 5**'s native `filter` if available.
   // Aliased as `select`.
   _.filter = _.select = function(obj, predicate, context) {
     var results = [];
-    if (obj == null) return results;
-    if (nativeFilter && obj.filter === nativeFilter) return obj.filter(predicate, context);
-    each(obj, function(value, index, list) {
-      if (predicate.call(context, value, index, list)) results.push(value);
+    predicate = cb(predicate, context);
+    _.each(obj, function(value, index, list) {
+      if (predicate(value, index, list)) results.push(value);
     });
     return results;
   };
 
   // Return all the elements for which a truth test fails.
   _.reject = function(obj, predicate, context) {
-    return _.filter(obj, function(value, index, list) {
-      return !predicate.call(context, value, index, list);
-    }, context);
+    return _.filter(obj, _.negate(cb(predicate)), context);
   };
 
   // Determine whether all of the elements match a truth test.
-  // Delegates to **ECMAScript 5**'s native `every` if available.
   // Aliased as `all`.
   _.every = _.all = function(obj, predicate, context) {
-    predicate || (predicate = _.identity);
-    var result = true;
-    if (obj == null) return result;
-    if (nativeEvery && obj.every === nativeEvery) return obj.every(predicate, context);
-    each(obj, function(value, index, list) {
-      if (!(result = result && predicate.call(context, value, index, list))) return breaker;
-    });
-    return !!result;
+    predicate = cb(predicate, context);
+    var keys = !isArrayLike(obj) && _.keys(obj),
+        length = (keys || obj).length;
+    for (var index = 0; index < length; index++) {
+      var currentKey = keys ? keys[index] : index;
+      if (!predicate(obj[currentKey], currentKey, obj)) return false;
+    }
+    return true;
   };
 
   // Determine if at least one element in the object matches a truth test.
-  // Delegates to **ECMAScript 5**'s native `some` if available.
   // Aliased as `any`.
-  var any = _.some = _.any = function(obj, predicate, context) {
-    predicate || (predicate = _.identity);
-    var result = false;
-    if (obj == null) return result;
-    if (nativeSome && obj.some === nativeSome) return obj.some(predicate, context);
-    each(obj, function(value, index, list) {
-      if (result || (result = predicate.call(context, value, index, list))) return breaker;
-    });
-    return !!result;
+  _.some = _.any = function(obj, predicate, context) {
+    predicate = cb(predicate, context);
+    var keys = !isArrayLike(obj) && _.keys(obj),
+        length = (keys || obj).length;
+    for (var index = 0; index < length; index++) {
+      var currentKey = keys ? keys[index] : index;
+      if (predicate(obj[currentKey], currentKey, obj)) return true;
+    }
+    return false;
   };
 
   // Determine if the array or object contains a given value (using `===`).
-  // Aliased as `include`.
-  _.contains = _.include = function(obj, target) {
-    if (obj == null) return false;
-    if (nativeIndexOf && obj.indexOf === nativeIndexOf) return obj.indexOf(target) != -1;
-    return any(obj, function(value) {
-      return value === target;
-    });
+  // Aliased as `includes` and `include`.
+  _.contains = _.includes = _.include = function(obj, target, fromIndex) {
+    if (!isArrayLike(obj)) obj = _.values(obj);
+    return _.indexOf(obj, target, typeof fromIndex == 'number' && fromIndex) >= 0;
   };
 
   // Invoke a method (with arguments) on every item in a collection.
@@ -4977,7 +10123,8 @@ module.exports = Vector;
     var args = slice.call(arguments, 2);
     var isFunc = _.isFunction(method);
     return _.map(obj, function(value) {
-      return (isFunc ? method : value[method]).apply(value, args);
+      var func = isFunc ? method : value[method];
+      return func == null ? func : func.apply(value, args);
     });
   };
 
@@ -4989,60 +10136,76 @@ module.exports = Vector;
   // Convenience version of a common use case of `filter`: selecting only objects
   // containing specific `key:value` pairs.
   _.where = function(obj, attrs) {
-    return _.filter(obj, _.matches(attrs));
+    return _.filter(obj, _.matcher(attrs));
   };
 
   // Convenience version of a common use case of `find`: getting the first object
   // containing specific `key:value` pairs.
   _.findWhere = function(obj, attrs) {
-    return _.find(obj, _.matches(attrs));
+    return _.find(obj, _.matcher(attrs));
   };
 
-  // Return the maximum element or (element-based computation).
-  // Can't optimize arrays of integers longer than 65,535 elements.
-  // See [WebKit Bug 80797](https://bugs.webkit.org/show_bug.cgi?id=80797)
-  _.max = function(obj, iterator, context) {
-    if (!iterator && _.isArray(obj) && obj[0] === +obj[0] && obj.length < 65535) {
-      return Math.max.apply(Math, obj);
-    }
-    var result = -Infinity, lastComputed = -Infinity;
-    each(obj, function(value, index, list) {
-      var computed = iterator ? iterator.call(context, value, index, list) : value;
-      if (computed > lastComputed) {
-        result = value;
-        lastComputed = computed;
+  // Return the maximum element (or element-based computation).
+  _.max = function(obj, iteratee, context) {
+    var result = -Infinity, lastComputed = -Infinity,
+        value, computed;
+    if (iteratee == null && obj != null) {
+      obj = isArrayLike(obj) ? obj : _.values(obj);
+      for (var i = 0, length = obj.length; i < length; i++) {
+        value = obj[i];
+        if (value > result) {
+          result = value;
+        }
       }
-    });
+    } else {
+      iteratee = cb(iteratee, context);
+      _.each(obj, function(value, index, list) {
+        computed = iteratee(value, index, list);
+        if (computed > lastComputed || computed === -Infinity && result === -Infinity) {
+          result = value;
+          lastComputed = computed;
+        }
+      });
+    }
     return result;
   };
 
   // Return the minimum element (or element-based computation).
-  _.min = function(obj, iterator, context) {
-    if (!iterator && _.isArray(obj) && obj[0] === +obj[0] && obj.length < 65535) {
-      return Math.min.apply(Math, obj);
-    }
-    var result = Infinity, lastComputed = Infinity;
-    each(obj, function(value, index, list) {
-      var computed = iterator ? iterator.call(context, value, index, list) : value;
-      if (computed < lastComputed) {
-        result = value;
-        lastComputed = computed;
+  _.min = function(obj, iteratee, context) {
+    var result = Infinity, lastComputed = Infinity,
+        value, computed;
+    if (iteratee == null && obj != null) {
+      obj = isArrayLike(obj) ? obj : _.values(obj);
+      for (var i = 0, length = obj.length; i < length; i++) {
+        value = obj[i];
+        if (value < result) {
+          result = value;
+        }
       }
-    });
+    } else {
+      iteratee = cb(iteratee, context);
+      _.each(obj, function(value, index, list) {
+        computed = iteratee(value, index, list);
+        if (computed < lastComputed || computed === Infinity && result === Infinity) {
+          result = value;
+          lastComputed = computed;
+        }
+      });
+    }
     return result;
   };
 
-  // Shuffle an array, using the modern version of the
+  // Shuffle a collection, using the modern version of the
   // [Fisher-Yates shuffle](http://en.wikipedia.org/wiki/Fisher–Yates_shuffle).
   _.shuffle = function(obj) {
-    var rand;
-    var index = 0;
-    var shuffled = [];
-    each(obj, function(value) {
-      rand = _.random(index++);
-      shuffled[index - 1] = shuffled[rand];
-      shuffled[rand] = value;
-    });
+    var set = isArrayLike(obj) ? obj : _.values(obj);
+    var length = set.length;
+    var shuffled = Array(length);
+    for (var index = 0, rand; index < length; index++) {
+      rand = _.random(0, index);
+      if (rand !== index) shuffled[index] = shuffled[rand];
+      shuffled[rand] = set[index];
+    }
     return shuffled;
   };
 
@@ -5051,27 +10214,20 @@ module.exports = Vector;
   // The internal `guard` argument allows it to work with `map`.
   _.sample = function(obj, n, guard) {
     if (n == null || guard) {
-      if (obj.length !== +obj.length) obj = _.values(obj);
+      if (!isArrayLike(obj)) obj = _.values(obj);
       return obj[_.random(obj.length - 1)];
     }
     return _.shuffle(obj).slice(0, Math.max(0, n));
   };
 
-  // An internal function to generate lookup iterators.
-  var lookupIterator = function(value) {
-    if (value == null) return _.identity;
-    if (_.isFunction(value)) return value;
-    return _.property(value);
-  };
-
-  // Sort the object's values by a criterion produced by an iterator.
-  _.sortBy = function(obj, iterator, context) {
-    iterator = lookupIterator(iterator);
+  // Sort the object's values by a criterion produced by an iteratee.
+  _.sortBy = function(obj, iteratee, context) {
+    iteratee = cb(iteratee, context);
     return _.pluck(_.map(obj, function(value, index, list) {
       return {
         value: value,
         index: index,
-        criteria: iterator.call(context, value, index, list)
+        criteria: iteratee(value, index, list)
       };
     }).sort(function(left, right) {
       var a = left.criteria;
@@ -5086,12 +10242,12 @@ module.exports = Vector;
 
   // An internal function used for aggregate "group by" operations.
   var group = function(behavior) {
-    return function(obj, iterator, context) {
+    return function(obj, iteratee, context) {
       var result = {};
-      iterator = lookupIterator(iterator);
-      each(obj, function(value, index) {
-        var key = iterator.call(context, value, index, obj);
-        behavior(result, key, value);
+      iteratee = cb(iteratee, context);
+      _.each(obj, function(value, index) {
+        var key = iteratee(value, index, obj);
+        behavior(result, value, key);
       });
       return result;
     };
@@ -5099,48 +10255,46 @@ module.exports = Vector;
 
   // Groups the object's values by a criterion. Pass either a string attribute
   // to group by, or a function that returns the criterion.
-  _.groupBy = group(function(result, key, value) {
-    _.has(result, key) ? result[key].push(value) : result[key] = [value];
+  _.groupBy = group(function(result, value, key) {
+    if (_.has(result, key)) result[key].push(value); else result[key] = [value];
   });
 
   // Indexes the object's values by a criterion, similar to `groupBy`, but for
   // when you know that your index values will be unique.
-  _.indexBy = group(function(result, key, value) {
+  _.indexBy = group(function(result, value, key) {
     result[key] = value;
   });
 
   // Counts instances of an object that group by a certain criterion. Pass
   // either a string attribute to count by, or a function that returns the
   // criterion.
-  _.countBy = group(function(result, key) {
-    _.has(result, key) ? result[key]++ : result[key] = 1;
+  _.countBy = group(function(result, value, key) {
+    if (_.has(result, key)) result[key]++; else result[key] = 1;
   });
-
-  // Use a comparator function to figure out the smallest index at which
-  // an object should be inserted so as to maintain order. Uses binary search.
-  _.sortedIndex = function(array, obj, iterator, context) {
-    iterator = lookupIterator(iterator);
-    var value = iterator.call(context, obj);
-    var low = 0, high = array.length;
-    while (low < high) {
-      var mid = (low + high) >>> 1;
-      iterator.call(context, array[mid]) < value ? low = mid + 1 : high = mid;
-    }
-    return low;
-  };
 
   // Safely create a real, live array from anything iterable.
   _.toArray = function(obj) {
     if (!obj) return [];
     if (_.isArray(obj)) return slice.call(obj);
-    if (obj.length === +obj.length) return _.map(obj, _.identity);
+    if (isArrayLike(obj)) return _.map(obj, _.identity);
     return _.values(obj);
   };
 
   // Return the number of elements in an object.
   _.size = function(obj) {
     if (obj == null) return 0;
-    return (obj.length === +obj.length) ? obj.length : _.keys(obj).length;
+    return isArrayLike(obj) ? obj.length : _.keys(obj).length;
+  };
+
+  // Split a collection into two arrays: one whose elements all satisfy the given
+  // predicate, and one whose elements all do not satisfy the predicate.
+  _.partition = function(obj, predicate, context) {
+    predicate = cb(predicate, context);
+    var pass = [], fail = [];
+    _.each(obj, function(value, key, obj) {
+      (predicate(value, key, obj) ? pass : fail).push(value);
+    });
+    return [pass, fail];
   };
 
   // Array Functions
@@ -5151,33 +10305,30 @@ module.exports = Vector;
   // allows it to work with `_.map`.
   _.first = _.head = _.take = function(array, n, guard) {
     if (array == null) return void 0;
-    if ((n == null) || guard) return array[0];
-    if (n < 0) return [];
-    return slice.call(array, 0, n);
+    if (n == null || guard) return array[0];
+    return _.initial(array, array.length - n);
   };
 
   // Returns everything but the last entry of the array. Especially useful on
   // the arguments object. Passing **n** will return all the values in
-  // the array, excluding the last N. The **guard** check allows it to work with
-  // `_.map`.
+  // the array, excluding the last N.
   _.initial = function(array, n, guard) {
-    return slice.call(array, 0, array.length - ((n == null) || guard ? 1 : n));
+    return slice.call(array, 0, Math.max(0, array.length - (n == null || guard ? 1 : n)));
   };
 
   // Get the last element of an array. Passing **n** will return the last N
-  // values in the array. The **guard** check allows it to work with `_.map`.
+  // values in the array.
   _.last = function(array, n, guard) {
     if (array == null) return void 0;
-    if ((n == null) || guard) return array[array.length - 1];
-    return slice.call(array, Math.max(array.length - n, 0));
+    if (n == null || guard) return array[array.length - 1];
+    return _.rest(array, Math.max(0, array.length - n));
   };
 
   // Returns everything but the first entry of the array. Aliased as `tail` and `drop`.
   // Especially useful on the arguments object. Passing an **n** will return
-  // the rest N values in the array. The **guard**
-  // check allows it to work with `_.map`.
+  // the rest N values in the array.
   _.rest = _.tail = _.drop = function(array, n, guard) {
-    return slice.call(array, (n == null) || guard ? 1 : n);
+    return slice.call(array, n == null || guard ? 1 : n);
   };
 
   // Trim out all falsy values from an array.
@@ -5186,23 +10337,28 @@ module.exports = Vector;
   };
 
   // Internal implementation of a recursive `flatten` function.
-  var flatten = function(input, shallow, output) {
-    if (shallow && _.every(input, _.isArray)) {
-      return concat.apply(output, input);
-    }
-    each(input, function(value) {
-      if (_.isArray(value) || _.isArguments(value)) {
-        shallow ? push.apply(output, value) : flatten(value, shallow, output);
-      } else {
-        output.push(value);
+  var flatten = function(input, shallow, strict, startIndex) {
+    var output = [], idx = 0;
+    for (var i = startIndex || 0, length = input && input.length; i < length; i++) {
+      var value = input[i];
+      if (isArrayLike(value) && (_.isArray(value) || _.isArguments(value))) {
+        //flatten current level of array or arguments object
+        if (!shallow) value = flatten(value, shallow, strict);
+        var j = 0, len = value.length;
+        output.length += len;
+        while (j < len) {
+          output[idx++] = value[j++];
+        }
+      } else if (!strict) {
+        output[idx++] = value;
       }
-    });
+    }
     return output;
   };
 
   // Flatten out an array, either recursively (by default), or just one level.
   _.flatten = function(array, shallow) {
-    return flatten(array, shallow, []);
+    return flatten(array, shallow, false);
   };
 
   // Return a version of the array that does not contain the specified value(s).
@@ -5210,79 +10366,93 @@ module.exports = Vector;
     return _.difference(array, slice.call(arguments, 1));
   };
 
-  // Split an array into two arrays: one whose elements all satisfy the given
-  // predicate, and one whose elements all do not satisfy the predicate.
-  _.partition = function(array, predicate) {
-    var pass = [], fail = [];
-    each(array, function(elem) {
-      (predicate(elem) ? pass : fail).push(elem);
-    });
-    return [pass, fail];
-  };
-
   // Produce a duplicate-free version of the array. If the array has already
   // been sorted, you have the option of using a faster algorithm.
   // Aliased as `unique`.
-  _.uniq = _.unique = function(array, isSorted, iterator, context) {
-    if (_.isFunction(isSorted)) {
-      context = iterator;
-      iterator = isSorted;
+  _.uniq = _.unique = function(array, isSorted, iteratee, context) {
+    if (array == null) return [];
+    if (!_.isBoolean(isSorted)) {
+      context = iteratee;
+      iteratee = isSorted;
       isSorted = false;
     }
-    var initial = iterator ? _.map(array, iterator, context) : array;
-    var results = [];
+    if (iteratee != null) iteratee = cb(iteratee, context);
+    var result = [];
     var seen = [];
-    each(initial, function(value, index) {
-      if (isSorted ? (!index || seen[seen.length - 1] !== value) : !_.contains(seen, value)) {
-        seen.push(value);
-        results.push(array[index]);
+    for (var i = 0, length = array.length; i < length; i++) {
+      var value = array[i],
+          computed = iteratee ? iteratee(value, i, array) : value;
+      if (isSorted) {
+        if (!i || seen !== computed) result.push(value);
+        seen = computed;
+      } else if (iteratee) {
+        if (!_.contains(seen, computed)) {
+          seen.push(computed);
+          result.push(value);
+        }
+      } else if (!_.contains(result, value)) {
+        result.push(value);
       }
-    });
-    return results;
+    }
+    return result;
   };
 
   // Produce an array that contains the union: each distinct element from all of
   // the passed-in arrays.
   _.union = function() {
-    return _.uniq(_.flatten(arguments, true));
+    return _.uniq(flatten(arguments, true, true));
   };
 
   // Produce an array that contains every item shared between all the
   // passed-in arrays.
   _.intersection = function(array) {
-    var rest = slice.call(arguments, 1);
-    return _.filter(_.uniq(array), function(item) {
-      return _.every(rest, function(other) {
-        return _.contains(other, item);
-      });
-    });
+    if (array == null) return [];
+    var result = [];
+    var argsLength = arguments.length;
+    for (var i = 0, length = array.length; i < length; i++) {
+      var item = array[i];
+      if (_.contains(result, item)) continue;
+      for (var j = 1; j < argsLength; j++) {
+        if (!_.contains(arguments[j], item)) break;
+      }
+      if (j === argsLength) result.push(item);
+    }
+    return result;
   };
 
   // Take the difference between one array and a number of other arrays.
   // Only the elements present in just the first array will remain.
   _.difference = function(array) {
-    var rest = concat.apply(ArrayProto, slice.call(arguments, 1));
-    return _.filter(array, function(value){ return !_.contains(rest, value); });
+    var rest = flatten(arguments, true, true, 1);
+    return _.filter(array, function(value){
+      return !_.contains(rest, value);
+    });
   };
 
   // Zip together multiple lists into a single array -- elements that share
   // an index go together.
   _.zip = function() {
-    var length = _.max(_.pluck(arguments, 'length').concat(0));
-    var results = new Array(length);
-    for (var i = 0; i < length; i++) {
-      results[i] = _.pluck(arguments, '' + i);
+    return _.unzip(arguments);
+  };
+
+  // Complement of _.zip. Unzip accepts an array of arrays and groups
+  // each array's elements on shared indices
+  _.unzip = function(array) {
+    var length = array && _.max(array, 'length').length || 0;
+    var result = Array(length);
+
+    for (var index = 0; index < length; index++) {
+      result[index] = _.pluck(array, index);
     }
-    return results;
+    return result;
   };
 
   // Converts lists into objects. Pass either a single array of `[key, value]`
   // pairs, or two parallel arrays of the same length -- one of keys, and one of
   // the corresponding values.
   _.object = function(list, values) {
-    if (list == null) return {};
     var result = {};
-    for (var i = 0, length = list.length; i < length; i++) {
+    for (var i = 0, length = list && list.length; i < length; i++) {
       if (values) {
         result[list[i]] = values[i];
       } else {
@@ -5292,38 +10462,66 @@ module.exports = Vector;
     return result;
   };
 
-  // If the browser doesn't supply us with indexOf (I'm looking at you, **MSIE**),
-  // we need this function. Return the position of the first occurrence of an
-  // item in an array, or -1 if the item is not included in the array.
-  // Delegates to **ECMAScript 5**'s native `indexOf` if available.
+  // Return the position of the first occurrence of an item in an array,
+  // or -1 if the item is not included in the array.
   // If the array is large and already in sort order, pass `true`
   // for **isSorted** to use binary search.
   _.indexOf = function(array, item, isSorted) {
-    if (array == null) return -1;
-    var i = 0, length = array.length;
-    if (isSorted) {
-      if (typeof isSorted == 'number') {
-        i = (isSorted < 0 ? Math.max(0, length + isSorted) : isSorted);
-      } else {
-        i = _.sortedIndex(array, item);
-        return array[i] === item ? i : -1;
-      }
+    var i = 0, length = array && array.length;
+    if (typeof isSorted == 'number') {
+      i = isSorted < 0 ? Math.max(0, length + isSorted) : isSorted;
+    } else if (isSorted && length) {
+      i = _.sortedIndex(array, item);
+      return array[i] === item ? i : -1;
     }
-    if (nativeIndexOf && array.indexOf === nativeIndexOf) return array.indexOf(item, isSorted);
+    if (item !== item) {
+      return _.findIndex(slice.call(array, i), _.isNaN);
+    }
     for (; i < length; i++) if (array[i] === item) return i;
     return -1;
   };
 
-  // Delegates to **ECMAScript 5**'s native `lastIndexOf` if available.
   _.lastIndexOf = function(array, item, from) {
-    if (array == null) return -1;
-    var hasIndex = from != null;
-    if (nativeLastIndexOf && array.lastIndexOf === nativeLastIndexOf) {
-      return hasIndex ? array.lastIndexOf(item, from) : array.lastIndexOf(item);
+    var idx = array ? array.length : 0;
+    if (typeof from == 'number') {
+      idx = from < 0 ? idx + from + 1 : Math.min(idx, from + 1);
     }
-    var i = (hasIndex ? from : array.length);
-    while (i--) if (array[i] === item) return i;
+    if (item !== item) {
+      return _.findLastIndex(slice.call(array, 0, idx), _.isNaN);
+    }
+    while (--idx >= 0) if (array[idx] === item) return idx;
     return -1;
+  };
+
+  // Generator function to create the findIndex and findLastIndex functions
+  function createIndexFinder(dir) {
+    return function(array, predicate, context) {
+      predicate = cb(predicate, context);
+      var length = array != null && array.length;
+      var index = dir > 0 ? 0 : length - 1;
+      for (; index >= 0 && index < length; index += dir) {
+        if (predicate(array[index], index, array)) return index;
+      }
+      return -1;
+    };
+  }
+
+  // Returns the first index on an array-like that passes a predicate test
+  _.findIndex = createIndexFinder(1);
+
+  _.findLastIndex = createIndexFinder(-1);
+
+  // Use a comparator function to figure out the smallest index at which
+  // an object should be inserted so as to maintain order. Uses binary search.
+  _.sortedIndex = function(array, obj, iteratee, context) {
+    iteratee = cb(iteratee, context, 1);
+    var value = iteratee(obj);
+    var low = 0, high = array.length;
+    while (low < high) {
+      var mid = Math.floor((low + high) / 2);
+      if (iteratee(array[mid]) < value) low = mid + 1; else high = mid;
+    }
+    return low;
   };
 
   // Generate an integer Array containing an arithmetic progression. A port of
@@ -5334,15 +10532,13 @@ module.exports = Vector;
       stop = start || 0;
       start = 0;
     }
-    step = arguments[2] || 1;
+    step = step || 1;
 
     var length = Math.max(Math.ceil((stop - start) / step), 0);
-    var idx = 0;
-    var range = new Array(length);
+    var range = Array(length);
 
-    while(idx < length) {
-      range[idx++] = start;
-      start += step;
+    for (var idx = 0; idx < length; idx++, start += step) {
+      range[idx] = start;
     }
 
     return range;
@@ -5351,26 +10547,27 @@ module.exports = Vector;
   // Function (ahem) Functions
   // ------------------
 
-  // Reusable constructor function for prototype setting.
-  var ctor = function(){};
+  // Determines whether to execute a function as a constructor
+  // or a normal function with the provided arguments
+  var executeBound = function(sourceFunc, boundFunc, context, callingContext, args) {
+    if (!(callingContext instanceof boundFunc)) return sourceFunc.apply(context, args);
+    var self = baseCreate(sourceFunc.prototype);
+    var result = sourceFunc.apply(self, args);
+    if (_.isObject(result)) return result;
+    return self;
+  };
 
   // Create a function bound to a given object (assigning `this`, and arguments,
   // optionally). Delegates to **ECMAScript 5**'s native `Function.bind` if
   // available.
   _.bind = function(func, context) {
-    var args, bound;
     if (nativeBind && func.bind === nativeBind) return nativeBind.apply(func, slice.call(arguments, 1));
-    if (!_.isFunction(func)) throw new TypeError;
-    args = slice.call(arguments, 2);
-    return bound = function() {
-      if (!(this instanceof bound)) return func.apply(context, args.concat(slice.call(arguments)));
-      ctor.prototype = func.prototype;
-      var self = new ctor;
-      ctor.prototype = null;
-      var result = func.apply(self, args.concat(slice.call(arguments)));
-      if (Object(result) === result) return result;
-      return self;
+    if (!_.isFunction(func)) throw new TypeError('Bind must be called on a function');
+    var args = slice.call(arguments, 2);
+    var bound = function() {
+      return executeBound(func, bound, context, this, args.concat(slice.call(arguments)));
     };
+    return bound;
   };
 
   // Partially apply a function by creating a version that has had some of its
@@ -5378,49 +10575,55 @@ module.exports = Vector;
   // as a placeholder, allowing any combination of arguments to be pre-filled.
   _.partial = function(func) {
     var boundArgs = slice.call(arguments, 1);
-    return function() {
-      var position = 0;
-      var args = boundArgs.slice();
-      for (var i = 0, length = args.length; i < length; i++) {
-        if (args[i] === _) args[i] = arguments[position++];
+    var bound = function() {
+      var position = 0, length = boundArgs.length;
+      var args = Array(length);
+      for (var i = 0; i < length; i++) {
+        args[i] = boundArgs[i] === _ ? arguments[position++] : boundArgs[i];
       }
       while (position < arguments.length) args.push(arguments[position++]);
-      return func.apply(this, args);
+      return executeBound(func, bound, this, this, args);
     };
+    return bound;
   };
 
   // Bind a number of an object's methods to that object. Remaining arguments
   // are the method names to be bound. Useful for ensuring that all callbacks
   // defined on an object belong to it.
   _.bindAll = function(obj) {
-    var funcs = slice.call(arguments, 1);
-    if (funcs.length === 0) throw new Error('bindAll must be passed function names');
-    each(funcs, function(f) { obj[f] = _.bind(obj[f], obj); });
+    var i, length = arguments.length, key;
+    if (length <= 1) throw new Error('bindAll must be passed function names');
+    for (i = 1; i < length; i++) {
+      key = arguments[i];
+      obj[key] = _.bind(obj[key], obj);
+    }
     return obj;
   };
 
   // Memoize an expensive function by storing its results.
   _.memoize = function(func, hasher) {
-    var memo = {};
-    hasher || (hasher = _.identity);
-    return function() {
-      var key = hasher.apply(this, arguments);
-      return _.has(memo, key) ? memo[key] : (memo[key] = func.apply(this, arguments));
+    var memoize = function(key) {
+      var cache = memoize.cache;
+      var address = '' + (hasher ? hasher.apply(this, arguments) : key);
+      if (!_.has(cache, address)) cache[address] = func.apply(this, arguments);
+      return cache[address];
     };
+    memoize.cache = {};
+    return memoize;
   };
 
   // Delays a function for the given number of milliseconds, and then calls
   // it with the arguments supplied.
   _.delay = function(func, wait) {
     var args = slice.call(arguments, 2);
-    return setTimeout(function(){ return func.apply(null, args); }, wait);
+    return setTimeout(function(){
+      return func.apply(null, args);
+    }, wait);
   };
 
   // Defers a function, scheduling it to run after the current call stack has
   // cleared.
-  _.defer = function(func) {
-    return _.delay.apply(_, [func, 1].concat(slice.call(arguments, 1)));
-  };
+  _.defer = _.partial(_.delay, _, 1);
 
   // Returns a function, that, when invoked, will only be triggered at most once
   // during a given window of time. Normally, the throttled function will run
@@ -5431,12 +10634,12 @@ module.exports = Vector;
     var context, args, result;
     var timeout = null;
     var previous = 0;
-    options || (options = {});
+    if (!options) options = {};
     var later = function() {
       previous = options.leading === false ? 0 : _.now();
       timeout = null;
       result = func.apply(context, args);
-      context = args = null;
+      if (!timeout) context = args = null;
     };
     return function() {
       var now = _.now();
@@ -5444,12 +10647,14 @@ module.exports = Vector;
       var remaining = wait - (now - previous);
       context = this;
       args = arguments;
-      if (remaining <= 0) {
-        clearTimeout(timeout);
-        timeout = null;
+      if (remaining <= 0 || remaining > wait) {
+        if (timeout) {
+          clearTimeout(timeout);
+          timeout = null;
+        }
         previous = now;
         result = func.apply(context, args);
-        context = args = null;
+        if (!timeout) context = args = null;
       } else if (!timeout && options.trailing !== false) {
         timeout = setTimeout(later, remaining);
       }
@@ -5466,13 +10671,14 @@ module.exports = Vector;
 
     var later = function() {
       var last = _.now() - timestamp;
-      if (last < wait) {
+
+      if (last < wait && last >= 0) {
         timeout = setTimeout(later, wait - last);
       } else {
         timeout = null;
         if (!immediate) {
           result = func.apply(context, args);
-          context = args = null;
+          if (!timeout) context = args = null;
         }
       }
     };
@@ -5482,28 +10688,13 @@ module.exports = Vector;
       args = arguments;
       timestamp = _.now();
       var callNow = immediate && !timeout;
-      if (!timeout) {
-        timeout = setTimeout(later, wait);
-      }
+      if (!timeout) timeout = setTimeout(later, wait);
       if (callNow) {
         result = func.apply(context, args);
         context = args = null;
       }
 
       return result;
-    };
-  };
-
-  // Returns a function that will be executed at most one time, no matter how
-  // often you call it. Useful for lazy initialization.
-  _.once = function(func) {
-    var ran = false, memo;
-    return function() {
-      if (ran) return memo;
-      ran = true;
-      memo = func.apply(this, arguments);
-      func = null;
-      return memo;
     };
   };
 
@@ -5514,20 +10705,27 @@ module.exports = Vector;
     return _.partial(wrapper, func);
   };
 
-  // Returns a function that is the composition of a list of functions, each
-  // consuming the return value of the function that follows.
-  _.compose = function() {
-    var funcs = arguments;
+  // Returns a negated version of the passed-in predicate.
+  _.negate = function(predicate) {
     return function() {
-      var args = arguments;
-      for (var i = funcs.length - 1; i >= 0; i--) {
-        args = [funcs[i].apply(this, args)];
-      }
-      return args[0];
+      return !predicate.apply(this, arguments);
     };
   };
 
-  // Returns a function that will only be executed after being called N times.
+  // Returns a function that is the composition of a list of functions, each
+  // consuming the return value of the function that follows.
+  _.compose = function() {
+    var args = arguments;
+    var start = args.length - 1;
+    return function() {
+      var i = start;
+      var result = args[start].apply(this, arguments);
+      while (i--) result = args[i].call(this, result);
+      return result;
+    };
+  };
+
+  // Returns a function that will only be executed on and after the Nth call.
   _.after = function(times, func) {
     return function() {
       if (--times < 1) {
@@ -5536,16 +10734,66 @@ module.exports = Vector;
     };
   };
 
+  // Returns a function that will only be executed up to (but not including) the Nth call.
+  _.before = function(times, func) {
+    var memo;
+    return function() {
+      if (--times > 0) {
+        memo = func.apply(this, arguments);
+      }
+      if (times <= 1) func = null;
+      return memo;
+    };
+  };
+
+  // Returns a function that will be executed at most one time, no matter how
+  // often you call it. Useful for lazy initialization.
+  _.once = _.partial(_.before, 2);
+
   // Object Functions
   // ----------------
 
-  // Retrieve the names of an object's properties.
+  // Keys in IE < 9 that won't be iterated by `for key in ...` and thus missed.
+  var hasEnumBug = !{toString: null}.propertyIsEnumerable('toString');
+  var nonEnumerableProps = ['valueOf', 'isPrototypeOf', 'toString',
+                      'propertyIsEnumerable', 'hasOwnProperty', 'toLocaleString'];
+
+  function collectNonEnumProps(obj, keys) {
+    var nonEnumIdx = nonEnumerableProps.length;
+    var constructor = obj.constructor;
+    var proto = (_.isFunction(constructor) && constructor.prototype) || ObjProto;
+
+    // Constructor is a special case.
+    var prop = 'constructor';
+    if (_.has(obj, prop) && !_.contains(keys, prop)) keys.push(prop);
+
+    while (nonEnumIdx--) {
+      prop = nonEnumerableProps[nonEnumIdx];
+      if (prop in obj && obj[prop] !== proto[prop] && !_.contains(keys, prop)) {
+        keys.push(prop);
+      }
+    }
+  }
+
+  // Retrieve the names of an object's own properties.
   // Delegates to **ECMAScript 5**'s native `Object.keys`
   _.keys = function(obj) {
     if (!_.isObject(obj)) return [];
     if (nativeKeys) return nativeKeys(obj);
     var keys = [];
     for (var key in obj) if (_.has(obj, key)) keys.push(key);
+    // Ahem, IE < 9.
+    if (hasEnumBug) collectNonEnumProps(obj, keys);
+    return keys;
+  };
+
+  // Retrieve all the property names of an object.
+  _.allKeys = function(obj) {
+    if (!_.isObject(obj)) return [];
+    var keys = [];
+    for (var key in obj) keys.push(key);
+    // Ahem, IE < 9.
+    if (hasEnumBug) collectNonEnumProps(obj, keys);
     return keys;
   };
 
@@ -5553,18 +10801,33 @@ module.exports = Vector;
   _.values = function(obj) {
     var keys = _.keys(obj);
     var length = keys.length;
-    var values = new Array(length);
+    var values = Array(length);
     for (var i = 0; i < length; i++) {
       values[i] = obj[keys[i]];
     }
     return values;
   };
 
+  // Returns the results of applying the iteratee to each element of the object
+  // In contrast to _.map it returns an object
+  _.mapObject = function(obj, iteratee, context) {
+    iteratee = cb(iteratee, context);
+    var keys =  _.keys(obj),
+          length = keys.length,
+          results = {},
+          currentKey;
+      for (var index = 0; index < length; index++) {
+        currentKey = keys[index];
+        results[currentKey] = iteratee(obj[currentKey], currentKey, obj);
+      }
+      return results;
+  };
+
   // Convert an object into a list of `[key, value]` pairs.
   _.pairs = function(obj) {
     var keys = _.keys(obj);
     var length = keys.length;
-    var pairs = new Array(length);
+    var pairs = Array(length);
     for (var i = 0; i < length; i++) {
       pairs[i] = [keys[i], obj[keys[i]]];
     }
@@ -5592,48 +10855,57 @@ module.exports = Vector;
   };
 
   // Extend a given object with all the properties in passed-in object(s).
-  _.extend = function(obj) {
-    each(slice.call(arguments, 1), function(source) {
-      if (source) {
-        for (var prop in source) {
-          obj[prop] = source[prop];
-        }
-      }
-    });
-    return obj;
+  _.extend = createAssigner(_.allKeys);
+
+  // Assigns a given object with all the own properties in the passed-in object(s)
+  // (https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)
+  _.extendOwn = _.assign = createAssigner(_.keys);
+
+  // Returns the first key on an object that passes a predicate test
+  _.findKey = function(obj, predicate, context) {
+    predicate = cb(predicate, context);
+    var keys = _.keys(obj), key;
+    for (var i = 0, length = keys.length; i < length; i++) {
+      key = keys[i];
+      if (predicate(obj[key], key, obj)) return key;
+    }
   };
 
   // Return a copy of the object only containing the whitelisted properties.
-  _.pick = function(obj) {
-    var copy = {};
-    var keys = concat.apply(ArrayProto, slice.call(arguments, 1));
-    each(keys, function(key) {
-      if (key in obj) copy[key] = obj[key];
-    });
-    return copy;
+  _.pick = function(object, oiteratee, context) {
+    var result = {}, obj = object, iteratee, keys;
+    if (obj == null) return result;
+    if (_.isFunction(oiteratee)) {
+      keys = _.allKeys(obj);
+      iteratee = optimizeCb(oiteratee, context);
+    } else {
+      keys = flatten(arguments, false, false, 1);
+      iteratee = function(value, key, obj) { return key in obj; };
+      obj = Object(obj);
+    }
+    for (var i = 0, length = keys.length; i < length; i++) {
+      var key = keys[i];
+      var value = obj[key];
+      if (iteratee(value, key, obj)) result[key] = value;
+    }
+    return result;
   };
 
    // Return a copy of the object without the blacklisted properties.
-  _.omit = function(obj) {
-    var copy = {};
-    var keys = concat.apply(ArrayProto, slice.call(arguments, 1));
-    for (var key in obj) {
-      if (!_.contains(keys, key)) copy[key] = obj[key];
+  _.omit = function(obj, iteratee, context) {
+    if (_.isFunction(iteratee)) {
+      iteratee = _.negate(iteratee);
+    } else {
+      var keys = _.map(flatten(arguments, false, false, 1), String);
+      iteratee = function(value, key) {
+        return !_.contains(keys, key);
+      };
     }
-    return copy;
+    return _.pick(obj, iteratee, context);
   };
 
   // Fill in a given object with default properties.
-  _.defaults = function(obj) {
-    each(slice.call(arguments, 1), function(source) {
-      if (source) {
-        for (var prop in source) {
-          if (obj[prop] === void 0) obj[prop] = source[prop];
-        }
-      }
-    });
-    return obj;
-  };
+  _.defaults = createAssigner(_.allKeys, true);
 
   // Create a (shallow-cloned) duplicate of an object.
   _.clone = function(obj) {
@@ -5649,11 +10921,24 @@ module.exports = Vector;
     return obj;
   };
 
+  // Returns whether an object has a given set of `key:value` pairs.
+  _.isMatch = function(object, attrs) {
+    var keys = _.keys(attrs), length = keys.length;
+    if (object == null) return !length;
+    var obj = Object(object);
+    for (var i = 0; i < length; i++) {
+      var key = keys[i];
+      if (attrs[key] !== obj[key] || !(key in obj)) return false;
+    }
+    return true;
+  };
+
+
   // Internal recursive comparison function for `isEqual`.
   var eq = function(a, b, aStack, bStack) {
     // Identical objects are equal. `0 === -0`, but they aren't identical.
     // See the [Harmony `egal` proposal](http://wiki.ecmascript.org/doku.php?id=harmony:egal).
-    if (a === b) return a !== 0 || 1 / a == 1 / b;
+    if (a === b) return a !== 0 || 1 / a === 1 / b;
     // A strict comparison is necessary because `null == undefined`.
     if (a == null || b == null) return a === b;
     // Unwrap any wrapped objects.
@@ -5661,98 +10946,98 @@ module.exports = Vector;
     if (b instanceof _) b = b._wrapped;
     // Compare `[[Class]]` names.
     var className = toString.call(a);
-    if (className != toString.call(b)) return false;
+    if (className !== toString.call(b)) return false;
     switch (className) {
-      // Strings, numbers, dates, and booleans are compared by value.
+      // Strings, numbers, regular expressions, dates, and booleans are compared by value.
+      case '[object RegExp]':
+      // RegExps are coerced to strings for comparison (Note: '' + /a/i === '/a/i')
       case '[object String]':
         // Primitives and their corresponding object wrappers are equivalent; thus, `"5"` is
         // equivalent to `new String("5")`.
-        return a == String(b);
+        return '' + a === '' + b;
       case '[object Number]':
-        // `NaN`s are equivalent, but non-reflexive. An `egal` comparison is performed for
-        // other numeric values.
-        return a != +a ? b != +b : (a == 0 ? 1 / a == 1 / b : a == +b);
+        // `NaN`s are equivalent, but non-reflexive.
+        // Object(NaN) is equivalent to NaN
+        if (+a !== +a) return +b !== +b;
+        // An `egal` comparison is performed for other numeric values.
+        return +a === 0 ? 1 / +a === 1 / b : +a === +b;
       case '[object Date]':
       case '[object Boolean]':
         // Coerce dates and booleans to numeric primitive values. Dates are compared by their
         // millisecond representations. Note that invalid dates with millisecond representations
         // of `NaN` are not equivalent.
-        return +a == +b;
-      // RegExps are compared by their source patterns and flags.
-      case '[object RegExp]':
-        return a.source == b.source &&
-               a.global == b.global &&
-               a.multiline == b.multiline &&
-               a.ignoreCase == b.ignoreCase;
+        return +a === +b;
     }
-    if (typeof a != 'object' || typeof b != 'object') return false;
+
+    var areArrays = className === '[object Array]';
+    if (!areArrays) {
+      if (typeof a != 'object' || typeof b != 'object') return false;
+
+      // Objects with different constructors are not equivalent, but `Object`s or `Array`s
+      // from different frames are.
+      var aCtor = a.constructor, bCtor = b.constructor;
+      if (aCtor !== bCtor && !(_.isFunction(aCtor) && aCtor instanceof aCtor &&
+                               _.isFunction(bCtor) && bCtor instanceof bCtor)
+                          && ('constructor' in a && 'constructor' in b)) {
+        return false;
+      }
+    }
     // Assume equality for cyclic structures. The algorithm for detecting cyclic
     // structures is adapted from ES 5.1 section 15.12.3, abstract operation `JO`.
+    
+    // Initializing stack of traversed objects.
+    // It's done here since we only need them for objects and arrays comparison.
+    aStack = aStack || [];
+    bStack = bStack || [];
     var length = aStack.length;
     while (length--) {
       // Linear search. Performance is inversely proportional to the number of
       // unique nested structures.
-      if (aStack[length] == a) return bStack[length] == b;
+      if (aStack[length] === a) return bStack[length] === b;
     }
-    // Objects with different constructors are not equivalent, but `Object`s
-    // from different frames are.
-    var aCtor = a.constructor, bCtor = b.constructor;
-    if (aCtor !== bCtor && !(_.isFunction(aCtor) && (aCtor instanceof aCtor) &&
-                             _.isFunction(bCtor) && (bCtor instanceof bCtor))
-                        && ('constructor' in a && 'constructor' in b)) {
-      return false;
-    }
+
     // Add the first object to the stack of traversed objects.
     aStack.push(a);
     bStack.push(b);
-    var size = 0, result = true;
+
     // Recursively compare objects and arrays.
-    if (className == '[object Array]') {
+    if (areArrays) {
       // Compare array lengths to determine if a deep comparison is necessary.
-      size = a.length;
-      result = size == b.length;
-      if (result) {
-        // Deep compare the contents, ignoring non-numeric properties.
-        while (size--) {
-          if (!(result = eq(a[size], b[size], aStack, bStack))) break;
-        }
+      length = a.length;
+      if (length !== b.length) return false;
+      // Deep compare the contents, ignoring non-numeric properties.
+      while (length--) {
+        if (!eq(a[length], b[length], aStack, bStack)) return false;
       }
     } else {
       // Deep compare objects.
-      for (var key in a) {
-        if (_.has(a, key)) {
-          // Count the expected number of properties.
-          size++;
-          // Deep compare each member.
-          if (!(result = _.has(b, key) && eq(a[key], b[key], aStack, bStack))) break;
-        }
-      }
-      // Ensure that both objects contain the same number of properties.
-      if (result) {
-        for (key in b) {
-          if (_.has(b, key) && !(size--)) break;
-        }
-        result = !size;
+      var keys = _.keys(a), key;
+      length = keys.length;
+      // Ensure that both objects contain the same number of properties before comparing deep equality.
+      if (_.keys(b).length !== length) return false;
+      while (length--) {
+        // Deep compare each member
+        key = keys[length];
+        if (!(_.has(b, key) && eq(a[key], b[key], aStack, bStack))) return false;
       }
     }
     // Remove the first object from the stack of traversed objects.
     aStack.pop();
     bStack.pop();
-    return result;
+    return true;
   };
 
   // Perform a deep comparison to check if two objects are equal.
   _.isEqual = function(a, b) {
-    return eq(a, b, [], []);
+    return eq(a, b);
   };
 
   // Is a given array, string, or object empty?
   // An "empty" object has no enumerable own-properties.
   _.isEmpty = function(obj) {
     if (obj == null) return true;
-    if (_.isArray(obj) || _.isString(obj)) return obj.length === 0;
-    for (var key in obj) if (_.has(obj, key)) return false;
-    return true;
+    if (isArrayLike(obj) && (_.isArray(obj) || _.isString(obj) || _.isArguments(obj))) return obj.length === 0;
+    return _.keys(obj).length === 0;
   };
 
   // Is a given value a DOM element?
@@ -5763,33 +11048,35 @@ module.exports = Vector;
   // Is a given value an array?
   // Delegates to ECMA5's native Array.isArray
   _.isArray = nativeIsArray || function(obj) {
-    return toString.call(obj) == '[object Array]';
+    return toString.call(obj) === '[object Array]';
   };
 
   // Is a given variable an object?
   _.isObject = function(obj) {
-    return obj === Object(obj);
+    var type = typeof obj;
+    return type === 'function' || type === 'object' && !!obj;
   };
 
-  // Add some isType methods: isArguments, isFunction, isString, isNumber, isDate, isRegExp.
-  each(['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp'], function(name) {
+  // Add some isType methods: isArguments, isFunction, isString, isNumber, isDate, isRegExp, isError.
+  _.each(['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp', 'Error'], function(name) {
     _['is' + name] = function(obj) {
-      return toString.call(obj) == '[object ' + name + ']';
+      return toString.call(obj) === '[object ' + name + ']';
     };
   });
 
-  // Define a fallback version of the method in browsers (ahem, IE), where
+  // Define a fallback version of the method in browsers (ahem, IE < 9), where
   // there isn't any inspectable "Arguments" type.
   if (!_.isArguments(arguments)) {
     _.isArguments = function(obj) {
-      return !!(obj && _.has(obj, 'callee'));
+      return _.has(obj, 'callee');
     };
   }
 
-  // Optimize `isFunction` if appropriate.
-  if (typeof (/./) !== 'function') {
+  // Optimize `isFunction` if appropriate. Work around some typeof bugs in old v8,
+  // IE 11 (#1621), and in Safari 8 (#1929).
+  if (typeof /./ != 'function' && typeof Int8Array != 'object') {
     _.isFunction = function(obj) {
-      return typeof obj === 'function';
+      return typeof obj == 'function' || false;
     };
   }
 
@@ -5800,12 +11087,12 @@ module.exports = Vector;
 
   // Is the given value `NaN`? (NaN is the only number which does not equal itself).
   _.isNaN = function(obj) {
-    return _.isNumber(obj) && obj != +obj;
+    return _.isNumber(obj) && obj !== +obj;
   };
 
   // Is a given value a boolean?
   _.isBoolean = function(obj) {
-    return obj === true || obj === false || toString.call(obj) == '[object Boolean]';
+    return obj === true || obj === false || toString.call(obj) === '[object Boolean]';
   };
 
   // Is a given value equal to null?
@@ -5821,7 +11108,7 @@ module.exports = Vector;
   // Shortcut function for checking if an object has a given property directly
   // on itself (in other words, not on a prototype).
   _.has = function(obj, key) {
-    return hasOwnProperty.call(obj, key);
+    return obj != null && hasOwnProperty.call(obj, key);
   };
 
   // Utility Functions
@@ -5834,39 +11121,47 @@ module.exports = Vector;
     return this;
   };
 
-  // Keep the identity function around for default iterators.
+  // Keep the identity function around for default iteratees.
   _.identity = function(value) {
     return value;
   };
 
+  // Predicate-generating functions. Often useful outside of Underscore.
   _.constant = function(value) {
-    return function () {
+    return function() {
       return value;
     };
   };
 
+  _.noop = function(){};
+
   _.property = function(key) {
     return function(obj) {
+      return obj == null ? void 0 : obj[key];
+    };
+  };
+
+  // Generates a function for a given object that returns a given property.
+  _.propertyOf = function(obj) {
+    return obj == null ? function(){} : function(key) {
       return obj[key];
     };
   };
 
-  // Returns a predicate for checking whether an object has a given set of `key:value` pairs.
-  _.matches = function(attrs) {
+  // Returns a predicate for checking whether an object has a given set of 
+  // `key:value` pairs.
+  _.matcher = _.matches = function(attrs) {
+    attrs = _.extendOwn({}, attrs);
     return function(obj) {
-      if (obj === attrs) return true; //avoid comparing an object to itself.
-      for (var key in attrs) {
-        if (attrs[key] !== obj[key])
-          return false;
-      }
-      return true;
-    }
+      return _.isMatch(obj, attrs);
+    };
   };
 
   // Run a function **n** times.
-  _.times = function(n, iterator, context) {
+  _.times = function(n, iteratee, context) {
     var accum = Array(Math.max(0, n));
-    for (var i = 0; i < n; i++) accum[i] = iterator.call(context, i);
+    iteratee = optimizeCb(iteratee, context, 1);
+    for (var i = 0; i < n; i++) accum[i] = iteratee(i);
     return accum;
   };
 
@@ -5880,54 +11175,46 @@ module.exports = Vector;
   };
 
   // A (possibly faster) way to get the current timestamp as an integer.
-  _.now = Date.now || function() { return new Date().getTime(); };
-
-  // List of HTML entities for escaping.
-  var entityMap = {
-    escape: {
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#x27;'
-    }
+  _.now = Date.now || function() {
+    return new Date().getTime();
   };
-  entityMap.unescape = _.invert(entityMap.escape);
 
-  // Regexes containing the keys and values listed immediately above.
-  var entityRegexes = {
-    escape:   new RegExp('[' + _.keys(entityMap.escape).join('') + ']', 'g'),
-    unescape: new RegExp('(' + _.keys(entityMap.unescape).join('|') + ')', 'g')
+   // List of HTML entities for escaping.
+  var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;',
+    '`': '&#x60;'
   };
+  var unescapeMap = _.invert(escapeMap);
 
   // Functions for escaping and unescaping strings to/from HTML interpolation.
-  _.each(['escape', 'unescape'], function(method) {
-    _[method] = function(string) {
-      if (string == null) return '';
-      return ('' + string).replace(entityRegexes[method], function(match) {
-        return entityMap[method][match];
-      });
+  var createEscaper = function(map) {
+    var escaper = function(match) {
+      return map[match];
     };
-  });
+    // Regexes for identifying a key that needs to be escaped
+    var source = '(?:' + _.keys(map).join('|') + ')';
+    var testRegexp = RegExp(source);
+    var replaceRegexp = RegExp(source, 'g');
+    return function(string) {
+      string = string == null ? '' : '' + string;
+      return testRegexp.test(string) ? string.replace(replaceRegexp, escaper) : string;
+    };
+  };
+  _.escape = createEscaper(escapeMap);
+  _.unescape = createEscaper(unescapeMap);
 
   // If the value of the named `property` is a function then invoke it with the
   // `object` as context; otherwise, return it.
-  _.result = function(object, property) {
-    if (object == null) return void 0;
-    var value = object[property];
+  _.result = function(object, property, fallback) {
+    var value = object == null ? void 0 : object[property];
+    if (value === void 0) {
+      value = fallback;
+    }
     return _.isFunction(value) ? value.call(object) : value;
-  };
-
-  // Add your own custom functions to the Underscore object.
-  _.mixin = function(obj) {
-    each(_.functions(obj), function(name) {
-      var func = _[name] = obj[name];
-      _.prototype[name] = function() {
-        var args = [this._wrapped];
-        push.apply(args, arguments);
-        return result.call(this, func.apply(_, args));
-      };
-    });
   };
 
   // Generate a unique integer id (unique within the entire client session).
@@ -5958,22 +11245,26 @@ module.exports = Vector;
     '\\':     '\\',
     '\r':     'r',
     '\n':     'n',
-    '\t':     't',
     '\u2028': 'u2028',
     '\u2029': 'u2029'
   };
 
-  var escaper = /\\|'|\r|\n|\t|\u2028|\u2029/g;
+  var escaper = /\\|'|\r|\n|\u2028|\u2029/g;
+
+  var escapeChar = function(match) {
+    return '\\' + escapes[match];
+  };
 
   // JavaScript micro-templating, similar to John Resig's implementation.
   // Underscore templating handles arbitrary delimiters, preserves whitespace,
   // and correctly escapes quotes within interpolated code.
-  _.template = function(text, data, settings) {
-    var render;
+  // NB: `oldSettings` only exists for backwards compatibility.
+  _.template = function(text, settings, oldSettings) {
+    if (!settings && oldSettings) settings = oldSettings;
     settings = _.defaults({}, settings, _.templateSettings);
 
     // Combine delimiters into one regular expression via alternation.
-    var matcher = new RegExp([
+    var matcher = RegExp([
       (settings.escape || noMatch).source,
       (settings.interpolate || noMatch).source,
       (settings.evaluate || noMatch).source
@@ -5983,19 +11274,18 @@ module.exports = Vector;
     var index = 0;
     var source = "__p+='";
     text.replace(matcher, function(match, escape, interpolate, evaluate, offset) {
-      source += text.slice(index, offset)
-        .replace(escaper, function(match) { return '\\' + escapes[match]; });
+      source += text.slice(index, offset).replace(escaper, escapeChar);
+      index = offset + match.length;
 
       if (escape) {
         source += "'+\n((__t=(" + escape + "))==null?'':_.escape(__t))+\n'";
-      }
-      if (interpolate) {
+      } else if (interpolate) {
         source += "'+\n((__t=(" + interpolate + "))==null?'':__t)+\n'";
-      }
-      if (evaluate) {
+      } else if (evaluate) {
         source += "';\n" + evaluate + "\n__p+='";
       }
-      index = offset + match.length;
+
+      // Adobe VMs need the match returned to produce the correct offest.
       return match;
     });
     source += "';\n";
@@ -6005,29 +11295,31 @@ module.exports = Vector;
 
     source = "var __t,__p='',__j=Array.prototype.join," +
       "print=function(){__p+=__j.call(arguments,'');};\n" +
-      source + "return __p;\n";
+      source + 'return __p;\n';
 
     try {
-      render = new Function(settings.variable || 'obj', '_', source);
+      var render = new Function(settings.variable || 'obj', '_', source);
     } catch (e) {
       e.source = source;
       throw e;
     }
 
-    if (data) return render(data, _);
     var template = function(data) {
       return render.call(this, data, _);
     };
 
-    // Provide the compiled function source as a convenience for precompilation.
-    template.source = 'function(' + (settings.variable || 'obj') + '){\n' + source + '}';
+    // Provide the compiled source as a convenience for precompilation.
+    var argument = settings.variable || 'obj';
+    template.source = 'function(' + argument + '){\n' + source + '}';
 
     return template;
   };
 
-  // Add a "chain" function, which will delegate to the wrapper.
+  // Add a "chain" function. Start chaining a wrapped Underscore object.
   _.chain = function(obj) {
-    return _(obj).chain();
+    var instance = _(obj);
+    instance._chain = true;
+    return instance;
   };
 
   // OOP
@@ -6037,46 +11329,56 @@ module.exports = Vector;
   // underscore functions. Wrapped objects may be chained.
 
   // Helper function to continue chaining intermediate results.
-  var result = function(obj) {
-    return this._chain ? _(obj).chain() : obj;
+  var result = function(instance, obj) {
+    return instance._chain ? _(obj).chain() : obj;
+  };
+
+  // Add your own custom functions to the Underscore object.
+  _.mixin = function(obj) {
+    _.each(_.functions(obj), function(name) {
+      var func = _[name] = obj[name];
+      _.prototype[name] = function() {
+        var args = [this._wrapped];
+        push.apply(args, arguments);
+        return result(this, func.apply(_, args));
+      };
+    });
   };
 
   // Add all of the Underscore functions to the wrapper object.
   _.mixin(_);
 
   // Add all mutator Array functions to the wrapper.
-  each(['pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift'], function(name) {
+  _.each(['pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift'], function(name) {
     var method = ArrayProto[name];
     _.prototype[name] = function() {
       var obj = this._wrapped;
       method.apply(obj, arguments);
-      if ((name == 'shift' || name == 'splice') && obj.length === 0) delete obj[0];
-      return result.call(this, obj);
+      if ((name === 'shift' || name === 'splice') && obj.length === 0) delete obj[0];
+      return result(this, obj);
     };
   });
 
   // Add all accessor Array functions to the wrapper.
-  each(['concat', 'join', 'slice'], function(name) {
+  _.each(['concat', 'join', 'slice'], function(name) {
     var method = ArrayProto[name];
     _.prototype[name] = function() {
-      return result.call(this, method.apply(this._wrapped, arguments));
+      return result(this, method.apply(this._wrapped, arguments));
     };
   });
 
-  _.extend(_.prototype, {
+  // Extracts the result from a wrapped and chained object.
+  _.prototype.value = function() {
+    return this._wrapped;
+  };
 
-    // Start chaining a wrapped Underscore object.
-    chain: function() {
-      this._chain = true;
-      return this;
-    },
-
-    // Extracts the result from a wrapped and chained object.
-    value: function() {
-      return this._wrapped;
-    }
-
-  });
+  // Provide unwrapping proxy for some methods used in engine operations
+  // such as arithmetic and JSON stringification.
+  _.prototype.valueOf = _.prototype.toJSON = _.prototype.value;
+  
+  _.prototype.toString = function() {
+    return '' + this._wrapped;
+  };
 
   // AMD registration happens at the end for compatibility with AMD loaders
   // that may not enforce next-turn semantics on modules. Even though general
@@ -6090,683 +11392,452 @@ module.exports = Vector;
       return _;
     });
   }
-}).call(this);
+}.call(this));
 
-},{}],19:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 'use strict';
-
-var utils = require('../utils.js'),
-    DownloadTask = require('../models/DownloadTask.js'),
-    TASK_STATES = DownloadTask.STATES,
-    TASK_TYPES = DownloadTask.TYPES;
-
-module.exports = Ember.Controller.extend({
-
-    poolSize: 4,
-
-    downloading: [],
-
-    queue: [],
-
-    onQueue: function(){
-        while (this.next()) {}
-    }.observes('queue.length'),
-
-    isActive: function(){
-        return this.get('downloading.length') > 0;
-    }.property('downloading.length'),
-
-    next: function(){
-        var downloading = this.get('downloading'),
-            queue = this.get('queue'),
-            poolSize = this.get('poolSize'),
-            task;
-        if (downloading.get('length') < poolSize && queue.get('length') > 0) {
-            task = queue.popObject();
-            this.downloadOne(task);
-            return true;
-        }
-        else {
-            return false;
-        }
-    },
-
-    downloadOne: function(task){
-        var _self = this,
-            resolve = task.get('resolve');
-
-        task.set('state', TASK_STATES.DOWNLOADING);
-        this.get('downloading').pushObject(task);
-
-        var request = new XMLHttpRequest();
-        request.open('GET', task.get('url'));
-        request.onload = complete;
-        request.onerror = retry;
-        request.ontimeout = retry;
-        request.onabort = retry;
-        request.onprogress = progress;
-        request.responseType = task.get('type');
-        request.send();
-
-        function complete(){
-            _self.get('downloading').removeObject(task);
-            task.set('state', TASK_STATES.FINISHED);
-            resolve(request.response);
-            _self.next();
-        }
-
-        function progress(evt){
-            if (evt.lengthComputable) {
-                task.setProperties({
-                    totalSize: evt.total,
-                    progress: Math.floor(100*evt.loaded/evt.total)
-                });
-            }
-        }
-
-        function retry(){
-            _self.tryLater(task);
-        }
-
-    },
-
-    tryLater: function(task){
-        this.get('downloading').removeObject(task);
-        this.get('queue').pushObject(task);
-        this.next();
-    }
-
-});
-},{"../models/DownloadTask.js":31,"../utils.js":42}],20:[function(require,module,exports){
-'use strict';
-
-var setupControllers = require('./controllers.js'),
-    setupRoutes = require('./router.js'),
-    setupViews = require('./views.js');
-
-window.Promise = Promise || Ember.RSVP.Promise;
-jQuery.event.props.push( "dataTransfer" );
-
-var App = window.App = Ember.Application.create({
-    LOG_TRANSITIONS: true
-});
-
-setupRoutes(App);
-setupControllers(App);
-setupViews(App);
-},{"./controllers.js":21,"./router.js":35,"./views.js":43}],21:[function(require,module,exports){
-'use strict';
-
-module.exports = function(App){
-
-
-    //=======================
-    // SFM Controllers
-    //=======================
-
-    App.DownloadSchedulerController = require('./SfmControllers/DownloadSchedulerController.js');
-
-    //=======================
-    // App Controllers
-    //=======================
-
-    App.ApplicationController = Ember.ObjectController.extend();
-
-    //=======================
-    // Welcome Screen
-    //=======================
-
-    App.WelcomeController = Ember.ObjectController.extend({
-        // demos, projects
-
-        needs: ['downloadScheduler'],
-
-        downloading: Ember.computed.alias('controllers.downloadScheduler.downloading')
-
-    });
-
-    App.DemosController = Ember.ArrayController.extend({
-        itemController: 'demo'
-    });
-
-    App.DemoController = require('./controllers/DemoController.js');
-
-    App.ProjectsController = require('./controllers/ProjectsController.js');
-
-    App.ProjectThumbnailController = require('./controllers/ProjectThumbnailController.js');
-
-    //=======================
-    // Workspace
-    //=======================
-
-    App.WorkspaceController = require('./controllers/WorkspaceController.js');
-
-    //=======================
-    // Workspace.Images
-    //=======================
-
-    App.WorkspaceImagesController = require('./controllers/WorkspaceImagesController.js');
-
-    App.WorkspaceImageThumbnailController = Ember.ObjectController.extend({
-        actions: {
-            expand: function(){
-                this.transitionToRoute('workspace.images.detail', this.get('model'));
-            }
-        }
-    });
-
-    App.WorkspaceImagesDetailController = require('./controllers/WorkspaceImagesDetailController.js');
-
-
-    //=======================
-    // Workspace.Extractor
-    //=======================
-
-    App.WorkspaceExtractorController = Ember.ArrayController.extend({
-        itemController: 'workspace.extractor.thumbnail'
-    });
-
-    App.WorkspaceExtractorThumbnailController = Ember.ObjectController.extend({
-        actions: {
-            expand: function(){
-                this.transitionToRoute('workspace.extractor.image', this.get('model'));
-            }
-        }
-    });
-
-    App.WorkspaceExtractorImageController = require('./controllers/WorkspaceExtractorImageController.js');
-
-
-    //=======================
-    // Workspace.Matches
-    //=======================
-
-    App.MatchesController = Ember.ObjectController.extend();
-
-    App.MatchesPairController = Ember.ObjectController.extend({
-        needs: ['matches']
-    });
-
-    App.TracksController = Ember.ObjectController.extend();
-
-    //=======================
-    // Workspace.Register
-    //=======================
-
-    App.WorkspaceRegisterController = Ember.ObjectController.extend({
-
-        focus: null,
-
-        actions: {
-            focus: function(cam){
-                this.set('focus', cam);
-            }
-        }
-
-    });
-
-    //=======================
-    // Workspace.Stereo
-    //=======================
-
-    App.WorkspaceMvsController = Ember.Controller.extend();
-
-};
-},{"./SfmControllers/DownloadSchedulerController.js":19,"./controllers/DemoController.js":22,"./controllers/ProjectThumbnailController.js":23,"./controllers/ProjectsController.js":24,"./controllers/WorkspaceController.js":25,"./controllers/WorkspaceExtractorImageController.js":26,"./controllers/WorkspaceImagesController.js":27,"./controllers/WorkspaceImagesDetailController.js":28}],22:[function(require,module,exports){
-"use strict";
 
 var _ = require('underscore');
 
-var IDBAdapter = require('../store/StorageAdapter.js'),
+var Project = require('../models/Project.js'),
+    IDBAdapter = require('../store/StorageAdapter.js'),
     utils = require('../utils.js'),
-    sfmstore = require('../store/sfmstore.js'),
     settings = require('../settings.js'),
-    STORES = settings.STORES,
-    DownloadTask = require('../models/DownloadTask.js'),
-    TYPES = DownloadTask.TYPES;
+    LOCAL_STORES = settings.LOCAL_STORE,
+    demos = require('../../../demo/demos.js'),
+    DemoProject = require('../models/DemoProject.js');
 
-var MVS_PATH = '/mvs/option.txt.pset.json',
-    BUNDLER_PATH = '/bundler/bundler.json';
 
-module.exports = Ember.ObjectController.extend({
+module.exports = Ember.Controller.extend({
 
-    needs: ['downloadScheduler'],
+    projects: [],
 
-    scheduler: Ember.computed.alias('controllers.downloadScheduler'),
+    demos: [],
 
-    isInprogress: false,
+    currentProject: null,
 
     adapter: null,
 
-    isConfirmDelete: false,
+    /**
+     * sync adapter and localstorage when current project changed
+     */
+    onSwichProject: function(){
 
-    isDeleting: false,
+        Ember.Logger.debug('project switch triggered!');
 
-    actions: {
+        var project = this.get('currentProject'),
+            oldadapter = this.get('adapter');
 
-        'delete': function(){
-            this.set('isConfirmDelete', false);
-            this.promiseDelete();
-        },
-
-        download: function(){
-            this.promiseLoad();
-        },
-
-        enter: function(){
-            sfmstore.setCurrentProject(this.get('model'));
-            this.transitionToRoute('workspace');
-        },
-
-        confirmDelete: function(){
-            // toggle behaviour
-            if (this.get('isConfirmDelete')) {
-                this.set('isConfirmDelete', false);
-            }
-            else {
-                this.set('isConfirmDelete', true);
-            }
-        },
-
-        cancelDelete: function(){
-            this.set('isConfirmDelete', false);
+        // release old connection
+        if (oldadapter) {
+            oldadapter.close();
+            this.set('adapter', null);
         }
 
-    },
-
-    promiseDelete: function(){
-        var _self = this;
-        sfmstore
-            .promiseProject(function(project){
-                if (project.get('name') === _self.get('name')) {
-                    sfmstore.setCurrentProject(null);
-                }
-            })
-            .catch()
-            .then(function(){
-                _self.set('isDeleting', true);
-                var request = indexedDB.deleteDatabase(_self.get('name'));
-                request.onsuccess = function(){
-                    _self.setProperties({
-                        'finishedImages': [],
-                        'finishedSIFT': [],
-                        'bundlerFinished': false,
-                        'mvsFinished': false
-                    });
-                    _self.set('isDeleting', false);
-                };
-            });
-    },
-
-    promiseLoad: function(){
-        Ember.Logger.debug('project storage adapter created');
-        var adapter = new IDBAdapter(this.get('name'));
-        this.set('adapter', adapter);
-        this.promiseResume().then(this.promiseDownload.bind(this));
-    },
-
-    promiseResume: function(){
-        var _self = this,
-            adapter = new IDBAdapter(this.get('name'));
-
-        this.set('adapter', adapter);
-        this.set('isInprogress', true);
-
-        var mvsResumed = adapter
-            .promiseData(STORES.SINGLETONS, STORES.MVS)
-            .then(function(){
-                _self.set('mvsFinished', true);
-            })
-            .catch(function(){
-                Ember.Logger.debug('Data is not avaliable in IDB, need download.');
-            });
-
-        var bundlerResumed = adapter
-            .promiseData(STORES.SINGLETONS, STORES.BUNDLER)
-            .then(function(){
-                _self.set('bundlerFinished', true);
-            })
-            .catch(function(){
-                Ember.Logger.debug('Data is not avaliable in IDB, need download.');
-            });
-
-        var imagesResumed = adapter
-            .promiseAll(STORES.IMAGES)
-            .then(function(results){
-                var finished = results.map(function(res){
-                    return res.value.filename;
-                });
-                _self.set('finishedImages', finished);
-            })
-            .catch(function(){
-                Ember.Logger.debug('Data is not avaliable in IDB, need download.');
-            });
-
-        var siftResumed = adapter
-            .promiseAll(STORES.FEATURES)
-            .then(function(results){
-                var finished = results.map(function(res){
-                    return res.key;
-                });
-                _self.set('finishedSIFT', finished);
-            })
-            .catch(function(){
-                Ember.Logger.debug('Data is not avaliable in IDB, need download.');
-            });
-
-        return Promise.all([
-            imagesResumed,
-            siftResumed,
-            bundlerResumed,
-            mvsResumed
-        ]);
-    },
-
-
-    promiseDownload: function(){
-        var _self = this;
-        if (this.get('downloaded')) {
-            return Promise.resolve();
+        // establish new connection
+        if (project) {
+            this.set('adapter', new IDBAdapter(project.get('name')));
         }
-        return this.promiseDownloadImages()
-            .then(this.promiseDownloadSIFT.bind(this))
-            .then(this.promiseDownloadBundler.bind(this))
-            .then(this.promiseDownloadMVS.bind(this))
-            .catch(function(msg){
-                Ember.Logger.debug(msg);
-                Ember.Logger.debug('download error');
-                _self.set('isInprogress', false);
-            })
-            .then(function(){
-                _self.set('isInprogress', false);
-            });
-    },
 
-
-    promiseDownloadImages: function(){
-        if (this.get('imagesFinished')) {
-            return Promise.resolve();
+        // sync to localstorage
+        if (project) {
+            localStorage.setItem(LOCAL_STORES.PROJECT, project.get('name'));
         }
-        var unfinished = _.difference(this.get('images'), this.get('finishedImages'));
-        return Promise.all(unfinished.map(this.promiseProcessOneImage.bind(this)));
-    },
-
-
-    promiseDownloadSIFT: function(){
-
-        var adapter = this.get('adapter'),
-            root = this.get('root'),
-            _self = this;
-
-        if (this.get('hasSIFT') && this.get('siftFinished')) {
-            return Promise.resolve();
+        else {
+            localStorage.removeItem(LOCAL_STORES.PROJECT);
         }
-        return adapter.promiseAll(STORES.IMAGES)
-            .then(function(images){
-                return Promise.all(images
-                    .filter(function(res){
-                        return _self.get('finishedSIFT').indexOf(res.key) === -1;
-                    })
-                    .map(function(result){
-                        return _self.promiseDownloadOneSIFT(result.key, result.value);
-                    }));
-            });
-    },
 
-
-    promiseDownloadBundler: function(){
-        if (!this.get('hasBundler')) {
-            return Promise.reject('Bundler result is not avaliable in this demo!');
-        }
-        if (this.get('bundlerFinished')) {
-            return Promise.resolve();
-        }
-        var adapter = this.get('adapter'),
-            _self = this,
-            url = this.get('root')+BUNDLER_PATH,
-            queue = this.get('scheduler.queue');
-
-        var jsonPromise = new Promise(function(resolve, reject){
-            var task = DownloadTask.create({
-                name: 'Camera Registration',
-                demo: _self,
-                resolve: resolve,
-                url: url,
-                type: TYPES.JSON
-            });
-            queue.pushObject(task);
-        });
-
-        return jsonPromise
-            .then(function(data){
-                return adapter.promiseSetData(STORES.SINGLETONS, STORES.BUNDLER, data);
-            })
-            .then(function(){
-                _self.set('bundlerFinished', true);
-                Ember.Logger.debug('Bundler downloaded and stored');
-            });
-    },
-
-
-    promiseDownloadMVS: function(){
-        if (!this.get('hasMVS')) {
-            return Promise.reject('MVS result is not avaliable in this demo!');
-        }
-        if (this.get('mvsFinished')) {
-            return Promise.resolve();
-        }
-        var _self = this,
-            adapter = this.get('adapter'),
-            url = this.get('root')+MVS_PATH,
-            queue = this.get('scheduler.queue');
-
-        var jsonPromise = new Promise(function(resolve, reject){
-            var task = DownloadTask.create({
-                name: 'Multi-View Stereo',
-                demo: _self,
-                resolve: resolve,
-                url: url,
-                type: TYPES.JSON
-            });
-            queue.pushObject(task);
-        });
-
-        return jsonPromise
-            .then(function(data){
-                return adapter.promiseSetData(STORES.SINGLETONS, STORES.MVS, data);
-            })
-            .then(function(){
-                _self.set('mvsFinished', true);
-                Ember.Logger.debug('MVS downloaded and stored');
-            });
-    },
+    }.observes('currentProject'),
 
 
     /**
-     *
-     * @param {String} _id
-     * @param {IDBImage} image
+     * resolve or reject based on the presence of currentProject
      * @returns {Promise}
      */
-    promiseDownloadOneSIFT: function(_id, image){
-        var _self = this,
-            adapter = this.get('adapter'),
-            rawName = image.filename.split('.')[0],
-            siftUrl = this.get('root') + '/sift.json/' + rawName + '.json',
-            queue = this.get('scheduler.queue');
-
-        var jsonPromise = new Promise(function(resolve, reject){
-            var task = DownloadTask.create({
-                name: rawName,
-                demo: _self,
-                resolve: resolve,
-                url: siftUrl,
-                type: TYPES.JSON
-            });
-            queue.pushObject(task);
-        });
-
-        return jsonPromise
-            .then(function(sift){
-                return adapter.promiseSetData(STORES.FEATURES, _id, sift.features);
-            })
-            .then(function(){
-                _self.get('finishedSIFT').addObject(_id);
-            });
-    },
-
-    promiseProcessOneImage: function(name){
-        var _self = this,
-            imageUrl = this.get('root') + '/images/' + name,
-            adapter = this.get('adapter'),
-            queue = this.get('scheduler.queue');
-
-        var blobPromise = new Promise(function(resolve, reject){
-            var task = DownloadTask.create({
-                name: name,
-                demo: _self,
-                resolve: resolve,
-                url: imageUrl,
-                type: TYPES.BLOB
-            });
-            queue.pushObject(task);
-        });
-
-        return blobPromise
-            .then(function(blob){
-                blob.name = name;
-                return adapter.processImageFile(blob);
-            })
-            .then(function(image){
-                _self.get('finishedImages').addObject(name);
-            });
-    }
-
-});
-},{"../models/DownloadTask.js":31,"../settings.js":39,"../store/StorageAdapter.js":40,"../store/sfmstore.js":41,"../utils.js":42,"underscore":18}],23:[function(require,module,exports){
-'use strict';
-
-module.exports = Ember.ObjectController.extend({
-
-    needs: ['application'],
-
-    store: Ember.computed.alias('controllers.application.model'),
-
-    isDeleting: false,
-
-    isConfirmDelete: false,
-
-    actions: {
-
-        'delete': function(){
-            this.set('isConfirmDelete', false);
-            this.promiseDelete()
-        },
-
-        confirmDelete: function(){
-            // toggle
-            if (this.get('isConfirmDelete')) {
-                this.set('isConfirmDelete', false);
-            }
-            else {
-                this.set('isConfirmDelete', true);
-            }
-
-        },
-
-        cancelDelete: function(){
-            this.set('isConfirmDelete', false);
+    promiseProject: function(){
+        var project = this.get('currentProject');
+        if (project === null) {
+            return Promise.reject();
         }
-
+        else {
+            return Promise.resolve(project);
+        }
     },
 
-    promiseDelete: function(){
+
+    promiseDeleteProject: function(project){
+
         var _self = this,
-            project = this.get('model'),
-            store = this.get('store'),
-            currentProject = store.get('currentProject');
+            currentProject = this.get('currentProject');
+
         if (currentProject && currentProject.get('name') === project.get('name')) {
-            store.set('currentProject', null);
+            this.set('currentProject', null);
         }
+
         return new Promise(function(resolve, reject){
             _self.set('isDeleting', true);
             var request = indexedDB.deleteDatabase(project.get('name'));
             request.onsuccess = function(){
-                store.get('projects').removeObject(project);
+                _self.get('projects').removeObject(project);
                 resolve(project);
             };
         });
-    }
 
-});
-},{}],24:[function(require,module,exports){
-'use strict';
+    },
 
-var ProjectModel = require('../models/Project.js');
 
-module.exports = Ember.ArrayController.extend({
+    /**
+     * check is name avaliable or not
+     * @param {string} name
+     * @returns {Boolean}
+     */
+    nameAvaliable: function(name){
+        var demos = this.get('demos'),
+            projects = this.get('projects');
+        return _.isUndefined(demos.findBy('name', name)) && _.isUndefined(projects.findBy('name', name));
+    },
 
-    itemController: 'project.thumbnail',
 
-    needs: ['application'],
+    initRecover: function(){
 
-    newProjectName: 'new-project',
+        // Recover Projects
 
-    store: Ember.computed.alias('controllers.application.model'),
+        var storedProjects = utils.getLocalStorage(LOCAL_STORES.PROJECTS);
 
-    isValidName: function(){
-        var name = this.get('newProjectName');
-        return name !== '' && this.get('store').nameAvaliable(name);
-    }.property('newProjectName'),
+        if (_.isArray(storedProjects)) {
+            this.set('projects', storedProjects.map(function(p){
+                return Project.create(p);
+            }));
+        }
+
+        // Recover Demos
+
+        this.set('demos', demos.map(function(config){ return DemoProject.create(config.description); }));
+
+        // Recover Current Project
+
+        var currentProject,
+            projectName = localStorage.getItem(LOCAL_STORES.PROJECT);
+
+        if (_.isString(projectName)) {
+            currentProject = this.get('projects').findBy('name', projectName) || this.get('demos').findBy('name', projectName) || null;
+            this.set('currentProject', currentProject);
+        }
+
+
+    }.on('init'),
+
+
+    /**
+     * sync projects to localstrorage when new ones added
+     */
+    watchProjects: function(){
+        this.send('syncProjects');
+    }.observes('projects.length'),
 
     actions: {
 
-        createProject: function(){
-            if (this.get('isValidName')) {
-                this.get('store.projects')
-                    .pushObject(ProjectModel.create({
-                        name: this.get('newProjectName')
-                    }));
-            }
+        enter: function(project){
+            this.set('currentProject', project);
+            this.transitionToRoute('workspace.images');
         },
 
-        enter: function(project){
-            var store = this.get('store');
-            store.set('currentProject', project);
-            this.transitionToRoute('workspace');
+        createProject: function(project){
+            this.get('projects').pushObject(project);
+        },
+
+        syncDemos: function(){
+            utils.setLocalStorage(LOCAL_STORES.DEMOS, this.get('demos')
+                .map(function(model){
+                    return model.getProperties(model.get('storedProperties'));
+                }));
+        },
+
+        syncProjects: function(){
+            utils.setLocalStorage(LOCAL_STORES.PROJECTS, this.get('projects')
+                .map(function(model){
+                    return model.getProperties(model.get('storedProperties'));
+                }));
         }
 
     }
 
 });
-},{"../models/Project.js":34}],25:[function(require,module,exports){
+},{"../../../demo/demos.js":4,"../models/DemoProject.js":66,"../models/Project.js":69,"../settings.js":87,"../store/StorageAdapter.js":88,"../utils.js":89,"underscore":26}],28:[function(require,module,exports){
+module.exports = Ember.Controller.extend({
+
+    actions: {
+
+        display: function(msg){
+
+        }
+
+    }
+
+});
+},{}],29:[function(require,module,exports){
+'use strict';
+
+var utils = require('../utils.js'),
+    settings = require('../settings.js'),
+    RESOURCE = settings.RESOURCE,
+    Image = require('../models/Image.js');
+
+module.exports = Ember.Controller.extend({
+
+    needs: ['context'],
+
+    ctx: Ember.computed.alias('controllers.context'),
+
+    model: Ember.computed.alias('project'),
+
+    project: Ember.computed.alias('ctx.currentProject'),
+
+    root: Ember.computed.alias('model.root'),
+
+    adapter: Ember.computed.alias('ctx.adapter'),
+
+    isDemo: Ember.computed.alias('model.isDemo'),
+
+    downloader: Ember.inject.service(),
+
+    promiseResource: function(name, metadata){
+        var project = this.get('project');
+        if (project.get('isDemo')) {
+            return this.promiseDemoResource(name, metadata);
+        }
+        else {
+            return this.promiseLocalResource(name, metadata);
+        }
+    },
+
+    promiseDemoResource: function(name, metadata){
+
+        if (!this.get('model') || !this.get('model.isDemo')) {
+            throw 'Demo object invalid';
+        }
+
+        var root = this.get('root'),
+            downloader = this.get('downloader');
+
+        var url, datatype, desc;
+
+        switch (name) {
+            case RESOURCE.IMAGES:
+                url = root+name;
+                datatype = 'json';
+                desc = 'Download image list';
+                break;
+            case RESOURCE.FULLIMAGES:
+                // metadata is the Image object
+                url = root+'/images/'+metadata.get('name')+metadata.get('extension');
+                datatype = 'arraybuffer';
+                desc = metadata.get('name')+metadata.get('extension');
+                break;
+            case RESOURCE.FEATURE_POINTS:
+                // metadata is the Image object
+                url = root+name+'/'+metadata.get('name')+'.point';
+                datatype = 'arraybuffer';
+                desc = metadata.get('name')+'.points';
+                break;
+            case RESOURCE.FEATURE_VECTORS:
+                // metadata is the Image object
+                url = root+name+'/'+metadata.get('name')+'.vector';
+                datatype = 'arraybuffer';
+                desc = metadata.get('name')+'.vector';
+                break;
+            case RESOURCE.RAW_MATCHES:
+                url = root+name;
+                datatype = 'json';
+                desc = 'Loading raw match table';
+                break;
+            case RESOURCE.ROBUST_MATCHES:
+                // metadata is the Image object
+                url = root+name;
+                datatype = 'json';
+                desc = 'Loading robust match table';
+                break;
+            case RESOURCE.MVS_POINTS:
+                url = root+name;
+                datatype = 'arraybuffer';
+                desc = 'Dense point cloud';
+                break;
+            case RESOURCE.MVS_COLORS:
+                url = root+name;
+                datatype = 'arraybuffer';
+                desc = 'Dense point cloud texture';
+                break;
+            case RESOURCE.SPARSE_POINTS:
+                url = root+name;
+                datatype = 'arraybuffer';
+                desc = 'Sparse point cloud';
+                break;
+            case RESOURCE.SPARSE_COLORS:
+                url = root+name;
+                datatype = 'arraybuffer';
+                desc = 'Sparse point cloud texture';
+                break;
+            case RESOURCE.CAMERAS:
+                url = root+name;
+                datatype = 'json';
+                desc = 'Loading camera parameters';
+                break;
+            default:
+                throw 'Invalid resource';
+        }
+
+        return downloader.assign(url, datatype, desc).get('promise');
+
+    },
+
+    promiseLocalResource: function(name, metadata){
+
+        var adapter = this.get('adapter');
+
+        switch (name) {
+            case RESOURCE.IMAGES:
+                return adapter
+                    .promiseAll(name)
+                    .then(function(results){
+                        return results.map(function(entry){
+                            var key = entry.key;
+                            var value = entry.value;
+                            value.id = key;
+                            return value;
+                        });
+                    });
+                break;
+            case RESOURCE.FULLIMAGES:
+                // metadata is the Image object
+                return adapter.promiseData(name, metadata.get('id'));
+                break;
+            default:
+                throw 'Invalid resource';
+        }
+
+    }
+
+
+});
+},{"../models/Image.js":67,"../settings.js":87,"../utils.js":89}],30:[function(require,module,exports){
+'use strict';
+
+var utils = require('../utils.js'),
+    Worker = require('../models/Worker.js'),
+    settings = require('../settings.js'),
+    STATES = settings.STATES,
+    TASK_STATE = settings.TASK_STATES,
+    TASKS = settings.TASKS;
+
+//===================================================================
+
+
+/**
+ * The Scheduler maintains:
+ * 1. Worker Pool
+ * 2. Task Queue
+ * It's Controller[] of Worker[]
+ * Application set its [poolSize] to change its size, [#promiseTask] to assign task,
+ * [#suspend] and [#resume] to control execution
+ */
+module.exports = Ember.Controller.extend({
+
+    workers: [],
+
+    queue: [],
+
+    state: STATES.STOPPED,
+
+    poolSize: 4,
+
+    script: null,
+
+    /**
+     * Primise the worker script is loaded
+     * @returns {Promise}
+     */
+    promiseReady: function(){
+        var _self = this;
+        if (!this.promised) {
+            this.promised = utils.promiseScript()
+                .then(function(dataurl){
+                    _self.set('script', dataurl);
+                });
+        }
+        return this.promised;
+    },
+
+
+    /**
+     * Promise to finish a task
+     * @param task
+     * @returns {Promise}
+     */
+    promiseTask: function(task){
+
+        task.set('state', TASK_STATE.PENDING);
+
+        switch (task.get('type')) {
+            default:
+                throw 'Task not implemented yet';
+        }
+
+        return new Promise(function(resolve, reject){
+            task.set('callback', resolve);
+        });
+
+    },
+
+
+    suspend: function(){
+
+    },
+
+    resume: function(){
+
+    },
+
+    onResize: function(){
+
+    }.observes('poolSize'),
+
+    onStateChange: function(){
+        if (this.get('state') === STATES.STOPPED) {
+            this.suspend();
+        }
+        else if (this.get('state') === STATES.RUNNING) {
+            this.resume();
+        }
+    }.observes('state')
+
+});
+},{"../models/Worker.js":71,"../settings.js":87,"../utils.js":89}],31:[function(require,module,exports){
 "use strict";
 
 var _ = require('underscore');
 
-var sfmstore = require('../store/sfmstore.js'),
-    Image = require('../models/Image.js'),
-    Matches = require('../models/Matches.js'),
+var Image = require('../models/Image.js'),
     utils = require('../utils.js'),
     settings = require('../settings.js'),
-    STORES = settings.STORES;
+    RESOURCE = settings.RESOURCE;
 
-module.exports = Ember.ObjectController.extend({
+module.exports = Ember.Controller.extend({
+
+    needs: ['context', 'projectResource', 'scheduler'],
+
+    scheduler: Ember.computed.alias('controllers.scheduler'),
+
+    workers: Ember.computed.alias('scheduler.workers'),
+
+    threadPoolSize: Ember.computed.alias('scheduler.poolSize'),
+
+    resource: Ember.computed.alias('controllers.projectResource'),
+
+    ctx: Ember.computed.alias('controllers.context'),
+
+    adapter: Ember.computed.alias('ctx.adapter'),
 
     isRunning: false,
-
-    imageModels: null,
-
-    threadPoolSize: 4,
-
-    expandInput: true,
-    expandProgress: true,
-    expandRegister: true,
-    expandStereo: true,
-
-    onSwitchProject: function(){
-        this.set('imageModels', null);
-    }.observes('model'),
 
     actions: {
 
@@ -6776,109 +11847,1224 @@ module.exports = Ember.ObjectController.extend({
 
         back: function(){
             this.transitionToRoute('welcome');
+        }
+
+    },
+
+    images: function(){
+        return this.get('resource')
+            .promiseResource(RESOURCE.IMAGES)
+            .then(function(images){
+                return images.map(function(image){
+                    image._id = image.id;
+                    return Image.create(image);
+                }).sortBy('id');
+            });
+    }.property('model')
+
+});
+},{"../models/Image.js":67,"../settings.js":87,"../utils.js":89,"underscore":26}],32:[function(require,module,exports){
+'use strict';
+
+window.Promise = Promise || Ember.RSVP.Promise;
+jQuery.event.props.push( "dataTransfer" );
+
+var App = window.App = Ember.Application.create({
+    LOG_TRANSITIONS: true
+});
+
+
+//=============================
+// Router
+//=============================
+
+App.Router.map(function() {
+
+    this.route('welcome', function(){
+        this.route('demo', { path: '/demo/:name' });
+    });
+
+    this.route('workspace', function(){
+
+        this.route('images', function(){
+            this.route('detail', { path: '/:id' });
+        });
+
+        this.route('extractor', function(){
+            this.route('image', { path: '/:id' });
+        });
+
+        this.route('matcher', function(){
+            this.route('pair');
+        });
+
+        this.route('register', function(){});
+
+        this.route('mvs', function(){});
+
+    });
+
+});
+
+
+//=============================
+// Routes
+//=============================
+
+App.ApplicationRoute = Ember.Route.extend();
+App.IndexRoute = require('./routes/Index.js');
+App.WelcomeRoute = require('./routes/Welcome.js');
+App.WelcomeIndexRoute = require('./routes/WelcomeIndex.js');
+App.WelcomeDemoRoute = require('./routes/WelcomeDemo.js');
+App.WorkspaceRoute = require('./routes/Workspace.js');
+App.WorkspaceIndexRoute = Ember.Route.extend();
+App.WorkspaceImagesRoute = require('./routes/WorkspaceImages.js');
+App.WorkspaceImagesIndexRoute = Ember.Route.extend();
+App.WorkspaceImagesDetailRoute = require('./routes/WorkspaceImagesDetail.js');
+App.WorkspaceExtractorRoute = require('./routes/WorkspaceExtractor.js');
+App.WorkspaceExtractorIndexRoute = Ember.Route.extend();
+App.WorkspaceExtractorImageRoute = require('./routes/WorkspaceExtractorImage.js');
+App.WorkspaceMatcherRoute = require('./routes/WorkspaceMatcher.js');
+App.WorkspaceMatcherIndexRoute = Ember.Route.extend();
+App.WorkspaceMatcherPairRoute = require('./routes/WorkspaceMatcherPair.js');
+App.WorkspaceRegisterRoute = require('./routes/WorkspaceRegister.js');
+App.WorkspaceRegisterIndexRoute = Ember.Route.extend();
+App.WorkspaceMvsRoute = require('./routes/WorkspaceMvs.js');
+App.WorkspaceMvsIndexRoute = Ember.Route.extend();
+
+
+//============================================
+// Components
+//============================================
+
+App.MultiViewStereoComponent = require('./components/multi-view-stereo.js');
+App.SparseReconstructionComponent = require('./components/sparse-reconstruction.js');
+App.ProjectThumbnailComponent = require('./components/project-thumbnail.js');
+App.ProjectCreatorComponent = require('./components/project-creator.js');
+App.WorkspaceProgressBarComponent = require('./components/workspace-progress-bar.js');
+App.DemoThumbnailComponent = require('./components/demo-thumbnail.js');
+App.MatchGridComponent = require('./components/match-grid.js');
+App.MatchGridNodeComponent = require('./components/match-grid-node.js');
+App.ImageDetailComponent = require('./components/image-detail.js');
+App.DynamicImageComponent = require('./components/dynamic-image.js');
+App.ImageImporterComponent = require('./components/image-importer.js');
+App.DemoDetailComponent = require('./components/demo-detail.js');
+App.CpuSettingComponent = require('./components/cpu-setting.js');
+App.CpuSettingNodeComponent = require('./components/cpu-setting-node.js');
+App.WorkspaceControlPanelComponent = require('./components/workspace-control-panel.js');
+App.VisualFeaturesComponent = require('./components/visual-features.js');
+App.FloatingWindowComponent = require('./components/floating-window.js');
+App.VisualMatchingComponent = require('./components/visual-matching.js');
+App.MatchModeTabComponent = require('./components/match-mode-tab.js');
+App.ImageGalleryComponent = require('./components/image-gallery.js');
+App.MessageTrayComponent = require('./components/message-tray.js');
+App.BasicMessageComponent = require('./components/basic-message.js');
+App.TaskMessageComponent = require('./components/task-message.js');
+
+
+//=======================
+// Services
+//=======================
+
+App.MessagesService = require('./services/messgaes.js');
+App.DownloaderService = require('./services/downloader.js');
+
+//=======================
+// Resource Controllers
+//=======================
+
+App.ContextController = require('./ResourceControllers/context.js');
+App.SchedulerController = require('./ResourceControllers/scheduler.js');
+App.ProjectResourceController = require('./ResourceControllers/project-resource.js');
+App.MessageController = require('./ResourceControllers/message.js');
+
+//=======================
+// Route Controllers
+//=======================
+
+App.WelcomeController = require('./controllers/Welcome.js');
+App.WelcomeDemoController = require('./controllers/WelcomeDemo.js');
+App.WorkspaceController = require('./ResourceControllers/workspace.js');
+App.WorkspaceImagesController = require('./controllers/WorkspaceImages.js');
+App.WorkspaceImagesDetailController = require('./controllers/WorkspaceImagesDetail.js');
+App.WorkspaceExtractorController = require('./controllers/WorkspaceExtractor.js');
+App.WorkspaceExtractorImageController = require('./controllers/WorkspaceExtractorImage.js');
+App.WorkspaceMatcherController = require('./controllers/WorkspaceMatcher.js');
+App.WorkspaceMatcherPairController = require('./controllers/WorkspaceMatcherPair.js');
+App.TracksController = Ember.ObjectController.extend();
+App.WorkspaceRegisterController = require('./controllers/WorkspaceRegister.js');
+App.WorkspaceMvsController = Ember.Controller.extend();
+},{"./ResourceControllers/context.js":27,"./ResourceControllers/message.js":28,"./ResourceControllers/project-resource.js":29,"./ResourceControllers/scheduler.js":30,"./ResourceControllers/workspace.js":31,"./components/basic-message.js":33,"./components/cpu-setting-node.js":34,"./components/cpu-setting.js":35,"./components/demo-detail.js":36,"./components/demo-thumbnail.js":37,"./components/dynamic-image.js":38,"./components/floating-window.js":39,"./components/image-detail.js":40,"./components/image-gallery.js":41,"./components/image-importer.js":42,"./components/match-grid-node.js":43,"./components/match-grid.js":44,"./components/match-mode-tab.js":45,"./components/message-tray.js":46,"./components/multi-view-stereo.js":47,"./components/project-creator.js":48,"./components/project-thumbnail.js":49,"./components/sparse-reconstruction.js":50,"./components/task-message.js":51,"./components/visual-features.js":52,"./components/visual-matching.js":53,"./components/workspace-control-panel.js":54,"./components/workspace-progress-bar.js":55,"./controllers/Welcome.js":56,"./controllers/WelcomeDemo.js":57,"./controllers/WorkspaceExtractor.js":58,"./controllers/WorkspaceExtractorImage.js":59,"./controllers/WorkspaceImages.js":60,"./controllers/WorkspaceImagesDetail.js":61,"./controllers/WorkspaceMatcher.js":62,"./controllers/WorkspaceMatcherPair.js":63,"./controllers/WorkspaceRegister.js":64,"./routes/Index.js":72,"./routes/Welcome.js":73,"./routes/WelcomeDemo.js":74,"./routes/WelcomeIndex.js":75,"./routes/Workspace.js":76,"./routes/WorkspaceExtractor.js":77,"./routes/WorkspaceExtractorImage.js":78,"./routes/WorkspaceImages.js":79,"./routes/WorkspaceImagesDetail.js":80,"./routes/WorkspaceMatcher.js":81,"./routes/WorkspaceMatcherPair.js":82,"./routes/WorkspaceMvs.js":83,"./routes/WorkspaceRegister.js":84,"./services/downloader.js":85,"./services/messgaes.js":86}],33:[function(require,module,exports){
+module.exports = Ember.Component.extend({
+
+    messages: Ember.inject.service(),
+
+    queue: Ember.computed.alias('messages.queue'),
+
+    message: null, // need
+
+    tagName: 'li',
+
+    classNames: 'basic-message',
+
+    actions: {
+
+        dismiss: function(){
+            var message = this.get('message');
+            var queue = this.get('queue');
+            queue.removeObject(message);
+        }
+
+    }
+
+});
+},{}],34:[function(require,module,exports){
+'use strict';
+
+module.exports = Ember.Component.extend({
+
+    index: null, // need
+    
+    grid: null, // need
+
+    selected: Ember.computed.alias('grid.selected'),
+
+    hoverAt: Ember.computed.alias('grid.hoverAt'),
+
+    classNames: [
+        'controll-panel__cpu-setting__node'
+    ],
+
+    isEnabled: function(){
+        return this.get('index') < this.get('selected');
+    }.property('selected'),
+
+    willEnable: function(){
+        return (!this.get('isEnabled')) && (this.get('index') <= this.get('hoverAt'));
+    }.property('isEnabled', 'hoverAt'),
+
+    willDisable: function(){
+        return this.get('isEnabled') && (this.get('index') > this.get('hoverAt'));
+    }.property('isEnabled', 'hoverAt'),
+
+    mouseEnter: function(){
+        this.set('hoverAt', this.get('index'));
+    },
+
+    actions: {
+
+        enable: function(){
+            this.set('selected', this.get('index')+1);
+        }
+
+    }
+
+});
+},{}],35:[function(require,module,exports){
+'use strict';
+
+module.exports = Ember.Component.extend({
+
+    workspace: null, // need
+
+    size: Ember.computed.alias('workspace.threadPoolSize'),
+
+    classNames: ['controll-panel__cpu-setting'],
+
+    hoverAt: 4,
+
+    selected: 4,
+
+    onChangeSetting: function(){
+        this.set('size', this.get('selected'));
+    }.observes('selected')
+
+});
+},{}],36:[function(require,module,exports){
+'use strict';
+
+var _ = require('underscore');
+
+var utils = require('../utils.js');
+
+module.exports = Ember.Component.extend({
+
+    project: null, // need
+
+    ctx: null, // need
+
+    attributeBindings: ['style'],
+
+    classNames: ['welcome-screen__detail-body'],
+
+    classNameBindings: ['isExpanded'],
+
+    isExpanded: false,
+
+    style: function(){
+        return 'background-image: url(' + this.get('project.root') + '/profile.png)';
+    }.property('project.root'),
+
+    inflate: function(){
+        var _self = this;
+        return utils
+            .promiseDelay(0)
+            .then(function(){
+                _self.set('isExpanded', true);
+            });
+    }.on('didInsertElement'),
+
+    actions: {
+
+        close: function(){
+            var _self = this;
+            this.set('isExpanded', false);
+            utils.promiseDelay(500).then(function(){
+                _self.get('ctx').transitionToRoute('welcome');
+            });
+        },
+
+        enter: function(){
+            this.get('ctx').send('enter', this.get('project'));
+        }
+
+    }
+
+});
+},{"../utils.js":89,"underscore":26}],37:[function(require,module,exports){
+'use strict';
+
+module.exports = Ember.Component.extend({
+
+    project: null, // need
+
+    ctx: null, // need
+
+    isExpanded: Ember.computed.alias('project.isExpanded'),
+
+    tagName: 'div',
+
+    classNameBindings: ['isExpanded'],
+
+    classNames: 'welcome-screen__demos__thumbnail',
+
+    isConfirmDelete: false,
+
+    backgroundStyle: function(){
+        return 'background-image:url('+ this.get('project.root') +'/thumbnail.jpg)';
+    }.property('project.root')
+
+});
+},{}],38:[function(require,module,exports){
+'use strict';
+
+var DragZoomMixin = require('../mixins/DragZoom.js');
+
+module.exports = Ember.Component.extend(DragZoomMixin, {
+
+    tagName: 'img',
+
+    classNames: ['dynamic-image'],
+
+    attributeBindings: ['src'],
+
+    src: null, //need
+
+    wheel: function(e){
+        var img = this.get('element'),
+            currentWidth = img.width,
+            currentHeight = img.height,
+            speed = 0.04,
+            nextWidth = currentWidth * (e.deltaY < 0 ? 1+speed : 1-speed),
+            nextHeight = currentHeight * (e.deltaY < 0 ? 1+speed : 1-speed);
+        if (nextWidth >= img.naturalWidth) {
+            jQuery(img).css('width', img.naturalWidth).css('height', img.naturalHeight);
+        }
+        else if (nextWidth > 500) {
+            jQuery(img).css('width', nextWidth).css('height', nextHeight);
+        }
+    }
+
+});
+},{"../mixins/DragZoom.js":65}],39:[function(require,module,exports){
+module.exports = Ember.Component.extend({
+
+    actions: {
+        close: function(){
+            this.sendAction('close');
+        }
+    }
+
+});
+},{}],40:[function(require,module,exports){
+'use strict';
+
+var settings = require('../settings.js'),
+    RESOURCE = settings.RESOURCE;
+
+module.exports = Ember.Component.extend({
+
+    classNames: ['image-detail__container'],
+
+    image: null, // need
+
+    resource: null, // need
+
+    isLoadng: true,
+
+    dataurl: null,
+
+    onNewImage: function(){
+
+        this.set('isLoading', true);
+
+        var _self = this;
+
+        return this.get('resource')
+            .promiseResource(RESOURCE.FULLIMAGES, this.get('image'))
+            .then(function(data){
+                var domstring = URL.createObjectURL(new Blob([data]));
+                _self.set('dataurl', domstring);
+                _self.set('isLoading', false);
+            });
+
+    }.observes('image').on('init')
+
+});
+},{"../settings.js":87}],41:[function(require,module,exports){
+'use strict';
+
+module.exports = Ember.Component.extend({
+
+    tagName: 'ul',
+
+    classNames: 'image-gallery',
+
+    canImport: false,
+
+    actions: {
+        expand: function(item){
+            this.sendAction('expand', item);
+        }
+    }
+
+});
+},{}],42:[function(require,module,exports){
+'use strict';
+
+var _ = require('underscore');
+
+var Image = require('../models/Image.js');
+
+module.exports = Ember.Component.extend({
+
+    adapter: null, //need
+
+    images: null, //need
+
+    isActive: false,
+
+    tagName: 'div',
+
+    classNames: [
+        'main-container__input-gallery__input'
+    ],
+
+    classNameBindings: ['isActive'],
+
+    dragOver: function(e){
+        e.preventDefault();
+    },
+
+    dragEnter: function(e){
+        e.preventDefault();
+        this.set('isActive', true);
+    },
+
+    dragLeave: function(e){
+        e.preventDefault();
+        this.set('isActive', false);
+    },
+
+    drop: function(e){
+        var files = e.dataTransfer.files,
+            adapter = this.get('adapter'),
+            images = this.get('images');
+
+        e.preventDefault();
+        this.set('isActive', false);
+
+        // files is array like, not an array,
+        _.range(files.length).forEach(function(i){
+            var file = files[i];
+            console.log(file);
+            adapter
+                .processImageFile(file)
+                .then(function(data){
+                    var image = Image.create(data);
+                    images.pushObject(image);
+                });
+        });
+    }
+
+});
+},{"../models/Image.js":67,"underscore":26}],43:[function(require,module,exports){
+'use strict';
+
+module.exports = Ember.Component.extend({
+
+    data: null, // need
+
+    tagName: 'div',
+
+    classNames: 'match-grid__node',
+
+    classNameBindings: ['isDiag', 'isConnected', 'isRobust'],
+
+    from: null,
+
+    to: null,
+
+    isConnected: function(){
+        return !!this.get('data');
+    }.property('data'),
+
+    isRobust: function(){
+        return !!this.get('data.robust');
+    }.property('data'),
+
+    isDiag: function(){
+        return this.get('from') === this.get('to');
+    }.property('from', 'to'),
+
+    click: function(){
+        if (this.get('isRobust')) {
+            this.sendAction('action', { from: this.get('from'), to: this.get('to') });
+        }
+    }
+
+});
+},{}],44:[function(require,module,exports){
+'use strict';
+
+module.exports = Ember.Component.extend({
+
+    images: null, // need
+
+    matches: null, // need
+
+    tagName: 'div',
+
+    classNames: ['match-grid'],
+
+    hover: null,
+
+    mouseLeave: function(){
+        this.set('hover', null);
+    },
+
+    registerWheel: function(){
+        var _self = this;
+        jQuery(this.get('element')).on('wheel', function(e){
+            _self.wheel(e.originalEvent);
+        });
+    }.on('didInsertElement'),
+
+    gridsizeInit: function(){
+        return 2 * this.get('gridsizeMin');
+    }.property('gridsizeMin'),
+
+    gridsizeMax: function(){
+        return 100 * this.get('images.length');
+    }.property('images.length'),
+
+    gridsizeMin: function(){
+        return 40 * this.get('images.length');
+    }.property('images.length'),
+
+    wheel: function(e){
+        e.preventDefault();
+        var GRID_SIZE_MAX = this.get('gridsizeMax'),
+            GRID_SIZE_MIN = this.get('gridsizeMin');
+        var $grid = jQuery('.match-grid__body'),
+            currentSize = $grid.height(),
+            speed = 0.02,
+            nextSize = currentSize * (e.deltaY < 0 ? 1+speed : 1-speed);
+        if (nextSize > GRID_SIZE_MIN && nextSize < GRID_SIZE_MAX) {
+            $grid.css('width', nextSize).css('height', nextSize);
+        }
+    },
+
+    actions: {
+        enter: function(param){
+            this.sendAction('enter', param);
+        }
+    }
+
+});
+},{}],45:[function(require,module,exports){
+module.exports = Ember.Component.extend({
+
+    classNames: ['match-mode-tab'],
+
+    classNameBindings: ['isCurrent'],
+
+    isCurrent: function(){
+        return this.get('current') === this.get('mode');
+    }.property('current', 'mode'),
+
+    click: function(){
+        this.set('current', this.get('mode'))
+    }
+
+});
+},{}],46:[function(require,module,exports){
+module.exports = Ember.Component.extend({
+
+    messages: Ember.inject.service(),
+
+    queue: Ember.computed.alias('messages.queue'),
+
+    tagName: 'div',
+
+    classNames: 'message-tray',
+
+    expanded: true,
+
+    actions: {
+
+        expand: function(){
+            if (this.get('queue.length') > 0) {
+                this.set('expanded', true);
+            }
+        },
+
+        close: function(){
+            this.set('expanded', false);
+        }
+
+    }
+
+});
+},{}],47:[function(require,module,exports){
+"use strict";
+
+var THREE = require('three'),
+    OrbitControls = require('three-orbit-controls')(THREE);
+
+module.exports = Ember.Component.extend({
+
+    tagName: 'div',
+
+    className: [
+        'main-container__stereo-container'
+    ],
+
+    geometry: null,
+
+    camera: null,
+
+    scene: null,
+
+    light: null,
+
+    prepareRendering: function(){
+
+        var width = window.innerWidth,
+            height = window.innerHeight;
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setClearColor(0xe4e4e4, 1);
+        renderer.setSize(width, height);
+        this.get('element').appendChild(renderer.domElement);
+
+        var camera = new THREE.PerspectiveCamera(45, width/height, 0.1, 10000);
+        camera.position.x = 500;
+        camera.position.y = 500;
+        camera.position.z = 500;
+
+        var scene = new THREE.Scene();
+
+        var light = new THREE.PointLight(0xffffff);
+        light.position.set(0, 300, 200);
+
+        var control = new OrbitControls(camera, renderer.domElement);
+
+        scene.add(light);
+        scene.add(camera);
+        scene.add(this.getPointCloud());
+
+        control.addEventListener('change', function(){
+            renderer.render(scene, camera);
+        });
+
+        renderer.render(scene, camera);
+
+    }.on('didInsertElement'),
+
+    getPointCloud: function(){
+
+        var points = this.get('surfels.points'),
+            colors = this.get('surfels.colors');
+
+        var bufferSize = colors.length;
+        var colorBuffer = new Float32Array(bufferSize);
+        for(var i=0; i<bufferSize; i++) {
+            colorBuffer[i] = colors[i]/255;
+        }
+
+        var SCALE = 40;
+        var surfelsGeometry = new THREE.BufferGeometry();
+
+        surfelsGeometry.addAttribute('position', new THREE.BufferAttribute(points, 3));
+        surfelsGeometry.addAttribute('color', new THREE.BufferAttribute(colorBuffer, 3));
+
+        var surfelsMaterial = new THREE.PointCloudMaterial({
+            vertexColors: true,
+            size: 4,
+            blending: THREE.AdditiveBlending
+        });
+        var surfels = new THREE.PointCloud(surfelsGeometry, surfelsMaterial);
+        surfels.scale.set(SCALE, SCALE, SCALE);
+        surfels.rotation.z = 5.0;
+        return surfels;
+    }
+
+});
+},{"three":113,"three-orbit-controls":112}],48:[function(require,module,exports){
+'use strict';
+
+var Project = require('../models/Project.js');
+
+module.exports = Ember.Component.extend({
+
+    ctx: null, // need
+
+    tagName: 'div',
+
+    classNames: 'welcome-screen__projects__new',
+
+    classNameBindings: ['isInvalid'],
+
+    defaultName: 'my-project',
+
+    newProjectName: '',
+
+    isInvalid: function(){
+        var name = this.get('newProjectName'),
+            ctx = this.get('ctx'),
+            isValid = ctx.nameAvaliable(name) || name === '';
+        return !isValid;
+    }.property('newProjectName'),
+
+    actions: {
+
+        createProject: function(){
+
+            var defaultName = this.get('defaultName'),
+                name = this.get('newProjectName'),
+                ctx = this.get('ctx');
+
+            if (!this.get('isInvalid')) {
+                if (name === '') {
+                    name = getNextDefaultName();
+                }
+                var project = Project.create({ name: name });
+                this.set('newProjectName', '');
+                ctx.send('createProject', project);
+            }
+
+            function getNextDefaultName(i){
+                if (i) {
+                    var name = defaultName+'-'+i;
+                    return ctx.nameAvaliable(name) ? name : getNextDefaultName(i+1);
+                }
+                else {
+                    return ctx.nameAvaliable(defaultName) ? defaultName : getNextDefaultName(2);
+                }
+            }
+
+        }
+
+    }
+
+
+});
+},{"../models/Project.js":69}],49:[function(require,module,exports){
+'use strict';
+
+module.exports = Ember.Component.extend({
+
+    project: null, // need
+
+    ctx: null, // need
+
+    tagName: 'div',
+
+    classNames: [
+        'welcome-screen__projects__thumbnail'
+    ],
+
+    isConfirmDelete: false,
+
+    actions: {
+
+        enter: function(){
+            this.get('ctx').send('enter', this.get('project'));
+        },
+
+        'delete': function(){
+            this.set('isConfirmDelete', false);
+            this.get('ctx').promiseDeleteProject(this.get('project'));
+        },
+
+        confirmDelete: function(){
+            this.toggleProperty('isConfirmDelete');
+        },
+
+        cancelDelete: function(){
+            this.set('isConfirmDelete', false);
+        }
+
+    }
+
+});
+},{}],50:[function(require,module,exports){
+"use strict";
+
+var _ = require('underscore'),
+    la = require('sylvester'),
+    Matrix = la.Matrix,
+    Vector = la.Vector,
+    THREE = require('three'),
+    OrbitControls = require('three-orbit-controls')(THREE),
+    V3 = THREE.Vector3;
+
+var camUtils = require('../../math/projections.js'),
+    cord = require('../../utils/cord.js'),
+    vis3d = require('../../visualization/vis3d.js');
+
+module.exports = Ember.Component.extend({
+
+    geometry: null,
+
+    camera: null,
+
+    scene: null,
+
+    prepareRendering: function(){
+
+        var width = window.innerWidth,
+            height = window.innerHeight,
+            SCALE = 20;
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setClearColor(0xe4e4e4, 1);
+        renderer.setSize(width, height);
+        this.get('element').appendChild(renderer.domElement);
+
+        var camera = new THREE.PerspectiveCamera(45, width/height, 0.1, 10000);
+        var scene = new THREE.Scene();
+        var light = new THREE.PointLight(0xffffff);
+        var control = new OrbitControls(camera, renderer.domElement);
+
+        light.position.set(0, 300, 200);
+
+        this.set('scene', scene);
+        this.set('camera', camera);
+
+        scene.add(light);
+        scene.add(camera);
+
+        var recovered = new THREE.Object3D();
+        recovered.add(this.getCameras());
+        recovered.add(this.getPointCloud());
+        recovered.scale.set(SCALE, SCALE, SCALE);
+        scene.add(recovered);
+
+        camera.position.set(400,400,400);
+
+        camera.lookAt(new V3(0,0,0));
+
+        control.addEventListener('change', function(){
+            renderer.render(scene, camera);
+        });
+
+        renderer.render(scene, camera);
+
+    }.on('didInsertElement'),
+
+    getPointCloud: function(){
+
+        var points = this.get('sparse.points'),
+            colors = this.get('sparse.colors');
+
+        var bufferSize = colors.length;
+        var colorBuffer = new Float32Array(bufferSize);
+        for(var i=0; i<bufferSize; i++) {
+            colorBuffer[i] = colors[i]/255;
+        }
+
+        var surfelsGeometry = new THREE.BufferGeometry();
+        surfelsGeometry.addAttribute('position', new THREE.BufferAttribute(points, 3));
+        surfelsGeometry.addAttribute('color', new THREE.BufferAttribute(colorBuffer, 3));
+
+        var pointsMaterial = new THREE.PointCloudMaterial({
+            size: 3,
+            vertexColors: true,
+            blending: THREE.AdditiveBlending
+        });
+
+        return new THREE.PointCloud(surfelsGeometry, pointsMaterial);
+
+    },
+
+    getCameras: function(){
+        var cameras = new THREE.Object3D();
+        var cDict = this.get('cameras');
+        _.each(cDict, function(cam){
+            var calibrated = camUtils.stored2calibrated(cam);
+            cameras.add(vis3d.getCameraFrame(calibrated));
+        });
+        return cameras;
+    }
+
+});
+},{"../../math/projections.js":92,"../../utils/cord.js":93,"../../visualization/vis3d.js":98,"sylvester":19,"three":113,"three-orbit-controls":112,"underscore":26}],51:[function(require,module,exports){
+module.exports = Ember.Component.extend({
+
+    messages: Ember.inject.service(),
+
+    message: null,
+
+    task: Ember.computed.alias('message.task'),
+
+    progress: Ember.computed.alias('task.progress'),
+
+    content: Ember.computed.alias('task.desc'),
+
+    tagName: 'li',
+
+    classNames: 'task-message',
+
+    onFinish: function(){
+        if (this.get('task.isDone')) {
+            this.get('messages.queue').removeObject(this.get('message'));
+        }
+    }.observes('task.state').on('init')
+
+});
+},{}],52:[function(require,module,exports){
+"use strict";
+
+var ndarray = require('ndarray');
+
+var drawFeatures = require('../../visualization/features.js'),
+    DragZoomMixin = require('../mixins/DragZoom.js');
+
+module.exports = Ember.Component.extend(DragZoomMixin, {
+
+    img: null, // need
+
+    features: null, // need
+
+    tagName: 'canvas',
+
+    classNames: ['visual-features'],
+
+    onNewImage: function(){
+        this.renderCanvas();
+        var img = this.get('element'),
+            $img = jQuery(img);
+        $img.css('width', img.width).css('height', img.height);
+    }.observes('img').on('didInsertElement'),
+
+    renderCanvas: function(){
+        var img = this.get('img'),
+            width = img.width,
+            height = img.height,
+            canvas = this.get('element'),
+            markSize = Math.max(3, Math.round(Math.max(width,height)/400)),
+            typed = new Float32Array(this.get('features')),
+            amount = typed.length/ 4,
+            ndbuffer = ndarray(typed, [amount, 4]);
+        canvas.width = width;
+        canvas.height = height;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        drawFeatures.fromBuffer(ctx, ndbuffer, 0, 0, 1, { markSize: markSize });
+    },
+
+    wheel: function(e){
+        var canvas = this.get('element'),
+            currentWidth = this.$().width(),
+            currentHeight = this.$().height(),
+            speed = 0.04,
+            nextWidth = currentWidth * (e.deltaY < 0 ? 1+speed : 1-speed),
+            nextHeight = currentHeight * (e.deltaY < 0 ? 1+speed : 1-speed);
+        if (nextWidth >= canvas.width) {
+            jQuery(canvas).css('width', canvas.width).css('height', canvas.height);
+        }
+        else if (nextWidth > 500) {
+            jQuery(canvas).css('width', nextWidth).css('height', nextHeight);
+        }
+    }
+
+});
+},{"../../visualization/features.js":96,"../mixins/DragZoom.js":65,"ndarray":16}],53:[function(require,module,exports){
+var _ = require('underscore'),
+    ndarray = require('ndarray'),
+    la = require('sylvester'),
+    Matrix = la.Matrix,
+    Vector = la.Vector;
+
+var DragZoomMixin = require('../mixins/DragZoom.js'),
+    utils = require('../utils.js'),
+    settings = require('../settings.js'),
+    visualMatches = require('../../visualization/matches.js'),
+    randomUtils = require('../../utils/random.js'),
+    RESOURCE = settings.RESOURCE;
+
+module.exports = Ember.Component.extend(DragZoomMixin, {
+
+    tagName: 'canvas',
+
+    resource: null,
+
+    data: null,
+
+    preRender: function(){
+        var _self = this,
+            resource = this.get('resource'),
+            from = this.get('data.from'),
+            to = this.get('data.to');
+        Promise.all([
+            resource.promiseResource(RESOURCE.FULLIMAGES, from).then(utils.promiseBufferImage),
+            resource.promiseResource(RESOURCE.FULLIMAGES, to).then(utils.promiseBufferImage),
+            resource.promiseResource(RESOURCE.FEATURE_POINTS, from),
+            resource.promiseResource(RESOURCE.FEATURE_POINTS, to)
+        ]).then(function(results){
+            var img1 = results[0],
+                img2 = results[1],
+                points1 = new Float32Array(results[2]),
+                points2 = new Float32Array(results[3]);
+            _self.set('img1', img1);
+            _self.set('img2', img2);
+            _self.set('points1', ndarray(points1, [points1.length/4, 4]));
+            _self.set('points2', ndarray(points2, [points2.length/4, 4]));
+            _self.drawContent();
+        });
+    }.on('didInsertElement').observes('data.from', 'data.to'),
+
+    drawContent: function(){
+        switch (this.get('mode')) {
+            case 'epipolar':
+                this.drawRobust();
+                break;
+            case 'robust':
+                this.drawMatches(this.get('data.robust'));
+                break;
+            case 'raw':
+                this.drawMatches(this.get('data.raw'));
+                break;
+            default :
+                throw 'Invalid visual matches mode!';
+        }
+    }.observes('mode'),
+
+    drawRobust: function(){
+        var robust = this.get('data.robust'),
+            F = Matrix.create(this.get('data.F')),
+            img1 = this.get('img1'),
+            img2 = this.get('img2'),
+            points1 = this.get('points1'),
+            points2 = this.get('points2'),
+            canv = this.get('element'),
+            ctx = canv.getContext('2d');
+
+        var config = visualMatches.drawImagePair(img1, img2, canv, 1500);
+
+        _.sample(robust, 50).forEach(function(match){
+            var i1 = match[0], i2 = match[1];
+            var pair = [
+                { row: points1.get(i1, 0), col: points1.get(i1, 1) },
+                { row: points2.get(i2, 0), col: points2.get(i2, 1) }
+            ];
+            visualMatches.drawDetailedMatches(ctx, config, F, pair, randomUtils.genRGBString(), img1, img2);
+        });
+    },
+
+    drawMatches: function(matches){
+        var img1 = this.get('img1'),
+            img2 = this.get('img2'),
+            points1 = this.get('points1'),
+            points2 = this.get('points2'),
+            canv = this.get('element'),
+            ctx = canv.getContext('2d');
+
+        var config = visualMatches.drawImagePair(img1, img2, canv, 1500);
+        visualMatches.drawMatches(config, ctx, matches, points1, points2);
+    },
+
+    wheel: function(e){
+        var canvas = this.get('element'),
+            currentWidth = this.$().width(),
+            currentHeight = this.$().height(),
+            speed = 0.04,
+            nextWidth = currentWidth * (e.deltaY < 0 ? 1+speed : 1-speed),
+            nextHeight = currentHeight * (e.deltaY < 0 ? 1+speed : 1-speed);
+        if (nextWidth >= canvas.width) {
+            jQuery(canvas).css('width', canvas.width).css('height', canvas.height);
+        }
+        else if (nextWidth > 500) {
+            jQuery(canvas).css('width', nextWidth).css('height', nextHeight);
+        }
+    }
+
+});
+},{"../../utils/random.js":94,"../../visualization/matches.js":97,"../mixins/DragZoom.js":65,"../settings.js":87,"../utils.js":89,"ndarray":16,"sylvester":19,"underscore":26}],54:[function(require,module,exports){
+'use strict';
+
+module.exports = Ember.Component.extend({
+
+    workspace: null, // need
+
+    tagName: 'aside',
+
+    elementId: 'controll-panel',
+
+    expandInput: true,
+
+    expandProgress: true,
+
+    expandRegister: true,
+
+    expandStereo: true,
+
+    actions: {
+
+        close: function(){
+            this.get('workspace').send('back');
+        },
+
+        enter: function(target){
+            this.get('workspace').send('enter', target);
         },
 
         toggleMenu: function(name){
             switch (name) {
                 case 'input':
-                    this.set('expandInput', !this.get('expandInput'));
+                    this.toggleProperty('expandInput');
                     break;
                 case 'progress':
-                    this.set('expandProgress', !this.get('expandProgress'));
+                    this.toggleProperty('expandProgress');
                     break;
                 case 'register':
-                    this.set('expandRegister', !this.get('expandRegister'));
+                    this.toggleProperty('expandRegister');
                     break;
                 case 'stereo':
-                    this.set('expandStereo', !this.get('expandStereo'));
+                    this.toggleProperty('expandStereo');
                     break;
                 default:
                     throw "invalid menu toggle";
             }
         }
 
-    },
-
-    /**
-     * @returns {Promise}
-     */
-    promiseImages: function(){
-        var _self = this;
-        if (this.get('imageModels')){
-            return Promise.resolve(this.get('imageModels'));
-        }
-        return sfmstore.promiseAdapter()
-            .then(function(adapter){
-                return adapter.promiseAll(STORES.IMAGES);
-            })
-            .then(function(results){
-                _self.set('imageModels', results.map(function(res){
-                    res.value._id = res.key;
-                    return Image.create(res.value);
-                }));
-                return _self.get('imageModels');
-            });
-    },
-
-    promiseTracks: function(){
-        var adapter = this.get('adapter');
-        return Promise.all([
-            this.promiseImages(),
-            adapter.promiseData(STORES.SINGLETONS, STORES.TRACKS),
-            adapter.promiseData(STORES.SINGLETONS, STORES.VIEWS)
-        ]).then(function(values){
-            return Promise.resolve({
-                images: values[0],
-                tracks: values[1],
-                views: values[2]
-            });
-        });
-    },
-
-
-    /**
-     *
-     * @returns {Promise}
-     */
-    promiseMatches: function(){
-        var _self = this,
-            matches = this.get('matches'),
-            adapter = this.get('adapter');
-        if (matches) {
-            return Promise.resolve(matches);
-        }
-        else {
-            return this.promiseImages().then(function(imgs){
-                return new Promise(function(resolve, reject){
-                    var storedMatches = [];
-                    adapter.queryEach(STORES.MATCHES,
-                        function(key, value){
-                            storedMatches.push(key);
-                        },
-                        function(){
-                            _self.set('matches', Matches.create({
-                                images: imgs,
-                                finished: storedMatches
-                            }));
-                            resolve(_self.get('matches'));
-                        }
-                    );
-                });
-
-            });
-        }
     }
 
 
 });
-},{"../models/Image.js":32,"../models/Matches.js":33,"../settings.js":39,"../store/sfmstore.js":41,"../utils.js":42,"underscore":18}],26:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
+'use strict';
+
+var STAGES = require('../settings.js').STAGES;
+
+module.exports = Ember.Component.extend({
+
+    workspace: null, //need
+
+    expand: false,
+
+    actions: {
+        toggleExpand: function(){
+            this.toggleProperty('expand');
+        }
+    },
+
+    description: function(){
+        switch (this.get('workspace.model.stage')) {
+            case STAGES.BEFORE:
+                return 'Sturcture from Motion';
+            case STAGES.EXTRACTOR:
+                return 'extracting SIFT features';
+            case STAGES.MATCHING:
+                return 'matching features between two-views';
+            case STAGES.TRACKING:
+                return 'tracking consistent tracks from matches';
+            case STAGES.REGISTER:
+                return 'Calibrating Cameras';
+            default:
+                throw 'invalid application stage';
+        }
+    }.property('workspace.stage')
+
+});
+},{"../settings.js":87}],56:[function(require,module,exports){
+'use strict';
+
+module.exports = Ember.ObjectController.extend({
+
+    needs: ['scheduler', 'context'],
+
+    ctx: Ember.computed.alias('controllers.context'),
+
+    demos: Ember.computed.alias('ctx.demos'),
+
+    projects: Ember.computed.alias('ctx.projects'),
+
+    scheduler: Ember.computed.alias('controllers.scheduler'),
+
+    isDetailClosed: true
+
+});
+},{}],57:[function(require,module,exports){
+'use strict';
+
+var settings = require('../settings.js'),
+    ENTRIES = settings.DEMO_ENTRY;
+
+module.exports = Ember.ObjectController.extend({
+
+    needs: ['context'],
+
+    ctx: Ember.computed.alias('controllers.context')
+
+});
+},{"../settings.js":87}],58:[function(require,module,exports){
+'use strict';
+
+module.exports = Ember.Controller.extend({
+
+    images: Ember.computed.alias('model'),
+
+    actions: {
+        expand: function(model){
+            this.transitionToRoute('workspace.extractor.image', model);
+        }
+    }
+
+});
+},{}],59:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils.js'),
-    sfmstore = require('../store/sfmstore.js'),
-    STORES = require('../settings.js').STORES;
+    settings = require('../settings.js'),
+    RESOURCE = settings.RESOURCE;
+
 
 module.exports = Ember.ObjectController.extend({
+
+    needs: ['workspace', 'projectResource'],
+
+    resource: Ember.computed.alias('controllers.projectResource'),
 
     img: null,
 
@@ -6893,38 +13079,48 @@ module.exports = Ember.ObjectController.extend({
     },
 
     onNewImage: function(){
-        var _self = this;
+
         this.set('isLoading', true);
-        sfmstore
-            .promiseAdapter()
-            .then(function(adapter){
-                return Promise.all([
-                    adapter.promiseData(STORES.FULLIMAGES, _self.get('_id')).then(utils.promiseBufferImage),
-                    adapter.promiseData(STORES.FEATURES, _self.get('_id'))
-                ]);
-            })
-            .then(function(results){
-                _self.set('img', results[0]);
-                _self.set('features', results[1]);
-                _self.set('isLoading', false);
+
+        var _self = this,
+            resource = this.get('resource');
+
+        return Promise.all([
+            resource.promiseResource(RESOURCE.FULLIMAGES, _self.get('model')).then(utils.promiseBufferImage),
+            resource.promiseResource(RESOURCE.FEATURE_POINTS, _self.get('model'))
+        ]).then(function(results){
+            _self.setProperties({
+                img: results[0],
+                features: results[1],
+                isLoading: false
             });
+        });
+
     }.observes('model')
 
 });
-},{"../settings.js":39,"../store/sfmstore.js":41,"../utils.js":42}],27:[function(require,module,exports){
+},{"../settings.js":87,"../utils.js":89}],60:[function(require,module,exports){
 'use strict';
 
 var Image = require('../models/Image.js');
 
-module.exports = Ember.ArrayController.extend({
+module.exports = Ember.Controller.extend({
 
-    itemController: 'workspace.image.thumbnail',
+    needs: ['workspace'],
 
-    needs: ['application'],
+    adapter: Ember.computed.alias('controllers.workspace.adapter'),
 
-    adapter: Ember.computed.alias('controllers.application.adapter'),
+    images: Ember.computed.alias('model'),
 
     queue: [],
+
+    actions: {
+
+        expand: function(model){
+            this.transitionToRoute('workspace.images.detail', model);
+        }
+
+    },
 
     inProgress: function(){
         return this.get('queue.length') !== 0;
@@ -6945,192 +13141,144 @@ module.exports = Ember.ArrayController.extend({
     }
 
 });
-},{"../models/Image.js":32}],28:[function(require,module,exports){
+},{"../models/Image.js":67}],61:[function(require,module,exports){
 'use strict';
 
-var sfmstore = require('../store/sfmstore.js'),
-    STORES = require('../settings.js').STORES;
+module.exports = Ember.Controller.extend({
 
-module.exports = Ember.ObjectController.extend({
+    needs: ['projectResource'],
 
-    isLoadng: true,
-
-    dataurl: null,
+    resource: Ember.computed.alias('controllers.projectResource'),
 
     actions: {
         back: function(){
             this.transitionToRoute('workspace.images');
         }
-    },
-
-    onNewImage: function(){
-        var _self = this;
-        this.set('isLoading', true);
-        sfmstore.promiseAdapter()
-            .then(function(adapter){
-                return adapter.promiseData(STORES.FULLIMAGES, _self.get('_id'));
-            })
-            .then(function(data){
-                var domstring = URL.createObjectURL(new Blob([data]));
-                _self.set('dataurl', domstring);
-                _self.set('isLoading', false);
-            });
-    }.observes('model')
+    }
 
 });
-},{"../settings.js":39,"../store/sfmstore.js":41}],29:[function(require,module,exports){
-var _ = require('underscore');
+},{}],62:[function(require,module,exports){
+'use strict';
 
-/**
- * It needs navigate, beginNavigation, releaseNavigation
- */
+module.exports = Ember.Controller.extend({
+
+    images: Ember.computed.alias('model.images'),
+
+    raw: Ember.computed.alias('model.raw'),
+
+    robust: Ember.computed.alias('model.robust'),
+
+    actions: {
+
+        enter: function(param){
+            this.transitionToRoute('workspace.matcher.pair', { queryParams: param });
+        }
+
+    }
+
+});
+},{}],63:[function(require,module,exports){
+'use strict';
+
+module.exports = Ember.Controller.extend({
+
+    needs: ['projectResource'],
+
+    resource: Ember.computed.alias('controllers.projectResource'),
+
+    queryParams: ['from', 'to', 'mode'],
+
+    mode: 'epipolar',
+
+    title: function(){
+        return this.get('model.from.filename') + ' to ' + this.get('model.to.filename');
+    }.property('from', 'to'),
+
+    actions: {
+        back: function(){
+            this.transitionTo('workspace.matcher');
+        }
+    }
+
+});
+},{}],64:[function(require,module,exports){
+'use strict';
+
+module.exports = Ember.Controller.extend({
+
+    focus: null,
+
+    actions: {
+        focus: function(cam){
+            this.set('focus', cam);
+        }
+    }
+
+});
+},{}],65:[function(require,module,exports){
 module.exports = Ember.Mixin.create({
 
-    windowMouseMove: null,
+    makeDrag: function(){
+        this.$().draggable();
+    }.on('didInsertElement'),
 
-    windowMouseUp: null,
-
-    getMouseMoveHandler: function(){
-        var handler = this.get('windowMouseMove');
-        if (!_.isFunction(handler)) {
-            handler = this.navigate.bind(this);
-            this.set('windowMouseMove', handler);
-        }
-        return handler;
-    },
-
-    getMouseUpHandler: function(){
-        var handler = this.get('windowMouseUp');
-        if (!_.isFunction(handler)) {
-            handler = function(){
-                window.removeEventListener('mousemove', this.getMouseMoveHandler(), false);
-                window.removeEventListener('mouseup', this.getMouseUpHandler(), false);
-                this.releaseNavigation();
-            }.bind(this);
-            this.set('windowMouseUp', handler);
-        }
-        return handler;
-    },
-
-    mouseDown: function(e){
-        e.preventDefault();
-        this.beginNavigation(e);
-        window.addEventListener('mousemove', this.getMouseMoveHandler(), false);
-        window.addEventListener('mouseup', this.getMouseUpHandler(), false);
-    },
-
-    contextMenu: function(){ return false; }
+    registerWheel: function(){
+        var _self = this;
+        jQuery(this.get('element')).on('wheel', function(e){
+            _self.wheel(e.originalEvent);
+        });
+    }.on('didInsertElement')
 
 });
-},{"underscore":18}],30:[function(require,module,exports){
+},{}],66:[function(require,module,exports){
 "use strict";
 
 var _ = require('underscore');
 
-var Project = require('./Project.js'),
-    sfmstore = require('../store/sfmstore.js');
+var settings = require('../settings.js'),
+    ENTRIES = settings.DEMO_ENTRY,
+    Project = require('./Project.js');
+
 
 module.exports = Project.extend({
 
-    storedProperties: [
-        'name',
-        'root',
-        'images',
+    // entries in the description
 
-        'hasSIFT',
-        'hasBundler',
-        'hasMVS',
+    isDemo: true,
 
-        'finishedImages',
-        'finishedSIFT',
-        'bundlerFinished',
-        'mvsFinished'
-    ],
+    availableResources: [],
 
     root: null,
 
-    finishedImages: [],
-    imagesFinished: function(){
-        return this.get('finishedImages.length') === this.get('images.length');
-    }.property('finishedImages.length'),
+    entries: [],
 
-    hasSIFT: false,
-    hasBundler: false,
-    hasMVS: false,
+    hasFeature: function(){
+        return this.get('entries').contains(ENTRIES.FEATURE);
+    }.property('entries'),
 
-    isDownloaded: function(){
-        return this.get('imagesFinished') &&
-            (!this.get('hasSIFT') || this.get('siftFinished')) &&
-            (!this.get('hasBundler') || this.get('bundlerFinished')) &&
-            (!this.get('hasMVS') || this.get('mvsFinished'));
-    }.property('imagesFinished', 'siftFinished','bundlerFinished','mvsFinished', 'hasSIFT','hasBundler','hasMVS'),
+    hasMatch: function(){
+        return this.get('entries').contains(ENTRIES.MATCH);
+    }.property('entries'),
 
-    syncLocalStorage: function(){
-        sfmstore.syncDemos();
-    }.observes('finishedImages.length','finishedSIFT.length','bundlerFinished','mvsFinished')
+    hasCalibration: function(){
+        return this.get('entries').contains(ENTRIES.CALIBRATION);
+    }.property('entries'),
 
-});
-},{"../store/sfmstore.js":41,"./Project.js":34,"underscore":18}],31:[function(require,module,exports){
-'use strict';
+    hasMVS: function(){
+        return this.get('entries').contains(ENTRIES.MVS);
+    }.property('entries'),
 
-//var _ = require('underscore');
-
-var STATES = {
-    QUEUE: 0,
-    DOWNLOADING: 1,
-    FINISHED: 2
-};
-
-var TYPES = {
-    BLOB: 'blob',
-    JSON: 'json'
-};
-
-module.exports = Ember.Object.extend({
-
-    name: null,
-
-    demo: null,
-
-    url: null,
-
-    state: STATES.QUEUE,
-
-    type: null,
-
-    totalSize: Infinity,
-
-    hasProgress: function(){
-        return this.get('totalSize') !== Infinity;
-    }.property('totalSize'),
-
-    fileSize: function(){
-        var totalSize = this.get('totalSize');
-        if (totalSize === Infinity) {
-            return 'Unknown';
-        }
-        else {
-            return Math.round(totalSize/1024/1024) + 'MB';
-        }
-    }.property('totalSize')
+    images: null
 
 });
-
-module.exports.TYPES = TYPES;
-module.exports.STATES = STATES;
-},{}],32:[function(require,module,exports){
+},{"../settings.js":87,"./Project.js":69,"underscore":26}],67:[function(require,module,exports){
 "use strict";
 
-var STORES = require('../settings.js').STORES,
-    sfmstore = require('../store/sfmstore.js');
-
 module.exports = Ember.Object.extend({
 
+    id: null,
+
     file: null,
-
-    _id: null,
-
-    filename: null,
 
     thumbnail: null,
 
@@ -7140,149 +13288,149 @@ module.exports = Ember.Object.extend({
 
     height: null,
 
+    filename: function(){
+        return this.get('name') + this.get('extension');
+    }.property('name', 'extension'),
+
     isHorizontal: function(){
         return this.get('width') > this.get('height');
-    }.property('width', 'height'),
-
-    fullimage: function(){
-        var _self = this;
-        return sfmstore
-            .promiseAdapter()
-            .then(function(adapter){
-                return adapter.promiseData(STORES.FULLIMAGES, _self.get('_id'));
-            });
-    }.property('_id'),
-
-    init: function(){
-        if (!this.get('thumbnail')){
-            this.promiseThumbnail();
-        }
-    },
-
-    promiseThumbnail: function(){
-        var _self = this;
-        return sfmstore
-            .promiseAdapter()
-            .then(function(adapter){
-                return adapter.promiseData(STORES.THUMBNAILS, _self.get('_id'));
-            })
-            .then(function(thumbnail){
-                _self.set('thumbnail', thumbnail);
-            });
-    }
+    }.property('width', 'height')
 
 });
-
-
-},{"../settings.js":39,"../store/sfmstore.js":41}],33:[function(require,module,exports){
+},{}],68:[function(require,module,exports){
 'use strict';
 
-var sfmstore = require('../store/sfmstore.js'),
-    STORES = require('../settings.js').STORES;
+var _ = require('underscore');
 
+var shortcuts = require('../../utils/shortcuts.js');
 
 module.exports = Ember.Object.extend({
 
-    images: null,
+    images: [],
 
-    finished: [],
+    raw: [],
 
-    scheduler: null,
+    robust: [],
 
-    getQueueIterator: function(){
-        var finished = this.get('finished'),
-            images = this.get('images'),
-            ended = false,
-            bound = images.length,
-            offset1 = 0,
-            offset2 = 0;
+    connectedGroups: function(){
 
-        findNext();
+        var groups = [];
 
-        function isEnded(){
-            return ended;
-        }
+        this.get('robust')
+            .forEach(function(match){
 
-        function getKey(i1, i2){
-            var id1 = images[i1].get('_id');
-            var id2 = images[i2].get('_id');
-            if (id1>id2) {
-                return id2+'&'+id1;
-            }
-            else if (id1<id2) {
-                return id1+'&'+id2;
-            }
-            else {
-                throw 'same image can not match';
-            }
-        }
+                var foundFrom = groups.find(function(e){
+                    return e.contains(match.from);
+                });
 
-        function findNext(){
-            var found = false;
-            while (!ended && !found) {
-                if (offset2 < bound-1) {
-                    offset2++;
+                var foundTo = groups.find(function(e){
+                    return e.contains(match.to);
+                });
+
+                if (foundFrom && foundTo) {
+                    if (foundFrom !== foundTo) {
+                        foundFrom.addObjects(foundTo);
+                        groups.removeObject(foundTo);
+                    }
+                }
+                else if (foundFrom || foundTo) {
+                    var found = foundFrom || foundTo;
+                    found.addObjects([match.from, match.to]);
                 }
                 else {
-                    if (offset1 < bound-2) {
-                        offset1++;
-                        offset2 = offset1 + 1;
-                    }
-                    else {
-                        ended = true;
-                        break;
-                    }
+                    groups.push([match.from, match.to]);
                 }
-                if (finished.indexOf(getKey(offset1, offset2)) === -1) {
-                    found = true;
-                }
-            }
-        }
 
-        function next(callback){
-            var key = getKey(offset1, offset2);
-            sfmstore
-                .promiseAdapter()
-                .then(function(adapter){
-                    return Promise.all([
-                        adapter.promiseData(STORES.FEATURES, images[offset1].get('_id')),
-                        adapter.promiseData(STORES.FEATURES, images[offset2].get('_id')),
-                        adapter.promiseData(STORES.IMAGES, images[offset1].get('_id')),
-                        adapter.promiseData(STORES.IMAGES, images[offset2].get('_id'))
-                    ])
-                })
-                .then(function(values){
-                    callback({
-                        key: key,
-                        features1: values[0],
-                        features2: values[1],
-                        cam1: { width: values[2].width, height: values[2].height },
-                        cam2: { width: values[3].width, height: values[3].height }
-                    }, key);
-                });
-            findNext();
-        }
+            });
 
-        return {
-            isEnded: isEnded,
-            next: next
-        }
+        return groups;
+
+    }.property('robust.length'),
+
+    table: function(){
+
+        var connected = _.flatten(this.get('connectedGroups'));
+        var images = this.get('images');
+        var size = images.length;
+
+        var raw = this.get('raw');
+        var robust = this.get('robust');
+
+        var table = shortcuts.array2d(size, size, false);
+
+        shortcuts.iterPairs(connected, function(from, to){
+            table[from][to] = table[to][from] = true;
+        });
+
+        images.forEach(function(img){
+            var i = img.get('id');
+            table[i][i] = { isDiag: true, image: img };
+        });
+
+        raw.forEach(function(entry){
+            var from = entry.from;
+            var to = entry.to;
+            var matches = entry.matches;
+            var node = {
+                from: from,
+                to: to,
+                raw: matches
+            };
+            table[from][to] = table[to][from] = node;
+        });
+
+        robust.forEach(function(entry){
+            var from = entry.from;
+            var to = entry.to;
+            var matches = entry.matches;
+            var fmatrix = entry.F;
+            table[from][to]['robust'] = table[to][from]['robust'] = matches;
+            table[from][to]['F'] = table[to][from]['F'] = fmatrix;
+        });
+
+        return table;
+
+    }.property('robust.length', 'raw.length', 'connectedGroups', 'images.length'),
+
+    isMatched: function(from, to){
+        return this.get('model').some(function(match){
+            return match.from === from && match.to === to;
+        });
     },
 
-    scheduleMatching: function(callback){
-        if (this.get('scheduler') === null) {
-            sfmstore
-                .promiseProject()
-                .then(function(projectModel){
-                    var iterator = this.getQueueIterator();
-                    var scheduler = App.schedule(projectModel, SFM.TASK_MATCHING, iterator, this.get('finished'), callback);
-                    this.set('scheduler', scheduler);
-                }.bind(this));
+    isRobust: function(from, to){
+        return this.get('robust').some(function(entry){
+            return (entry.from === from && entry.to === to) || (entry.from === to && entry.to === from);
+        });
+    },
+
+    isConnected: function(from, to){
+        return this.get('connectedGroups').some(function(group){
+            return group.contains(from) && group.contains(to);
+        });
+    },
+
+    getMatches: function(from, to){
+        from = parseInt(from, 10);
+        to = parseInt(to, 10);
+        var images = this.get('images'),
+            raw = this.get('raw'),
+            robust = this.get('robust');
+        var img1 = images.findBy('id', from);
+        var img2 = images.findBy('id', to);
+        var r = raw.find(function(entry){
+            return entry.from === from && entry.to === to;
+        });
+        var b = robust.find(function(entry){
+            return entry.from === from && entry.to === to;
+        });
+        if (img1 && img2 && r && b) {
+            return { from: img1, to: img2, raw: r.matches, robust: b.matches, F: b.F };
         }
     }
 
 });
-},{"../settings.js":39,"../store/sfmstore.js":41}],34:[function(require,module,exports){
+},{"../../utils/shortcuts.js":95,"underscore":26}],69:[function(require,module,exports){
 "use strict";
 
 var STAGES = require('../settings.js').STAGES;
@@ -7316,290 +13464,288 @@ module.exports = Ember.Object.extend({
     ]
 
 });
-},{"../settings.js":39}],35:[function(require,module,exports){
-"use strict";
+},{"../settings.js":87}],70:[function(require,module,exports){
+'use strict';
 
-var sfmstore = require('./store/sfmstore.js');
+var STATES = require('../settings.js').TASK_STATES;
 
-module.exports = function(App){
+module.exports = Ember.Object.extend({
 
-    App.Router.map(function() {
+    state: STATES.UNASSIGNED,
 
-        this.route('welcome');
+    desc: 'task',
 
-        this.route('workspace', function(){
+    data: null,
 
-            this.route('images', function(){
-                this.route('detail', { path: '/:id' });
-            });
+    type: null,
 
-            this.route('extractor', function(){
-                this.route('image', { path: '/:id' });
-            });
+    promise: null,
 
-            this.route('register', function(){});
+    progress: null,
 
-            this.route('mvs', function(){});
+    isDone: function(){
+        return this.get('state') === STATES.FINISHED;
+    }.property('state')
 
-            /*
-            this.resource('tracks', function(){
-                this.route('index');
-            });
+});
+},{"../settings.js":87}],71:[function(require,module,exports){
+'use strict';
 
-            this.resource('matches', function(){
-                this.route('index', { path: '/' });
-                this.route('pair',  { path: '/:pair' });
-            });
+module.exports = Ember.Object.extend({
 
- */
-        });
+    script: null,
 
-    });
+    worker: null
 
-
-    App.ApplicationRoute = Ember.Route.extend({
-
-        model: function(){
-            return sfmstore.storePromise;
-        }
-
-    });
-
-
-    App.IndexRoute = Ember.Route.extend({
-
-        model: function(){
-            return sfmstore.promiseProject();
-        },
-
-        afterModel: function(){
-            this.transitionTo('workspace');
-        },
-
-        actions: {
-            error: function(){
-                this.transitionTo('welcome');
-            }
-        }
-
-    });
-
-    App.WelcomeRoute = require('./routes/WelcomeRoute.js');
-
-    App.WorkspaceRoute = Ember.Route.extend({
-
-        model: function(){
-            return sfmstore.promiseProject();
-        },
-
-        actions: {
-
-            error: function(error, transition){
-                console.log(error);
-                console.log('error, back to welcome');
-                this.transitionTo('welcome');
-            }
-
-        }
-
-    });
-
-    App.WorkspaceIndexRoute = Ember.Route.extend();
-
-    //=============================
-    // Workspace.Images
-    //=============================
-
-    App.WorkspaceImagesRoute = Ember.Route.extend({
-
-        model: function() {
-            return this.controllerFor('workspace').promiseImages();
-        },
-
-        afterModel: function(model){
-            //console.log(model);
-        }
-
-    });
-
-    App.WorkspaceImagesIndexRoute = Ember.Route.extend();
-
-    App.WorkspaceImagesDetailRoute = Ember.Route.extend({
-
-        model: function(params){
-            return this.modelFor('workspace.images').findBy('_id', parseInt(params.id));
-        },
-
-        serialize: function(model){
-            return { id: model.get('_id') };
-        }
-
-    });
-
-
-    //=============================
-    // Workspace.Images
-    //=============================
-
-    App.WorkspaceExtractorRoute = Ember.Route.extend({
-
-        model: function() {
-            return this.controllerFor('workspace').promiseImages();
-        }
-
-    });
-
-    App.WorkspaceExtractorIndexRoute = Ember.Route.extend();
-
-    App.WorkspaceExtractorImageRoute = Ember.Route.extend({
-
-        model: function(params){
-            return this.modelFor('workspace.extractor').findBy('_id', parseInt(params.id));
-        },
-
-        serialize: function(model){
-            return { id: model.get('_id') };
-        }
-
-    });
-
-    //=============================
-    // Workspace.Mathces
-    //=============================
-
-    App.MatchesRoute = Ember.Route.extend({
-
-        model: function(){
-            return this.controllerFor('workspace').get('project').promiseMatches();
-            //return App.SfmStore.promiseMatches();
-        }
-
-    });
-
-    App.MatchesIndexRoute = Ember.Route.extend();
-
-    App.MatchesPairRoute = Ember.Route.extend({
-
-        model: function(params){
-            return new Promise(function(resolve, reject){
-                var id1 = parseInt(params.pair.split('&')[0]),
-                    id2 = parseInt(params.pair.split('&')[1]);
-                var bigger = id1<id2 ? id2 : id1,
-                    smaller = id1<id2 ? id1 : id2;
-                App.SfmStore.promiseImages().then(function(images){
-                    resolve({
-                        view1: images.findBy('_id', smaller),
-                        view2: images.findBy('_id', bigger)
-                    });
-                }, reject);
-            });
-        },
-
-        serialize: function(model){
-            return { pair: model.view1.get('_id') + '&' + model.view2.get('_id') };
-        }
-
-    });
-
-    App.TracksRoute = Ember.Route.extend({
-
-        model: function(){
-            return this.controllerFor('workspace').get('project').promiseTracks();
-            //return App.SfmStore.promiseTracks();
-        }
-
-    });
-
-    //=============================
-    // Workspace.Register
-    //=============================
-
-    App.WorkspaceRegisterRoute = require('./routes/WorkspaceRegisterRoute.js');
-
-    App.WorkspaceRegisterIndexRoute = Ember.Route.extend();
-
-    //=============================
-    // Workspace.MVS
-    //=============================
-
-    App.WorkspaceMvsRoute = require('./routes/WorkspaceMvsRoute.js');
-
-    App.WorkspaceMvsIndexRoute = Ember.Route.extend();
-
-};
-},{"./routes/WelcomeRoute.js":36,"./routes/WorkspaceMvsRoute.js":37,"./routes/WorkspaceRegisterRoute.js":38,"./store/sfmstore.js":41}],36:[function(require,module,exports){
-var sfmstore = require('../store/sfmstore.js');
+});
+},{}],72:[function(require,module,exports){
+'use strict';
 
 module.exports = Ember.Route.extend({
 
     model: function(){
+        return this.controllerFor('context').promiseProject();
+    },
+
+    afterModel: function(){
+        this.transitionTo('workspace');
+    },
+
+    actions: {
+        error: function(){
+            this.transitionTo('welcome');
+        }
+    }
+
+});
+},{}],73:[function(require,module,exports){
+'use strict';
+
+module.exports = Ember.Route.extend({
+
+    setupController: function(){
+        this.controllerFor('context').set('currentProject', null);
+    }
+
+});
+},{}],74:[function(require,module,exports){
+'use strict';
+
+module.exports = Ember.Route.extend({
+
+    model: function(params){
+        return this.controllerFor('context').get('demos').findBy('name', params.name) || Promise.reject();
+    },
+
+    serialize: function(model){
+        return { name: model.get('name') };
+    },
+
+    actions: {
+
+        error: function(){
+            this.transitionTo('welcome');
+        },
+
+        didTransition: function(){
+            this.controllerFor('welcome').set('isDetailClosed', false);
+        }
+
+    }
+
+});
+
+},{}],75:[function(require,module,exports){
+'use strict';
+
+module.exports = Ember.Route.extend({
+
+    setupController: function(){
+        this.controllerFor('welcome').set('isDetailClosed', true);
+    }
+
+});
+},{}],76:[function(require,module,exports){
+'use strict';
+
+module.exports = Ember.Route.extend({
+
+    model: function(){
+        return this.controllerFor('context').promiseProject();
+    },
+
+    actions: {
+
+        error: function(error, transition){
+            console.log(error);
+            console.log('error, back to welcome');
+            this.transitionTo('welcome');
+        }
+
+    }
+
+});
+},{}],77:[function(require,module,exports){
+'use strict';
+
+module.exports = Ember.Route.extend({
+
+    model: function() {
+        return this.controllerFor('workspace').get('images');
+    }
+
+});
+},{}],78:[function(require,module,exports){
+'use strict';
+
+module.exports = Ember.Route.extend({
+
+    model: function(params){
+        return this.modelFor('workspace.extractor').findBy('id', parseInt(params.id));
+    },
+
+    serialize: function(model){
+        return { id: model.get('id') };
+    }
+
+});
+},{}],79:[function(require,module,exports){
+'use strict';
+
+module.exports = Ember.Route.extend({
+
+    needs: ['context'],
+
+    adapter: Ember.computed.alias('context.adapter'),
+
+    model: function() {
+        return this.controllerFor('workspace').get('images');
+    }
+
+});
+},{}],80:[function(require,module,exports){
+'use strict';
+
+module.exports = Ember.Route.extend({
+
+    model: function(params){
+        return this.modelFor('workspace.images').findBy('id', parseInt(params.id));
+    },
+
+    serialize: function(model){
+        return { id: model.get('id') };
+    }
+
+});
+},{}],81:[function(require,module,exports){
+'use strict';
+
+var Matches = require('../models/Matches.js'),
+    settings = require('../settings.js'),
+    RESOURCES = settings.RESOURCE;
+
+module.exports = Ember.Route.extend({
+
+    /**
+     * Requires Images and Matches
+     * @returns {Promise}
+     */
+    model: function() {
+        var resource = this.controllerFor('projectResource');
         return Promise.all([
-            sfmstore.promiseDemos(),
-            sfmstore.promiseProjects(),
+            this.controllerFor('workspace').get('images'),
+            resource.promiseResource(RESOURCES.RAW_MATCHES),
+            resource.promiseResource(RESOURCES.ROBUST_MATCHES)
         ]).then(function(results){
+            return Matches.create({
+                images: results[0],
+                raw: results[1],
+                robust: results[2]
+            });
+        });
+    }
+
+});
+},{"../models/Matches.js":68,"../settings.js":87}],82:[function(require,module,exports){
+'use strict';
+
+module.exports =  Ember.Route.extend({
+
+    queryParams: {
+
+        from: {
+            refreshModel: true
+        },
+
+        to: {
+            refreshModel: true
+        }
+
+    },
+
+    model: function(params){
+        var match = this.modelFor('workspace.matcher').getMatches(params.from, params.to);
+        return match || Promise.reject();
+    },
+
+    serialize: function(model){
+        return { from: model.get('from.id'), to: model.get('to.id') };
+    }
+
+});
+},{}],83:[function(require,module,exports){
+'use strict';
+
+var settings = require('../settings.js'),
+    RESOURCES = settings.RESOURCE;
+
+module.exports = Ember.Route.extend({
+
+    model: function(){
+        var resources = this.controllerFor('projectResource');
+        return Promise.all([
+            resources.promiseResource(RESOURCES.MVS_POINTS),
+            resources.promiseResource(RESOURCES.MVS_COLORS)
+        ]).then(function(results){
+            var pointsArray = new Float32Array(results[0]),
+                colorsArray = new Uint8Array(results[1]),
+                size = pointsArray.length/3;
             return {
-                demos: results[0],
-                projects: results[1]
-            }
-        });
-    },
-
-    setupController: function(controller, model){
-        this._super(controller, model);
-        this.controllerFor('demos').set('model', model.demos);
-        this.controllerFor('projects').set('model', model.projects);
-    },
-
-    renderTemplate: function(){
-        this._super();
-        this.render('welcome/demos', {
-            into: 'welcome',
-            outlet: 'demos',
-            controller: 'demos'
-        });
-        this.render('welcome/projects', {
-            into: 'welcome',
-            outlet: 'projects',
-            controller: 'projects'
+                points: pointsArray,
+                colors: colorsArray,
+                size: size
+            };
         });
     }
 
 });
-},{"../store/sfmstore.js":41}],37:[function(require,module,exports){
+},{"../settings.js":87}],84:[function(require,module,exports){
 'use strict';
 
-var sfmstore = require('../store/sfmstore.js'),
-    STORES = require('../settings.js').STORES;
+var settings = require('../settings.js'),
+    RESOURCES = settings.RESOURCE;
 
 module.exports = Ember.Route.extend({
 
     model: function(){
-        return sfmstore
-            .promiseAdapter()
-            .then(function(adapter){
-                return adapter.promiseData(STORES.SINGLETONS, STORES.MVS);
-            });
-    },
-
-    setupController: function(controller, model){
-        controller.set('pointcloud', model);
-    }
-
-});
-},{"../settings.js":39,"../store/sfmstore.js":41}],38:[function(require,module,exports){
-'use strict';
-
-var sfmstore = require('../store/sfmstore.js'),
-    STORES = require('../settings.js').STORES;
-
-module.exports = Ember.Route.extend({
-
-    model: function(){
-        return sfmstore
-            .promiseAdapter()
-            .then(function(adapter){
-                return adapter.promiseData(STORES.SINGLETONS, STORES.BUNDLER);
-            });
+        var resources = this.controllerFor('projectResource');
+        return Promise.all([
+            resources.promiseResource(RESOURCES.SPARSE_POINTS),
+            resources.promiseResource(RESOURCES.SPARSE_COLORS),
+            resources.promiseResource(RESOURCES.CAMERAS)
+        ]).then(function(results){
+            var pointsArray = new Float32Array(results[0]),
+                colorsArray = new Uint8Array(results[1]),
+                size = pointsArray.length/3;
+            return {
+                sparse: {
+                    points: pointsArray,
+                    colors: colorsArray,
+                    size: size
+                },
+                cameras: results[2]
+            };
+        });
     },
 
     actions: {
@@ -7609,7 +13755,177 @@ module.exports = Ember.Route.extend({
     }
 
 });
-},{"../settings.js":39,"../store/sfmstore.js":41}],39:[function(require,module,exports){
+},{"../settings.js":87}],85:[function(require,module,exports){
+'use strict';
+
+var Task = require('../models/Task.js'),
+    settings = require('../settings.js'),
+    STATES = settings.TASK_STATES,
+    TASK_TYPES = settings.TASKS;
+
+
+module.exports = Ember.Controller.extend({
+
+    messages: Ember.inject.service(),
+
+    assign: function(url, datatype, desc){
+
+        var messages = this.get('messages');
+
+        var task = Task.create({
+            desc: desc,
+            data: {
+                url: url,
+                type: datatype
+            },
+            type: TASK_TYPES.DOWNLOAD
+        });
+
+        messages.notify({
+            task: task
+        });
+
+        var prom = new Promise(function(resolve, reject){
+
+            var request;
+
+            attempt();
+
+            function attempt(){
+                request = new XMLHttpRequest();
+                request.open('GET', url);
+                request.onload = complete;
+                request.onerror = failed;
+                request.ontimeout = retry;
+                request.onabort = failed;
+                request.onprogress = progress;
+                request.responseType = datatype;
+                request.send();
+            }
+
+            function complete(){
+                task.set('state', STATES.FINISHED);
+                resolve(request.response);
+            }
+
+            function progress(evt){
+                if (evt.lengthComputable) {
+                    task.setProperties({
+                        progress: Math.round(100*evt.loaded/evt.total)
+                    });
+                }
+            }
+
+            function failed(){
+                task.set('state', STATES.FINISHED);
+                reject();
+            }
+
+            function retry(){
+                attempt();
+            }
+
+        });
+
+        task.set('promise', prom);
+        return task;
+
+    }
+
+});
+},{"../models/Task.js":70,"../settings.js":87}],86:[function(require,module,exports){
+module.exports = Ember.Service.extend({
+
+    queue: [],
+
+    notify: function(msg){
+        this.get('queue').pushObject(msg);
+    },
+
+    resume: function(){
+        var queue = this.get('queue');
+        notifications.forEach(function(noti){
+            var delaytime = noti.delay * 1000;
+            var name = noti.name;
+            if (localStorage.getItem(name)) { return; }
+            setTimeout(function(){
+                queue.pushObject(noti.message);
+                localStorage.setItem(name, 'notified');
+            }, delaytime);
+        });
+
+    }.on('init')
+
+    /*
+    msgTest: function(){
+        var queue = this.get('queue');
+        setTimeout(function(){
+            queue.pushObjects([
+                {
+                    content: 'this is a message'
+                },
+                {
+                    content: 'this is a message'
+                },
+                {
+                    task: {
+                        progress: '50',
+                        desc: 'ahah dfadf fadfadjfkla fdasfjkakdh fadf'
+                    }
+                }
+            ]);
+        }, 2000);
+    }.on('init')
+    */
+});
+
+
+var notifications = [
+    {
+        name: 'incomplete',
+        delay: 5,
+        message: {
+            content: 'WebSFM is still under construction, please try the demos, create new project won\'t work. More information on the welcome page.'
+        }
+    },
+    {
+        name: 'ptx',
+        delay: 20,
+        message: {
+            content: 'I am looking for job, if you like this project, contact me.'
+        }
+    }
+];
+},{}],87:[function(require,module,exports){
+'use strict';
+
+//==========================================
+// Resource
+//==========================================
+
+module.exports.RESOURCE = {
+    FEATURES: '/sift.json',
+    FEATURE_POINTS: '/feature.point',
+    FEATURE_VECTORS: '/feature.vector',
+    FULLIMAGES: '/images',
+    IMAGES: '/images.json',
+    RAW_MATCHES: '/matches/matches.raw.json',
+    ROBUST_MATCHES: '/matches/matches.robust.json',
+//    TRACKS: 'tracks',
+    SPARSE: '/calibration/sparse.json',
+    CAMERAS: '/cameras.json',
+//    MVS: 'mvs',
+    SPARSE_POINTS: '/calibration/sparse.points',
+    SPARSE_COLORS: '/calibration/sparse.colors',
+    MVS_POINTS: '/mvs/surfels.points',
+    MVS_COLORS: '/mvs/surfels.colors',
+    SINGLETONS: 'singletons'
+};
+
+//==========================================
+// Enums
+//==========================================
+
 module.exports.STAGES = {
     BEFORE: 0,
     EXTRACTOR : 1,
@@ -7621,11 +13937,13 @@ module.exports.STAGES = {
     AFTER: 7
 };
 
+
 module.exports.STATES = {
     RUNNING: 0,
     STOPPED: 1,
     DONE: 2
 };
+
 
 module.exports.STORES = {
     FEATURES: 'features',
@@ -7637,14 +13955,58 @@ module.exports.STORES = {
     TRACKS: 'tracks',
     VIEWS: 'views',
     MVS: 'mvs',
-    BUNDLER: 'bundler'
+    BUNDLER: 'bundler',
+    MVS_POINTS: 'mvs_points',
+    MVS_COLORS: 'mvs_colors'
 };
+
+
+module.exports.LOCAL_STORE = {
+    DEMOS: 'demos',
+    PROJECTS: 'projects',
+    PROJECT: 'project'
+};
+
+
+//==========================================
+// Demos
+//==========================================
+
+
+module.exports.DEMO_ENTRY = {
+    IMAGE: 'image',
+    FEATURE: 'feature',
+    MATCH: 'match',
+    CALIBRATION: 'calibration',
+    MVS: 'mvs'
+};
+
+
+//==========================================
+// Message
+//==========================================
+
+
+module.exports.WORKER_MSG_TYPE = {
+    ASSIGN: 0,
+    ABORT: 1,
+    PROGRESS: 2,
+    ACK_ASSIGN: 3,
+    ACK_ABORT: 4
+};
+
+
+//==========================================
+// Task Constants
+//==========================================
+
 
 module.exports.TASKS = {
     SIFT: 0,
     MATCHING: 1,
     STEREO: 2,
-    TRACKING: 3
+    TRACKING: 3,
+    DOWNLOAD: 4
 };
 
 
@@ -7654,12 +14016,28 @@ module.exports.TASK_STATES = {
     RUNNING: 2,
     FINISHED: 3
 };
-},{}],40:[function(require,module,exports){
+
+
+//==========================================
+// Worker Constants
+//==========================================
+
+module.exports.DOWNLOAD_THRESHOLD = 5;
+
+module.exports.WORKER_SCRIPT = '/build/worker.js';
+
+module.exports.WORKER_STATE = {
+    IDLE: 0,
+    BUSY: 1
+};
+},{}],88:[function(require,module,exports){
 "use strict";
 
 var _ = require('underscore');
 
-var STORES = require('../settings.js').STORES,
+var settings = require('../settings.js'),
+    STORES = settings.STORES,
+    RESOURCE = settings.RESOURCE,
     utils = require('../utils.js');
 
 module.exports = StorageAdapter;
@@ -7680,6 +14058,13 @@ function StorageAdapter(projectName){
 
 StorageAdapter.prototype = {
 
+    close: function(){
+        if (this.connection) {
+            this.connection.close();
+            delete this.connection;
+        }
+    },
+
     promiseDB: function(){
         var _self = this;
 
@@ -7688,7 +14073,7 @@ StorageAdapter.prototype = {
         }
         else {
             return new Promise(function(resolve, reject){
-                var request = indexedDB.open(_self.project, 5);
+                var request = indexedDB.open(_self.project, 30);
                 request.onupgradeneeded = function(e){
                     console.log('upgrade');
                     _self.connection = e.target.result;
@@ -7713,16 +14098,29 @@ StorageAdapter.prototype = {
      */
     createStores: function(db){
         console.log('create');
-        if (!db.objectStoreNames.contains(STORES.IMAGES)) {
-            db.createObjectStore(STORES.IMAGES, { autoIncrement: true }) // image information
-                .createIndex('filename', 'filename', { unique: true });
+        if (!db.objectStoreNames.contains(RESOURCE.IMAGES)) {
+            db.createObjectStore(RESOURCE.IMAGES, { autoIncrement: true }) // image information
+                .createIndex('name', 'name', { unique: true });
 
         }
-        [   STORES.FEATURES,
-            STORES.FULLIMAGES,
-            STORES.THUMBNAILS,
-            STORES.MATCHES,
-            STORES.SINGLETONS
+        [
+//            STORES.FEATURES,
+//            STORES.FULLIMAGES,
+//            STORES.THUMBNAILS,
+//            STORES.MATCHES,
+//            STORES.SINGLETONS
+            RESOURCE.FEATURE_POINTS,
+            RESOURCE.FEATURE_VECTORS,
+            RESOURCE.SINGLETONS,
+//            RESOURCE.IMAGES,
+            RESOURCE.FULLIMAGES,
+            RESOURCE.ROBUST_MATCHES,
+            RESOURCE.RAW_MATCHES
+//            STORES.FULLIMAGES,
+//            STORES.THUMBNAILS,
+//            STORES.MATCHES,
+//            STORES.SINGLETONS
+
         ].forEach(function(name){
                 if (!db.objectStoreNames.contains(name)) {
                     db.createObjectStore(name);
@@ -7749,22 +14147,22 @@ StorageAdapter.prototype = {
             .then(function(img){
                 //Ember.Logger.debug('img object required');
                 domimg = img;
-                image = { filename: file.name, width: img.width, height: img.height };
-                return _self.promiseAddData(STORES.IMAGES, image);
+                image = {
+                    filename: file.name,
+                    width: img.width,
+                    height: img.height,
+                    thumbnail: utils.getImageThumbnail(domimg)
+                };
+                return _self.promiseAddData(RESOURCE.IMAGES, image);
             })
             .then(function(newid){
-                //Ember.Logger.debug('_id required');
-                image._id = newid;
-                image.thumbnail = utils.getImageThumbnail(domimg);
-                return _self.promiseSetData(STORES.THUMBNAILS, image._id, image.thumbnail);
-            })
-            .then(function(){
-                //Ember.Logger.debug('thumbnail stored');
+                //Ember.Logger.debug('id aquired');
+                image.id = newid;
                 return utils.promiseFileBuffer(file);
             })
             .then(function(buffer){
                 //Ember.Logger.debug('ArrayBuffer Loaded');
-                return _self.promiseSetData(STORES.FULLIMAGES, image._id, buffer);
+                return _self.promiseSetData(RESOURCE.FULLIMAGES, image.id, buffer);
             })
             .then(function(){
                 //Ember.Logger.debug('One image imported');
@@ -7835,6 +14233,28 @@ StorageAdapter.prototype = {
         });
     },
 
+    promiseRemoveData: function(store, key){
+        var _self = this;
+        return new Promise(function(resolve){
+            _self.promiseDB().then(function(db){
+                db.transaction(store, 'readwrite').objectStore(store).delete(key).onsuccess = function(){
+                    resolve(true);
+                }
+            });
+        });
+    },
+
+    promiseClear: function(store){
+        var _self = this;
+        return new Promise(function(resolve){
+            _self.promiseDB().then(function(db){
+                db.transaction(store, 'readwrite').objectStore(store).clear().onsuccess = function(){
+                    resolve(true);
+                }
+            });
+        });
+    },
+
     promiseFindBy: function(store, index, key){
         var _self = this;
         return new Promise(function(resolve, reject){
@@ -7882,210 +14302,65 @@ StorageAdapter.prototype = {
     }
 
 };
-},{"../settings.js":39,"../utils.js":42,"underscore":18}],41:[function(require,module,exports){
+},{"../settings.js":87,"../utils.js":89,"underscore":26}],89:[function(require,module,exports){
 'use strict';
 
 var _ = require('underscore');
 
-var utils = require('../utils.js'),
-    Project = require('../models/Project.js'),
-    DemoProject = require('../models/DemoProject.js'),
-    IDBAdapter = require('./StorageAdapter.js');
-
-var DEMO_LIST_URL = '/demo/demos.json';
-
-var LOCAL_STORE = {
-    DEMOS: 'demos',
-    PROJECTS: 'projects',
-    PROJECT: 'project'
-};
-
-//============================================
-
-var Store = Ember.Object.extend({
-
-    currentProject: null, // Obj
-
-    projects: [],
-
-    demos: [],
-
-    adapter: null,
-
-    onSwichProject: function(){
-        Ember.Logger.debug('project switch triggered!');
-        var project = this.get('currentProject');
-        if (project) {
-            this.set('adapter', new IDBAdapter(project.get('name')));
-            localStorage.setItem(LOCAL_STORE.PROJECT, project.get('name'));
-        }
-        else {
-            this.set('adapter', null);
-            localStorage.setItem(LOCAL_STORE.PROJECT, null);
-        }
-    }.observes('currentProject'),
-
-    syncDemos: function(){
-        utils.setLocalStorage(LOCAL_STORE.DEMOS, this.get('demos').map(function(model){
-            return model.getProperties(model.get('storedProperties'));
-        }));
-    },
-
-    syncProjects: function(){
-        utils.setLocalStorage(LOCAL_STORE.PROJECTS, this.get('projects').map(function(model){
-            return model.getProperties(model.get('storedProperties'));
-        }));
-    }.observes('projects.length'),
-
-    nameAvaliable: function(name){
-        var demos = this.get('demos'),
-            projects = this.get('projects');
-        return _.isUndefined(demos.findBy('name', name)) && _.isUndefined(projects.findBy('name', name));
-    }
-
-});
-
-var ready = initLocalStorage().then(initStore);
-
-//==========================================
-// All functionalities of sfmstore is
-// in the Store Object
-//==========================================
-
-module.exports.storePromise = ready;
-
-//==========================================
-// Shortcuts
-//==========================================
-
-module.exports.promiseDemos = function(){
-    return ready.then(function(store){
-        return store.get('demos');
-    });
-};
-
-module.exports.promiseProjects = function(){
-    return ready.then(function(store){
-        return store.get('projects');
-    });
-};
-
-module.exports.promiseProject = function(){
-    return ready.then(function(store){
-        var project = store.get('currentProject');
-        if (project === null) {
-            return Promise.reject();
-        }
-        else {
-            return Promise.resolve(project);
-        }
-    });
-};
-
-module.exports.setCurrentProject = function(project){
-    ready.then(function(store){
-        store.set('currentProject', project);
-    });
-};
-
-module.exports.syncDemos = function(){
-    ready.then(function(store){
-        store.syncDemos();
-    });
-};
-
-module.exports.promiseAdapter = function(){
-    return ready.then(function(store){
-        return store.get('adapter');
-    });
-};
-
-//============================================
-
-function initLocalStorage(){
-    var demos = utils.getLocalStorage(LOCAL_STORE.DEMOS),
-        projects = utils.getLocalStorage(LOCAL_STORE.PROJECTS),
-        project = localStorage.getItem(LOCAL_STORE.PROJECT);
-    if (demos === null) {
-        return utils
-            .requireJSON(DEMO_LIST_URL)
-            .then(function(resp){
-                utils.setLocalStorage('demos', resp);
-                return Promise.resolve([resp, null, null]);
-            });
-    }
-    else {
-        return Promise.resolve([demos, projects, project]);
-    }
-}
-
-function initStore(results){
-    var demos = results[0],
-        projects = results[1],
-        project = results[2];
-
-    var params = {
-        currentProject: null,
-        projects: null,
-        demos: null,
-        adapter: null
-    };
-
-    // init Demos
-    params.demos = demos.map(function(d){
-        return DemoProject.create(d);
-    });
-
-    // init Projects
-    if (!_.isArray(projects)) {
-        params.projects = [];
-    }
-    else {
-        params.projects = projects.map(function(p){
-            return Project.create(p);
-        });
-    }
-
-    // init currentProject
-    if (_.isString(project)) {
-        params.currentProject = params.projects.findBy('name', project) || params.demos.findBy('name', project) || null;
-    }
-    if (params.currentProject) {
-        params.adapter = new IDBAdapter(params.currentProject.get('name'));
-    }
-
-    return Store.create(params);
-
-}
-},{"../models/DemoProject.js":30,"../models/Project.js":34,"../utils.js":42,"./StorageAdapter.js":40,"underscore":18}],42:[function(require,module,exports){
 //==================================================
 
-module.exports.getLocalStorage = getLocalStorage;
-module.exports.setLocalStorage = setLocalStorage;
-module.exports.requireImageFile = requireImageFile;
-module.exports.requireJSON = requireJSON;
-module.exports.promiseJSON = promiseJSON;
-module.exports.promiseLoadImage = promiseLoadImage;
-module.exports.getImageThumbnail = getImageThumbnail;
-module.exports.promiseFileDataUrl = promiseFileDataUrl;
-module.exports.promiseFileBuffer = promiseFileBuffer;
-module.exports.promiseBufferImage = promiseBufferImage;
 
-//==================================================
+/**
+ * @param {string} url
+ * @param {string} datatype
+ * @returns Promise
+ */
+module.exports.promiseDownload = function(url, datatype){
+    return new Promise(function(resolve, reject){
+        var request = new XMLHttpRequest();
+        request.open('GET', url);
+        request.onload = function(){
+            resolve(request.response);
+        };
+        request.onerror = reject;
+        request.ontimeout = reject;
+        request.onabort = reject;
+        request.responseType = datatype;
+        request.send();
+    });
+};
 
-module.exports.promiseBlobJson = function(blob){
+
+/**
+ *
+ * @returns {number}
+ */
+module.exports.getUUID = function(){
+    return (new Date()).getTime();
+};
+
+
+/**
+ *
+ * @param {Blob} blob
+ * @returns {Promise}
+ */
+module.exports.promiseBlob = function(blob){
     return new Promise(function(resolve, reject){
         var reader = new FileReader();
         reader.onload = function(){
-            resolve(JSON.parse(reader.result));
+            resolve(reader.result);
         };
         reader.readAsText(blob);
     });
 };
 
-//==================================================
 
-function getLocalStorage(key){
+/**
+ *
+ * @param key
+ */
+module.exports.getLocalStorage = function(key){
     var result = localStorage.getItem(key);
     if (result === null || result === undefined) {
         return null;
@@ -8093,15 +14368,25 @@ function getLocalStorage(key){
     else {
         return JSON.parse(result);
     }
-}
+};
 
 
-function setLocalStorage(key, value){
+/**
+ *
+ * @param key
+ * @param {Object} value
+ */
+module.exports.setLocalStorage = function(key, value){
     localStorage.setItem(key, JSON.stringify(value));
-}
+};
 
 
-function promiseFileBuffer(file){
+/**
+ *
+ * @param {File|Blob} file
+ * @returns {Promise}
+ */
+module.exports.promiseFileBuffer = function(file){
     return new Promise(function(resolve, reject){
         var reader = new FileReader();
         reader.onload = function(){
@@ -8109,7 +14394,7 @@ function promiseFileBuffer(file){
         };
         reader.readAsArrayBuffer(file);
     });
-}
+};
 
 
 /**
@@ -8117,7 +14402,7 @@ function promiseFileBuffer(file){
  * @param url
  * @returns {Promise}
  */
-function promiseLoadImage(url){
+module.exports.promiseLoadImage = function(url){
     return new Promise(function(resolve, reject){
         var img = document.createElement('img');
         img.onload = function(){
@@ -8128,18 +14413,19 @@ function promiseLoadImage(url){
         img.onabort = reject;
         img.src = url;
     });
-}
+};
+
 
 /**
  *
- * @param buffer
- * @returns Promise
+ * @param {ArrayBuffer} buffer
+ * @returns {Promise}
  */
-function promiseBufferImage(buffer){
+module.exports.promiseBufferImage = function(buffer){
     var blob = new Blob([buffer]);
     var domstring = URL.createObjectURL(blob);
-    return promiseLoadImage(domstring);
-}
+    return exports.promiseLoadImage(domstring);
+};
 
 
 /**
@@ -8147,7 +14433,7 @@ function promiseBufferImage(buffer){
  * @param {File} file
  * @returns {Promise}
  */
-function promiseFileDataUrl(file){
+module.exports.promiseFileDataUrl = function(file){
     return new Promise(function(resolve, reject){
         var reader = new FileReader();
         reader.onload = function(){
@@ -8155,15 +14441,15 @@ function promiseFileDataUrl(file){
         };
         reader.readAsDataURL(file);
     });
-}
+};
 
 
 /**
  *
  * @param {Image} img
- * @returns {String}
+ * @returns {string}
  */
-function getImageThumbnail(img){
+module.exports.getImageThumbnail = function(img){
     var canvas = document.createElement('canvas');
     var ctx = canvas.getContext('2d');
     var aspectRatio = img.width/img.height;
@@ -8176,31 +14462,62 @@ function getImageThumbnail(img){
         ctx.drawImage(img, 0, 0, 200, 200*aspectRatio);
     }
     return canvas.toDataURL();
-}
+};
 
 
-function promiseJSON(url){
+/**
+ *
+ * @param {string} url
+ * @returns {Promise}
+ */
+module.exports.promiseJSON = function(url){
     return new Promise(function(resolve, reject){
         jQuery.ajax({
             url: url,
             dataType: 'json'
         }).done(resolve).fail(reject);
     });
-}
+};
 
 
-function requireJSON(url){
+/**
+ *
+ * @param {string} url
+ * @returns {Promise}
+ */
+module.exports.requireJSON = function(url){
 
     return promiseRetry();
 
     function promiseRetry(){
-        return promiseJSON(url).catch(promiseRetry);
+        return exports.promiseJSON(url).catch(promiseRetry);
     }
 
-}
+};
 
 
-function promiseImageFile(url){
+/**
+ *
+ * @param {string} url
+ * @returns {Promise}
+ */
+module.exports.requireImageFile = function(url){
+
+    return promiseRetry();
+
+    function promiseRetry(){
+        return exports.promiseImageFile(url).catch(promiseRetry);
+    }
+
+};
+
+
+/**
+ *
+ * @param {string} url
+ * @returns {Promise}
+ */
+module.exports.promiseImageFile = function(url){
     return new Promise(function(resolve, reject){
         var request = new XMLHttpRequest();
         request.open('GET', url);
@@ -8213,910 +14530,1188 @@ function promiseImageFile(url){
         request.responseType = 'blob';
         request.send();
     });
-}
-
-
-function requireImageFile(url){
-
-    return promiseRetry();
-
-    function promiseRetry(){
-        return promiseImageFile(url).catch(promiseRetry);
-    }
-
-}
-},{}],43:[function(require,module,exports){
-module.exports = function(App) {
-
-    App.RegisterView = require('./views/RegisterView.js');
-    App.ProjectThumbnailView = require('./views/ProjectThumbnailView.js');
-    App.DemoThumbnailView = require('./views/DemoThumbnailView.js');
-    App.ImageLoaderView = require('./views/ImageLoaderView.js');
-    App.CpuSettingView = require('./views/CpuSettingView.js');
-    App.SiftView = require('./views/SiftView.js');
-    App.StateBarView = require('./views/StateBarView.js');
-    App.StereoView = require('./views/StereoView.js');
-    App.TwoViewGridView = require('./views/TwoViewGridView.js');
-    App.TwoViewMatchingView = require('./views/TwoViewMatchingView.js');
-    App.ProjectCreatorView = require('./views/ProjectCreatorView.js');
-
 };
-},{"./views/CpuSettingView.js":44,"./views/DemoThumbnailView.js":45,"./views/ImageLoaderView.js":46,"./views/ProjectCreatorView.js":47,"./views/ProjectThumbnailView.js":48,"./views/RegisterView.js":49,"./views/SiftView.js":50,"./views/StateBarView.js":51,"./views/StereoView.js":52,"./views/TwoViewGridView.js":53,"./views/TwoViewMatchingView.js":54}],44:[function(require,module,exports){
-module.exports = Ember.View.extend({
 
-    templateName: 'widgets/cpu-setting',
 
-    tagName: 'div',
-
-    classNames: [
-        'controll-panel__cpu-setting'
-    ],
-
-    hoverAt: 4,
-
-    selected: 4,
-
-    onChangeSetting: function(){
-        this.controller.set('threadPoolSize', this.get('selected'));
-    }.observes('selected'),
-
-    NodeView: Ember.View.extend({
-
-        templateName: 'widgets/cpu-node',
-
-        tagName: 'div',
-
-        classNames: [
-            'controll-panel__cpu-setting__node'
-        ],
-
-        index: null,
-
-        isEnabled: function(){
-            return this.get('index') < this.get('parentView').get('selected');
-        }.property('parentView.selected'),
-
-        willEnable: function(){
-            return (!this.get('isEnabled')) && (this.get('index') <= this.get('parentView').get('hoverAt'));
-        }.property('isEnabled', 'parentView.hoverAt'),
-
-        willDisable: function(){
-            return this.get('isEnabled') && (this.get('index') > this.get('parentView').get('hoverAt'));
-        }.property('isEnabled', 'parentView.hoverAt'),
-
-        mouseEnter: function(){
-            this.get('parentView').set('hoverAt', this.get('index'));
-        },
-
-        click: function(){
-            this.get('parentView').set('selected', this.get('index')+1);
-        }
-
-    })
-
-});
-},{}],45:[function(require,module,exports){
-module.exports = Ember.View.extend({
-
-    tagName: 'div',
-
-    templateName: 'widgets/demo-thumbnail',
-
-    classNames: [
-        'welcome-screen__demos__thumbnail'
-    ]
-
-});
-},{}],46:[function(require,module,exports){
-var _ = require('underscore');
-
-var Image = require('../models/Image.js');
-
-module.exports = Ember.View.extend({
-
-    isActive: false,
-
-    tagName: 'div',
-
-    classNames: [
-        'main-container__input-gallery__input'
-    ],
-
-    classNameBindings: ['isActive'],
-
-    dragOver: function(e){
-        e.preventDefault();
-    },
-
-    dragEnter: function(e){
-        e.preventDefault();
-        this.set('isActive', true);
-    },
-
-    dragLeave: function(e){
-        e.preventDefault();
-        this.set('isActive', false);
-    },
-
-    drop: function(e){
-        this.set('isActive', false);
-        e.preventDefault();
-        var files = e.dataTransfer.files,
-            _self = this;
-        _.range(files.length).forEach(function(i){
-            _self.get('controller').importImageFile(files[i]);
-        });
-    }
-
-});
-},{"../models/Image.js":32,"underscore":18}],47:[function(require,module,exports){
-'use strict';
-
-module.exports = Ember.View.extend({
-
-    tagName: 'div',
-
-    classNames: 'welcome-screen__projects__new',
-
-    classNameBindings: ['isInvalid'],
-
-    isInvalid: function(){
-        return !this.get('controller.isValidName');
-    }.property('controller.isValidName'),
-
-    templateName: 'widgets/project-creator',
-
-    InputView: Ember.TextField.extend({
-
-        refresh: function(){
-            this.set('value', '');
-        }.observes('parentView.controller.controllers.application.model.projects.length'),
-
-        keyUp: function(){
-            this.syncContent();
-        },
-
-        change: function(){
-            this.syncContent();
-        },
-
-        syncContent: function(){
-            this.get('parentView.controller').set('newProjectName', this.get('value'));
-        }
-
-    })
-
-});
-},{}],48:[function(require,module,exports){
-module.exports = Ember.View.extend({
-
-    tagName: 'div',
-
-    templateName: 'widgets/project-thumbnail',
-
-    classNames: [
-        'welcome-screen__projects__thumbnail'
-    ]
-
-});
-},{}],49:[function(require,module,exports){
-"use strict";
-
-var _ = require('underscore'),
-    la = require('sylvester'),
-    THREE = require('three'),
-    V3 = THREE.Vector3,
-    Matrix = la.Matrix,
-    Vector = la.Vector;
-
-var Navigatable = require('../mixins/Navigatable.js');
-
-var getCordFrame = require('../../visualization/getCoordinateFrame.js'),
-    getBundlerCamera = require('../../visualization/getBundlerCamera.js'),
-    bundler = require('../../math/bundler.js');
-
-module.exports = Ember.View.extend(Navigatable, {
-
-    geometry: null,
-
-    camera: null,
-
-    scene: null,
-
-    light: null,
-
-    clock: null,
-
-    isRotating: false,
-
-    isMoving: false,
-
-    anchor: null,
-
-    wheel: function(e){
-        var camera = this.get('camera');
-        var ratio = e.wheelDelta > 0 ? 0.9 : 1.1;
-        camera.position.x = ratio*camera.position.x;
-        camera.position.y = ratio*camera.position.y;
-        camera.position.z = ratio*camera.position.z;
-    },
-
-    beginNavigation: function(e){
-        var camera = this.get('camera');
-        if (camera){
-            switch (e.which){
-                case 1: // left key
-                    this.set('anchor', {
-                        x: e.pageX,
-                        y: e.pageY,
-                        camX: camera.position.x,
-                        camY: camera.position.y
-                    });
-                    this.set('isMoving', true);
-                    break;
-                case 3: // right key
-                    this.set('anchor', {
-                        x: e.pageX,
-                        y: e.pageY,
-                        camX: camera.rotation.x,
-                        camY: camera.rotation.y
-                    });
-                    this.set('isRotating', true);
-                    break;
-                default:
-                    break;
-            }
-        }
-    },
-
-    releaseNavigation: function(){
-        this.set('isRotating', false);
-        this.set('isMoving', false);
-    },
-
-    navigate: function(e){
-        var anchor, camera;
-        if(this.get('isMoving')){
-            anchor = this.get('anchor');
-            camera = this.get('camera');
-            camera.position.x = anchor.camX + e.pageX - anchor.x;
-            camera.position.y = anchor.camY + e.pageY - anchor.y;
-        }
-        else if (this.get('isRotating')){
-            anchor = this.get('anchor');
-            camera = this.get('camera');
-            camera.rotation.x = anchor.camX + Math.PI*(e.pageX - anchor.x)/2000;
-            camera.rotation.y = anchor.camY + Math.PI*(e.pageY - anchor.y)/2000;
-        }
-    },
-
-    didInsertElement: function(){
-        var width = window.innerWidth,
-            height = window.innerHeight,
-            SCALE = 20;
-        var renderer = new THREE.WebGLRenderer();
-        renderer.setClearColor(0xe4e4e4, 1);
-        renderer.setSize(width, height);
-        this.$().append(renderer.domElement);
-
-        var camera = new THREE.PerspectiveCamera(45, width/height, 0.1, 10000);
-        var scene = new THREE.Scene();
-        var clock = new THREE.Clock();
-        var light = new THREE.PointLight(0xffffff);
-
-        light.position.set(0, 300, 200);
-
-        this.set('scene', scene);
-        this.set('camera', camera);
-        this.set('light', light);
-        this.set('clock', clock);
-
-        scene.add(light);
-        scene.add(camera);
-        scene.add(getCordFrame());
-
-        var recovered = new THREE.Object3D();
-        recovered.add(this.getCameras());
-        recovered.add(this.getPointCloud());
-        recovered.scale.x = SCALE;
-        recovered.scale.y = SCALE;
-        recovered.scale.z = SCALE;
-        scene.add(recovered);
-
-        camera.position.x = 400;
-        camera.position.y = 400;
-        camera.position.z = 400;
-
-        camera.lookAt(new V3(0,0,0));
-
-        this.get('element').addEventListener('wheel', this.wheel.bind(this), false);
-
-        function render(){
-            renderer.render(scene, camera);
-            requestAnimationFrame(render);
-        }
-        render();
-    },
-
-    getPointCloud: function(){
-        var pointsGeo = new THREE.Geometry();
-        this.get('controller.points').forEach(function(p){
-            pointsGeo.vertices.push(new THREE.Vector3(p.point[0], p.point[1], p.point[2]));
-            pointsGeo.colors.push(new THREE.Color(p.color.R/255, p.color.G/255, p.color.B/255));
-        });
-
-        var pointsMaterial = new THREE.PointCloudMaterial({
-//            color: 0x222222,
-            size: 3,
-            vertexColors: true
-//            blending: THREE.AdditiveBlending,
-//            transparent: true
-        });
-
-        return new THREE.PointCloud(pointsGeo, pointsMaterial);
-    },
-
-    getCameras: function(){
-        var cameras = new THREE.Object3D();
-        this.get('controller.cameras').forEach(function(cam){
-            cameras.add(getBundlerCamera(cam));
-        });
-        return cameras;
-    },
-
-    onFocus: function(){
-        var cam = this.get('controller.focus'),
-            camera = this.get('camera');
-        var Rt = bundler.getStandardRt(Matrix.create(cam.R), Vector.create(cam.t)),
-            R = Rt.R,
-            t = Rt.t,
-            Ri = R.transpose(),
-            T = Ri.x(t).x(-1),
-            focal = Ri.x(Vector.create([0,0,1]).subtract(t));
-        camera.position.set(T.elements[0], T.elements[1], T.elements[2]);
-        camera.lookAt(array2glvector(focal.elements));
-    }.observes('controller.focus')
-
-});
-
-function array2glvector(elements){
-    return new THREE.Vector3(elements[0], elements[1], elements[2]);
-}
-},{"../../math/bundler.js":55,"../../visualization/getBundlerCamera.js":57,"../../visualization/getCoordinateFrame.js":59,"../mixins/Navigatable.js":29,"sylvester":11,"three":73,"underscore":18}],50:[function(require,module,exports){
-"use strict";
-
-var drawFeatures = require('../../visualization/drawFeatures.js');
-
-module.exports = Ember.View.extend({
-
-    didInsertElement: function(){
-//        console.log(this.get('controller'));
-    },
-
-    onNewImage: function(){
-        if (!this.get('controller.isLoading')) {
-            this.renderCanvas();
-        }
-    }.observes('controller.isLoading'),
-
-    renderCanvas: function(){
-        var img = this.get('controller.img'),
-            fixedWidth = this.$().width(),
-            ratio = fixedWidth/img.width,
-            height = img.height*ratio,
-            canvas = this.$('canvas')[0];
-        canvas.width = fixedWidth;
-        canvas.height = height;
-        var ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, fixedWidth, height);
-        drawFeatures(ctx, this.get('controller.features'), 0, 0, ratio);
-    }
-
-});
-},{"../../visualization/drawFeatures.js":56}],51:[function(require,module,exports){
-var STAGES = require('../settings.js').STAGES;
-
-module.exports = Ember.View.extend({
-
-    templateName: 'widgets/state-bar',
-
-    expand: false,
-
-    InfoView: Ember.View.extend({
-
-        tagName: 'div',
-
-        classNames: ['controll-panel__state-bar__body'],
-
-        click: function(){
-            if (this.get('parentView').get('expand')){
-                this.get('parentView').set('expand', false);
-            }
-            else {
-                this.get('parentView').set('expand', true);
-            }
-        },
-
-        description: function(){
-            switch (this.controller.get('stage')) {
-                case STAGES.BEFORE:
-                    return 'Sturcture from Motion';
-                case STAGES.EXTRACTOR:
-                    return 'extracting SIFT features';
-                case STAGES.MATCHING:
-                    return 'matching features between two-views';
-                case STAGES.TRACKING:
-                    return 'tracking consistent tracks from matches';
-                case STAGES.REGISTER:
-                    return 'Calibrating Cameras';
-                default:
-                    throw 'invalid application stage';
-            }
-        }.property('controller.stage')
-
-    })
-
-});
-},{"../settings.js":39}],52:[function(require,module,exports){
-"use strict";
-
-var THREE = require('three');
-
-var Navigatable = require('../mixins/Navigatable.js');
-
-module.exports = Ember.View.extend(Navigatable, {
-
-    tagName: 'div',
-
-    className: [
-        'main-container__stereo-container'
-    ],
-
-    geometry: null,
-
-    camera: null,
-
-    scene: null,
-
-    light: null,
-
-    clock: null,
-
-    isRotating: false,
-
-    isMoving: false,
-
-    anchor: null,
-
-    beginNavigation: function(e){
-        var camera = this.get('camera');
-        if (camera){
-            switch (e.which){
-                case 1: // left key
-                    this.set('anchor', {
-                        x: e.pageX,
-                        y: e.pageY,
-                        camX: camera.position.x,
-                        camY: camera.position.y
-                    });
-                    this.set('isMoving', true);
-                    break;
-                case 3: // right key
-                    this.set('anchor', {
-                        x: e.pageX,
-                        y: e.pageY,
-                        camX: camera.rotation.x,
-                        camY: camera.rotation.y
-                    });
-                    this.set('isRotating', true);
-                    break;
-                default:
-                    break;
-            }
-        }
-    },
-
-    releaseNavigation: function(){
-        this.set('isRotating', false);
-        this.set('isMoving', false);
-    },
-
-    navigate: function(e){
-        var anchor = this.get('anchor'),
-            camera = this.get('camera');
-        if(this.get('isMoving')){
-            camera.position.x = anchor.camX + e.pageX - anchor.x;
-            camera.position.y = anchor.camY + e.pageY - anchor.y;
-        }
-        else if (this.get('isRotating')){
-            camera.rotation.x = anchor.camX + Math.PI*(e.pageX - anchor.x)/2000;
-            camera.rotation.y = anchor.camY + Math.PI*(e.pageY - anchor.y)/2000;
-        }
-    },
-
-    wheel: function(e){
-        var camera = this.get('camera');
-        var ratio = e.wheelDelta > 0 ? 0.9 : 1.1;
-        camera.position.x = ratio*camera.position.x;
-        camera.position.y = ratio*camera.position.y;
-        camera.position.z = ratio*camera.position.z;
-    },
-
-    didInsertElement: function(){
-        var width = window.innerWidth,
-            height = window.innerHeight;
-        var renderer = new THREE.WebGLRenderer();
-        renderer.setClearColor(0xe4e4e4, 1);
-        renderer.setSize(width, height);
-        this.$().append(renderer.domElement);
-
-        var camera = new THREE.PerspectiveCamera(45, width/height, 0.1, 10000);
-        var scene = new THREE.Scene();
-        var clock = new THREE.Clock();
-        var light = new THREE.PointLight(0xffffff);
-
-        this.set('scene', scene);
-        this.set('camera', camera);
-        this.set('light', light);
-        this.set('clock', clock);
-
-        scene.add(light);
-        scene.add(camera);
-        scene.add(this.getPointCloud());
-
-        light.position.set(0, 300, 200);
-
-        camera.position.x = 500;
-        camera.position.y = 500;
-        camera.position.z = 500;
-
-        this.get('element').addEventListener('wheel', this.wheel.bind(this), false);
-
-        function render(){
-            renderer.render(scene, camera);
-            requestAnimationFrame(render);
-        }
-        render();
-
-    },
-
-    getPointCloud: function(){
-        var SCALE = 100;
-        var particlesGeometry = new THREE.Geometry();
-        this.get('controller.pointcloud').forEach(function(point){
-            particlesGeometry.vertices.push(new THREE.Vector3(point[0], point[1], point[2]));
-        });
-        var particlesMaterial = new THREE.PointCloudMaterial({
-            color: 0x222222,
-            size: 5
-//            blending: THREE.AdditiveBlending,
-//            transparent: true
-        });
-        var particlesSystem = new THREE.PointCloud(particlesGeometry, particlesMaterial);
-        particlesSystem.scale.x = SCALE;
-        particlesSystem.scale.y = SCALE;
-        particlesSystem.scale.z = SCALE;
-        particlesSystem.rotation.z = 5.0;
-        return particlesSystem;
-    }
-
-});
-},{"../mixins/Navigatable.js":29,"three":73}],53:[function(require,module,exports){
-module.exports = Ember.View.extend({
-
-    tagName: 'table',
-
-    classNames: [
-        'main-container__match-table'
-    ],
-
-    hover: null,
-
-    isTraced: function(){
-        if (this.get('hover') === null) {
-            return false;
-        }
-        else {
-            return !this.get('hover.isDiag');
-        }
-    }.property('hover'),
-
-    templateName: 'widgets/twoviewgrid',
-
-    NodeView: Ember.View.extend({
-
-        tagName: 'th',
-
-        mouseEnter: function(){
-            this.get('parentView').set('hover', this);
-        },
-
-        click: function(){
-            var bigger, smaller;
-            if (this.get('viewX._id') < this.get('viewY._id')) {
-                smaller = this.get('viewX');
-                bigger = this.get('viewY');
-            }
-            else {
-                smaller = this.get('viewY');
-                bigger = this.get('viewX');
-            }
-            this.controller.transitionToRoute('matches.pair', { view1: smaller, view2: bigger });
-        },
-
-        isHorizontal: function(){
-            return this.get('parentView.isTraced') && this.get('parentView.hover.indexY') === this.get('indexY') && this.get('parentView.hover.indexX') > this.get('indexX');
-        }.property('parentView.hover'),
-
-        isVertical: function(){
-            return this.get('parentView.isTraced') && this.get('parentView.hover.indexX') === this.get('indexX') && this.get('parentView.hover.indexY') > this.get('indexY');
-        }.property('parentView.hover'),
-
-        viewX: null,
-
-        viewY: null,
-
-        indexX: function(){
-            return this.get('controller.images').indexOf(this.get('viewX'));
-        }.property(),
-
-        indexY: function(){
-            return this.get('controller.images').indexOf(this.get('viewY'));
-        }.property(),
-
-        key: function(){
-            var id1 = this.get('viewX').get('_id'),
-                id2 = this.get('viewY').get('_id');
-            if (id1>id2) {
-                return id2 + '&' + id1;
-            }
-            else if (id1<id2) {
-                return id1 + '&' + id2;
-            }
-            else {
-                return null;
-            }
-        }.property(),
-
-        isFinished: function(){
-            return !this.get('isDiag') && this.get('controller.finished').indexOf(this.get('key')) !== -1;
-        }.property('controller.finished.length', 'key'),
-
-        isDiag: function(){
-            return this.get('viewX') === this.get('viewY');
-        }.property(),
-
-        isInprogress: function(){
-            if (this.get('controller.scheduler')) {
-                return this.get('controller.scheduler.inProgress').indexOf(this.get('key')) !== -1;
-            }
-            else {
-                return false;
-            }
-        }.property('controller.scheduler.inProgress.length')
-
-    })
-
-});
-},{}],54:[function(require,module,exports){
-module.exports = Ember.View.extend({
-
-    tagName: 'div',
-
-    classNames: [
-        'floating-window__matching-pair__canvas-container'
-    ],
-
-    img1: null,
-
-    img2: null,
-
-    canvas: null,
-
-    config: null,
-
-    view1: Ember.computed.alias('controller.view1'),
-
-    view2: Ember.computed.alias('controller.view2'),
-
-    key: function(){
-        return this.get('view1._id') + '&' + this.get('view2._id');
-    }.property('view1', 'view2'),
-
-    finished: Ember.computed.alias('controller.controllers.matches.finished'),
-
-    matchesReady: function(){
-        return this.get('finished').indexOf(this.get('key')) !== -1;
-    }.property('finished', 'key'),
-
-    modelUpdated: function(){
-        Promise.all([
-            App.Utils.promiseImage(this.get('view1._id')),
-            App.Utils.promiseImage(this.get('view2._id'))
-        ]).then(this.renderImagePair.bind(this));
-    }.observes('view1', 'view2'),
-
-    didInsertElement: function(){
-        var canvas = document.createElement('canvas');
-        this.get('element').appendChild(canvas);
-        this.set('canvas', canvas);
-        this.modelUpdated();
-    },
-
-    renderImagePair: function(values){
-        var PADDING = 10;
-        var img1 = values[0],
-            img2 = values[1];
-        var ratioX = img1.height/img1.width + img2.height/img2.width;
-        var ratioY = img1.width/img1.height + img2.width/img2.height;
-        var alignX = (ratioX>1 ? ratioX : 1/ratioX) <= (ratioY>1 ? ratioY : 1/ratioY);
-        var fixedWidth = this.$().width();
-        var ratio1 = alignX ? fixedWidth/img1.width : (fixedWidth/ratioY)/img1.height,
-            ratio2 = alignX ? fixedWidth/img2.width : (fixedWidth/ratioY)/img2.height;
-        this.set('config', {
-            alignX: alignX,
-            ratio1: ratio1,
-            ratio2: ratio2,
-            padding: PADDING,
-            cam1: { width: img1.width, height: img1.height },
-            cam2: { width: img2.width, height: img2.height }
-        });
-
-        var canvas = this.get('canvas');
-        canvas.width = fixedWidth;
-        canvas.height = alignX ? ratioX*fixedWidth : fixedWidth/ratioY;
-        var ctx = canvas.getContext('2d');
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-        ctx.drawImage(img1, 0, 0, img1.width*ratio1, img1.height*ratio1);
-        if (alignX) {
-            ctx.drawImage(img2, 0, img1.height*ratio1+PADDING, img2.width*ratio1, img2.height*ratio1);
-        }
-        else {
-            ctx.drawImage(img2, img1.width*ratio1+PADDING, 0, img2.width*ratio1, img2.height*ratio1);
-        }
-
-        if (this.get('matchesReady')) {
-            this.renderMatches();
-        }
-    },
-
-    renderMatches: function(){
-        var config = this.get('config');
-        var ctx = this.get('canvas').getContext('2d');
-        Promise.all([
-            IDBAdapter.promiseData(SFM.STORE_MATCHES, this.get('key')),
-            IDBAdapter.promiseData(SFM.STORE_FEATURES, this.get('view1._id')),
-            IDBAdapter.promiseData(SFM.STORE_FEATURES, this.get('view2._id'))
-        ]).then(function(values){
-            var matches = values[0],
-                features1 = values[1],
-                features2 = values[2];
-            var offsetX, offsetY;
-            if (config.alignX) {
-                offsetX = 0;
-                offsetY = config.cam1.height*config.ratio1 + config.padding;
-            }
-            else {
-                offsetX = config.cam1.width*config.ratio1 + config.padding;
-                offsetY = 0;
-            }
-            App.Utils.drawFeatures(ctx, features1, 0, 0, config.ratio1);
-            App.Utils.drawFeatures(ctx, features2, offsetX, offsetY, config.ratio1, { color: 'green' });
-            ctx.beginPath();
-            ctx.strokeStyle = 'black';
-            ctx.lineWidth = 1;
-            matches.forEach(function(match){
-                var row1 = features1[match[0]].row,
-                    col1 = features1[match[0]].col,
-                    row2 = features2[match[1]].row,
-                    col2 = features2[match[1]].col;
-                var x1 = config.ratio1*col1,
-                    y1 = config.ratio1*row1,
-                    x2 = config.ratio2*col2 + offsetX,
-                    y2 = config.ratio2*row2 + offsetY;
-                ctx.moveTo(x1, y1);
-                ctx.lineTo(x2, y2);
-            });
-            ctx.stroke();
-        });
-    }
-
-
-
-});
-},{}],55:[function(require,module,exports){
+/**
+ * Load the script and return a dataurl of the loaded file
+ * @param {string} path
+ */
+module.exports.promiseScript = function(path){};
+
+
+/**
+ *
+ * @param {int} t
+ * @returns {Promise}
+ */
+module.exports.promiseDelay = function(t){
+    return new Promise(function(resolve, reject){
+        _.delay(function(){
+            resolve();
+        }, t)
+    });
+};
+},{"underscore":26}],90:[function(require,module,exports){
 'use strict';
 
 var la = require('sylvester'),
     Matrix = la.Matrix,
     Vector = la.Vector;
 
-module.exports.getStandardRt = getStandardRt;
-module.exports.world2img = world2img;
-module.exports.world2RT  = worldRT;
-module.exports.getProjectionMatrix = getProjectionMatrix;
-module.exports.getCalibrationMatrix = getCalibrationMatrix;
+var cord = require('../utils/cord.js');
+
+//==========================================================
 
 
 /**
  *
- * @param X
- * @param R
- * @param t
+ * @param x
+ * @param y
+ * @param z
+ * @returns {*}
  */
-function world2perspective(X, R, t){
-    return R.x(X).add(t);
-}
+module.exports.getRotation = function getRotation(x,y,z){
+    return rotateX(x).x(rotateY(y)).x(rotateZ(z));
+};
 
-function perspective2world(P, R, t){
-    return R.transpose().x(P.subtract(t));
-}
-
-function world2img(X, R, t, focal, k1, k2, width, height){}
 
 /**
- * @param X
- * @param R
- * @param t
- * @param focal
- * @param width
- * @param height
- * @returns {{row: number, col: *}}
+ * Convert euler angles to rotation matrix
+ * @param {number} alpha
+ * @param {number} beta
+ * @param {number} gamma
+ * @returns {Matrix}
  */
-function worldRT(X, R, t, focal, width, height){
-    var P = world2perspective(X, R, t);
-    P = P.x(-focal/P.elements[2]); // perspective divide
-    var x = P.elements[0], y = P.elements[1];
-    return {
-        row: height/2 - y,
-        col: x + width/2
-    };
-}
+module.exports.getRotationFromEuler = function(alpha, beta, gamma){
+    return rotateZ(gamma).transpose()
+        .x(rotateX(beta).transpose())
+        .x(rotateZ(alpha).transpose());
+};
+
 
 /**
- * @param R
- * @param t
+ * Convert rotation matrix to euler angles
+ * alpha - axis z   , x->N
+ * beta  - axis N(x), z->Z
+ * gamma - axis Z   , N->X
+ * @param {Matrix} R
+ * @returns {number[]} - alpha, beta, gamma
  */
-function getCameraPosition(R, t){
-    return R.transpose().x(t).x(-1);
-}
+module.exports.getEulerAngles = function(R){
 
-function getCalibrationMatrix(focal, width, height){
+    // prepare
 
+    var RR = R.transpose(),
+        x = Vector.create([1,0,0]),
+        y = Vector.create([0,1,0]),
+        z = Vector.create([0,0,1]),
+        X = RR.x(x),
+        Y = RR.x(y),
+        Z = RR.x(z),
+        N = Vector.create([1, -Z.e(1)/ Z.e(2), 0]),
+        NN = Vector.create([1, -Z.e(1)/ Z.e(2), 0]).x(-1);
+
+    var rotated;
+
+    // get alpha
+    var alpha = Math.min(
+            exports.getRightHandRotation([x.e(1), x.e(2)], [N.e(1), N.e(2)]),
+            exports.getRightHandRotation([x.e(1), x.e(2)], [NN.e(1), NN.e(2)])
+        );
+
+    rotated = rotateZ(alpha).transpose();
+
+    // get beta
+    var zz = rotated.x(z),
+        ZZ = rotated.x(Z),
+        beta = exports.getRightHandRotation([zz.e(2), zz.e(3)], [ZZ.e(2), ZZ.e(3)]);
+
+    rotated = rotateX(beta).transpose().x(rotated);
+
+    // get gamma
+    var XX = rotated.x(X),
+        gamma = exports.getRightHandRotation([x.e(1), x.e(2)], [XX.e(1), XX.e(2)]);
+
+    return [alpha, beta, gamma];
+
+};
+
+
+/**
+ * Get 3D right hand roation from fromV to toV of format (x,y) or (y,z) or (z,x)
+ * @param {number[]} fromV
+ * @param {number[]} toV
+ * @returns {number}
+ */
+module.exports.getRightHandRotation = function(fromV, toV){
+    var x1 = fromV[0], y1 = fromV[1],
+        x2 = toV[0]  , y2 = toV[1];
+    var fromAng = Math.atan2(y1, x1),
+        toAng = Math.atan2(y2, x2);
+    toAng = toAng >= fromAng ? toAng : toAng+2*Math.PI;
+    return toAng-fromAng;
+};
+
+
+/**
+ * Distance from point to line
+ * @param point - Vector
+ * @param line - Vector
+ */
+module.exports.getPoint2Line = function(point, line){
+    var a = line.e(1), b = line.e(2),
+        modulus = Math.sqrt(a*a+b*b)*point.e(3);
+    return Math.abs(point.dot(line)/modulus);
+};
+
+
+/**
+ * Distance in (row,col)
+ * @param {RowCol} rc1
+ * @param {RowCol} rc2
+ * @returns number
+ */
+module.exports.getDistanceRC = function(rc1, rc2){
+    var dr = rc1.row - rc2.row;
+    var dc = rc1.col - rc2.col;
+    return Math.sqrt( dr*dr + dc*dc );
+};
+
+
+/**
+ *
+ * @param {RowCol} rc1
+ * @param {RowCol} rc2
+ * @param {Camera} cam
+ * @returns number
+ */
+module.exports.getNormalizedDist = function(rc1, rc2, cam){
+    var dr = (rc1.row - rc2.row)/cam.height;
+    var dc = (rc1.col - rc2.col)/cam.width;
+    return Math.sqrt( dr*dr + dc*dc );
+};
+
+
+/**
+ * @param {HomoPoint2D} p1
+ * @param {HomoPoint2D} p2
+ * @returns {number}
+ */
+module.exports.distHomo2D = function(p1, p2){
+    return module.exports.getDistanceRC(cord.img2RC(p1), cord.img2RC(p2));
+};
+
+
+//==========================================================
+
+
+/**
+ *
+ * @param {number} angle
+ * @returns {Matrix}
+ */
+function rotateX(angle){
     return Matrix.create([
-        [-focal, 0     , width/2 ],
-        [0     , -focal, height/2],
-        [0     , 0     , 1       ]
+        [ 1, 0              ,  0               ],
+        [ 0, Math.cos(angle), -Math.sin(angle) ],
+        [ 0, Math.sin(angle),  Math.cos(angle) ]
+    ]);
+}
+
+
+/**
+ *
+ * @param {number} angle
+ * @returns {Matrix}
+ */
+function rotateY(angle){
+    return Matrix.create([
+        [  Math.cos(angle), 0, Math.sin(angle) ],
+        [  0              , 1, 0               ],
+        [ -Math.sin(angle), 0, Math.cos(angle) ]
+    ]);
+}
+
+
+/**
+ *
+ * @param {number} angle
+ * @returns {Matrix}
+ */
+function rotateZ(angle){
+    return Matrix.create([
+        [ Math.cos(angle), -Math.sin(angle), 0 ],
+        [ Math.sin(angle),  Math.cos(angle), 0 ],
+        [ 0              ,  0              , 1 ]
+    ]);
+}
+},{"../utils/cord.js":93,"sylvester":19}],91:[function(require,module,exports){
+'use strict';
+
+var _ = require('underscore'),
+    la = require('sylvester'),
+    Matrix = la.Matrix,
+    Vector = la.Vector,
+    numeric = require('numeric');
+
+//===================================================
+
+
+/**
+ *
+ * @param {number[]|SparseMatrix} arr
+ * @returns Vector
+ */
+exports.toVector = function(arr){
+    if (arr.sparse) {
+        arr = arr.toDenseVector();
+    }
+    return Vector.create(arr);
+};
+
+
+/**
+ *
+ * @param {number[][]|SparseMatrix} arr
+ * @returns Matrix
+ */
+exports.toMatrix = function(arr){
+    if (arr.sparse) {
+        arr = arr.toDense();
+    }
+    return Matrix.create(arr);
+};
+
+//===================================================
+
+/**
+ * get skewed matrix equivalent as cross product
+ * @param v - 3d vector
+ */
+module.exports.crossVector = function(v){
+    return Matrix.create([
+        [ 0      , -v.e(3) , v.e(2) ],
+        [ v.e(3) , 0       , -v.e(1)],
+        [ -v.e(2), v.e(1)  , 0      ]
+    ]);
+};
+
+
+/**
+ * max of abs
+ * @param {Matrix} m
+ * @returns number
+ */
+module.exports.matrixInfiniteNorm = function(m){
+
+    var row, col, cursor,
+        rows = m.rows(),
+        cols = m.cols(),
+        max = -Infinity;
+
+    for (row=1; row<=rows; row++) {
+        for (col=1; col<=cols; col++) {
+            cursor = Math.abs(m.e(row, col));
+            if (cursor > max) {
+                max = cursor
+            }
+        }
+    }
+
+    return max;
+
+};
+
+
+/**
+ *
+ * @param {SparseMatrix} m
+ * @returns number
+ */
+exports.sparseInfiniteNorm = function(m){
+
+    var max = -Infinity;
+
+    m.sparse[2].forEach(function(x){
+        var cursor = Math.abs(x);
+        if (cursor > max) {
+            max = cursor;
+        }
+    });
+
+    return max;
+
+};
+
+
+/**
+ * max of abs
+ * @param {Vector} v
+ * @returns number
+ */
+module.exports.vectorInfiniteNorm = function(v){
+
+    var max = -Infinity;
+
+    v.each(function(x){
+        var cursor = Math.abs(x);
+        if (cursor > max) {
+            max = cursor;
+        }
+    });
+
+    return max;
+
+};
+
+/**
+ * @param {Matrix} m
+ * @returns {{U: Matrix, S: Vector, V: Matrix}}
+ */
+module.exports.svd = function(m){
+    var usv = numeric.svd(m.elements);
+    return {
+        U: Matrix.create(usv.U),
+        S: Vector.create(usv.S),
+        V: Matrix.create(usv.V)
+    };
+};
+
+
+/**
+ * Shortcut for least mean square solve of Ax=0 using SVD (Normalized)
+ * @param {Matrix} A
+ * @returns {Vector}
+ */
+module.exports.svdSolve = function(A){
+
+    var solve = numeric.svd(A.elements),
+        V = Matrix.create(solve.V);
+
+    return V.col(A.cols());
+
+};
+
+
+/**
+ * flatten a matrix into a vector
+ * @param {Matrix} m
+ * @returns Vector
+ */
+module.exports.flattenMatrix = function(m){
+    return Vector.create(
+        _.flatten(m.elements)
+    );
+};
+
+
+/**
+ * Inflate a flatten matrix back to matrix
+ * @param {Vector} v
+ * @param {int} rows
+ * @param {int} cols
+ * @returns Matrix
+ */
+module.exports.inflateVector = function(v, rows, cols){
+
+    if (rows*cols !== v.elements.length) {
+        throw 'dimensions does not match, can not inflate!';
+    }
+
+    return Matrix.create(
+        _.range(rows).map(function(row){
+            return v.elements.slice(row*cols, row*cols+cols);
+        })
+    );
+
+};
+
+
+/**
+ * Norm2 normalization
+ * @param {Matrix} m
+ * @returns Matrix
+ */
+module.exports.normalizedMatrix = function(m){
+
+    var row, col, cursor,
+        rows = m.rows(),
+        cols = m.cols(),
+        memo = 0;
+
+    for (row=1; row<=rows; row++) {
+        for (col=1; col<=cols; col++) {
+            cursor = m.e(row, col);
+            memo += cursor*cursor;
+        }
+    }
+
+    return m.x(1/Math.sqrt(memo));
+
+};
+
+
+/**
+ *
+ * @param {Feature} f1
+ * @param {Feature} f2
+ * @returns {Number}
+ */
+module.exports.getFeatureDistance = function(f1, f2){
+
+    var index, cursor,
+        vector1 = f1.vector,
+        vector2 = f2.vector,
+        memo = 0,
+        range = f1.vector.length;
+
+    for (index=0; index<range; index++) {
+        cursor = vector1[index] - vector2[index];
+        memo += cursor*cursor;
+    }
+
+    return memo;
+
+};
+},{"numeric":18,"sylvester":19,"underscore":26}],92:[function(require,module,exports){
+'use strict';
+/************************************************
+ * View Geometry and Camera Models
+ ************************************************/
+
+var _ = require('underscore'),
+    la = require('sylvester'),
+    Matrix = la.Matrix,
+    Vector = la.Vector;
+
+var geoUtils = require('./geometry-utils.js'),
+    laUtils = require('./la-utils.js');
+
+//===================================
+// Stored Camera
+//===================================
+
+/**
+ *
+ * @param {StoredCamera} stored
+ * @return {CalibratedCamera}
+ */
+exports.stored2calibrated = function(stored){
+    var R = geoUtils.getRotationFromEuler.apply(null, stored.r),
+        t = laUtils.toVector(stored.t),
+        T = exports.Rt2T(R, t),
+        K = exports.getK(stored.f, stored.px, stored.py),
+        P = exports.KRt2P(K, R, t);
+    return { K: K, R: R, t: t, T: T, P: P, focal: stored.f, px: stored.px, py: stored.py, cam: stored.shape };
+};
+
+//===================================
+// CameraModel
+//===================================
+
+/**
+ *
+ * @param {CameraModel} model
+ * @returns Matrix
+ */
+exports.model2P = function(model){
+    return exports.KRt2P(model.K, model.R, model.t);
+};
+
+/**
+ *
+ * @param {CameraModel} model
+ * @returns {Vector}
+ */
+exports.model2T = function(model){
+    return exports.Rt2T(model.R, model.t);
+};
+
+
+/**
+ *
+ * @param {Matrix} R
+ * @param {Vector} t
+ * returns {Vector}
+ */
+exports.Rt2T = function(R, t){
+    return R.transpose().x(t).x(-1);
+};
+
+
+/**
+ *
+ * @param {Matrix} R
+ * @param {Vector} T
+ * returns {Vector}
+ */
+exports.RT2t = function(R, T){
+    return R.x(T).x(-1);
+};
+
+
+//===================================
+// CameraParams
+//===================================
+
+/**
+ * @param {CameraParams} params
+ * @returns CameraModel
+ */
+exports.params2model = function(params){
+    return {
+        K: exports.getK(params.f, params.px, params.py),
+        R: geoUtils.getRotationFromEuler.apply(null, params.r),
+        t: laUtils.toVector(params.t)
+    };
+};
+
+
+/**
+ * @param {number[]} params
+ * @returns CameraParams
+ */
+exports.inflateCameraParams = function(params){
+    return {
+        r: params.slice(0,3),
+        t: params.slice(3,6),
+        f: params[6], px: params[7], py: params[8],
+        k1: params[9], k2: params[10]
+    };
+};
+
+
+/**
+ *
+ * @param {CameraParams} cam
+ * @returns number[]
+ */
+exports.flattenCameraParams = function(cam){
+    var r = cam.r, t = cam.t;
+    return r.concat(t).concat([cam.f, cam.px, cam.py, cam.k1, cam.k2]);
+};
+
+
+//===================================
+// Projection
+//===================================
+
+
+/**
+ * get RT of cam2 relative to cam1
+ * @param {Matrix} R1
+ * @param {Vector} t1
+ * @param {Matrix} R2
+ * @param {Vector} t2
+ * @returns {{ R: Matrix, t: Vector }}
+ */
+exports.getRelativePose = function(R1, t1, R2, t2){
+    var R = R2.x(R1.transpose()),
+        t = R.x(t1).x(-1).add(t2);
+    return { R: R, t: t };
+};
+
+
+/**
+ * Get perspective transformation
+ * @param {Matrix} R
+ * @param {Vector} t
+ * @returns {Matrix}
+ */
+exports.getPerspective = function(R, t){
+    return R.augment(t).transpose().augment(Vector.create([0,0,0,1])).transpose();
+};
+
+
+/**
+ *
+ * @param {Matrix} R
+ * @param {Vector} t
+ * @returns Vector
+ */
+exports.getT = function(R, t){
+    return R.transpose().x(t).x(-1);
+};
+
+
+/**
+ * Essential Matrix
+ * @param {Matrix} R1
+ * @param {Vector} t1
+ * @param {Matrix} R2
+ * @param {Vector} t2
+ * @returns Matrix
+ */
+exports.getEssentialMatrix = function (R1, t1, R2, t2){
+    var pos = exports.getRelativePose(R1, t1, R2, t2),
+        R = pos.R,
+        t = pos.t,
+        T = R.transpose().x(t).x(-1),
+        Tx = Matrix.create([
+            [ 0      , -T.e(3) , T.e(2) ],
+            [ T.e(3) , 0       , -T.e(1)],
+            [ -T.e(2), T.e(1)  , 0      ]
+        ]),
+        E = Tx.x(R.transpose());
+    return normalizeMatrix(E);
+};
+
+
+
+/**
+ *
+ * @param {number} focal
+ * @param {number} width
+ * @param {number} height
+ * @returns Matrix
+ */
+exports.getCalibrationMatrix = function(focal, width, height){
+
+    return laUtils.toMatrix([
+        [focal, 0    , width/2 ],
+        [0    , focal, height/2],
+        [0    , 0    , 1       ]
     ]);
 
-}
+};
 
 
-function getProjectionMatrix(R, t, focal, width, height){
+/**
+ *
+ * @param {number} focal
+ * @param {number} px - principal point X
+ * @param {number} py - principal point y
+ * @returns Matrix
+ */
+exports.getK = function(focal, px, py){
+    return laUtils.toMatrix([
+        [ focal, 0    , px ],
+        [ 0    , focal, py ],
+        [ 0    , 0    , 1  ]
+    ]);
+};
 
-    var K = getCalibrationMatrix(focal, width, height).augment(Vector.create([0,0,0]));
+/**
+ *
+ * @param {Matrix} R
+ * @param {Vector} t
+ * @param {number} focal
+ * @param {number} width
+ * @param {number} height
+ * @returns Matrix
+ */
+exports.getProjectionMatrix = function(R, t, focal, width, height){
+    var K = exports.getCalibrationMatrix(focal, width, height).augment(Vector.create([0,0,0]));
     var P = R.augment(t).transpose().augment(Vector.create([0,0,0,1])).transpose();
     return K.x(P);
+};
 
+
+/**
+ *
+ * @param {Matrix} R1
+ * @param {Vector} t1
+ * @param {number} f1
+ * @param {Camera} cam1
+ * @param {Matrix} R2
+ * @param {Matrix} t2
+ * @param {number} f2
+ * @param {Camera} cam2
+ * @returns Matrix
+ */
+exports.getFundamentalMatrix = function(R1, t1, f1, cam1, R2, t2, f2, cam2){
+    var E = exports.getEssentialMatrix(R1, t1, R2, t2),
+        K1 = exports.getCalibrationMatrix(f1, cam1.width, cam1.height),
+        K2 = exports.getCalibrationMatrix(f2, cam2.width, cam2.height),
+        F = K1.transpose().inverse().x(E).x(K2.inverse());
+    return normalizeMatrix(F);
+};
+
+
+/**
+ *
+ * @param {Matrix} R
+ * @param {Vector} t
+ * @param {Matrix} K
+ * @param {number} k1
+ * @param {number} k2
+ * @returns {Function}
+ */
+exports.getDistortedProjection = function(R, t, K, k1, k2){
+
+    /**
+     * @param {Vector} X
+     * @returns Vector
+     */
+    return function(X){
+        var P = R.x(X).add(t);
+//        var p = P.x(P.e(3));
+//        var x = p.e(1);
+//        var y = p.e(2);
+//        var norm2 = (x/f)*(x/f)+(y/f)*(y/f);
+//        var factor = 1 + k1*norm2 + k2*norm2*norm2;
+//        var distorted = Vector.create([x*factor,y*factor,1]);
+        return K.x(P);
+    };
+
+};
+
+
+/**
+ *
+ * @param {CameraParams} cam
+ * @returns Matrix
+ */
+exports.params2P = function(cam){
+    var r = cam.r,
+        R = geoUtils.getRotationFromEuler(r[0], r[1], r[2]),
+        t = laUtils.toVector(cam.t),
+        K = exports.getK(cam.f, cam.px, cam.py);
+    return exports.KRt2P(K, R, t);
+};
+
+
+/**
+ *
+ * @param {Matrix} K
+ * @param {Matrix} R
+ * @param {Vector} t
+ * @returns Matrix
+ */
+exports.KRt2P = function(K, R, t){
+    return K.x(R.augment(t));
+};
+
+
+//===================================
+
+function normalizeMatrix(m){
+    var modulus = Vector.create(_.flatten(m.elements)).modulus();
+    return m.x(1/modulus);
 }
+},{"./geometry-utils.js":90,"./la-utils.js":91,"sylvester":19,"underscore":26}],93:[function(require,module,exports){
+'use strict';
+
+var la = require('sylvester'),
+    Matrix = la.Matrix,
+    Vector = la.Vector;
+
+//=======================================
 
 
-var standardTransform = Matrix.create([
-    [1, 0 , 0],
-    [0 , 1, 0],
-    [0 , 0 , -1]
+/**
+ * Convert bundler cord system to websfm cord system
+ * bundler's camera is right hand and negative focal plane
+ * @param {Matrix} R
+ * @param {Vector} t
+ * @returns {{R: Matrix, t: Matrix}}
+ */
+module.exports.getStandardRt = function(R ,t){
+    return {
+        R: BUNDLER_CONVERSION.x(R),
+        t: BUNDLER_CONVERSION.x(t)
+    };
+};
+
+
+var BUNDLER_CONVERSION = Matrix.create([
+    [ 1,  0,  0 ],
+    [ 0, -1,  0 ],
+    [ 0,  0, -1 ]
 ]);
 
-function getStandardRt(R ,t){
-    return {
-        R: standardTransform.x(R),
-        t: standardTransform.x(t)
-    };
+
+//=======================================
+// Convert between img and rc
+// row := y
+// col := x
+//=======================================
+
+
+/**
+ * @param {int} row
+ * @param {int} col
+ * @return {number[]}
+ */
+module.exports.rc2img = function(row, col){
+      return [col, row, 1];
+};
+
+
+/**
+ * @param {HomoPoint2D} point
+ * @returns {RowCol}
+ */
+module.exports.img2RC = function(point){
+    point = point.x(1/point.e(3));
+    return { row: point.e(2), col: point.e(1) };
+};
+
+
+//=======================================
+
+
+/**
+ * Deprecated, switch to feature2img
+ * @param {Feature} f
+ * @returns {number[]}
+ */
+module.exports.featureToImg = function (f) {
+    return exports.rc2img(f.row, f.col);
+};
+
+
+/**
+ * @param {Feature} f
+ * @returns {Vector}
+ */
+module.exports.feature2img = function (f) {
+    return Vector.create(
+        exports.rc2img(f.row, f.col)
+    );
+};
+
+
+/**
+ * @param {RowCol} f
+ * @returns {Vector}
+ */
+module.exports.rc2x = function (f) {
+    return Vector.create(exports.rc2img(f.row, f.col));
+};
+
+
+/**
+ *
+ * @param line
+ * @param {Camera} cam
+ */
+module.exports.imgline2points = function(line, cam){
+
+    var results = [],
+        width = cam.width,
+        height = cam.height,
+        p00 = Vector.create([0,0,1]),
+        p01 = Vector.create([0,height,1]),
+        p11 = Vector.create([width,height,1]),
+        p10 = Vector.create([width,0,1]);
+
+    [
+        p00.cross(p01),
+        p00.cross(p10),
+        p01.cross(p11),
+        p10.cross(p11)
+    ]
+        .map(function(edge){
+            return edge.cross(line)
+        })
+        .forEach(function(point){
+            var rt = rt2canvas(exports.img2RC(point), width, height);
+            if (rt) {
+                results.push(rt);
+            }
+        });
+
+    return results;
+
+};
+
+
+/**
+ * @param {Vector} p
+ * @returns {HomoPoint3D}
+ */
+module.exports.toHomo3D = function(p){
+    return Vector.create(
+        [ p.e(1), p.e(2), p.e(3), 1 ]
+    );
+};
+
+
+/**
+ * @param {HomoPoint3D} p
+ * @returns {Vector}
+ */
+module.exports.toInhomo3D = function(p){
+    var deno = p.e(4);
+    return Vector.create(
+        [ p.e(1)/deno, p.e(2)/deno, p.e(3)/deno ]
+    );
+};
+
+
+//=======================================
+
+
+function rt2canvas(rt, width, height){
+    var row = Math.round(rt.row),
+        col = Math.round(rt.col);
+    if (row >=0 && col >=0 && row <= height && col <= width) {
+        return {
+            row: row,
+            col: col
+        };
+    }
+    else {
+        return null;
+    }
 }
-},{"sylvester":11}],56:[function(require,module,exports){
+},{"sylvester":19}],94:[function(require,module,exports){
+'use strict';
+
+var _ = require('underscore'),
+    la = require('sylvester'),
+    Matrix = la.Matrix,
+    Vector = la.Vector,
+    ndarray = require('ndarray');
+
+//=====================================================
+
+
+var DEFAULT_CAMERA = {
+    width: 3008,
+    height: 2000
+};
+
+
+//=======================================
+// Generate random cord
+//=======================================
+
+
+/**
+ * Create ramdom img cord
+ * @param {Camera} [cam]
+ * @return {Vector}
+ */
+module.exports.getRandomImgCord = function(cam){
+
+    cam = cam || DEFAULT_CAMERA;
+
+    return Vector.create([
+        Math.random() * cam.width,
+        Math.random() * cam.height,
+        1
+    ]);
+
+};
+
+
+/**
+ * Create ramdom RC
+ * @param {Camera} [cam]
+ * @returns {RowCol}
+ */
+module.exports.getRandomRT = function(cam){
+
+    cam = cam || DEFAULT_CAMERA;
+
+    return {
+        row: Math.random()*cam.height,
+        col: Math.random()*cam.width
+    };
+
+};
+
+
+//=======================================
+
+
+/**
+ * Generate random RGB color string like rgb(255,255,255)
+ * @returns {string}
+ */
+module.exports.genRGBString = function(){
+
+    return 'rgb(' + getInt() + ',' + getInt() + ',' + getInt() + ')';
+
+    function getInt(){
+        return Math.floor(255*Math.random());
+    }
+
+};
+
+
+//=======================================
+
+
+/**
+ *
+ * @param {Camera} [cam] - optional bounding camera
+ * @returns {Feature}
+ */
+module.exports.getRandomFeature = function(cam){
+
+    cam = cam || DEFAULT_CAMERA;
+
+    return {
+
+        row: Math.floor(cam.height * Math.random()),
+
+        col: Math.floor(cam.width * Math.random()),
+
+        vector: _.range(128).map(function(){
+            return Math.floor(128*Math.random());
+        })
+
+    };
+
+};
+
+
+/**
+ * Generate a random linear equation set
+ * @param {Vector} [solve]
+ * @param {int} [rows]
+ * @return {Matrix}
+ */
+module.exports.getRandomLinearEquationSet = function(solve, rows){
+
+    var cols;
+
+    if (solve) {
+        cols = solve.elements.length;
+    }
+    else {
+        cols = 6 + Math.floor(10*Math.random());
+        solve = Vector.Random(cols);
+    }
+
+    rows = rows || cols + 4 + Math.floor(10*Math.random());
+
+    return Matrix.create(_.range(rows).map(function(){
+        return module.exports.getRandomOrthogonalVector(solve).elements;
+    }));
+
+};
+
+
+/**
+ * V*V'=0
+ * @param {Vector} v
+ * @returns {Vector}
+ */
+module.exports.getRandomOrthogonalVector = function(v){
+
+    var dims = v.elements.length,
+        ind = Math.floor(dims*Math.random()),
+        result = Vector.Random(dims),
+        cursor,
+        memo = 0;
+
+    for (cursor=0; cursor<dims; cursor++) {
+        if (cursor != ind) {
+            memo += v.elements[cursor] * result.elements[cursor];
+        }
+    }
+
+    result.elements[ind] = -memo/v.elements[ind];
+
+    return result;
+
+};
+
+exports.genRandomVectorBuffer = function(length, width){
+    var tarr = new Uint8Array(length*width);
+    var buffer = ndarray(tarr, [length, width]);
+    var i, vi;
+    for (i=0; i<length; i++) {
+        for (vi=0; vi<width; vi++) {
+            buffer.set(i, vi, Math.round(255*Math.random()));
+        }
+    }
+    return buffer;
+};
+},{"ndarray":16,"sylvester":19,"underscore":26}],95:[function(require,module,exports){
+'use strict';
+
+
+/**
+ *
+ * @param {int} length
+ * @returns {number[]}
+ */
+exports.zeros = function(length){
+    var result = new Array(length);
+    var i;
+    for (i=0; i<length; i++) {
+        result[i] = 0;
+    }
+    return result;
+};
+
+
+/**
+ *
+ * @param {[]} arr
+ * @param {function} callback
+ */
+exports.iterPairs = function(arr, callback){
+
+    var length = arr.length;
+
+    if (length<2) { return; }
+
+    var cur1, cur2, counter=0;
+    for (cur1=0; cur1<length-1; cur1++) {
+        for (cur2=cur1+1; cur2<length; cur2++) {
+            callback(arr[cur1], arr[cur2], counter);
+            counter++;
+        }
+    }
+
+};
+
+/**
+ *
+ * @param {int} s1
+ * @param {int} s2
+ * @param v - init value
+ */
+exports.array2d = function(s1, s2, v){
+
+    var arr = new Array(s1);
+
+    var cur1, cur2, curArr;
+    for (cur1=0; cur1<s1; cur1++) {
+        curArr = arr[cur1] = new Array(s2);
+        for (cur2=0; cur2<s2; cur2++) {
+            curArr[cur2] = v;
+        }
+    }
+
+    return arr;
+
+};
+},{}],96:[function(require,module,exports){
+'use strict';
+
 var _ = require('underscore');
 
-module.exports = function(ctx, features, offsetX, offsetY, scale, options){
+exports.fromBuffer = function(ctx, buffer, offsetX, offsetY, scale, options){
+    options = options || {};
+    _.defaults(options, {
+        color: 'red',
+        markSize: 3
+    });
+    ctx.beginPath();
+    ctx.strokeStyle = options.color;
+    ctx.lineWidth = options.markSize/2;
+    var length = buffer.shape[0],
+        cursor, x, y;
+    for (cursor=0; cursor<length; cursor++) {
+        x = offsetX + scale*buffer.get(cursor, 1);
+        y = offsetY + scale*buffer.get(cursor, 0);
+        ctx.moveTo(x-options.markSize, y);
+        ctx.lineTo(x+options.markSize, y);
+        ctx.moveTo(x, y-options.markSize);
+        ctx.lineTo(x, y+options.markSize);
+    }
+    ctx.stroke();
+};
+
+exports.fromRC = function(ctx, features, offsetX, offsetY, scale, options){
     options = options || {};
     _.defaults(options, {
         color: 'red',
@@ -9135,25 +15730,152 @@ module.exports = function(ctx, features, offsetX, offsetY, scale, options){
     });
     ctx.stroke();
 };
-},{"underscore":18}],57:[function(require,module,exports){
+},{"underscore":26}],97:[function(require,module,exports){
 'use strict';
 
-var THREE = require('three');
-
-var bundler = require('../math/bundler.js'),
-    getCameraFrame = require('./getCameraFrame.js'),
+var _ = require('underscore'),
     la = require('sylvester'),
     Matrix = la.Matrix,
     Vector = la.Vector;
 
-var imgWidth=2000, imgHeight=3000;
+var drawFeatures = require('./features.js').fromBuffer;
+var cord = require('../utils/cord.js');
 
-module.exports = function(cam){
-    var Rt = bundler.getStandardRt(Matrix.create(cam.R), Vector.create(cam.t)),
-        R = Rt.R, t = Rt.t;
-    return getCameraFrame(R, t, cam.focal, imgWidth, imgHeight);
+//=============================================================
+
+/**
+ * @typedef  {{alignX: boolean, ratio1: number, ratio2: number, padding: number, offsetX: number, offsetY: number, cam1: Camera, cam2: Camera}} TwoImageConfig
+ */
+
+/**
+ * @param img1
+ * @param img2
+ * @param canvas
+ * @param fixedWidth
+ * @returns {TwoImageConfig}
+ */
+exports.drawImagePair = function(img1, img2, canvas, fixedWidth){
+    var PADDING = 10;
+    var ratioX = img1.height/img1.width + img2.height/img2.width;
+    var ratioY = img1.width/img1.height + img2.width/img2.height;
+    var alignX = (ratioX>1 ? ratioX : 1/ratioX) <= (ratioY>1 ? ratioY : 1/ratioY);
+    var ratio1 = alignX ? fixedWidth/img1.width : (fixedWidth/ratioY)/img1.height,
+        ratio2 = alignX ? fixedWidth/img2.width : (fixedWidth/ratioY)/img2.height;
+
+    canvas.width = fixedWidth;
+    canvas.height = alignX ? ratioX*fixedWidth : fixedWidth/ratioY;
+    var ctx = canvas.getContext('2d');
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.drawImage(img1, 0, 0, img1.width*ratio1, img1.height*ratio1);
+    if (alignX) {
+        ctx.drawImage(img2, 0, img1.height*ratio1+PADDING, img2.width*ratio1, img2.height*ratio1);
+    }
+    else {
+        ctx.drawImage(img2, img1.width*ratio1+PADDING, 0, img2.width*ratio1, img2.height*ratio1);
+    }
+
+    var offsetX, offsetY;
+    if (alignX) {
+        offsetX = 0;
+        offsetY = img1.height * ratio1 + PADDING;
+    }
+    else {
+        offsetX = img1.width * ratio1 + PADDING;
+        offsetY = 0;
+    }
+
+    return {
+        alignX: alignX,
+        ratio1: ratio1,
+        ratio2: ratio2,
+        padding: PADDING,
+        offsetX: offsetX,
+        offsetY: offsetY,
+        cam1: { width: img1.width, height: img1.height },
+        cam2: { width: img2.width, height: img2.height }
+    };
+
 };
-},{"../math/bundler.js":55,"./getCameraFrame.js":58,"sylvester":11,"three":73}],58:[function(require,module,exports){
+
+/**
+ *
+ * @param {TwoImageConfig} config
+ * @param ctx
+ * @param {int[][]} matches
+ * @param features1 - ndarray
+ * @param features2 - ndarray
+ */
+exports.drawMatches = function(config, ctx, matches, features1, features2){
+    var offsetX = config.offsetX,
+        offsetY = config.offsetY;
+    drawFeatures(ctx, features1, 0, 0, config.ratio1);
+    drawFeatures(ctx, features2, offsetX, offsetY, config.ratio1, { color: 'green' });
+    ctx.beginPath();
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = 1;
+    matches.forEach(function(match){
+        var i1 = match[0],
+            i2 = match[1],
+            row1 = features1.get(i1, 0),
+            col1 = features1.get(i1, 1),
+            row2 = features2.get(i2, 0),
+            col2 = features2.get(i2, 1),
+            x1 = config.ratio1*col1,
+            y1 = config.ratio1*row1,
+            x2 = config.ratio2*col2 + offsetX,
+            y2 = config.ratio2*row2 + offsetY;
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+    });
+    ctx.stroke();
+};
+
+
+/**
+ * @param ctx
+ * @param {TwoImageConfig} config
+ * @param {Matrix} F
+ * @param {RowCol[]} pair
+ * @param {string} color
+ * @param {Camera} cam1
+ * @param {Camera} cam2
+ */
+exports.drawDetailedMatches = function(ctx, config, F, pair, color, cam1, cam2){
+
+    var f1 = pair[0],
+        f2 = pair[1],
+        p1 = cord.rc2x(f1),
+        p2 = cord.rc2x(f2),
+        line1 = cord.imgline2points(F.x(p2), cam1),
+        line2 = cord.imgline2points(F.transpose().x(p1), cam2);
+    if (line1.length === 2 && line2.length === 2) {
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2;
+        ctx.moveTo(line1[0].col*config.ratio1, line1[0].row*config.ratio1);
+        ctx.lineTo(line1[1].col*config.ratio1, line1[1].row*config.ratio1);
+        ctx.moveTo(line2[0].col*config.ratio2+config.offsetX, line2[0].row*config.ratio2+config.offsetY);
+        ctx.lineTo(line2[1].col*config.ratio2+config.offsetX, line2[1].row*config.ratio2+config.offsetY);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 5;
+        drawPoint(ctx, config.ratio1*f1.col, config.ratio1*f1.row);
+        drawPoint(ctx, config.offsetX+config.ratio2*f2.col, config.offsetY+config.ratio2*f2.row);
+        ctx.stroke();
+    }
+};
+
+
+function drawPoint(ctx, x, y){
+    var markSize = 7;
+    ctx.moveTo(x-markSize, y);
+    ctx.lineTo(x+markSize, y);
+    ctx.moveTo(x, y-markSize);
+    ctx.lineTo(x, y+markSize);
+}
+},{"../utils/cord.js":93,"./features.js":96,"sylvester":19,"underscore":26}],98:[function(require,module,exports){
 'use strict';
 
 var THREE = require('three'),
@@ -9161,23 +15883,56 @@ var THREE = require('three'),
     Matrix = la.Matrix,
     Vector = la.Vector;
 
+var laUtils = require('../math/la-utils.js');
 
-var camMaterial = new THREE.LineBasicMaterial({
-    color: 0xFF0000
-});
+/**
+ *
+ * @returns {THREE.Line}
+ */
+exports.getCoordinateFrame = function(){
+    var axisGeo = new THREE.Geometry();
+    axisGeo.vertices = [
+        new THREE.Vector3(0,0,0), new THREE.Vector3(500,0,0),
+        new THREE.Vector3(0,0,0), new THREE.Vector3(0,500,0),
+        new THREE.Vector3(0,0,0), new THREE.Vector3(0,0,500)
+    ];
+    var axisMaterial = new THREE.LineBasicMaterial({
+        color: 0x464646
+    });
+    return new THREE.Line(axisGeo, axisMaterial, THREE.LinePieces);
+};
 
 
-module.exports = function(R, t, focal, imgHeight, imgWidth){
+/**
+ * @param {CalibratedCamera} camera
+ * @returns {THREE.Line}
+ */
+exports.getCameraFrame = function(camera){
+
+    var R = camera.R,
+        t = camera.t,
+        focal = camera.focal,
+        height = camera.cam.height,
+        width = camera.cam.width,
+        px = camera.px,
+        py = camera.py;
+
+    var camMaterial = new THREE.LineBasicMaterial({
+        color: 0xFF0000
+    });
 
     var Ri = R.transpose(),
         T = Ri.x(t).x(-1),
-        ratio = focal*2,
-        camWidth = imgWidth/ratio,
-        camHeight = imgHeight/ratio,
-        corner1 = Ri.x(Vector.create([camWidth/2, camHeight/2, 1]).subtract(t)),
-        corner2 = Ri.x(Vector.create([camWidth/2, -camHeight/2, 1]).subtract(t)),
-        corner3 = Ri.x(Vector.create([-camWidth/2, -camHeight/2, 1]).subtract(t)),
-        corner4 = Ri.x(Vector.create([-camWidth/2, camHeight/2, 1]).subtract(t));
+        ratio = 1/focal,
+        offset = laUtils.toVector([px, py, 0]),
+        c1 = laUtils.toVector([ width, height, focal]).subtract(offset).x(ratio),
+        c2 = laUtils.toVector([ width, 0     , focal]).subtract(offset).x(ratio),
+        c3 = laUtils.toVector([ 0    , 0     , focal]).subtract(offset).x(ratio),
+        c4 = laUtils.toVector([ 0    , height, focal]).subtract(offset).x(ratio),
+        corner1 = Ri.x(c1.subtract(t)),
+        corner2 = Ri.x(c2.subtract(t)),
+        corner3 = Ri.x(c3.subtract(t)),
+        corner4 = Ri.x(c4.subtract(t));
 
     var camPosition = array2glvector(T.elements),
         corner1Position = array2glvector(corner1.elements),
@@ -9207,24 +15962,7 @@ module.exports = function(R, t, focal, imgHeight, imgWidth){
 function array2glvector(elements){
     return new THREE.Vector3(elements[0], elements[1], elements[2]);
 }
-},{"sylvester":11,"three":73}],59:[function(require,module,exports){
-'use strict';
-
-var THREE = require('three');
-
-module.exports = function(){
-    var axisGeo = new THREE.Geometry();
-    axisGeo.vertices = [
-        new THREE.Vector3(0,0,0), new THREE.Vector3(500,0,0),
-        new THREE.Vector3(0,0,0), new THREE.Vector3(0,500,0),
-        new THREE.Vector3(0,0,0), new THREE.Vector3(0,0,500)
-    ];
-    var axisMaterial = new THREE.LineBasicMaterial({
-        color: 0x464646
-    });
-    return new THREE.Line(axisGeo, axisMaterial, THREE.LinePieces);
-};
-},{"three":73}],60:[function(require,module,exports){
+},{"../math/la-utils.js":91,"sylvester":19,"three":113}],99:[function(require,module,exports){
 /*
 Copyright (c) 2011, Chris Umbel
 
@@ -9313,7 +16051,7 @@ module.exports.jsMatrixToFortranArray = jsMatrixToFortranArray;
 module.exports.fortranArrayToJSArray = fortranArrayToJSArray;
 module.exports.fortranIntArrayToJSArray = fortranIntArrayToJSArray;
 
-},{"node-ffi":67}],61:[function(require,module,exports){
+},{"node-ffi":106}],100:[function(require,module,exports){
 /*
 Copyright (c) 2011, Chris Umbel
 
@@ -9345,7 +16083,7 @@ exports.lu = lapack.lu;
 exports.sgetrf = lapack.sgetrf;
 exports.sgesv = lapack.sgesv;
 
-},{"./lapack.js":62}],62:[function(require,module,exports){
+},{"./lapack.js":101}],101:[function(require,module,exports){
 /*
 Copyright (c) 2011, Chris Umbel
 
@@ -9628,7 +16366,7 @@ exports.sgesv = sgesv;
 exports.qr = qr;
 exports.lu = lu;
 
-},{"./fortranArray":60,"node-ffi":67}],63:[function(require,module,exports){
+},{"./fortranArray":99,"node-ffi":106}],102:[function(require,module,exports){
 var ffi = require('./ffi')
 
 /**
@@ -9671,7 +16409,7 @@ Callback.prototype.getPointer = function getPointer () {
   return this.pointer
 }
 
-},{"./ffi":67}],64:[function(require,module,exports){
+},{"./ffi":106}],103:[function(require,module,exports){
 var ffi = require('./ffi')
 
 /**
@@ -9710,7 +16448,7 @@ module.exports = CIF
 
 CIF.prototype.getPointer = function () { return this.pointer }
 
-},{"./ffi":67}],65:[function(require,module,exports){
+},{"./ffi":106}],104:[function(require,module,exports){
 var ffi = require('./ffi')
   , read  = require('fs').readFileSync
   , dlopen = ffi.ForeignFunction(ffi.Bindings.StaticFunctions.dlopen
@@ -9805,7 +16543,7 @@ DynamicLibrary.prototype.error = function error () {
   return dlerror()
 }
 
-},{"./ffi":67,"fs":1}],66:[function(require,module,exports){
+},{"./ffi":106,"fs":5}],105:[function(require,module,exports){
 (function (process){
 
 /**
@@ -9833,8 +16571,8 @@ function errno () {
 }
 module.exports = errno
 
-}).call(this,require("JkpR2F"))
-},{"./ffi":67,"JkpR2F":8}],67:[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./ffi":106,"_process":13}],106:[function(require,module,exports){
 var ffi = module.exports
 
 ffi.Bindings = require('bindings')('ffi_bindings.node')
@@ -10022,7 +16760,7 @@ ffi.FFI_TYPE = ffi.Struct([
 ])
 
 
-},{"./callback":63,"./cif":64,"./dynamic_library":65,"./errno":66,"./foreign_function":68,"./library":69,"./pointer":70,"./struct":71,"bindings":72}],68:[function(require,module,exports){
+},{"./callback":102,"./cif":103,"./dynamic_library":104,"./errno":105,"./foreign_function":107,"./library":108,"./pointer":109,"./struct":110,"bindings":111}],107:[function(require,module,exports){
 (function (Buffer){
 var ffi = require('./ffi')
   , EventEmitter = require('events').EventEmitter
@@ -10135,7 +16873,7 @@ module.exports = ForeignFunction
 ForeignFunction.build = ForeignFunction
 
 }).call(this,require("buffer").Buffer)
-},{"./ffi":67,"buffer":2,"events":5}],69:[function(require,module,exports){
+},{"./ffi":106,"buffer":6,"events":10}],108:[function(require,module,exports){
 (function (process){
 var ffi = require('./ffi')
   , EXT = ffi.PLATFORM_LIBRARY_EXTENSIONS[process.platform]
@@ -10175,8 +16913,8 @@ function Library (libfile, funcs) {
 }
 module.exports = Library
 
-}).call(this,require("JkpR2F"))
-},{"./ffi":67,"JkpR2F":8}],70:[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./ffi":106,"_process":13}],109:[function(require,module,exports){
 (function (Buffer){
 var ffi = require('./ffi')
   , util = require('util')
@@ -10301,7 +17039,7 @@ Object.keys(ffi.NON_SPECIFIC_TYPES).forEach(function (type) {
 Pointer.NULL = new Pointer(0)
 
 }).call(this,require("buffer").Buffer)
-},{"./ffi":67,"buffer":2,"util":10}],71:[function(require,module,exports){
+},{"./ffi":106,"buffer":6,"util":15}],110:[function(require,module,exports){
 (function (Buffer){
 var ffi = require('./ffi')
 
@@ -10487,7 +17225,7 @@ function Struct () {
 module.exports = Struct
 
 }).call(this,require("buffer").Buffer)
-},{"./ffi":67,"buffer":2}],72:[function(require,module,exports){
+},{"./ffi":106,"buffer":6}],111:[function(require,module,exports){
 (function (process,__filename){
 
 /**
@@ -10656,8 +17394,690 @@ exports.getRoot = function getRoot (file) {
   }
 }
 
-}).call(this,require("JkpR2F"),"/../../../../../node_modules/lapack/node_modules/node-ffi/node_modules/bindings/bindings.js")
-},{"JkpR2F":8,"fs":1,"path":7}],73:[function(require,module,exports){
+}).call(this,require('_process'),"/../../../node_modules/lapack/node_modules/node-ffi/node_modules/bindings/bindings.js")
+},{"_process":13,"fs":5,"path":12}],112:[function(require,module,exports){
+module.exports = function(THREE) {
+    var MOUSE = THREE.MOUSE
+    if (!MOUSE)
+        MOUSE = { LEFT: 0, MIDDLE: 1, RIGHT: 2 };
+    
+    /**
+     * @author qiao / https://github.com/qiao
+     * @author mrdoob / http://mrdoob.com
+     * @author alteredq / http://alteredqualia.com/
+     * @author WestLangley / http://github.com/WestLangley
+     * @author erich666 / http://erichaines.com
+     */
+    /*global THREE, console */
+
+    // This set of controls performs orbiting, dollying (zooming), and panning. It maintains
+    // the "up" direction as +Y, unlike the TrackballControls. Touch on tablet and phones is
+    // supported.
+    //
+    //    Orbit - left mouse / touch: one finger move
+    //    Zoom - middle mouse, or mousewheel / touch: two finger spread or squish
+    //    Pan - right mouse, or arrow keys / touch: three finter swipe
+    //
+    // This is a drop-in replacement for (most) TrackballControls used in examples.
+    // That is, include this js file and wherever you see:
+    //      controls = new THREE.TrackballControls( camera );
+    //      controls.target.z = 150;
+    // Simple substitute "OrbitControls" and the control should work as-is.
+
+    function OrbitControls ( object, domElement ) {
+
+        this.object = object;
+        this.domElement = ( domElement !== undefined ) ? domElement : document;
+
+        // API
+
+        // Set to false to disable this control
+        this.enabled = true;
+
+        // "target" sets the location of focus, where the control orbits around
+        // and where it pans with respect to.
+        this.target = new THREE.Vector3();
+
+        // center is old, deprecated; use "target" instead
+        this.center = this.target;
+
+        // This option actually enables dollying in and out; left as "zoom" for
+        // backwards compatibility
+        this.noZoom = false;
+        this.zoomSpeed = 1.0;
+
+        // Limits to how far you can dolly in and out
+        this.minDistance = 0;
+        this.maxDistance = Infinity;
+
+        // Set to true to disable this control
+        this.noRotate = false;
+        this.rotateSpeed = 1.0;
+
+        // Set to true to disable this control
+        this.noPan = false;
+        this.keyPanSpeed = 7.0; // pixels moved per arrow key push
+
+        // Set to true to automatically rotate around the target
+        this.autoRotate = false;
+        this.autoRotateSpeed = 2.0; // 30 seconds per round when fps is 60
+
+        // How far you can orbit vertically, upper and lower limits.
+        // Range is 0 to Math.PI radians.
+        this.minPolarAngle = 0; // radians
+        this.maxPolarAngle = Math.PI; // radians
+
+        // How far you can orbit horizontally, upper and lower limits.
+        // If set, must be a sub-interval of the interval [ - Math.PI, Math.PI ].
+        this.minAzimuthAngle = - Infinity; // radians
+        this.maxAzimuthAngle = Infinity; // radians
+
+        // Set to true to disable use of the keys
+        this.noKeys = false;
+
+        // The four arrow keys
+        this.keys = { LEFT: 37, UP: 38, RIGHT: 39, BOTTOM: 40 };
+
+        // Mouse buttons
+        this.mouseButtons = { ORBIT: MOUSE.LEFT, ZOOM: MOUSE.MIDDLE, PAN: MOUSE.RIGHT };
+
+        ////////////
+        // internals
+
+        var scope = this;
+
+        var EPS = 0.000001;
+
+        var rotateStart = new THREE.Vector2();
+        var rotateEnd = new THREE.Vector2();
+        var rotateDelta = new THREE.Vector2();
+
+        var panStart = new THREE.Vector2();
+        var panEnd = new THREE.Vector2();
+        var panDelta = new THREE.Vector2();
+        var panOffset = new THREE.Vector3();
+
+        var offset = new THREE.Vector3();
+
+        var dollyStart = new THREE.Vector2();
+        var dollyEnd = new THREE.Vector2();
+        var dollyDelta = new THREE.Vector2();
+
+        var theta;
+        var phi;
+        var phiDelta = 0;
+        var thetaDelta = 0;
+        var scale = 1;
+        var pan = new THREE.Vector3();
+
+        var lastPosition = new THREE.Vector3();
+        var lastQuaternion = new THREE.Quaternion();
+
+        var STATE = { NONE : -1, ROTATE : 0, DOLLY : 1, PAN : 2, TOUCH_ROTATE : 3, TOUCH_DOLLY : 4, TOUCH_PAN : 5 };
+
+        var state = STATE.NONE;
+
+        // for reset
+
+        this.target0 = this.target.clone();
+        this.position0 = this.object.position.clone();
+
+        // so camera.up is the orbit axis
+
+        var quat = new THREE.Quaternion().setFromUnitVectors( object.up, new THREE.Vector3( 0, 1, 0 ) );
+        var quatInverse = quat.clone().inverse();
+
+        // events
+
+        var changeEvent = { type: 'change' };
+        var startEvent = { type: 'start'};
+        var endEvent = { type: 'end'};
+
+        this.rotateLeft = function ( angle ) {
+
+            if ( angle === undefined ) {
+
+                angle = getAutoRotationAngle();
+
+            }
+
+            thetaDelta -= angle;
+
+        };
+
+        this.rotateUp = function ( angle ) {
+
+            if ( angle === undefined ) {
+
+                angle = getAutoRotationAngle();
+
+            }
+
+            phiDelta -= angle;
+
+        };
+
+        // pass in distance in world space to move left
+        this.panLeft = function ( distance ) {
+
+            var te = this.object.matrix.elements;
+
+            // get X column of matrix
+            panOffset.set( te[ 0 ], te[ 1 ], te[ 2 ] );
+            panOffset.multiplyScalar( - distance );
+
+            pan.add( panOffset );
+
+        };
+
+        // pass in distance in world space to move up
+        this.panUp = function ( distance ) {
+
+            var te = this.object.matrix.elements;
+
+            // get Y column of matrix
+            panOffset.set( te[ 4 ], te[ 5 ], te[ 6 ] );
+            panOffset.multiplyScalar( distance );
+
+            pan.add( panOffset );
+
+        };
+
+        // pass in x,y of change desired in pixel space,
+        // right and down are positive
+        this.pan = function ( deltaX, deltaY ) {
+
+            var element = scope.domElement === document ? scope.domElement.body : scope.domElement;
+
+            if ( scope.object.fov !== undefined ) {
+
+                // perspective
+                var position = scope.object.position;
+                var offset = position.clone().sub( scope.target );
+                var targetDistance = offset.length();
+
+                // half of the fov is center to top of screen
+                targetDistance *= Math.tan( ( scope.object.fov / 2 ) * Math.PI / 180.0 );
+
+                // we actually don't use screenWidth, since perspective camera is fixed to screen height
+                scope.panLeft( 2 * deltaX * targetDistance / element.clientHeight );
+                scope.panUp( 2 * deltaY * targetDistance / element.clientHeight );
+
+            } else if ( scope.object.top !== undefined ) {
+
+                // orthographic
+                scope.panLeft( deltaX * (scope.object.right - scope.object.left) / element.clientWidth );
+                scope.panUp( deltaY * (scope.object.top - scope.object.bottom) / element.clientHeight );
+
+            } else {
+
+                // camera neither orthographic or perspective
+                console.warn( 'WARNING: OrbitControls.js encountered an unknown camera type - pan disabled.' );
+
+            }
+
+        };
+
+        this.dollyIn = function ( dollyScale ) {
+
+            if ( dollyScale === undefined ) {
+
+                dollyScale = getZoomScale();
+
+            }
+
+            scale /= dollyScale;
+
+        };
+
+        this.dollyOut = function ( dollyScale ) {
+
+            if ( dollyScale === undefined ) {
+
+                dollyScale = getZoomScale();
+
+            }
+
+            scale *= dollyScale;
+
+        };
+
+        this.update = function () {
+
+            var position = this.object.position;
+
+            offset.copy( position ).sub( this.target );
+
+            // rotate offset to "y-axis-is-up" space
+            offset.applyQuaternion( quat );
+
+            // angle from z-axis around y-axis
+
+            theta = Math.atan2( offset.x, offset.z );
+
+            // angle from y-axis
+
+            phi = Math.atan2( Math.sqrt( offset.x * offset.x + offset.z * offset.z ), offset.y );
+
+            if ( this.autoRotate ) {
+
+                this.rotateLeft( getAutoRotationAngle() );
+
+            }
+
+            theta += thetaDelta;
+            phi += phiDelta;
+
+            // restrict theta to be between desired limits
+            theta = Math.max( this.minAzimuthAngle, Math.min( this.maxAzimuthAngle, theta ) );
+
+            // restrict phi to be between desired limits
+            phi = Math.max( this.minPolarAngle, Math.min( this.maxPolarAngle, phi ) );
+
+            // restrict phi to be betwee EPS and PI-EPS
+            phi = Math.max( EPS, Math.min( Math.PI - EPS, phi ) );
+
+            var radius = offset.length() * scale;
+
+            // restrict radius to be between desired limits
+            radius = Math.max( this.minDistance, Math.min( this.maxDistance, radius ) );
+
+            // move target to panned location
+            this.target.add( pan );
+
+            offset.x = radius * Math.sin( phi ) * Math.sin( theta );
+            offset.y = radius * Math.cos( phi );
+            offset.z = radius * Math.sin( phi ) * Math.cos( theta );
+
+            // rotate offset back to "camera-up-vector-is-up" space
+            offset.applyQuaternion( quatInverse );
+
+            position.copy( this.target ).add( offset );
+
+            this.object.lookAt( this.target );
+
+            thetaDelta = 0;
+            phiDelta = 0;
+            scale = 1;
+            pan.set( 0, 0, 0 );
+
+            // update condition is:
+            // min(camera displacement, camera rotation in radians)^2 > EPS
+            // using small-angle approximation cos(x/2) = 1 - x^2 / 8
+
+            if ( lastPosition.distanceToSquared( this.object.position ) > EPS
+                || 8 * (1 - lastQuaternion.dot(this.object.quaternion)) > EPS ) {
+
+                this.dispatchEvent( changeEvent );
+
+                lastPosition.copy( this.object.position );
+                lastQuaternion.copy (this.object.quaternion );
+
+            }
+
+        };
+
+
+        this.reset = function () {
+
+            state = STATE.NONE;
+
+            this.target.copy( this.target0 );
+            this.object.position.copy( this.position0 );
+
+            this.update();
+
+        };
+
+        this.getPolarAngle = function () {
+
+            return phi;
+
+        };
+
+        this.getAzimuthalAngle = function () {
+
+            return theta
+
+        };
+
+        function getAutoRotationAngle() {
+
+            return 2 * Math.PI / 60 / 60 * scope.autoRotateSpeed;
+
+        }
+
+        function getZoomScale() {
+
+            return Math.pow( 0.95, scope.zoomSpeed );
+
+        }
+
+        function onMouseDown( event ) {
+
+            if ( scope.enabled === false ) return;
+            event.preventDefault();
+
+            if ( event.button === scope.mouseButtons.ORBIT ) {
+                if ( scope.noRotate === true ) return;
+
+                state = STATE.ROTATE;
+
+                rotateStart.set( event.clientX, event.clientY );
+
+            } else if ( event.button === scope.mouseButtons.ZOOM ) {
+                if ( scope.noZoom === true ) return;
+
+                state = STATE.DOLLY;
+
+                dollyStart.set( event.clientX, event.clientY );
+
+            } else if ( event.button === scope.mouseButtons.PAN ) {
+                if ( scope.noPan === true ) return;
+
+                state = STATE.PAN;
+
+                panStart.set( event.clientX, event.clientY );
+
+            }
+
+            if ( state !== STATE.NONE ) {
+                document.addEventListener( 'mousemove', onMouseMove, false );
+                document.addEventListener( 'mouseup', onMouseUp, false );
+                scope.dispatchEvent( startEvent );
+            }
+
+        }
+
+        function onMouseMove( event ) {
+
+            if ( scope.enabled === false ) return;
+
+            event.preventDefault();
+
+            var element = scope.domElement === document ? scope.domElement.body : scope.domElement;
+
+            if ( state === STATE.ROTATE ) {
+
+                if ( scope.noRotate === true ) return;
+
+                rotateEnd.set( event.clientX, event.clientY );
+                rotateDelta.subVectors( rotateEnd, rotateStart );
+
+                // rotating across whole screen goes 360 degrees around
+                scope.rotateLeft( 2 * Math.PI * rotateDelta.x / element.clientWidth * scope.rotateSpeed );
+
+                // rotating up and down along whole screen attempts to go 360, but limited to 180
+                scope.rotateUp( 2 * Math.PI * rotateDelta.y / element.clientHeight * scope.rotateSpeed );
+
+                rotateStart.copy( rotateEnd );
+
+            } else if ( state === STATE.DOLLY ) {
+
+                if ( scope.noZoom === true ) return;
+
+                dollyEnd.set( event.clientX, event.clientY );
+                dollyDelta.subVectors( dollyEnd, dollyStart );
+
+                if ( dollyDelta.y > 0 ) {
+
+                    scope.dollyIn();
+
+                } else {
+
+                    scope.dollyOut();
+
+                }
+
+                dollyStart.copy( dollyEnd );
+
+            } else if ( state === STATE.PAN ) {
+
+                if ( scope.noPan === true ) return;
+
+                panEnd.set( event.clientX, event.clientY );
+                panDelta.subVectors( panEnd, panStart );
+
+                scope.pan( panDelta.x, panDelta.y );
+
+                panStart.copy( panEnd );
+
+            }
+
+            if ( state !== STATE.NONE ) scope.update();
+
+        }
+
+        function onMouseUp( /* event */ ) {
+
+            if ( scope.enabled === false ) return;
+
+            document.removeEventListener( 'mousemove', onMouseMove, false );
+            document.removeEventListener( 'mouseup', onMouseUp, false );
+            scope.dispatchEvent( endEvent );
+            state = STATE.NONE;
+
+        }
+
+        function onMouseWheel( event ) {
+
+            if ( scope.enabled === false || scope.noZoom === true || state !== STATE.NONE ) return;
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            var delta = 0;
+
+            if ( event.wheelDelta !== undefined ) { // WebKit / Opera / Explorer 9
+
+                delta = event.wheelDelta;
+
+            } else if ( event.detail !== undefined ) { // Firefox
+
+                delta = - event.detail;
+
+            }
+
+            if ( delta > 0 ) {
+
+                scope.dollyOut();
+
+            } else {
+
+                scope.dollyIn();
+
+            }
+
+            scope.update();
+            scope.dispatchEvent( startEvent );
+            scope.dispatchEvent( endEvent );
+
+        }
+
+        function onKeyDown( event ) {
+
+            if ( scope.enabled === false || scope.noKeys === true || scope.noPan === true ) return;
+
+            switch ( event.keyCode ) {
+
+                case scope.keys.UP:
+                    scope.pan( 0, scope.keyPanSpeed );
+                    scope.update();
+                    break;
+
+                case scope.keys.BOTTOM:
+                    scope.pan( 0, - scope.keyPanSpeed );
+                    scope.update();
+                    break;
+
+                case scope.keys.LEFT:
+                    scope.pan( scope.keyPanSpeed, 0 );
+                    scope.update();
+                    break;
+
+                case scope.keys.RIGHT:
+                    scope.pan( - scope.keyPanSpeed, 0 );
+                    scope.update();
+                    break;
+
+            }
+
+        }
+
+        function touchstart( event ) {
+
+            if ( scope.enabled === false ) return;
+
+            switch ( event.touches.length ) {
+
+                case 1: // one-fingered touch: rotate
+
+                    if ( scope.noRotate === true ) return;
+
+                    state = STATE.TOUCH_ROTATE;
+
+                    rotateStart.set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY );
+                    break;
+
+                case 2: // two-fingered touch: dolly
+
+                    if ( scope.noZoom === true ) return;
+
+                    state = STATE.TOUCH_DOLLY;
+
+                    var dx = event.touches[ 0 ].pageX - event.touches[ 1 ].pageX;
+                    var dy = event.touches[ 0 ].pageY - event.touches[ 1 ].pageY;
+                    var distance = Math.sqrt( dx * dx + dy * dy );
+                    dollyStart.set( 0, distance );
+                    break;
+
+                case 3: // three-fingered touch: pan
+
+                    if ( scope.noPan === true ) return;
+
+                    state = STATE.TOUCH_PAN;
+
+                    panStart.set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY );
+                    break;
+
+                default:
+
+                    state = STATE.NONE;
+
+            }
+
+            if ( state !== STATE.NONE ) scope.dispatchEvent( startEvent );
+
+        }
+
+        function touchmove( event ) {
+
+            if ( scope.enabled === false ) return;
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            var element = scope.domElement === document ? scope.domElement.body : scope.domElement;
+
+            switch ( event.touches.length ) {
+
+                case 1: // one-fingered touch: rotate
+
+                    if ( scope.noRotate === true ) return;
+                    if ( state !== STATE.TOUCH_ROTATE ) return;
+
+                    rotateEnd.set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY );
+                    rotateDelta.subVectors( rotateEnd, rotateStart );
+
+                    // rotating across whole screen goes 360 degrees around
+                    scope.rotateLeft( 2 * Math.PI * rotateDelta.x / element.clientWidth * scope.rotateSpeed );
+                    // rotating up and down along whole screen attempts to go 360, but limited to 180
+                    scope.rotateUp( 2 * Math.PI * rotateDelta.y / element.clientHeight * scope.rotateSpeed );
+
+                    rotateStart.copy( rotateEnd );
+
+                    scope.update();
+                    break;
+
+                case 2: // two-fingered touch: dolly
+
+                    if ( scope.noZoom === true ) return;
+                    if ( state !== STATE.TOUCH_DOLLY ) return;
+
+                    var dx = event.touches[ 0 ].pageX - event.touches[ 1 ].pageX;
+                    var dy = event.touches[ 0 ].pageY - event.touches[ 1 ].pageY;
+                    var distance = Math.sqrt( dx * dx + dy * dy );
+
+                    dollyEnd.set( 0, distance );
+                    dollyDelta.subVectors( dollyEnd, dollyStart );
+
+                    if ( dollyDelta.y > 0 ) {
+
+                        scope.dollyOut();
+
+                    } else {
+
+                        scope.dollyIn();
+
+                    }
+
+                    dollyStart.copy( dollyEnd );
+
+                    scope.update();
+                    break;
+
+                case 3: // three-fingered touch: pan
+
+                    if ( scope.noPan === true ) return;
+                    if ( state !== STATE.TOUCH_PAN ) return;
+
+                    panEnd.set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY );
+                    panDelta.subVectors( panEnd, panStart );
+
+                    scope.pan( panDelta.x, panDelta.y );
+
+                    panStart.copy( panEnd );
+
+                    scope.update();
+                    break;
+
+                default:
+
+                    state = STATE.NONE;
+
+            }
+
+        }
+
+        function touchend( /* event */ ) {
+
+            if ( scope.enabled === false ) return;
+
+            scope.dispatchEvent( endEvent );
+            state = STATE.NONE;
+
+        }
+
+        this.domElement.addEventListener( 'contextmenu', function ( event ) { event.preventDefault(); }, false );
+        this.domElement.addEventListener( 'mousedown', onMouseDown, false );
+        this.domElement.addEventListener( 'mousewheel', onMouseWheel, false );
+        this.domElement.addEventListener( 'DOMMouseScroll', onMouseWheel, false ); // firefox
+
+        this.domElement.addEventListener( 'touchstart', touchstart, false );
+        this.domElement.addEventListener( 'touchend', touchend, false );
+        this.domElement.addEventListener( 'touchmove', touchmove, false );
+
+        window.addEventListener( 'keydown', onKeyDown, false );
+
+        // force an update at start
+        this.update();
+    };
+
+    OrbitControls.prototype = Object.create( THREE.EventDispatcher.prototype );
+    OrbitControls.prototype.constructor = OrbitControls;
+    return OrbitControls;
+}
+},{}],113:[function(require,module,exports){
 var self = self || {};// File:src/Three.js
 
 /**
@@ -46514,4 +53934,4 @@ if (typeof exports !== 'undefined') {
   this['THREE'] = THREE;
 }
 
-},{}]},{},[20]);
+},{}]},{},[32]);
