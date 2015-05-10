@@ -15,7 +15,6 @@ module.exports = Ember.Component.extend({
     classNames: 'task-message',
 
     onFinish: function(){
-        console.log('called');
         if (this.get('task.isDone')) {
             this.get('messages.queue').removeObject(this.get('message'));
         }

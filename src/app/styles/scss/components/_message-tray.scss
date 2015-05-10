@@ -9,7 +9,7 @@
 }
 
 $message-min-size: 4em;
-$message-width: 20em;
+$message-width: 25em;
 
 .message-tray__icon {
   @include transition(0.5s);
@@ -47,6 +47,7 @@ $message-width: 20em;
   @include animation($name 0.5s);
   @include box-shadow(0 0 5px 2px rgb(65, 65, 65));
   background-color: rgb(218, 218, 218);
+  min-width: $message-width;
 }
 
 .message-tray__header {
@@ -116,6 +117,8 @@ $message-width: 20em;
 .basic-message__body {
   @include flex(1 1 0);
   padding: 0.5em;
+  font-size: 1.2em;
+  line-height: 1.2em;
 }
 
 .basic-message__dismiss {

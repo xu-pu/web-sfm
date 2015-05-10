@@ -118,7 +118,16 @@ module.exports = Ember.Controller.extend({
 
         switch (name) {
             case RESOURCE.IMAGES:
-                return adapter.promiseAll(name);
+                return adapter
+                    .promiseAll(name)
+                    .then(function(results){
+                        return results.map(function(entry){
+                            var key = entry.key;
+                            var value = entry.value;
+                            value.id = key;
+                            return value;
+                        });
+                    });
                 break;
             case RESOURCE.FULLIMAGES:
                 // metadata is the Image object
