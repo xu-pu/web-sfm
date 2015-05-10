@@ -18,13 +18,13 @@ var utils = require('../utils.js'),
  * Application set its [poolSize] to change its size, [#promiseTask] to assign task,
  * [#suspend] and [#resume] to control execution
  */
-module.exports = Ember.ArrayController.extend({
+module.exports = Ember.Controller.extend({
 
     needs: ['downloader'],
 
     downloader: Ember.computed.alias('controllers.downloader'),
 
-    itemController: 'worker',
+    workers: [],
 
     queue: [],
 

@@ -9,7 +9,13 @@ var Image = require('../models/Image.js'),
 
 module.exports = Ember.Controller.extend({
 
-    needs: ['context', 'projectResource'],
+    needs: ['context', 'projectResource', 'scheduler'],
+
+    scheduler: Ember.computed.alias('controllers.scheduler'),
+
+    workers: Ember.computed.alias('scheduler.workers'),
+
+    threadPoolSize: Ember.computed.alias('scheduler.poolSize'),
 
     resource: Ember.computed.alias('controllers.projectResource'),
 
@@ -18,8 +24,6 @@ module.exports = Ember.Controller.extend({
     adapter: Ember.computed.alias('ctx.adapter'),
 
     isRunning: false,
-
-    threadPoolSize: 4,
 
     actions: {
 

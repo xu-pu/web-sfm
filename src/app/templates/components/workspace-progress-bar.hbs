@@ -3,10 +3,10 @@
 <div class="controll-panel__state-body__container">
     <div class="controll-panel__state-body">
         <div>{{workspace.threadPoolSize}} cores can be used</div>
-        {{#each thread in workspace.threads}}
+        {{#each worker in workspace.workers}}
             <div class="controll-panel__state-body__thread">
                 thread
-                {{#if thread.isActive}}
+                {{#if worker.isActive}}
                     is active
                 {{else}}
                     is not active

@@ -106,7 +106,6 @@ App.MessagesService = require('./services/messgaes.js');
 //=======================
 
 App.ContextController = require('./ResourceControllers/context.js');
-App.WorkerController = require('./ResourceControllers/WorkerController.js');
 App.SchedulerController = require('./ResourceControllers/scheduler.js');
 App.DownloaderController = require('./ResourceControllers/downloader.js');
 App.ProjectResourceController = require('./ResourceControllers/project-resource.js');
