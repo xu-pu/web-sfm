@@ -84,10 +84,9 @@ StorageAdapter.prototype = {
     /**
      *
      * @param {File} file
-     * @param {int} [id]
      * @return {Promise}
      */
-    processImageFile: function(file, id){
+    processImageFile: function(file){
 
         //Ember.Logger.debug('file process begins');
 
@@ -106,21 +105,11 @@ StorageAdapter.prototype = {
                     height: img.height,
                     thumbnail: utils.getImageThumbnail(domimg)
                 };
-                if (id) {
-                    return _self.promiseSetData(STORES.IMAGES, id, image);
-                }
-                else {
-                    return _self.promiseAddData(STORES.IMAGES, image);
-                }
+                return _self.promiseAddData(STORES.IMAGES, image);
             })
             .then(function(newid){
                 //Ember.Logger.debug('id aquired');
-                if (id) {
-                    image.id = id;
-                }
-                else {
-                    image.id = newid;
-                }
+                image.id = newid;
                 return _self.promiseSetData(STORES.THUMBNAILS, image.id, image.thumbnail);
             })
             .then(function(){
