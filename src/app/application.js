@@ -71,27 +71,26 @@ App.WorkspaceMvsIndexRoute = Ember.Route.extend();
 // Components
 //============================================
 
-App.MultiViewStereoComponent = require('./components/MultiViewStereo.js');
-App.SparseReconstructionComponent = require('./components/SparseReconstruction.js');
-App.ProjectThumbnailComponent = require('./components/ProjectThumbnail.js');
-App.ProjectCreatorComponent = require('./components/ProjectCreator.js');
-App.WorkspaceProgressBarComponent = require('./components/WorkspaceProgressBar.js');
-App.DemoThumbnailComponent = require('./components/DemoThumbnail.js');
-App.MatchGridComponent = require('./components/MatchGrid.js');
-App.MatchGridNodeComponent = require('./components/MatchGridNode.js');
-App.ImageDetailComponent = require('./components/ImageDetail.js');
-App.DynamicImageComponent = require('./components/DynamicImage.js');
-App.ImageImporterComponent = require('./components/ImageImporter.js');
-App.DemoDetailComponent = require('./components/DemoDetail.js');
-App.CpuSettingComponent = require('./components/CpuSetting.js');
-App.CpuSettingNodeComponent = require('./components/CpuSettingNode.js');
-App.WorkspaceControlPanelComponent = require('./components/WorkspaceControlPanel.js');
-App.VisualFeaturesComponent = require('./components/VisualFeatures.js');
-App.FloatingWindowComponent = require('./components/FloatingWindow.js');
-App.VisualMatchingComponent = require('./components/VisualMatching.js');
-App.MatchModeTabComponent = require('./components/MatchModeTab.js');
+App.MultiViewStereoComponent = require('./components/multi-view-stereo.js');
+App.SparseReconstructionComponent = require('./components/sparse-reconstruction.js');
+App.ProjectThumbnailComponent = require('./components/project-thumbnail.js');
+App.ProjectCreatorComponent = require('./components/project-creator.js');
+App.WorkspaceProgressBarComponent = require('./components/workspace-progress-bar.js');
+App.DemoThumbnailComponent = require('./components/demo-thumbnail.js');
+App.MatchGridComponent = require('./components/match-grid.js');
+App.MatchGridNodeComponent = require('./components/match-grid-node.js');
+App.ImageDetailComponent = require('./components/image-detail.js');
+App.DynamicImageComponent = require('./components/dynamic-image.js');
+App.ImageImporterComponent = require('./components/image-importer.js');
+App.DemoDetailComponent = require('./components/demo-detail.js');
+App.CpuSettingComponent = require('./components/cpu-setting.js');
+App.CpuSettingNodeComponent = require('./components/cpu-setting-node.js');
+App.WorkspaceControlPanelComponent = require('./components/workspace-control-panel.js');
+App.VisualFeaturesComponent = require('./components/visual-features.js');
+App.FloatingWindowComponent = require('./components/floating-window.js');
+App.VisualMatchingComponent = require('./components/visual-matching.js');
+App.MatchModeTabComponent = require('./components/match-mode-tab.js');
 App.ImageGalleryComponent = require('./components/image-gallery.js');
-
 App.MessageTrayComponent = require('./components/message-tray.js');
 App.BasicMessageComponent = require('./components/basic-message.js');
 
