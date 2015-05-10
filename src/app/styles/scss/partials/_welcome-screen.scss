@@ -67,12 +67,27 @@
   background-color: #222222;
   position: relative;
 
+  display: flex;
+  @include align-items(center);
+  @include justify-content(center);
+
+  > div {
+    position: relative;
+  }
+
+  span {
+    position: absolute;
+    font-size: 2em;
+    text-transform: uppercase;
+    color: rgb(163, 163, 163);
+    right: -2.5em;
+    bottom: -1em;
+    font-weight: bold;
+  }
+
   h1 {
     @include transition(all 0.5s);
-    @extend %center-element;
     font-size: 6em;
-    height: 2em;
-    line-height: 2em;
     font-family: Monoton;
     text-transform: uppercase;
     cursor: default;
