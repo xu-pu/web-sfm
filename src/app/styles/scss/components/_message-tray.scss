@@ -39,6 +39,12 @@ $message-width: 20em;
 }
 
 .message-tray__body {
+  $name: message-tray-in;
+  @include keyframes($name) {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @include animation($name 0.5s);
   @include box-shadow(0 0 5px 2px rgb(65, 65, 65));
   background-color: rgb(218, 218, 218);
 }
