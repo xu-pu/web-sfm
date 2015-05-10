@@ -12,32 +12,12 @@ module.exports = Ember.Component.extend({
 
     classNameBindings: ['isExpanded'],
 
-    classNames: [
-        'welcome-screen__demos__thumbnail'
-    ],
+    classNames: 'welcome-screen__demos__thumbnail',
 
     isConfirmDelete: false,
 
     backgroundStyle: function(){
         return 'background-image:url('+ this.get('project.root') +'/thumbnail.jpg)';
-    }.property('project.root'),
-
-    actions: {
-
-        'delete': function(){
-            this.set('isConfirmDelete', false);
-            this.promiseDelete();
-        },
-
-        confirmDelete: function(){
-            this.toggleProperty('isConfirmDelete');
-        },
-
-        cancelDelete: function(){
-            this.set('isConfirmDelete', false);
-        }
-
-    }
-
+    }.property('project.root')
 
 });

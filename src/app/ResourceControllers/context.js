@@ -114,28 +114,6 @@ module.exports = Ember.Controller.extend({
         }
 
         // Recover Demos
-/*
-        var storedDemos = utils.getLocalStorage(LOCAL_STORES.DEMOS),
-            recoveredDemos = [];
-
-        if (_.isArray(storedDemos)) {
-            recoveredDemos = storedDemos.map(function(p){
-                return DemoProject.create(p);
-            });
-        }
-
-        var additionalDemos = demos
-            .filter(function(d){
-                return !recoveredDemos.findBy('name', d.name);
-            })
-            .map(function(config){
-                return DemoProject.create(config.description)
-            });
-
-        this.set('demos', recoveredDemos.concat(additionalDemos));
-
-        this.send('syncDemos');
-*/
 
         this.set('demos', demos.map(function(config){ return DemoProject.create(config.description); }));
 
@@ -164,7 +142,7 @@ module.exports = Ember.Controller.extend({
 
         enter: function(project){
             this.set('currentProject', project);
-            this.transitionToRoute('workspace');
+            this.transitionToRoute('workspace.images');
         },
 
         createProject: function(project){
