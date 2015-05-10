@@ -76,6 +76,7 @@ $message-width: 20em;
     margin: $half-gap;
     width: $message-width;
     min-height: $message-min-size;
+    background-color: white;
   }
 
 }
@@ -83,7 +84,6 @@ $message-width: 20em;
 
 .basic-message {
   display: flex;
-  background-color: white;
 }
 
 .basic-message__body {

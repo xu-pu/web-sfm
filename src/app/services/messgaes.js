@@ -2,6 +2,10 @@ module.exports = Ember.Service.extend({
 
     queue: [],
 
+    notify: function(msg){
+        this.get('queue').pushObject(msg);
+    },
+
     resume: function(){
         var queue = this.get('queue');
         setTimeout(function(){

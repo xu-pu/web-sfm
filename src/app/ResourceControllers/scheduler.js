@@ -20,10 +20,6 @@ var utils = require('../utils.js'),
  */
 module.exports = Ember.Controller.extend({
 
-    needs: ['downloader'],
-
-    downloader: Ember.computed.alias('controllers.downloader'),
-
     workers: [],
 
     queue: [],
@@ -60,9 +56,6 @@ module.exports = Ember.Controller.extend({
         task.set('state', TASK_STATE.PENDING);
 
         switch (task.get('type')) {
-            case TASKS.DOWNLOAD:
-                this.get('downloader.queue').pushObject(task);
-                break;
             default:
                 throw 'Task not implemented yet';
         }

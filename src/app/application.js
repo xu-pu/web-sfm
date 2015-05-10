@@ -93,6 +93,7 @@ App.MatchModeTabComponent = require('./components/match-mode-tab.js');
 App.ImageGalleryComponent = require('./components/image-gallery.js');
 App.MessageTrayComponent = require('./components/message-tray.js');
 App.BasicMessageComponent = require('./components/basic-message.js');
+App.TaskMessageComponent = require('./components/task-message.js');
 
 
 //=======================
@@ -100,6 +101,7 @@ App.BasicMessageComponent = require('./components/basic-message.js');
 //=======================
 
 App.MessagesService = require('./services/messgaes.js');
+App.DownloaderService = require('./services/downloader.js');
 
 //=======================
 // Resource Controllers
@@ -107,7 +109,6 @@ App.MessagesService = require('./services/messgaes.js');
 
 App.ContextController = require('./ResourceControllers/context.js');
 App.SchedulerController = require('./ResourceControllers/scheduler.js');
-App.DownloaderController = require('./ResourceControllers/downloader.js');
 App.ProjectResourceController = require('./ResourceControllers/project-resource.js');
 App.MessageController = require('./ResourceControllers/message.js');
 
