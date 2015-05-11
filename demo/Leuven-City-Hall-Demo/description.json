@@ -14,6 +14,8 @@
     { "id": 6, "name": "006", "extension": ".png" }
   ],
 
+  "desc": "<p>haha</p>",
+
   "entries": ["image", "feature", "match", "calibration", "mvs"]
 
 }

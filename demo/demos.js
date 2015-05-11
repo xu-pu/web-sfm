@@ -22,7 +22,7 @@ module.exports = [
 
         name: 'Rosetta-Spacecraft',
 
-        description: require('./Rosetta-Spacecraft/description.json')
+        description: require('./Rosetta-Spacecraft/description.js')
 
     }
 

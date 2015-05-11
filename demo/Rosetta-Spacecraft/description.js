@@ -1,4 +1,4 @@
-{
+module.exports = {
 
   "name": "Rosetta-Spacecraft",
 
@@ -19,6 +19,8 @@
     { "id": 11, "name": "Comet_on_24_September_NavCam", "extension": ".jpg" }
   ],
 
+  "desc": "<p>haha</p>",
+
   "entries": ["image", "feature", "match"]
 
-}
+};
