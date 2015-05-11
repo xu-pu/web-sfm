@@ -5,43 +5,23 @@
     <ul class="welcome-screen__detail__download-selections">
 
         <li>
-
-            <h1>
-                Images {{#if project.imagesFinished}}loaded{{else}}avaliable{{/if}}
-            </h1>
-
+            <h1>Images avaliable</h1>
         </li>
 
         <li class="{{if project.hasFeature '' 'not-avaliable'}}">
-
-            <h1>
-                Features {{#if project.hasFeature}}avaliable{{else}}not avaliable{{/if}}
-            </h1>
-
+            <h1>Features {{if project.hasFeature 'avaliable' 'not avaliable'}}</h1>
         </li>
 
         <li class="{{if project.hasMatch '' 'not-avaliable'}}">
-
-            <h1>
-                Matches {{#if project.hasMatch}}avaliable{{else}}not avaliable{{/if}}
-            </h1>
-
+            <h1>Matches {{if project.hasMatch 'avaliable' 'not avaliable'}}</h1>
         </li>
 
         <li class="{{if project.hasCalibration '' 'not-avaliable'}}">
-
-            <h1>
-                Calibration {{#if project.hasCalibration}}avaliable{{else}}not avaliable{{/if}}
-            </h1>
-
+            <h1>Calibration {{if project.hasCalibration 'avaliable' 'not avaliable'}}</h1>
         </li>
 
         <li class="{{if project.hasMVS '' 'not-avaliable'}}">
-
-            <h1>
-                MVS {{#if project.hasMVS}}avaliable{{else}}not avaliable{{/if}}
-            </h1>
-
+            <h1>MVS {{if project.hasMVS 'avaliable' 'not avaliable'}}</h1>
         </li>
 
     </ul>
