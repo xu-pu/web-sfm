@@ -4,84 +4,42 @@
 
     <ul class="welcome-screen__detail__download-selections">
 
-        <li {{bind-attr class="project.imagesFinished:is-loaded"}}>
+        <li>
 
             <h1>
-                Images
-                {{#if project.imagesFinished}}
-                    loaded
-                {{else}}
-                    avaliable
-                {{/if}}
+                Images {{#if project.imagesFinished}}loaded{{else}}avaliable{{/if}}
             </h1>
 
         </li>
 
-        <li {{bind-attr class="project.hasFeature::not-avaliable project.featuresFinished:is-loaded"}}>
+        <li class="{{if project.hasFeature '' 'not-avaliable'}}">
 
             <h1>
-                Features
-
-                {{#if project.featuresFinished}}
-                    loaded
-                {{else}}
-                    {{#if project.hasFeature}}
-                        avaliable
-                    {{else}}
-                        not avaliable
-                    {{/if}}
-                {{/if}}
+                Features {{#if project.hasFeature}}avaliable{{else}}not avaliable{{/if}}
             </h1>
 
         </li>
 
-        <li {{bind-attr class="project.hasMatch::not-avaliable project.matchesLoaded:is-loaded"}}>
+        <li class="{{if project.hasMatch '' 'not-avaliable'}}">
 
             <h1>
-                Matches
-                {{#if project.matchLoaded}}
-                    loaded
-                {{else}}
-                    {{#if project.hasMatch}}
-                        avaliable
-                    {{else}}
-                        not avaliable
-                    {{/if}}
-                {{/if}}
+                Matches {{#if project.hasMatch}}avaliable{{else}}not avaliable{{/if}}
             </h1>
 
         </li>
 
-        <li {{bind-attr class="project.hasCalibration::not-avaliable project.calibrationLoaded:is-loaded"}}>
+        <li class="{{if project.hasCalibration '' 'not-avaliable'}}">
 
             <h1>
-                Calibration
-                {{#if project.calibrationLoaded}}
-                    loaded
-                {{else}}
-                    {{#if project.hasCalibration}}
-                        avaliable
-                    {{else}}
-                        not avaliable
-                    {{/if}}
-                {{/if}}
+                Calibration {{#if project.hasCalibration}}avaliable{{else}}not avaliable{{/if}}
             </h1>
 
         </li>
 
-        <li {{bind-attr class="project.hasMVS::not-avaliable project.mvsLoaded:is-loaded"}}>
+        <li class="{{if project.hasMVS '' 'not-avaliable'}}">
 
             <h1>
-                MVS
-                {{#if project.mvsLoaded}}
-                    loaded
-                {{else}}
-                    {{#if project.hasMVS}}
-                        avaliable
-                    {{else}}
-                        not avaliable
-                    {{/if}}
-                {{/if}}
+                MVS {{#if project.hasMVS}}avaliable{{else}}not avaliable{{/if}}
             </h1>
 
         </li>
