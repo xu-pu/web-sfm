@@ -12,7 +12,7 @@ module.exports = Ember.Component.extend({
 
     attributeBindings: ['style'],
 
-    classNames: ['welcome-screen__detail-body'],
+    classNames: 'demo-detail',
 
     classNameBindings: ['isExpanded'],
 

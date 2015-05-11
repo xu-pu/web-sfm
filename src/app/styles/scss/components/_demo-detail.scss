@@ -1,5 +1,8 @@
-@import "../../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.1/stylesheets/compass";
+@import "compass";
 @import "../utils";
+
+$demo-detail-aside-width: 25em;
+$demo-detail-aside-gap: 2em;
 
 .welcome-screen__detail-container {
   position: relative;
@@ -12,7 +15,7 @@
 
 }
 
-.welcome-screen__detail-body {
+.demo-detail {
 
   @include transition(height 0.5s);
   @include box-shadow(inset 0 0 20px 5px rgba(0, 0, 0, 0.49));
@@ -28,20 +31,34 @@
 
 }
 
+.demo-detail__desc-container {
+  $gap: 2em;
+  position: absolute;
+  top: $gap;
+  bottom: $gap;
+  left: $gap;
+  right: $demo-detail-aside-width+2*$demo-detail-aside-gap;
+  padding: $gap;
+  background-color: rgba(0,0,0,0.5);
+}
 
-.welcome-screen__detail__progress {
+.demo-detail__desc-body {
+  color: white;
+}
+
+.demo-detail__aside {
   position: absolute;
   box-sizing: border-box;
-  width: 25em;
-  right: 2em;
+  width: $demo-detail-aside-width;
+  right: $demo-detail-aside-gap;
   top: 0;
   height: 30em;
-  padding: 2em;
+  padding: $demo-detail-aside-gap;
   background-color: rgba(29, 29, 29, 0.76);
 }
 
 
-.welcome-screen__detail__download-selections > li {
+.demo-detail__resources > li {
   @include transition(background-color 0.5s);
   display: block;
   position: relative;
@@ -81,7 +98,7 @@
 }
 
 
-.welcome-screen__detail__toggle {
+.demo-detail__close {
   @include border-radius(1em);
   display: block;
   position: absolute;
@@ -99,7 +116,7 @@
 }
 
 
-.welcome-screen__detail__download {
+.demo-detail__enter {
   @include transition(background-color 0.5s);
   position: absolute;
   left: 0;
