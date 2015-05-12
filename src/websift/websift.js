@@ -1,6 +1,7 @@
 'use strict';
 
-var _ = require('underscore');
+var _ = require('underscore'),
+    ndarray = require('ndarray');
 
 var OctaveSpace = require('./octave-space'),
     detector = require('./detector.js'),
@@ -14,55 +15,58 @@ var OctaveSpace = require('./octave-space'),
  * the main function of this file, calculate SIFT of the image
  *
  * @param img
- * @param {object} [options]
- * @param {int} [options.octaves]
- * @param {int} [options.scales]
- * @param {int} [options.kernelSize]
- * @returns {Feature[]}
+ * @param options
+ * @returns {{ points: ArrayBuffer, vectors: ArrayBuffer }}
  */
-module.exports.sift = function(img, options) {
+exports.sift = function(img, options) {
 
-    var octaves = new OctaveSpace(img),
-        oct, scales, dogs, oi = octaves.nextOctave,
-        features = [];
+    var points = [];
+    var vectors = [];
 
-    while (octaves.hasNext()) {
+    exports.forEachDetected(img, function(scales, df){
+        var buffer;
+        orientation.orient(scales, df).forEach(function(of){
+            points.push(of);
+            vectors.push(descriptor.getVector(buffer, of));
+        });
+    });
 
-        oct    = octaves.next();
-        scales = oct.scales;
-        dogs   = oct.dogs;
+    var ps = points.length, vs = vectors.length;
 
-        detector(
+    if (ps !== vs) { throw 'points and vectors should have same length'}
 
-            dogs, scales,
+    var pArr = new Float32Array(4*ps),
+        vArr = new Uint8Array(4*vs),
+        pND = ndarray(pArr, [ps, 4]),
+        vND = ndarray(vArr, [vs, 128]);
 
-            /**
-             * SIFT detector callback
-             * @param {Scale} scale
-             * @param {DetectedFeature} detectedF
-             */
-            function(scale, detectedF){
-                if (isNotEdge(scale, detectedF.row, detectedF.col)) {
-                    orientation.orient(scale, detectedF)
-                        .forEach(function(orientedF){
-                            features.push(descriptor.getDescriptor(scale, orientedF));
-                        });
-                }
-            }
+    points.forEach(function(p, xi){
+        pND.set(xi, 0, p.row);
+        pND.set(xi, 1, p.col);
+        pND.set(xi, 2, p.orientation);
+        pND.set(xi, 3, p.scale);
+    });
 
-        );
+    vectors.forEach(function(vector, xi){
+        v.forEach(function(v, vi){
+            vND.set(xi, vi, v);
+        });
+    });
 
-        oi = octaves.nextOctave;
-
+    return {
+        points: pArr.buffer,
+        vectors: vArr.buffer
     }
-
-    return features;
 
 };
 
 
-
-module.exports.forEachDetected = function(img, callback){
+/**
+ *
+ * @param img
+ * @param {function} callback
+ */
+exports.forEachDetected = function(img, callback){
 
     var octaves = new OctaveSpace(img),
         oct, scales, dogs, oi = octaves.nextOctave;
