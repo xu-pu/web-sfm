@@ -19,6 +19,7 @@ var samples = require('./samples.js'),
     randomUtils = require('./random.js'),
     laUtils = require('../math/la-utils.js'),
     projections = require('../math/projections.js'),
+    visFeatures = require('../visualization/features.js'),
     drawFeatures = require('../visualization/features.js').fromRC,
     drawImagePair = require('../visualization/matches.js').drawImagePair,
     drawDetailedMatch = require('../visualization/matches.js').drawDetailedMatches;
@@ -157,6 +158,36 @@ module.exports.promiseVisualPoints = function(resultPath, sourcePath, points, op
                 ctx = canv.getContext('2d');
             ctx.drawImage(img, 0, 0, width, height);
             drawFeatures(ctx, points, 0, 0, ratio);
+            return exports.promiseWriteCanvas(resultPath, canv);
+        });
+
+};
+
+/**
+ *
+ * @param {string} resultPath
+ * @param {string} sourcePath
+ * @param points - ndarray
+ * @param [options]
+ * @returns {Promise}
+ */
+exports.visPoints = function(resultPath, sourcePath, points, options){
+
+    options = options || {};
+
+    _.defaults(options, {
+        fixedWidth: 1200
+    });
+
+    return exports.promiseCanvasImage(sourcePath)
+        .then(function(img){
+            var ratio = options.fixedWidth/img.width,
+                width = options.fixedWidth,
+                height = img.height*ratio,
+                canv = new Canvas(width, height),
+                ctx = canv.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+            visFeatures.fromBuffer(ctx, points, 0, 0, ratio);
             return exports.promiseWriteCanvas(resultPath, canv);
         });
 

@@ -3,15 +3,15 @@
 var _ = require('underscore'),
     Promise = require('promise'),
     blur = require('ndarray-gaussian-filter'),
-    pool = require('ndarray-scratch');
+    pool = require('ndarray-scratch'),
+    ndarray = require('ndarray');
 
-var imgUtils = require('../src/utils/image-conversion.js'),
+var halldemo = require('../src/utils/demo-loader.js').halldemo,
+    imgUtils = require('../src/utils/image-conversion.js'),
     samples = require('../src/utils/samples.js'),
     visualUtils = require('../src/utils/testing.js'),
     testUtils = require('../src/utils/test-utils.js'),
     GuassianPyramid = require('../src/websift/guassian-pyramid.js'),
-    OctaveSpace = require('../src/websift/octave-space'),
-    detector = require('../src/websift/detector.js'),
     orientation = require('../src/websift/orientation.js'),
     descriptor = require('../src/websift/descriptor.js'),
     sift = require('../src/websift/websift.js'),
@@ -48,13 +48,24 @@ function vectorTest(){
 
 //vectorTest();
 
-function fulltest(){
-    var lena = imgUtils.rgb2gray(require('lena'));
-    var results = sift.sift(lena);
-    console.log(results);
+function fulltest(path, savepath){
+    return testUtils
+        .promiseImage(path)
+        .then(function(img){
+            var result = sift.sift(img);
+            var pArr = new Float32Array(result.points);
+            var points = ndarray(pArr, [result.length, 4]);
+            return Promise.all([
+                testUtils.visPoints(savepath+'.png', path, points),
+                testUtils.promiseSaveArrayBuffer(savepath+'.points', result.points),
+                testUtils.promiseSaveArrayBuffer(savepath+'.vectors', result.vectors)
+            ]);
+        });
+
 }
 
-fulltest();
+fulltest(halldemo.getImagePath(1), '/home/sheep/Code/sift.test');
+
 
 function orientationTest(){
     var lena = imgUtils.rgb2gray(require('lena'));
