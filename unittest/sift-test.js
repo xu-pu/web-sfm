@@ -11,6 +11,7 @@ var _ = require('underscore'),
 var genRamdom = require('../src/utils/random.js'),
     laUtils = require('../src/math/la-utils.js'),
     descriptor = require('../src/websift/descriptor.js'),
+    orientation = require('../src/websift/orientation.js'),
     imgUtils = require('../src/utils/image-conversion.js'),
     siftUtils = require('../src/websift/utils.js');
 
@@ -18,6 +19,20 @@ var lena = imgUtils.rgb2gray(require('lena'));
 var lenaG = siftUtils.cacheGradient(lena);
 var width = lena.shape[0];
 var height = lena.shape[1];
+
+/** @type DetectedFeature */
+var dfsample = {
+    row: height*Math.random(),
+    col: width*Math.random(),
+    octave: 0,
+    scale: 1.2,
+    layer: 1
+};
+
+/** @type OrientedFeature */
+var ofsample = _.extend(_.clone(dfsample), {
+    orientation: 2*Math.PI*Math.random()
+});
 
 /**
  * @param {number[]} arr
@@ -31,22 +46,28 @@ function isValidDescriptor(arr){
 
 describe('websift', function(){
 
+    describe('orientation', function(){
+
+        describe('#getOrientations', function(){
+
+            it('runs', function(){
+                var oris = orientation.getOrientations(lenaG, dfsample);
+                console.log(oris);
+                assert(oris.every(function(ang){
+                    return _.isNumber(ang);
+                }));
+            });
+
+        });
+
+    });
+
     describe('descriptor', function(){
 
         describe('#getVector', function(){
 
-            /** @type OrientedFeature */
-            var f = {
-                row: height*Math.random(),
-                col: width*Math.random(),
-                octave: 0,
-                scale: 1.2,
-                layer: 1,
-                orientation: 1
-            };
-
             it('runs', function(){
-                var vector = descriptor.getVector(lenaG, f);
+                var vector = descriptor.getVector(lenaG, ofsample);
                 assert(isValidDescriptor(vector));
             });
 

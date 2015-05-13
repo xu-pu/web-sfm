@@ -24,8 +24,8 @@ exports.sift = function(img, options) {
     var vectors = [];
 
     exports.forEachDetected(img, function(scales, df){
-        var buffer;
-        orientation.orient(scales, df).forEach(function(of){
+        var buffer = scales.gradientCache[df.layer];
+        orientation.orient(buffer, df).forEach(function(of){
             points.push(of);
             vectors.push(descriptor.getVector(buffer, of));
         });

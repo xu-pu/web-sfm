@@ -46,7 +46,7 @@ function vectorTest(){
 
 }
 
-vectorTest();
+//vectorTest();
 
 function orientationTest(){
     var lena = imgUtils.rgb2gray(require('lena'));

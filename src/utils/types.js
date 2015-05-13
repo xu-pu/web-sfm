@@ -89,7 +89,7 @@
 
 
 /**
- * @typedef {{row: number, col: number, octave: int, layer: int, orientation: number, vector: int[]}} DescribedFeature
+ * @typedef {{row: number, col: number, octave: int, layer: int, orientation: number, vector: int[]}} SiftFeature
  */
 
 
