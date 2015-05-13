@@ -38,8 +38,6 @@ var PI = Math.PI,
  */
 exports.getVector = function(buffer, f){
 
-    console.log('Enter descriptor');
-
     var row = f.row,
         col = f.col,
         rint = round(row),

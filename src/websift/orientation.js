@@ -29,8 +29,6 @@ var ACCEPT_THRESHOLD = 0.8,
  */
 exports.orient = function(gradient, df){
 
-    console.log('Enter orientation assignment');
-
     return exports.getOrientations(gradient, df)
         .map(function(ori){
             var p = _.clone(df);

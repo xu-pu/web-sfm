@@ -15,7 +15,7 @@ var OctaveSpace = require('./octave-space'),
  * the main function of this file, calculate SIFT of the image
  *
  * @param img
- * @param options
+ * @param [options]
  * @returns {{ points: ArrayBuffer, vectors: ArrayBuffer }}
  */
 exports.sift = function(img, options) {
@@ -24,7 +24,7 @@ exports.sift = function(img, options) {
     var vectors = [];
 
     exports.forEachDetected(img, function(scales, df){
-        var buffer = scales.gradientCache[df.layer];
+        var buffer = scales.gradientCache[df.layer-1];
         orientation.orient(buffer, df).forEach(function(of){
             points.push(of);
             vectors.push(descriptor.getVector(buffer, of));
@@ -34,6 +34,8 @@ exports.sift = function(img, options) {
     var ps = points.length, vs = vectors.length;
 
     if (ps !== vs) { throw 'points and vectors should have same length'}
+
+    console.log(ps + ' SIFT features found');
 
     var pArr = new Float32Array(4*ps),
         vArr = new Uint8Array(4*vs),
@@ -48,7 +50,7 @@ exports.sift = function(img, options) {
     });
 
     vectors.forEach(function(vector, xi){
-        v.forEach(function(v, vi){
+        vector.forEach(function(v, vi){
             vND.set(xi, vi, v);
         });
     });
