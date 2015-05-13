@@ -16,7 +16,7 @@ var OctaveSpace = require('./octave-space'),
  *
  * @param img
  * @param [options]
- * @returns {{ points: ArrayBuffer, vectors: ArrayBuffer }}
+ * @returns {{ points: ArrayBuffer, vectors: ArrayBuffer, length: int }}
  */
 exports.sift = function(img, options) {
 
@@ -26,7 +26,13 @@ exports.sift = function(img, options) {
     exports.forEachDetected(img, function(scales, df){
         var buffer = scales.gradientCache[df.layer-1];
         orientation.orient(buffer, df).forEach(function(of){
-            points.push(of);
+            var factor = Math.pow(2, of.octave);
+            points.push({
+                row: of.row*factor,
+                col: of.col*factor,
+                orientation: of.orientation,
+                scale: of.scale
+            });
             vectors.push(descriptor.getVector(buffer, of));
         });
     });
@@ -38,7 +44,7 @@ exports.sift = function(img, options) {
     console.log(ps + ' SIFT features found');
 
     var pArr = new Float32Array(4*ps),
-        vArr = new Uint8Array(4*vs),
+        vArr = new Uint8Array(128*vs),
         pND = ndarray(pArr, [ps, 4]),
         vND = ndarray(vArr, [vs, 128]);
 
@@ -57,7 +63,8 @@ exports.sift = function(img, options) {
 
     return {
         points: pArr.buffer,
-        vectors: vArr.buffer
+        vectors: vArr.buffer,
+        length: ps
     }
 
 };
