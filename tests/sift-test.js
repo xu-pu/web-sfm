@@ -48,6 +48,14 @@ function vectorTest(){
 
 //vectorTest();
 
+function fulltest(){
+    var lena = imgUtils.rgb2gray(require('lena'));
+    var results = sift.sift(lena);
+    console.log(results);
+}
+
+fulltest();
+
 function orientationTest(){
     var lena = imgUtils.rgb2gray(require('lena'));
     var gradient = siftUtils.cacheGradient(lena);
@@ -67,19 +75,6 @@ function descroptorTest(){
 }
 
 //descroptorTest();
-
-
-function fulltest(img) {
-
-    sift.forEachDetected(img, function(scale, detectedF){
-        if (isNotEdge(scale, detectedF)) {
-            console.log('detected');
-        }
-    });
-
-}
-
-//fulltest(imgUtils.rgb2gray(require('lena')));
 
 function pyramidTest(index){
 
