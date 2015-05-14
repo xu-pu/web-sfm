@@ -15,14 +15,22 @@ exports.halldemo = new DemoLoader(require('/home/sheep/Code/Project/web-sfm/demo
 exports.cityhalldemo = new DemoLoader(require('/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/description.json'));
 exports.cometdemo = new DemoLoader(require('/home/sheep/Code/Project/web-sfm/demo/Rosetta-Spacecraft/description.js'));
 
+
+/**
+ *
+ * @param config
+ *
+ * @property {string} name
+ * @property {string} dirroot
+ * @property {string} root
+ * @property {[]} images
+ * @property sDict - shape dict
+ * @constructor
+ */
 function DemoLoader(config){
-
     _.extend(this, config);
-
     this.dirroot = PROJECT_ROOT+this.root;
-
     this.images = require(PROJECT_ROOT + this.root + '/images.json');
-
     this.sDict = this.images.reduce(function(memo, image){
         memo[image.id] = {
             width: image.width,
@@ -30,8 +38,6 @@ function DemoLoader(config){
         };
         return memo;
     }, {});
-
-
 }
 
 
@@ -49,6 +55,11 @@ DemoLoader.prototype.getImagePath = function(i){
     return PROJECT_ROOT + this.root + '/images/' + img.name + img.extension;
 };
 
+/**
+ *
+ * @param {int} i
+ * @returns {Camera}
+ */
 DemoLoader.prototype.getCam = function(i){
     var path = PROJECT_ROOT + this.root + '/images.json';
     var img = _.find(require(path), function(entry){ return entry.id === i; });
