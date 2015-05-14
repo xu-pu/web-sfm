@@ -1,0 +1,67 @@
+'use strict';
+
+var _ = require('underscore'),
+    Promise = require('promise'),
+    blur = require('ndarray-gaussian-filter'),
+    pool = require('ndarray-scratch'),
+    ndarray = require('ndarray');
+
+var demoloader = require('../src/utils/demo-loader.js'),
+    cometdemo = demoloader.cometdemo,
+    halldemo = demoloader.halldemo,
+    cityhalldemo = demoloader.cityhalldemo,
+    testUtils = require('../src/utils/test-utils.js'),
+    GuassianPyramid = require('../src/websift/guassian-pyramid.js'),
+    orientation = require('../src/websift/orientation.js'),
+    descriptor = require('../src/websift/descriptor.js'),
+    sift = require('../src/websift/websift.js'),
+    siftUtils = require('../src/websift/utils.js'),
+    match = require('../src/webmatcher/matcher.js'),
+    estF = require('../src/webregister/estimate-fmatrix.js');
+
+
+/**
+ *
+ * @param {DemoLoader} demo
+ * @param i1
+ * @param i2
+ */
+function matchpair(demo, i1, i2){
+
+    if (i1 >= i2) { throw 'index error'; }
+
+    var matchpath = demo.dirroot + '/dev/' + i1 + 'to' + i2 + '.json';
+
+    Promise.all([
+        demo.promiseVectorBuffer(i1),
+        demo.promiseVectorBuffer(i2)
+    ]).then(function(results){
+        var vs1 = results[0],
+            vs2 = results[1];
+        console.log(i1 + ',' + i2 + ' matching');
+        var matches = match.match(vs1, vs2);
+        return testUtils.promiseSaveJson(matchpath, matches);
+    });
+
+}
+
+var pairs = [
+    [0,1],
+    [1,2],
+    [2,3],
+    [3,4],
+    [4,5],
+    [5,6],
+
+    [4,6],
+    [3,6],
+    [2,6],
+
+    [3,5],
+    [2,5],
+    [1,5]
+];
+
+pairs.forEach(function(pair){
+    matchpair(cityhalldemo, pair[0], pair[1]);
+});
