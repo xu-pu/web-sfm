@@ -19,6 +19,8 @@ function DemoLoader(config){
 
     _.extend(this, config);
 
+    this.dirroot = PROJECT_ROOT+this.root;
+
     this.images = require(PROJECT_ROOT + this.root + '/images.json');
 
     this.sDict = this.images.reduce(function(memo, image){
