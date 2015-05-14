@@ -11,13 +11,8 @@ var demoloader = require('../src/utils/demo-loader.js'),
     halldemo = demoloader.halldemo,
     cityhalldemo = demoloader.cityhalldemo,
     testUtils = require('../src/utils/test-utils.js'),
-    GuassianPyramid = require('../src/websift/guassian-pyramid.js'),
-    orientation = require('../src/websift/orientation.js'),
-    descriptor = require('../src/websift/descriptor.js'),
     sift = require('../src/websift/websift.js'),
-    siftUtils = require('../src/websift/utils.js'),
-    match = require('../src/webmatcher/matcher.js'),
-    estF = require('../src/webregister/estimate-fmatrix.js');
+    match = require('../src/webmatcher/matcher.js');
 
 
 /**
