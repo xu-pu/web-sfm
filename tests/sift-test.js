@@ -9,6 +9,7 @@ var _ = require('underscore'),
 var demoloader = require('../src/utils/demo-loader.js'),
     cometdemo = demoloader.cometdemo,
     halldemo = demoloader.halldemo,
+    cityhalldemo = demoloader.cityhalldemo,
     imgUtils = require('../src/utils/image-conversion.js'),
     samples = require('../src/utils/samples.js'),
     visualUtils = require('../src/utils/testing.js'),
@@ -178,4 +179,4 @@ function convertProject(demo){
     });
 }
 
-convertProject(cometdemo);
+convertProject(cityhalldemo);
