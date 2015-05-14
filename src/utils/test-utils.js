@@ -214,7 +214,7 @@ exports.visMatches = function(path, img1, img2, points1, points2, matches){
         var cam1 = results[0],
             cam2 = results[1],
             canv = new Canvas(),
-            config = visMatches.drawImagePair(cam1, cam2, canv, 1000),
+            config = visMatches.drawImagePair(cam1, cam2, canv, 1500),
             ctx = canv.getContext('2d');
         visMatches.drawMatches(config, ctx, matches, points1, points2);
         return exports.promiseWriteCanvas(path, canv);
@@ -243,7 +243,7 @@ exports.visDetailedMatches = function(path, img1, img2, features1, features2, ma
         var cam1 = results[0],
             cam2 = results[1],
             canv = new Canvas(),
-            config = drawImagePair(cam1, cam2, canv, 1000),
+            config = drawImagePair(cam1, cam2, canv, 1500),
             ctx = canv.getContext('2d');
 
         matches.forEach(function(match){

@@ -6,7 +6,9 @@ var _ = require('underscore'),
     pool = require('ndarray-scratch'),
     ndarray = require('ndarray');
 
-var halldemo = require('../src/utils/demo-loader.js').halldemo,
+var demoloader = require('../src/utils/demo-loader.js'),
+    cometdemo = demoloader.cometdemo,
+    halldemo = demoloader.halldemo,
     imgUtils = require('../src/utils/image-conversion.js'),
     samples = require('../src/utils/samples.js'),
     visualUtils = require('../src/utils/testing.js'),
@@ -66,14 +68,14 @@ function fulltest(path, savepath){
 
 }
 
-//fulltest(halldemo.getImagePath(2), '/home/sheep/Code/sift.test.2');
+//fulltest(cometdemo.getImagePath(3), '/home/sheep/Code/comet.test.2');
 
 
-var MY_MATCHES_PATH = '/home/sheep/Code/mymatches.json';
+var MY_MATCHES_PATH = '/home/sheep/Code/cometmatches.json';
 
 function matchtest(){
-    var path1 = '/home/sheep/Code/sift.test';
-    var path2 = '/home/sheep/Code/sift.test.2';
+    var path1 = '/home/sheep/Code/comet.test.1';
+    var path2 = '/home/sheep/Code/comet.test.2';
     return Promise.all([
         testUtils.promiseArrayBuffer(path1+'.points'),
         testUtils.promiseArrayBuffer(path2+'.points'),
@@ -103,8 +105,8 @@ function matchtest(){
 //matchtest();
 
 function vistest(){
-    var path1 = '/home/sheep/Code/sift.test';
-    var path2 = '/home/sheep/Code/sift.test.2';
+    var path1 = '/home/sheep/Code/comet.test.1';
+    var path2 = '/home/sheep/Code/comet.test.2';
     return Promise.all([
         testUtils.promiseArrayBuffer(path1+'.points'),
         testUtils.promiseArrayBuffer(path2+'.points'),
@@ -138,10 +140,10 @@ function vistest(){
         });
 
         return Promise.all([
-            testUtils.visMatches('/home/sheep/Code/mymatches.png', halldemo.getImagePath(1), halldemo.getImagePath(2), points1, points2, data.dataset),
+            testUtils.visMatches('/home/sheep/Code/mymatches.png', cometdemo.getImagePath(2), cometdemo.getImagePath(3), points1, points2, data.dataset),
             testUtils.visDetailedMatches(
                 '/home/sheep/Code/mymatches.detail.png',
-                halldemo.getImagePath(1), halldemo.getImagePath(2),
+                cometdemo.getImagePath(2), cometdemo.getImagePath(3),
                 points1, points2,
                 _.sample(data.dataset, 100), data.F
             )
