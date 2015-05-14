@@ -42,7 +42,7 @@ module.exports.promiseSaveJson = function(path, obj){
  * @param {Matrix} [F]
  * @returns {Promise}
  */
-module.exports.promiseDetailedMatches = function(path, i1, i2, matches, F){
+module.exports.visDetailedMatches = function(path, i1, i2, matches, F){
 
     var data = samples.getTwoView(i1, i2),
         fmatrix = F || projections.getFundamentalMatrix(data.R1, data.t1, data.f1, data.cam1, data.R2, data.t2, data.f2, data.cam2),

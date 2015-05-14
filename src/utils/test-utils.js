@@ -20,6 +20,7 @@ var samples = require('./samples.js'),
     laUtils = require('../math/la-utils.js'),
     projections = require('../math/projections.js'),
     visFeatures = require('../visualization/features.js'),
+    visMatches = require('../visualization/matches.js'),
     drawFeatures = require('../visualization/features.js').fromRC,
     drawImagePair = require('../visualization/matches.js').drawImagePair,
     drawDetailedMatch = require('../visualization/matches.js').drawDetailedMatches;
@@ -195,6 +196,34 @@ exports.visPoints = function(resultPath, sourcePath, points, options){
 
 
 /**
+ *
+ * @param {string} path
+ * @param {string} img1
+ * @param {string} img2
+ * @param points1 - ndarray
+ * @param points2 - ndarray
+ * @param {int[][]} matches
+ * @returns {Promise}
+ */
+exports.visMatches = function(path, img1, img2, points1, points2, matches){
+
+    return Promise.all([
+        exports.promiseCanvasImage(img1),
+        exports.promiseCanvasImage(img2)
+    ]).then(function(results){
+        var cam1 = results[0],
+            cam2 = results[1],
+            canv = new Canvas(),
+            config = visMatches.drawImagePair(cam1, cam2, canv, 1000),
+            ctx = canv.getContext('2d');
+        visMatches.drawMatches(config, ctx, matches, points1, points2);
+        return exports.promiseWriteCanvas(path, canv);
+    });
+
+};
+
+
+/**
  * @param {string} path
  * @param {string} img1
  * @param {string} img2
@@ -204,7 +233,7 @@ exports.visPoints = function(resultPath, sourcePath, points, options){
  * @param {Matrix} F
  * @returns {Promise}
  */
-module.exports.promiseDetailedMatches = function(path, img1, img2, features1, features2, matches, F){
+exports.visDetailedMatches = function(path, img1, img2, features1, features2, matches, F){
 
     return Promise.all([
         exports.promiseCanvasImage(img1),

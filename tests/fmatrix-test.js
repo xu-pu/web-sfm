@@ -49,7 +49,7 @@ function getFmatrix(i1, i2){
 
 function promiseVisualMatch(i1, i2){
     var matches = samples.getRawMatches(i1, i2);
-    return testUtils.promiseDetailedMatches('/home/sheep/Code/visual-detailed-matches.png', i1, i2, _.sample(matches, 50));
+    return testUtils.visDetailedMatches('/home/sheep/Code/visual-detailed-matches.png', i1, i2, _.sample(matches, 50));
 }
 
 
