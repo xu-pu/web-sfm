@@ -33,7 +33,6 @@ function matchpair(demo, i1, i2){
     ]).then(function(results){
         var vs1 = results[0],
             vs2 = results[1];
-        console.log(i1 + ',' + i2 + ' matching');
         var matches = match.match(vs1, vs2);
         return testUtils.promiseSaveJson(matchpath, matches);
     });
@@ -57,6 +56,11 @@ var pairs = [
     [1,5]
 ];
 
-pairs.forEach(function(pair){
-    matchpair(cityhalldemo, pair[0], pair[1]);
+var hallpairs = _.range(10, halldemo.images.length-1).map(function(base){
+    return [base, base+1];
 });
+
+hallpairs.forEach(function(pair){
+    matchpair(halldemo, pair[0], pair[1]);
+});
+// [0-10]
