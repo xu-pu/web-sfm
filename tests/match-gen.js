@@ -11,6 +11,7 @@ var demoloader = require('../src/utils/demo-loader.js'),
     halldemo = demoloader.halldemo,
     cityhalldemo = demoloader.cityhalldemo,
     testUtils = require('../src/utils/test-utils.js'),
+    estF = require('../src/webregister/estimate-fmatrix.js'),
     sift = require('../src/websift/websift.js'),
     match = require('../src/webmatcher/matcher.js');
 
@@ -60,7 +61,56 @@ var hallpairs = _.range(10, halldemo.images.length-1).map(function(base){
     return [base, base+1];
 });
 
-hallpairs.forEach(function(pair){
-    matchpair(halldemo, pair[0], pair[1]);
+/*
+var table = [];
+
+pairs.forEach(function(pair){
+ var i1 = pair[0], i2 = pair[1];
+    var matchpath = cityhalldemo.dirroot + '/dev/' + i1 + 'to' + i2 + '.json';
+    table.push({
+        from: i1, to: i2,
+        matches: require(matchpath)
+    });
 });
+*/
+//cityhalldemo.promiseSaveRawMatchTable(table);
+
+
+function genRobust(demo){
+    var robust = [];
+
+    demo.promiseFullPointTable()
+        .then(function(ptable){
+            demo.loadRawMatches()
+                .forEach(function(entry){
+                    console.log(entry.from + ' to ' +entry.to + ' has ' + entry.matches.length);
+                    var i1 = entry.from, i2 = entry.to;
+                    var points1 = ptable[i1];
+                    var points2 = ptable[i2];
+                    try {
+                        var rob = estF(entry.matches, {
+                            cam1: demo.sDict[i1],
+                            cam2: demo.sDict[i2],
+                            features1: points1,
+                            features2: points2
+                        });
+                        robust.push({
+                            from: i1, to: i2,
+                            matches: rob.dataset,
+                            F: rob.F.elements
+                        });
+                        //testUtils.visMatches(visbase+i1+'to'+i2+'.png', demo.getImagePath(i1), demo.getImagePath(i2), points1, points2, rob.dataset);
+                    }
+                    catch (e) { console.log('failed'); }
+                });
+            testUtils.promiseSaveJson('/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/matches/matches.robust.json', robust);
+        });
+
+}
+
+genRobust(halldemo);
+
+//hallpairs.forEach(function(pair){
+//    matchpair(halldemo, pair[0], pair[1]);
+//});
 // [0-10]
