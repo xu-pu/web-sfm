@@ -1,4 +1,4 @@
-{
+module.exports = {
 
   "name": "Leuven-City-Hall-Demo",
 
@@ -14,7 +14,7 @@
     { "id": 6, "name": "006", "extension": ".png" }
   ],
 
-  "desc": "<p>haha</p>",
+  "desc": '',
 
   "entries": ["image", "feature", "match", "calibration", "mvs"]
 
