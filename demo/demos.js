@@ -14,7 +14,7 @@ module.exports = [
 
         name: 'Leuven-City-Hall-Demo',
 
-        description: require('./Leuven-City-Hall-Demo/description.json')
+        description: require('./Leuven-City-Hall-Demo/description.js')
 
     },
 
