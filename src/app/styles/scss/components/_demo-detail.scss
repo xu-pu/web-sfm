@@ -38,13 +38,20 @@ $demo-detail-aside-gap: 2em;
   bottom: $gap;
   left: $gap;
   right: $demo-detail-aside-width+2*$demo-detail-aside-gap;
-  padding: $gap;
+  padding: 1em;
   background-color: rgba(0,0,0,0.5);
 }
 
 .demo-detail__desc-body {
   color: white;
-  font-size: 1.5em;
+  font-size: 1.4em;
+  font-family: Arvo;
+
+  a:visited, a {
+    color: greenyellow;
+    text-decoration: underline;
+  }
+
   p {
     line-height: 1.2em;
     margin: 0.5em;
