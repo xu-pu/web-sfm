@@ -44,6 +44,12 @@ $demo-detail-aside-gap: 2em;
 
 .demo-detail__desc-body {
   color: white;
+  font-size: 1.5em;
+  p {
+    line-height: 1.2em;
+    margin: 0.5em;
+  }
+
 }
 
 .demo-detail__aside {

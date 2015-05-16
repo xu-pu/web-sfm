@@ -19,7 +19,7 @@ module.exports = {
     { "id": 11, "name": "Comet_on_24_September_NavCam", "extension": ".jpg" }
   ],
 
-  "desc": "<p>haha</p>",
+  "desc": '<p>This demo is created using photos captured by Rosetta Spacecraft (<a href="http://rosetta.jpl.nasa.gov/gallery/images/comet-67p/churyumov-gerasimenko" target="_blank">source</a>).</p><p>3D reconstruction of this demo is incomplete, not enough matches are found between the images.<br/>This can be solved by adding manual matching into the application.</p>',
 
   "entries": ["image", "feature", "match"]
 
