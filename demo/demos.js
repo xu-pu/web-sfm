@@ -6,7 +6,7 @@ module.exports = [
 
         name: 'Hall-Demo',
 
-        description: require('./Hall-Demo/description.json')
+        description: require('./Hall-Demo/description.js')
 
     },
 

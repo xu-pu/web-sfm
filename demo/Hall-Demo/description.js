@@ -1,4 +1,4 @@
-{
+module.exports = {
 
   "name": "Hall-Demo",
 
@@ -68,7 +68,7 @@
     { "id": 60, "name": "00000060", "extension": ".jpg" }
   ],
 
-  "desc": "<p>haha</p>",
+  "desc": '',
 
   "entries": ["image", "match", "feature", "calibration", "mvs"]
 
