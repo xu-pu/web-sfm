@@ -12,21 +12,27 @@ $matching-trace-color: orange;
 
 .match-grid__body {
   margin: 1em;
-  display: flex;
-  @include flex-direction(column);
+//  display: flex;
+//  @include flex-direction(column);
+  display: table;
   border: solid $grid-border-size/2 $grid-border-color;
 }
 
 .match-grid__row {
-  @include flex(1 1 0);
-  display: flex;
-  @include flex-direction(row);
+//  @include flex(1 1 0);
+//  display: flex;
+  display: table-row;
+  //@include flex-direction(row);
 }
 
 .match-grid__cell {
-  @include flex(1 1 0);
+  $size: 3em;
+  //@include flex(1 1 0);
+  display: table-cell;
   border: solid $grid-border-size/2 $grid-border-color;
   position: relative;
+  width: $size;
+  height: $size;
 }
 
 
