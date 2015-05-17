@@ -11,8 +11,8 @@ var testUtils = require('./test-utils.js'),
 var PROJECT_ROOT = '/home/sheep/Code/Project/web-sfm';
 
 exports.DemoLoader = DemoLoader;
-exports.halldemo = new DemoLoader(require('/demo/Hall-Demo/description.js'));
-exports.cityhalldemo = new DemoLoader(require('/demo/Leuven-City-Hall-Demo/description.js'));
+exports.halldemo = new DemoLoader(require('/home/sheep/Code/Project/web-sfm/demo/Hall-Demo/description.js'));
+exports.cityhalldemo = new DemoLoader(require('/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/description.js'));
 exports.cometdemo = new DemoLoader(require('/home/sheep/Code/Project/web-sfm/demo/Rosetta-Spacecraft/description.js'));
 
 
