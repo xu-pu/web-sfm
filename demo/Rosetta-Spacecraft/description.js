@@ -12,9 +12,9 @@ module.exports = {
     { "id": 4, "name": "Comet_on_7_December_2014_NavCam", "extension": ".jpg" },
     { "id": 5, "name": "Comet_on_9_December_2014_NavCam", "extension": ".jpg" },
     { "id": 6, "name": "Comet_on_10_December_2014_NavCam", "extension": ".jpg" },
-    { "id": 7, "name": "Comet_on_14_September_2014_-_NavCam.half", "extension": ".png" },
+    { "id": 7, "name": "Comet_on_14_September_2014_-_NavCam", "extension": ".jpg" },
     { "id": 8, "name": "Comet_on_17_November_NavCam", "extension": ".jpg" },
-    { "id": 9, "name": "Comet_on_19_September_2014_NavCam.half", "extension": ".png" },
+    { "id": 9, "name": "Comet_on_19_September_2014_NavCam", "extension": ".jpg" },
     { "id": 10, "name": "Comet_on_22_August_2014_-_NavCam", "extension": ".jpg" },
     { "id": 11, "name": "Comet_on_24_September_NavCam", "extension": ".jpg" }
   ],
