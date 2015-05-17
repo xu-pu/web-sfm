@@ -30,6 +30,7 @@ exports.cometdemo = new DemoLoader(require('/home/sheep/Code/Project/web-sfm/dem
 function DemoLoader(config){
     _.extend(this, config);
     this.dirroot = PROJECT_ROOT+this.root;
+    this.imglist = this.images;
     this.images = require(PROJECT_ROOT + this.root + '/images.json');
     this.sDict = this.images.reduce(function(memo, image){
         memo[image.id] = {
@@ -78,10 +79,6 @@ DemoLoader.prototype.promiseImage = function(index, isRGB){
 
 
 //======================================================
-
-DemoLoader.prototype.genImageJson = function(){
-    extUtils.genImagesJson(this);
-};
 
 DemoLoader.prototype.genLoweSift = function(i){
     var img = _.find(this.images, function(entry){ return entry.id === i; });
@@ -305,7 +302,7 @@ DemoLoader.prototype.genThumbnails = function(){
     var DEMO_ROOT = PROJECT_ROOT + this.root;
     var IMAGES_PATH = DEMO_ROOT + '/images/';
     var stored = [];
-    return Promise.all(this.images.map(function(image){
+    return Promise.all(this.imglist.map(function(image){
         var path = IMAGES_PATH+image.name+image.extension;
         return testUtils.promiseCanvasImage(path)
             .then(function(img){
@@ -320,7 +317,7 @@ DemoLoader.prototype.genThumbnails = function(){
                     thumbnail: thumbpath
                 });
                 stored.push(entry);
-                var ratio = 400/Math.max(width, height);
+                var ratio = THUMBNAIL_SIZE/Math.max(width, height);
                 var ww = ratio*width, hh = ratio*height;
                 var canvas = new Canvas(ww, hh);
                 var ctx = canvas.getContext('2d');
