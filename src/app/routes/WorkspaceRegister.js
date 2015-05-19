@@ -24,12 +24,6 @@ module.exports = Ember.Route.extend({
                 cameras: results[2]
             };
         });
-    },
-
-    actions: {
-        error: function(){
-            this.transitionTo('workspace');
-        }
     }
 
 });

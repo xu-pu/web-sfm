@@ -30,8 +30,9 @@ module.exports =  Ember.Route.extend({
 
     actions: {
 
-        error: function(){
-            this.transitionToRoute('workspace.matcher');
+        error: function(error, transition){
+            transition.abort();
+            //this.transitionToRoute('workspace.matcher');
         }
 
     }

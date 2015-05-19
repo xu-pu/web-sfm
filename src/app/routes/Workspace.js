@@ -9,9 +9,7 @@ module.exports = Ember.Route.extend({
     actions: {
 
         error: function(error, transition){
-            console.log(error);
-            console.log('error, back to welcome');
-            this.transitionTo('welcome');
+            transition.abort();
         }
 
     }

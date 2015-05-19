@@ -21,14 +21,6 @@ module.exports = Ember.Route.extend({
                 matches: results[1]
             });
         });
-    },
-
-    actions: {
-
-        error: function(){
-            this.transitionToRoute('workspace');
-        }
-
     }
 
 });
