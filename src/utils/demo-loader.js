@@ -52,7 +52,7 @@ function DemoLoader(config){
  * @returns {string}
  */
 DemoLoader.prototype.getImagePath = function(i){
-    var img = _.find(this.images, function(entry){ return entry.id === i; });
+    var img = _.find(this.imglist, function(entry){ return entry.id === i; });
     return PROJECT_ROOT + this.root + '/images/' + img.name + img.extension;
 };
 
