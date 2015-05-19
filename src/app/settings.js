@@ -10,6 +10,7 @@ module.exports.RESOURCE = {
     FEATURE_VECTORS: '/feature.vector',
     FULLIMAGES: '/images',
     IMAGES: '/images.json',
+    MATCHES: '/matches.json',
     RAW_MATCHES: '/matches/matches.raw.json',
     ROBUST_MATCHES: '/matches/matches.robust.json',
 //    TRACKS: 'tracks',

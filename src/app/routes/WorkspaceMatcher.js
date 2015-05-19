@@ -14,15 +14,21 @@ module.exports = Ember.Route.extend({
         var resource = this.controllerFor('projectResource');
         return Promise.all([
             this.controllerFor('workspace').get('images'),
-            resource.promiseResource(RESOURCES.RAW_MATCHES),
-            resource.promiseResource(RESOURCES.ROBUST_MATCHES)
+            resource.promiseResource(RESOURCES.MATCHES)
         ]).then(function(results){
             return Matches.create({
                 images: results[0],
-                raw: results[1],
-                robust: results[2]
+                matches: results[1]
             });
         });
+    },
+
+    actions: {
+
+        error: function(){
+            this.transitionToRoute('workspace');
+        }
+
     }
 
 });

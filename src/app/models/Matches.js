@@ -8,16 +8,16 @@ module.exports = Ember.Object.extend({
 
     images: [],
 
-    raw: [],
-
-    robust: [],
+    matches: [],
 
     connectedGroups: function(){
 
         var groups = [];
 
-        this.get('robust')
+        this.get('matches')
             .forEach(function(match){
+
+                if (!match.robust) { return; }
 
                 var foundFrom = groups.find(function(e){
                     return e.contains(match.from);
@@ -45,21 +45,23 @@ module.exports = Ember.Object.extend({
 
         return groups;
 
-    }.property('robust.length'),
+    }.property('matches.length'),
 
     table: function(){
 
-        var connected = _.flatten(this.get('connectedGroups'));
+        var connected = this.get('connectedGroups');
         var images = this.get('images');
         var size = images.length;
 
-        var raw = this.get('raw');
-        var robust = this.get('robust');
-
+        var matches = this.get('matches');
         var table = shortcuts.array2d(size, size, false);
 
-        shortcuts.iterPairs(connected, function(from, to){
-            table[from][to] = table[to][from] = true;
+        connected.forEach(function(group){
+            if (group.length >= 2) {
+                shortcuts.iterPairs(group, function(from, to){
+                    table[from][to] = table[to][from] = true;
+                });
+            }
         });
 
         images.forEach(function(img){
@@ -67,66 +69,43 @@ module.exports = Ember.Object.extend({
             table[i][i] = { isDiag: true, image: img };
         });
 
-        raw.forEach(function(entry){
+        matches.forEach(function(entry){
             var from = entry.from;
             var to = entry.to;
-            var matches = entry.matches;
-            var node = {
-                from: from,
-                to: to,
-                raw: matches
-            };
-            table[from][to] = table[to][from] = node;
-        });
-
-        robust.forEach(function(entry){
-            var from = entry.from;
-            var to = entry.to;
-            var matches = entry.matches;
-            var fmatrix = entry.F;
-            table[from][to]['robust'] = table[to][from]['robust'] = matches;
-            table[from][to]['F'] = table[to][from]['F'] = fmatrix;
+            table[from][to] = table[to][from] = entry;
         });
 
         return table;
 
-    }.property('robust.length', 'raw.length', 'connectedGroups', 'images.length'),
+    }.property('matches.length', 'connectedGroups', 'images.length'),
 
-    isMatched: function(from, to){
-        return this.get('model').some(function(match){
-            return match.from === from && match.to === to;
-        });
-    },
+    getMatches: function(i1, i2){
 
-    isRobust: function(from, to){
-        return this.get('robust').some(function(entry){
-            return (entry.from === from && entry.to === to) || (entry.from === to && entry.to === from);
-        });
-    },
+        var from = parseInt(i1, 10);
+        var to = parseInt(i2, 10);
 
-    isConnected: function(from, to){
-        return this.get('connectedGroups').some(function(group){
-            return group.contains(from) && group.contains(to);
-        });
-    },
-
-    getMatches: function(from, to){
-        from = parseInt(from, 10);
-        to = parseInt(to, 10);
-        var images = this.get('images'),
-            raw = this.get('raw'),
-            robust = this.get('robust');
-        var img1 = images.findBy('id', from);
-        var img2 = images.findBy('id', to);
-        var r = raw.find(function(entry){
-            return entry.from === from && entry.to === to;
-        });
-        var b = robust.find(function(entry){
-            return entry.from === from && entry.to === to;
-        });
-        if (img1 && img2 && r && b) {
-            return { from: img1, to: img2, raw: r.matches, robust: b.matches, F: b.F };
+        if (from > to) {
+            return this.getMatches(i2, i1);
         }
+
+        var images = this.get('images'),
+            matches = this.get('matches'),
+            img1 = images.findBy('id', from),
+            img2 = images.findBy('id', to),
+            data = _.find(matches, function(e){
+                return e.from === from && e.to === to;
+            });
+
+        if (img1 && img2 && data && data.robust) {
+            return {
+                from: img1,
+                to: img2,
+                raw: data.raw,
+                robust: data.robust,
+                F: data.F
+            };
+        }
+
     }
 
 });
