@@ -21,6 +21,8 @@ module.exports = Ember.Controller.extend({
 
     ctx: Ember.computed.alias('controllers.context'),
 
+    project: Ember.computed.alias('ctx.currentProject'),
+
     adapter: Ember.computed.alias('ctx.adapter'),
 
     isRunning: false,
@@ -46,6 +48,6 @@ module.exports = Ember.Controller.extend({
                     return Image.create(image);
                 }).sortBy('id');
             });
-    }.property('model')
+    }.property('project')
 
 });

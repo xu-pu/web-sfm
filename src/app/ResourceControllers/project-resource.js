@@ -68,16 +68,10 @@ module.exports = Ember.Controller.extend({
                 datatype = 'arraybuffer';
                 desc = metadata.get('name')+'.vector';
                 break;
-            case RESOURCE.RAW_MATCHES:
+            case RESOURCE.MATCHES:
                 url = root+name;
                 datatype = 'json';
-                desc = 'Loading raw match table';
-                break;
-            case RESOURCE.ROBUST_MATCHES:
-                // metadata is the Image object
-                url = root+name;
-                datatype = 'json';
-                desc = 'Loading robust match table';
+                desc = 'Loading match table';
                 break;
             case RESOURCE.MVS_POINTS:
                 url = root+name;

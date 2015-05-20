@@ -15,14 +15,14 @@ module.exports = Ember.Component.extend({
     mouseLeave: function(){
         this.set('hover', null);
     },
-
+/*
     registerWheel: function(){
         var _self = this;
         jQuery(this.get('element')).on('wheel', function(e){
             _self.wheel(e.originalEvent);
         });
     }.on('didInsertElement'),
-
+*/
     gridsizeInit: function(){
         return 2 * this.get('gridsizeMin');
     }.property('gridsizeMin'),

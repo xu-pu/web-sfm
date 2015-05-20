@@ -2,7 +2,18 @@
 
 var _ = require('underscore');
 
+
+/**
+ *
+ * @param ctx
+ * @param buffer - ndarray
+ * @param {number} offsetX
+ * @param {number} offsetY
+ * @param {number} [scale]
+ * @param [options]
+ */
 exports.fromBuffer = function(ctx, buffer, offsetX, offsetY, scale, options){
+    scale = scale || 1;
     options = options || {};
     _.defaults(options, {
         color: 'red',

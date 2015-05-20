@@ -3,19 +3,24 @@
 var _ = require('underscore'),
     Promise = require('promise'),
     blur = require('ndarray-gaussian-filter'),
-    pool = require('ndarray-scratch');
+    pool = require('ndarray-scratch'),
+    ndarray = require('ndarray');
 
-var imgUtils = require('../src/utils/image-conversion.js'),
+var demoloader = require('../src/utils/demo-loader.js'),
+    cometdemo = demoloader.cometdemo,
+    halldemo = demoloader.halldemo,
+    cityhalldemo = demoloader.cityhalldemo,
+    imgUtils = require('../src/utils/image-conversion.js'),
     samples = require('../src/utils/samples.js'),
     visualUtils = require('../src/utils/testing.js'),
     testUtils = require('../src/utils/test-utils.js'),
     GuassianPyramid = require('../src/websift/guassian-pyramid.js'),
-    OctaveSpace = require('../src/websift/octave-space'),
-    detector = require('../src/websift/detector.js'),
     orientation = require('../src/websift/orientation.js'),
     descriptor = require('../src/websift/descriptor.js'),
     sift = require('../src/websift/websift.js'),
-    siftUtils = require('../src/websift/utils.js');
+    siftUtils = require('../src/websift/utils.js'),
+    match = require('../src/webmatcher/matcher.js'),
+    estF = require('../src/webregister/estimate-fmatrix.js');
 
 
 var smallComet = 'Colour_image_of_comet.jpg',
@@ -46,111 +51,190 @@ function vectorTest(){
 
 }
 
-vectorTest();
+//vectorTest();
 
-function orientationTest(){
-    var lena = imgUtils.rgb2gray(require('lena'));
-    var gradient = siftUtils.cacheGradient(lena);
-    var f = { row: 400.6, col: 417.3, scale: 1, octave: 0, layer: 1 };
-    var directions = orientation.getOrientations(gradient, f);
-    console.log(directions);
+function fulltest(path, savepath){
+    return testUtils
+        .promiseImage(path)
+        .then(function(img){
+            var result = sift.sift(img);
+            var pArr = new Float32Array(result.points);
+            var points = ndarray(pArr, [result.length, 4]);
+            return Promise.all([
+                testUtils.visPoints(savepath+'.png', path, points),
+                testUtils.promiseSaveArrayBuffer(savepath+'.points', result.points),
+                testUtils.promiseSaveArrayBuffer(savepath+'.vectors', result.vectors)
+            ]);
+        });
+
 }
 
-//orientationTest();
-
-function descroptorTest(){
-    var lena = imgUtils.rgb2gray(require('lena'));
-    var scale = { img: lena, sigma: 1.6 };
-    var f = { row: 150.6, col: 301.3, octave: 0, layer: 1, orientation: 1 };
-    var des = descriptor.getDescriptor(scale, f);
-    console.log(des.vector);
-}
-
-//descroptorTest();
+//fulltest(cometdemo.getImagePath(3), '/home/sheep/Code/comet.test.2');
 
 
-function fulltest(img) {
+var MY_MATCHES_PATH = '/home/sheep/Code/cometmatches.json';
 
-    sift.forEachDetected(img, function(scale, detectedF){
-        if (isNotEdge(scale, detectedF)) {
-            console.log('detected');
-        }
+function matchtest(){
+    var path1 = '/home/sheep/Code/comet.test.1';
+    var path2 = '/home/sheep/Code/comet.test.2';
+    return Promise.all([
+        testUtils.promiseArrayBuffer(path1+'.points'),
+        testUtils.promiseArrayBuffer(path2+'.points'),
+        testUtils.promiseArrayBuffer(path1+'.vectors'),
+        testUtils.promiseArrayBuffer(path2+'.vectors')
+    ]).then(function(results){
+        var pBuffer1 = results[0],
+            pBuffer2 = results[1],
+            vBuffer1 = results[2],
+            vBUffer2 = results[3];
+        var pArr1 = new Float32Array(pBuffer1),
+            pArr2 = new Float32Array(pBuffer2),
+            vArr1 = new Uint8Array(vBuffer1),
+            vArr2 = new Uint8Array(vBUffer2);
+        var length1 = pArr1.length/4;
+        var length2 = pArr2.length/4;
+        var points1 = ndarray(pArr1, [length1, 4]);
+        var points2 = ndarray(pArr2, [length2, 4]);
+        var vectors1 = ndarray(vArr1, [length1, 128]);
+        var vectors2 = ndarray(vArr2, [length2, 128]);
+        var ms = match.match(vectors1, vectors2);
+        return testUtils.promiseSaveJson(MY_MATCHES_PATH, ms);
     });
 
 }
 
-//fulltest(imgUtils.rgb2gray(require('lena')));
+//matchtest();
 
-function pyramidTest(index){
+function vistest(){
+    var path1 = '/home/sheep/Code/comet.test.1';
+    var path2 = '/home/sheep/Code/comet.test.2';
+    return Promise.all([
+        testUtils.promiseArrayBuffer(path1+'.points'),
+        testUtils.promiseArrayBuffer(path2+'.points'),
+        testUtils.promiseArrayBuffer(path1+'.vectors'),
+        testUtils.promiseArrayBuffer(path2+'.vectors')
+    ]).then(function(results){
+        var pBuffer1 = results[0],
+            pBuffer2 = results[1],
+            vBuffer1 = results[2],
+            vBUffer2 = results[3];
+        var pArr1 = new Float32Array(pBuffer1),
+            pArr2 = new Float32Array(pBuffer2),
+            vArr1 = new Uint8Array(vBuffer1),
+            vArr2 = new Uint8Array(vBUffer2);
+        var length1 = pArr1.length/4;
+        var length2 = pArr2.length/4;
+        var points1 = ndarray(pArr1, [length1, 4]);
+        var points2 = ndarray(pArr2, [length2, 4]);
+        var vectors1 = ndarray(vArr1, [length1, 128]);
+        var vectors2 = ndarray(vArr2, [length2, 128]);
 
-    var features = [],
-        all = [];
+        var cam = { width: 3008, height: 2000 };
 
-    samples
-        .promiseImage(index)
-        .then(function(img){
+        var matches = require(MY_MATCHES_PATH);
 
-            sift.forEachDetected(img, function(scale, detectedF){
-                var factor = Math.pow(2, detectedF.octave);
-                var f = { row: factor*detectedF.row, col: factor*detectedF.col };
-                all.push(f);
-                if (isNotEdge(scale, detectedF)) {
-                    features.push(f);
-                    console.log('detected');
-                }
+        var data = estF(matches, {
+            features1: points1,
+            features2: points2,
+            cam1: cam,
+            cam2: cam
+        });
+
+        return Promise.all([
+            testUtils.visMatches('/home/sheep/Code/mymatches.png', cometdemo.getImagePath(2), cometdemo.getImagePath(3), points1, points2, data.dataset),
+            testUtils.visDetailedMatches(
+                '/home/sheep/Code/mymatches.detail.png',
+                cometdemo.getImagePath(2), cometdemo.getImagePath(3),
+                points1, points2,
+                _.sample(data.dataset, 100), data.F
+            )
+        ]);
+
+    });
+
+}
+//vistest();
+
+
+function convertProject(demo){
+    demo.images.forEach(function(img){
+
+        var id = img.id;
+        var path = demo.getImagePath(id);
+        var pointsPath = demo.dirroot + '/feature.point/'+img.name + '.point',
+            vectorsPath = demo.dirroot + '/feature.vector/' + img.name + '.vector';
+
+        testUtils
+            .promiseImage(path)
+            .then(function(imgBuffer){
+                var results = sift.sift(imgBuffer);
+                return Promise.all([
+                    testUtils.promiseSaveArrayBuffer(pointsPath, results.points),
+                    testUtils.promiseSaveArrayBuffer(vectorsPath, results.vectors)
+                ]);
             });
 
+        //console.log(pointsPath);
+        //console.log(vectorsPath);
+    });
+}
+
+function convertImage(demo, id){
+
+    var img = _.find(demo.imglist, function(i){ return i.id === id; });
+    var path = demo.getImagePath(id);
+    var pointsPath = demo.dirroot + '/feature.point/'+img.name + '.point',
+        vectorsPath = demo.dirroot + '/feature.vector/' + img.name + '.vector';
+
+    console.log(path);
+
+    testUtils
+        .promiseImage(path)
+        .then(function(imgBuffer){
+            var results = sift.sift(imgBuffer);
             return Promise.all([
-                visualUtils.promiseVisualPoints('/home/sheep/Code/sift.png', index, features),
-                visualUtils.promiseVisualPoints('/home/sheep/Code/sift-all.png', index, all)
+                testUtils.promiseSaveArrayBuffer(pointsPath, results.points),
+                testUtils.promiseSaveArrayBuffer(vectorsPath, results.vectors)
             ]);
-
         });
+
 }
 
+//convertImage(cometdemo, 7);
+//convertImage(cometdemo, 9);
 
+//convertProject(cityhalldemo);
+/*
+_.range(17, 27).forEach(function(i){
+    //console.log(i);
+    convertImage(cometdemo, i);
+});
+*/
+//cometdemo.genThumbnails();
 
-function testExternal(filePath){
+function mergeTable(demo){
 
-    var features = [];
+    var robust = demo.loadRobustMatches();
+    var raw = demo.loadRawMatches();
 
-    testUtils.promiseImage(filePath)
-        .then(function(img){
-            sift.forEachDetected(img, function(scales, detectedF){
-                console.log('detected');
-                var factor = Math.pow(2, detectedF.octave),
-                    f = { row: factor*detectedF.row, col: factor*detectedF.col };
-                features.push(f);
-            });
-            return testUtils.promiseVisualPoints('/home/sheep/Code/sift.png', filePath, features);
+    var result = raw.map(function(entry){
+        var rob = _.find(robust, function(e){
+            return e.from === entry.from && e.to === entry.to;
         });
+        var res = {
+            from: entry.from,
+            to: entry.to,
+            raw: entry.matches
+        };
+        if (rob) {
+            res.robust = rob.matches;
+            res.F = rob.F;
+        }
+        return res;
+    });
+
+    return testUtils.promiseSaveJson(demo.dirroot + '/matches.json', result);
+
 }
 
-function testGradient(path){
-    return testUtils.promiseImage(path)
-        .then(function(img){
-            var cache = siftUtils.cacheGradient(img),
-                width = img.shape[0],
-                height = img.shape[1],
-                buffer = pool.malloc([width, height]),
-                ratio = 1;
-            var r, c;
-            for (r=0; r<height; r++) {
-                for (c=0; c<width; c++) {
-                    buffer.set(c, r, ratio*cache.get(c, r, 0));
-                }
-            }
-            testUtils.promiseSaveNdarray('/home/sheep/Code/gradient.png', buffer);
-        });
-}
-
-
-//pyramidTest(10);
-//pyramidtest();
-//testExternal(samples.getImagePath(1));
-//testExternal('/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/images/000.png');
-//testExternal('/home/sheep/Downloads/comet-demo/' + smallComet);
-//testExternal('/home/sheep/Downloads/comet-demo/' + bigComet);
-//testExternal(smallpic);
-//testExternal(samples.getImagePath(3));
-//testGradient('/home/sheep/Downloads/comet-demo/' + smallComet);
+mergeTable(halldemo);

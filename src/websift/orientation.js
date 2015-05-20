@@ -23,19 +23,15 @@ var ACCEPT_THRESHOLD = 0.8,
 
 /**
  * DetectedFeature => OrientedFeature[]
- * @param {GuassianPyramid} scales
- * @param {DetectedFeature} f
+ * @param gradient
+ * @param {DetectedFeature} df
  * @returns {OrientedFeature[]}
  */
-exports.orient = function(scales, f){
+exports.orient = function(gradient, df){
 
-    console.log('Enter orientation assignment');
-
-    var gradient = scales.gradientCache[f.layer-1];
-
-    return exports.getOrientations(gradient, f)
+    return exports.getOrientations(gradient, df)
         .map(function(ori){
-            var p = _.clone(f);
+            var p = _.clone(df);
             p.orientation = ori;
             return p;
         });

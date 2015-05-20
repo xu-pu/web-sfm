@@ -2,8 +2,11 @@
 
 var _ = require('underscore'),
     ndarray = require('ndarray'),
-    Promise = require('promise'),
-    Canvas = require('canvas');
+    Promise = require('promise');
+
+try {
+    var Canvas = require('canvas');
+} catch (e) {}
 
 var testUtils = require('./test-utils.js'),
     extUtils = require('./external-utils.js');
@@ -11,18 +14,27 @@ var testUtils = require('./test-utils.js'),
 var PROJECT_ROOT = '/home/sheep/Code/Project/web-sfm';
 
 exports.DemoLoader = DemoLoader;
-exports.halldemo = new DemoLoader(require('/home/sheep/Code/Project/web-sfm/demo/Hall-Demo/description.json'));
-exports.cityhalldemo = new DemoLoader(require('/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/description.json'));
-exports.cometdemo = new DemoLoader(require('/home/sheep/Code/Project/web-sfm/demo/Rosetta-Spacecraft/description.json'));
+exports.halldemo = new DemoLoader(require('/home/sheep/Code/Project/web-sfm/demo/Hall-Demo/description.js'));
+exports.cityhalldemo = new DemoLoader(require('/home/sheep/Code/Project/web-sfm/demo/Leuven-City-Hall-Demo/description.js'));
+exports.cometdemo = new DemoLoader(require('/home/sheep/Code/Project/web-sfm/demo/Rosetta-Spacecraft/description.js'));
 
 
-
+/**
+ *
+ * @param config
+ *
+ * @property {string} name
+ * @property {string} dirroot
+ * @property {string} root
+ * @property {[]} images
+ * @property sDict - shape dict
+ * @constructor
+ */
 function DemoLoader(config){
-
     _.extend(this, config);
-
+    this.dirroot = PROJECT_ROOT+this.root;
+    this.imglist = this.images;
     this.images = require(PROJECT_ROOT + this.root + '/images.json');
-
     this.sDict = this.images.reduce(function(memo, image){
         memo[image.id] = {
             width: image.width,
@@ -30,8 +42,6 @@ function DemoLoader(config){
         };
         return memo;
     }, {});
-
-
 }
 
 
@@ -45,10 +55,15 @@ function DemoLoader(config){
  * @returns {string}
  */
 DemoLoader.prototype.getImagePath = function(i){
-    var img = _.find(this.images, function(entry){ return entry.id === i; });
+    var img = _.find(this.imglist, function(entry){ return entry.id === i; });
     return PROJECT_ROOT + this.root + '/images/' + img.name + img.extension;
 };
 
+/**
+ *
+ * @param {int} i
+ * @returns {Camera}
+ */
 DemoLoader.prototype.getCam = function(i){
     var path = PROJECT_ROOT + this.root + '/images.json';
     var img = _.find(require(path), function(entry){ return entry.id === i; });
@@ -67,10 +82,6 @@ DemoLoader.prototype.promiseImage = function(index, isRGB){
 
 
 //======================================================
-
-DemoLoader.prototype.genImageJson = function(){
-    extUtils.genImagesJson(this);
-};
 
 DemoLoader.prototype.genLoweSift = function(i){
     var img = _.find(this.images, function(entry){ return entry.id === i; });
@@ -294,7 +305,7 @@ DemoLoader.prototype.genThumbnails = function(){
     var DEMO_ROOT = PROJECT_ROOT + this.root;
     var IMAGES_PATH = DEMO_ROOT + '/images/';
     var stored = [];
-    return Promise.all(this.images.map(function(image){
+    return Promise.all(this.imglist.map(function(image){
         var path = IMAGES_PATH+image.name+image.extension;
         return testUtils.promiseCanvasImage(path)
             .then(function(img){
@@ -309,7 +320,7 @@ DemoLoader.prototype.genThumbnails = function(){
                     thumbnail: thumbpath
                 });
                 stored.push(entry);
-                var ratio = 400/Math.max(width, height);
+                var ratio = THUMBNAIL_SIZE/Math.max(width, height);
                 var ww = ratio*width, hh = ratio*height;
                 var canvas = new Canvas(ww, hh);
                 var ctx = canvas.getContext('2d');

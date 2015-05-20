@@ -34,8 +34,8 @@ function testCam(i1, i2){
 
     return Promise.all([
         halldemo.promiseSaveRobustMatches({ from: i1, to: i2, matches: results.dataset, F: estF.elements }),
-        testUtils.promiseDetailedMatches('/home/sheep/Code/est-fmatrix-detail-refer.png', i1, i2, dataset, F),
-        testUtils.promiseDetailedMatches('/home/sheep/Code/est-fmatrix-detail-est.png'  , i1, i2, dataset, estF)
+        testUtils.visDetailedMatches('/home/sheep/Code/est-fmatrix-detail-refer.png', i1, i2, dataset, F),
+        testUtils.visDetailedMatches('/home/sheep/Code/est-fmatrix-detail-est.png'  , i1, i2, dataset, estF)
     ]);
 
 }

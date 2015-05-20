@@ -6,7 +6,7 @@ module.exports.OCTAVES = 5;
 module.exports.INTERVALS = 3;
 module.exports.SCALES = exports.INTERVALS + 3;
 //module.exports.CONTRAST_THRESHOLD = 255 * 0.04 / exports.INTERVALS;
-module.exports.CONTRAST_THRESHOLD = 255 * 0.03;
+module.exports.CONTRAST_THRESHOLD = 255 * 0.01;
 
 module.exports.SIGMA_N = 0.5;
 module.exports.SIGMA_K = Math.pow(2, 1/exports.INTERVALS);

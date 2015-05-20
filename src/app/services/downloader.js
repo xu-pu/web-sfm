@@ -23,9 +23,9 @@ module.exports = Ember.Controller.extend({
             type: TASK_TYPES.DOWNLOAD
         });
 
-        messages.notify({
-            task: task
-        });
+        var msg = { task: task };
+
+        messages.notify(msg);
 
         var prom = new Promise(function(resolve, reject){
 
@@ -36,17 +36,26 @@ module.exports = Ember.Controller.extend({
             function attempt(){
                 request = new XMLHttpRequest();
                 request.open('GET', url);
-                request.onload = complete;
+
+                request.onload = function(){
+                    if (request.status === 200) {
+                        complete();
+                    }
+                    else {
+                        failed();
+                    }
+                };
                 request.onerror = failed;
                 request.ontimeout = retry;
                 request.onabort = failed;
                 request.onprogress = progress;
+
                 request.responseType = datatype;
                 request.send();
             }
 
             function complete(){
-                task.set('state', STATES.FINISHED);
+                terminate();
                 resolve(request.response);
             }
 
@@ -59,12 +68,17 @@ module.exports = Ember.Controller.extend({
             }
 
             function failed(){
-                task.set('state', STATES.FINISHED);
+                terminate();
                 reject();
             }
 
             function retry(){
                 attempt();
+            }
+
+            function terminate(){
+                task.set('state', STATES.FINISHED);
+                messages.get('queue').removeObject(msg);
             }
 
         });

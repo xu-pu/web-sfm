@@ -65,6 +65,23 @@ module.exports = function (grunt) {
                 }
             }
 
+        },
+
+        uglify: {
+            options: {
+                mangle: false
+            },
+            dist: {
+                files: {
+                    'dist/application.min.js': [
+                        'venders/jquery/dist/jquery.min.js',
+                        'venders/jquery-ui-1.11.3.custom/jquery-ui.js',
+                        'venders/ember/ember.min.js',
+                        '/home/sheep/Code/Project/web-sfm/build/scripts/templates.js',
+                        '/home/sheep/Code/Project/web-sfm/build/scripts/application.js'
+                    ]
+                }
+            }
         }
 
     });
@@ -74,11 +91,17 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-ember-templates');
     grunt.loadNpmTasks('grunt-browserify');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
 
     grunt.registerTask('build', [
         'browserify:build',
         'emberTemplates:build',
         'compass:build'
+    ]);
+
+    grunt.registerTask('dist', [
+        'build',
+        'uglify:dist'
     ]);
 
 };

@@ -4,21 +4,26 @@ var _ = require('underscore'),
     la = require('sylvester'),
     Matrix = la.Matrix,
     Vector = la.Vector,
-    Canvas = require('canvas'),
     Promise = require('promise'),
     fs = require('fs'),
     saveimage = require('save-pixels'),
     getPixels = require('get-pixels'),
     grayscale = require('luminance'),
-    Image = require('canvas').Image,
     toArrayBuffer = require('buffer-to-arraybuffer'),
     toBuffer = require('arraybuffer-to-buffer'),
     pool = require('ndarray-scratch');
 
-var samples = require('./samples.js'),
-    randomUtils = require('./random.js'),
+try {
+    var Canvas = require('canvas'),
+        Image = Canvas.Image;
+} catch (e) {}
+
+
+var randomUtils = require('./random.js'),
     laUtils = require('../math/la-utils.js'),
     projections = require('../math/projections.js'),
+    visFeatures = require('../visualization/features.js'),
+    visMatches = require('../visualization/matches.js'),
     drawFeatures = require('../visualization/features.js').fromRC,
     drawImagePair = require('../visualization/matches.js').drawImagePair,
     drawDetailedMatch = require('../visualization/matches.js').drawDetailedMatches;
@@ -162,6 +167,64 @@ module.exports.promiseVisualPoints = function(resultPath, sourcePath, points, op
 
 };
 
+/**
+ *
+ * @param {string} resultPath
+ * @param {string} sourcePath
+ * @param points - ndarray
+ * @param [options]
+ * @returns {Promise}
+ */
+exports.visPoints = function(resultPath, sourcePath, points, options){
+
+    options = options || {};
+
+    _.defaults(options, {
+        fixedWidth: 1200
+    });
+
+    return exports.promiseCanvasImage(sourcePath)
+        .then(function(img){
+            var ratio = options.fixedWidth/img.width,
+                width = options.fixedWidth,
+                height = img.height*ratio,
+                canv = new Canvas(width, height),
+                ctx = canv.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+            visFeatures.fromBuffer(ctx, points, 0, 0, ratio);
+            return exports.promiseWriteCanvas(resultPath, canv);
+        });
+
+};
+
+
+/**
+ *
+ * @param {string} path
+ * @param {string} img1
+ * @param {string} img2
+ * @param points1 - ndarray
+ * @param points2 - ndarray
+ * @param {int[][]} matches
+ * @returns {Promise}
+ */
+exports.visMatches = function(path, img1, img2, points1, points2, matches){
+
+    return Promise.all([
+        exports.promiseCanvasImage(img1),
+        exports.promiseCanvasImage(img2)
+    ]).then(function(results){
+        var cam1 = results[0],
+            cam2 = results[1],
+            canv = new Canvas(),
+            config = visMatches.drawImagePair(cam1, cam2, canv, 1500),
+            ctx = canv.getContext('2d');
+        visMatches.drawMatches(config, ctx, matches, points1, points2);
+        return exports.promiseWriteCanvas(path, canv);
+    });
+
+};
+
 
 /**
  * @param {string} path
@@ -173,7 +236,7 @@ module.exports.promiseVisualPoints = function(resultPath, sourcePath, points, op
  * @param {Matrix} F
  * @returns {Promise}
  */
-module.exports.promiseDetailedMatches = function(path, img1, img2, features1, features2, matches, F){
+exports.visDetailedMatches = function(path, img1, img2, features1, features2, matches, F){
 
     return Promise.all([
         exports.promiseCanvasImage(img1),
@@ -183,7 +246,7 @@ module.exports.promiseDetailedMatches = function(path, img1, img2, features1, fe
         var cam1 = results[0],
             cam2 = results[1],
             canv = new Canvas(),
-            config = drawImagePair(cam1, cam2, canv, 1000),
+            config = drawImagePair(cam1, cam2, canv, 1500),
             ctx = canv.getContext('2d');
 
         matches.forEach(function(match){

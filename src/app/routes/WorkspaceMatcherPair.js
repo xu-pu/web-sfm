@@ -14,13 +14,27 @@ module.exports =  Ember.Route.extend({
 
     },
 
-    model: function(params){
+    model: function(params, transition){
         var match = this.modelFor('workspace.matcher').getMatches(params.from, params.to);
-        return match || Promise.reject();
+        if (match) {
+            return match;
+        }
+        else {
+            transition.abort();
+        }
     },
 
     serialize: function(model){
         return { from: model.get('from.id'), to: model.get('to.id') };
+    },
+
+    actions: {
+
+        error: function(error, transition){
+            transition.abort();
+            //this.transitionToRoute('workspace.matcher');
+        }
+
     }
 
 });

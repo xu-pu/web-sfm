@@ -1,6 +1,7 @@
 'use strict';
 
-var _ = require('underscore');
+var _ = require('underscore'),
+    ndarray = require('ndarray');
 
 var OctaveSpace = require('./octave-space'),
     detector = require('./detector.js'),
@@ -14,55 +15,67 @@ var OctaveSpace = require('./octave-space'),
  * the main function of this file, calculate SIFT of the image
  *
  * @param img
- * @param {object} [options]
- * @param {int} [options.octaves]
- * @param {int} [options.scales]
- * @param {int} [options.kernelSize]
- * @returns {Feature[]}
+ * @param [options]
+ * @returns {{ points: ArrayBuffer, vectors: ArrayBuffer, length: int }}
  */
-module.exports.sift = function(img, options) {
+exports.sift = function(img, options) {
 
-    var octaves = new OctaveSpace(img),
-        oct, scales, dogs, oi = octaves.nextOctave,
-        features = [];
+    var points = [];
+    var vectors = [];
 
-    while (octaves.hasNext()) {
+    exports.forEachDetected(img, function(scales, df){
+        var buffer = scales.gradientCache[df.layer-1];
+        orientation.orient(buffer, df).forEach(function(of){
+            var factor = Math.pow(2, of.octave);
+            points.push({
+                row: of.row*factor,
+                col: of.col*factor,
+                orientation: of.orientation,
+                scale: of.scale
+            });
+            vectors.push(descriptor.getVector(buffer, of));
+        });
+    });
 
-        oct    = octaves.next();
-        scales = oct.scales;
-        dogs   = oct.dogs;
+    var ps = points.length, vs = vectors.length;
 
-        detector(
+    if (ps !== vs) { throw 'points and vectors should have same length'}
 
-            dogs, scales,
+    console.log(ps + ' SIFT features found');
 
-            /**
-             * SIFT detector callback
-             * @param {Scale} scale
-             * @param {DetectedFeature} detectedF
-             */
-            function(scale, detectedF){
-                if (isNotEdge(scale, detectedF.row, detectedF.col)) {
-                    orientation.orient(scale, detectedF)
-                        .forEach(function(orientedF){
-                            features.push(descriptor.getDescriptor(scale, orientedF));
-                        });
-                }
-            }
+    var pArr = new Float32Array(4*ps),
+        vArr = new Uint8Array(128*vs),
+        pND = ndarray(pArr, [ps, 4]),
+        vND = ndarray(vArr, [vs, 128]);
 
-        );
+    points.forEach(function(p, xi){
+        pND.set(xi, 0, p.row);
+        pND.set(xi, 1, p.col);
+        pND.set(xi, 2, p.orientation);
+        pND.set(xi, 3, p.scale);
+    });
 
-        oi = octaves.nextOctave;
+    vectors.forEach(function(vector, xi){
+        vector.forEach(function(v, vi){
+            vND.set(xi, vi, v);
+        });
+    });
 
+    return {
+        points: pArr.buffer,
+        vectors: vArr.buffer,
+        length: ps
     }
-
-    return features;
 
 };
 
 
-
-module.exports.forEachDetected = function(img, callback){
+/**
+ *
+ * @param img
+ * @param {function} callback
+ */
+exports.forEachDetected = function(img, callback){
 
     var octaves = new OctaveSpace(img),
         oct, scales, dogs, oi = octaves.nextOctave;

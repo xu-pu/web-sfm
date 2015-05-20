@@ -54,9 +54,9 @@ module.exports = function(matches, metadata){
         subset: 10,
         relGenerator: module.exports.estimateFmatrix,
         errorGenerator: module.exports.fmatrixError,
-        outlierThreshold: 0.15,
+        outlierThreshold: 0.05,
         errorThreshold: 0.004,
-        trials: 2000
+        trials: 1000
     });
 
     var F = module.exports.refineFmatrix(results.rel, results.dataset);
