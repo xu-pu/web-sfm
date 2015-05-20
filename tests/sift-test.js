@@ -179,4 +179,62 @@ function convertProject(demo){
     });
 }
 
-convertProject(cityhalldemo);
+function convertImage(demo, id){
+
+    var img = _.find(demo.imglist, function(i){ return i.id === id; });
+    var path = demo.getImagePath(id);
+    var pointsPath = demo.dirroot + '/feature.point/'+img.name + '.point',
+        vectorsPath = demo.dirroot + '/feature.vector/' + img.name + '.vector';
+
+    console.log(path);
+
+    testUtils
+        .promiseImage(path)
+        .then(function(imgBuffer){
+            var results = sift.sift(imgBuffer);
+            return Promise.all([
+                testUtils.promiseSaveArrayBuffer(pointsPath, results.points),
+                testUtils.promiseSaveArrayBuffer(vectorsPath, results.vectors)
+            ]);
+        });
+
+}
+
+//convertImage(cometdemo, 7);
+//convertImage(cometdemo, 9);
+
+//convertProject(cityhalldemo);
+/*
+_.range(17, 27).forEach(function(i){
+    //console.log(i);
+    convertImage(cometdemo, i);
+});
+*/
+//cometdemo.genThumbnails();
+
+function mergeTable(demo){
+
+    var robust = demo.loadRobustMatches();
+    var raw = demo.loadRawMatches();
+
+    var result = raw.map(function(entry){
+        var rob = _.find(robust, function(e){
+            return e.from === entry.from && e.to === entry.to;
+        });
+        var res = {
+            from: entry.from,
+            to: entry.to,
+            raw: entry.matches
+        };
+        if (rob) {
+            res.robust = rob.matches;
+            res.F = rob.F;
+        }
+        return res;
+    });
+
+    return testUtils.promiseSaveJson(demo.dirroot + '/matches.json', result);
+
+}
+
+mergeTable(halldemo);

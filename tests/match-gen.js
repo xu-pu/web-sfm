@@ -6,7 +6,8 @@ var _ = require('underscore'),
     pool = require('ndarray-scratch'),
     ndarray = require('ndarray');
 
-var demoloader = require('../src/utils/demo-loader.js'),
+var shortcut = require('../src/utils/shortcuts.js'),
+    demoloader = require('../src/utils/demo-loader.js'),
     cometdemo = demoloader.cometdemo,
     halldemo = demoloader.halldemo,
     cityhalldemo = demoloader.cityhalldemo,
@@ -61,6 +62,43 @@ var hallpairs = _.range(10, halldemo.images.length-1).map(function(base){
     return [base, base+1];
 });
 
+
+var cometpairs = [
+
+    [2,10],
+    [3, 10],
+
+    [6,8],
+
+    [7, 21],
+    [7, 13],
+    [7, 25],
+
+    [10, 20],
+    [10, 21],
+
+    [15, 23],
+    [15, 16],
+
+    [25, 26]
+
+];
+
+var cgroups = [
+
+    [4, 7, 13, 24, 25],
+
+    [0, 6, 8]
+
+];
+
+var group1 = [4, 7, 13, 15, 16, 17, 18, 24, 15];
+
+shortcut.iterPairs(group1, function(from, to){
+    matchpair(cometdemo, from, to);
+});
+
+
 /*
 var table = [];
 
@@ -108,9 +146,9 @@ function genRobust(demo){
 
 }
 
-genRobust(halldemo);
-
-//hallpairs.forEach(function(pair){
-//    matchpair(halldemo, pair[0], pair[1]);
-//});
-// [0-10]
+//genRobust(halldemo);
+/*
+hallpairs.forEach(function(pair){
+ matchpair(halldemo, pair[0], pair[1]);
+});
+    */

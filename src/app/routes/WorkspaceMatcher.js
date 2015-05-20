@@ -14,7 +14,7 @@ module.exports = Ember.Route.extend({
         var resource = this.controllerFor('projectResource');
         return Promise.all([
             this.controllerFor('workspace').get('images'),
-            resource.promiseResource(RESOURCES.MATCHES)
+            resource.promiseResource(RESOURCES.MATCHES).catch(function(){ return []; })
         ]).then(function(results){
             return Matches.create({
                 images: results[0],
