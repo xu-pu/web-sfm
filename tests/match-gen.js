@@ -92,7 +92,7 @@ var cgroups = [
 
 ];
 
-var group1 = [4, 7, 13, 15, 16, 17, 18, 24, 15];
+var group1 = [4, 7, 13, 15, 16, 17, 18, 24, 25];
 
 shortcut.iterPairs(group1, function(from, to){
     matchpair(cometdemo, from, to);
