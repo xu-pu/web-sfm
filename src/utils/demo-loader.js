@@ -2,8 +2,11 @@
 
 var _ = require('underscore'),
     ndarray = require('ndarray'),
-    Promise = require('promise'),
-    Canvas = require('canvas');
+    Promise = require('promise');
+
+try {
+    var Canvas = require('canvas');
+} catch (e) {}
 
 var testUtils = require('./test-utils.js'),
     extUtils = require('./external-utils.js');

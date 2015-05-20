@@ -4,16 +4,20 @@ var _ = require('underscore'),
     la = require('sylvester'),
     Matrix = la.Matrix,
     Vector = la.Vector,
-    Canvas = require('canvas'),
     Promise = require('promise'),
     fs = require('fs'),
     saveimage = require('save-pixels'),
     getPixels = require('get-pixels'),
     grayscale = require('luminance'),
-    Image = require('canvas').Image,
     toArrayBuffer = require('buffer-to-arraybuffer'),
     toBuffer = require('arraybuffer-to-buffer'),
     pool = require('ndarray-scratch');
+
+try {
+    var Canvas = require('canvas'),
+        Image = Canvas.Image;
+} catch (e) {}
+
 
 var samples = require('./samples.js'),
     randomUtils = require('./random.js'),

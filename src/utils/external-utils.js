@@ -3,11 +3,13 @@
 var _ = require('underscore'),
     Promise = require('promise'),
     Lazy = require("lazy"),
-    fs  = require("fs"),
-    Canvas = require('canvas');
+    fs  = require("fs");
 
-var testing = require('./testing.js'),
-    testUtils = require('./test-utils.js');
+try {
+    var Canvas = require('canvas');
+} catch (e) {}
+
+var testUtils = require('./test-utils.js');
 
 require('shelljs/global');
 
