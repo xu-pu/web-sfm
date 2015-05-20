@@ -19,8 +19,7 @@ try {
 } catch (e) {}
 
 
-var samples = require('./samples.js'),
-    randomUtils = require('./random.js'),
+var randomUtils = require('./random.js'),
     laUtils = require('../math/la-utils.js'),
     projections = require('../math/projections.js'),
     visFeatures = require('../visualization/features.js'),
