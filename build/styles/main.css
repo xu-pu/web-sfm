@@ -72,7 +72,7 @@ table {
 }
 
 /* line 21, ../../src/app/styles/scss/_utils.scss */
-.welcome-screen__projects__header h1, .welcome-screen__demos__header h1, .project-thumbnail__delete-confirm__delete h1, .project-thumbnail__delete-confirm__cancel h1, .demo-thumbnail__delete-confirm__delete h1, .demo-thumbnail__delete-confirm__cancel h1, .project-thumbnail__deleting h1, .demo-thumbnail__deleting h1, .project-creator__input, .project-creator__submit h1, .welcome-screen__detail__download h1 {
+.welcome-screen__projects__header h1, .welcome-screen__demos__header h1, .project-thumbnail__delete-confirm__delete h1, .project-thumbnail__delete-confirm__cancel h1, .demo-thumbnail__delete-confirm__delete h1, .demo-thumbnail__delete-confirm__cancel h1, .project-thumbnail__deleting h1, .demo-thumbnail__deleting h1, .project-creator__input, .project-creator__submit h1, .demo-detail__enter h1 {
   position: absolute;
   left: 0;
   right: 0;
@@ -83,7 +83,7 @@ table {
 }
 
 /* line 32, ../../src/app/styles/scss/_utils.scss */
-.demo-thumbnail__state-bar h1, .welcome-screen__detail__download-selections > li h1 {
+.demo-thumbnail__state-bar h1, .demo-detail__resources > li h1 {
   position: absolute;
   bottom: 0;
   top: 0;
@@ -102,7 +102,7 @@ table {
 }
 
 /* line 21, ../../src/app/styles/scss/_utils.scss */
-.welcome-screen__projects__header h1, .welcome-screen__demos__header h1, .project-thumbnail__delete-confirm__delete h1, .project-thumbnail__delete-confirm__cancel h1, .demo-thumbnail__delete-confirm__delete h1, .demo-thumbnail__delete-confirm__cancel h1, .project-thumbnail__deleting h1, .demo-thumbnail__deleting h1, .project-creator__input, .project-creator__submit h1, .welcome-screen__detail__download h1 {
+.welcome-screen__projects__header h1, .welcome-screen__demos__header h1, .project-thumbnail__delete-confirm__delete h1, .project-thumbnail__delete-confirm__cancel h1, .demo-thumbnail__delete-confirm__delete h1, .demo-thumbnail__delete-confirm__cancel h1, .project-thumbnail__deleting h1, .demo-thumbnail__deleting h1, .project-creator__input, .project-creator__submit h1, .demo-detail__enter h1 {
   position: absolute;
   left: 0;
   right: 0;
@@ -113,7 +113,7 @@ table {
 }
 
 /* line 32, ../../src/app/styles/scss/_utils.scss */
-.demo-thumbnail__state-bar h1, .welcome-screen__detail__download-selections > li h1 {
+.demo-thumbnail__state-bar h1, .demo-detail__resources > li h1 {
   position: absolute;
   bottom: 0;
   top: 0;
@@ -1064,7 +1064,7 @@ table {
 }
 
 /* line 21, ../../src/app/styles/scss/_utils.scss */
-.welcome-screen__projects__header h1, .welcome-screen__demos__header h1, .project-thumbnail__delete-confirm__delete h1, .project-thumbnail__delete-confirm__cancel h1, .demo-thumbnail__delete-confirm__delete h1, .demo-thumbnail__delete-confirm__cancel h1, .project-thumbnail__deleting h1, .demo-thumbnail__deleting h1, .project-creator__input, .project-creator__submit h1, .welcome-screen__detail__download h1 {
+.welcome-screen__projects__header h1, .welcome-screen__demos__header h1, .project-thumbnail__delete-confirm__delete h1, .project-thumbnail__delete-confirm__cancel h1, .demo-thumbnail__delete-confirm__delete h1, .demo-thumbnail__delete-confirm__cancel h1, .project-thumbnail__deleting h1, .demo-thumbnail__deleting h1, .project-creator__input, .project-creator__submit h1, .demo-detail__enter h1 {
   position: absolute;
   left: 0;
   right: 0;
@@ -1075,7 +1075,7 @@ table {
 }
 
 /* line 32, ../../src/app/styles/scss/_utils.scss */
-.demo-thumbnail__state-bar h1, .welcome-screen__detail__download-selections > li h1 {
+.demo-thumbnail__state-bar h1, .demo-detail__resources > li h1 {
   position: absolute;
   bottom: 0;
   top: 0;
@@ -1083,19 +1083,19 @@ table {
   text-align: center;
 }
 
-/* line 4, ../../src/app/styles/scss/components/_demo-detail.scss */
+/* line 7, ../../src/app/styles/scss/components/_demo-detail.scss */
 .welcome-screen__detail-container {
   position: relative;
   background-color: #ECE7E1;
   overflow: hidden;
 }
-/* line 9, ../../src/app/styles/scss/components/_demo-detail.scss */
+/* line 12, ../../src/app/styles/scss/components/_demo-detail.scss */
 .welcome-screen__detail-container.is-detail-closed {
   height: 0;
 }
 
-/* line 15, ../../src/app/styles/scss/components/_demo-detail.scss */
-.welcome-screen__detail-body {
+/* line 18, ../../src/app/styles/scss/components/_demo-detail.scss */
+.demo-detail {
   -moz-transition: height 0.5s;
   -o-transition: height 0.5s;
   -webkit-transition: height 0.5s;
@@ -1109,13 +1109,46 @@ table {
   background-size: cover;
   background-position: 50%;
 }
-/* line 25, ../../src/app/styles/scss/components/_demo-detail.scss */
-.welcome-screen__detail-body.is-expanded {
+/* line 28, ../../src/app/styles/scss/components/_demo-detail.scss */
+.demo-detail.is-expanded {
   height: 30em;
 }
 
-/* line 32, ../../src/app/styles/scss/components/_demo-detail.scss */
-.welcome-screen__detail__progress {
+/* line 34, ../../src/app/styles/scss/components/_demo-detail.scss */
+.demo-detail__desc-container {
+  position: absolute;
+  top: 2em;
+  bottom: 2em;
+  left: 2em;
+  right: 29em;
+  padding: 1em;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* line 45, ../../src/app/styles/scss/components/_demo-detail.scss */
+.demo-detail__desc-body {
+  color: white;
+  font-size: 1.4em;
+  font-family: Arvo;
+}
+/* line 50, ../../src/app/styles/scss/components/_demo-detail.scss */
+.demo-detail__desc-body a:visited, .demo-detail__desc-body a {
+  color: greenyellow;
+  text-decoration: underline;
+}
+/* line 55, ../../src/app/styles/scss/components/_demo-detail.scss */
+.demo-detail__desc-body em {
+  font-weight: bold;
+  text-decoration: underline;
+}
+/* line 60, ../../src/app/styles/scss/components/_demo-detail.scss */
+.demo-detail__desc-body p {
+  line-height: 1.2em;
+  margin: 0.5em;
+}
+
+/* line 67, ../../src/app/styles/scss/components/_demo-detail.scss */
+.demo-detail__aside {
   position: absolute;
   box-sizing: border-box;
   width: 25em;
@@ -1126,8 +1159,8 @@ table {
   background-color: rgba(29, 29, 29, 0.76);
 }
 
-/* line 44, ../../src/app/styles/scss/components/_demo-detail.scss */
-.welcome-screen__detail__download-selections > li {
+/* line 79, ../../src/app/styles/scss/components/_demo-detail.scss */
+.demo-detail__resources > li {
   -moz-transition: background-color 0.5s;
   -o-transition: background-color 0.5s;
   -webkit-transition: background-color 0.5s;
@@ -1139,8 +1172,8 @@ table {
   height: 3em;
   margin-top: 10px;
 }
-/* line 53, ../../src/app/styles/scss/components/_demo-detail.scss */
-.welcome-screen__detail__download-selections > li h1 {
+/* line 88, ../../src/app/styles/scss/components/_demo-detail.scss */
+.demo-detail__resources > li h1 {
   font-family: Arvo;
   left: 0.6em;
   font-size: 1.5em;
@@ -1148,27 +1181,27 @@ table {
   line-height: 1em;
   vertical-align: middle;
 }
-/* line 63, ../../src/app/styles/scss/components/_demo-detail.scss */
-.welcome-screen__detail__download-selections > li.not-avaliable {
+/* line 98, ../../src/app/styles/scss/components/_demo-detail.scss */
+.demo-detail__resources > li.not-avaliable {
   cursor: not-allowed;
   background-color: rgba(100, 29, 29, 0.76) !important;
 }
-/* line 68, ../../src/app/styles/scss/components/_demo-detail.scss */
-.welcome-screen__detail__download-selections > li.is-selected {
+/* line 103, ../../src/app/styles/scss/components/_demo-detail.scss */
+.demo-detail__resources > li.is-selected {
   border-left: solid 0.8em #9ddd9d;
   background-color: rgba(151, 194, 151, 0.5);
 }
-/* line 73, ../../src/app/styles/scss/components/_demo-detail.scss */
-.welcome-screen__detail__download-selections > li:hover {
+/* line 108, ../../src/app/styles/scss/components/_demo-detail.scss */
+.demo-detail__resources > li:hover {
   background-color: rgba(151, 194, 151, 0.5);
 }
-/* line 77, ../../src/app/styles/scss/components/_demo-detail.scss */
-.welcome-screen__detail__download-selections > li.is-selected.is-loaded {
+/* line 112, ../../src/app/styles/scss/components/_demo-detail.scss */
+.demo-detail__resources > li.is-selected.is-loaded {
   background-color: rgba(73, 160, 73, 0.76);
 }
 
-/* line 84, ../../src/app/styles/scss/components/_demo-detail.scss */
-.welcome-screen__detail__toggle {
+/* line 119, ../../src/app/styles/scss/components/_demo-detail.scss */
+.demo-detail__close {
   -moz-border-radius: 1em;
   -webkit-border-radius: 1em;
   border-radius: 1em;
@@ -1181,15 +1214,15 @@ table {
   background-color: #ff7676;
   z-index: 10;
 }
-/* line 95, ../../src/app/styles/scss/components/_demo-detail.scss */
-.welcome-screen__detail__toggle:hover {
+/* line 130, ../../src/app/styles/scss/components/_demo-detail.scss */
+.demo-detail__close:hover {
   -moz-box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.49);
   -webkit-box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.49);
   box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.49);
 }
 
-/* line 102, ../../src/app/styles/scss/components/_demo-detail.scss */
-.welcome-screen__detail__download {
+/* line 137, ../../src/app/styles/scss/components/_demo-detail.scss */
+.demo-detail__enter {
   -moz-transition: background-color 0.5s;
   -o-transition: background-color 0.5s;
   -webkit-transition: background-color 0.5s;
@@ -1203,12 +1236,12 @@ table {
   color: lightgray;
   cursor: pointer;
 }
-/* line 113, ../../src/app/styles/scss/components/_demo-detail.scss */
-.welcome-screen__detail__download:hover {
+/* line 148, ../../src/app/styles/scss/components/_demo-detail.scss */
+.demo-detail__enter:hover {
   background-color: rgba(73, 160, 73, 0.76) !important;
 }
-/* line 117, ../../src/app/styles/scss/components/_demo-detail.scss */
-.welcome-screen__detail__download h1 {
+/* line 152, ../../src/app/styles/scss/components/_demo-detail.scss */
+.demo-detail__enter h1 {
   font-size: 2.5em;
   height: 1em;
   line-height: 1em;
@@ -1217,8 +1250,8 @@ table {
   color: #9ddd9d;
   text-transform: uppercase;
 }
-/* line 128, ../../src/app/styles/scss/components/_demo-detail.scss */
-.welcome-screen__detail__download.is-ready {
+/* line 163, ../../src/app/styles/scss/components/_demo-detail.scss */
+.demo-detail__enter.is-ready {
   background-color: rgba(151, 194, 151, 0.5);
 }
 
@@ -1290,51 +1323,46 @@ table {
 /* line 13, ../../src/app/styles/scss/components/_match-grid.scss */
 .match-grid__body {
   margin: 1em;
-  display: flex;
-  -webkit-flex-direction: column;
-  flex-direction: column;
+  display: table;
   border: solid 5px green;
 }
 
-/* line 20, ../../src/app/styles/scss/components/_match-grid.scss */
+/* line 21, ../../src/app/styles/scss/components/_match-grid.scss */
 .match-grid__row {
-  -webkit-flex: 1 1 0;
-  flex: 1 1 0;
-  display: flex;
-  -webkit-flex-direction: row;
-  flex-direction: row;
+  display: table-row;
 }
 
-/* line 26, ../../src/app/styles/scss/components/_match-grid.scss */
+/* line 28, ../../src/app/styles/scss/components/_match-grid.scss */
 .match-grid__cell {
-  -webkit-flex: 1 1 0;
-  flex: 1 1 0;
+  display: table-cell;
   border: solid 5px green;
   position: relative;
+  width: 3em;
+  height: 3em;
 }
 
-/* line 33, ../../src/app/styles/scss/components/_match-grid.scss */
+/* line 39, ../../src/app/styles/scss/components/_match-grid.scss */
 .match-grid__node {
   background-color: #ffffff;
 }
-/* line 37, ../../src/app/styles/scss/components/_match-grid.scss */
+/* line 43, ../../src/app/styles/scss/components/_match-grid.scss */
 .match-grid__node:hover {
   border: 5px solid #5cb515;
 }
-/* line 41, ../../src/app/styles/scss/components/_match-grid.scss */
+/* line 47, ../../src/app/styles/scss/components/_match-grid.scss */
 .match-grid__node.is-trace, .match-grid__node.is-trace.is-diag {
   border: 5px solid #00cb40;
 }
-/* line 45, ../../src/app/styles/scss/components/_match-grid.scss */
+/* line 51, ../../src/app/styles/scss/components/_match-grid.scss */
 .match-grid__node.is-connected {
   background-color: greenyellow;
 }
-/* line 49, ../../src/app/styles/scss/components/_match-grid.scss */
+/* line 55, ../../src/app/styles/scss/components/_match-grid.scss */
 .match-grid__node.is-robust {
   background-color: #6bc06b;
 }
 
-/* line 55, ../../src/app/styles/scss/components/_match-grid.scss */
+/* line 61, ../../src/app/styles/scss/components/_match-grid.scss */
 .match-grid__node {
   box-sizing: border-box;
   position: absolute;
@@ -1344,7 +1372,7 @@ table {
   right: 0;
 }
 
-/* line 61, ../../src/app/styles/scss/components/_match-grid.scss */
+/* line 67, ../../src/app/styles/scss/components/_match-grid.scss */
 .match-grid__cell.thumbnail {
   background-size: cover;
   background-position: 50%;
