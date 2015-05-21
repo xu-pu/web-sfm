@@ -56,6 +56,11 @@ $matching-trace-color: orange;
     background-color: rgb(107, 192, 107);
   }
 
+  &.is-false {
+    background-color: rgb(255, 129, 129);
+  }
+
+
 }
 
 .match-grid__node {
