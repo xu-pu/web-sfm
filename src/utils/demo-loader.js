@@ -119,7 +119,7 @@ DemoLoader.prototype.genLoweSift = function(i){
  * @returns {Promise}
  */
 DemoLoader.prototype.promiseVectorBuffer = function(id){
-    var img = _.find(this.images, function(i){ return i.id === id; });
+    var img = _.find(this.imglist, function(i){ return i.id === id; });
     var path = PROJECT_ROOT + this.root + '/feature.vector/' + img.name + '.vector';
     return testUtils
         .promiseArrayBuffer(path)

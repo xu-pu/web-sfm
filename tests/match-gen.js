@@ -104,12 +104,12 @@ var excecpt2 = [
     [13,16]
 ];
 
-shortcut.iterPairs(group2, function(pair){
+shortcut.iterPairs(group2, function(from, to){
     var exclude = _.find(excecpt2, function(item){
-        return item[0] === pair[0] && item[1] === pair[1];
+        return item[0] === from && item[1] === to;
     });
     if (!exclude) {
-        matchpair(cometdemo, pair[0], pair[1]);
+        matchpair(cometdemo, from, to);
     }
 });
 
