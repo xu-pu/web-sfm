@@ -82,7 +82,7 @@ exports.drawMatches = function(config, ctx, matches, features1, features2){
     var offsetX = config.offsetX,
         offsetY = config.offsetY;
     drawFeatures(ctx, features1, 0, 0, config.ratio1);
-    drawFeatures(ctx, features2, offsetX, offsetY, config.ratio1, { color: 'green' });
+    drawFeatures(ctx, features2, offsetX, offsetY, config.ratio2, { color: 'green' });
     ctx.beginPath();
     ctx.strokeStyle = 'black';
     ctx.lineWidth = 1;
