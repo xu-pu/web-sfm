@@ -1,4 +1,4 @@
-@import "../../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.1/stylesheets/compass";
+@import "compass";
 
 .welcome-screen__app-desc-row {
   font-family: "Open Sans";
@@ -8,6 +8,12 @@
   @include align-items(center);
   position: relative;
   display: flex;
+
+  a, a:visited {
+    color: #000000;
+    font-weight: bold;
+    text-decoration: underline;
+  }
 
   img {
     display: block;
@@ -26,8 +32,13 @@
 
     section {
       font-size: 1.2em;
-      margin-top: 0.5em;
-      line-height: 1.2em;
+      margin-top: 1em;
+      line-height: 1.5em;
+    }
+
+    span.name {
+      font-family: monospace;
+      font-weight: bold;
     }
 
     em {
