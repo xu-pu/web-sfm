@@ -1,23 +1,4 @@
 {{! ===================================================== }}
-{{!                    Indicator                          }}
-{{! ===================================================== }}
-
-
-<div class="welcome-screen__download-indicator">
-
-    {{#each task in scheduler.queue}}
-        <div class="welcome-screen__download-indicator__task">
-            <h1>{{task.name}}</h1>
-            {{#if task.hasProgress}}
-                <h2>{{task.fileSize}} {{task.progress}}%</h2>
-            {{/if}}
-        </div>
-    {{/each}}
-
-</div>
-
-
-{{! ===================================================== }}
 {{!                      Welcome                          }}
 {{! ===================================================== }}
 
@@ -180,7 +161,7 @@
         </section>
 
         <section>
-            More information about me on my <a href="http://ptx.localhost" target="_blank">homepage</a>.
+            More information about me on my <a href="http://ptx.digital" target="_blank">homepage</a>.
         </section>
 
     </div>
