@@ -9,11 +9,6 @@
   position: relative;
   display: flex;
 
-  a, a:visited {
-    color: #000000;
-    font-weight: bold;
-    text-decoration: underline;
-  }
 
   img {
     display: block;
@@ -34,15 +29,21 @@
       font-size: 1.2em;
       margin-top: 1em;
       line-height: 1.5em;
+      font-family: "Arvo";
     }
 
     span.name {
-      font-family: monospace;
-      font-weight: bold;
+      text-decoration: underline;
     }
 
     em {
       font-weight: bold;
+    }
+
+    a, a:visited {
+      color: #000000;
+      font-weight: bold;
+      text-decoration: underline;
     }
 
   }
