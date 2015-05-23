@@ -104,15 +104,27 @@ var excecpt2 = [
     [13,16]
 ];
 
+var cometmatchpath = cometdemo.dirroot + '/matches.json';
+
+var comettable = require(cometmatchpath);
+
 shortcut.iterPairs(group2, function(from, to){
     var exclude = _.find(excecpt2, function(item){
         return item[0] === from && item[1] === to;
     });
     if (!exclude) {
-        matchpair(cometdemo, from, to);
+        var matches = require(cometdemo.dirroot + '/dev/' + from + 'to' + to + '.json');
+        console.log(matches);
+        comettable.push({
+            from: from,
+            to: to,
+            raw: matches
+        });
+        //matchpair(cometdemo, from, to);
     }
 });
 
+testUtils.promiseSaveJson(cometmatchpath, comettable);
 
 
 /*
