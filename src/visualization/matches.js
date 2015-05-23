@@ -25,7 +25,7 @@ exports.drawImagePair = function(img1, img2, canvas, fixedWidth){
     var PADDING = 10;
     var heightV = img1.height/img1.width + img2.height/img2.width;
     var widthH = img1.width/img1.height + img2.width/img2.height;
-    var alignV = (heightV>1 ? heightV : 1/heightV) <= (widthH>1 ? widthH : 1/widthH);
+    var alignV = (heightV>1 ? heightV : 1/heightV)*2 < (widthH>1 ? widthH : 1/widthH);
     var ratio1 = alignV ? fixedWidth/img1.width : ((fixedWidth-PADDING)/widthH)/img1.height,
         ratio2 = alignV ? fixedWidth/img2.width : ((fixedWidth-PADDING)/widthH)/img2.height;
 

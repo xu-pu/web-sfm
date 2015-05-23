@@ -1,23 +1,4 @@
 {{! ===================================================== }}
-{{!                    Indicator                          }}
-{{! ===================================================== }}
-
-
-<div class="welcome-screen__download-indicator">
-
-    {{#each task in scheduler.queue}}
-        <div class="welcome-screen__download-indicator__task">
-            <h1>{{task.name}}</h1>
-            {{#if task.hasProgress}}
-                <h2>{{task.fileSize}} {{task.progress}}%</h2>
-            {{/if}}
-        </div>
-    {{/each}}
-
-</div>
-
-
-{{! ===================================================== }}
 {{!                      Welcome                          }}
 {{! ===================================================== }}
 
@@ -110,14 +91,31 @@
         <h1>Structure from Motion</h1>
 
         <section>
-            TL;DR, Structure from Motion means turn a set of images into 3D model, WebSFM is an SFM system inside modern browser.
+            TL;DR, <span class="name">Structure from Motion</span> means turn a set of images into 3D model, <span class="name">WebSFM</span> is an SFM system inside modern browser.
+            Details in the companion <a class="papaer" href="https://github.com/ptx-pluto/web-sfm-thesis/blob/master/thesis.pdf" target="_blank">thesis</a>.
+            You can also checkout the source code on <a href="https://github.com/ptx-pluto/web-sfm" target="_blank">Github</a>
         </section>
 
         <section>
-            WebSFM is still under construction, mostly PMVS part.<br/>
-            I already implemented SIFT, balanced kd-tree, ANN search, eight-point algorithm, DLT, RANSAC, Levenberg-Marquardt algorithm, sparse bundle adjustment .etc in javascript.
+            I seperated WebSFM's pipeline into 4 modules,
+            <a href="https://github.com/ptx-pluto/web-sfm/tree/master/src/websift" target="_blank">WebSIFT</a>,
+            <a href="https://github.com/ptx-pluto/web-sfm/tree/master/src/webmatcher" target="_blank">WebMatcher</a>,
+            <a href="https://github.com/ptx-pluto/web-sfm/tree/master/src/webregister" target="_blank">WebRegister</a> and
+            <a>WebMVS</a>, including algorithms like
+            <span class="name">SIFT</span>,
+            <span class="name">balanced kd-tree</span>,
+            <span class="name">ANN search</span>,
+            <span class="name">eight-point algorithm</span>,
+            <span class="name">DLT</span>,
+            <span class="name">RANSAC</span>,
+            <span class="name">Levenberg-Marquardt algorithm</span>,
+            <span class="name">sparse bundle adjustment</span>
+            .etc
         </section>
 
+        <section>
+            WebSFM is still under construction, mostly WebMVS part.<br/>
+        </section>
     </div>
 
 </div>
@@ -180,7 +178,7 @@
         </section>
 
         <section>
-            More information about me on my <a href="http://ptx.localhost" target="_blank">homepage</a>.
+            More information about me on my <a href="http://ptx.digital" target="_blank">homepage</a>.
         </section>
 
     </div>
