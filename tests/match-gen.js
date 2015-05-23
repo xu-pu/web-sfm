@@ -29,13 +29,17 @@ function matchpair(demo, i1, i2){
 
     var matchpath = demo.dirroot + '/dev/' + i1 + 'to' + i2 + '.json';
 
+    console.log(matchpath);
+
     Promise.all([
         demo.promiseVectorBuffer(i1),
         demo.promiseVectorBuffer(i2)
     ]).then(function(results){
         var vs1 = results[0],
             vs2 = results[1];
+        console.log(i1+'to'+i2+' begin');
         var matches = match.match(vs1, vs2);
+        console.log(i1+'to'+i2+' ended');
         return testUtils.promiseSaveJson(matchpath, matches);
     });
 
@@ -94,11 +98,87 @@ var cgroups = [
 
 var group1 = [4, 7, 13, 15, 16, 17, 18, 24, 25];
 
-shortcut.iterPairs(group1, function(from, to){
-    matchpair(cometdemo, from, to);
+var group2 = [2, 3, 10, 13, 16, 20, 26];
+var excecpt2 = [
+    [2,3],
+    [13,16]
+];
+
+var cometmatchpath = cometdemo.dirroot + '/matches.json';
+
+var comettable = require(cometmatchpath);
+
+shortcut.iterPairs(group2, function(from, to){
+    var exclude = _.find(excecpt2, function(item){
+        return item[0] === from && item[1] === to;
+    });
+    if (!exclude) {
+        var matches = require(cometdemo.dirroot + '/dev/' + from + 'to' + to + '.json');
+        console.log(matches);
+        comettable.push({
+            from: from,
+            to: to,
+            raw: matches
+        });
+        //matchpair(cometdemo, from, to);
+    }
 });
 
+testUtils.promiseSaveJson(cometmatchpath, comettable);
 
+
+/*
+var rawtable = [];
+
+function eachraw(from, to){
+    var matchpath = cometdemo.dirroot + '/dev/' + from + 'to' + to + '.json';
+    var data = require(matchpath);
+    rawtable.push({
+        from: from,
+        to: to,
+        raw: data
+    });
+    console.log(from+'to'+to + ',' + data.length);
+}
+
+shortcut.iterPairs(group1, eachraw);
+eachraw(2,3);
+testUtils.promiseSaveJson(cometdemo.dirroot + '/matches.json', rawtable);
+*/
+/*
+var rps = [
+    [4,7],
+    [13,24],
+    [2,3]
+];
+
+var mtable = require(cometdemo.dirroot+'/matches.json');
+
+cometdemo
+    .promiseFullPointTable()
+    .then(function(pDict){
+        var sDict = cometdemo.sDict;
+        mtable.forEach(function(data){
+            if (data.robust || data.raw.length < 20) { return; }
+
+            var from = data.from,
+                to = data.to;
+            if (!data) { throw 'not found'; }
+
+            var result = estF(data.raw, {
+                features1: pDict[from],
+                features2: pDict[to],
+                cam1: sDict[from],
+                cam2: sDict[to]
+            });
+
+            data.robust = result.dataset;
+            data.F = result.F.elements;
+
+        });
+        return testUtils.promiseSaveJson(cometdemo.dirroot+'/matches.json', mtable);
+    });
+*/
 /*
 var table = [];
 

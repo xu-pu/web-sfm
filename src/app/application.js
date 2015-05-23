@@ -3,9 +3,7 @@
 window.Promise = Promise || Ember.RSVP.Promise;
 jQuery.event.props.push( "dataTransfer" );
 
-var App = window.App = Ember.Application.create({
-    LOG_TRANSITIONS: true
-});
+var App = window.App = Ember.Application.create();
 
 
 //=============================

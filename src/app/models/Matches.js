@@ -72,6 +72,7 @@ module.exports = Ember.Object.extend({
         matches.forEach(function(entry){
             var from = entry.from;
             var to = entry.to;
+            entry.hasRaw = true;
             table[from][to] = table[to][from] = entry;
         });
 
