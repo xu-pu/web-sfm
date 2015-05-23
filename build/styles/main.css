@@ -538,53 +538,64 @@ table {
   position: relative;
   display: flex;
 }
-/* line 12, ../../src/app/styles/scss/partials/_application-description.scss */
+/* line 13, ../../src/app/styles/scss/partials/_application-description.scss */
 .welcome-screen__app-desc-row img {
   display: block;
   height: 100%;
 }
-/* line 17, ../../src/app/styles/scss/partials/_application-description.scss */
+/* line 18, ../../src/app/styles/scss/partials/_application-description.scss */
 .welcome-screen__app-desc-row > div {
   -webkit-flex: 1 0 0;
   flex: 1 0 0;
   padding: 2em;
 }
-/* line 21, ../../src/app/styles/scss/partials/_application-description.scss */
+/* line 22, ../../src/app/styles/scss/partials/_application-description.scss */
 .welcome-screen__app-desc-row > div h1 {
   font-size: 2em;
   text-transform: uppercase;
   font-weight: bold;
 }
-/* line 27, ../../src/app/styles/scss/partials/_application-description.scss */
+/* line 28, ../../src/app/styles/scss/partials/_application-description.scss */
 .welcome-screen__app-desc-row > div section {
   font-size: 1.2em;
-  margin-top: 0.5em;
-  line-height: 1.2em;
+  margin-top: 1em;
+  line-height: 1.5em;
+  font-family: "Arvo";
 }
-/* line 33, ../../src/app/styles/scss/partials/_application-description.scss */
+/* line 35, ../../src/app/styles/scss/partials/_application-description.scss */
+.welcome-screen__app-desc-row > div span.name {
+  text-decoration: underline;
+}
+/* line 39, ../../src/app/styles/scss/partials/_application-description.scss */
 .welcome-screen__app-desc-row > div em {
   font-weight: bold;
 }
+/* line 43, ../../src/app/styles/scss/partials/_application-description.scss */
+.welcome-screen__app-desc-row > div a, .welcome-screen__app-desc-row > div a:visited {
+  color: #000000;
+  font-weight: bold;
+  text-decoration: underline;
+}
 
-/* line 41, ../../src/app/styles/scss/partials/_application-description.scss */
+/* line 53, ../../src/app/styles/scss/partials/_application-description.scss */
 #welcome-screen__sfm {
   background-color: #607091;
   height: 32em;
 }
 
-/* line 46, ../../src/app/styles/scss/partials/_application-description.scss */
+/* line 58, ../../src/app/styles/scss/partials/_application-description.scss */
 #welcome-screen__framework {
   background-color: #89B0C1;
   height: 27em;
 }
 
-/* line 51, ../../src/app/styles/scss/partials/_application-description.scss */
+/* line 63, ../../src/app/styles/scss/partials/_application-description.scss */
 #welcome-screen__data-model {
   background-color: #C2ECFF;
   height: 30em;
 }
 
-/* line 56, ../../src/app/styles/scss/partials/_application-description.scss */
+/* line 68, ../../src/app/styles/scss/partials/_application-description.scss */
 #welcome-screen__ptx {
   background-color: #ECFFFA;
   height: 32em;
@@ -1361,8 +1372,12 @@ table {
 .match-grid__node.is-robust {
   background-color: #6bc06b;
 }
+/* line 59, ../../src/app/styles/scss/components/_match-grid.scss */
+.match-grid__node.is-false {
+  background-color: #ff8181;
+}
 
-/* line 61, ../../src/app/styles/scss/components/_match-grid.scss */
+/* line 66, ../../src/app/styles/scss/components/_match-grid.scss */
 .match-grid__node {
   box-sizing: border-box;
   position: absolute;
@@ -1372,7 +1387,7 @@ table {
   right: 0;
 }
 
-/* line 67, ../../src/app/styles/scss/components/_match-grid.scss */
+/* line 72, ../../src/app/styles/scss/components/_match-grid.scss */
 .match-grid__cell.thumbnail {
   background-size: cover;
   background-position: 50%;
