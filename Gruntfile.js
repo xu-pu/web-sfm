@@ -73,12 +73,22 @@ module.exports = function (grunt) {
             },
             dist: {
                 files: {
-                    'dist/application.min.js': [
-                        'venders/jquery/dist/jquery.min.js',
-                        'venders/jquery-ui-1.11.3.custom/jquery-ui.js',
-                        'venders/ember/ember.min.js',
+                    'dist/app.min.js': [
                         '/home/sheep/Code/Project/web-sfm/build/scripts/templates.js',
                         '/home/sheep/Code/Project/web-sfm/build/scripts/application.js'
+                    ]
+                }
+            }
+        },
+
+        concat: {
+            dist: {
+                files: {
+                    'dist/application.min.js': [
+                        'venders/jquery/dist/jquery.min.js',
+                        'venders/jquery-ui-1.11.4.custom/jquery-ui.min.js',
+                        'venders/ember/ember.prod.js',
+                        'dist/app.min.js'
                     ]
                 }
             }
@@ -87,6 +97,7 @@ module.exports = function (grunt) {
     });
 
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-ember-templates');
@@ -101,7 +112,8 @@ module.exports = function (grunt) {
 
     grunt.registerTask('dist', [
         'build',
-        'uglify:dist'
+        'uglify:dist',
+        'concat:dist'
     ]);
 
 };
