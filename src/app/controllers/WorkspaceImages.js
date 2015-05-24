@@ -8,9 +8,15 @@ module.exports = Ember.Controller.extend({
 
     adapter: Ember.computed.alias('controllers.workspace.adapter'),
 
+    project: Ember.computed.alias('controllers.workspace.project'),
+
     images: Ember.computed.alias('model'),
 
     queue: [],
+
+    canImport: function(){
+        return !this.get('project.isDemo');
+    }.property('project.isDemo'),
 
     actions: {
 
