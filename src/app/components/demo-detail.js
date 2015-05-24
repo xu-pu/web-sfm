@@ -19,7 +19,7 @@ module.exports = Ember.Component.extend({
     isExpanded: false,
 
     style: function(){
-        return 'background-image: url(' + this.get('project.root') + '/profile.png)';
+        return 'background-image: url(' + this.get('project.root') + '/profile.jpeg)';
     }.property('project.root'),
 
     inflate: function(){

@@ -87,7 +87,7 @@ module.exports = function (grunt) {
                     'dist/application.min.js': [
                         'venders/jquery/dist/jquery.min.js',
                         'venders/jquery-ui-1.11.4.custom/jquery-ui.min.js',
-                        'venders/ember/ember.prod.js',
+                        'venders/ember/ember.min.js',
                         'dist/app.min.js'
                     ]
                 }
