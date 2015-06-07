@@ -22,6 +22,11 @@
 @import "components/message-tray";
 
 
+@include font-face("Electrolize", font-files("/assets/fonts/Electrolize-Regular.ttf"));
+@include font-face("Arvo", font-files("/assets/fonts/Arvo-Regular.ttf"));
+@include font-face("Monoton", font-files("/assets/fonts/Monoton-Regular.ttf"));
+
+
 img {
   @include user-select(none);
 }
