@@ -1576,7 +1576,19 @@ table {
   background-color: #8e8e8e;
 }
 
-/* line 25, ../../src/app/styles/scss/main.scss */
+@font-face {
+  font-family: "Electrolize";
+  src: url(/assets/fonts/Electrolize-Regular.ttf) format('truetype');
+}
+@font-face {
+  font-family: "Arvo";
+  src: url(/assets/fonts/Arvo-Regular.ttf) format('truetype');
+}
+@font-face {
+  font-family: "Monoton";
+  src: url(/assets/fonts/Monoton-Regular.ttf) format('truetype');
+}
+/* line 30, ../../src/app/styles/scss/main.scss */
 img {
   -moz-user-select: -moz-none;
   -ms-user-select: none;
@@ -1584,7 +1596,7 @@ img {
   user-select: none;
 }
 
-/* line 29, ../../src/app/styles/scss/main.scss */
+/* line 34, ../../src/app/styles/scss/main.scss */
 html, body {
   height: 100%;
   width: 100%;
@@ -1592,7 +1604,7 @@ html, body {
   min-width: 1366px;
 }
 
-/* line 36, ../../src/app/styles/scss/main.scss */
+/* line 41, ../../src/app/styles/scss/main.scss */
 #main-container {
   position: absolute;
   width: 100%;
@@ -1601,32 +1613,32 @@ html, body {
   overflow: hidden;
 }
 
-/* line 44, ../../src/app/styles/scss/main.scss */
+/* line 49, ../../src/app/styles/scss/main.scss */
 #controll-panel {
   width: 20em;
   right: 3em;
   overflow-y: hidden;
 }
 
-/* line 51, ../../src/app/styles/scss/main.scss */
+/* line 56, ../../src/app/styles/scss/main.scss */
 .floating-window__input-image {
   width: 60%;
   right: 24em;
 }
 
-/* line 57, ../../src/app/styles/scss/main.scss */
+/* line 62, ../../src/app/styles/scss/main.scss */
 .floating-window__extractor-image {
   width: 60%;
   right: 24em;
 }
 
-/* line 65, ../../src/app/styles/scss/main.scss */
+/* line 70, ../../src/app/styles/scss/main.scss */
 .floating-window__matching-table {
   width: 20em;
   right: 24em;
 }
 
-/* line 72, ../../src/app/styles/scss/main.scss */
+/* line 77, ../../src/app/styles/scss/main.scss */
 .floating-window__matching-pair {
   width: 500px;
   right: 45em;
